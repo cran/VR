@@ -3,7 +3,7 @@
 multiedit <- function(x, class, k=1, V=3, I=5, trace=TRUE)
 {
      n1 <- length(class)
-     class <- codes(class)
+     class <- unclass(class)
      index <- 1:n1
      pass <- lpass <- 0
      repeat{

@@ -146,7 +146,7 @@ lda.default <-
         K <- if(method == "moment") ng else 0
         dist <- matrix(0, n, ng)
         for(i in 1:ng) {
-            dev <- x - matrix(dm[i,  ], n, p, byrow = TRUE)
+            dev <- x - matrix(dm[i,  ], n, rank, byrow = TRUE)
             dist[, i] <- rowSums(dev^2)
         }
         ind <- cbind(1:n, g)
@@ -154,7 +154,7 @@ lda.default <-
         cc <- nc/((nc-1)*(n-K))
         dist2 <- dist
         for(i in 1:ng) {
-            dev <- x - matrix(dm[i,  ], n, p, byrow = TRUE)
+            dev <- x - matrix(dm[i,  ], n, rank, byrow = TRUE)
             dev2 <- x - dm[g, ]
             tmp <- rowSums(dev*dev2)
             dist[, i] <- (n-1-K)/(n-K) * (dist2[, i] +  cc*tmp^2/(1 - cc*dist2[ind]))

@@ -65,6 +65,7 @@ Library MASS
 - negative.binomial and neg.bin no longer generate objects with
   package:MASS in their environment.
 - stepAIC now drops (if allowed) 0-df terms sequentially from the right.
+- lda(CV=TRUE) now works for rank-deficient fits.
 
 
 Library class
