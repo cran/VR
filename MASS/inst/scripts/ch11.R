@@ -1,7 +1,5 @@
 #-*- R -*-
 
-## Script from Fourth Edition of `Modern Applied Statistics with S'
-
 # Chapter 11   Exploratory Multivariate Analysis
 
 library(MASS)
@@ -163,6 +161,14 @@ points(swiss.pam$medoid[,1:2], pch = 3, cex = 3)
 
 fanny(swiss.px, 3)
 
+if(0) {
+## From the on-line Errata:
+##
+##   `Very regretably, the authors of mclust have chosen to
+##   re-use the name for a completely incompatible package.  We can
+##   no longer recommend its use, and the code given here does not
+##   work in R's mclust-2.x.'
+##
 library(mclust)
 h <- mhtree(swiss.x, modelid = "VVV")
 (mh <- as.vector(mhclass(h, 3)))
@@ -178,7 +184,7 @@ eqscplot(swiss.px[, 1:2], type = "n",
          xlab = "first principal component",
          ylab = "second principal component")
 text(swiss.px[, 1:2], labels = sm$classification)
-
+}
 
 # 11.3 Factor analysis
 

@@ -1,8 +1,8 @@
 Bundle: VR
 Priority: recommended
 Contains: MASS class nnet spatial
-Version: 7.0-7
-Date: 2002-10-20
+Version: 7.0-8
+Date: 2002-10-22
 Depends: R (>= 1.6.0), lattice, nlme, survival
 Author: S original by Venables & Ripley.
   R port by Brian Ripley <ripley@stats.ox.ac.uk>, following earlier
