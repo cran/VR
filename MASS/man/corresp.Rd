@@ -59,7 +59,8 @@ singular value decomposition is \code{U L V}.  Thus the x-axis is the
 canonical correlation times the row and column scores. Although this
 is called a biplot, it does \emph{not} have any useful inner product
 relationship between the row and column scores.  Think of this as an
-equally-scaled plot with two unrelated sets of labels.
+equally-scaled plot with two unrelated sets of labels.  The origin is
+marked on the plot with a cross.
 }
 \references{
 Venables & Ripley (2002), chapter 11.
@@ -69,8 +70,7 @@ Venables & Ripley (2002), chapter 11.
 }
 \examples{
 data(quine)
-ct <- corresp(~ Age + Eth, data = quine)
-ct
+(ct <- corresp(~ Age + Eth, data = quine))
 \dontrun{plot(ct)}
 
 data(caith)

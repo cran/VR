@@ -72,7 +72,7 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
         spacing <- logit((1:q)/(q+1))
         start <- c(coefs[-1], -coefs[1] + spacing - spacing[q1])
     }
-    res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess)
+    res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess, ...)
     beta <- res$par[seq(len=pc)]
     zeta <- res$par[pc + 1:q]
     deviance <- 2 * res$value
@@ -121,6 +121,8 @@ print.polr <- function(x, ...)
     print(x$zeta, ...)
     cat("\nResidual Deviance:", format(x$deviance, nsmall=2), "\n")
     cat("AIC:", format(x$deviance + 2*x$edf, nsmall=2), "\n")
+    if(x$convergence > 0)
+        cat("Warning: did not converge as iteration limit reached\n")
     invisible(x)
 }
 
@@ -128,7 +130,7 @@ vcov.polr <- function(object, ...)
 {
     if(is.null(object$Hessian)) {
         cat("\nRe-fitting to get Hessian\n\n")
-        object <- update(object, Hess=TRUE, trace=FALSE,
+        object <- update(object, Hess=TRUE,
                          start=c(object$coef, object$zeta))
     }
     structure(ginv(object$Hessian), dimnames = dimnames(object$Hessian))

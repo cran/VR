@@ -288,7 +288,7 @@ plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
                      xlab = "LD1", ylab = "LD2")
 {
     panel.lda <- function(x, y, ...) {
-        text(x, y, as.character(g.lda), cex=tcex)
+        text(x, y, as.character(g.lda), cex=tcex, ...)
     }
     if(!is.null(Terms <- x$terms)) { #
     # formula fit
@@ -456,7 +456,6 @@ model.frame.lda <-
 function(formula, data = NULL, na.action = NULL, ...)
 {
     oc <- formula$call
-    names(oc)[2:3] <- c("formula", "data")
     oc$prior <- oc$tol <- oc$method <- oc$CV <- oc$nu <- NULL
     oc[[1]] <- as.name("model.frame")
     if(length(data)) {

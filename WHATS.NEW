@@ -36,6 +36,9 @@ Library MASS
 - truehist allows rule for nbins to be specified as a character string.
 - parcoord function.
 - new datasets bacteria, epil, nlschools, SP500
+- polr allows control argment for optim, reports lack of convergence.
+- stepAIC works again if formula has an offset (R had changed).
+- biplot.correspondence now shows the origin as a cross.
 
 
 Library class

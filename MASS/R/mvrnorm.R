@@ -1,5 +1,5 @@
 # file MASS/mvrnorm.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 #
 mvrnorm <- function(n = 1, mu, Sigma, tol=1e-6, empirical = FALSE)
 {
@@ -14,7 +14,7 @@ mvrnorm <- function(n = 1, mu, Sigma, tol=1e-6, empirical = FALSE)
         X <- X %*% svd(X, nu = 0)$v # rotate to PCs
         X <- scale(X, FALSE, TRUE) # rescale PCs to unit variance
     }
-    X <- mu + eS$vectors %*% diag(sqrt(pmax(ev, 0))) %*% t(X)
+    X <- mu + eS$vectors %*% diag(sqrt(pmax(ev, 0)), p) %*% t(X)
     nm <- names(mu)
     if(is.null(nm) && !is.null(dn <- dimnames(Sigma))) nm <- dn[[1]]
     dimnames(X) <- list(nm, NULL)

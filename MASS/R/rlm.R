@@ -11,7 +11,7 @@ rlm.formula <-
              model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)
 {
     mf <- match.call(expand.dots = FALSE)
-    mf$method <- mf$model <- mf$x.ret <- mf$y.ret <- mf$contrasts <- mf$... <- NULL
+    mf$method <- mf$wt.method <- mf$model <- mf$x.ret <- mf$y.ret <- mf$contrasts <- mf$... <- NULL
     names(mf)[2] <- "formula"
     mf[[1]] <- as.name("model.frame")
     mf <- eval(mf, parent.frame())

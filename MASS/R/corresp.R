@@ -106,6 +106,7 @@ biplot.correspondence <-
   switch(type, "symmetric" = biplot.default(X, Y, var.axes = FALSE, ...),
          "rows" = biplot.bdr(X, Y, ...),
          "columns" = biplot.bdr(Y, X, ...))
+  points(0, 0, pch = 3, cex = 3)
   invisible()
 }
 

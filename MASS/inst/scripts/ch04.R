@@ -11,7 +11,7 @@ trellis.device(postscript, file="ch04.ps", width=8, height=6,
 options(echo=T, width=65, digits=5)
 
 
-# 3.2  Basic plotting functions
+# 4.2  Basic plotting functions
 
 data(mdeaths); data(fdeaths); library(ts)
 lung.deaths <- aggregate(ts.union(mdeaths, fdeaths), 1)
@@ -37,21 +37,21 @@ contour(topo.mar$x, topo.mar$y, topo.lo, xlab = "", ylab = "",
   levels = seq(700,1000,25), cex = 0.7)
 points(topo$x, topo$y)
 par(pty =  "m")
-if(F) { # not currently operational
-contourplot(z ~ x * y, mat2tr(topo.lo), aspect = 1,
+topo.lo1 <- cbind(expand.grid(x=topo.mar$x, y=topo.mar$y),
+                  z=as.vector(topo.lo))
+contourplot(z ~ x * y, topo.lo1, aspect = 1,
   at = seq(700, 1000, 25), xlab = "", ylab = "",
   panel = function(x, y, subscripts, ...) {
-     panel.contourplot(x, y, subscripts, ...)
+     panel.levelplot(x, y, subscripts, ...)
      panel.xyplot(topo$x,topo$y, cex = 0.5)
   }
 )
-}
 
 # see help(Skye)
 # ternary(Skye/100, ord = c(1, 3, 2))
 
 
-# 3.3  Enhancing plots
+# 4.3  Enhancing plots
 
 data(wtloss)
 attach(wtloss)
@@ -76,7 +76,7 @@ plot(lambda, sapply(lambda, plik), type = "l", ylim = c(0, 1.4),
 abline(h = 1, lty = 3)
 
 
-# 3.4  Fine control of graphics
+# 4.4  Fine control of graphics
 
 ## in R just use data(swiss)
 # swiss <- data.frame(Fertility = swiss.fertility, swiss.x)
@@ -116,7 +116,7 @@ mtext(expression(R[i]), side = 2, line = 2, at = yul[2])
 detach()
 
 
-# 3.5  Trellis graphics
+# 4.5  Trellis graphics
 
 
 data(hills)
