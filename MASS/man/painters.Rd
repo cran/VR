@@ -13,7 +13,7 @@ composition, drawing, colour and expression.  The data is due to the
 Eighteenth century art critic, de Piles.
 }
 \usage{
-data(painters)
+painters
 }
 \format{
 The row names of the data frame are the painters. The components are:

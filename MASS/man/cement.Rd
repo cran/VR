@@ -11,7 +11,7 @@ Experiment on the heat evolved in the setting of each of 13
 cements.
 }
 \usage{
-data(cement)
+cement
 }
 \details{
 13 samples of Portland cement were set. For each sample, the percentages of the

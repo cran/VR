@@ -9,7 +9,7 @@ eighth-grade pupils (aged about 11) in 132 classes in 131 schools in
 the Netherlands.  Only the variables used in our examples are supplied.
 }
 \usage{
-data(nlschools)
+nlschools
 }
 \format{
 This data frame contains 2287 rows and the following columns:

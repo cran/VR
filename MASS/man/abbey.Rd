@@ -11,7 +11,7 @@ A numeric vector of 31 determinations of nickel content (ppm) in
 a Canadian syenite rock.
 }
 \usage{
-data(abbey)
+abbey
 }
 \source{
   S. Abbey (1988) \emph{Geostandards Newsletter} \bold{12}, 241.

@@ -21,7 +21,7 @@ The data are unusual in that in most cases fatalities during the experiment
 were fairly small.
 }
 \usage{
-data(snails)
+snails
 }
 \format{
 The data frame contains the following components:

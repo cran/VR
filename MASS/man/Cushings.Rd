@@ -12,7 +12,7 @@ over-secretion of cortisol by the adrenal gland. The observations
 are urinary excretion rates of two steroid metabolites.
 }
 \usage{
-data(Cushings)
+Cushings
 }
 \format{
 The \code{Cushings} data frame has 27 rows and 3 columns:

@@ -13,7 +13,7 @@ exposed to risk, and the numbers of car insurance claims made by
 those policyholders in the third quarter of 1973.
 }
 \usage{
-data(Insurance)
+Insurance
 }
 \format{
 This data frame contains the following columns:

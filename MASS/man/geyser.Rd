@@ -1,7 +1,9 @@
 \name{geyser}
 \alias{geyser}
 \non_function{}
-\usage{data(geyser)}
+\usage{
+geyser
+}
 \title{Old Faithful Geyser Data}
 \description{
   A version of the eruptions data from the \sQuote{Old Faithful} geyser

@@ -11,7 +11,7 @@ The \code{anorexia} data frame has 72 rows and 3 columns.
 Weight change data for young female anorexia patients.
 }
 \usage{
-data(anorexia)
+anorexia
 }
 \format{
 This data frame contains the following columns:

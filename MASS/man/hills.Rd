@@ -10,7 +10,7 @@ Record Times in Scottish Hill Races
 The record times in 1984 for 35 Scottish hill races.
 }
 \usage{
-data(hills)
+hills
 }
 \format{
 The components are:

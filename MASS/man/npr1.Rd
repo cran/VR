@@ -11,7 +11,7 @@ Data on the locations, porosity and permeability (a measure of oil flow)
 on 104 oil wells in the US Naval Petroleum Reserve No. 1 in California.
 }
 \usage{
-data(npr1)
+npr1
 }
 \format{
 This data frame contains the following columns:

@@ -10,7 +10,7 @@ Brain and Body Weights for 28 Species
 Average brain and body weights for 28 species of land animals.
 }
 \usage{
-data(Animals)
+Animals
 }
 \format{
 \describe{

@@ -13,7 +13,7 @@ in ppm (parts per million) using the multiple pesticide residue
 measurement.
 }
 \usage{
-data(DDT)
+DDT
 }
 \source{
 C. E. Finsterwalder (1976)

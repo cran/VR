@@ -12,7 +12,7 @@ barley were grown in six locations in each of 1931 and
 1932.
 }
 \usage{
-data(immer)
+immer
 }
 \format{
 This data frame contains the following columns:

@@ -14,7 +14,7 @@ time in millionths of a second for light to traverse a known distance.
 The \dQuote{true} value is now considered to be 33.02.
 }
 \usage{
-data(newcomb)
+newcomb
 }
 \source{
 S. M. Stigler (1973)

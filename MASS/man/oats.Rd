@@ -13,7 +13,7 @@ of 3 main plots, each split into 4 sub-plots.  The varieties were applied
 to the main plots and the manurial treatments to the sub-plots.
 }
 \usage{
-data(oats)
+oats
 }
 \format{
 This data frame contains the following columns:

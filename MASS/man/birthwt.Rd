@@ -12,7 +12,7 @@ The data were collected at Baystate Medical Center, Springfield, Mass
 during 1986.
 }
 \usage{
-data(birthwt)
+birthwt
 }
 \format{
 This data frame contains the following columns:

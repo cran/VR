@@ -15,7 +15,7 @@ telemetry every 10 minutes for four females, but data from a one
 period of less than a day for each of two animals is used there.
 }
 \usage{
-data(beav2)
+beav2
 }
 \format{
 The \code{beav2} data frame has 100 rows and 4 columns.

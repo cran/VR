@@ -97,7 +97,7 @@ rlm.default <-
         arguments <- list(...)
         if(length(arguments)) {
             pm <- pmatch(names(arguments), names(formals(psi)), nomatch = 0)
-            if(any(pm == 0)) warning(paste("some of ... do not match"))
+            if(any(pm == 0)) warning("some of ... do not match")
             pm <- names(arguments)[pm> 0]
             formals(psi)[pm] <- unlist(arguments[pm])
         }
@@ -158,7 +158,7 @@ rlm.default <-
         done <- (convi <= acc)
         if(done) break
     }
-    if(!done) warning(paste("rlm failed to converge in", maxit, "steps"))
+    if(!done) warning("rlm failed to converge in ", maxit, " steps")
     if(!missing(weights)) {
         tmp <- (weights != 0)
         w[tmp] <- w[tmp]/weights[tmp]
@@ -216,7 +216,7 @@ summary.rlm <- function(object, method=c("XtX", "XtWX"),
     mn <- mean(psiprime)
     kappa <- 1 + p*var(psiprime)/(n*mn^2)
     stddev <- sqrt(S)*(kappa/mn)
-    X <- object$x * sqrt(object$weights)
+    X <- if(length(object$weights)) object$x * sqrt(object$weights) else object$x
     if(method == "XtWX")  X <- X * sqrt(w/mean(w))
     R <- qr(X)$qr
     R <- R[1:p, 1:p, drop = FALSE]

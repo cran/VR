@@ -10,7 +10,7 @@ Frequency Table from a Copenhagen Housing Conditions Survey
 The \code{housing} data frame has 72 rows and 5 variables.
 }
 \usage{
-data(housing)
+housing
 }
 \format{
 \describe{

@@ -7,7 +7,7 @@ Returns of the Standard and Poors 500
 Returns of the Standard and Poors 500 Index in the 1990's
 }
 \usage{
-data(SP500)
+SP500
 }
 \format{
 A vector of returns of the Standard and Poors 500 index for all

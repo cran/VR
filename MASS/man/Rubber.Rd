@@ -10,7 +10,7 @@ Accelerated Testing of Tyre Rubber
 Data frame from accelerated testing of tyre rubber.
 }
 \usage{
-data(Rubber)
+Rubber
 }
 \format{
 \describe{

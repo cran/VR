@@ -10,7 +10,7 @@ Australian AIDS Survival Data
 Data on patients diagnosed with AIDS in Australia before 1 July 1991.
 }
 \usage{
-data(Aids2)
+Aids2
 }
 \format{
 This data frame contains 2843 rows and the following columns:

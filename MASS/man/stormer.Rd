@@ -19,7 +19,7 @@ where \code{B1} and \code{B2}
 are unknown parameters to be estimated, and \code{E} is error.
 }
 \usage{
-data(stormer)
+stormer
 }
 \format{
 The data frame contains the following components:

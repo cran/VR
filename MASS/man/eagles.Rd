@@ -13,7 +13,7 @@ concerning 160 attempts by one (pirating) Bald Eagle to steal a chum
 salmon from another (feeding) Bald Eagle.
 }
 \usage{
-data(eagles)
+eagles
 }
 \format{
 The \code{eagles} data frame has 8 rows and 5 columns.

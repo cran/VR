@@ -11,7 +11,7 @@ This data frame contains the responses of 237 Statistics I students at
 the University of Adelaide to a number of questions.
 }
 \usage{
-data(survey)
+survey
 }
 \format{
 The components of the data frame are:

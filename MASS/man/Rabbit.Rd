@@ -16,7 +16,7 @@ cardiogenic chemoreflex elicited by phenylbiguanide depends on the
 activation of \eqn{5-HT_3} receptors.
 }
 \usage{
-data(Rabbit)
+Rabbit
 }
 \format{
 This data frame contains 60 rows and the following variables:

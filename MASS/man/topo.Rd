@@ -11,7 +11,7 @@ The \code{topo} data frame has 52 rows and 3 columns, of
 topographic heights within a 310 feet square.
 }
 \usage{
-data(topo)
+topo
 }
 \format{
 This data frame contains the following columns:

@@ -11,7 +11,7 @@ Proportions of female children at various ages during adolescence
 who have reached menarche.
 }
 \usage{
-data(menarche)
+menarche
 }
 \format{
 This data frame contains the following columns:

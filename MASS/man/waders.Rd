@@ -11,7 +11,7 @@ The \code{waders} data frame has 15 rows and 19 columns.
 The entries are counts of waders in summer.
 }
 \usage{
-data(waders)
+waders
 }
 \format{
 This data frame contains the following columns (species)

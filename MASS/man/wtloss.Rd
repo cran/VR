@@ -11,7 +11,7 @@ The data frame gives the weight, in kilograms, of an obese patient at 52
 time points over an 8 month period of a weight rehabilitation programme.
 }
 \usage{
-data(wtloss)
+wtloss
 }
 \format{
 This data frame contains the following columns:

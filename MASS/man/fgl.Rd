@@ -12,7 +12,7 @@ It was collected by B. German on fragments of glass
 collected in forensic work.
 }
 \usage{
-data(fgl)
+fgl
 }
 \format{
 This data frame contains the following columns:

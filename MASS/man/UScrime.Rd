@@ -13,7 +13,7 @@ of the USA for 1960 given in this data frame. The variables seem to
 have been re-scaled to convenient numbers.
 }
 \usage{
-data(UScrime)
+UScrime
 }
 \format{
 This data frame contains the following columns:

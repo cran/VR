@@ -10,7 +10,7 @@ Data from 93 Cars on Sale in the USA in 1993
 The \code{Cars93} data frame has 93 rows and 27 columns.
 }
 \usage{
-data(Cars93)
+Cars93
 }
 \format{
 This data frame contains the following columns:

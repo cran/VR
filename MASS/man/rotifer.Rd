@@ -15,7 +15,7 @@ and \code{kc},
 and for each species the number falling out and the total number are given.
 }
 \usage{
-data(rotifer)
+rotifer
 }
 \format{
 \describe{

@@ -11,7 +11,7 @@ A data frame with average brain and body weights for 62 species
 of land mammals.
 }
 \usage{
-data(mammals)
+mammals
 }
 \format{
 \describe{

@@ -14,7 +14,7 @@ species
 collected at Fremantle, W. Australia.
 }
 \usage{
-data(crabs)
+crabs
 }
 \format{
 This data frame contains the following columns:

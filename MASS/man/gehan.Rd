@@ -14,7 +14,7 @@ and the rest are controls.  The trial was designed as matched pairs,
 both withdrawn from the trial when either came out of remission.
 }
 \usage{
-data(gehan)
+gehan
 }
 \format{
 This data frame contains the following columns:

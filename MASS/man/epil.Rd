@@ -12,7 +12,7 @@ four successive two-week periods. The subject's age is the only
 covariate.
 }
 \usage{
-data(epil)
+epil
 }
 \format{
 This data frame has 236 rows and the following 9 columns:

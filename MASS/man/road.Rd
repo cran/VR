@@ -11,7 +11,7 @@ A data frame with the annual deaths in road accidents for half
 the US states. Components are:
 }
 \usage{
-data(road)
+road
 }
 \format{
 \describe{

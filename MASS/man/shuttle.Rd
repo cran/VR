@@ -13,7 +13,7 @@ conditions; the seventh is the decision. The first 253 rows are the
 training set, the last 3 the test conditions.
 }
 \usage{
-data(shuttle)
+shuttle
 }
 \format{
 This data frame contains the following columns:

@@ -11,7 +11,7 @@ The heart and body weights of samples of male and female cats used for
 digitalis experiments.  The cats were all adult, over 2 kg body weight.
 }
 \usage{
-data(cats)
+cats
 }
 \format{
 This data frame contains the following columns:

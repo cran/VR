@@ -13,7 +13,7 @@ separated from their natural mothers at birth and given to foster
 mothers to rear.
 }
 \usage{
-data(genotype)
+genotype
 }
 \format{
 The data frame has the following components:

@@ -15,7 +15,7 @@ installed. The object of the exercise was to assess the effect of the
 insulation on gas consumption.
 }
 \usage{
-data(whiteside)
+whiteside
 }
 \format{
 The \code{whiteside} data frame has 56 rows and 3 columns.:

@@ -10,7 +10,7 @@ Performance of Computer CPUs
 A relative performance measure and characteristics of 209 CPUs.
 }
 \usage{
-data(cpus)
+cpus
 }
 \format{
 The components are:

@@ -11,7 +11,7 @@ The \code{Melanoma} data frame has data on 205 patients in Denmark
 with malignant melanoma.
 }
 \usage{
-data(Melanoma)
+Melanoma
 }
 \format{
 This data frame contains the following columns:

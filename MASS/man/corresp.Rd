@@ -55,22 +55,24 @@ as well from which variables in the formula are preferentially
 satisfied.
 }}
 \value{
-An list object of class \code{"correspondence"} for which \code{print}, \code{plot} and
-\code{biplot} methods are supplied.  The main components are the canonical
-correlation(s) and the row and column scores.
+  An list object of class \code{"correspondence"} for which
+  \code{print}, \code{plot} and \code{biplot} methods are supplied.
+  The main components are the canonical correlation(s) and the row
+  and column scores.
 }
 \details{
   See Venables \& Ripley (2002).  The \code{plot} method produces a graphical
   representation of the table if \code{nf=1}, with the \emph{areas} of circles
   representing the numbers of points.  If \code{nf} is two or more the
   \code{biplot} method is called, which plots the second and third columns of
-  the matrices \code{A = Dr^(-1/2) U L} and \code{B = Dc^(-1/2) U V} where the
+  the matrices \code{A = Dr^(-1/2) U L} and \code{B = Dc^(-1/2) V L} where the
   singular value decomposition is \code{U L V}.  Thus the x-axis is the
-  canonical correlation times the row and column scores. Although this
+  canonical correlation times the row and column scores.  Although this
   is called a biplot, it does \emph{not} have any useful inner product
   relationship between the row and column scores.  Think of this as an
   equally-scaled plot with two unrelated sets of labels.  The origin is
-  marked on the plot with a cross.
+  marked on the plot with a cross.  (For other versions of this plot see
+  the book.)
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

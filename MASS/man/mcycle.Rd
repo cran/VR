@@ -12,7 +12,7 @@ in a simulated motorcycle
 accident, used to test crash helmets.
 }
 \usage{
-data(mcycle)
+mcycle
 }
 \format{
 \describe{

@@ -13,7 +13,7 @@ fractional factorial design confounding the NPK interaction was used
 on 3 of the plots.
 }
 \usage{
-data(npk)
+npk
 }
 \format{
 The \code{npk} data frame has 24 rows and 5 columns:

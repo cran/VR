@@ -13,7 +13,7 @@ and are taken from the mandatory  F&DA food label. The data have been
 normalized here to a portion of one American cup.
 }
 \usage{
-data(UScereal)
+UScereal
 }
 \format{
 This data frame contains the following columns:

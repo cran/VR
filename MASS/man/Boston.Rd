@@ -10,7 +10,7 @@ Housing Values in Suburbs of Boston
 The \code{Boston} data frame has 506 rows and 14 columns.
 }
 \usage{
-data(Boston)
+Boston
 }
 \format{
 This data frame contains the following columns:

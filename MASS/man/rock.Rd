@@ -13,7 +13,7 @@ each cross-section has total area of pores, total perimeter of pores,
 and shape.
 }
 \usage{
-data(rock)
+rock
 }
 \format{
     A data frame with 48 rows and 4 numeric columns.

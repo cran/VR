@@ -11,7 +11,7 @@ A data frame with 17 observations on boiling point (degrees F)
 and barometric pressure in inches of mercury.
 }
 \usage{
-data(forbes)
+forbes
 }
 \format{
 \describe{

@@ -12,7 +12,7 @@ four factors, described below.  The \code{minn38} data frame has 168
 rows and 5 columns.
 }
 \usage{
-data(minn38)
+minn38
 }
 \format{
 This data frame contains the following columns:

@@ -14,7 +14,7 @@ attributes has been scored on a scale of 1 to 10, and the outcome is
 also known. There are 699 rows and 11 columns.
 }
 \usage{
-data(biopsy)
+biopsy
 }
 \format{
 This data frame contains the following columns:

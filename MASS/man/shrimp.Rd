@@ -12,7 +12,7 @@ of the amount (percentage of the declared total weight) of shrimp
 in shrimp cocktail.
 }
 \usage{
-data(shrimp)
+shrimp
 }
 \source{
 F. J. King and J. J. Ryan (1976)

@@ -14,7 +14,7 @@ of light in km/s, less 299000.  The currently accepted value, on
 this scale of measurement, is 734.5.
 }
 \usage{
-data(michelson)
+michelson
 }
 \format{
 The data frame contains the following components:

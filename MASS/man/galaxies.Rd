@@ -13,7 +13,7 @@ Borealis region.  Multimodality in such surveys is evidence for voids
 and superclusters in the far universe.
 }
 \usage{
-data(galaxies)
+galaxies
 }
 \source{
 Roeder, K. (1990) Density estimation with confidence sets exemplified
@@ -36,7 +36,6 @@ There is an 83rd measurement of 5607 km/sec in the Postman
 dataset here.
 }
 \examples{
-data(galaxies)
 gal <- galaxies/1000
 c(width.SJ(gal, method = "dpi"), width.SJ(gal))
 plot(x = c(0, 40), y = c(0, 0.3), type = "n", bty = "l",

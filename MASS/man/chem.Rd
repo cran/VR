@@ -11,7 +11,7 @@ A numeric vector of 24 determinations of copper in wholemeal
 flour, in parts per million.
 }
 \usage{
-data(chem)
+chem
 }
 \source{
 Analytical Methods Committee (1989) Robust statistics -- how not to

@@ -16,7 +16,7 @@ there was no speed limit and cars tended to be driven faster.
 The speed limit days tended to be in contiguous blocks.
 }
 \usage{
-data(Traffic)
+Traffic
 }
 \format{
 This data frame contains the following columns:

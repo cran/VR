@@ -169,6 +169,25 @@ fitdistr(abbey, "t", list(m = 12, s = 5), df = 10)
 
 # 5.6  Density estimation
 
+# Figure 5.8
+attach(geyser)
+par(mfrow=c(2,3))
+truehist(duration, h=0.5, x0=0.0, xlim=c(0, 6), ymax=0.7)
+truehist(duration, h=0.5, x0=0.1, xlim=c(0, 6), ymax=0.7)
+truehist(duration, h=0.5, x0=0.2, xlim=c(0, 6), ymax=0.7)
+truehist(duration, h=0.5, x0=0.3, xlim=c(0, 6), ymax=0.7)
+truehist(duration, h=0.5, x0=0.4, xlim=c(0, 6), ymax=0.7)
+
+breaks <- seq(0, 5.9, 0.1)
+counts <- numeric(length(breaks))
+for(i in (0:4)) counts[i+(1:55)] <- counts[i+(1:55)] +
+    rep(hist(duration, breaks=0.1*i + seq(0, 5.5, 0.5),
+    prob=TRUE, plot=FALSE)$intensities, rep(5,11))
+plot(breaks+0.05, counts/5, type="l", xlab="duration",
+    ylab="averaged", bty="n", xlim=c(0, 6), ylim=c(0, 0.7))
+detach()
+
+
 attach(geyser)
 truehist(duration, nbins = 15, xlim = c(0.5, 6), ymax = 1.2)
 lines(density(duration, width = "nrd"))

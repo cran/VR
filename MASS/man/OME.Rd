@@ -21,7 +21,7 @@ needs to get 75\% correct responses. Some of the children had
 suffered from otitis media with effusion (OME).
 }
 \usage{
-data(OME)
+OME
 }
 \format{
 The \code{OME} data frame has 1129 rows and 7 columns:

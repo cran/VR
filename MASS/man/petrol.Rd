@@ -16,7 +16,7 @@ build an estimation equation for the yield of the refining
 process of crude oil to gasoline.
 }
 \usage{
-data(petrol)
+petrol
 }
 \format{
 The variables are as follows

@@ -13,7 +13,7 @@ Culture, Age, Sex and Learner status and the number of days absent from
 school in a particular school year was recorded.
 }
 \usage{
-data(quine)
+quine
 }
 \format{
 This data frame contains the following columns:

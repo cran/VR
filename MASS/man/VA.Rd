@@ -7,7 +7,7 @@
   Veteran's Administration lung cancer trial from Kalbfleisch & Prentice.
 }
 \usage{
-data(VA)
+VA
 }
 \format{
 A data frame with columns:

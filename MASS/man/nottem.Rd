@@ -11,7 +11,7 @@ A regular time-series object containing average air temperatures at Nottingham
 Castle in degrees F for 20 years.
 }
 \usage{
-data(nottem)
+nottem
 }
 \source{
 Anderson, O.D. (1976)

@@ -11,7 +11,7 @@ Seven specimens were sent to 6 laboratories in 3 separate batches and
 each analysed for Analyte.  Each analysis was duplicated.
 }
 \usage{
-data(coop)
+coop
 }
 \format{
 This data frame contains the following columns:

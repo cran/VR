@@ -11,7 +11,7 @@ Temperature and pressure in a saturated steam driven experimental
 device.
 }
 \usage{
-data(steam)
+steam
 }
 \format{
 The data frame contains the following components:

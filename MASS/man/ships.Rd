@@ -12,7 +12,7 @@ months of service by ship type,
 year of construction, and period of operation.
 }
 \usage{
-data(ships)
+ships
 }
 \format{
 \describe{

@@ -13,7 +13,7 @@ the study was to produce a chart to help a paediatrican to assess if a
 child's GAG concentration is \dQuote{normal}.
 }
 \usage{
-data(GAGurine)
+GAGurine
 }
 \format{
 This data frame contains the following columns:

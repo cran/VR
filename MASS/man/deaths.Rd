@@ -14,9 +14,9 @@ Monthly Deaths from Lung Diseases in the UK
   males (\code{mdeaths}) and females (\code{fdeaths}).
 }
 \usage{
-data(deaths)
-data(mdeaths)
-data(deaths)
+deaths
+mdeaths
+deaths
 }
 \source{
 P. J. Diggle (1990)

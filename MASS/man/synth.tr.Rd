@@ -14,8 +14,8 @@ It is intended that \code{synth.tr} be used from training and
 \code{synth.te} for testing.
 }
 \usage{
-data(synth.tr)
-data(synth.te)
+synth.tr
+synth.te
 }
 \format{
 These data frames contains the following columns:

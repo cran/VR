@@ -12,7 +12,7 @@ on the Dutch island of Terschelling and the columns are factors
 describing the management of grassland.
 }
 \usage{
-data(farms)
+farms
 }
 \format{
   This data frame contains the following columns:

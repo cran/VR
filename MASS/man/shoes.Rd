@@ -11,7 +11,7 @@ A list of two vectors, giving the wear of shoes of materials A and B
 for one foot each of ten boys.
 }
 \usage{
-data(shoes)
+shoes
 }
 \source{
 G. E. P. Box, W. G. Hunter and J. S. Hunter (1978)

@@ -10,7 +10,7 @@ AFM Compositions of Aphyric Skye Lavas
 The \code{Skye} data frame has 23 rows and 3 columns.
 }
 \usage{
-data(Skye)
+Skye
 }
 \format{
 This data frame contains the following columns:

@@ -16,7 +16,7 @@ chloride solution, after which the shortening of the strip was
 accurately measured as the response.
 }
 \usage{
-data(muscle)
+muscle
 }
 \format{
 This data frame contains the following columns:

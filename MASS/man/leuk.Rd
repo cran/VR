@@ -10,7 +10,7 @@ Survival Times and White Blood Counts for Leukaemia Patients
 A data frame of data from 33 leukaemia patients.
 }
 \usage{
-data(leuk)
+leuk
 }
 \format{
 A data frame with columns:

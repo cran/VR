@@ -10,7 +10,7 @@ Data from a cabbage field trial
 The \code{cabbages} data set has 60 observations and 4 variables
 }
 \usage{
-data(cabbages)
+cabbages
 }
 \format{
 This data frame contains the following columns:

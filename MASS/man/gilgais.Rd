@@ -18,7 +18,7 @@ conductivity and chloride content were measured on a 1:5 soil:water
 extract from each sample.
 }
 \usage{
-data(gilgais)
+gilgais
 }
 \format{
 This data frame contains the following columns:

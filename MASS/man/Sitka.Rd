@@ -13,7 +13,7 @@ were grown in ozone-enriched chambers and 25 were controls.  The size
 was measured five times in 1988, at roughly monthly intervals.
 }
 \usage{
-data(Sitka)
+Sitka
 }
 \format{
 This data frame contains the following columns:

@@ -17,9 +17,9 @@ Kidney Diseases. We used the 532 complete records after dropping the
 (mainly missing) data on serum insulin.
 }
 \usage{
-data(Pima.tr)
-data(Pima.tr2)
-data(Pima.te)
+Pima.tr
+Pima.tr2
+Pima.te
 }
 \format{
 These data frames contains the following columns:

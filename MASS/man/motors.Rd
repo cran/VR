@@ -12,7 +12,7 @@ accelerated life test at each of four temperatures of 10 motorettes,
 and has rather discrete times.
 }
 \usage{
-data(motors)
+motors
 }
 \format{
 This data frame contains the following columns:

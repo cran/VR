@@ -10,7 +10,7 @@ Tests of the presence of the bacteria
 in children with otitis media in the Northern Territory of Australia.
 }
 \usage{
-data(bacteria)
+bacteria
 }
 \format{
 This data frame has 220 rows and the following columns:
