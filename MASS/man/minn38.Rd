@@ -11,27 +11,29 @@ The Minnesota high school graduates of 1938 were classified according to
 four factors, described below.  The \code{minn38} data frame has 168 rows and 5
 columns.
 }
+\usage{
+data(minn38)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{hs}{
+\describe{
+\item{\code{hs}}{
 High school rank: \code{"L"}, \code{"M"} and \code{"U"} for lower, middle and upper third.
 }
-\item{phs}{
+\item{\code{phs}}{
 Post high school status: Enrolled in college, (\code{"C"}), enrolled in
 non-collegiate school, (\code{"N"}), employed full-time, (\code{"E"}) and other,
 (\code{"O"}).
 }
-\item{fol}{
-Father's occupational level, (seven levels, \code{"F1"}, \code{"F2"}, \dots{}, \code{"F7"}).
+\item{\code{fol}}{
+Father's occupational level, (seven levels, \code{"F1"}, \code{"F2"}, \dots, \code{"F7"}).
 }
-\item{sex}{
+\item{\code{sex}}{
 Sex factor, \code{"F"} or \code{"M"}.
 }
-\item{f}{
+\item{\code{f}}{
 Frequency.
-}}
+}}}
 \source{
 Quoted from 
 R. L. Plackett, (1974)
@@ -43,6 +45,6 @@ who quotes the data from
 Hoyt, C. J., Krishnaiah, P. R.
 and Torrance, E. P. (1959) Analysis of complex contingency tables, 
 \emph{J. Exp. Ed.}
-\bold{27}, 187-194.
+\bold{27}, 187--194.
 }
 \keyword{datasets}

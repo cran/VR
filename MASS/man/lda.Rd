@@ -3,6 +3,12 @@
 %
 \name{lda}
 \alias{lda}
+\alias{lda.default}
+\alias{lda.data.frame}
+\alias{lda.formula}
+\alias{lda.matrix}
+\alias{model.frame.lda}
+\alias{print.lda}
 \title{
 Linear Discriminant Analysis
 }
@@ -19,7 +25,7 @@ lda(x,   grouping, prior = proportions, tol = 1.0e-4,
 }
 \arguments{
 \item{formula}{
-A formula of the form \code{groups ~ x1 + x2 + \dots{}}  That is, the
+A formula of the form \code{groups ~ x1 + x2 + \dots}  That is, the
 response is the grouping factor and the right hand side specifies
 the (non-factor) discriminators.
 }
@@ -53,7 +59,7 @@ sample.  (NOTE: If given, this argument must be named.)
 \item{na.action}{
 A function to specify the action to be taken if \code{NA}s are found.
 The default action is for the procedure to fail.  An alternative is
-na.omit, which leads to rejection of cases with missing values on
+\code{na.omit}, which leads to rejection of cases with missing values on
 any required variable.  (NOTE: If given, this argument must be named.)
 }
 \item{method}{
@@ -67,10 +73,10 @@ leave-out-out cross-validation. Note that if the prior is estimated,
 the proportions in the whole dataset are used.
 }
 \item{nu}{
-degrees of freedom for \code{"method = t"}.
+degrees of freedom for \code{method = "t"}.
 }}
 \value{
-an object of class \code{lda} containing the following components:
+an object of class \code{"lda"} containing the following components:
 
 \item{prior}{
 the prior probabilities used.

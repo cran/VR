@@ -12,29 +12,31 @@ Children from Walgett, New South Wales, Australia, were classified by
 Culture, Age, Sex and Learner status and the number of days absent from
 school in a particular school year was recorded.
 }
+\usage{
+data(quine)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Eth}{
+\describe{
+\item{\code{Eth}}{
 Ethnic background: Aboriginal or Not, (\code{"A"} or \code{"N"}).
 }
-\item{Sex}{
+\item{\code{Sex}}{
 Sex factor: (\code{"F"} or \code{"M"}).
 }
-\item{Age}{
+\item{\code{Age}}{
 Age group: Primary (\code{"F0"}), or forms \code{"F1,"} \code{"F2"} or \code{"F3"}.
 }
-\item{Lrn}{
+\item{\code{Lrn}}{
 Learner status factor: Average or Slow learner, (\code{"AL"} or \code{"SL"}).
 }
-\item{Days}{
+\item{\code{Days}}{
 Days absent from school in the year.
-}}
+}}}
 \source{
 S. Quine, quoted in Aitkin, M. (1978) The analysis of unbalanced cross
 classifications (with discussion).
 \emph{Journal of the Royal Statistical Society series A}
-\bold{141}, 195-223.
+\bold{141}, 195--223.
 }
 \keyword{datasets}

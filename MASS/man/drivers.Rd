@@ -15,6 +15,6 @@ introduced on 31 Jan 1983.
 \source{
 Harvey, A.C. (1989)
 \emph{Forecasting, Structural Time Series Models and the Kalman Filter.}
-Cambridge University Press, pp. 519-523.
+Cambridge University Press, pp. 519--523.
 }
 \keyword{datasets}

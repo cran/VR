@@ -15,7 +15,7 @@ predict.qda(object, newdata, prior = object$prior,
 }
 \arguments{
 \item{object}{
-object of class \code{qda}
+object of class \code{"qda"}
 }
 \item{newdata}{
 matrix or data frame of cases to be classified or, if object
@@ -48,7 +48,7 @@ posterior probabilities for the classes
 }}
 \details{
 This function is a method for the generic function
-\code{predict()} for class \code{qda}.
+\code{predict()} for class \code{"qda"}.
 It can be invoked by calling \code{predict(x)} for an
 object \code{x} of the appropriate class, or directly by
 calling \code{predict.qda(x)} regardless of the

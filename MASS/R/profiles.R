@@ -64,7 +64,6 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
       while((step <- step + 1) < maxsteps && abs(z) < zmax) {
 	bi <- B0[i] + sgn * step * del * std.err[i]
         o <- O + X[, i] * bi
-## R 0.63.3 or later: earlier needs etastart = LP - o
 	fm <- glm.fit(x = Xi, y = Y, weights = W, etastart = LP,
 		      offset = o, family = fam, control = fitted$control)
 	LP <- Xi %*% fm$coef + o
@@ -72,7 +71,10 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
 	ri[, names(coef(fm))] <- coef(fm)
 	ri[, pi] <- bi
 	pvi <- rbind(pvi, ri)
-	z <- sgn * sqrt((fm$deviance - OriginalDeviance)/DispersionParameter)
+        zz <- (fm$deviance - OriginalDeviance)/DispersionParameter
+        if(zz > - 1e-3) zz <- max(zz, 0)
+        else stop("profiling has found a better solution, so original fit had not converged")
+	z <- sgn * sqrt(zz)
 	zi <- c(zi, z)
       }
     }
@@ -100,20 +102,18 @@ plot.profile <-
     tau <- x[[nm]][[1]]
     parval <- x[[nm]][[2]][, nm]
     plot(parval, tau, xlab = nm, ylab = "tau", type="n")
-    points(parval[tau == 0], 0, pch = 3)
+    ## allow for profiling failures
+    if(sum(tau == 0) == 1) points(parval[tau == 0], 0, pch = 3)
     splineVals <- spline(parval, tau)
     lines(splineVals$x, splineVals$y)
   }
 }
-is.trellis <- function() FALSE
 
 pairs.profile <-
   ## Another plot method for profile objects showing pairwise traces.
   ## Recommended only for diagnostic purposes.
 function(x,
-	 colours = if(is.trellis())
-	 trellis.par.get("superpose.line")$col[2:3]
-	 else 2:3)
+         colours = 2:3)
 {
   parvals <- lapply(x, "[[", "par.vals")
   rng <- apply(do.call("rbind", parvals), 2, range, na.rm = T)

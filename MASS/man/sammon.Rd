@@ -30,7 +30,7 @@ The dimension of the configuration.
 The maximum number of iterations.
 }
 \item{trace}{
-Logical for tracing optimization. Default \code{True}.
+Logical for tracing optimization. Default \code{TRUE}.
 }
 \item{magic}{
 initial value of the step size constant in diagonal Newton method.
@@ -70,7 +70,7 @@ search (\code{magic}) to ensure that it always goes downhill.
 Sammon, J. W. (1969) 
 A non-linear mapping for data structure analysis.
 \emph{IEEE Trans. Comput.}
-\bold{C-18} 401-409.
+\bold{C-18} 401--409.
 }
 \seealso{
 \code{\link{cmdscale}}, \code{\link{isoMDS}}

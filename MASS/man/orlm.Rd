@@ -3,6 +3,12 @@
 %
 \name{orlm}
 \alias{orlm}
+\alias{orlm.default}
+\alias{orlm.formula}
+\alias{print.orlm}
+\alias{summary.orlm}
+\alias{wt.huber}
+\alias{hsreg}
 \title{
 Fit Robust Linear Regression Model
 }
@@ -53,7 +59,7 @@ The most likely one is \code{maxit}, which sets the iteration limit, by default
 20.
 }}
 \value{
-an object of class \code{rlm} representing the fit, inheriting from \code{lm}.
+an object of class \code{"orlm"} representing the fit, inheriting from \code{lm}.
 This has all the components of an \code{lm} object, plus \code{k,} the scale \code{s} and
 \code{conv} which is a vector monitoring the convergence.
 }

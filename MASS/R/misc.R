@@ -2,21 +2,6 @@
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 
-mat2tr <- function(z)
-{
-    dn <- names(dimnames(z))
-    dx <- rownames(z)
-    x <- as.numeric(substring(dx, nchar(dn[1]) + 2))
-    dy <- colnames(z)
-    y <- as.numeric(substring(dy, nchar(dn[2]) + 2))
-    cbind(expand.grid(x = x, y = y), z = as.vector(z))
-}
-
-con2tr <- function(obj)
-{
-    data.frame(expand.grid(x=obj$x,y=obj$y),z=as.vector(obj$z))
-}
-
 Null <- function(M)
 {
     tmp <- qr(M)
@@ -27,7 +12,7 @@ Null <- function(M)
 ginv <- function(X, tol = sqrt(.Machine$double.eps))
 {
 #
-# based on suggestions of R. M. Heiberger, T. M. Hesterburg and WNV
+# based on suggestions of R. M. Heiberger, T. M. Hesterberg and WNV
 #
     if(length(dim(X)) > 2 || !(is.numeric(X) || is.complex(X)))
         stop("X must be a numeric or complex matrix")

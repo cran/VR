@@ -3,12 +3,15 @@
 %
 \name{logtrans}
 \alias{logtrans}
+\alias{logtrans.formula}
+\alias{logtrans.lm}
+\alias{logtrans.default}
 \title{
 Estimate log Transformation Parameter
 }
 \description{
 Find and optionally plot the marginal likelihood for alpha
-for a transformation model of the form \code{log(y + alpha) ~ x1 + x2 + \dots{}}.
+for a transformation model of the form \code{log(y + alpha) ~ x1 + x2 + \dots}.
 }
 \usage{
 logtrans(object, \dots, alpha = seq(0.5, 6, by = 0.25) - min(y), 
@@ -18,7 +21,7 @@ logtrans(object, \dots, alpha = seq(0.5, 6, by = 0.25) - min(y),
 \arguments{
 \item{object}{
 Fitted linear model object, or formula defining the untransformed
-model that is \code{y ~ x1 + x2 + \dots{}}.  The function is generic.
+model that is \code{y ~ x1 + x2 + \dots}.  The function is generic.
 }
 \item{...}{
 If \code{object} is a formula, this argument may specify a data frame

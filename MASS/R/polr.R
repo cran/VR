@@ -217,3 +217,17 @@ extractAIC.polr <- function(fit, scale = 0, k = 2, ...)
     edf <- fit$edf
     c(edf, deviance(fit) + k * edf)
 }
+
+model.frame.polr <- function(formula, data, na.action, ...)
+{
+    m <- formula$call
+    m$start <- m$Hess <- m$... <- NULL
+    m[[1]] <- as.name("model.frame")
+    data <- eval(m, sys.frame(sys.parent()))
+    if(!is.null(mw <- m$weights)) {
+        nm <- names(data)
+        nm[match("(weights)", nm)] <- as.character(mw)
+        names(data) <- nm
+    }
+    data
+}

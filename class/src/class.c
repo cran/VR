@@ -19,7 +19,7 @@ void
 VR_knn1(Sint *pntr, Sint *pnte, Sint *p, double *train, Sint *class,
 	double *test, Sint *res, Sint *votes, Sint *nc, double *dists)
 {
-    int   npat, index, i, j, k, ntr = *pntr, nte = *pnte, nind, ntie, *ind;
+    int   npat, index, i, j, k, ntr = *pntr, nte = *pnte, nind=0, ntie, *ind;
     double dm, dist, tmp;
 
     S_EVALUATOR
@@ -193,7 +193,7 @@ VR_olvq(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl,
 	Sint *pncodes, double *xc, Sint *clc, Sint *niter, 
 	Sint *iters)
 {
-    int   index, iter, j, k, n = *pn, ncodes = *pncodes, npat, s;
+    int   index=0, iter, j, k, n = *pn, ncodes = *pncodes, npat, s;
     double *al;
     double dist, dm, tmp;
 
@@ -228,7 +228,7 @@ VR_lvq1(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl,
 	Sint *pncodes, double *xc, Sint *clc, Sint *niter, 
 	Sint *iters)
 {
-    int   index, iter, j, k, n = *pn, ncodes = *pncodes, npat, s;
+    int   index=0, iter, j, k, n = *pn, ncodes = *pncodes, npat, s;
     double alpha_t;
     double dist, dm, tmp;
 
@@ -259,7 +259,7 @@ VR_lvq2(double *alpha, double *win, Sint *pn, Sint *p, double *x,
 	Sint *cl, Sint *pncodes, double *xc, Sint *clc, 
 	Sint *niter, Sint *iters)
 {
-    int   index, iter, j, k, n = *pn, ncodes = *pncodes, nindex, npat, ntmp;
+    int   index=0, iter, j, k, n = *pn, ncodes = *pncodes, nindex=0, npat, ntmp;
     double alpha_t;
     double dist, dm, ndm, tmp;
 
@@ -309,7 +309,7 @@ VR_lvq3(double *alpha, double *win, double *epsilon, Sint *pn, Sint *p,
 	double *x, Sint *cl, Sint *pncodes, double *xc, Sint *clc,
 	Sint *niter, Sint *iters)
 {
-    int   index, iter, j, k, n = *pn, ncodes = *pncodes, nindex, npat, ntmp;
+    int   index=0, iter, j, k, n = *pn, ncodes = *pncodes, nindex=0, npat, ntmp;
     double alpha_t;
     double dist, dm, ndm, tmp;
 

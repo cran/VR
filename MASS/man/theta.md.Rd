@@ -12,7 +12,7 @@ Distribution by equating the deviance to the residual degrees of freedom.
 Analogue of a moment estimator.
 }
 \usage{
-theta.md(y, u, dfr, limit=20, eps=sqrt(.Machine$single.eps))
+theta.md(y, u, dfr, limit=20, eps=.Machine$double.eps^0.25)
 }
 \arguments{
 \item{y}{
@@ -34,7 +34,7 @@ Tolerance to determine convergence.
 The required estimate of \code{theta}, as a scalar.
 }
 \seealso{
-\code{\link{glm.nb}}
+\code{\link{glm.nb}}, \code{\link{theta.ml}}, \code{\link{theta.mm}}
 }
 \examples{
 \dontrun{theta <- theta.md(y, fitted(fm), dfr=123)}

@@ -10,31 +10,33 @@ Age of Menarche data
 Proportions of female children at various ages during adolescence
 who have reached menarche.
 }
+\usage{
+data(menarche)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Age}{
+\describe{
+\item{\code{Age}}{
 Average age of the group.  (The groups are reasonably age homogeneous.)
 }
-\item{Total}{
+\item{\code{Total}}{
 Total number of children in the group.
 }
-\item{Menarche}{
+\item{\code{Menarche}}{
 Number who have reached menarche.
-}}
+}}}
 \source{
 Milicer, H. and Szczotka, F. (1966) Age at Menarche in Warsaw girls in
 1965. 
 \emph{Human Biology}
-\bold{38}, 199-203.
+\bold{38}, 199--203.
 
 
 The data are also given in 
 Aranda-Ordaz, F.J. (1981) 
 On two families of transformations to additivity for binary response data.
 \emph{Biometrika,}
-\bold{68}, 357-363.
+\bold{68}, 357--363.
 }
 \examples{
 data(menarche)

@@ -21,34 +21,36 @@ needs to get 75\% correct responses. Some of the children had
 suffered from otitis media with effusion (OME).
 
 
-The \code{Hogan} data frame has 1129 rows and 7 columns.
+The \code{OME} data frame has 1129 rows and 7 columns.
+}
+\usage{
+data(OME)
 }
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{ID}{
+\describe{
+\item{\code{ID}}{
 Subject ID (1 to 99, with some IDs missing). A few subjects were
 measured at different ages.
 }
-\item{OME}{
+\item{\code{OME}}{
 \code{"low"} or \code{"high"} or \code{"N/A"} (at ages other than 30 and 60 months).
 }
-\item{Age}{
+\item{\code{Age}}{
 Age of the subject (months).
 }
-\item{Loud}{
+\item{\code{Loud}}{
 Loudness of stimulus, in decibels.
 }
-\item{Noise}{
-Whether the signal in the stimulus was \code{"coherent"} or "\code{incoherent"}.
+\item{\code{Noise}}{
+Whether the signal in the stimulus was \code{"coherent"} or \code{"incoherent"}.
 }
-\item{Correct}{
+\item{\code{Correct}}{
 Number of correct responses from \code{Trials} trials.
 }
-\item{Trials}{
+\item{\code{Trials}}{
 Number of trials performed.
-}}
+}}}
 \source{
 Sarah Hogan, Dept of Physiology, University of Oxford, via
 Dept of Statistics Consulting Service
@@ -58,15 +60,15 @@ The experiment was to study otitis media with effusion (OME), a very
 common childhood condition where the middle ear space, which is
 normally air-filled, becomes congested by a fluid.  There is a
 concomitant fluctuating, conductive hearing loss which can result in
-various language, cognitive and social deficits. The term "binaural
-hearing" is used to describe the listening conditions in which the
+various language, cognitive and social deficits. The term ``binaural
+hearing'' is used to describe the listening conditions in which the
 brain is processing information from both ears at the same time.  The
 brain computes differences in the intensity and/or timing of signals
 arriving at each ear which contributes to sound localisation and also
 to our ability to hear in background noise.
 
 
-Some years ago, it was found that children of 7-8 years with a history
+Some years ago, it was found that children of 7--8 years with a history
 of significant OME had significantly worse binaural hearing than
 children without such a history, despite having equivalent
 sensitivity. The question remained as to whether it was the timing,

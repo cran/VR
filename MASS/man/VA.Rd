@@ -5,36 +5,36 @@
 }
 \description{
   Veteran's Administration lung cancer trial from Kalbfleisch & Prentice.
-  A data frame.
+  
 }
-\details{
-The components are:
-}
-\arguments{
-\item{stime}{
+\format{
+A data frame with columns:
+\describe{
+\item{\code{stime}}{
   survival or follow-up time in days.
 }
-\item{status}{
+\item{\code{status}}{
   dead or censored.
 }
-\item{treat}{
+\item{\code{treat}}{
   standard or test
 }
-\item{age}{
+\item{\code{age}}{
 patient's age in years
 }
-\item{Karn}{
+\item{\code{Karn}}{
   Karnofsky score of patient's performance on a scale of 0 to 100.
 }
-\item{diag.time}{
+\item{\code{diag.time}}{
   times since diagnosis in months at entry to trial.
 }
-\item{cell}{
+\item{\code{cell}}{
   one of four cell types.
 }
-\item{prior}{
+\item{\code{prior}}{
   prior therapy?
 }}
+}
 \source{
 Kalbfleisch, J.D. and Prentice R.L. (1980)
 \emph{The Statistical Analysis of Failure Time Data.} 

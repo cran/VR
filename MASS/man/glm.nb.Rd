@@ -3,6 +3,7 @@
 %
 \name{glm.nb}
 \alias{glm.nb}
+\alias{family.negbin}
 \title{
 Fit a Negative Binomial Generalized Linear Model
 }
@@ -49,7 +50,8 @@ Setting \code{trace > 0} traces the alternating iteration process. Setting
 estimation of \code{theta}.
 }
 \seealso{
-\code{\link{glm}}, \code{\link{negative.binomial}}, \code{\link{anova.negbin}}, \code{\link{summary.negbin}}
+\code{\link{glm}}, \code{\link{negative.binomial}}, \code{\link{anova.negbin}}, \code{\link{summary.negbin}},
+\code{\link{theta.ml}}, \code{\link{theta.md}}, \code{\link{theta.mm}}
 }
 \examples{
 data(quine)

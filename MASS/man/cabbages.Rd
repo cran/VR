@@ -9,22 +9,24 @@ Data from a cabbage field trial
 \description{
 The \code{cabbages} data set has 60 observations and 4 variables
 }
+\usage{
+data(cabbages)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Cult}{
+\describe{
+\item{\code{Cult}}{
 Factor giving the cultivar of the cabbage, two levels: \code{c39} and \code{c52}.
 }
-\item{Date}{
+\item{\code{Date}}{
 Factor specifying one of three planting dates: \code{d16}, \code{d20} or \code{d21}.
 }
-\item{HeadWt}{
+\item{\code{HeadWt}}{
 Weight of the cabbage head, presumably in kg.
 }
-\item{VitC}{
+\item{\code{VitC}}{
 Ascorbic acid content, in undefined units.
-}}
+}}}
 \source{
 Rawlings, J. O. (1988)
 \emph{Applied Regression Analysis: A Research Tool.}

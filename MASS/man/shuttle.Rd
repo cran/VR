@@ -12,35 +12,37 @@ The first six columns are categorical variables giving example
 conditions; the seventh is the decision. The first 253 rows are the
 training set, the last 3 the test conditions.
 }
+\usage{
+data(shuttle)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{stability}{
+\describe{
+\item{\code{stability}}{
 Stable positioning or not (\code{stab / xstab})
 }
-\item{error}{
+\item{\code{error}}{
 Size of error (\code{MM / SS / LX / XL})
 }
-\item{sign}{
+\item{\code{sign}}{
 Sign of error, positive or negative (\code{pp / nn})
 }
-\item{wind}{
+\item{\code{wind}}{
 Wind sign (\code{head / tail})
 }
-\item{magn}{
+\item{\code{magn}}{
 Wind strength (\code{Light / Medium / Strong / Out of Range})
 }
-\item{vis}{
+\item{\code{vis}}{
 Visibility (\code{yes / no})
 }
-\item{use}{
+\item{\code{use}}{
 Use the autolander or not
-}}
+}}}
 \source{
 D. Michie (1989)
 Problems of computer-aided concept formation. In 
 \emph{Applications of Expert Systems 2,}
-ed. J. R. Quinlan, Turing Institute Press / Addison-Wesley, pp. 310-333.
+ed. J. R. Quinlan, Turing Institute Press / Addison-Wesley, pp. 310--333.
 }
 \keyword{datasets}

@@ -9,19 +9,21 @@ AFM Compositions of Aphyric Skye Lavas
 \description{
 The \code{Skye} data frame has 23 rows and 3 columns.
 }
+\usage{
+data(Skye)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{A}{
+\describe{
+\item{\code{A}}{
 Percentage of sodium and potassium oxides
 }
-\item{F}{
+\item{\code{F}}{
 Percentage of iron oxide
 }
-\item{M}{
+\item{\code{M}}{
 Percentage of magnesium oxide
-}}
+}}}
 \source{
 J. Aitchison (1986)
 \emph{The Statistical Analysis of Compositional Data.}
@@ -32,7 +34,7 @@ R.N. Thompson, J. Esson and A.C. Duncan (1972)
 Major element chemical variation in the Eocene lavas of the Isle of
 Skye.
 \emph{J. Petrology}
-\bold{13}, 219-253.
+\bold{13}, 219--253.
 }
 \examples{
 # ternary() is from the on-line answers.

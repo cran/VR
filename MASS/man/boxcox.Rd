@@ -3,6 +3,9 @@
 %
 \name{boxcox}
 \alias{boxcox}
+\alias{boxcox.default}
+\alias{boxcox.formula}
+\alias{boxcox.lm}
 \title{
 Box-Cox Transformations for Linear Models
 }
@@ -19,7 +22,7 @@ a formula or fitted model object.  Currently only \code{lm} and \code{aov} objec
 are handled.
 }
 \item{lambda}{
-vector of values of \code{lambda} -- default (-2, 2) in steps of 0.1
+vector of values of \code{lambda} -- default \eqn{(-2, 2)} in steps of 0.1
 }
 \item{plotit}{
 logical which controls whether the result should be plotted.

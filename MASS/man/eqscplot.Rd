@@ -27,7 +27,7 @@ desired ratio of units on the axes. Units on the y axis are drawn at
 specified and of length 2.
 }
 \item{tol}{
-proportion of "white space" at the margins of plot
+proportion of white space at the margins of plot
 }
 \item{uin}{
 desired values for the units per inch parameter. If of length 1, the

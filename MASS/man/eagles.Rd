@@ -12,30 +12,32 @@ behaviour of wintering Bald Eagles in Washington State, USA data
 concerning 160 attempts by one (pirating) Bald Eagle to steal a chum
 salmon from another (feeding) Bald Eagle.
 }
+\usage{
+data(eagles)
+}
 \format{
 The \code{eagles} data frame has 8 rows and 5 columns.
-}
-\arguments{
-\item{y}{
+\describe{
+\item{\code{y}}{
 Number of successful attempts.
 }
-\item{n}{
+\item{\code{n}}{
 Total number of attempts.
 }
-\item{P}{
+\item{\code{P}}{
 Size of pirating eagle (\code{L} = large, \code{S} = small).
 }
-\item{A}{
+\item{\code{A}}{
 Age of pirating eagle (\code{I} = immature, \code{A} = adult).
 }
-\item{V}{
+\item{\code{V}}{
 Size of victim eagle (\code{L} = large, \code{S} = small).
-}}
+}}}
 \source{
 Knight, R. L. and Skagen, S. K. (1988)
 Agonistic asymmetries and the foraging ecology of Bald Eagles.
 \emph{Ecology,}
-\bold{69}, 1188-1194.
+\bold{69}, 1188--1194.
 }
 \examples{
 data(eagles)

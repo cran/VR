@@ -33,7 +33,7 @@ The limits of the rectangle covered by the grid as \code{c(xl, xu, yl, yu)}.
 \value{
 A list of three components.
 
-\item{x,}{
+\item{x, y}{
 The x and y coordinates of the grid points, vectors of length \code{n}.
 }
 \item{z}{

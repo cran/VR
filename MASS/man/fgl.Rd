@@ -11,41 +11,43 @@ The \code{fgl} data frame has 214 rows and 10 columns.
 It was collected by B. German on fragments of glass
 collected in forensic work.
 }
+\usage{
+data(fgl)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{RI}{
+\describe{
+\item{\code{RI}}{
 refractive index; more precisely the refractive index is 1.518xxxx.
 
 
 The remaining 8 measurements are percentages by weight of oxides.
 }
-\item{Na}{
+\item{\code{Na}}{
 sodium
 }
-\item{Mg}{
+\item{\code{Mg}}{
 manganese
 }
-\item{Al}{
+\item{\code{Al}}{
 aluminium
 }
-\item{Si}{
+\item{\code{Si}}{
 silicon
 }
-\item{K}{
+\item{\code{K}}{
 potassium
 }
-\item{Ca}{
+\item{\code{Ca}}{
 calcium
 }
-\item{Ba}{
+\item{\code{Ba}}{
 barium
 }
-\item{Fe}{
+\item{\code{Fe}}{
 iron
 }
-\item{type}{
+\item{\code{type}}{
 The fragments were originally classed into seven types, one of which
 was absent in this dataset.  The categories which occur are 
 window float glass (\code{WinF}: 70),
@@ -54,5 +56,5 @@ vehicle window glass (\code{Veh}: 17),
 containers (\code{Con}: 13), 
 tableware (\code{Tabl}: 9) and
 vehicle headlamps (\code{Head}: 29).
-}}
+}}}
 \keyword{datasets}

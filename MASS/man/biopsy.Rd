@@ -13,43 +13,45 @@ of breast tumours for 699 patients up to 15 July 1992; each of nine
 attributes has been scored on a scale of 1 to 10, and the outcome is
 also known. There are 699 rows and 11 columns.
 }
+\usage{
+data(biopsy)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{ID}{
+\describe{
+\item{\code{ID}}{
 Sample code number (not unique)
 }
-\item{V1}{
+\item{\code{V1}}{
 Clump thickness
 }
-\item{V2}{
+\item{\code{V2}}{
 Uniformity of cell size
 }
-\item{V3}{
+\item{\code{V3}}{
 Uniformity of cell shape
 }
-\item{V4}{
+\item{\code{V4}}{
 Marginal adhesion
 }
-\item{V5}{
+\item{\code{V5}}{
 Single epithelial cell size
 }
-\item{V6}{
+\item{\code{V6}}{
 Bare nuclei (16 values are missing)
 }
-\item{V7}{
+\item{\code{V7}}{
 Bland chromatin
 }
-\item{V8}{
+\item{\code{V8}}{
 Normal nucleoli
 }
-\item{V9}{
+\item{\code{V9}}{
 Mitoses
 }
-\item{class}{
+\item{\code{class}}{
 \code{"benign"} or \code{"malignant"}
-}}
+}}}
 \source{
 P. M. Murphy and D. W. Aha  (1992). UCI Repository of machine
 learning databases. [Machine-readable data repository]. Irvine, CA:
@@ -66,7 +68,7 @@ William H. Wolberg and O.L. Mangasarian (1990)
 Multisurface method of pattern separation for medical diagnosis
 applied to breast cytology.
 \emph{Proceedings of the National Academy of Sciences, U.S.A., }
-\bold{87},  pp 9193-9196.
+\bold{87},  pp 9193--9196.
 
 
 O. L. Mangasarian, R. Setiono and W.H. Wolberg (1990)
@@ -75,12 +77,12 @@ to medical diagnosis.
 In
 \emph{Large-scale Numerical Optimization}
 eds Thomas F. Coleman and Yuying Li, SIAM Publications, Philadelphia,
-pp 22-30.
+pp 22--30.
 
 
 K. P. Bennett and O. L. Mangasarian (1992)
 Robust linear programming discrimination of two linearly inseparable sets.
 \emph{Optimization Methods and Software}
-\bold{1}, pp. 23-34 (Gordon & Breach Science Publishers).
+\bold{1}, pp. 23--34 (Gordon & Breach Science Publishers).
 }
 \keyword{datasets}

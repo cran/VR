@@ -7,10 +7,10 @@ k-Nearest Neighbour Classification
 }
 \description{
 k-nearest neighbour classification for test set from training set. For
-each row of the test set, the k nearest (in Euclidean distance)
+each row of the test set, the \code{k} nearest (in Euclidean distance)
 training set vectors are found, and the classification is decided by
 majority vote, with ties broken at random. If there are ties for the
-kth nearest vector, all candidates are included in the vote.
+\code{k}th nearest vector, all candidates are included in the vote.
 }
 \usage{
 knn(train, test, class, k=1, l=1, prob=FALSE, use.all=TRUE)

@@ -10,20 +10,22 @@ Anorexia Data on Weight Change
 The \code{anorexia} data frame has 72 rows and 3 columns.
 Weight change data for young female anorexia patients.
 }
+\usage{
+data(anorexia)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Treat}{
+\describe{
+\item{\code{Treat}}{
 Factor of three levels: Cont (Control), CBT (Cognitive Behavioural
 Treatment) and  FT (Family treatment).
 }
-\item{Prewt}{
+\item{\code{Prewt}}{
 Weight of patient before study period, in lbs.
 }
-\item{Postwt}{
+\item{\code{Postwt}}{
 Weight of patient after study period, in lbs.
-}}
+}}}
 \source{
 Hand, D. J., Daly, F., McConway, K., Lunn, D. and Ostrowski, E. eds (1993)
 \emph{A Handbook of Small Data Sets.}

@@ -3,6 +3,7 @@
 %
 \name{summary.rlm}
 \alias{summary.rlm}
+\alias{print.summary.rlm}
 \title{
 Summary Method for Robust Linear Models
 }
@@ -58,7 +59,7 @@ The terms object used in fitting this model.
 }}
 \details{
 This function is a method for the generic function
-\code{summary()} for class \code{rlm}.
+\code{summary()} for class \code{"rlm"}.
 It can be invoked by calling \code{summary(x)} for an
 object \code{x} of the appropriate class, or directly by
 calling \code{summary.rlm(x)} regardless of the

@@ -33,7 +33,7 @@ a bandwidth.
 Sheather, S. J. and Jones, M. C. (1991) A reliable data-based bandwidth
 selection method for kernel density estimation.
 \emph{Journal of the Royal Statistical Society series B}
-\bold{53}, 683-690.
+\bold{53}, 683--690.
 
 
 Scott, D. W. (1992)

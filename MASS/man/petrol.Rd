@@ -15,33 +15,35 @@ These data were originally used by Prater (1956) to
 build an estimation equation for the yield of the refining
 process of crude oil to gasoline.
 }
+\usage{
+data(petrol)
+}
 \format{
 The variables are as follows
-}
-\arguments{
-\item{No}{
+\describe{
+\item{\code{No}}{
 Crude oil sample identification label. (factor)
 }
-\item{SG}{
+\item{\code{SG}}{
 Specific gravity, degrees API.  (Constant within sample.)
 }
-\item{VP}{
+\item{\code{VP}}{
 Vapour pressure in psi. (Constant within sample.)
 }
-\item{V10}{
+\item{\code{V10}}{
 Volatility of crude; ASTM 10\% point. (Constant within sample.)
 }
-\item{EP}{
+\item{\code{EP}}{
 Desired volatility of gasoline. (The end point.  Varies within sample.)
 }
-\item{Y}{
+\item{\code{Y}}{
 Yield as a percentage of crude.
-}}
+}}}
 \source{
 N. H. Prater (1956)
 Estimate gasoline yields from crudes.
 \emph{Petroleum Refiner}
-\bold{35}, 236-238.
+\bold{35}, 236--238.
 
 
 This dataset is also given in

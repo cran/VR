@@ -46,7 +46,7 @@ None.
 }
 \details{
 This function is a method for the generic function
-\code{pairs()} for class \code{lda}.
+\code{pairs()} for class \code{"lda"}.
 It can be invoked by calling \code{pairs(x)} for an
 object \code{x} of the appropriate class, or directly by
 calling \code{pairs.lda(x)} regardless of the

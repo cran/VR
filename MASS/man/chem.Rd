@@ -14,6 +14,6 @@ flour, in parts per million.
 Analytical Methods Committee (1989) Robust statistics -- how not to
 reject outliers.
 \emph{The Analyst}
-\bold{114}, 1693-1702, 1989
+\bold{114}, 1693--1702, 1989
 }
 \keyword{datasets}

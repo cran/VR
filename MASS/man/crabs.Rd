@@ -13,39 +13,41 @@ species
 \emph{Leptograpsus variegatus}
 collected at Fremantle, W. Australia.
 }
+\usage{
+data(crabs)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{sp}{
+\describe{
+\item{\code{sp}}{
 \code{species} - \code{"B"} or \code{"O"} for blue or orange
 }
-\item{sex}{
+\item{\code{sex}}{
 as it says
 }
-\item{index}{
+\item{\code{index}}{
 index 1:50 within each of the four groups
 }
-\item{FL}{
+\item{\code{FL}}{
 frontal lobe size (mm)
 }
-\item{RW}{
+\item{\code{RW}}{
 rear width (mm)
 }
-\item{CL}{
+\item{\code{CL}}{
 carapace length (mm)
 }
-\item{CW}{
+\item{\code{CW}}{
 carapace width (mm)
 }
-\item{BD}{
+\item{\code{BD}}{
 body depth (mm)
-}}
+}}}
 \source{
 Campbell, N.A. and Mahon, R.J. (1974) A multivariate
 study of variation in two species of rock crab of genus
 \emph{Leptograpsus.}
 \emph{Australian Journal of  Zoology}
-\bold{22}, 417-425.
+\bold{22}, 417--425.
 }
 \keyword{datasets}

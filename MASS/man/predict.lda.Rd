@@ -16,7 +16,7 @@ predict.lda(object, newdata, prior, dimen,
 }
 \arguments{
 \item{object}{
-object  of class \code{lda}
+object  of class \code{"lda"}
 }
 \item{newdata}{
 matrix or data frame of cases to be classified or, if object
@@ -55,7 +55,7 @@ the scores of test cases on up to \code{dimen} discriminant variables
 }}
 \details{
 This function is a method for the generic function
-\code{predict()} for class \code{lda}.
+\code{predict()} for class \code{"lda"}.
 It can be invoked by calling \code{predict(x)} for an
 object \code{x} of the appropriate class, or directly by
 calling \code{predict.lda(x)} regardless of the

@@ -14,28 +14,30 @@ and \code{kc},
 \emph{Keratella cochlearis}
 and for each species the number falling out and the total number are given.
 }
-\format{
+\usage{
+data(rotifer)
 }
-\arguments{
-\item{density}{
+\format{
+\describe{
+\item{\code{density}}{
 specific density of fluid
 }
-\item{pm.y}{
+\item{\code{pm.y}}{
 number falling out for 
 \emph{P. major}
 }
-\item{pm.total}{
+\item{\code{pm.total}}{
 total number of
 \emph{P. major}
 }
-\item{kc.y}{
+\item{\code{kc.y}}{
 number falling out for
 \emph{K. cochlearis}
 }
-\item{kc.tot}{
+\item{\code{kc.tot}}{
 total number of
 \emph{K. cochlearis}
-}}
+}}}
 \source{
 D. Collett (1991)
 \emph{Modelling Binary Data.}

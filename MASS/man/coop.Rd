@@ -10,28 +10,30 @@ Co-operative Trial in Analytical Chemistry
 Seven specimens were sent to 6 laboratories in 3 separate batches and
 each analysed for Analyte.  Each analysis was duplicated.
 }
+\usage{
+data(coop)
+}
 \format{
 This data frame contains the following columns:
+\describe{
+\item{\code{Lab}}{
+Laboratory, \code{L1}, \code{L2}, \dots, \code{L6}.
 }
-\arguments{
-\item{Lab}{
-Laboratory, \code{L1}, \code{L2}, \dots{}, \code{L6}.
+\item{\code{Spc}}{
+Specimen, \code{S1}, \code{S2}, \dots, \code{S6}.
 }
-\item{Spc}{
-Specimen, \code{S1}, \code{S2}, \dots{}, \code{S6}.
-}
-\item{Bat}{
+\item{\code{Bat}}{
 Batch, \code{B1}, \code{B2}, \code{B3} (nested within \code{Spc/Lab}),
 }
-\item{Conc}{
+\item{\code{Conc}}{
 Concentration of Analyte in g/kg.
-}}
+}}}
 \source{
 Analytical Methods Committee (1987)  
 Recommendations for the conduct and
 interpretation of co-operative trials, 
 \emph{The Analyst}
-\bold{112}, 679-686.
+\bold{112}, 679--686.
 }
 \seealso{
 \code{\link{chem}}, \code{\link{abbey}}.

@@ -3,6 +3,7 @@
 %
 \name{summary.loglm}
 \alias{summary.loglm}
+\alias{print.summary.loglm}
 \title{
 Summary Method Function for Objects of Class `loglm'
 }
@@ -37,7 +38,7 @@ otherwise \code{NULL}.
 }}
 \details{
 This function is a method for the generic function
-\code{summary()} for class \code{loglm}.
+\code{summary()} for class \code{"loglm"}.
 It can be invoked by calling \code{summary(x)} for an
 object \code{x} of the appropriate class, or directly by
 calling \code{summary.loglm(x)} regardless of the

@@ -23,28 +23,30 @@ were fairly small.
 
 
 }
+\usage{
+data(snails)
+}
 \format{
 The data frame contains the following components:
-}
-\arguments{
-\item{Species}{
+\describe{
+\item{\code{Species}}{
 Snail species A (1) or B (2)
 }
-\item{Exposure}{
+\item{\code{Exposure}}{
 Exposure in weeks
 }
-\item{Rel.Hum}{
+\item{\code{Rel.Hum}}{
 Relative humidity (4 levels)
 }
-\item{Temp}{
+\item{\code{Temp}}{
 Temperature, in degrees Celsius (3 levels)
 }
-\item{Deaths}{
+\item{\code{Deaths}}{
 Number of deaths
 }
-\item{N}{
+\item{\code{N}}{
 Number of snails exposed
-}}
+}}}
 \source{
 Zoology Department, The University of Adelaide.
 }

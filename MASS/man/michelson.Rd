@@ -9,23 +9,25 @@ Michelson's Speed of Light Data
 \description{
 Measurements of the speed of light in air, made between 5th June
 and 2nd July, 1879.  The data consists of five experiments, each
-consisting of 20 consecutive "runs".  The response is the speed
+consisting of 20 consecutive runs.  The response is the speed
 of light in km/s, less 299000.  The currently accepted value, on
 this scale of measurement, is 734.5.
 }
+\usage{
+data(michelson)
+}
 \format{
 The data frame contains the following components:
-}
-\arguments{
-\item{Expt}{
+\describe{
+\item{\code{Expt}}{
 The experiment number, from 1 to 5
 }
-\item{Run}{
+\item{\code{Run}}{
 The run number within each experiment
 }
-\item{Speed}{
+\item{\code{Speed}}{
 Speed-of-light measurement
-}}
+}}}
 \source{
 A.J. Weekes (1986)
 \emph{A Genstat Primer.}
@@ -34,6 +36,6 @@ Edward Arnold.
 
 S. M. Stigler (1977) Do robust estimators work with real data?
 \emph{Annals of Statistics}
-\bold{5}, 1055-1098.
+\bold{5}, 1055--1098.
 }
 \keyword{datasets}

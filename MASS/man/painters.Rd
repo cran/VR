@@ -12,23 +12,25 @@ classical painters.  The painters were assessed on four characteristics:
 composition, drawing, colour and expression.  The data is due to the
 Eighteenth century art critic, de Piles.
 }
+\usage{
+data(painters)
+}
 \format{
 The row names of the data frame are the painters. The components are:
-}
-\arguments{
-\item{Composition}{
+\describe{
+\item{\code{Composition}}{
 Composition score
 }
-\item{Drawing}{
+\item{\code{Drawing}}{
 Drawing score
 }
-\item{Colour}{
+\item{\code{Colour}}{
 Colour score
 }
-\item{Expression}{
+\item{\code{Expression}}{
 Expression score
 }
-\item{School}{
+\item{\code{School}}{
 The school to which a painter belongs, as indicated by a factor level
 code as follows:
 \code{"A"}: Renaissance; 
@@ -39,7 +41,7 @@ code as follows:
 \code{"F"}: Sixteenth Century;
 \code{"G"}: Seventeenth Century;
 \code{"H"}: French.
-}}
+}}}
 \source{
 A. J. Weekes (1986)
 \emph{A Genstat Primer.}
@@ -49,7 +51,7 @@ Edward Arnold.
 M. Davenport and G. Studdert-Kennedy (1972) The statistical
 analysis of aesthetic judgement: an exploration. 
 \emph{Applied Statistics}
-\bold{21},  324-333.
+\bold{21},  324--333.
 
 
 I. T. Jolliffe (1986)

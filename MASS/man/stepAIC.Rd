@@ -75,8 +75,9 @@ saturated model is well-defined (thus excluding \code{lm}, \code{aov} and
 \code{stepAIC} differs from \code{step} and especially \code{step.glm} in using the
 exact AIC rather than potentially misleading one-step approximations.
 It is also much more widely applicable: all that is required is a
-method for \code{extractAIC}, which should return a vector `c(modeldf,
-AIC)'.  The default method handles linear models (\code{lm}, \code{aov} and
+method for \code{extractAIC}, which should return a vector 
+\code{c(modeldf, AIC)}.
+The default method handles linear models (\code{lm}, \code{aov} and
 \code{glm} of family \code{"Gaussian"} with identity link) using \code{addterm.lm} and
 \code{dropterm.lm}: for these the results are similar to \code{step.glm} except
 that the AIC quoted is Akaike's not Hastie's. (The additive constant

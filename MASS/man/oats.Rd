@@ -12,27 +12,29 @@ four levels of manurial treatment.  The experiment was laid out in 6 blocks
 of 3 main plots, each split into 4 sub-plots.  The varieties were applied
 to the main plots and the manurial treatments to the sub-plots.
 }
+\usage{
+data(oats)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{B}{
+\describe{
+\item{\code{B}}{
 Blocks, levels I, II, III, IV, V and VI
 }
-\item{V}{
+\item{\code{V}}{
 Varieties, 3 levels.
 }
-\item{N}{
+\item{\code{N}}{
 Nitrogen (manurial) treatment, levels  0.0cwt, 0.2cwt, 0.4cwt and 0.6cwt,
 showing the application in cwt/acre.
 }
-\item{Y}{
+\item{\code{Y}}{
 Yields in 1/4lbs per sub-plot, each of area 1/80 acre.
-}}
+}}}
 \source{
 Yates, F. (1935) Complex experiments,
 \emph{Journal of the Royal Statistical Society Suppl.}
-\bold{2}, 181-247.
+\bold{2}, 181--247.
 
 
 Also given in 

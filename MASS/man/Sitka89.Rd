@@ -12,22 +12,24 @@ measurements on the log-size of 79 Sitka spruce trees, 54 of which
 were grown in ozone-enriched chambers and 25 were controls.  The size
 was measured eight times in 1989, at roughly monthly intervals.
 }
+\usage{
+data(Sitka89)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{size}{
+\describe{
+\item{\code{size}}{
 measured size (height times diameter squared) of tree, on log scale.
 }
-\item{Time}{
+\item{\code{Time}}{
 time of measurement in  days since 1 January 1988
 }
-\item{tree}{
+\item{\code{tree}}{
 number of tree
 }
-\item{treat}{
+\item{\code{treat}}{
 either \code{"ozone"} for an ozone-enriched chamber or \code{"control"}
-}}
+}}}
 \seealso{
 \code{\link{Sitka}}
 }

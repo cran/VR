@@ -17,10 +17,10 @@ glm.convert(object)
 }
 \arguments{
 \item{object}{
-An object of class \code{negbin}, typically the output from \code{glm.nb()}.
+An object of class \code{"negbin"}, typically the output from \code{glm.nb()}.
 }}
 \value{
-An object of class \code{glm} with negative binomial family.  The theta
+An object of class \code{"glm"} with negative binomial family.  The theta
 parameter is then fixed at its present estimate.
 }
 \details{

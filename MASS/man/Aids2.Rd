@@ -9,32 +9,34 @@ Australian AIDS Survival Data
 \description{
 Data on patients diagnosed with AIDS in Australia before 1 July 1991.
 }
+\usage{
+data(Aids2)
+}
 \format{
 This data frame contains 2843 rows and the following columns:
-}
-\arguments{
-\item{state}{
+\describe{
+\item{\code{state}}{
 Grouped state of origin: NSW includes ACT and \code{"other"} is WA, SA, NT
 and TAS.
 }
-\item{sex}{
+\item{\code{sex}}{
 Sex of patient
 }
-\item{diag}{
+\item{\code{diag}}{
 (Julian) date of diagnosis
 }
-\item{death}{
+\item{\code{death}}{
 (Julian) date of death or end of observation
 }
-\item{status}{
+\item{\code{status}}{
 \code{"A"} (alive) or \code{"D"} (dead) at end of observation
 }
-\item{T.categ}{
+\item{\code{T.categ}}{
 Reported transmission category
 }
-\item{age}{
+\item{\code{age}}{
 Age (years) at diagnosis
-}}
+}}}
 \note{
 This data set has been slightly jittered as a
 condition of its release, to ensure patient confidentiality.

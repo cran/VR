@@ -1,31 +1,9 @@
-This directory contains code and documentation for an R package based
-on `nnet' from Venables and Ripley, `Modern Applied Statistics with
-S-Plus' (2nd edition).
-
-The S original can be downloaded from
-  http://www.stats.ox.ac.uk/pub/MASS2/Unix.shtml
-and is Copyright (C) 1992-8 by by W. N. Venables and B. D. Ripley and
-released under the GPL (see the LICENCE file in the original for further
-details).  
-
-The original README file is appended below.
-
-The directory `man' contains R documentation sources converted via Sd2Rd
-from the S documentation sources.
-
-See `PORTING' for information on the changes in the R version.
-
-KH <Kurt.Hornik@ci.tuwien.ac.at> 1998/02/22.
-
-
-*** Original README ****************************************************
-
-nnet library from Venables & Ripley (2nd edition)
+nnet library from Venables & Ripley (3rd edition)
 =================================================
 
 Software for feed-forward neural networks with a single hidden layer.
 
-nnet		fit neural network using variable metric optimizer in C
+nnet		fit neural network
 predict.nnet	predict future observations.
 print.nnet
 summary.nnet
@@ -33,6 +11,8 @@ nnet.Hess	evaluate Hessian
 
 which.is.max	select maximum of vector, breaking ties at random
 class.ind	generates indicator matrix for factor
+
+
 
 software for multinomial log-linear models
 
@@ -44,5 +24,3 @@ add1.multinom
 drop1.multinom
 coef.multinom
 vcov.multinom
-max.col		find largest column for each row of a matrix,
-		breaking ties at random

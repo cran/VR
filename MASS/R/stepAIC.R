@@ -103,8 +103,8 @@ stepAIC <-
     nv <- 1
   }
   ## watch out for partial matching here.
-  if(is.list(object) && (nm <- match("nobs", names(object), 0)) > 0)
-    n <- object[[nm]]
+  if(is.list(object) && (nmm <- match("nobs", names(object), 0)) > 0)
+    n <- object[[nmm]]
   else n <- length(residuals(object))
   fit <- object
   bAIC <- extractAIC(fit, scale, k = k, ...)
@@ -176,6 +176,11 @@ stepAIC <-
     }
     usingCp <- match("Cp", names(aod), 0) > 0
     fit <- update(fit, paste("~ .", change))
+    if(is.list(fit) && (nmm <- match("nobs", names(fit), 0)) > 0)
+        nnew <- fit[[nmm]]
+    else nnew <- length(residuals(fit))
+    if(nnew != n)
+        stop("number of rows in use has changed: remove missing values?")
     fit$formula <- fixFormulaObject(fit)
     Terms <- fit$formula
     attributes(Terms) <- attributes(fit$terms)

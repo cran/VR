@@ -1,28 +1,18 @@
-This is a first shot at porting the whole main section of V&R's MASS
-library to R.  See `STATUS' for information on what already works.
-
-The original `README' is appended below.
-
--kh
-
-*** Original `README' **************************************************
-
-Functions and datasets from the Second Edition of
+Functions and datasets from the third Edition of
 
 Venables & Ripley  `Modern Applied Statistics with S-Plus'
 =========================================================
 
-xfunctions (in chapter order)
+functions (in chapter order)
 
-con2tr, mat2tr	convert to input for contourplot etc
 ginv		generalized inverse
-Choleski	Choleski decompositions for Matrices
 write.matrix	write matrix or numeric data frame
 eqscplot	equally-scaled plots
 
 mvrnorm		simulate from a multivariate normal distribution
+huber		Huber location with MAD scale
+hubers		Huber proposal 2
 truehist	histogram plots
-histplot	Trellis histogram plots
 nclass.scott	choose number of histogram classes
 nclass.FD	choose number of histogram classes
 hist.scott	histogram with other bin choices
@@ -40,9 +30,15 @@ studres		Studentized residuals for linear models
 vcov		variance-covariance summary for linear, glm and 
 		   non-linear regression fits
 contr.sdif	contrasts function for successive differences
-fraction	methods for operating on rational fractions
+fractions	methods for operating on rational fractions
 
+rlm		robust linear model fitting (by Huber M-estimator)
+addterm		try all one-term additions to a model
+dropterm	try all one-term deletions from a model
 stepAIC		stepwise AIC minimization
+lm.gls		generalized least squares fit
+lm.ridge	ridge regression
+
 dose.p		function for LD50-like fits
 neg.bin		negative binomial family with fixed theta
 anova.negbin	functions for full negative binomial family
@@ -53,25 +49,14 @@ rnegbin
 theta.md
 theta.mm
 loglm		Object-oriented wrapper for loglin() (from complements)
+polr		proportional odds logistic regression
 gamma.shape	MLE of shape parameter for GLM fit with gamma family
 gamma.dispersion		(from complements)
-
-IQR		inter-quartile range
-huber		Huber location with MAD scale
-hubers		Huber proposal 2
-rlm		robust linear model fitting (by Huber M-estimator)
 
 deviance.nls	deviance function for nls fits
 anova.nls
 predict.nls
-rms.curv	curvature measures for non-linear regression
-deriv3		symbolic differentiation
-D, make.call	extended functions
 plot.profile	enhanced plot method for profiles
-vcov.nlregb	vcov methods for nlregb objects
-vcov.nlminb	vcov methods for nlminb objects
-
-plot.survfit	modified function to plot survivor curves
 
 lda		linear discrimination
 predict.lda	predict function for lda
@@ -80,12 +65,10 @@ predict.qda	predict function for qda
 sammon		Sammon non-linear mapping
 isoMDS		isotonic multidimensional scaling
 Shepard		Shepard plot for isoMDS
+cov.rob 	robust estimation of multivariate location and scatter
+cov.trob
 corresp		correspondence analysis
 mca		multiple correspondence analysis (complements)
-
-cpgram		cumulative periodogram
-
-digamma, trigamma	first and second derivatives of log Gamma
 
 
 datasets (in alphabetical order)
@@ -93,14 +76,17 @@ datasets (in alphabetical order)
 abbey		nickel in syenite rock
 accdeaths	US accidental deaths 1973-8
 Aids2		Australian AIDS survival data
-animals		body and brain weights from Rousseeuw & Leroy
+Animals		body and brain weights from Rousseeuw & Leroy
+anorexia	weight change data for young female anorexia patients
 austres		quarterly series of the number of Australian residents
-beaver1		time series of body temperatures of two beavers
-beaver2
+beav1		time series of body temperatures of two beavers
+beav2
 biopsy		biopsies on breast cancer patients
 birthwt		data on low birth weights for 189 babies from 
 		   Hosmer & Lemeshow (1989)
 Boston		the Boston housing data
+cabbages	field trial of cabbages
+caith		cross-tabulation of eye and hair colours in Caithness
 Cars93		data from 93 cars on sale in the USA in 1993
 cats		cat weights from Fisher (1947)
 cement		dataset on heat evolved in setting cements
@@ -113,8 +99,8 @@ DDT		DDT in kale
 deaths		time-series on UK lung deaths 1974-9 from Diggle (1990)
 mdeaths, fdeaths  as above, for males and females
 drivers		time series on UK road deaths of drivers from Harvey (1989)
-faithful	duration and waiting time for eruption from Old Faithful
-farms		Ecological farm management in Terschelling island
+eagles		foraging behaviour of Bald Eagles
+farms		ecological farm management in Terschelling island
 fgl		fragments of glass from forensic tests
 forbes		Forbes' dataset on boiling points, from Atkinson
 GAGurine	levels of GAG in urine of 314 children
@@ -123,6 +109,7 @@ gehan		remission times on leukemia patients (censored)
 genotype	rat genotype data
 gilgais		line transect of soil in gilgai territory
 hills		dataset on times of Scottish hill races
+housing		Copenhagen housing conditions survey
 immer		bivariate randomized block expt on barley
 Insurance	numbers of car insurance claims by category
 leuk		(uncensored) survival times on leukemia patients
@@ -134,10 +121,12 @@ menarche	proportions of female children who have reached menarche
 michelson	Michelson's measurements of the speed of light
 minn38		status of Minnesota high-school leavers of 1938
 motors		accelerated life testing on motorettes
+muscle		effect of calcium chloride on muscle contraction in rat hearts
 newcomb		passage times for light
 nottem		time-series of temperatures in Nottingham, 1920-1939
+npk		N,P,K factorial experiment on peas
 npr1		US Naval Petroleum Reserve 1 dataset
-oats		split-plot trial of oat varieties
+oats		split-plot field trial of oat varieties
 OME		tests of auditory perception in children with OME
 painters	de Piles' scores of painters
 petrol		Prater's data on the refining of oil
@@ -147,6 +136,7 @@ Pima.te		diabetes in Pima Indians -- test data
 quine		School absences from Aitkin (1978)
 Rabbit		blood pressure experiments on rabbits
 road		road deaths by state in the USA
+rock            measurements on Petroleum Rock Samples
 rotifer		numbers of rotifers of two species vs fluid density
 Rubber		dataset on rubber wear
 shkap		USSR petroleum reservoir dataset
@@ -164,8 +154,8 @@ synth.tr	synthetic classification problem -- training data
 synth.te	synthetic classification problem -- test data
 topo		topographic dataset
 Traffic		effect of Swedish speed limits on accidents
-trees		volume of Black cherry trees vs diameter and height
 UScereal	nutritional and marketing information on US cereals
 UScrime		the effect of punishment regimes on crime rates
-wtloss		weight loss by an obese patient.
 waders		wader counts in South Africa
+whiteside	energy consumption in a domestic house
+wtloss		weight loss by an obese patient.

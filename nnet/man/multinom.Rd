@@ -2,6 +2,17 @@
 %
 \name{multinom}
 \alias{multinom}
+\alias{add1.multinom}
+\alias{anova.multinom}
+\alias{coef.multinom}
+\alias{drop1.multinom}
+\alias{extractAIC.multinom}
+\alias{predict.multinom}
+\alias{print.multinom}
+\alias{print.multinom}
+\alias{summary.multinom}
+\alias{print.summary.multinom}
+\alias{vcov.multinom}
 \title{
 Fit Multinomial Log-linear Models
 }
@@ -9,7 +20,7 @@ Fit Multinomial Log-linear Models
 Fits multinomial log-linear models via neural networks.
 }
 \usage{
-multinom(formula, data=sys.parent(), weights, subset, na.action, 
+multinom(formula, data=sys.frame(sys.parent()), weights, subset, na.action, 
 contrasts=NULL, Hess=FALSE, summ=0, censored=FALSE, \dots)
 }
 \arguments{

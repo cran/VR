@@ -10,65 +10,67 @@ Counts of Waders at 15 Sites in South Africa
 The \code{waders} data frame has 15 rows and 19 columns.
 The entries are counts of waders in summer.
 }
+\usage{
+data(waders)
+}
 \format{
 This data frame contains the following columns (species)
-}
-\arguments{
-\item{S1}{
+\describe{
+\item{\code{S1}}{
 Oystercatcher
 }
-\item{S2}{
+\item{\code{S2}}{
 White-fronted Plover
 }
-\item{S3}{
+\item{\code{S3}}{
 Kitt Lutz's Plover
 }
-\item{S4}{
+\item{\code{S4}}{
 Three-banded Plover
 }
-\item{S5}{
+\item{\code{S5}}{
 Grey Plover
 }
-\item{S6}{
+\item{\code{S6}}{
 Ringed Plover
 }
-\item{S7}{
+\item{\code{S7}}{
 Bar-tailed Godwit
 }
-\item{S8}{
+\item{\code{S8}}{
 Whimbrel
 }
-\item{S9}{
+\item{\code{S9}}{
 Marsh Sandpiper
 }
-\item{S10}{
+\item{\code{S10}}{
 Greenshank
 }
-\item{S11}{
+\item{\code{S11}}{
 Common Sandpiper
 }
-\item{S12}{
+\item{\code{S12}}{
 Turnstone
 }
-\item{S13}{
+\item{\code{S13}}{
 Knot
 }
-\item{S14}{
+\item{\code{S14}}{
 Sanderling
 }
-\item{S15}{
+\item{\code{S15}}{
 Little Stint
 }
-\item{S16}{
+\item{\code{S16}}{
 Curlew Sandpiper
 }
-\item{S17}{
+\item{\code{S17}}{
 Ruff
 }
-\item{S18}{
+\item{\code{S18}}{
 Avocet
 }
-\item{S19}{
+\item{\code{S19}}{
 Black-winged Stilt
 
 
@@ -88,7 +90,7 @@ L = Cape East wetland
 M = Transkei coast
 N = Natal coast
 O = Natal wetland
-}}
+}}}
 \source{
 J.C. Gower and D.J. Hand (1996)
 \emph{Biplots}
@@ -98,7 +100,7 @@ Chapman & Hall Table 9.1. Quoted as from:
 R.W. Summers, L.G. Underhill, D.J. Pearson and D.A. Scott (1987)
 Wader migration systems in south and eastern Africa and western Asia.
 \emph{Wader Study Group Bulletin}
-\bold{49} Supplement, 15-34.
+\bold{49} Supplement, 15--34.
 }
 \examples{
 library(mva)

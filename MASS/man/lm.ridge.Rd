@@ -3,6 +3,10 @@
 %
 \name{lm.ridge}
 \alias{lm.ridge}
+\alias{plot.ridgelm}
+\alias{print.ridgelm}
+\alias{select}
+\alias{select.ridgelm}
 \title{
 Ridge Regression
 }
@@ -15,8 +19,9 @@ lm.ridge(formula, data, subset, na.action, lambda=0, model=FALSE,
 }
 \arguments{
 \item{formula}{
-a formula expression as for regression models, of the form `response ~
-predictors'.  See the documentation of \code{formula} for other details.
+a formula expression as for regression models, of the form 
+\code{response ~ predictors}.
+See the documentation of \code{formula} for other details.
 }
 \item{data}{
 an optional data frame in which to interpret the variables occurring

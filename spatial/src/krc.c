@@ -311,7 +311,7 @@ chols(int n, double *a, double *l, Sint *ifail)
     double eps = 1e-9;
 
     int   icol, irow, i, j, k, m;
-    double w;
+    double w = 0.0; /* -Wall */
     int   i1;
 
 /*  Forms Cholesky Decomposition of symmetric matrix (lower

@@ -3,6 +3,7 @@
 %
 \name{summary.negbin}
 \alias{summary.negbin}
+\alias{print.summary.negbin}
 \title{
 Summary Method Function for Objects of Class `negbin'
 }
@@ -38,7 +39,7 @@ information described above.
 \code{summary.glm} is used to produce the majority of the output and supply the
 result.
 This function is a method for the generic function
-\code{summary()} for class \code{negbin}.
+\code{summary()} for class \code{"negbin"}.
 It can be invoked by calling \code{summary(x)} for an
 object \code{x} of the appropriate class, or directly by
 calling \code{summary.negbin(x)} regardless of the

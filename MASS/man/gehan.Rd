@@ -13,22 +13,24 @@ treated with the drug
 and the rest are controls.  The trial was designed as matched pairs,
 both withdrawn from the trial when either came out of remission.
 }
+\usage{
+data(gehan)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{pair}{
+\describe{
+\item{\code{pair}}{
 label for pair
 }
-\item{time}{
+\item{\code{time}}{
 remission time in weeks
 }
-\item{cens}{
+\item{\code{cens}}{
 censoring, 0/1
 }
-\item{treat}{
+\item{\code{treat}}{
 treatment, control or 6-MP
-}}
+}}}
 \source{
 Cox, D. R. and Oakes, D. (1984)
 \emph{Analysis of Survival Data.}
@@ -38,7 +40,7 @@ Chapman & Hall, p. 7. Taken from
 Gehan, E.A. (1965) A generalized Wilcoxon test for comparing 
 arbitrarily single-censored samples.
 \emph{Biometrika}
-\bold{52}, 203-233.
+\bold{52}, 203--233.
 }
 \examples{
 library(survival5)

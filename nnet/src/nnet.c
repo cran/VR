@@ -18,7 +18,6 @@
   typedef double Sdata;
 #  include "R_ext/PrtUtil.h"
 #  define printf Rprintf
-#  define DataByCopy 1  /* use this to copy data into C, e.g. for R */
 #else
   typedef float Sdata;  /* type of data, weights and Hessian in caller */
 #endif
@@ -32,11 +31,6 @@ static void vmmin(int n, double *b, double *Fmin, int maxit, int trace,
 		  Sint *mask, double abstol, double reltol);
 static void fpass(Sdata *input, Sdata *goal, Sdata wx, int nr);
 static void Build_Net(int ninputs, int nhidden, int noutputs);
-
-#ifdef DataByCopy
-  static Sdata *svect(int n);
-  static void free_svect(Sdata *v);
-#endif
 
 static int Epoch;
 static double *Decay;
@@ -119,40 +113,6 @@ VR_unset_net()
     Free(ErrorSums);
     Free(Errors);
     Free(toutputs);
-}
-
-void
-VR_set_train(Sint *ntr, Sdata *train, Sdata *weights)
-{
-    int   i;
-
-    NTrain = *ntr;
-#ifdef DataByCopy
-    TrainIn = svect(NTrain * Ninputs);
-    TrainOut = svect(NTrain * Noutputs);
-    Weights = svect(NTrain);
-    for (i = 0; i < NTrain * Ninputs; i++)
-	TrainIn[i] = *train++;
-    for (i = 0; i < NTrain * Noutputs; i++)
-	TrainOut[i] = *train++;
-    for (i = 0; i < NTrain; i++)
-	Weights[i] = *weights++;
-#else
-    TrainIn = train;
-    TrainOut = train + Ninputs * NTrain;
-    Weights = weights;
-#endif
-}
-
-void 
-VR_unset_train()
-{
-#ifdef DataByCopy
-    free_svect(TrainIn);
-    free_svect(TrainOut);
-    free_svect(Weights);
-#endif
-
 }
 
 void
@@ -472,28 +432,17 @@ free_Lmatrix(double **m, int n)
     Free(m);
 }
 
-#ifdef DataByCopy
-static Sdata *
-svect(int n)
-{
-    Sdata *v;
-
-    v = Calloc(n, Sdata);
-    return v;
-}
-
-static void 
-free_svect(Sdata * v)
-{
-    Free(v);
-}
-#endif
 
 void
-VR_dovm(Sint *Nw, double *wts, double *Fmin,
+VR_dovm(Sint *ntr, Sdata *train, Sdata *weights,
+	Sint *Nw, double *wts, double *Fmin,
 	Sint *maxit, Sint *trace, Sint *mask,
 	double *abstol, double *reltol)
 {
+    NTrain = *ntr;
+    TrainIn = train;
+    TrainOut = train + Ninputs * NTrain;
+    Weights = weights;
     vmmin((int) *Nw, wts, Fmin, (int) *maxit, (int) *trace, mask,
 	  *abstol, *reltol);
 }
@@ -670,7 +619,7 @@ static void
 pHessian(Sdata *input, Sdata *goal, Sdata wx, int nr)
 {
     int   i, to1, to2, from1, from2, j, j1, j2, first1, first2;
-    double out, s, sum1, sum2, t, tmp, tot, P;
+    double out, s, sum1, sum2, t, tmp, tot = 0.0, P = 0.0;
 
     fpass(input, goal, 1.0, nr);
     bpass(goal, 1.0);
@@ -811,10 +760,15 @@ pHessian(Sdata *input, Sdata *goal, Sdata wx, int nr)
 #define min9(a,b) a<b?a:b
 
 void
-VR_nnHessian(double *inwts, Sdata *Hess)
+VR_nnHessian(Sint *ntr, Sdata *train, Sdata *weights,
+	     double *inwts, Sdata *Hess)
 {
     int   i, j;
 
+    NTrain = *ntr;
+    TrainIn = train;
+    TrainOut = train + Ninputs * NTrain;
+    Weights = weights;
     for (i = 0; i < Nweights; i++)
 	wts[i] = inwts[i];
     H = Lmatrix(Nweights);
@@ -846,6 +800,7 @@ VR_nnHessian(double *inwts, Sdata *Hess)
     free_vect(h1);
     free_matrix(w, Nunits, Nunits);
 }
+
 static int p, q;
 
 static int

@@ -10,19 +10,21 @@ US Naval Petroleum Reserve No. 1 data
 Data on the locations, porosity and permeability (a measure of oil flow) 
 on 104 oil wells in the US Naval Petroleum Reserve No. 1 in California.
 }
+\usage{
+data(npr1)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{x, y}{
+\describe{
+\item{\code{x, y}}{
 x and y coordinates, in miles from an arbitrary origin
 }
-\item{perm}{
+\item{\code{perm}}{
 permeability in milli-Darcies
 }
-\item{por}{
+\item{\code{por}}{
 porosity (\%)
-}}
+}}}
 \source{
 Maher, J.C., Carter, R.D. and Lantz, R.J. (1975) 
 Petroleum geology of Naval Petroleum Reserve No. 1, Elk Hills,

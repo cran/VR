@@ -3,6 +3,12 @@
 %
 \name{qda}
 \alias{qda}
+\alias{qda.data.frame}
+\alias{qda.default}
+\alias{qda.formula}
+\alias{qda.matrix}
+\alias{model.frame.qda}
+\alias{print.qda}
 \title{
 Quadratic Discriminant Analysis
 }
@@ -17,7 +23,7 @@ qda(x,   grouping, prior = proportions, subset,
 }
 \arguments{
 \item{formula}{
-A formula of the form \code{groups ~ x1 + x2 + \dots{}}  That is, the
+A formula of the form \code{groups ~ x1 + x2 + \dots}  That is, the
 response is the grouping factor and the right hand side specifies
 the (non-factor) discriminators.
 }
@@ -62,7 +68,7 @@ the proportions in the whole dataset are used.
 degrees of freedom for \code{method = "t"}.
 }}
 \value{
-an object of class qda containing the following components:
+an object of class \code{"qda"} containing the following components:
 
 \item{prior}{
 the prior probabilities used.

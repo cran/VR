@@ -13,6 +13,10 @@ addterm.default <-
         scope <- add.scope(object, update.formula(object, scope))
     if(!length(scope))
         stop("no terms in scope for adding to object")
+#     newform <- update.formula(object,
+#                               paste(". ~ . +", paste(scope, collapse="+")))
+#     data <- model.frame(update(object, newform)) # remove NAs
+#     object <- update(object, data = data)
     ns <- length(scope)
     ans <- matrix(nrow = ns + 1, ncol = 2,
                   dimnames = list(c("<none>", scope), c("df", "AIC")))
@@ -136,10 +140,14 @@ addterm.glm <-
     x <- model.matrix(Terms, model.frame(fob, xlev = object$xlevels),
                       contrasts = object$contrasts)
     n <- nrow(x)
-    y <- object$y
     m <- model.frame(object)
-    if(is.null(y)) y <- model.response(m, "numeric")
-    wt <- object$prior.weights
+    oldn <- length(object$residuals)
+    y <- model.response(m, "numeric")
+    newn <- length(y)
+    if(newn < oldn)
+        warning(paste("using the", newn, "/", oldn ,
+                      "rows from a combined fit"))
+    wt <- model.extract(m, "weights")
     if(is.null(wt)) wt <- rep(1, n)
     Terms <- attr(Terms, "term.labels")
     asgn <- attr(x, "assign")
@@ -208,6 +216,8 @@ dropterm.default <-
         if(!all(match(scope, tl, FALSE)))
             stop("scope is not a subset of term labels")
     }
+#    data <- model.frame(object) # remove NAs
+#    object <- update(object, data = data)
     ns <- length(scope)
     ans <- matrix(nrow = ns + 1, ncol = 2,
                   dimnames =  list(c("<none>", scope), c("df", "AIC")))

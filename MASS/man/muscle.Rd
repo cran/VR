@@ -15,19 +15,21 @@ stimulated and dipped into various concentrations of calcium
 chloride solution, after which the shortening of the strip was
 accurately measured as the response. 
 }
+\usage{
+data(muscle)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Strip}{
+\describe{
+\item{\code{Strip}}{
 which heart muscle strip was used?
 }
-\item{Conc}{
+\item{\code{Conc}}{
 concentration of calcium chloride solution, in multiples of 2.2 mM.
 }
-\item{Length}{
+\item{\code{Length}}{
 the change in length (shortening) of the strip, (allegedly) in mm.
-}}
+}}}
 \source{
 Linder, A., Chakravarti, I. M. and Vuagnat, P. (1964)
 Fitting asymptotic regression curves with different asymptotes.

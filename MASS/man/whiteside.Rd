@@ -13,21 +13,23 @@ house in south-east England for 26 weeks before, and 30 weeks after
 cavity-wall insulation was installed. The object of the exercise was
 to assess the effect of the insulation on gas consumption.
 }
+\usage{
+data(whiteside)
+}
 \format{
 The \code{whiteside} data frame has 56 rows and 3 columns.:
-}
-\arguments{
-\item{Insul}{
+\describe{
+\item{\code{Insul}}{
 A factor, before or after insulation.
 }
-\item{Temp}{
+\item{\code{Temp}}{
 Purportedly the average outside temperature in degrees Celsius. (These
 values is far too low for any 56-week period in the 1960s in
 South-East England. It might be the weekly average of daily minima.)
 }
-\item{Gas}{
+\item{\code{Gas}}{
 The weekly gas consumption in 1000s of cubic feet.
-}}
+}}}
 \source{
 A data set collected in the 1960s by Mr Derek Whiteside of the
 UK~Building Research Station. Reported by

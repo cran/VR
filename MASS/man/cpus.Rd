@@ -9,44 +9,46 @@ Performance of Computer CPUs
 \description{
 A relative performance measure and characteristics of 209 CPUs.  
 }
+\usage{
+data(cpus)
+}
 \format{
 The components are:
 
 
-}
-\arguments{
-\item{name}{
+\describe{
+\item{\code{name}}{
 Manufacturer and model
 }
-\item{syct}{
+\item{\code{syct}}{
 cycle time in nanoseconds
 }
-\item{mmin}{
+\item{\code{mmin}}{
 minimum main memory in kilobytes
 }
-\item{mmax}{
+\item{\code{mmax}}{
 maximum main memory in kilobytes
 }
-\item{cach}{
+\item{\code{cach}}{
 cache size in kilobytes
 }
-\item{chmin}{
+\item{\code{chmin}}{
 minimum number of channels
 }
-\item{chmax}{
+\item{\code{chmax}}{
 maximum number of channels
 }
-\item{perf}{
+\item{\code{perf}}{
 published performance on a benchmark mix relative to an IBM 370/158-3
 }
-\item{estperf}{
+\item{\code{estperf}}{
 estimated performance (by Ein-Dor & Feldmesser)
-}}
+}}}
 \source{
 P. Ein-Dor & J. Feldmesser (1987)
 Attributes of the performance of central processing units: a relative
 performance prediction model.
 \emph{Comm. ACM.}
-\bold{30}, 308-317.
+\bold{30}, 308--317.
 }
 \keyword{datasets}

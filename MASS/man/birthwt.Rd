@@ -11,40 +11,42 @@ The \code{birthwt} data frame has 189 rows and 10 columns.
 The data were collected at Baystate Medical Center, Springfield, Mass
 during 1986.
 }
+\usage{
+data(birthwt)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{low}{
+\describe{
+\item{\code{low}}{
 indicator of birth weight less than 2.5kg
 }
-\item{age}{
+\item{\code{age}}{
 mother's age in years
 }
-\item{lwt}{
+\item{\code{lwt}}{
 mother's weight in pounds at last menstrual period
 }
-\item{race}{
+\item{\code{race}}{
 mother's race (\code{1} = white, \code{2} = black, \code{3} = other)
 }
-\item{smoke}{
+\item{\code{smoke}}{
 smoking status during pregnancy
 }
-\item{ptl}{
+\item{\code{ptl}}{
 number of previous premature labours
 }
-\item{ht}{
+\item{\code{ht}}{
 history of hypertension
 }
-\item{ui}{
+\item{\code{ui}}{
 presence of uterine irritability
 }
-\item{ftv}{
+\item{\code{ftv}}{
 number of physician visits during the first trimester
 }
-\item{bwt}{
+\item{\code{bwt}}{
 birth weight in grams
-}}
+}}}
 \source{
 Hosmer, D.W. and Lemeshow, S. (1989)
 \emph{Applied Logistic Regression.}

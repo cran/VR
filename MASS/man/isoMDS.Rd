@@ -3,6 +3,7 @@
 %
 \name{isoMDS}
 \alias{isoMDS}
+\alias{Shepard}
 \title{
 Kruskal's Non-metric Multidimensional Scaling
 }
@@ -39,7 +40,7 @@ A two-column vector of the fitted configuration.
 The final stress achieved (in percent).
 }}
 \section{Side Effects}{
-If trace is true, the initial stress and the current stress are printed
+If \code{trace} is true, the initial stress and the current stress are printed
 out every 5 iterations.
 }
 \details{

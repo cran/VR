@@ -19,7 +19,7 @@ Sitka89                  Growth Curves for Sitka Spruce Trees in 1989
 Skye                     AFM Compositions of Aphyric Skye Lavas
 Traffic                  Effect of Swedish Speed Limits on Accidents
 UScereal                 Nutritional and Marketing Information on US
-                         Cereals.
+                         Cereals
 UScrime                  The Effect of Punishment Regimes on Crime Rates
 VA                       Veteran's Administration lung cancer trial.
 abbey                    Determinations of Nickel Content
@@ -31,6 +31,8 @@ anova.negbin             Likelihood Ratio Tests for Negative Binomial
 area                     Adaptive Numerical Integration
 austres                  Quarterly Time Series of the Number of
                          Australian Residents
+bandwidth.nrd            Bandwidth for density() via Normal Reference
+                         Distribution.
 bcv                      Biased Cross-Validation for Bandwidth Selection
 beav1                    Body Temperature Series of Beaver 1
 beav2                    Body Temperature Series of Beaver 2
@@ -44,6 +46,7 @@ cats                     Anatomical Data from Domestic Cats
 cement                   Heat Evolved by Setting Cements
 chem                     Copper in Wholemeal Flour
 confint                  Confidence Intervals for Model Parameters
+contr.sdif               Successive Differences contrast coding
 coop                     Co-operative Trial in Analytical Chemistry
 corresp                  Simple Correspondence Analysis
 cov.trob                 Covariance Estimation for Multivariate t
@@ -51,6 +54,9 @@ cov.trob                 Covariance Estimation for Multivariate t
 cpus                     Performance of Computer CPUs
 crabs                    Morphological Measurements on Leptograpsus Crabs
 deaths                   Monthly Deaths from Lung Diseases in the UK
+denumerate               Transform an Allowable Formula for `loglm' Into
+                         One For `terms'.
+dose.p                   Predict Doses for Binomial Assay model
 drivers                  Deaths of Car Drivers in Great Britain 1969-84
 dropterm                 Try All One-Term Deletions from a Model
 eagles                   Foraging Ecology of Bald Eagles
@@ -63,7 +69,7 @@ fractions                Rational Approximation
 galaxies                 Velocities for 82 Galaxies
 gamma.dispersion         Calculate the MLE of the Gamma Dispersion
                          Parameter in a GLM Fit
-gamma.shape.glm          Estimate the Shape Parameter of the Gamma
+gamma.shape              Estimate the Shape Parameter of the Gamma
                          Distribution in a GLM Fit
 gehan                    Remission Times of Leukaemia Patients
 genotype                 Rat Genotype Data
@@ -74,10 +80,12 @@ glm.convert              Change a Negative Binomial fit to a GLM fit
 glm.nb                   Fit a Negative Binomial Generalized Linear Model
 heart                    The Stanford heart transplant data
 hills                    Record Times in Scottish Hill Races
+hist.scott               Plot a Histogram with Automatic Bin Width
+                         Selection
 housing                  Frequency Table from a Copenhagen Housing
                          Conditions Survey.
 huber                    Huber M-estimator of Location with MAD Scale
-hubers                   Huber "proposal 2" Robust Estimator of Location
+hubers                   Huber Proposal 2 Robust Estimator of Location
                          and/or Scale
 immer                    Yields from a Barley Field Trial
 isoMDS                   Kruskal's Non-metric Multidimensional Scaling
@@ -104,6 +112,7 @@ motors                   Accelerated Life Testing of Motorettes
 muscle                   Effect of Calcium Chloride on Muscle Contraction
                          in Rat Hearts
 mvrnorm                  Simulate from a Multivariate Normal Distribution
+naresid                  Adjust for Missing Values
 negative.binomial        Family function for Negative Binomial GLMs
 newcomb                  Newcomb's Measurements of the Passage Time of
                          Light
@@ -127,6 +136,7 @@ predict.qda              Classify from Quadratic Discriminant Analysis
 qda                      Quadratic Discriminant Analysis
 quine                    Absenteeism from School in Rural New South Wales
 rational                 Rational Approximation
+renumerate               Convert a Formula Transformed by `denumerate'
 rlm                      Robust Fitting of Linear Models
 rnegbin                  Simulate Negative Binomial Variates
 road                     Road Accident Deaths in US States
@@ -154,6 +164,8 @@ survey                   Student Survey Data
 synth.tr                 Synthetic Classification Problem
 theta.md                 Estimate theta of the Negative Binomial by
                          Deviance
+theta.ml                 Estimate theta of the Negative Binomial by
+                         Maximum Likelihood
 theta.mm                 Estimate theta of the Negative Binomial by
                          Moments
 topo                     Spatial Topographic Data
@@ -162,8 +174,6 @@ ucv                      Unbiased Cross-Validation for Bandwidth
                          Selection
 vcov                     Calculate Variance-Covariance Matrix for a
                          Fitted Model Object
-vcov.nlregb              Calculate Variance-Covariance Matrix for a
-                         `nlregb' Fit
 waders                   Counts of Waders at 15 Sites in South Africa
 whiteside                House Insulation: Whiteside's Data
 width.SJ                 Bandwidth Selection by Pilot Estimation of

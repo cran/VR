@@ -19,7 +19,7 @@ cov.trob(x, wt=rep(1, n), cor=FALSE, center=TRUE, nu=5, maxit=25, tol=0.01)
 data  matrix. Missing values (NAs) are not allowed.
 }
 \item{wt}{
-A vector of weights for each case: these are treat as if the case \code{i}
+A vector of weights for each case: these are treated as if the case \code{i}
 actually occurred \code{wt[i]} times.
 }
 \item{cor}{
@@ -32,7 +32,7 @@ the covariance is to be taken. If \code{center=FALSE}, no centering is done;
 if \code{center=TRUE} the MLE of the location vector is used.
 }
 \item{nu}{
-"degrees of freedom" for the multivariate t distribution. Must exceed
+``degrees of freedom'' for the multivariate t distribution. Must exceed
 2 (so that the covariance matrix is finite).
 }
 \item{maxit}{
@@ -69,7 +69,7 @@ The number of iterations used.
 J. T. Kent and D. E. Tyler and Y. Vardi (1994)
 A curious likelihood identity for the multivariate t-distribution.
 \emph{Communications in Statistics---Simulation and Computation,}
-\bold{23}, 441-453.
+\bold{23}, 441--453.
 }
 \seealso{
 \code{\link{cov}}, \code{\link{cov.wt}}, \code{\link{cov.mve}}

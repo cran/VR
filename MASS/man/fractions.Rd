@@ -3,6 +3,16 @@
 %
 \name{fractions}
 \alias{fractions}
+\alias{Math.fractions}
+\alias{Ops.fractions}
+\alias{Summary.fractions}
+\alias{[.fractions}
+\alias{[<-.fractions}
+\alias{as.character.fractions}
+\alias{as.fractions}
+\alias{is.fractions}
+\alias{print.fractions}
+\alias{t.fractions}
 \title{
 Rational Approximation
 }
@@ -11,7 +21,7 @@ Find rational approximations to the components of a real numeric
 object using a standard continued fraction method.
 }
 \usage{
-rational(x, cycles=10, max.denominator=2000)
+fractions(x, cycles=10, max.denominator=2000)
 }
 \arguments{
 \item{x}{
@@ -29,17 +39,17 @@ exceeds \code{max.denominator} the continued fraction stops at that point.
 An object of class \code{"fractions"}.  A structure with \code{.Data} component
 the same as the input numeric \code{x}, but with the rational
 approximations held as a character vector attribute, \code{"fracs"}.
-Arithmetic operations on \code{"fractions"} objects is possible.
+Arithmetic operations on \code{"fractions"} objects are possible.
 }
 \details{
 Each component is first expanded in a continued fraction of the
 form 
 
 
-\code{x = floor(x) + 1/(p1 + 1/(p2 + \dots{})))}
+\code{x = floor(x) + 1/(p1 + 1/(p2 + \dots)))}
 
 
-where \code{p1}, \code{p2}, \dots{} are positive integers, terminating either
+where \code{p1}, \code{p2}, \dots are positive integers, terminating either
 at \code{cycles} terms or when a \code{pj > max.denominator}.  The
 continued fraction is then re-arranged to retrieve the numerator
 and denominator as integers.
@@ -60,31 +70,27 @@ not.
 \examples{
 X <- matrix(runif(25), 5, 5)
 solve(X, X/5)
-\dontrun{
-            [,1]        [,2]       [,3]        [,4]        [,5] 
-[1,]  2.0000e-01  3.7199e-17 1.2214e-16  5.7887e-17 -8.7841e-17
-[2,] -1.1473e-16  2.0000e-01 7.0955e-17  2.0300e-17 -1.0566e-16
-[3,]  2.7975e-16  1.3653e-17 2.0000e-01 -1.3397e-16  1.5577e-16
-[4,] -2.9196e-16  2.0412e-17 1.5618e-16  2.0000e-01 -2.1921e-16
-[5,] -3.6476e-17 -3.6430e-17 3.6432e-17  4.7690e-17  2.0000e-01
-}
+##              [,1]        [,2]       [,3]        [,4]        [,5] 
+##  [1,]  2.0000e-01  3.7199e-17 1.2214e-16  5.7887e-17 -8.7841e-17
+##  [2,] -1.1473e-16  2.0000e-01 7.0955e-17  2.0300e-17 -1.0566e-16
+##  [3,]  2.7975e-16  1.3653e-17 2.0000e-01 -1.3397e-16  1.5577e-16
+##  [4,] -2.9196e-16  2.0412e-17 1.5618e-16  2.0000e-01 -2.1921e-16
+##  [5,] -3.6476e-17 -3.6430e-17 3.6432e-17  4.7690e-17  2.0000e-01
+
 fractions(solve(X, X/5))
-\dontrun{
-     [,1] [,2] [,3] [,4] [,5] 
-[1,] 1/5    0    0    0    0 
-[2,]   0  1/5    0    0    0 
-[3,]   0    0  1/5    0    0 
-[4,]   0    0    0  1/5    0 
-[5,]   0    0    0    0  1/5
-}
+##      [,1] [,2] [,3] [,4] [,5] 
+## [1,] 1/5    0    0    0    0 
+## [2,]   0  1/5    0    0    0 
+## [3,]   0    0  1/5    0    0 
+## [4,]   0    0    0  1/5    0 
+## [5,]   0    0    0    0  1/5
+
 fractions(solve(X, X/5)) + 1
-\dontrun{
-     [,1] [,2] [,3] [,4] [,5] 
-[1,] 6/5    1    1    1    1 
-[2,]   1  6/5    1    1    1 
-[3,]   1    1  6/5    1    1 
-[4,]   1    1    1  6/5    1 
-[5,]   1    1    1    1  6/5 
-}
+##      [,1] [,2] [,3] [,4] [,5] 
+## [1,] 6/5    1    1    1    1 
+## [2,]   1  6/5    1    1    1 
+## [3,]   1    1  6/5    1    1 
+## [4,]   1    1    1  6/5    1 
+## [5,]   1    1    1    1  6/5 
 }
 \keyword{math}

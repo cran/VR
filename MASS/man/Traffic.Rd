@@ -15,26 +15,28 @@ the speed limit was in effect and enforced, while on other days
 there was no speed limit and cars tended to be driven faster.
 The speed limit days tended to be in contiguous blocks. 
 }
+\usage{
+data(Traffic)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{year}{
+\describe{
+\item{\code{year}}{
 1961 or 1962
 }
-\item{day}{
+\item{\code{day}}{
 of year
 }
-\item{limit}{
+\item{\code{limit}}{
 was there a speed limit?
 }
-\item{y}{
+\item{\code{y}}{
 traffic accident count for that day
-}}
+}}}
 \source{
 Svensson, A. (1981)
 On the goodness-of-fit test for the multiplicative Poisson model.
 \emph{Annals of Statistics,}
-\bold{9} 697-704.
+\bold{9} 697--704.
 }
 \keyword{datasets}

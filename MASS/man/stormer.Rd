@@ -18,19 +18,21 @@ nonlinear relationship between time, weight and viscosity, of the form
 where \code{B1} and \code{B2} 
 are unknown parameters to be estimated, and \code{E} is error.
 }
+\usage{
+data(stormer)
+}
 \format{
 The data frame contains the following components:
-}
-\arguments{
-\item{Viscosity}{
+\describe{
+\item{\code{Viscosity}}{
 Viscosity of fluid
 }
-\item{Wt}{
+\item{\code{Wt}}{
 Actuating weight
 }
-\item{Time}{
+\item{\code{Time}}{
 Time taken
-}}
+}}}
 \source{
 E. J. Williams (1959)
 \emph{Regression Analysis.}

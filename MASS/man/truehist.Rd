@@ -26,7 +26,7 @@ The suggested number of bins.
 The bin width (takes precedence over \code{nbins}).
 }
 \item{x0}{
-Shift for the bins - the breaks are at \code{x0 + h * (\dots{}, -1, 0, 1, \dots{})} 
+Shift for the bins - the breaks are at \code{x0 + h * (\dots, -1, 0, 1, \dots)} 
 }
 \item{breaks}{
 The set of breakpoints to be used. (Usually omitted, takes precedence

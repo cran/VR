@@ -1,8 +1,10 @@
 % file MASS/gamma.shape.glm.d
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
-\name{gamma.shape.glm}
+\name{gamma.shape}
+\alias{gamma.shape}
 \alias{gamma.shape.glm}
+\alias{print.gamma.shape}
 \title{
 Estimate the Shape Parameter of the Gamma Distribution in a GLM Fit
 }
@@ -78,6 +80,5 @@ Alpha: 1.27834
    SE: 0.13452
 }
 summary(gm, dispersion = gamma.dispersion(gm))  # better summary
-\dontrun{    \dots.}
 }
 \keyword{models}

@@ -32,7 +32,7 @@ index vector of cases to be retained.
 \references{
 Gates, G.W. (1972) The reduced nearest neighbor rule.
 \emph{IEEE Trans. Information Theory}
-\bold{IT-18}, 431-432.
+\bold{IT-18}, 431--432.
 }
 \seealso{
 \code{\link{condense}}, \code{\link{multiedit}}

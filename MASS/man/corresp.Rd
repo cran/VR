@@ -3,6 +3,15 @@
 %
 \name{corresp}
 \alias{corresp}
+\alias{corresp.crosstabs}
+\alias{corresp.data.frame}
+\alias{corresp.default}
+\alias{corresp.factor}
+\alias{corresp.formula}
+\alias{corresp.matrix}
+\alias{biplot.correspondence}
+\alias{plot.correspondence}
+\alias{print.correspondence}
 \title{
 Simple Correspondence Analysis
 }
@@ -19,7 +28,7 @@ corresp(tabl, nf=1, \dots)
 The function is generic, accepting various forms of the principal
 argument for specifying a two-way frequency table.  Currently accepted
 forms are matrices, data frames (coerced to frequency tables), objects
-of class \code{crosstabs} and formulae of the form \code{~ F1 + F2}, where \code{F1}
+of class \code{"crosstabs"} and formulae of the form \code{~ F1 + F2}, where \code{F1}
 and \code{F2} are factors.
 }
 \item{nf}{
@@ -33,7 +42,7 @@ as well from which variables in the formula are preferentially
 satisfied.
 }}
 \value{
-An list object of class \code{correspondence} for which \code{print}, \code{plot} and
+An list object of class \code{"correspondence"} for which \code{print}, \code{plot} and
 \code{biplot} methods are supplied.  The main components are the canonical
 correlation(s) and the row and column scores. 
 }
@@ -42,7 +51,7 @@ See the reference.  The \code{plot} method produces a graphical
 representation of the table if \code{nf=1}, with the \emph{areas} of circles
 representing the numbers of points.  If \code{nf} is two or more the
 \code{biplot} method is called, which plots the second and third columns of
-the matrices \code{A = Dr^(-1/2\}) U L} and \code{B = Dc^(-1/2) U V} where the
+the matrices \code{A = Dr^(-1/2) U L} and \code{B = Dc^(-1/2) U V} where the
 singular value decomposition is \code{U L V}.  Thus the x-axis is the
 canonical correlation times the row and column scores. Although this
 is called a biplot, it does \emph{not} have any useful inner product

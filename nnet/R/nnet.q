@@ -127,9 +127,8 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
     stop("invalid weights vector")
   Z <- as.double(cbind(x,y))
   storage.mode(weights) <- "double"
-  z <- .C("VR_set_train", as.integer(ntr), Z, weights)
-  on.exit(.C("VR_unset_train"))
   tmp <- .C("VR_dovm",
+            as.integer(ntr), Z, weights,
 	    as.integer(length(wts)),
 	    wts=as.double(wts),
 	    val=double(1),
@@ -281,14 +280,10 @@ nnet.Hess <- function(net, x, y, weights)
     stop("invalid weights vector")
   Z <- as.double(cbind(x,y))
   storage.mode(weights) <- "double"
-  z <- .C("VR_set_train",
-	  as.integer(ntr),
-	  Z,
-	  weights
-	  )
-  z <- matrix(.C("VR_nnHessian", as.double(net$wts), H = double(nw*nw))$H,
+  z <- matrix(.C("VR_nnHessian", as.integer(ntr), Z, weights,
+                 as.double(net$wts), H = double(nw*nw))$H,
               nw, nw)
-  .C("VR_unset_train"); .C("VR_unset_net")
+  .C("VR_unset_net")
   z
 }
 

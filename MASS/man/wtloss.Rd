@@ -10,16 +10,18 @@ Weight Loss Data from an Obese Patient
 The data frame gives the weight, in kilograms, of an obese patient at 52
 time points over an 8 month period of a weight rehabilitation programme.
 }
+\usage{
+data(wtloss)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Days}{
+\describe{
+\item{\code{Days}}{
 Time in days since the start of the programme.
 }
-\item{Weight}{
+\item{\code{Weight}}{
 Weight in kilograms of the patient.
-}}
+}}}
 \source{
 Dr T. Davies, Adelaide.
 }

@@ -44,7 +44,7 @@ two examples in the codebook for each.
 \references{
 Kohonen, T. (1990) The self-organizing map.  
 \emph{Proc. IEEE}
-\bold{78}, 1464-1480.
+\bold{78}, 1464--1480.
 
 
 Kohonen, T. (1995)

@@ -3,12 +3,18 @@
 %
 \name{confint}
 \alias{confint}
+\alias{confint.glm}
+\alias{confint.nls}
+\alias{confint.lm}
+\alias{confint.profile.glm}
+\alias{confint.profile.nls}
+\alias{profile.glm}
 \title{
 Confidence Intervals for Model Parameters
 }
 \description{
 Computes confidence intervals for one or more parameters in a fitted
-model. Methods currently exist for \code{glm} and \code{nls} fits.
+model.  Methods currently exist for \code{lm}, \code{glm} and \code{nls} fits.
 }
 \usage{
 confint(object, parm = <<see below>>, level = 0.95, \dots)
@@ -39,6 +45,9 @@ limits for each parameter. These will be labelled as (1-level)/2 and
 confidence intervals by interpolation in the profile traces.
 If the profile object is already available it should be used as the 
 main argument rather than the fitted model object itself.
+
+
+For objects of class \code{"lm"} the direct formulae based on t values are used.
 }
 \seealso{
 \code{\link{profile}}

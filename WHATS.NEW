@@ -6,18 +6,22 @@ This file documents software changes since the second edition
 =============================================================
 
 
-Version 5.1 (Jul 97) was the software release for the second edition.
-Version 5.2 (Jan 98) mainly differed in explicit copyright claims.
-Version 5.3 (Mar 98) has rewritten nnet code to use less memory and 
+Version 5.1 (Jul 1997) was the software release for the second edition.
+Version 5.2 (Jan 1998) mainly differed in explicit copyright claims.
+Version 5.3 (Mar 1998) has rewritten nnet code to use less memory and 
   to use double precision for all internal calculations. This may lead
   to a different local minimum being found.  Separate version for 
-  S-PLUS 5.0 (Dec 98).
+  S-PLUS 5.0 (Dec 1998).
 
-Version 6.0 (Jan 99) pre-release for the third edition, adds ppr and lqs, 
+Version 6.0 (Jan 1999) pre-release for the third edition, adds ppr and lqs, 
   addterm, dropterm, enhanced rlm and stepAIC. Support for S-PLUS 5.x.
 
-Version 6.1 (Apr 99) release for the third edition. Support for S-PLUS
+Version 6.1 (Apr 1999) release for the third edition. Support for S-PLUS
   5.1 and 2000, added more na-handling.
+
+Version 6.2 (Aug 2000) tidy up documentation.  Would be 6.1pl010, but that
+  causes R problems
+
 
 The na-handling methods of S-PLUS 2000 have been incorporated. With most
 fitting methods, if na.action=na.exclude then the fitted values, residuals
@@ -62,6 +66,8 @@ Library MASS
 
 - eqscplot has new arguments ratio and uin.
 - stepAIC will not drop strata terms in coxph or survreg models.
+- profile.glm will report inadequate supplied glm fits, not just fail.
+- new method confint.lm
 
 
 Library nnet
@@ -77,6 +83,7 @@ Library nnet
 - at least 2 decimal places when printing deviance and AIC.
 - predict methods allow missing values in newdata.
 - max.col moved to MASS.
+- no copying of datasets even in R.
 
 
 Library spatial

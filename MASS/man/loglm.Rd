@@ -3,6 +3,18 @@
 %
 \name{loglm}
 \alias{loglm}
+\alias{anova.loglm}
+\alias{print.anova.loglm}
+\alias{coef.loglm}
+\alias{extractAIC.loglm}
+\alias{fitted.loglm}
+\alias{loglm1}
+\alias{loglm1.crosstabs}
+\alias{loglm1.data.frame}
+\alias{loglm1.default}
+\alias{print.loglm}
+\alias{residuals.loglm}
+\alias{update.loglm}
 \title{
 Fit Log-Linear Models by Iterative Proportional Scaling
 }
@@ -13,7 +25,7 @@ in a manner similar to that of other fitting functions, such as
 \code{glm}.
 }
 \usage{
-loglm(formula, data=sys.parent(), subset, na.action, \dots)
+loglm(formula, data=sys.frame(sys.parent()), subset, na.action, \dots)
 }
 \arguments{
 \item{formula}{
@@ -24,14 +36,14 @@ If the left-hand side is empty, the \code{data} argument is required
 and must be a (complete) array of frequencies.  In this case the
 variables on the right-hand side may be the names of the
 \code{dimnames} attribute of the frequency array, or may be the
-positive integers: 1, 2, 3, \dots{} used as alternative names for the
-1st, 2nd, 3rd, \dots{} dimension (classifying factor).
+positive integers: 1, 2, 3, \dots used as alternative names for the
+1st, 2nd, 3rd, \dots dimension (classifying factor).
 If the left-hand side is not empty it specifies a vector of
 frequencies.  In this case the data argument, if present, must be
 a data frame from which the left-hand side vector and the
 classifying factors on the right-hand side are (preferentially)
-obtained.  The usual abbreviation of a \code{.} to stand for "all
-other variables in the data frame" is allowed.  Any non-factors
+obtained.  The usual abbreviation of a \code{.} to stand for ``all
+other variables in the data frame'' is allowed.  Any non-factors
 on the right-hand side of the formula are coerced to factor.
 }
 \item{data}{
@@ -60,7 +72,7 @@ default action is to use the same value as that used for \code{fit}.
 May supply other arguments to the function \code{loglin}.
 }}
 \value{
-An object of class \code{loglm} conveying the results of the fitted
+An object of class \code{"loglm"} conveying the results of the fitted
 log-linear model.  Methods exist for the generic functions
 \code{print}, \code{summary}, \code{deviance}, \code{fitted}, \code{coef}, \code{resid},
 \code{anova} and \code{update}, which perform the expected tasks.  Only

@@ -7,13 +7,13 @@ k-Nearest Neighbour Cross-Validatory Classification
 }
 \description{
 k-nearest neighbour cross-validatory classification from training set. For
-each row of the training set, the k nearest (in Euclidean distance) other
+each row of the training set, the \code{k} nearest (in Euclidean distance) other
 training set vectors are found, and the classification is decided by
 majority vote, with ties broken at random. If there are ties for the
 \code{k}th nearest vector, all candidates are included in the vote.
 }
 \usage{
-knn.cv(train, class, k=1, l=1, prob=FALSE)
+knn.cv(train, class, k=1, l=1, prob=FALSE, use.all=TRUE)
 }
 \arguments{
 \item{train}{

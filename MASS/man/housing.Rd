@@ -9,31 +9,33 @@ Frequency Table from a Copenhagen Housing Conditions Survey.
 \description{
 The \code{housing} data frame has 72 rows and variables.
 }
-\format{
+\usage{
+data(housing)
 }
-\arguments{
-\item{Sat}{
+\format{
+\describe{
+\item{\code{Sat}}{
 Satisfaction of householders with their present housing
 circumstances, (High, Medium or Low).
 }
-\item{Infl}{
+\item{\code{Infl}}{
 Perceived degree of influence householders have on the 
 management of the property (High, Medium, Low).
 }
-\item{Type}{
+\item{\code{Type}}{
 Type of rental accommodation, (Tower, Atrium, Apartment, Terrace).
 }
-\item{Cont}{
+\item{\code{Cont}}{
 Contact residents are afforded with other residents, (Low, High).
 }
-\item{Freq}{
+\item{\code{Freq}}{
 Frequencies: the numbers of residents in each class.
-}}
+}}}
 \source{
 Madsen, M. (1976)
 Statistical analysis of multiple contingency tables. Two examples.
 \emph{Scand. J. Statist.,}
-\bold{3}, 97-106.
+\bold{3}, 97--106.
 
 
 Cox, D. R. and Snell, E. J. (1984)

@@ -32,7 +32,7 @@ index vector of cases to be retained (the final store set).
 \references{
 P. A. Devijver and J. Kittler (1982)
 \emph{Pattern Recognition. A Statistical Approach.}
-Prentice-Hall, pp. 119-121.
+Prentice-Hall, pp. 119--121.
 }
 \seealso{
 \code{\link{reduce.nn}}, \code{\link{multiedit}}

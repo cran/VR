@@ -11,23 +11,25 @@ The \code{farms} data frame has 20 rows and 4 columns. The rows are farms
 on the Dutch island of Terschelling and the columns are factors
 describing the management of grassland. 
 }
+\usage{
+data(farms)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Mois}{
+\describe{
+\item{\code{Mois}}{
 Five levels of soil moisture -- level 3 does not occur at these 20 farms.
 }
-\item{Manag}{
+\item{\code{Manag}}{
 Grassland management type (\code{SF} = standard, \code{BF} = biological, \code{HF} =
 hobby farming, \code{NM} = nature conservation).
 }
-\item{Use}{
+\item{\code{Use}}{
 Grassland use (\code{U1} = hay production, \code{U2} = intermediate, \code{U3} = grazing)
 }
-\item{Manure}{
+\item{\code{Manure}}{
 Manure usage -- classes C0 to C4.
-}}
+}}}
 \source{
 J.C. Gower and D.J. Hand (1996)
 \emph{Biplots}
@@ -41,7 +43,7 @@ PUDOC, Wageningen
 }
 \examples{
 data(farms)
-farms.mca <- mca(farms, abbrev=T)  # Use levels as names
+farms.mca <- mca(farms, abbrev=TRUE)  # Use levels as names
 eqscplot(farms.mca$cs, type="n")
 text(farms.mca$rs, cex=0.7)
 text(farms.mca$cs, labels=dimnames(farms.mca$cs)[[1]], cex=0.7)

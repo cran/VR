@@ -1,4 +1,4 @@
-% file nnet/nnet.Hess.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file nnet/nnet.Hess.d copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 %
 \name{nnet.Hess}
 \alias{nnet.Hess}
@@ -11,7 +11,7 @@ neural network. Normally called via argument \code{Hess=TRUE} to \code{nnet} or 
 \code{vcov.multinom}.
 }
 \usage{
-nnet.Hess(net, x, y)
+nnet.Hess(net, x, y, weights)
 }
 \arguments{
 \item{net}{

@@ -12,20 +12,22 @@ four different genotypes: \code{A}, \code{B}, \code{I} and \code{J}.  Rice litte
 separated from their natural mothers at birth and given to foster
 mothers to rear.
 }
+\usage{
+data(genotype)
+}
 \format{
 The data frame has the following components:
-}
-\arguments{
-\item{Litter}{
+\describe{
+\item{\code{Litter}}{
 The genotype of the litter 
 }
-\item{Mother}{
+\item{\code{Mother}}{
 The genotype of the foster mother
 }
-\item{Wt}{
+\item{\code{Wt}}{
 Litter average weight gain of the litter, in grams at age 28 days.
 (The source states that the within-litter variability is negligible.)
-}}
+}}}
 \source{
 Scheffe, H. (1959)
 \emph{The Analysis of Variance}

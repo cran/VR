@@ -3,6 +3,12 @@
 %
 \name{rlm}
 \alias{rlm}
+\alias{rlm.default}
+\alias{rlm.formula}
+\alias{print.rlm}
+\alias{psi.bisquare}
+\alias{psi.hampel}
+\alias{psi.huber}
 \title{
 Robust Fitting of Linear Models
 }
@@ -23,7 +29,7 @@ rlm.default(x, y, weights, \dots, w = rep(1, nrow(x)),
 }
 \arguments{
 \item{formula}{
-a formula of the form \code{y ~ x1 + x2 + \dots{}}.
+a formula of the form \code{y ~ x1 + x2 + \dots}.
 }
 \item{data}{
 data frame from which variables specified in \code{formula} are
@@ -70,9 +76,9 @@ squares fit with 200 samples.
 }
 \item{psi}{
 the psi function is specified by this argument. It must give
-(possibly by name) a function \code{g(x, \dots{}, deriv)} that for \code{deriv=0}
+(possibly by name) a function \code{g(x, \dots, deriv)} that for \code{deriv=0}
 returns psi(x)/x and for \code{deriv=1} returns psi'(x). Tuning constants
-will be passed in via \code{\dots{}}.
+will be passed in via \code{\dots}.
 }
 \item{scale.est}{
 method of scale estimation: re-scaled MAD of the residuals or Huber's
@@ -128,7 +134,7 @@ did the IWLS converge?
   Selecting \code{method = "MM"} selects a specific set of options which
   ensures that the estimator has a high breakdown point. The initial set
   of coefficients and the final scale are selected by an S-estimator
-  with \code{k0 = 1.548}; this gives (for n >> p) breakdown point 0.5.
+  with \code{k0 = 1.548}; this gives (for \eqn{n \gg p}{n >> p}) breakdown point 0.5.
   The final estimator is an M-estimator with Tukey's biweight and fixed
   scale that will inherit this breakdown point provided \code{c > k0};
   this is true for the default value of \code{c} that corresponds to

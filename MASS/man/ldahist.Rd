@@ -11,12 +11,11 @@ Plot histograms or density plots of data on a single Fisher linear
 discriminant.
 }
 \usage{
-ldahist(data, g, nbins=25, h, x0= - h/1000, breaks,
-        xlim=range(breaks), ymax=0, width,
-        type=c("histogram", "density", "both"),
-        sep=(type != "density"), 
-        col=if(is.trellis()) trellis.par.get("bar.fill")$col else 2,
-        xlab=deparse(substitute(data)), bty="n", \dots)
+ldahist(data, g, nbins = 25, h, x0 = - h/1000, breaks,
+        xlim = range(breaks), ymax = 0, width,
+        type = c("histogram", "density", "both"),
+        sep = (type != "density"), 
+        col = 5, xlab = deparse(substitute(data)), bty = "n", \dots)
 }
 \arguments{
 \item{data}{
@@ -32,7 +31,7 @@ Suggested number of bins to cover the whole range of the data.
 The bin width (takes precedence over \code{nbins}).
 }
 \item{x0}{
-Shift for the bins - the breaks are at \code{x0 + h * (\dots{}, -1, 0, 1, \dots{})} 
+Shift for the bins - the breaks are at \code{x0 + h * (\dots, -1, 0, 1, \dots)} 
 }
 \item{breaks}{
 The set of breakpoints to be used. (Usually omitted, takes precedence

@@ -16,13 +16,13 @@ and superclusters in the far universe.
 Roeder, K. (1990) Density estimation with confidence sets exemplified
 by superclusters and voids in galaxies.
 \emph{Journal of the American Statistical Association}
-\bold{85}, 617-624.
+\bold{85}, 617--624.
 
 
 Postman, M., Huchra, J. P. and Geller, M. J. (1986)
 Probes of large-scale structures in the Corona Borealis region.
 \emph{Astrophysical Journal}
-\bold{92}, 1238-1247.
+\bold{92}, 1238--1247.
 }
 \note{
 There is an 83rd measurement of 5607 km/sec in the Postman 

@@ -10,19 +10,21 @@ Spatial Topographic Data
 The \code{topo} data frame has 52 rows and 3 columns, of
 topographic heights within a 310 feet square.
 }
+\usage{
+data(topo)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{x}{
+\describe{
+\item{\code{x}}{
 x coordinates (units of 50 feet)
 }
-\item{y}{
+\item{\code{y}}{
 y coordinates (units of 50 feet)
 }
-\item{z}{
+\item{\code{z}}{
 heights (feet)
-}}
+}}}
 \source{
 Davis, J.C. (1973) 
 \emph{Statistics and Data Analysis in Geology.}

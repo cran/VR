@@ -128,24 +128,25 @@ SSI <- function(n, r)
   invisible(list(x = z$x, y = z$y, call=match.call()))
 }
 
-pplikfn <- function(cc, R, n, x, y, ng, target, trace=FALSE)
-{
-  z <- .C("VR_plike",
-	  as.double(x),
-	  as.double(y),
-	  as.integer(n),
-	  as.double(cc),
-	  as.double(R),
-	  as.integer(ng),
-	  as.double(target),
-	  res=double(1)
-	  )
-  if(trace) print(c(cc, z$res))
-  z$res
-}
 
 pplik <- function(pp, R, ng=50, trace=FALSE)
 {
+    pplikfn <- function(cc, R, n, x, y, ng, target, trace=FALSE)
+    {
+        z <- .C("VR_plike",
+                as.double(x),
+                as.double(y),
+                as.integer(n),
+                as.double(cc),
+                as.double(R),
+                as.integer(ng),
+                as.double(target),
+                res=double(1)
+                )
+        if(trace) print(c(cc, z$res))
+        z$res
+    }
+
   n <- length(pp$x)
   ar <- pp$area
   target <- n * (Kfn(pp, R,1)$y)^2 * pi /

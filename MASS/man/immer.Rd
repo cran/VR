@@ -11,28 +11,30 @@ The \code{immer} data frame has 30 rows and 4 columns.  Five varieties of
 barley were grown in six locations in each of 1931 and
 1932.
 }
+\usage{
+data(immer)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Loc}{
+\describe{
+\item{\code{Loc}}{
 The location.
 }
-\item{Var}{
+\item{\code{Var}}{
 The variety of barley (\code{"manchuria"}, \code{"svansota"}, \code{"velvet"},
 \code{"trebi"} and \code{"peatland"}).
 }
-\item{Y1}{
+\item{\code{Y1}}{
 Yield in 1931
 }
-\item{Y2}{
+\item{\code{Y2}}{
 Yield in 1932
-}}
+}}}
 \source{
 Immer, F.R., Hayes, H.D. and LeRoy Powers (1934) 
 Statistical determination of barley varietal adaptation.
 \emph{Journal of the American Society for Agronomy}
-\bold{26}, 403-407.
+\bold{26}, 403--407.
 
 
 Fisher, R.A. (1947)

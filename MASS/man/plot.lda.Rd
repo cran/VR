@@ -45,7 +45,7 @@ None.
 }
 \details{
 This function is a method for the generic function
-\code{plot()} for class \code{lda}.
+\code{plot()} for class \code{"lda"}.
 It can be invoked by calling \code{plot(x)} for an
 object \code{x} of the appropriate class, or directly by
 calling \code{plot.lda(x)} regardless of the

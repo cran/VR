@@ -10,23 +10,25 @@ Anatomical Data from Domestic Cats
 The heart and body weights of samples of male and female cats used for
 digitalis experiments.  The cats were all adult, over 2 kg body weight.
 }
+\usage{
+data(cats)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Sex}{
+\describe{
+\item{\code{Sex}}{
 Sex factor. Levels \code{"Female"} and \code{"Male"}.
 }
-\item{Bwt}{
+\item{\code{Bwt}}{
 Body weight in kg.
 }
-\item{Hwt}{
+\item{\code{Hwt}}{
 Heart weight in g.
-}}
+}}}
 \source{
 R. A. Fisher (1947) The analysis of covariance method for the relation
 between a part and the whole, 
 \emph{Biometrics}
-\bold{3}, 65-68.
+\bold{3}, 65--68.
 }
 \keyword{datasets}

@@ -9,91 +9,93 @@ Data from 93 Cars on Sale in the USA in 1993
 \description{
 The \code{Cars93} data frame has 93 rows and 27 columns.
 }
+\usage{
+data(Cars93)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{Manufacturer}{
+\describe{
+\item{\code{Manufacturer}}{
 Manufacturer
 }
-\item{Model}{
+\item{\code{Model}}{
 Model
 }
-\item{Type}{
+\item{\code{Type}}{
 Type: Small, Sporty, Compact, Midsize, Large, Van
 }
-\item{Min.Price}{
+\item{\code{Min.Price}}{
 Minimum Price (in \$1,000) - price for a basic version
 }
-\item{Price}{
+\item{\code{Price}}{
 Midrange Price (in \$1,000) - average of \code{Min.Price} and \code{Max.Price}
 }
-\item{Max.Price}{
-Maximum Price (in \$1,000) - price for "a premium version"
+\item{\code{Max.Price}}{
+Maximum Price (in \$1,000) - price for ``a premium version''
 }
-\item{MPG.city}{
+\item{\code{MPG.city}}{
 City MPG (miles per US gallon by EPA rating)
 }
-\item{MPG.highway}{
+\item{\code{MPG.highway}}{
 Highway MPG
 }
-\item{AirBags}{
+\item{\code{AirBags}}{
 Air Bags standard. Factor: none, driver only, or driver & passenger
 }
-\item{DriveTrain}{
+\item{\code{DriveTrain}}{
 Drive train type: rear wheel, front wheel or 4WD; (factor).
 }
-\item{Cylinders}{
+\item{\code{Cylinders}}{
 Number of cylinders (missing for Mazda RX-7, which has a rotary engine).
 }
-\item{EngineSize}{
+\item{\code{EngineSize}}{
 Engine size (litres)
 }
-\item{Horsepower}{
+\item{\code{Horsepower}}{
 Horsepower (maximum)
 }
-\item{RPM}{
+\item{\code{RPM}}{
 RPM (revs per minute at maximum horsepower)
 }
-\item{Rev.per.mile}{
+\item{\code{Rev.per.mile}}{
 Engine revolutions per mile (in highest gear)
 }
-\item{Man.trans.avail}{
+\item{\code{Man.trans.avail}}{
 Is a manual transmission version available? (yes or no, Factor).
 }
-\item{Fuel.tank.capacity}{
+\item{\code{Fuel.tank.capacity}}{
 Fuel tank capacity (US gallons)
 }
-\item{Passengers}{
+\item{\code{Passengers}}{
 Passenger capacity (persons)
 }
-\item{Length}{
+\item{\code{Length}}{
 Length  (inches)
 }
-\item{Wheelbase}{
+\item{\code{Wheelbase}}{
 Wheelbase (inches)
 }
-\item{Width}{
+\item{\code{Width}}{
 Width (inches)
 }
-\item{Turn.circle}{
+\item{\code{Turn.circle}}{
 U-turn space (feet)
 }
-\item{Rear.seat.room}{
+\item{\code{Rear.seat.room}}{
 Rear seat room (inches) (missing for 2-seater vehicles)
 }
-\item{Luggage.room}{
+\item{\code{Luggage.room}}{
 Luggage capacity (cubic feet) (missing for vans)
 }
-\item{Weight}{
+\item{\code{Weight}}{
 Weight (pounds)
 }
-\item{Origin}{
+\item{\code{Origin}}{
 Of non-USA or USA company origins? (factor)
 }
-\item{Make}{
+\item{\code{Make}}{
 Combination of Manufacturer and Model (character)
-}}
+}}}
 \details{
 Cars were selected at random from among 1993 passenger car models that
 were listed in both the \emph{Consumer Reports} issue and the 
@@ -106,8 +108,8 @@ were listed at most once.
 Further description can be found in Lock (1993). Use the URL
 \url{http://jse.stat.ncsu.edu/jse/v1n1/datasets.lock}
 or send the message
-     \url{send jse/v1n1/datasets.lock}
-to the email address \url{archive@jse.stat.ncsu.edu}
+     \code{send jse/v1n1/datasets.lock}
+to the email address \email{archive@jse.stat.ncsu.edu}
 }
 \source{
 Lock, R. H. (1993)

@@ -3,6 +3,12 @@
 %
 \name{addterm}
 \alias{addterm}
+\alias{addterm.default}
+\alias{addterm.glm}
+\alias{addterm.lm}
+\alias{addterm.mlm}
+\alias{addterm.negbin}
+\alias{addterm.survreg}
 \title{
 Try All One-Term Additions to a Model
 }
@@ -15,12 +21,12 @@ This function is generic; there exist methods for classes \code{lm} and
 \code{glm} and the default method will work for many other classes.
 }
 \usage{
-addterm(object, scope, , scale = 0, test=c("none", "Chisq", "F"),
+addterm(object, scope, scale = 0, test=c("none", "Chisq", "F"),
         k = 2, sorted = FALSE, trace = FALSE, \dots)
 }
 \arguments{
 \item{object}{
-A object fitted by some model-fitting function.
+An object fitted by some model-fitting function.
 }
 \item{scope}{
 a formula specifying a maximal model which should include the current

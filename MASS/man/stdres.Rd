@@ -3,6 +3,7 @@
 %
 \name{stdres}
 \alias{stdres}
+\alias{lmwork}
 \title{
 Extract Standardized Residuals from a Linear Model
 }

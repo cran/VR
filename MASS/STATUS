@@ -72,10 +72,11 @@ Shepard 	Shepard plot for isoMDS
 cov.trob 	robust estimation of multivariate location and scatter
 corresp 	correspondence analysis
 mca		multiple correspondence analysis (complements)
+
+
+moved to base R:
 max.col		find largest column for each row of a matrix,
 		breaking ties at random
-
-
 digamma, trigamma	first and second derivatives of log Gamma
 		(even of complex argument).
 
@@ -96,5 +97,5 @@ vcov.nlregb	vcov methods for nlregb objects
 vcov.nlminb	vcov methods for nlminb objects
 
 
-BDR <ripley@stats.ox.ac.uk> 1999/11/25
+BDR <ripley@stats.ox.ac.uk> 2000/08/09
 

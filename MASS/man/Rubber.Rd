@@ -9,18 +9,20 @@ Accelerated Testing of Tyre Rubber
 \description{
 Data frame from accelerated testing of tyre rubber. 
 }
-\format{
+\usage{
+data(Rubber)
 }
-\arguments{
-\item{loss}{
+\format{
+\describe{
+\item{\code{loss}}{
 the abrasion loss in gm/hr.
 }
-\item{hard}{
+\item{\code{hard}}{
 the hardness in Shore units.
 }
-\item{tens}{
+\item{\code{tens}}{
 tensile strength in kg/sq m.
-}}
+}}}
 \source{
 O.L. Davies (1947)
 \emph{Statistical Methods in Research and Production.}

@@ -10,15 +10,17 @@ Forbes' Data on Boiling Points in the Alps
 A data frame with 17 observations on boiling point (degrees F)
 and barometric pressure in inches of mercury.
 }
-\format{
+\usage{
+data(forbes)
 }
-\arguments{
-\item{bp}{
+\format{
+\describe{
+\item{\code{bp}}{
 boiling point (degrees F)
 }
-\item{pres}{
+\item{\code{pres}}{
 barometric pressure in inches of mercury
-}}
+}}}
 \source{
 A. C. Atkinson (1985)
 \emph{Plots, Transformations and Regression.}

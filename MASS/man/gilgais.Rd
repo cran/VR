@@ -17,47 +17,49 @@ depths 0-10 cm, 30-40 cm and 80-90 cm below the surface. pH, electrical
 conductivity and chloride content were measured on a 1:5 soil:water
 extract from each sample. 
 }
+\usage{
+data(gilgais)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{pH00}{
+\describe{
+\item{\code{pH00}}{
 pH at depth 0-10cm
 }
-\item{pH30}{
+\item{\code{pH30}}{
 pH at depth 30-40cm
 }
-\item{pH80}{
+\item{\code{pH80}}{
 pH at depth 80-90cm
 }
-\item{e00}{
+\item{\code{e00}}{
 electrical conductivity in mS/cm  (0-10 cm)
 }
-\item{e30}{
+\item{\code{e30}}{
 electrical conductivity in mS/cm (30-40 cm)
 }
-\item{e80}{
+\item{\code{e80}}{
 electrical conductivity in mS/cm (80-90 cm)
 }
-\item{c00}{
+\item{\code{c00}}{
 chloride content in ppm  (0-10 cm)
 }
-\item{c30}{
+\item{\code{c30}}{
 chloride content in ppm (30-40 cm)
 }
-\item{c80}{
+\item{\code{c80}}{
 chloride content in ppm (80-90 cm)
-}}
+}}}
 \source{
 Webster, R. (1977) Spectral analysis of gilgai soil.
 \emph{Australian Journal of Soil Research }
-\bold{15}, 191-204.
+\bold{15}, 191--204.
 
 
 Laslett, G. M. (1989)
 Kriging and splines: An empirical comparison of their 
 predictive performance in some applications (with discussion).
 \emph{Journal of the American Statistical Association,}
-\bold{89}, 319-409
+\bold{89}, 319--409
 }
 \keyword{datasets}

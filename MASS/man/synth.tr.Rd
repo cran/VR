@@ -13,25 +13,27 @@ The \code{synth.te} data frame has 100 rows and 3 columns.
 It is intended that \code{synth.tr} be used from training and
 \code{synth.te} for testing.
 }
+\usage{
+data(synth.tr)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{xs}{
+\describe{
+\item{\code{xs}}{
 x-coordinate
 }
-\item{ys}{
+\item{\code{ys}}{
 y-coordinate
 }
-\item{yc}{
+\item{\code{yc}}{
 class, coded as 0 or 1.
-}}
+}}}
 \source{
 Ripley, B.D. (1994)
 Neural networks and related methods for
 classification (with discussion).
 \emph{Journal of the Royal Statistical Society series B,}
-\bold{56}, 409-456.
+\bold{56}, 409--456.
 
 
 Ripley, B.D. (1996)

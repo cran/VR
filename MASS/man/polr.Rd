@@ -3,6 +3,14 @@
 %
 \name{polr}
 \alias{polr}
+\alias{extractAIC.polr}
+\alias{predict.polr}
+\alias{print.polr}
+\alias{summary.polr}
+\alias{print.summary.polr}
+\alias{vcov.polr}
+\alias{model.frame.polr}
+
 \title{
 Proportional Odds Logistic Regression
 }

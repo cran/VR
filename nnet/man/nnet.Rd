@@ -4,6 +4,14 @@
 \alias{nnet}
 \alias{nnet.default}
 \alias{nnet.formula}
+\alias{add.net}
+\alias{norm.net}
+\alias{eval.nn}
+\alias{coef.nnet}
+\alias{print.nnet}
+\alias{residuals.nnet}
+\alias{summary.nnet}
+\alias{print.summary.nnet}
 \title{
 Fit Neural Networks
 }
@@ -21,7 +29,7 @@ nnet.default(x, y, weights, size, Wts, mask,
 }
 \arguments{
 \item{formula}{
-A formula of the form \code{class ~ x1 + x2 + \dots{}} 
+A formula of the form \code{class ~ x1 + x2 + \dots} 
 }
 \item{x}{
 matrix or data frame of \code{x} values for examples.
@@ -149,7 +157,6 @@ targets <- class.ind( c(rep("s", 50), rep("c", 50), rep("v", 50)) )
 samp <- c(sample(1:50,25), sample(51:100,25), sample(101:150,25))
 ir1 <- nnet(ir[samp,], targets[samp,], size=2, rang=0.1, 
             decay=5e-4, maxit=200)
-library(MASS)  # for max.col
 test.cl <- function(true, pred){
         true <- max.col(true)
         cres <- max.col(pred)

@@ -9,15 +9,17 @@ Brain and Body Weights for 28 Species
 \description{
 Average brain and body weights for 28 species of land animals.
 }
-\format{
+\usage{
+data(Animals)
 }
-\arguments{
-\item{body}{
+\format{
+\describe{
+\item{\code{body}}{
 body weight in kg
 }
-\item{brain}{
+\item{\code{brain}}{
 brain weight in g
-}}
+}}}
 \note{
 The name \code{Animals} avoids conflicts with a system dataset in S-PLUS
 4.5 and later.

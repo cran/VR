@@ -14,7 +14,7 @@ to the residual degrees of
 freedom.
 }
 \usage{
-\dontrun{theta.mm(y, u, dfr, limit=10, eps=sqrt(.Machine$single.eps))}
+theta.mm(y, u, dfr, limit=10, eps=.Machine$double.eps^0.25)
 }
 \arguments{
 \item{y}{
@@ -36,7 +36,7 @@ Tolerance to determine convergence.
 The required estimate of \code{theta}, as a scalar.
 }
 \seealso{
-\code{\link{glm.nb}}
+\code{\link{glm.nb}}, \code{\link{theta.ml}}, \code{\link{theta.md}}
 }
 \examples{
 \dontrun{theta <- theta.mm(y, fitted(fm), dfr=123)}

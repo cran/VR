@@ -10,15 +10,17 @@ Heat Evolved by Setting Cements
 Experiment on the heat evolved in the setting of each of 13
 cements.
 }
-\format{
+\usage{
+data(cement)
 }
-\arguments{
-\item{"x1, x2, x3, x4"}{
+\format{
+\describe{
+\item{\code{x1, x2, x3, x4}}{
 Proportions (\%) of active ingredients
 }
-\item{y}{
+\item{\code{y}}{
 heat evolved in cals/gm
-}}
+}}}
 \source{
 Hald, A. (1957)
 \emph{Statistical Theory with Engineering Applications.}

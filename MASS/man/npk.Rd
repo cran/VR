@@ -12,25 +12,27 @@ experiment on the growth of peas conducted on 6 blocks. Each half of a
 fractional factorial design confounding the NPK interaction was used
 on 3 of the plots.
 }
+\usage{
+data(npk)
+}
 \format{
 The \code{npk} data frame has 24 rows and 5 columns:
-}
-\arguments{
-\item{block}{
+\describe{
+\item{\code{block}}{
 which block (label 1 to 6).
 }
-\item{N}{
+\item{\code{N}}{
 indicator (0/1) for the application of nitrogen.
 }
-\item{P}{
+\item{\code{P}}{
 indicator (0/1) for the application of phosphate.
 }
-\item{K}{
+\item{\code{K}}{
 indicator (0/1) for the application of potassium.
 }
-\item{yield}{
+\item{\code{yield}}{
 Yield of peas, in pounds/plot (the plots were (1/70) acre).
-}}
+}}}
 \source{
 Imperial College, London, M.Sc. exercise sheet.
 }

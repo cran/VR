@@ -4,7 +4,7 @@
 \name{hubers}
 \alias{hubers}
 \title{
-Huber "proposal 2" Robust Estimator of Location and/or Scale
+Huber Proposal 2 Robust Estimator of Location and/or Scale
 }
 \description{
 Finds the Huber M-estimator for location with scale specified, scale

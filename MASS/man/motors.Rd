@@ -7,23 +7,25 @@
 Accelerated Life Testing of Motorettes
 }
 \description{
-The \code{motorette} data frame has 40 rows and 3 columns.  It describes an
+The \code{motors} data frame has 40 rows and 3 columns.  It describes an
 accelerated life test at each of four temperatures of 10 motorettes,
 and has rather discrete times.
 }
+\usage{
+data(motors)
+}
 \format{
 This data frame contains the following columns:
-}
-\arguments{
-\item{temp}{
+\describe{
+\item{\code{temp}}{
 the temperature (degrees C) of the test
 }
-\item{time}{
+\item{\code{time}}{
 the time in hours to failure or censoring at 8064 hours (= 336 days).
 }
-\item{cens}{
+\item{\code{cens}}{
 an indicator variable for death
-}}
+}}}
 \source{
 Kalbfleisch, J. D. and Prentice, R. L. (1980)
 \emph{The Statistical Analysis of Failure Time Data.}
@@ -37,7 +39,7 @@ Nelson, W. D. and Hahn, G. J. (1972)
 Linear regression of a regression relationship from censored data.
 Part 1 -- simple methods and their application.
 \emph{Technometrics }
-\bold{14}, 247-276.
+\bold{14}, 247--276.
 }
 \examples{
 library(survival5)

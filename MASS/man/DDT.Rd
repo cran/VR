@@ -18,7 +18,7 @@ Collaborative study of an extension of the Mills
 \emph{et al}
 method for the determination of pesticide residues in food.
 \emph{J. Off. Anal. Chem. }
-\bold{59}, 169-171
+\bold{59}, 169--171
 
 
 R. G. Staudte and S. J. Sheather (1990)

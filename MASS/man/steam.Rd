@@ -10,19 +10,21 @@ The Saturated Steam Pressure Data
 Temperature and pressure in a saturated steam driven experimental
 device.
 }
+\usage{
+data(steam)
+}
 \format{
 The data frame contains the following components:
-}
-\arguments{
-\item{Temp}{
+\describe{
+\item{\code{Temp}}{
 Temperature, in degrees Celsius
 }
-\item{Press}{
+\item{\code{Press}}{
 Pressure, in Pascals
-}}
+}}}
 \source{
 N.R. Draper  and H. Smith (1981)
 \emph{Applied Regression Analysis.}
-Wiley, pp. 518-9.
+Wiley, pp. 518--9.
 }
 \keyword{datasets}

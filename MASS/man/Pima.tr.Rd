@@ -16,34 +16,36 @@ were collected by the US National Institute of Diabetes and Digestive and
 Kidney Diseases. We used the 532 complete records after dropping the
 (mainly missing) data on serum insulin.
 }
+\usage{
+data(Pima.tr)
+}
 \format{
 These data frames contains the following columns:
-}
-\arguments{
-\item{npreg}{
+\describe{
+\item{\code{npreg}}{
 number of pregnancies
 }
-\item{glu}{
+\item{\code{glu}}{
 plasma glucose concentration in an oral glucose tolerance test
 }
-\item{bp}{
+\item{\code{bp}}{
 diastolic blood pressure (mm Hg)
 }
-\item{skin}{
+\item{\code{skin}}{
 triceps skin fold thickness (mm)
 }
-\item{bmi}{
-body mass index (weight in kg/(height in m)\^2)
+\item{\code{bmi}}{
+body mass index (weight in kg/(height in m)\eqn{^2}{\^2})
 }
-\item{ped}{
+\item{\code{ped}}{
 diabetes pedigree function
 }
-\item{age}{
+\item{\code{age}}{
 age in years
 }
-\item{type}{
+\item{\code{type}}{
 \code{Yes} or \code{No}, for diabetic according to WHO criteria
-}}
+}}}
 \details{
 The training set \code{Pima.tr} contains a randomly selected set of 200
 subjects, and \code{Pima.te} contains the remaining 322 subjects.
@@ -57,7 +59,7 @@ Using the ADAP learning algorithm to forecast the onset of diabetes
 mellitus.
 In
 \emph{Proceedings of the Symposium on Computer Applications in Medical Care (Washington, 1988), }
-ed. R. A. Greenes, pp. 261-265.
+ed. R. A. Greenes, pp. 261--265.
 Los Alamitos, CA: IEEE Computer Society Press.
 
 

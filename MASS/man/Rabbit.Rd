@@ -15,30 +15,32 @@ mean blood pressure measured.  The goal was to test whether the
 cardiogenic chemoreflex elicited by phenylbiguanide depends on the
 activation of \eqn{5-HT_3} receptors.
 }
+\usage{
+data(Rabbit)
+}
 \format{
 This data frame contains 60 rows and the following variables:
-}
-\arguments{
-\item{BPchange}{
+\describe{
+\item{\code{BPchange}}{
 change in blood pressure relative to the start of the experiment
 }
-\item{Dose}{
+\item{\code{Dose}}{
 dose of Phenylbiguanide in micrograms
 }
-\item{Run}{
+\item{\code{Run}}{
 label of run (\code{"C1"} to \code{"C5"}, then \code{"M1"} to \code{"M5"})
 }
-\item{Treatment}{
+\item{\code{Treatment}}{
 placebo or the \eqn{5-HT_3} antagonist MDL 72222
 }
-\item{Animal}{
+\item{\code{Animal}}{
 label of animal used (\code{"R1"} to \code{"R5"})
-}}
+}}}
 \source{
 J. Ludbrook (1994)
 Repeated measurements and multiple comparisons in cardiovascular research.
 \emph{Cardiovascular Research}
-\bold{28}, 303-311.
+\bold{28}, 303--311.
 [The numerical data are not in the paper but were supplied by 
 Professor Ludbrook]
 }

@@ -11,23 +11,25 @@ Cushing's syndrome is a hypertensive disorder associated with
 over-secretion of cortisol by the adrenal gland. The observations 
 are urinary excretion rates of two steroid metabolites.
 }
+\usage{
+data(Cushings)
+}
 \format{
 The \code{Cushings} data frame has 27 rows and 3 columns:
-}
-\arguments{
-\item{Tetrahydrocortisone}{
+\describe{
+\item{\code{Tetrahydrocortisone}}{
 urinary excretion rate (mg/24hr) of Tetrahydrocortisone.
 }
-\item{Pregnanetriol}{
+\item{\code{Pregnanetriol}}{
 urinary excretion rate (mg/24hr) of  Pregnanetriol.
 }
-\item{Type}{
+\item{\code{Type}}{
 underlying type of syndrome, coded \code{a} (adenoma) , \code{b}
 (bilateral hyperplasia), \code{c} (carcinoma) or \code{u} for unknown.
-}}
+}}}
 \source{
 J. Aitchison and I. R. Dunsmore (1975)
 \emph{Statistical Prediction Analysis.}
-Cambridge University Press, Tables 11.1-3.
+Cambridge University Press, Tables 11.1--3.
 }
 \keyword{datasets}

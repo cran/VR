@@ -3,6 +3,7 @@
 %
 \name{mca}
 \alias{mca}
+\alias{print.mca}
 \title{
 Multiple Correspondence Analysis
 }
@@ -21,7 +22,7 @@ The number of dimensions for the MCA. Rarely 3 might be useful.
 }
 \item{abbrev}{
 Should the vertex names be abbreviated?  By default these are of the
-form "factor.level" but if \code{abbrev=TRUE} they are just "level" which will
+form ``factor.level'' but if \code{abbrev=TRUE} they are just ``level'' which will
 suffice if the factors have distinct levels.
 }}
 \value{
