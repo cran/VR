@@ -1,0 +1,33 @@
+% file MASS/npr1.d
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{npr1}
+\alias{npr1}
+\title{
+US Naval Petroleum Reserve No. 1 data
+}
+\description{
+Data on the locations, porosity and permeability (a measure of oil flow) 
+on 104 oil wells in the US Naval Petroleum Reserve No. 1 in California.
+}
+\format{
+This data frame contains the following columns:
+}
+\arguments{
+\item{x,}{
+x and y coordinates, in miles from an arbitrary origin
+}
+\item{perm}{
+permeability in milli-Darcies
+}
+\item{por}{
+porosity (\%)
+}}
+\source{
+Maher, J.C., Carter, R.D. and Lantz, R.J. (1975) 
+Petroleum geology of Naval Petroleum Reserve No. 1, Elk Hills,
+Kern County, California.
+\emph{USGS Professional Paper }
+\bold{912}.
+}
+\keyword{datasets}

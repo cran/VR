@@ -1,0 +1,80 @@
+% file MASS/gamma.shape.glm.d
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{gamma.shape.glm}
+\alias{gamma.shape.glm}
+\title{
+Estimate the Shape Parameter of the Gamma Distribution in a GLM Fit
+}
+\description{
+Find the maximum likelihood estimate of the shape parameter of
+the gamma distribution after fitting a \code{Gamma} generalized
+linear model.
+}
+\usage{
+gamma.shape.glm(fm, it.lim=10, 
+		eps.max=.Machine$double.eps^0.25, verbose=FALSE)
+}
+\arguments{
+\item{fm}{
+Fitted model object from a \code{Gamma} family or \code{quasi} family with
+\code{variance = mu^2}.
+}
+\item{it.lim}{
+Upper limit on the number of iterations.
+}
+\item{eps.max}{
+Maximum discrepancy between approximations for the iteration
+process to continue. 
+}
+\item{verbose}{
+If \code{TRUE}, causes successive iterations to be printed out.  The
+initial estimate is taken from the deviance.
+}}
+\value{
+List of two components called \code{alpha} and \code{SE} giving the
+maximum likelihood estimate and approximate standard error
+respectively.  The latter is the square-root of the reciprocal of
+the observed information.
+}
+\details{
+A glm fit for a Gamma family correctly calculates the maximum
+likelihood estimate of the mean parameters but provides only a
+crude estimate of the dispersion parameter.  This function takes
+the results of the glm fit and solves the maximum likelihood
+equation for the reciprocal of the dispersion parameter, which is
+usually called the shape (or exponent) parameter.
+}
+\seealso{
+\code{\link{gamma.dispersion}}
+}
+\examples{
+clotting <- data.frame(
+    u = c(5,10,15,20,30,40,60,80,100),
+    lot1 = c(118,58,42,35,27,25,21,19,18),
+    lot2 = c(69,35,26,21,18,16,13,12,12))
+clot1 <- glm(lot1 ~ log(u), data=clotting, family=Gamma)
+gamma.shape(clot1)
+\dontrun{           
+Alpha: 538.13
+   SE: 253.60
+}
+data(quine)
+gm <- glm(Days + 0.1 ~ Age*Eth*Sex*Lrn, 
+		quasi(link=log, variance=mu^2), quine, start=rep(0,32))
+gamma.shape(gm, verbose=TRUE)
+\dontrun{
+Initial estimate: 1.0603 
+Iter.  1  Alpha: 1.23840774338543 
+Iter.  2  Alpha: 1.27699745778205 
+Iter.  3  Alpha: 1.27834332265501 
+Iter.  4  Alpha: 1.27834485787226 
+               
+Alpha: 1.27834
+   SE: 0.13452
+}
+summary(gm, dispersion = gamma.dispersion(gm))  # better summary
+\dontrun{    \dots.}
+}
+\keyword{models}
+% Converted by Sd2Rd version 0.3-2.

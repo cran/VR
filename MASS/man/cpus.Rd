@@ -1,0 +1,52 @@
+% file MASS/cpus.d
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{cpus}
+\alias{cpus}
+\title{
+Performance of Computer CPUs
+}
+\description{
+A relative performance measure and characteristics of 209 CPUs.  
+}
+\format{
+The components are:
+
+
+}
+\arguments{
+\item{name}{
+Manufacturer and model
+}
+\item{syct}{
+cycle time in nanoseconds
+}
+\item{mmin}{
+minimum main memory in kilobytes
+}
+\item{mmax}{
+maximum main memory in kilobytes
+}
+\item{cach}{
+cache size in kilobytes
+}
+\item{chmin}{
+minimum number of channels
+}
+\item{chmax}{
+maximum number of channels
+}
+\item{perf}{
+published performance on a benchmark mix relative to an IBM 370/158-3
+}
+\item{estperf}{
+estimated performance (by Ein-Dor \& Feldmesser)
+}}
+\source{
+P. Ein-Dor \& J. Feldmesser (1987)
+Attributes of the performance of central processing units: a relative
+performance prediction model.
+\emph{Comm. ACM.}
+\bold{30}, 308-317.
+}
+\keyword{datasets}

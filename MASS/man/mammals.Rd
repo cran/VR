@@ -1,0 +1,42 @@
+% file MASS/mammals.d
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{mammals}
+\alias{mammals}
+\title{
+Brain and Body Weights for 62 Species of Land Mammals
+}
+\description{
+A data frame with average brain and body weights for 62 species
+of land mammals.
+}
+\format{
+}
+\arguments{
+\item{body}{
+body weight in kg
+}
+\item{brain}{
+brain weight in g
+}
+\item{name}{
+Common name of species.  
+Rock hyrax-a =
+\emph{Heterohyrax brucci.}
+Rock hyrax-b = 
+\emph{Procavia habessinica.}
+}}
+\source{
+Weisberg, S. (1985)
+\emph{Applied Linear Regression.}
+2nd edition.
+Wiley, pp. 144-5.
+
+
+Selected from:
+Allison, T. and Cicchetti, D. V. (1976)
+Sleep in mammals: ecological and constitutional correlates.
+\emph{Science}
+\bold{194}, 732-734.
+}
+\keyword{datasets}

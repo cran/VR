@@ -1,0 +1,90 @@
+This file documents software changes since the first edition of MASS in 1994
+============================================================================
+
+There were extensive changes between the first and second printings:
+the latter included compiled code for dynamically linking into Windows
+(from S-PLUS 3.2 on) and replaced the Fortran code in library spatial
+by C code. An important addition was the treefix code in library MASS.
+
+Version 5.1 (Jul 97) was the software release for the second edition.
+Version 5.2 (Jan 98) mainly differed in explicit copyright claims.
+Version 5.3 (Mar 98) has rewritten nnet code to use less memory and 
+  to use double precision for all internal calculations. This may lead
+  to a different local minimum being found.
+
+
+Installation procedure
+----------------------
+
+- By shell script only; includes support for dyn.load.shared platforms.
+- All the external symbols in dynamically loaded C code start with VR_ .
+- There is no longer support for S-only versions.
+- Support for pre-compiled help files for SGI platform (see Install).
+
+Library MASS
+------------
+
+- Library treefix is unbundled, as it is not needed for S-PLUS 3.4 and 4.x.
+- The lda and qda code uses method functions and has extensive extra
+    functionality, now including leave-one-out cross-validation for qda.
+- The bcv, ucv, width.SJ code uses a different, much faster, algorithm.
+- The sammon code uses a different, faster, algorithm.
+- The function boxcox has been made generic and enhanced, and has a 
+    companion logtrans.
+- Improvements to negbin, plot.survfit, rlm.
+- New methods for vcov, including for nlregb and nlminb.
+- New functions mvrnorm, kde2d, stepAIC, truehist, histplot, isoMDS, 
+                Choleski, ginv, Null, gamma.shape, digamma, trigamma
+		and mca.
+- Replacement version of plot.profile and new functions profile.glm and
+  pairs.profile.
+- Fractions package for manipulating fractions.
+- nls methods for predict and anova (for Unix 3.x versions only).
+- Revised biplot method for PCA, and a method for correspondence analysis.
+- plot and pairs methods for lda fits.
+- deriv/deriv3 will handle gamma, lgamma and digamma.
+- cross-validation methods for lda, qda and predict.qda.
+- corrected predict.glm to handle known dispersion.
+- enhanced stepAIC with fast code for linear least-squares methods, 
+  use.start argument and option to change the penalty factor in AIC.
+- addterm and dropterm to replace add1 and drop1.
+
+- The kriging datasets topo, npr1, shkap are moved from library spatial.
+- New datasets 	austres, beav1, beav2, biopsy, Boston, Cars93, 
+		Cushings, farms, fgl, GAGurine, genotype, gilgais,
+		Insurance, janka, menarche, OME, petrol, Pima, Rabbit, 
+		Sitka, Skye, snails, synth, Traffic, UScereal, UScrime,
+		waders.
+- Removed dataset jasa1 (now supplied in S-Plus as heart).
+
+- Many more examples on the help pages.
+
+
+Library nnet
+------------
+
+- nnet is now generic, with a method for formulas.
+- the print and summary methods give a little more detail.
+- now incorporates the multinom procedures.
+- summary method for multinom.
+- multinom now handles offset terms.
+- coef methods for multinom and nnet, and vcov method for multinom.
+- `censored' argument for nnet.
+- no hard limits on the net size -- but see argument MaxNWts.
+- acctol and reltol are now user-settable arguments.
+- internal calculations are now entirely in double precision.
+- vcov.multinom now uses a generalized inverse for singular fits.
+- nnet fits have a residuals component.
+- anova method for multinom.
+
+
+Library spatial
+---------------
+
+- The kriging datasets topo, npr1, shkap are moved to library MASS.
+- Improved interpolation algorithm for covariance functions in kriging code,
+    and improved handling of nugget effects (in fourth printing).
+- Slight changes in the rounding in Kfn (in fourth printing).
+- The `slow' S-only code for kriging has been removed.
+- No limit on nx in surf.gls. Large interpolation tables are no longer
+  stored in the object, so the objects are smaller.

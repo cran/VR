@@ -1,0 +1,155 @@
+This file documents changes made since the release of version 5.1 on 1 July 97
+==============================================================================
+
+
+Version 5.1 was released on 1 July 97.
+
+Version 5.2 was released on 14 January 1998. The main change is to
+explicitly document the known copyright position of various files and
+to grant different distribution rights.
+
+Version 5.3 was released on 1 March 1998.  This has rewritten nnet
+code to use less memory and to use double precision for all internal
+calculations.
+
+
+There is continual development between versions: minor changes are
+indicated by altering the patchlevel in the file VERSION.
+
+
+INS tidy now deletes the KandR directory.
+
+To avoid a problem with method dispatch, all print methods have first
+argument `x', and all summary, predict, coef, ... methods have first
+argument `object'. summary methods now all use print.summary.xxx.
+
+The dynamic memory allocation functions used have been tidied up to
+agree with the arguments given in the 4.0 Programmer's Guide, and more
+effort has been made to release memory as soon as it is no longer
+needed.
+
+There are some name changes internal to the C code to avoid clashes
+with S.h in S-PLUS 5.0.
+
+
+MASS
+====
+
+Minor change to the handling of factor levels in predict.lda, predict.qda.
+
+Corrected typo in Skye.dat
+
+eqscplot generates better default axis labels.
+
+print.abbrev allows (but ignores) extra arguments.
+
+Datasets Melanoma and Rubber are now capitalized to avoid conflicts with 
+Trellis datasets.
+
+corresp now does 2-dimensional plots: see the on-line complements
+to Chapter 13.
+
+mca and methods (print plot predict) for multiple correspondence analysis.
+
+Different methods for estimation of the shape of a gamma GLM: see the
+on-line complements to Chapter 7.
+
+predict.nls is corrected to work with se.fit=T.
+
+Two small changes to error-checking in rmvnorm.
+
+sammon now tries harder to choose the initial `magic' to ensure that the
+stress value is decreased in the first step.
+
+The corrected biplot.default function has been removed.
+
+predict.lda now handles missing values (by returning NAs).
+
+plot and pairs methods for lda fits.
+
+Function D is modified so deriv/deriv3 will handle gamma, lgamma and
+digamma functions.
+
+lda and qda have argument CV and predict.qda has a method for
+leave-one-out cross-validation.
+
+There is a replacement for predict.glm that handles se.fit=T with a
+known dispersion correctly.  Use with library(MASS, first=T).
+
+stepAIC has special code for linear least-squares methods using
+add1.lm and drop1.lm, and an option to start each fit at the current
+fitted values.  New option k to alter the penalty factor 2 in AIC.
+
+addterm and dropterm to replace add1 and drop1 using AIC and tests as
+appropriate. [pl031: .glm methods now handle offsets correctly]
+
+negative.binomial altered to work around a bug in the `robust' option
+of glm().
+
+cov.trob was been added (promised in Chapter 8 but never included).
+
+predict.lda with dimen set now returns that number of discriminants in
+component `x'.  (It was never documented to do so, but some releases
+did and some did not.)
+
+dataset animals now also appears as Animals to help conflicts with
+a different dataset `animals' introduced in S-PLUS 4.5.
+
+workaround in plot.survfit for bug in stepfun: affected plots with 
+events exactly at time zero.
+
+correct bug in addterm and dropterm for glm objects created with
+family binomial and a two-column specification of the response.
+
+
+nnet
+====
+
+multinom allows offset terms in the formula.
+
+Typo in nnet corrected to allow Hess=T to work.
+
+The `weights' argument in nnet.formula is now implemented.
+
+print.nnet allows (but ignores) extra arguments.  The former separate
+print.nnet.formula is subsumed.
+
+Method functions for coef and vcov.
+
+Argument `censored' in multinom and nnet.
+
+Hard limits on the numbers of units and weights have been replaced by
+a user-settable limit on the number of weights.
+
+abstol and reltol are now user-settable parameters.
+
+More of the internal calculations are done in double precision, which
+should reduce the differences in results across platforms.
+
+vcov.multinom now uses a generalized inverse, so will give usable
+results with near-singular fits.
+
+
+spatial
+=======
+
+file.exists is now nested in ppinit to avoid conflicts in S-PLUS 4.0,
+which has a function of this name.
+
+pplik handles estimates of 0 and 1 better (working around problems in 
+uniroot).
+
+sphercov has been corrected (3 errors).
+
+There is now no limit on nx in surf.gls. The function to create the
+interpolation table is stored in the object. Only small tables are
+stored, so the returned object will be smaller.
+
+Kfn now checks to see if the points are within the set region: previously
+it might have given an acos DOMAIN error.
+
+ppgetregion() retrieves the currently set region.
+
+The internal storage of the domain is now via a vector rather than a list,
+but existing objects will still work.
+

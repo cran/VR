@@ -1,0 +1,5 @@
+After converting the S documentation files to Rd format, replace `iris'
+by `iris3' e.g. using
+   perl -pi -e s/iris/iris3/g *.Rd
+
+Add R/zzz.R to load class.so.

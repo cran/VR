@@ -1,0 +1,10 @@
+Package: spatial
+Version: 5.3pl037-1 (1999/02/08)
+Author: S original by Brian Ripley <ripley@stats.ox.ac.uk>.
+        R port by Albrecht Gebhardt <albrecht.gebhardt@uni-klu.ac.at>.
+	Updated by Brian Ripley <ripley@stats.ox.ac.uk>.
+Description: Functions for kriging and point pattern analysis
+        from Venables & Ripley (1997):
+        `Modern Applied Statistics with S-PLUS'
+Requires: R-0.64 or later
+License: GPL (version 2 or later)

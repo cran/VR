@@ -1,0 +1,11 @@
+knn		k-nearest neighbors
+knn1		1-nearest neighbor
+multiedit	Editing code for kNN analysis
+condense	Condensed NN code
+reduce.nn	Reduced NN code
+lvqinit		Initialize codebook for LVQ methods
+lvq1		Implements LVQ1
+olvq1		Implements OLVQ1
+lvq2		Implements LVQ2.1
+lvq3		Implements LVQ3
+lvqtest		Test an LVQ codebook

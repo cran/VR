@@ -1,0 +1,223 @@
+#-*- S -*-  
+
+# lme is very large: need -n 300000
+
+# Chapter 10   Random and Mixed Effects
+
+library(MASS)
+options(width=65, digits=5, height=9999)
+postscript(file="ch10.ps", width=8, height=6, pointsize=9)
+options(contrasts=c("contr.helmert", "contr.poly"))
+
+
+# 10.1  Random effects and variance components
+
+if(F) {
+data(coop)
+summary(raov(Conc ~ Lab/Bat, data = coop, subset = Spc=="S1"))
+
+coop <- coop
+is.random(coop) <- T
+is.random(coop$Spc) <- F
+is.random(coop)
+varcomp(Conc ~ Lab/Bat, data=coop, subset = Spc=="S1")
+varcomp(Conc ~ Lab/Bat, data=coop, subset = Spc=="S1",
+    method = c("winsor", "minque0"))
+}
+
+# 10.2  Multistratum models
+
+data(oats)
+oats <- oats
+oats$Nf <- ordered(oats$N, levels=sort(levels(oats$N)))
+oats.aov <- aov(Y ~ Nf*V + Error(B/V), data=oats)
+summary(oats.aov)
+#summary(oats.aov, split=list(Nf=list(L=1, Dev=2:3)))
+par(mfrow=c(1,2), pty="s")
+plot(fitted(oats.aov[[4]]), studres(oats.aov[[4]]))
+oats.pr <- proj(oats.aov)
+qqnorm(oats.pr[[4]][,"Residuals"], ylab="Stratum 4 residuals")
+qqline(oats.pr[[4]][,"Residuals"])
+par(mfrow=c(1,1), pty="m")
+oats.aov <- aov(Y ~ N + V + Error(B/V), data = oats)
+model.tables(oats.aov, type = "means", se = T)
+
+if(F) {
+is.random(oats$B) <- T
+varcomp(Y ~ N + V + B/V, data = oats)
+}
+
+# 10.3  Linear mixed effects models
+
+library(lme)
+data(petrol)
+if(F) {
+xyplot(Y ~ EP | No, data = petrol, 
+    xlab = "ASTM end point (deg. F)",
+    ylab = "Yield as a percent of crude",
+    panel = function(x, y) {
+       m <- sort.list(x)
+       panel.grid()
+       panel.xyplot(x[m], y[m], type = "b", cex = 0.5)
+    })
+}
+
+Petrol <- petrol
+names(Petrol)
+Petrol[, 2:5] <- scale(as.matrix(Petrol[, 2:5]), scale = F)
+pet1.lm <- lm(Y ~ No/EP - 1, Petrol)
+matrix(round(coef(pet1.lm),2), 2, 10, byrow = T, dimnames =
+    list(c("b0","b1"),levels(Petrol$No)))
+pet2.lm <- lm(Y ~ No - 1 + EP, Petrol)
+anova(pet2.lm, pet1.lm)
+pet3.lm <- lm(Y ~ SG + VP + V10 + EP, Petrol)
+anova(pet3.lm, pet2.lm)
+pet3.lme <- lme(Y ~ SG + VP + V10 + EP,
+                random = ~ 1 | No, data = Petrol, REML=T)  
+summary(pet3.lme)
+pet3.lme <- update(pet3.lme, REML=F)
+pet4.lme <- update(pet3.lme, fixed = Y ~ V10 + EP)
+anova(pet4.lme, pet3.lme)
+coef(pet4.lme)
+pet5.lme <- update(pet4.lme, random = ~ 1 + EP | No)
+anova(pet4.lme, pet5.lme)
+
+# A direct approach is possible and is simplest:
+options(contrasts = c("contr.treatment", "contr.poly"))
+oats.lme <- lme(Y ~ N + V, random=~1 | B/V, data=oats, REML=T)
+summary(oats.lme)
+
+# The approach in the book also works, in a complicated way.
+oats$sp <- model.matrix(~ V - 1, oats)
+oats.lme <- lme(Y ~ N + V, oats, REML = T,
+                random = list(B = pdBlocked(list(~1, pdIdent(~sp-1)))))
+summary(oats.lme)
+
+# the complicated approach to contrasts is not needed in lme 2.9.x
+oats1.lme <- lme(Y ~ N + V,
+                 random = reStruct(~ V - 1 | B, "pdCompSymm"),
+                 data = oats, REML=T) 
+summary(oats1.lme)
+
+data(Sitka)
+sitka.lme <- lme(size ~ treat*ordered(Time), random = ~1 | tree,
+                 data=Sitka, corr=corCAR1(, ~Time | tree), REML=T) 
+summary(sitka.lme)
+attach(Sitka)
+Sitka <- Sitka
+Sitka$treatslope <- Time * (treat=="ozone")
+detach()
+sitka.lme2 <- update(sitka.lme, 
+     fixed = size ~ ordered(Time) + treat + treatslope)
+summary(sitka.lme2)$zTable
+fitted(sitka.lme2, level=0)[1:5]
+fitted(sitka.lme2, level=0)[301:305]
+
+
+# 10.4  Non-linear mixed effects models
+if(F) {
+sitka.nlme <- nlme(size ~ A + B*(1 - exp(-(Time-100)/C)),
+    fixed = list(A ~ treat, B ~ treat, C ~ .), 
+    random = list(A ~ ., B ~ .), 
+    cluster = ~ tree,  data = Sitka,
+    start  = list(fixed = c(2, 0, 4, 0, 100)),
+    serial.structure = "ar1.continuous", 
+    serial.covariate = ~ Time,
+    verbose = T)
+summary(sitka.nlme)
+summary(update(sitka.nlme, 
+     fixed = list(A ~ ., B ~ ., C ~ .),
+     start = list(fixed=c(2.3, 3.9, 79))))
+
+# fix(fpl)
+attr(fpl, "initial") <- function(conc, A, B, ld50, scal)
+{
+        syscall <- sys.call()
+        resp <- get(".nls.initial.response", frame = 1)
+        n <- length(resp)
+        if(length(conc) != n) {
+                stop(paste("must have length of response = length of", syscall[
+                        2], "in", syscall[1]))
+        }
+        resp.init <- resp
+        ord <- order(conc)
+        lconc <- log(conc[ord])
+        resp <- resp[ord]
+        devs <- abs(resp - (resp[1] + (resp[n] - resp[1])/2))
+        mid.ind <- match(min(devs), devs)
+        dd <- data.frame(lconc = lconc, resp = resp)
+        parameters(dd) <- list(ld50 = lconc[mid.ind], scal = 1)
+        pars <- coef(nls(resp ~ cbind(1, 1/(1 + exp((lconc - ld50)/scal))), 
+                data = dd, start = list(scal = 1), algorithm = "plinear"))
+        names(pars) <- NULL
+        param(dd, "scal") <- pars[1]
+        pars <- coef(nls(resp ~ cbind(1, 1/(1 + exp((lconc - ld50)/scal))), 
+                data = dd, algorithm = "plinear"))
+        names(pars) <- NULL
+        val <- list(pars[3], pars[4] + pars[3], pars[1], pars[2])
+	if(val[[4]] < 0) val <- c(val[c(2, 1, 3)], list( -val[[4]]))  
+        names(val) <- syscall[3:6]
+        val
+}
+
+
+R.nlsList <- nlsList(BPchange ~ fpl(Dose, A, B, ld50, scal),
+     cluster = ~ Run, data = Rabbit)
+M1 <- coef(R.nlsList)
+M1
+fixed.effects(R.nlsList)
+R.nls <- nls(BPchange ~ A[Run] + (B - A[Run])/
+     (1 + exp((log(Dose) - ld50[Run])/scal)), data = Rabbit, 
+     start = list(A=rep(29.5, 10), B=1.5, ld50=rep(4.1, 10),
+     scal=0.28))
+b <- as.vector(coef(R.nls))
+M2 <- cbind(b[1:10], b[11], b[12:21], b[22])
+dimnames(M2) <- dimnames(M1)
+M2
+nlme(R.nlsList, verbose=T)
+
+Fpl <- deriv(~ A + (B-A)/(1 + exp((log(d) - ld50)/th)),
+    c("A","B","ld50","th"), function(d, A, B, ld50, th) {})
+c1 <- fixed.effects(R.nlsList)
+Rc.nlme <- nlme(BPchange ~ Fpl(Dose, A, B, ld50, th),
+     fixed = list(A ~ ., B ~ ., ld50 ~ ., th ~ .),
+     random = list(A ~ ., ld50 ~ .), 
+     cluster = ~ Animal, data = Rabbit,
+     subset = Rabbit$Treatment=="Control",
+     start = list(fixed=c1), verbose = T)
+Rm.nlme <- update(Rc.nlme, subset = Rabbit$Treatment=="MDL")
+Rc.nlme
+Rm.nlme
+c1 <- c(fixed.effects(R.nlsList), 0)
+R.nlme1 <- nlme(BPchange ~ Fpl(Dose, A, B, ld50, th),
+     fixed = list(A ~ Treatment, B ~ Treatment, 
+                  ld50 ~ Treatment, th ~ Treatment),
+     random = list(A ~ ., ld50 ~ .), 
+     cluster = ~ Run, data = Rabbit,
+     start = list(fixed=c1[c(1,5,2,5,3,5,4,5)]),
+     verbose = T)
+summary(R.nlme1)
+R.nlme2 <- update(R.nlme1, 
+      fixed = list(A ~ ., B ~ ., ld50 ~ Treatment, th ~ .),
+      start = list(fixed=c1[c(1:3,5,4)]))
+anova(R.nlme2, R.nlme1)
+summary(R.nlme2)$fixed
+
+Rabbit$tr <- model.matrix(~ Treatment - 1, Rabbit)
+R.nlme3 <- update(R.nlme2, cluster = ~ Animal,
+               random = list(A ~ tr-1, ld50 ~ tr-1))
+anova(R.nlme2, R.nlme3)
+summary(R.nlme3)
+R2 <- fitted(R.nlme2)$cluster
+xyplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
+    xlab = "log(Dose) of Phenylbiguanide",
+    ylab = "Change in blood pressure (mm Hg)",
+    subscripts = T, aspect = "xy", panel = 
+       function(x, y, subscripts) {
+          panel.grid()
+          panel.xyplot(x, y)
+          sp <- spline(x, R2[subscripts])
+          panel.xyplot(sp$x, sp$y, type="l")
+       })
+}
+# End of ch10

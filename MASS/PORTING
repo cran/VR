@@ -1,0 +1,57 @@
+R:
+  Don't copy First.lib.q IQR.q data.q
+
+  area.q
+  corresp.q
+  gamma.shape.q
+  negbin.q
+  rlm.q
+  ucv.q
+    sqrt(.Machine$single.eps) -> .Machine$double.eps^0.25
+    .Machine$single.eps^0.5 -> .Machine$double.eps^0.25
+    .Machine$single.eps -> sqrt(.Machine$double.eps)
+    single -> double
+
+  logtrans.q:
+    aov -> lm
+  mca.q:
+    In plot.mca(), add
+      if (!is.numeric(col)) col <- match(col, palette())
+
+  zzz.R:
+    spec.taper
+    wt.huber
+    .First.lib
+
+man:
+  Don't copy IQR.d
+
+  corresp.Rd:
+    fix example (caith now a built-in data set)
+  lda.Rd:
+    data(iris3)
+    iris -> iris3
+    make example executable
+  qda.Rd:
+    data(iris3)
+    iris -> iris3
+
+data:
+  MASS/data.q:
+    Replace `n=' by `nmax=' where appropriate (11 times)
+  cd to .../MASS and start R
+    .DESTDIR <- "where.data.files.should.go"
+    rts <- function(units = NULL, ...) ts(...)
+    source("data.q")
+    .DATA <- ls()
+    for (f in .DATA) {
+      save(list = f, 
+           file = paste(.DESTDIR, "/", f, ".rda", sep = ""), 
+           ascii = TRUE)
+    }
+  ADD caith.tab
+  ADD index.doc (from README).
+
+
+INDEX:
+  Generate via Rdindex, and add contents of `STATUS' at the end.

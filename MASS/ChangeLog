@@ -1,0 +1,41 @@
+Wednesday June  3 08:34:18 BST 1998 Brian Ripley <ripley@stats.ox.ac.uk.
+
+	* DESCRIPTION (Version):  New version is 5.3pl021-1.
+
+
+Sun May 24 12:05:55 1998  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* DESCRIPTION (Version):  New version is 5.3pl018-2.
+
+	* STATUS:  New file.
+
+	* INDEX:  Add contents of `STATUS' at the end.
+
+	* R/zzz.R:  Added code for wt.huber().  
+	.First.lib() now requires mva.
+
+	* data:  All data files are now generated via save(..., ascii =
+	TRUE) as in particular the dump()ed version of Aids2 could not be
+	source()d back (``memory exhausted'').
+
+	* data/caith.tab:  New file.
+
+	* data/index.doc:  New file listing the data sets, obtained from
+	MASS's `README'.
+
+Sat May 23 18:49:44 1998  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* DESCRIPTION (Version):  New version is 5.3pl018-1.
+	* DESCRIPTION (Package):  Renamed to `MASS'.
+
+	* PORTING:  When setting up the data sets, scan(..., n=) has to be
+	scan(..., nmax=) in R.
+
+	* R/zzz.R:  Added code for spec.taper().
+
+	* R/cpgram.q:
+	* R/loglm.q:
+	Upgraded to current version.
+
+	* ChangeLog:  Finally started.
+

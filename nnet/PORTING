@@ -1,0 +1,61 @@
+* R:
+
+The files in `R' were obtained from the corresponding S code files
+with the following changes:
+
+* R/multinom.q:
+Change all occurences of `single' to `double'.
+
+* R/nnet.q:
+Change all occurences of `single' to `double'.
+
+* R/zzz.R:  Contains
+  which.na <- function(x) seq(along = x)[is.na(x)]
+  .First.lib <- function(lib, pkg) library.dynam("nnet", pkg, lib)
+
+* data:
+
+To make the example for multinom work, copy birthwt.dat from MASS to
+data/birthwt.tab.
+
+* man:
+
+The directory `man' contains R documentation sources converted via
+Sd2Rd from the S documentation sources, with the following changes:
+
+* man/multinom.Rd:
+In the example, add the following at the beginning:
+**********************************************************************
+options(contrasts=c("contr.treatment", "contr.poly"))
+## For preparing the data
+data(birthwt)
+attach(birthwt)
+race <- factor(race, labels=c("white", "black", "other"))
+ptd <- factor(ptl > 0)
+ftv <- factor(ftv)
+levels(ftv)[-(1:2)] <- "2+"
+table(ftv)  # as a check
+bwt <- data.frame(low = factor(low), age, lwt, race, smoke = (smoke>0),
+                  ptd, ht = (ht>0), ui = (ui>0), ftv)
+detach("birthwt")
+rm(race, ptd, ftv)
+## And now ...
+**********************************************************************
+
+* man/nnet.Hess.Rd,
+* man/nnet.Rd,
+* man/predict.nnet.Rd:
+Replace `iris' by `iris3', and add `data(iris3)' as the first line of
+the examples section.
+
+* man/nnet.Rd:  Add
+  \alias{nnet.default}
+  \alias{nnet.formula}
+to the aliases.
+
+* src:
+
+Provide a standard Makefile (should no longer be necessary in 0.62+,
+except for `make clean' etc).
+
+-kh

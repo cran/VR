@@ -1,0 +1,42 @@
+% file class/knn1.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{knn1}
+\alias{knn1}
+\title{
+1-nearest neighbour classification
+}
+\description{
+Nearest neighbour classification for test set from training set. For
+each row of the test set, the nearest (by Euclidean distance) training
+set vector is found, and its classification used. If there is more than
+one nearest, a majority vote is used with ties broken at random.
+}
+\usage{
+knn1(train, test, class)
+}
+\arguments{
+\item{train}{
+matrix or data frame of training set cases.
+}
+\item{test}{
+matrix or data frame of test set cases. A vector will be interpreted
+as a row vector for a single case.
+}
+\item{class}{
+factor of true classification of training set.
+}}
+\value{
+factor of classifications of test set.
+}
+\seealso{
+\code{\link{knn}}
+}
+\examples{
+data(iris3)
+train <- rbind(iris3[1:25,,1],iris3[1:25,,2],iris3[1:25,,3])
+test <- rbind(iris3[26:50,,1],iris3[26:50,,2],iris3[26:50,,3])
+cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
+knn1(train, test, cl)
+}
+\keyword{classif}
+% Converted by Sd2Rd version 0.3-2.

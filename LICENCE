@@ -1,0 +1,67 @@
+Software and datasets to support `Modern Applied Statistics with
+S-PLUS', second edition, by W. N. Venables and B. D. Ripley.
+Springer, 1997, ISBN 0-387-98214-0.
+
+Version for R-0.63 and later
+
+From the text (pp. 497-8):
+
+    The datasets and software remain the property of the authors or of the
+    original source, but may be freely distributed provided the source is
+    acknowledged.
+
+    These datasets and software are provided in good faith, but none of
+    the authors, publishers or distributors warrant their accuracy
+    nor can be held responsible for the consequences of their use.
+
+This file is intended to clarify ownership and copyright: where
+possible individual files also carry brief copyright notices. 
+
+
+Copyrights
+==========
+
+File MASS/R/plot.survfit.q is a modified version of files in
+the survival4 package of Terry Therneau (C) 1994 Mayo Foundation for
+Medical Education and Research, modified (C) 1994 B. D. Ripley.
+
+File MASS/R/profiles.q copyright (C) 1996 D. M. Bates and W. N. Venables.
+                       port to R by B. D. Ripley copyright (C) 1998
+
+Our understanding is that the dataset files MASS/data/*.rda are not copyright.
+
+Files spatial/data/*.dat were generated or digitized by B. D. Ripley: no
+copyright is asserted.
+
+The file COPYING is the copy of the `GNU General Public License',
+(C) 1989, 1991 Free Software Foundation, Inc.
+
+All other files are copyright (C) 1994-9 W. N. Venables and
+B. D. Ripley. Those parts which were distributed with the first
+edition are also copyright (C) 1994 Springer-Verlag New York Inc, with
+all rights assigned to W. N. Venables and B. D. Ripley.
+
+
+Licence
+=======
+
+    This is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+
+
+The file COPYING is the copy of the `GNU General Public License'.
+
+
+Bill.Venables@adelaide.edu.au
+ripley@stats.ox.ac.uk

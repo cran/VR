@@ -1,0 +1,240 @@
+#-*- S -*-  
+
+# Chapter 14   Tree-based Methods
+
+library(MASS)
+library(tree)
+postscript(file="ch14.ps", width=8, height=6, pointsize=9)
+
+
+# 14.1  Partitioning methods
+
+data(cpus)
+cpus.tr <- tree(perf ~ syct+mmin+mmax+cach+chmin+chmax, cpus)
+summary(cpus.tr)
+print(cpus.tr)
+
+par(mfrow=c(1,2))
+plot(cpus.tr, type="u");  text(cpus.tr, srt=90)
+
+cpus.ltr <- tree(log10(perf) ~ syct + mmin + mmax + cach
+     + chmin + chmax, cpus)
+summary(cpus.ltr)
+plot(cpus.ltr, type="u");  text(cpus.ltr, srt=90)
+par(mfrow = c(1,1))
+
+data(iris3)
+ir.species <- factor(c(rep("s",50), rep("c", 50),
+     rep("v", 50)))
+ird <- data.frame(rbind(iris3[,,1], iris3[,,2], iris3[,,3]))
+ir.tr <- tree(ir.species ~., ird)
+summary(ir.tr)
+ir.tr
+plot(ir.tr)
+text(ir.tr, all=T)
+ir.tr1 <- snip.tree(ir.tr, nodes = c(12, 7))
+ir.tr1
+summary(ir.tr1)
+
+par(pty="s")
+plot(ird[, 3],ird[, 4], type="n",
+   xlab="petal length", ylab="petal width")
+text(ird[, 3], ird[, 4], as.character(ir.species))
+par(cex=2)
+partition.tree(ir.tr1, add=T)
+par(cex=1)
+
+par(pty="m")
+
+data(fgl)
+fgl.tr <- tree(type ~ ., fgl)
+summary(fgl.tr)
+plot(fgl.tr);  text(fgl.tr, all=T, cex=0.5)
+fgl.tr1 <- snip.tree(fgl.tr, node=c(108, 31, 26))
+tree.screens()
+plot(fgl.tr1)
+tile.tree(fgl.tr1, fgl$type)
+close.screen(all = T)
+
+data(shuttle)
+shuttle.tr <- tree(use ~ ., shuttle, subset=1:253,
+                     mindev=1e-6, minsize=2)
+shuttle.tr
+#post.tree(shuttle.tr)
+shuttle1 <- shuttle[254:256, ]  # 3 missing cases
+predict(shuttle.tr, shuttle1)
+
+
+# 14.2  Cutting trees down to size
+
+par(mfrow=c(1,2), pty="s")
+plot(prune.tree(cpus.ltr))
+cpus.ltr1 <- prune.tree(cpus.ltr, best=8)
+plot(cpus.ltr1);   text(cpus.ltr1)
+summary(prune.tree(fgl.tr, k=10))
+
+#set.seed(123)
+plot(cv.tree(cpus.ltr,, prune.tree))
+#post.tree(prune.tree(cpus.ltr, best=4))
+
+#set.seed(123)
+fgl.cv <- cv.tree(fgl.tr,, prune.tree)
+for(i in 2:5)  fgl.cv$dev <- fgl.cv$dev + 
+    cv.tree(fgl.tr,, prune.tree)$dev
+fgl.cv$dev <- fgl.cv$dev/5
+plot(fgl.cv)
+misclass.tree(fgl.tr)
+misclass.tree(prune.tree(fgl.tr, best=5))
+
+#set.seed(123)
+fgl.cv <- cv.tree(fgl.tr,, prune.misclass)
+for(i in 2:5)  fgl.cv$dev <- fgl.cv$dev + 
+     cv.tree(fgl.tr,, prune.misclass)$dev
+fgl.cv$dev <- fgl.cv$dev/5
+fgl.cv
+plot(fgl.cv)
+prune.misclass(fgl.tr)
+
+par(mfrow=c(1,1), pty="m")
+
+
+# 14.3  Low birth weights revisited
+
+if(!exists("bwt")) {
+  data(birthwt)
+  attach(birthwt)
+  race <- factor(race, labels=c("white", "black", "other"))
+  ptd <- factor(ptl > 0)
+  ftv <- factor(ftv); levels(ftv)[-(1:2)] <- "2+"
+  bwt <- data.frame(low=factor(low), age, lwt, race,
+	   smoke=(smoke>0), ptd, ht=(ht>0), ui=(ui>0), ftv)
+  detach(); rm(race, ptd, ftv)
+}
+
+bwt.tr <- tree(low ~ ., bwt)
+summary(bwt.tr)
+bwt.tr1 <- prune.tree(bwt.tr, k=2)
+summary(bwt.tr1)
+prune.misclass(bwt.tr1)
+bwt.tr3 <- prune.misclass(bwt.tr1, best=5)
+
+#set.seed(123)
+bwt.cv <- cv.tree(bwt.tr,, prune.misclass)
+for(i in 2:5)  bwt.cv$dev <- bwt.cv$dev + 
+     cv.tree(bwt.tr,, prune.misclass)$dev
+bwt.cv$dev <- bwt.cv$dev/5
+bwt.cv
+
+plot(bwt.tr3)
+text(bwt.tr3, label="1")
+detach("package:tree")
+
+
+# =========================================
+
+# Chapter 14 Complements
+
+
+# 14.4  Library RPart
+
+library(rpart)
+data(cpus)
+cpus.rp <- rpart(log10(perf) ~ ., cpus[ ,2:8], cp=1e-3)
+cpus.rp
+
+data(iris3)
+ird <- data.frame(rbind(iris3[,,1], iris3[,,2],iris3[,,3]),
+           Species=c(rep("s",50), rep("c",50), rep("v",50)))
+ir.rp <- rpart(Species ~ ., data=ird, method="class", cp=1e-3)
+ir.rp
+
+printcp(cpus.rp)
+plotcp(cpus.rp)
+
+print(cpus.rp, cp=0.006, digits=3)
+cpus.rp1 <- prune(cpus.rp, cp=0.006)
+plot(cpus.rp1, branch=0.4, uniform=T)
+text(cpus.rp1, digits=3)
+
+printcp(ir.rp)
+summary(ir.rp)
+
+ir.rp1 <- rpart(Species ~ ., ird, cp=0, minsplit=5, maxsurrogate=0)
+printcp(ir.rp1)
+print(ir.rp1, cp=0.015)
+
+library(survival4)
+data(VA)
+#set.seed(123)
+VA.rp <- rpart(Surv(stime, status) ~ ., data=VA, minsplit=10)
+plotcp(VA.rp)
+printcp(VA.rp)
+
+print(VA.rp, cp=0.09)
+
+plot(VA.rp, branch=0.2); text(VA.rp, digits=3)
+post(VA.rp, horizontal=F, pointsize=8)
+
+#set.seed(123)
+fgl.rp <- rpart(type ~ ., fgl, cp=0.001)
+plotcp(fgl.rp)
+printcp(fgl.rp)
+print(fgl.rp, cp=0.02)
+fgl.rp2 <- prune(fgl.rp, cp=0.02)
+plot(fgl.rp2); text(fgl.rp2)
+
+#set.seed(123)
+bwt.rp <- rpart(low ~ ., bwt, cp=0.001, minsplit=10, minbucket=5)
+bwt.rp
+plotcp(bwt.rp)
+bwt.rp2 <- rpart(low ~ ., bwt, cp=0.0, xval=0, minsplit=10, 
+                minbucket=5, parms=list(split="information"))
+bwt.rp2
+detach("package:rpart")
+
+# 14.5  Tree-structured survival analysis
+
+if(F) {
+library(tssa, first=T)
+VA.tssa <- tssa(stime ~ treat + age  + Karn + diag.time + prior,
+                  status, data=VA, minbuc=10)
+VA.tssa
+summary(VA.tssa)
+
+tree.screens()
+plot(VA.tssa)
+text(VA.tssa)
+if(interactive())  km.tssa(VA.tssa)
+close.screen(all=T)
+
+tree.screens()
+plot(VA.tssa)
+if(interactive())  prune(VA.tssa)
+close.screen(all=T)
+
+
+library(survcart, first=T)
+VA.st <- survtree(stime ~ treat + age + Karn + diag.time + 
+                          cell + prior,
+                  data=VA, status, fact.flag=c(F,T,T,T,F,F))
+plot(prune.survtree(VA.st))
+
+set.seed(123); tr <- sample(nrow(VA), 90)
+VA1 <- VA[tr,]; VA2 <- VA[-tr,]
+VA.st1 <- update(VA.st, data=VA1)
+VA.st1.pr <- prune.survtree(VA.st1, newdata=VA2, 
+                            zensor.newdata=VA2$status)
+VA.st1.pr
+attach(VA.st1.pr)
+dev <- dev + k*size
+dev - 2*size
+dev - 4*size
+detach()
+
+prune(VA.st1, k=4)
+
+VA.st.tmp <- prune.survtree(VA.st, k=2)
+plot(surv.fit(VA$stime, VA$status, factor(VA.st.tmp$where)))
+}
+
+# End of ch14

@@ -1,0 +1,39 @@
+% file MASS/hills.d
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{hills}
+\alias{hills}
+\title{
+Record Times in Scottish Hill Races
+}
+\description{
+The record times in 1984 for 35 Scottish hill races.  
+}
+\format{
+The components are:
+}
+\arguments{
+\item{dist}{
+distance in miles (on the map)
+}
+\item{climb}{
+total height gained during the route, in feet.
+}
+\item{time}{
+record time in minutes.
+}}
+\source{
+A.C. Atkinson (1986)
+Comment: Aspects of diagnostic regression analysis.
+\emph{Statistical Science }
+\bold{1}, 397-402.
+
+
+[A.C. Atkinson (1988)
+Transformations unmasked.
+\emph{Technometrics}
+\bold{30}, 311-318
+"corrects" the time for Knock Hill from 78.65 to 18.65. It is unclear
+if this based on the original records.]
+}
+\keyword{datasets}

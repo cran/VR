@@ -1,0 +1,412 @@
+#-*- S -*-
+
+# Chapter 12   Survival Analysis
+
+# You will need something like R -v 10 -n 300000 for this file.
+
+library(survival4)
+library(splines)  # for bs()
+library(modreg)  # for scatter.smooth()
+library(MASS) # needed for plot.survfit
+options(width=65, digits=5, height=9999)
+options(contrasts=c("contr.treatment", "contr.poly"))
+postscript("ch12.ps", width=8, height=6, pointsize=9)
+
+# 12.1  Estimators of survivor curves
+
+data(leuk)
+attach(leuk)
+plot(survfit(Surv(time) ~ ag), lty=c(2,3))
+legend(80, 0.8, c("ag absent", "ag present"), lty=c(2,3))
+detach()
+
+data(gehan)
+attach(gehan)
+Surv(time, cens)
+# plot.factor(gehan)
+plot(log(time) ~ pair)
+gehan.surv <- survfit(Surv(time, cens) ~ treat, gehan,
+     conf.type="log-log")
+summary(gehan.surv)
+plot(gehan.surv, conf.int=T, lty=c(3,2), log=T,
+     xlab="time of remission (weeks)", ylab="survival")
+plot(gehan.surv, lty=c(3,2), lwd=2, log=T, add=T, cex=2)
+legend(25, 0.1 , c("control","6-MP"), lty=c(2, 3), lwd=2)
+detach()
+
+survdiff(Surv(time, cens) ~ treat, data=gehan)
+survdiff(Surv(time) ~ ag, leuk)
+
+
+# 12.2  Parametric models
+
+plot(gehan.surv,  lty=c(3,4), cloglog=T,
+     xlab="time of remission (weeks)", ylab="H(t)")
+legend(2, 2 , c("control","6-MP"), lty=c(4, 3))
+
+options(contrasts=c("contr.treatment", "contr.poly"))
+survreg(Surv(time) ~ ag*log(wbc), leuk, dist="exponential")
+summary(survreg(Surv(time) ~ ag + log(wbc), leuk, dist="exp"))
+summary(survreg(Surv(time) ~ ag + log(wbc), leuk)) # Weibull
+summary(survreg(Surv(time) ~ ag + log(wbc), leuk, dist="log"))
+summary(survreg(Surv(time) ~ log(wbc), leuk))
+anova(survreg(Surv(time) ~ log(wbc), leuk), 
+    survreg(Surv(time) ~ ag + log(wbc), leuk))
+
+leuk.wei <- survreg(Surv(time) ~ ag + log(wbc), leuk)
+ntimes <- leuk$time * exp(-leuk.wei$linear.predictors)
+plot(survfit(Surv(ntimes)), log=T)
+
+survreg(Surv(time, cens) ~ factor(pair) + treat, gehan, dist="exp")
+summary(survreg(Surv(time, cens) ~ treat, gehan, dist="exp"))
+summary(survreg(Surv(time, cens) ~ treat, gehan))
+
+data(motors)
+plot(survfit(Surv(time, cens) ~ factor(temp), motors), conf.int=F)
+motor.wei <- survreg(Surv(time, cens) ~ temp, motors)
+summary(motor.wei)
+# needs model.matrix.default removed from package survival4
+unlist(predict(motor.wei, data.frame(temp=130), se.fit=T))
+motor.wei$coef %*% c(1, 130)
+cz <- c(1, 130,0) # compute s.e.
+sqrt(t(cz)%*% motor.wei$var %*% cz)
+
+
+# 12.3  Cox proportional hazards model
+
+attach(leuk)
+leuk.cox <- coxph(Surv(time) ~ ag + log(wbc), leuk)
+summary(leuk.cox)
+update(leuk.cox, ~ . -ag)
+leuk.coxs <- coxph(Surv(time) ~ strata(ag) + log(wbc), leuk)
+leuk.coxs
+leuk.coxs1 <- coxph(Surv(time) ~ strata(ag) + log(wbc) +
+     ag:log(wbc), leuk)
+leuk.coxs1
+plot(survfit(Surv(time) ~ ag), lty=2:3, log=T)
+plot(survfit(leuk.coxs), lty=2:3, lwd=3, add=T, log=T)
+legend(80, 0.8, c("ag absent", "ag present"), lty=2:3)
+leuk.cox <- coxph(Surv(time) ~ ag, leuk)
+#summary(coxph(Surv(time) ~ log(wbc) +
+#     offset(predict(leuk.cox, type="lp")), iter.max=0))
+detach()
+
+gehan.cox <- coxph(Surv(time, cens) ~ treat, gehan)
+summary(gehan.cox)
+coxph(Surv(time, cens) ~ treat, gehan, method="exact")
+# The next fit is slow
+coxph(Surv(time, cens) ~ treat+factor(pair), gehan, method="exact")
+1 - pchisq(45.5 - 16.2, 20)
+
+motor.cox <- coxph(Surv(time, cens) ~ temp, motors)
+motor.cox
+coxph(Surv(time, cens) ~ temp, motors, method="breslow")
+coxph(Surv(time, cens) ~ temp, motors, method="exact")
+plot( survfit(motor.cox, newdata=data.frame(temp=200),
+     conf.type="log-log") )
+summary( survfit(motor.cox, newdata=data.frame(temp=130)) )
+
+
+# 12.4  Further examples
+
+data(VA)
+#VA.temp <- data.frame(cancer.vet)
+#dimnames(VA.temp)[[2]] <- c("treat", "cell", "stime",
+#     "status", "Karn", "diag.time","age","therapy")
+#attach(VA.temp)
+#VA <- data.frame(stime, status, treat=factor(treat), age, Karn, diag.time,
+#     cell=factor(cell), prior=factor(therapy))
+#detach()
+VA.cox <- coxph(Surv(stime, status) ~ treat + age  + Karn +
+     diag.time + cell + prior, VA)
+VA.cox
+VA.coxs <- coxph(Surv(stime, status) ~ treat + age + Karn +
+      diag.time + strata(cell) + prior, VA)
+VA.coxs
+
+par(mfrow=c(1,2))
+plot(survfit(VA.coxs), log=T, lty=1:4)
+#legend(locator(1), c("squamous", "small", "adeno", "large"), lty=1:4)
+plot(survfit(VA.coxs), cloglog=T, lty=1:4)
+cKarn <- factor(cut(VA$Karn, 5))
+VA.cox1 <- coxph(Surv(stime, status) ~ strata(cKarn) + cell, VA)
+plot(survfit(VA.cox1), cloglog=T)
+VA.cox2 <- coxph(Surv(stime, status) ~ Karn + strata(cell), VA)
+scatter.smooth(VA$Karn, residuals(VA.cox2))
+VA.wei <- survreg(Surv(stime, status) ~ treat + age + Karn +
+     diag.time + cell + prior, VA)
+summary(VA.wei, cor=F)
+VA.exp <- survreg(Surv(stime, status) ~ Karn + cell, VA,
+     dist="exp")
+summary(VA.exp, cor=F)
+cox.zph(VA.coxs)
+par(mfrow=c(3,2)); plot(cox.zph(VA.coxs))
+VA$Karnc <- VA$Karn - 50
+VA.coxc <- update(VA.cox, ~ . - Karn + Karnc)
+VA.cox2 <- stepAIC(VA.coxc, ~ .^2)
+VA.cox2$anova
+VA.cox3 <- update(VA.cox2, ~ treat/Karnc + prior*Karnc
+    + treat:prior + cell/diag.time)
+VA.cox3
+cox.zph(VA.cox3)
+par(mfrow=c(2,2))
+plot(cox.zph(VA.cox3), var=c(1,3,7))
+par(mfrow=c(1,1))
+
+data(heart)
+attach(heart)
+coxph(Surv(start, stop, event) ~ transplant*
+     (age+surgery+year), heart)
+coxph(Surv(start, stop, event) ~ transplant*(age+year) +
+     surgery, heart)
+stan <- coxph(Surv(start, stop, event) ~ transplant*year +
+     age + surgery, heart)
+stan
+stan1 <- coxph(Surv(start, stop, event) ~ strata(transplant)+
+     year + year:transplant + age + surgery, heart)
+par(mfrow=c(1,2))
+plot(survfit(stan1), conf.int=T, log=T, lty=c(1,3))
+#legend(locator(1), c("before", "after"), lty=c(1,3))
+
+plot(year[transplant==0], residuals(stan1, collapse=id),
+     xlab = "year", ylab="martingale residual")
+lines(lowess(year[transplant==0],
+     residuals(stan1, collapse=id)))
+par(mfrow=c(1,1))
+sresid <- resid(stan1, type="score", collapse=id)
+-100 * sresid %*% stan1$var %*% diag(1/stan1$coef)
+# Survivor curve for the "average" subject
+summary(survfit(stan))
+# Survivor curve for a subject of age 50 on 1 Oct 1971
+#   with prior surgery, transplant after 6 months
+stan2 <- data.frame(start=c(0,183), stop=c(183,2*365),
+     event=c(0,0), year=c(4,4), age=c(50,50), surgery=c(1,1),
+     transplant=c(0,1))
+summary(survfit(stan, stan2, individual=T,
+     conf.type="log-log"))
+detach()
+
+# Aids analysis
+time.depend.covar <- function(data) {
+  id <- row.names(data)
+  n <- length(id)    
+  events <- c(0, 10043, 11139, 12053)
+  crit1 <- matrix(events[1:3], n, 3 ,byrow=T)
+  crit2 <- matrix(events[2:4], n, 3, byrow=T)
+  diag <- matrix(data$diag,n,3)
+  death <- matrix(data$death,n,3)
+  incid <- (diag < crit2) & (death >= crit1)
+  incid <- t(incid)
+  indr <- col(incid)[incid]
+  indc <- row(incid)[incid]
+  ind <- cbind(indr, indc)
+  idno <- id[indr]
+  state <- data$state[indr]
+  T.categ <- data$T.categ[indr]
+  age <- data$age[indr]
+  sex <- data$sex[indr]
+  late <- indc - 1
+  start <- t(pmax(crit1 - diag, 0))[incid]
+  stop <- t(pmin(crit2, death + 0.9) - diag)[incid]
+  status <- matrix(unclass(data$status),n,3)-1# 0/1
+  status[death > crit2] <- 0
+  status <- status[ind]
+
+  levels(state) <- c("NSW", "Other", "QLD", "VIC")
+  levels(T.categ) <- c("hs", "hsid", "id", "het", "haem", 
+                       "blood", "mother", "other")
+  levels(sex) <- c("F", "M")
+  data.frame(idno, zid=factor(late), start, stop, status, 
+             state, T.categ, age, sex)
+}
+data(Aids2)
+Aids3 <- time.depend.covar(Aids2)
+
+attach(Aids3)
+aids.cox <- coxph(Surv(start, stop, status)
+      ~ zid + state + T.categ + sex + age, data=Aids3)
+summary(aids.cox)
+aids1.cox <- coxph(Surv(start, stop, status)
+   ~ zid + strata(state) + T.categ + age, data=Aids3)
+aids1.surv <- survfit(aids1.cox)
+aids1.surv
+plot(aids1.surv, mark.time=F, lty=1:4, xscale=365.25/12,
+   xlab="months since diagnosis")
+#legend(locator(1), levels(state), lty=1:4)
+
+aids2.cox <- coxph(Surv(start, stop, status)
+   ~ zid + state + strata(T.categ) + age, data=Aids3)
+aids2.surv <- survfit(aids2.cox)
+aids2.surv
+
+par(mfrow=c(1,2))
+plot(aids2.surv, mark.time=F, lty=1:8, xscale=365.25/12,
+   xlab="months since diagnosis", strata=1:4)
+#legend(locator(1), levels(T.categ)[1:4], lty=1:4)
+
+plot(aids2.surv, mark.time=F, lty=1:8, xscale=365.25/12,
+   xlab="months since diagnosis", strata=c(1,5,6,8))
+#legend(locator(1), levels(T.categ)[c(1,5,6,8)], lty=1:4)
+cases <- diff(c(0,idno)) != 0
+aids.res <- residuals(aids.cox, collapse=idno)
+# needs over 100Mb in R
+#scatter.smooth(age[cases], aids.res, xlab = "age", 
+#   ylab="martingale residual")
+age2 <- cut(age, c(-1, 15, 30, 40, 50, 60, 100))
+c.age <- factor(unclass(age2), labels=c("0-15", "16-30", "31-40", 
+   "41-50", "51-60", "61+"))
+table(c.age)
+# tmp <- diag(6)
+# dimnames(tmp) <- list(levels(c.age), levels(c.age))
+# contrasts(c.age) <- tmp[, -3]
+# contrasts do not work in survival4, so we change the levels about
+c.age <- factor(as.character(c.age), levels = c("31-40","0-15", "16-30", 
+   "41-50", "51-60", "61+"))
+
+summary(coxph(Surv(start, stop, status) ~ zid  + state
+   + T.categ + c.age, data=Aids3))
+detach()
+
+make.aidsp <- function(){
+   cutoff <- 10043
+   btime <- pmin(cutoff, Aids2$death) - pmin(cutoff, Aids2$diag)
+   atime <- pmax(cutoff, Aids2$death) - pmax(cutoff, Aids2$diag)
+   survtime <- btime + 0.5*atime
+   status <- unclass(Aids2$status) - 1
+   data.frame(survtime, status, state=Aids2$state,
+     T.categ=Aids2$T.categ, age=Aids2$age, sex=Aids2$sex)
+}
+Aidsp <- make.aidsp()
+
+attach(Aidsp)
+aids.wei <- survreg(Surv(survtime + 0.9, status) ~  state 
+     + T.categ + sex + age, data=Aidsp)
+summary(aids.wei, correlation=F)
+summary(survreg(Surv(survtime+0.9, status) ~  state
+    + T.categ + age, Aidsp), correlation=F)
+t1 <- bs(0:85, knots = c(15,30,40,50,60))
+aids.bs <- survreg(Surv(survtime+0.9,status) ~  state
+    + T.categ + t1[age+1,], data=Aidsp)
+summary(aids.bs, correlation=F)
+cv <- aids.bs$coef[c(1,12:19)]
+cv.var <- aids.bs$var[c(1,12:19), c(1,12:19)]
+t2 <- cbind(1, t1)
+t3 <- sqrt(diag(t2 %*% cv.var %*% t(t2) ))
+plot(0:85, exp(t2%*%cv)/365.25, type="l", xlab="age",
+   ylab = "expected lifetime (years)")
+lines(0:85, exp(t2%*%cv + 1.96 * t3)/365.25, lty=3)
+lines(0:85, exp(t2%*%cv - 1.96 * t3)/365.25, lty=3)
+rug(age+runif(length(age), -0.5, 0.5), 0.015)
+detach()
+
+
+# 12.5 Expected survival rates
+
+library(date)
+library(ratetables) # will autoload functions from date.
+par(mfrow=c(1,1))
+plot(survfit(stan1), conf.int=T, log=T, lty=c(1,3))
+expect <- survexp(~ ratetable(sex=1, year=mdy.date(7, 1, 1991), 
+  age=65*365.25), times = seq(0, 1400, 30), 
+  ratetable=survexp.uswhite)
+lines(expect$time, expect$surv, lty=4)
+expect <- survexp(stop ~ ratetable(sex=1, year=year*365.25,
+    age=(age+48)*365.25),  times = seq(0, 1400, 30),  
+    ratetable = survexp.uswhite, data = heart, 
+    subset = diff(c(id, 0)) != 0, cohort = T, conditional = T)
+lines(expect$time, expect$surv, lty=4)
+
+# =========================================
+
+# Chapter 12 Complements
+
+
+# 12.1  Estimators of survival curves
+
+library(logspline)
+
+g1 <- gehan[gehan$treat=="control",]
+g2 <- gehan[gehan$treat=="6-MP",]
+logspline.plot(
+     logspline.fit(uncensored=g1[g1$cens==1,"time"], 
+                   right=g1[g1$cens==0,"time"], lbound=0),
+               what="s", xlim=c(0,35))
+g2.ls <- logspline.fit(uncensored=g2[g2$cens==1,"time"], 
+                       right=g2[g2$cens==0,"time"], lbound=0)
+xx <- seq(0, 35, len=100)
+lines(xx, 1 - plogspline(xx, g2.ls), lty=3)
+
+library(locfit)
+plot(locfit( ~ time, cens=1-cens, data=g1, family="hazard",
+            alpha=0.5, xlim=c(0, 1e10)),
+     xlim=c(0, 35), ylim=c(0, 0.3))
+lines(locfit( ~ time, cens=1-cens, data=g2, family="hazard",
+            alpha=0.5, xlim=c(0, 1e10)), lty=3)
+
+if(F) {
+library(HEFT)
+attach(Aids2)
+aids.heft <- heft.fit(death-diag+0.9, status=="D")
+heft.summary(aids.heft)
+par(mfrow=c(2,2))
+heft.plot(aids.heft, what="s",  ylim=c(0,1))
+heft.plot(aids.heft)
+detach()
+par(mfrow=c(1,1))
+
+
+# 12.6 Non-parametric models with covariates
+
+library(sm)
+attach(heart[heart$transplant==1,])
+sm.survival(age+48, log10(stop - start), event,  h=5, p=0.50)
+
+library(locfit)
+td <- stop - start; Age <- age+48
+plot(locfit(~ td + Age, cens=1-event, scale=0,alpha=0.5,
+           xlim=list(td=c(0,1e10)), flim=list(td=c(0,365))),
+     type="persp")
+
+library(hazcov)
+heart.hc <- hazcov(Surv(td, event) ~ Age, span=0.5)
+plot(heart.hc)
+persp.hazcov(Hazard.Rate ~ Time*Age, heart.hc)
+
+heart.50 <- hazcov(Surv(td, event) ~ Age, span=0.5, 
+                   trace.hat="exact")
+for(alpha in seq(0.1, 1, 0.1))
+{
+ heart.tmp <- hazcov(Surv(td, event) ~ Age, span=alpha,
+                     trace.hat="exact")
+ print(wcp(heart.tmp, heart.50))
+}
+
+heart.hc <- hazcov(Surv(td, event) ~ Age, span=0.5, ls=T)
+plot(heart.hc)
+persp.hazcov(Hazard.Rate ~ Time*Age, heart.hc) 
+detach()
+
+#  VA is constructed on page 363
+attach(VA)
+library(HARE)
+options(contrasts=c("contr.treatment", "contr.poly"))
+VAx <- model.matrix( ~ treat+age+Karn+cell+prior, VA)[,-1]
+VA.hare <- hare.fit(stime, status, VAx)
+hare.summary(VA.hare)
+
+library(HEFT)
+VA.heft <- heft.fit(stime, status, leftlog=0)
+heft.plot(VA.heft, what="h")
+nstime <- -log(1 - pheft(stime, VA.heft))
+
+survreg(Surv(stime, status) ~ 1, data=VA)
+
+plot(sort(nstime),
+     -log(1-pweibull(sort(stime), 1/1.1736, exp(4.973))),
+     type="l", xlab="HEFT-transformed", ylab="Weibull-transformed")
+
+VA.hare2 <- hare.fit(nstime, status, VAx)
+hare.summary(VA.hare2)
+}
+
+# End of ch12

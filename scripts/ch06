@@ -1,0 +1,206 @@
+#-*- S -*-
+
+# Chapter 6   Linear Statistical Models
+
+library(MASS)
+postscript(file="ch06.ps", width=8, height=6, pointsize=9)
+options(contrasts=c("contr.helmert", "contr.poly"))
+
+# 6.1  A linear regression example
+
+data(cats)
+attach(cats)
+tapply(Hwt/Bwt, Sex, mean)
+detach()
+
+Cats <- cats;  levels(Cats$Sex) <- c("Female", "Male")
+if(F) {
+xyplot(Hwt ~ Bwt | Sex, Cats, aspect = "xy",
+  prepanel = prepanel.lmline,
+  panel = function(x, y, ...)
+    { panel.xyplot(x, y, cex = 0.5);  panel.lmline(x, y) },
+  xlab = "Body weight (kg)", ylab = "Heart weight (gm)",
+  strip = function(...) strip.default(..., style = 1)
+)
+}
+
+catsF <- lm(Hwt ~ Bwt, data=cats, subset = Sex=="F")
+catsM <- update(catsF, subset = Sex=="M")
+summary(catsF)
+summary(catsM)
+
+Fvar <- deviance(catsF)/(Fdf <- catsF$df.resid)
+Mvar <- deviance(catsM)/(Mdf <- catsM$df.resid)
+c(Male=Mvar, Female=Fvar, F=(f <- Fvar/Mvar), "Tail area" =
+      2 * if(f < 1) pf(f,Fdf,Mdf) else pf(1/f,Mdf,Fdf))
+
+catsMF <- lm(Hwt ~ Sex/Bwt - 1, data=cats)
+summary(catsMF)
+catsMF1 <- lm(Hwt ~ Sex/factor(Bwt), data=cats, singular.ok=T)
+anova(catsMF, catsMF1)
+logcats.lm2 <- lm(log(Hwt/Bwt) ~ Sex/log(Bwt), data=cats)
+summary(logcats.lm2)
+logcats.lm1 <- lm(log(Hwt/Bwt) ~ Sex, data=cats)
+logcats.lm0 <- update(logcats.lm1, . ~ . - Sex)
+anova(logcats.lm0, logcats.lm1, logcats.lm2)
+
+par(mfrow=c(1,2), pty="s")
+rs <- resid(logcats.lm0)
+plot(cats$Sex, rs, ylab="log Transform Residuals")
+qqnorm(rs, ylab="log Transform Residuals")
+qqline(rs)
+par(mfrow=c(1,1), pty="m")
+
+
+# 6.2  Model formulae and model matrices
+
+data(quine)
+quine.Age <- lm(Days ~ Age, quine)
+attach(quine)
+a.star <- coef(quine.Age)
+a.star
+a.star <- as.vector(a.star)
+a <- c(mu=a.star[1], alpha=contrasts(Age) %*% a.star[-1])
+a
+sum(a[-1])                          # add to zero?
+dummy.coef(quine.Age)
+detach()
+
+
+N <- factor(Nlevs <- c(0,1,2,4))
+contrasts(N)
+contrasts(ordered(N))
+
+N2 <- N
+contrasts(N2, 2) <- poly(Nlevs, 2)
+N2 <- C(N, poly(Nlevs, 2), 2)       # alternative
+contrasts(N2)
+
+fractions(ginv(contr.helmert(n = 4)))
+
+Cp <- diag(-1, 4, 5);  Cp[row(Cp) == col(Cp) - 1] <- 1
+Cp
+fractions(ginv(Cp))
+
+
+# 6.3  Regression diagnostics
+
+data(hills)
+hills.lm <- lm(time ~ dist + climb, hills)
+hills.lm
+plot(fitted(hills.lm), studres(hills.lm))
+# identify(fitted(hills.lm), studres(hills.lm), row.names(hills))
+par(pty="s")
+qqnorm(studres(hills.lm))
+qqline(studres(hills.lm))
+par(pty="m")
+hills.hat <- lm.influence(hills.lm)$hat
+cbind(hills, lev=hills.hat)[hills.hat > 3/35, ]
+cbind(hills, pred=predict(hills.lm))["Knock Hill", ]
+hills1.lm <- lm(time ~ dist + climb, hills[-18, ])
+hills1.lm
+lm(time ~ dist + climb, hills[-c(7,18), ])
+summary(hills1.lm)
+summary(lm(time ~ dist + climb, hills[-18, ], weight=1/dist^2))
+lm(time ~ -1 + dist + climb, hills[-18, ], weight=1/dist^2)
+
+hills <- hills
+hills$ispeed <- hills$time/hills$dist
+hills$grad <- hills$climb/hills$dist
+hills2.lm <- lm(ispeed ~ grad, hills[-18, ])
+hills2.lm
+plot(hills$grad[-18], studres(hills2.lm))
+# identify(hills$grad[-18], studres(hills2.lm), row.names(hills)[-18])
+par(pty="s")
+qqnorm(studres(hills2.lm))
+qqline(studres(hills2.lm))
+par(pty="m")
+hills2.hat <- lm.influence(hills2.lm)$hat
+cbind(hills[-18,], lev=hills2.hat)[hills2.hat > 1.8*2/34, ]
+
+
+# 6.4  Safe prediction
+
+data(wtloss)
+quad1 <- lm(Weight ~ Days + I(Days^2), wtloss)
+quad2 <- lm(Weight ~ poly(Days, 2), wtloss)
+new.x <- data.frame(Days = seq(250, 300, 10),
+                    row.names=seq(250, 300, 10))
+predict(quad1, newdata=new.x)
+predict(quad2, newdata=new.x)
+#predict.gam(quad2, newdata=new.x)
+
+
+# 6.5  Factorial designs and designed experiments
+
+npk1 <- read.table("npk.dat", header=T)
+npk <- data.frame(block=factor(rep(1:6, rep(4,6))),
+      N=factor(npk1$N), P=factor(npk1$P), K=factor(npk1$K),
+      yield=npk1$yield)
+npk.aov <- aov(yield ~ block + N*P*K, npk)
+npk.aov
+summary(npk.aov)
+alias(npk.aov)
+coef(npk.aov)
+
+options(contrasts=c("contr.treatment", "contr.poly"))
+npk.aov1 <- aov(yield ~ block + N + K, npk)
+summary.lm(npk.aov1)
+se.contrast(npk.aov1, list(N=="0", N=="1"), data=npk)
+model.tables(npk.aov1, type="means", se=T)
+
+mp <- c("-","+")
+NPK <- expand.grid(N=mp, P=mp, K=mp)
+NPK
+
+if(F) {
+blocks13 <- fac.design(levels=c(2,2,2),
+     factor=list(N=mp, P=mp, K=mp), rep=3, fraction=1/2)
+blocks46 <- fac.design(levels=c(2,2,2),
+    factor=list(N=mp, P=mp, K=mp), rep=3, fraction=~ -N:P:K)
+NPK <- design(block = factor(rep(1:6, rep(4,6))),
+    rbind(blocks13, blocks46))
+i <- order(runif(6)[NPK$block], runif(24))
+NPK <- NPK[i,]  # Randomized
+
+lev <- rep(2,7)
+factors <- list(S=mp, D=mp, H=mp, G=mp, R=mp, B=mp, P=mp)
+Bike <- fac.design(lev, factors, fraction =
+    ~ S:D:G + S:H:R + D:H:B + S:D:H:P)
+Bike
+replications(~ .^2, data=Bike)
+}
+
+# 6.6  An unbalanced four-way layout
+
+data(quine)
+attach(quine)
+table(Lrn, Age, Sex, Eth)
+
+Means <- tapply(Days, list(Eth, Sex, Age, Lrn), mean)
+Vars  <- tapply(Days, list(Eth, Sex, Age, Lrn), var)
+SD <- sqrt(Vars)
+par(mfrow=c(1,2), pty="s")
+plot(Means, Vars, xlab="Cell Means", ylab="Cell Variances")
+plot(Means, SD, xlab="Cell Means", ylab="Cell Std Devn.")
+detach()
+
+boxcox(Days+1 ~ Eth*Sex*Age*Lrn, data=quine, 
+  lambda = seq(-0.05, 0.45, len = 20), singular.ok=T)
+logtrans(Days ~ Age*Sex*Eth*Lrn, data = quine, 
+    alpha = seq(0.75, 6.5, len=20), singular.ok = T)
+
+quine.hi <- aov(log(Days + 2.5) ~ .^4, quine)
+s2 <- summary.lm(quine.hi)$sigma^2 ; s2
+quine.nxt <- update(quine.hi, . ~ . - Eth:Sex:Age:Lrn)
+drop1.lm(quine.nxt, scale = s2)
+quine.lo <- aov(log(Days+2.5) ~ 1, quine)
+add1(quine.lo, quine.hi, scale = s2)
+
+quine.stp <- step(quine.nxt, 
+    scope = list(upper = ~Eth*Sex*Age*Lrn, lower = ~1), 
+    scale = s2, trace = F)
+quine.stp$anova
+
+drop1(quine.stp, test="F")
+# End of ch06

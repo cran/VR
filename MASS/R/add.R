@@ -1,0 +1,336 @@
+# file MASS/add.q
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+#
+addterm <-
+  function(object, ...) UseMethod("addterm")
+
+addterm.default <-
+  function(object, scope, scale = 0, test = c("none", "Chisq"),
+           k = 2, sorted = FALSE, trace = FALSE, ...)
+{
+  if(missing(scope) || is.null(scope)) stop("no terms in scope")
+  if(!is.character(scope))
+    scope <- add.scope(object, update.formula(object, scope))
+  if(!length(scope))
+    stop("no terms in scope for adding to object")
+  ns <- length(scope)
+  ans <- matrix(nrow = ns + 1, ncol = 2,
+                dimnames = list(c("<none>", scope), c("df", "AIC")))
+  ans[1,  ] <- extractAIC(object, scale, k = k, ...)
+  for(i in seq(ns)) {
+    tt <- scope[i]
+    if(trace) cat("trying +", tt, "\n")
+    nfit <- update(object, as.formula(paste("~ . +", tt)))
+    ans[i+1,  ] <- extractAIC(nfit, scale, k = k, ...)
+  }
+  dfs <- ans[,1] - ans[1,1]
+  dfs[1] <- NA
+  aod <- data.frame(Df = dfs, AIC = ans[,2])
+  if(sorted) aod <- aod[order(aod$AIC), ]
+  test <- match.arg(test)
+  if(test == "Chisq") {
+    dev <- ans[,2] - k*ans[, 1]
+    dev <- dev[1] - dev; dev[1] <- NA
+    nas <- !is.na(dev)
+    P <- dev
+    P[nas] <- 1 - pchisq(dev[nas], dfs[nas])
+    aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
+  }
+  head <- c("Single term additions", "\nModel:",
+            deparse(as.vector(formula(object))))
+  if(scale > 0)
+    head <- c(head, paste("\nscale: ", format(scale), "\n"))
+  class(aod) <- c("anova", "data.frame")
+  attr(aod, "heading") <- head
+  aod
+}
+
+addterm.lm <-
+  function(object, scope, scale = 0, test = c("none", "Chisq", "F"),
+           k = 2, sorted = FALSE, ...)
+{
+  Fstat <- function(table, RSS, rdf) {
+    dev <- table$"Sum of Sq"
+    df <- table$Df
+    rms <- (RSS - dev)/(rdf - df)
+    Fs <- (dev/df)/rms
+    Fs[df < 1e-4] <- NA
+    P <- Fs
+    nnas <- !is.na(Fs)
+    P[nnas] <- 1 - pf(Fs[nnas], df[nnas], rdf - df[nnas])
+    list(Fs=Fs, P=P)
+  }
+
+  if(missing(scope) || is.null(scope)) stop("no terms in scope")
+  aod <- add1.lm(object, scope=scope, scale=scale)[ , -4]
+  dfs <- c(0, aod$Df[-1]) + object$rank; RSS <- aod$RSS
+  n <- length(object$residuals)
+  if(scale > 0) aic <- RSS/scale - n + k*dfs
+  else aic <- n * log(RSS/n) + k*dfs
+  aod$AIC <- aic
+  if(sorted) aod <- aod[order(aod$AIC), ]
+  if(scale > 0) names(aod) <- c("Df", "Sum of Sq", "RSS", "Cp")
+  test <- match.arg(test)
+  if(test == "Chisq") {
+    dev <- aod$"Sum of Sq"
+    nas <- !is.na(dev)
+    dev[nas] <- 1 - pchisq(dev[nas]/scale, aod$Df[nas])
+    aod[, "Pr(Chi)"] <- dev
+  } else if(test == "F") {
+    rdf <- object$df.resid
+    aod[, c("F Value", "Pr(F)")] <- Fstat(aod, aod$RSS[1], rdf)
+  }
+  head <- c("Single term additions", "\nModel:",
+            deparse(as.vector(formula(object))))
+  if(scale > 0)
+    head <- c(head, paste("\nscale: ", format(scale), "\n"))
+  class(aod) <- c("anova", "data.frame")
+  attr(aod, "heading") <- head
+  aod
+}
+
+addterm.negbin <- addterm.survreg <-
+  function(object, ...)  addterm.default(object, ...)
+
+addterm.glm <-
+  function(object, scope, scale = 0, test = c("none", "Chisq"),
+           k = 2, sorted = FALSE, trace = FALSE, ...)
+{
+  if(missing(scope) || is.null(scope)) stop("no terms in scope")
+  if(!is.character(scope))
+    scope <- add.scope(object, update.formula(object, scope))
+  if(!length(scope))
+    stop("no terms in scope for adding to object")
+  oTerms <- attr(object$terms, "term.labels")
+  int <- attr(object$terms, "intercept")
+  ns <- length(scope)
+  dfs <- dev <- numeric(ns+1)
+  names(dfs) <- names(dev) <- c("<none>", scope)
+  dfs[1] <- object$rank
+  dev[1] <- object$deviance
+  add.rhs <- paste(scope, collapse = "+")
+  add.rhs <- eval(parse(text = paste("~ . +", add.rhs)))
+  new.form <- update.formula(object, add.rhs)
+  oc <- object$call
+  Terms <- terms(new.form)
+  oc$formula <- Terms
+  fob <- list(call = oc)
+  class(fob) <- class(object)
+  x <- model.matrix(Terms, model.frame(fob, xlev = object$xlevels),
+                    contrasts = object$contrasts)
+  n <- nrow(x)
+  y <- object$y
+  m <- model.frame(object)
+  if(is.null(y)) y <- model.response(m, "numeric")
+  wt <- object$prior.weights
+  if(is.null(wt)) wt <- rep(1, n)
+  Terms <- attr(Terms, "term.labels")
+  asgn <- attr(x, "assign")
+  ousex <- match(asgn, match(oTerms, Terms), 0) > 0
+  if(int) ousex[1] <- TRUE
+  for(tt in scope) {
+    if(trace) cat("trying +", tt, "\n")
+    usex <- match(asgn, match(tt, Terms), 0) > 0
+    X <- x[, usex|ousex, drop = FALSE]
+    z <-  glm.fit(X, y, wt, offset=object$offset,
+                  family=object$family, control=object$control)
+    dfs[tt] <- z$rank
+    dev[tt] <- z$deviance
+  }
+  if (is.null(scale) || scale == 0)
+    dispersion <- summary(object, dispersion = NULL)$dispersion
+  else dispersion <- scale
+  if(object$family$family == "gaussian") {
+    if(scale > 0) loglik <- dev/scale - n
+    else loglik <- n * log(dev/n)
+  } else loglik <- dev/dispersion
+  aic <- loglik + k * dfs
+  dfs <- dfs - dfs[1]
+  dfs[1] <- NA
+  aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
+                    row.names = names(dfs))
+  if(sorted) aod <- aod[order(aod$AIC), ]
+  test <- match.arg(test)
+  if(test == "Chisq") {
+    dev <- loglik[1] - loglik
+    dev[1] <- NA
+    aod[, "LRT"] <- dev
+    nas <- !is.na(dev)
+    dev[nas] <- 1 - pchisq(dev[nas]/dispersion, aod$Df[nas])
+    aod[, "Pr(Chi)"] <- dev
+  }
+  head <- c("Single term additions", "\nModel:",
+            deparse(as.vector(formula(object))))
+  if(scale > 0)
+    head <- c(head, paste("\nscale: ", format(scale), "\n"))
+  class(aod) <- c("anova", "data.frame")
+  attr(aod, "heading") <- head
+  aod
+}
+
+addterm.mlm <- function(...)
+  stop("no addterm method implemented for mlm models")
+
+dropterm <- function(object, ...) UseMethod("dropterm")
+
+dropterm.default <-
+  function(object, scope, scale = 0, test = c("none", "Chisq"),
+           k = 2, sorted = FALSE, trace = FALSE, ...)
+{
+  tl <- attr(object$terms, "term.labels")
+  if(missing(scope)) scope <- drop.scope(object)
+  else {
+    if(!is.character(scope))
+      scope <- attr(terms(update.formula(object, scope)), "term.labels")
+    if(!all(match(scope, tl, FALSE)))
+      stop("scope is not a subset of term labels")
+  }
+  ns <- length(scope)
+  ans <- matrix(nrow = ns + 1, ncol = 2,
+                dimnames =  list(c("<none>", scope), c("df", "AIC")))
+  ans[1,  ] <- extractAIC(object, scale, k = k, ...)
+  for(i in seq(ns)) {
+    tt <- scope[i]
+    if(trace) cat("trying -", tt, "\n")
+    nfit <- update(object, as.formula(paste("~ . -", tt)))
+    ans[i+1,  ] <- extractAIC(nfit, scale, k = k, ...)
+  }
+  dfs <- ans[1,1] - ans[,1]
+  dfs[1] <- NA
+  aod <- data.frame(Df = dfs, AIC = ans[,2])
+  if(sorted) aod <- aod[order(aod$AIC), ]
+  test <- match.arg(test)
+  if(test == "Chisq") {
+    dev <- ans[, 2] - k*ans[, 1]
+    dev <- dev - dev[1] ; dev[1] <- NA
+    nas <- !is.na(dev)
+    P <- dev
+    P[nas] <- 1 - pchisq(dev[nas], dfs[nas])
+    aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
+  }
+  head <- c("Single term deletions", "\nModel:",
+            deparse(as.vector(formula(object))))
+  if(scale > 0)
+    head <- c(head, paste("\nscale: ", format(scale), "\n"))
+  class(aod) <- c("anova", "data.frame")
+  attr(aod, "heading") <- head
+  aod
+}
+
+dropterm.lm <-
+  function(object, scope = drop.scope(object), scale = 0,
+           test = c("none", "Chisq", "F"),
+           k = 2, sorted = FALSE, ...)
+{
+  aod <- drop1.lm(object, scope=scope, scale=scale)[, -4]
+  dfs <-  object$rank - c(0, aod$Df[-1]); RSS <- aod$RSS
+  n <- length(object$residuals)
+  aod$AIC <- if(scale > 0)RSS/scale - n + k*dfs
+  else n * log(RSS/n) + k*dfs
+  if(sorted) aod <- aod[order(aod$AIC), ]
+  if(scale > 0) names(aod) <- c("Df", "Sum of Sq", "RSS", "Cp")
+  test <- match.arg(test)
+  if(test == "Chisq") {
+    dev <- aod$"Sum of Sq"
+    nas <- !is.na(dev)
+    dev[nas] <- 1 - pchisq(dev[nas]/scale, aod$Df[nas])
+    aod[, "Pr(Chi)"] <- dev
+  } else if(test == "F") {
+    rdf <- object$df.resid
+    dev <- aod$"Sum of Sq"
+    dfs <- aod$Df
+    rms <- aod$RSS[1]/rdf
+    Fs <- (dev/dfs)/rms
+    Fs[dfs < 1e-4] <- NA
+    P <- Fs
+    nas <- !is.na(Fs)
+    P[nas] <- 1 - pf(Fs[nas], dfs[nas], rdf)
+    aod[, c("F Value", "Pr(F)")] <- list(Fs, P)
+  }
+  head <- c("Single term deletions", "\nModel:",
+            deparse(as.vector(formula(object))))
+  if(scale > 0)
+    head <- c(head, paste("\nscale: ", format(scale), "\n"))
+  class(aod) <- c("anova", "data.frame")
+  attr(aod, "heading") <- head
+  aod
+}
+
+dropterm.mlm <- function(object, ...)
+  stop("dropterm not implemented for mlm models")
+
+dropterm.glm <-
+  function(object, scope, scale = 0, test = c("none", "Chisq"),
+           k = 2, sorted = FALSE, trace = FALSE, ...)
+{
+  setdiff <- function(x, y)
+    if(length(x) == 0 || length(y) == 0) x else x[match(x, y, 0) == 0]
+
+  x <- model.matrix(object)
+  iswt <- !is.null(wt <- object$weights)
+  n <- nrow(x)
+  asgn <- attr(x, "assign")
+  tl <- attr(object$terms, "term.labels")
+  if(missing(scope)) scope <- drop.scope(object)
+  else {
+    if(!is.character(scope))
+      scope <- attr(terms(update.formula(object, scope)), "term.labels")
+    if(!all(match(scope, tl, FALSE)))
+      stop("scope is not a subset of term labels")
+  }
+  ns <- length(scope)
+  ndrop <- match(scope, tl)
+  rdf <- object$df.resid
+  chisq <- object$deviance
+  dfs <- numeric(ns)
+  dev <- numeric(ns)
+  y <- object$y
+  if(is.null(y)) y <- model.response(model.frame(object), "numeric")
+  na.coef <- (1:length(object$coefficients))[!is.na(object$coefficients)]
+  wt <- model.weights(model.frame(object))
+  if(is.null(wt)) wt <- rep(1, n)
+  rank <- object$rank
+  for(i in 1:ns) {
+    if(trace) cat("trying -", scope[i], "\n")
+    ii <- seq(along=asgn)[asgn == ndrop[i]]
+    jj <- setdiff(seq(ncol(x)), ii)
+    z <-  glm.fit(x[, jj, drop = FALSE], y, wt, offset=object$offset,
+                  family=object$family, control=object$control)
+    dfs[i] <- z$rank
+    dev[i] <- z$deviance
+  }
+  scope <- c("<none>", scope)
+  dfs <- c(object$rank, dfs)
+  dev <- c(chisq, dev)
+  if (is.null(scale) || scale == 0)
+    dispersion <- summary(object, dispersion = NULL)$dispersion
+  else dispersion <- scale
+  if(object$family$family == "gaussian") {
+    if(scale > 0) loglik <- dev/scale - n
+    else loglik <- n * log(dev/n)
+  } else loglik <- dev/dispersion
+  aic <- loglik + k * dfs
+  dfs <- dfs[1] - dfs
+  dfs[1] <- NA
+  aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic, row.names = scope)
+  if(sorted) aod <- aod[order(aod$AIC), ]
+  test <- match.arg(test)
+  if(test == "Chisq") {
+    dev <- loglik - loglik[1]
+    dev[1] <- NA
+    nas <- !is.na(dev)
+    aod[, "LRT"] <- dev
+    dev[nas] <- 1 - pchisq(dev[nas]/dispersion, aod$Df[nas])
+    aod[, "Pr(Chi)"] <- dev
+  }
+  head <- c("Single term deletions", "\nModel:",
+            deparse(as.vector(formula(object))))
+  if(scale > 0)
+    head <- c(head, paste("\nscale: ", format(scale), "\n"))
+  class(aod) <- c("anova", "data.frame")
+  attr(aod, "heading") <- head
+  aod
+}
+
+dropterm.negbin <- dropterm.survreg <-
+  function(object, ...) dropterm.default(object, ...)

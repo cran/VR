@@ -1,0 +1,64 @@
+% file MASS/boxcox.d
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{boxcox}
+\alias{boxcox}
+\title{
+Box-Cox Transformations for Linear Models
+}
+\description{
+Computes and optionally plots profile log-likelihoods for the
+parameter of the Box-Cox simple power transformation \code{y^lambda}.
+}
+\usage{
+boxcox(model, lambda, plotit, interp, eps, xlab, ylab, \dots)
+}
+\arguments{
+\item{model}{
+a formula or fitted model object.  Currently only \code{lm} and \code{aov} objects 
+are handled.
+}
+\item{lambda}{
+vector of values of \code{lambda} -- default (-2, 2) in steps of 0.1
+}
+\item{plotit}{
+logical which controls whether the result should be plotted.
+Default to \code{true} if a graphics device is currently open.
+}
+\item{interp}{
+logical which controls whether spline interpolation is used.
+Default to \code{true} if plotting with \code{lambda} of length less than 100.
+}
+\item{eps}{
+Tolerance for \code{lambda = 0}; defaults to 0.02
+}
+\item{xlab}{
+defaults to \code{"lambda"}
+}
+\item{ylab}{
+defaults to \code{"log-Likelihood"}
+}
+\item{...}{
+additional parameters to be used in the model fitting.
+}}
+\value{
+A list of the \code{lambda} vector and the computed profile
+log-likelihood vector, invisibly if the result is plotted.
+}
+\section{Side Effects}{
+If \code{plotit = TRUE} plots loglik \emph{vs} \code{lambda} and indicates a 95\%
+confidence interval about the maximum observed value of \code{lambda}. If
+\code{interp = TRUE}, spline interpolation is used to give a smoother plot.
+}
+\examples{
+data(trees)
+boxcox(Volume ~ log(Height) + log(Girth), data = trees, 
+       lambda = seq(-0.25, 0.25, length = 10))
+data(quine)
+boxcox(Days+1 ~ Eth*Sex*Age*Lrn, data = quine, singular.ok = TRUE,
+ lambda = seq(-0.05, 0.45, len = 20))
+}
+\keyword{regression}
+\keyword{models}
+\keyword{hplot}
+% Converted by Sd2Rd version 0.3-2.

@@ -1,0 +1,53 @@
+% file spatial/surf.ls.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{surf.ls}
+\alias{surf.ls}
+\title{
+Fits a Trend Surface by Least-squares
+}
+\description{
+Fits a trend surface by least-squares.
+}
+\usage{
+surf.ls(np, x, y, z)
+}
+\arguments{
+\item{np}{
+degree of polynomial surface
+}
+\item{x}{
+x coordinates or a data frame with columns \code{x}, \code{y}, \code{z}
+}
+\item{y}{
+y coordinates
+}
+\item{z}{
+z coordinates. Will supersede \code{x$z}
+}}
+\value{
+list with components 
+
+\item{beta}{
+the coefficients
+}
+\item{x}{
+}
+\item{y}{
+}
+\item{z}{
+
+
+and others for internal use only.
+}}
+\seealso{
+\code{\link{trmat}}, \code{\link{surf.gls}}
+}
+\examples{
+data(topo)
+topo.kr <- surf.ls(2, topo)
+trsurf <- trmat(topo.kr, 0, 6.5, 0, 6.5, 50)
+contour(trsurf)
+points(topo)
+}
+\keyword{spatial}
+% Converted by Sd2Rd version 0.3-2.
