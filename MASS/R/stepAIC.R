@@ -77,8 +77,7 @@ stepAIC <-
   attributes(Terms) <- attributes(object$terms)
   object$terms <- Terms
   if(use.start) warning("use.start cannot be used with R's version of glm")
-  if(missing(direction)) direction <- "both"
-  else direction <- match.arg(direction)
+  direction <- match.arg(direction)
   backward <- direction == "both" | direction == "backward"
   forward <- direction == "both" | direction == "forward"
   if(missing(scope)) {
@@ -114,6 +113,8 @@ stepAIC <-
   bAIC <- extractAIC(fit, scale, k = k, ...)
   edf <- bAIC[1]
   bAIC <- bAIC[2]
+  if(is.na(bAIC))
+    stop("AIC is not defined for this model, so stepAIC cannot proceed")
   nm <- 1
   Terms <- fit$terms
   if(trace)

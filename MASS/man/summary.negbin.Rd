@@ -51,3 +51,7 @@ class of the object.
 \code{\link{summary}}, \code{\link{glm.nb}}, \code{\link{negative.binomial}}, \code{\link{anova.negbin}}
 }
 \keyword{models}
+\examples{
+data(quine)
+summary(glm.nb(Days ~ Eth*Age*Lrn*Sex, quine, link = log))
+}

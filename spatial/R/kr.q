@@ -18,6 +18,8 @@ surf.ls <- function(np, x, y, z)
         stop("Compiled code has not been dynamically loaded")
     if (np > 6) stop("np exceeds 6")
     if(is.data.frame(x)) {
+        if(any(is.na(match(c("x", "y", "z"), names(x)))))
+            stop("`x' does not have columns `x', `y' and `z'")
         if(missing(y)) y <- x$y
         if(missing(z)) z <- x$z
         x <- x$x
@@ -58,6 +60,8 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
     if(!is.loaded(symbol.C("VR_frset")))
         stop("Compiled code has not been dynamically loaded")
     if(is.data.frame(x)) {
+        if(any(is.na(match(c("x", "y", "z"), names(x)))))
+            stop("`x' does not have columns `x', `y' and `z'")
         if(missing(y)) y <- x$y
         if(missing(z)) z <- x$z
         x <- x$x

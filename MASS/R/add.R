@@ -361,6 +361,7 @@ dropterm.glm <-
         dev[nas] <- 1 - pchisq(dev[nas], aod$Df[nas])
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
+        fam <- object$family$family  ## extra line needed
         if(fam == "binomial" || fam == "poisson")
             warning(paste("F test assumes quasi", fam, " family", sep=""))
 	dev <- aod$Deviance

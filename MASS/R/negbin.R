@@ -73,12 +73,13 @@ function(object)
 glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
 		   subset, na.action, start = eta,
 		   control = glm.control(...), method = "glm.fit",
-		   model = FALSE, x = FALSE, y = TRUE, contrasts = NULL, ...,
+		   model = TRUE,
+                   x = FALSE, y = TRUE, contrasts = NULL, ...,
 		   init.theta, link = log)
 {
     loglik <- function(n, th, mu, y)
     {
-        sum(lgamma(th + y) - lgamma(th) + th * log(th) +
+        sum(lgamma(th + y) - lgamma(th) - lgamma(y + 1) + th * log(th) +
             y * log(mu + (y == 0)) - (th + y) * log(th + mu))
     }
     link <- substitute(link)
@@ -142,7 +143,8 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
                           eta, offset = offset, family = fam,
                           control = list(maxit=control$maxit,
                           epsilon = control$epsilon,
-                          trace = control$trace > 1))
+                          trace = control$trace > 1),
+                          intercept = attr(Terms, "intercept") > 0)
         t0 <- th
         th <- theta.ml(Y, mu, n, limit=control$maxit, trace = control$trace > 2)
         fam <- do.call("negative.binomial", list(theta = th, link = link))
@@ -194,6 +196,8 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
     fit$contrasts <- if (length(clv <- unlist(lapply(m, class))))
         options("contrasts")[[1]] else FALSE
     fit$xlevels <- xlev
+    fit$method <- method
+    fit$control <- control
     fit
 }
 
@@ -260,12 +264,12 @@ function(object, dispersion = 1, correlation = TRUE, ...)
 {
     NextMethod()
     dp <- 2 - floor(log10(x$SE.theta))
-    cat("\n              Theta: ", format(round(x$theta, dp, nsmall=dp)),
-        "\n          Std. Err.: ", format(round(x$SE.theta, dp, nsmall=dp)),
+    cat("\n              Theta: ", format(round(x$theta, dp), nsmall=dp),
+        "\n          Std. Err.: ", format(round(x$SE.theta, dp), nsmall=dp),
         "\n")
     if(!is.null(x$th.warn))
         cat("Warning while fitting theta:", x$th.warn,"\n")
-    cat("\n 2 x log-likelihood: ", format(round(x$twologlik, 3, nsmall=dp)), "\n")
+    cat("\n 2 x log-likelihood: ", format(round(x$twologlik, 3), nsmall=dp), "\n")
     invisible(x)
 }
 

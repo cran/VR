@@ -155,7 +155,7 @@ xyplot(Time ~ Viscosity, stormer, groups = Wt,
 rm(sps)
 
 if(F) {
-## very slow, in correct so far
+## very slow, incorrect so far
 topo.plt <- expand.grid(topo.mar)
 topo.plt$pred <- as.vector(predict(topo.loess, topo.plt))
 levelplot(pred ~ x * y, topo.plt, aspect=1,

@@ -72,10 +72,16 @@ Library MASS
 - new method confint.lm.
 - fractions/rational allow missing values.
 - stepAIC/addterm/dropterm now work with survReg as well as survreg fits.
-- mvrnorm was an `empirical' argument.
+- mvrnorm has an `empirical' argument.
 - predict.lda and predict.qda try harder to avoid exponential underflow.
 
 - new function fitdistr for ML estimation of univariate distributions.
+
+
+Library class
+-------------
+
+- fixed a bug in knn(use.all=F)
 
 
 Library nnet
@@ -86,12 +92,13 @@ Library nnet
 - acctol and reltol are now user-settable arguments.
 - internal calculations are now entirely in double precision.
 - vcov.multinom now uses a generalized inverse for singular fits.
-- classes nnet and multinom now have residuals component.
+- classes nnet and multinom now have a residuals component.
 - anova, deviance and residuals methods.
 - at least 2 decimal places when printing deviance and AIC.
 - predict methods allow missing values in newdata.
 - max.col moved to MASS.
 - no copying of datasets even in R.
+- model.frame method for multinom (even in R).
 
 
 Library spatial
@@ -102,6 +109,8 @@ Library spatial
   smaller.
 
 - Methods for class "surf.ls" contributed by Roger Bivand.
+
+- surf.ls and surf.gls now check for x,y,z cols in a data frame given for x.
 
 
 Library treefix

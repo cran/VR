@@ -1,9 +1,9 @@
 # file MASS/eqscplot.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2001 W. N. Venables and B. D. Ripley
 #
 eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin,
-                     xlim = range(x, na.rm=TRUE),
-                     ylim = range(y, na.rm=TRUE),
+                     xlim = range(x[is.finite(x)]),
+                     ylim = range(y[is.finite(y)]),
 		     xlab, ylab,
 		     ...)
 {

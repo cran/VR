@@ -215,7 +215,7 @@ coef.multinom <- function(object, ...)
   coef
 }
 
-drop1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE, ...)
+drop1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
 {
   if(!inherits(object, "multinom")) stop("Not a multinom fit")
   if(missing(scope)) scope <- drop.scope(object)
@@ -228,8 +228,7 @@ drop1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE, ...)
     }
   ns <- length(scope)
   ans <- matrix(nrow = ns+1, ncol = 2,
-                dimnames = list(c("<none>", paste("-",scope,sep="")),
-                  c("df", "AIC")))
+                dimnames = list(c("<none>", scope), c("Df", "AIC")))
   ans[1, ] <- c(object$edf, object$AIC)
   i <- 2
   for(tt in scope) {
@@ -240,10 +239,10 @@ drop1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE, ...)
     i <- i+1
   }
   if(sorted) ans <- ans[order(ans[, 2]), ]
-  ans
+  as.data.frame(ans)
 }
 
-add1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE, ...)
+add1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
 {
   if(!inherits(object, "multinom")) stop("Not a multinom fit")
   if(!is.character(scope))
@@ -254,7 +253,7 @@ add1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE, ...)
   ns <- length(scope)
   ans <- matrix(nrow = ns+1, ncol = 2,
                 dimnames = list(c("<none>",paste("+",scope,sep="")),
-                  c("df", "AIC")))
+                  c("Df", "AIC")))
   ans[1, ] <- c(object$edf, object$AIC)
   i <- 2
   for(tt in scope) {
@@ -265,7 +264,7 @@ add1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE, ...)
     i <- i+1
   }
   if(sorted) ans <- ans[order(ans[, 2]), ]
-  ans
+  as.data.frame(ans)
 }
 
 extractAIC.multinom <- function(fit, scale, k = 2, ...)
@@ -390,3 +389,15 @@ anova.multinom <- function(object, ..., test = c("Chisq", "none"))
   out
 }
 
+
+## model.frame.default seems not to work in R.
+model.frame.multinom <-
+function(formula, data = NULL, na.action = NULL, ...)
+{
+    oc <- formula$call
+    oc[[1]] <- as.name("model.frame")
+    m <- match(names(oc)[-1], c("formula", "data", "na.action", "subset"))
+    oc <- oc[c(TRUE, !is.na(m))]
+    if(length(data)) oc$data <- substitute(data)
+    eval(oc, parent.frame())
+}

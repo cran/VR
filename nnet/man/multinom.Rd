@@ -13,6 +13,7 @@
 \alias{summary.multinom}
 \alias{print.summary.multinom}
 \alias{vcov.multinom}
+\alias{model.frame.multinom}
 \title{
 Fit Multinomial Log-linear Models
 }

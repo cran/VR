@@ -87,7 +87,7 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
 {
     int   i, index, j, k, k1, kinit = *kin, kn, l = *lin, mm, npat, ntie,
           ntr = *pntr, nte = *pnte, extras;
-    int   pos[MAX_TIES];
+    int   pos[MAX_TIES], nclass[MAX_TIES];
     int   j1, j2, needed, t;
     double dist, tmp, nndist[MAX_TIES];
 
@@ -141,29 +141,37 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
 		extras++;
 		votes[class[pos[j]]]++;
 	    }
-	} else {
+	} else { /* break ties at random */
+	    extras = 0;
 	    for (j = 0; j < kinit; j++) {
 		if (nndist[j] >= nndist[kinit - 1] * (1 - EPS))
 		    break;
 		votes[class[pos[j]]]++;
 	    }
-/* Use reservoir sampling to choose amongst the ties */
 	    j1 = j;
-	    needed = kinit - j1;
-	    t = needed;
-	    for (j = j1; j < kn; j++) {
-		if (nndist[j] > nndist[kinit - 1] * (1 + EPS))
-		    break;
-		if (++t * UNIF < needed) {
-		    j2 = j1 + UNIF * needed;
-		    class[pos[j2]] = class[pos[j]];
+	    if (j1 == kinit - 1) { /* no ties for largest */
+		votes[class[pos[j1]]]++;
+	    } else {
+/* Use reservoir sampling to choose amongst the tied distances */
+		j1 = j;
+		needed = kinit - j1;
+		for (j = 0; j < needed; j++) 
+		    nclass[j] = class[pos[j1 + j]];
+		t = needed;
+		for (j = j1 + needed; j < kn; j++) {
+		    if (nndist[j] > nndist[kinit - 1] * (1 + EPS))
+			break;
+		    if (++t * UNIF < needed) {
+			j2 = j1 + (int) (UNIF * needed);
+			nclass[j2] = class[pos[j]];
+		    }
 		}
+		for (j = 0; j < needed; j++)
+		    votes[nclass[j]]++;
 	    }
-	    extras = 0;
-	    for (j = j1; j < kinit; j++)
-		votes[class[pos[j]]]++;
 	}
-/* Use reservoir sampling to choose amongst the ties */
+
+/* Use reservoir sampling to choose amongst the tied votes */
 	ntie = 1;
 	if (l > 0)
 	    mm = l - 1 + extras;

@@ -19,7 +19,10 @@ an object representing a model of an appropriate class.
 This is used as the initial model in the stepwise search.
 }
 \item{scope}{
-defines the range of models examined in the stepwise search. 
+defines the range of models examined in the stepwise search.
+This should be either a single formula, or a list containing
+components \code{upper} and \code{lower}, both formulae.  See the
+details for how to specify the formulae and how they are used.
 }
 \item{scale}{
 used in the definition of the AIC statistic for selecting the models,
@@ -70,17 +73,13 @@ saturated model is well-defined (thus excluding \code{lm}, \code{aov} and
 \code{survreg} fits, for example).
 }
 \details{
-\code{stepAIC} differs from \code{step} and especially \code{step.glm} in using the
-exact AIC rather than potentially misleading one-step approximations.
-It is also much more widely applicable: all that is required is a
-method for \code{extractAIC}, which should return a vector 
-\code{c(modeldf, AIC)}.
-The default method handles linear models (\code{lm}, \code{aov} and
-\code{glm} of family \code{"Gaussian"} with identity link) using \code{addterm.lm} and
-\code{dropterm.lm}: for these the results are similar to \code{step.glm} except
-that the AIC quoted is Akaike's not Hastie's. (The additive constant
-is chosen so that in that case AIC is identical to Mallows' Cp if the
-scale is known.)
+The set of models searched is determined by the \code{scope} argument.
+The right-hand-side of its \code{lower} component is always included
+in the model, and right-hand-side of the model is included in the
+\code{upper} component.  If \code{scope} is a single formula, it
+specifes the \code{upper} component, and the \code{lower} model is
+empty.  If \code{scope} is missing, the initial model is used as the
+\code{upper} model.
 
 
 There is a potential problem in using \code{glm} fits with a variable
@@ -99,8 +98,7 @@ fits) this is quoted in the analysis of variance table: it is the
 \note{
 The model fitting must apply the models to the same dataset. This may
 be a problem if there are missing values and an \code{na.action} other than
-\code{na.fail} is used (as may be the default if \code{options(na.action=)} has
-been set, including in R).  We suggest you remove the missing values
+\code{na.fail} is used (as is the default in R).  We suggest you remove the missing values
 first.
 }
 \seealso{
