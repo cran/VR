@@ -98,6 +98,8 @@ Library MASS
   better (contributed by David Firth).
 - polr() handles a rank-deficient model matrix.
 - polr() now returns the method used, and uses it for predictions.
+- anova() method for polr (contributed by John Fox).
+- polr() now returns the method used, and uses it for predictions.
 
 
 Library class

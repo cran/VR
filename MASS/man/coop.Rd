@@ -20,7 +20,7 @@ This data frame contains the following columns:
 Laboratory, \code{L1}, \code{L2}, \dots, \code{L6}.
 }
 \item{\code{Spc}}{
-Specimen, \code{S1}, \code{S2}, \dots, \code{S6}.
+Specimen, \code{S1}, \code{S2}, \dots, \code{S7}.
 }
 \item{\code{Bat}}{
 Batch, \code{B1}, \code{B2}, \code{B3} (nested within \code{Spc/Lab}),

@@ -10,6 +10,7 @@
 % \alias{print.summary.polr}
 % \alias{vcov.polr}
 % \alias{model.frame.polr}
+% \alias{anova.polr}
 
 \title{
   Ordered Logistic or Probit Regression
@@ -98,55 +99,34 @@ polr(formula, data, weights, start, \dots, subset, na.action,
 
   In the complementary log-log case, we have a \emph{proportional
     hazards} model for grouped survival times.
+
+  There are methods for the standard model-fitting functions, including
+  \code{\link{predict}}, \code{\link{summary}}, \code{\link{vcov}},
+  \code{\link{anova}}, \code{\link{model.frame}} and an
+  \code{extractAIC} method for use with \code{\link{stepAIC}}.
 }
 \value{
-A object of class \code{"polr"}.  This has components
+  A object of class \code{"polr"}.  This has components
 
-\item{coefficients}{
-  the coefficients of the linear predictor.
+  \item{coefficients}{the coefficients of the linear predictor.}
+  \item{zeta}{the intercepts for the class boundaries.}
+  \item{deviance}{the residual deviance.}
+  \item{fitted.values}{a matrix, with a column for each level of the response.}
+  \item{lev}{the names of the response levels.}
+  \item{terms}{the \code{terms} structure describing the model.}
+  \item{df.residual}{the number of residual degrees of freedoms,
+    calculated using the weights.}
+  \item{edf}{the (effective) number of degrees of freedom used by the model}
+  \item{n}{the (effective) number of observations,  calculated using the
+    weights}
+  \item{call}{the matched call.}
+  \item{method}{the matched method used.}
+  \item{convergence}{the convergence code returned by \code{optim}.}
+  \item{niter}{the number of function and gradient evaluations used by
+    \code{optim}.}
+  \item{Hessian}{(if \code{Hess} is true).}
+  \item{model}{(if \code{model} is true).}
 }
-\item{zeta}{
-  the intercepts for the class boundaries.
-}
-\item{deviance}{
-  the residual deviance.
-}
-\item{fitted.values}{
-  a matrix, with a column for each level of the response.
-}
-\item{lev}{
-  the names of the response levels.
-}
-\item{terms}{
-  the \code{terms} structure describing the model.
-}
-\item{df.residual}{
-  the number of residual degrees of freedoms, calculated using the weights.
-}
-\item{edf}{
-  the (effective) number of degrees of freedom used by the model
-}
-\item{n}{
-  the (effective) number of observations,  calculated using the weights
-}
-\item{call}{
-  the matched call.
-}
-\item{method}{
-  the matched method used.
-}
-\item{convergence}{
-  the convergence code returned by \code{optim}.
-}
-\item{niter}{
-  the number of function and gradient evaluations used by \code{optim}.
-}
-\item{Hessian}{
-  (if \code{Hess} is true).
-}
-\item{model}{
-  (if \code{model} is true).
-}}
 \references{
   Agresti, A. (2002) \emph{Categorical Data.} Second edition.  Wiley.
   
@@ -154,7 +134,7 @@ A object of class \code{"polr"}.  This has components
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
-\code{\link{optim}}, \code{\link{glm}}, \code{\link[nnet]{multinom}}.
+  \code{\link{optim}}, \code{\link{glm}}, \code{\link[nnet]{multinom}}.
 }
 \examples{
 options(contrasts = c("contr.treatment", "contr.poly"))
@@ -170,5 +150,6 @@ predict(house.plr, housing, type = "p")
 addterm(house.plr, ~.^2, test = "Chisq")
 house.plr2 <- stepAIC(house.plr, ~.^2)
 house.plr2$anova
+anova(house.plr, house.plr2)
 }
 \keyword{models}

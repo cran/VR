@@ -124,7 +124,7 @@ polr <- function(formula, data, weights, start, ..., subset,
                 fitted.values = fitted, lev = lev, terms = Terms,
                 df.residual = sum(wt) - pc - q, edf = pc + q, n = sum(wt),
                 call = match.call(), method = method,
-		convergence = res$convergence, niter=niter)
+		convergence = res$convergence, niter = niter)
     if(Hess) {
         dn <- c(names(beta), names(zeta))
         H <- res$hessian
@@ -303,4 +303,37 @@ dgumbel <- function (x, loc = 0, scale = 1, log = FALSE)
 {
     d <- log(1/scale) - x - exp(-x)
     if (!log) exp(d) else d
+}
+
+anova.polr <- function (object, ..., test = c("Chisq", "none"))
+{
+    test <- match.arg(test)
+    dots <- list(...)
+    if (length(dots) == 0)
+        stop("anova is not implemented for a single polr object")
+    mlist <- list(object, ...)
+    nt <- length(mlist)
+    dflis <- sapply(mlist, function(x) x$edf)
+    s <- order(dflis)
+    mlist <- mlist[s]
+    if (any(!sapply(mlist, inherits, "polr")))
+        stop("not all objects are of class 'polr'")
+    rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
+    mds <- sapply(mlist, function(x) paste(formula(x)[3]))
+    dfs <- dflis[s]
+    lls <- sapply(mlist, function(x) deviance(x))
+    tss <- c("", paste(1:(nt - 1), 2:nt, sep = " vs "))
+    df <- c(NA, diff(dfs))
+    x2 <- c(NA, -diff(lls))
+    pr <- c(NA, 1 - pchisq(x2[-1], df[-1]))
+    out <- data.frame(Model = mds, Resid.df = dfs, Deviance = lls,
+                      Test = tss, Df = df, LRtest = x2, Prob = pr)
+    names(out) <- c("Model", "Resid. df", "Resid. Dev", "Test",
+                    "   Df", "LR stat.", "Pr(Chi)")
+    if (test == "none") out <- out[, 1:6]
+    class(out) <- c("Anova", "data.frame")
+    attr(out, "heading") <-
+        c("Likelihood ratio tests of proportional odds models\n",
+          paste("Response:", rsp))
+    out
 }
