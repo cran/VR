@@ -6,25 +6,6 @@ stepAIC <-
            direction = c("both", "backward", "forward"),
            trace = 1, keep = NULL, steps = 1000, use.start = FALSE, k = 2, ...)
 {
-#     fixFormulaObject <- function(object) {
-#         tt <- terms(object)
-#         tmp <- attr(tt, "term.labels")
-#         if (!attr(tt, "intercept")) tmp <- c(tmp, "0")
-#         if (!length(tmp)) tmp <- "1"
-#         rhs <- paste(tmp, collapse = " + ")
-#         form <- formula(object)         # loglm objects have no lhs
-#         tmp <- if(length(form) > 2) paste(paste(deparse(form[[2]]),
-#                                                 collapse = ""), "~", rhs)
-#         else paste("~", rhs)
-#         ## must be as.character as deparse gives spurious ()
-#         if (length(offset <- attr(tt, "offset")))
-#             tmp <- paste(tmp, as.character(attr(tt, "variables")[offset + 1]),
-#                          sep = " + ")
-#         form <- formula(tmp)
-#         environment(form) <- environment(tt)
-#         form
-#     }
-
     mydeviance <- function(x, ...)
     {
         dev <- deviance(x)
@@ -74,7 +55,10 @@ stepAIC <-
     }
 
     Terms <- terms(object)
-    object$call$formula <- object$formula <- Terms
+    object$formula <- Terms
+    if(inherits(object, "lme")) object$call$fixed <- Terms
+    else if(inherits(object, "gls")) object$call$model <- Terms
+    else object$call$formula <- Terms
     if(use.start) warning("use.start cannot be used with R's version of glm")
     md <- missing(direction)
     direction <- match.arg(direction)
@@ -178,8 +162,7 @@ stepAIC <-
         }
         usingCp <- match("Cp", names(aod), 0) > 0
         ## may need to look for a `data' argument in parent
-	fit <- update(fit, paste("~ .", change), evaluate = FALSE)
-        fit <- eval.parent(fit)
+        fit <- update(fit, paste("~ .", change))
         if(is.list(fit) && (nmm <- match("nobs", names(fit), 0)) > 0)
             nnew <- fit[[nmm]]
         else nnew <- length(residuals(fit))
@@ -226,3 +209,62 @@ extractAIC.gls <- function(fit, scale, k = 2, ...)
 }
 
 terms.gls <- terms.lme <- function(x, ...) terms(formula(x), ...)
+
+update.gls <-
+    function (object, model, data, correlation, weights, subset,
+              method, na.action, control, verbose, ..., evaluate = TRUE)
+{
+    thisCall <- as.list(match.call())[-(1:2)]
+    thisCall$evaluate <- NULL
+    nextCall <- as.list(object$call)[-1]
+    if (is.na(match("correlation", names(thisCall))) &&
+        !is.null(thCor <- object$modelStruct$corStruct)) {
+        thisCall$correlation <- thCor
+    }
+    if (is.na(match("weights", names(thisCall))) &&
+        !is.null(thWgt <- object$modelStruct$varStruct)) {
+        thisCall$weights <- thWgt
+    }
+    if (!is.null(thisCall$model)) {
+        thisCall$model <- update(as.formula(nextCall$model), model)
+    }
+    nextCall[names(thisCall)] <- thisCall
+    nextCall <- as.call(c(as.name("gls"), nextCall))
+    if (evaluate) eval(nextCall, parent.frame()) else nextCall
+}
+
+update.lme <-
+    function (object, fixed, data, random, correlation, weights,
+              subset, method, na.action, control, contrasts, ...,
+              evaluate = TRUE)
+{
+    thisCall <- as.list(match.call())[-(1:2)]
+    thisCall$evaluate <- NULL
+    if (is.null(nextCall <- object$origCall) || !is.null(thisCall$fixed) ||
+        is.null(thisCall$random)) {
+        nextCall <- object$call
+    }
+    nextCall <- as.list(nextCall)[-1]
+    if (is.null(thisCall$random) && is.null(thisCall$subset)) {
+        thisCall$random <- object$modelStruct$reStruct
+    }
+    if (is.na(match("correlation", names(thisCall))) &&
+        !is.null(thCor <- object$modelStruct$corStruct)) {
+        thisCall$correlation <- thCor
+    }
+    if (is.na(match("weights", names(thisCall))) &&
+        !is.null(thWgt <- object$modelStruct$varStruct)) {
+        thisCall$weights <- thWgt
+    }
+    argNams <- unique(c(names(nextCall), names(thisCall)))
+    args <- vector("list", length(argNams))
+    names(args) <- argNams
+    args[names(nextCall)] <- nextCall
+    nextCall <- args
+    if (!is.null(thisCall$fixed)) {
+        thisCall$fixed <- update(as.formula(nextCall$fixed), fixed)
+    }
+    nextCall[names(thisCall)] <- thisCall
+    nextCall <- as.call(c(as.name("lme"), nextCall))
+    if (evaluate) eval(nextCall, parent.frame()) else nextCall
+}

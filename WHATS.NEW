@@ -60,6 +60,8 @@ Library MASS
 - confint and confint.lm have been migrated to base in R.
 - addterm.default, dropterm.default and stepAIC work better inside functions.
 - glm.nb now sets AIC in the object, and has a logLik() method.
+- private versions of update.lme, update.gls to get stepAIC working again
+  with those classes.
 
 
 Library class
