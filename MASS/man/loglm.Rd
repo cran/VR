@@ -111,25 +111,25 @@ though.
 \code{\link{loglin}}
 }
 \examples{
-### Not usable in R
 
 # The data frames  Cars93, minn38 and quine are available 
 # in the MASS library.
 
 
 # Case 1: frequencies specified as an array.
-> sapply(minn38, function(x) length(levels(x)))
- hs phs fol sex f 
-  3   4   7   2 0
-> minn38a <- array(0, c(3,4,7,2), lapply(minn38[, -5], levels))
-> minn38a[data.matrix(minn38[,-5])] <- minn38$f
-> fm <- loglm(~1 + 2 + 3 + 4, minn38a)  # numerals as names.
-> deviance(fm)
-[1] 3711.9
-> fm1 <- update(fm, .~.^2)
-> fm2 <- update(fm, .~.^3, print = TRUE)
-5 iterations: deviation 0.0750732 
-> anova(fm, fm1, fm2)
+data(minn38)
+sapply(minn38, function(x) length(levels(x)))
+## hs phs fol sex f 
+##  3   4   7   2 0
+minn38a <- array(0, c(3,4,7,2), lapply(minn38[, -5], levels))
+minn38a[data.matrix(minn38[,-5])] <- minn38$f
+fm <- loglm(~1 + 2 + 3 + 4, minn38a)  # numerals as names.
+deviance(fm)
+##[1] 3711.9
+fm1 <- update(fm, .~.^2)
+fm2 <- update(fm, .~.^3, print = TRUE)
+## 5 iterations: deviation 0.0750732 
+anova(fm, fm1, fm2)
 \dontrun{LR tests for hierarchical log-linear models
 
 
@@ -147,13 +147,13 @@ Model 3:
   Model 2  220.043 108   3491.873        47        0.00000
   Model 3   47.745  36    172.298        72        0.00000
 Saturated    0.000   0     47.745        36        0.09114
-}
+
 
 # Case 1. An array generated with crosstabs.
 
 
 > loglm(~Type + Origin, crosstabs(~Type + Origin, Cars93))
-\dontrun{Call:
+Call:
 loglm(formula =  ~ Type + Origin, data = crosstabs( ~ Type + 
 	Origin, Cars93))
 
@@ -165,17 +165,17 @@ Likelihood Ratio 18.362  5 0.0025255
 }
 
 # Case 2.  Frequencies given as a vector in a data frame
-> names(quine)
-[1] "Eth"  "Sex"  "Age"  "Lrn"  "Days"
-> fm <- loglm(Days ~ .^2, quine)
-> gm <- glm(Days ~ .^2, poisson, quine)  # check glm.
-> c(deviance(fm), deviance(gm))          # deviances agree
-\dontrun{[1] 1368.7 1368.7}
-> c(fm$df, gm$df)                        # resid df do not!
-\dontrun{[1] 127 128}
+data(quine)
+names(quine)
+## [1] "Eth"  "Sex"  "Age"  "Lrn"  "Days"
+fm <- loglm(Days ~ .^2, quine)
+gm <- glm(Days ~ .^2, poisson, quine)  # check glm.
+c(deviance(fm), deviance(gm))          # deviances agree
+## [1] 1368.7 1368.7
+c(fm$df, gm$df)                        # resid df do not!
+## [1] 127 128
 # The loglm residual degrees of freedom is wrong because of
 # a non-detectable redundancy in the model matrix.
 }
 \keyword{category}
 \keyword{models}
-% Converted by Sd2Rd version 0.3-2.

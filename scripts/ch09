@@ -1,15 +1,14 @@
-#-*- S -*-  
+#-*- S -*-
 
 # Chapter 9   Non-linear Models
 
-# first=T for deriv3 calculations of lmix2, plot.profile
-library(MASS, first=T)
-# nlme for self-starting nls()
-if(version$major==3 && version$minor < 4) library(nlme, first=T)
-trellis.device(postscript, file="ch09.ps", width=8, height=6, pointsize=9)
+library(MASS)
+library(nls)
+postscript(file="ch09.ps", width=8, height=6, pointsize=9)
 options(width=65, digits=5)
 
 
+data(wtloss)
 attach(wtloss)
 # alter margin 4; others are default
 oldpar <- par(mar=c(5.1, 4.1, 4.1, 4.1))
@@ -41,11 +40,12 @@ expn <- function(b0, b1, th, x)
 wtloss.gr <- nls(Weight ~ expn(b0, b1, th, Days),
     data = wtloss, start = wtloss.st, trace = T)
 
-expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
+## no response in R's deriv
+expn1 <- deriv(~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
                function(b0, b1, th, x) {})
 
-negexp <- selfStart(model = ~ b0 + b1*exp(-x/th), 
-    initial = negexp.ival, parameters = c("b0", "b1", "th"),
+negexp <- selfStart(model = ~ b0 + b1*exp(-x/th),
+    initial = negexp.SSival, parameters = c("b0", "b1", "th"),
     template = function(x, b0, b1, th) {})
 
 wtloss.ss <- nls(Weight ~ negexp(Days, B0, B1, theta), wtloss, trace = T)
@@ -61,20 +61,22 @@ vcov(wtloss.gr)
 # 9.3  Taking advantage of linear parameters
 
 wtloss.pl <- nls(Weight ~ cbind(1, 2^(-Days/th)),
-             data=wtloss, algorithm="plinear", 
+             data=wtloss, algorithm="plinear",
 	     start = c(th=120), trace=T)
+wtloss.pl
 summary(wtloss.pl)
 
 
 # 9.4  Confidence intervals for parameters
 
+if(F) { # no profile.nls
 confint <- function(object, ...) UseMethod("confint")
 
 confint.nls <- function(object, parm, level = 0.95)
 {
   if(is.character(parm))
     parm <- match(parm, names(coef(object)), nomatch = 0)
-  pro <- profile(object, which = parm, 
+  pro <- profile(object, which = parm,
                  alphamax = (1 - level)/4)[[parm]]
   x <- pro[, "par.vals"][, parm]
   y <- pro$tau
@@ -86,7 +88,7 @@ confint.nls <- function(object, parm, level = 0.95)
   approx(sp$y, sp$x, xout = c( - cutoff, cutoff))$y
 }
 
-expn2 <- deriv(~b0 + b1*((w0 - b0)/b1)^(x/d0), 
+expn2 <- deriv(~b0 + b1*((w0 - b0)/b1)^(x/d0),
          c("b0","b1","d0"), function(b0, b1, d0, x, w0) {})
 
 wtloss.init <- function(obj, w0)
@@ -105,8 +107,9 @@ for(w0 in w0s) {
   }
 dimnames(out) <- list(paste(w0s, "kg:"),  c("d0", "low", "high"))
 out
+}
 
-
+data(stormer)
 attach(stormer)
 fm0 <- lm(Wt*Time ~ Viscosity + Time - 1,  data=stormer)
 b0 <- coef(fm0)
@@ -138,6 +141,8 @@ text(31.6,0.3,"95% CR", adj=0, cex=0.75)
 points(bc[1], bc[2], pch=3, mkh=0.1)
 detach()
 
+
+if(F) { ## no bootstrap
 if(version$major >= 4) {
   storm.fm <- nls(Time ~ b*Viscosity/(Wt - c), stormer,
      start = c(b=29.401, c=2.2183))
@@ -152,10 +157,12 @@ if(version$major >= 4) {
   print(storm.boot)
   print(limits.emp(storm.boot))
 }
-
+}
 
 # 9.5  Assessing the linear approximation
 
+### no more of these
+if(F){
 expn3 <- deriv3(~ b0 + b1*2^(-x/th), c("b0","b1","th"),
       function(x, b0, b1, th) {})
 wtloss.he <- nls(Weight ~ expn3(Days, b0, b1, th),
@@ -176,7 +183,7 @@ rm(Bwt, Hwt)
 detach()
 
 attach(wtloss)
-nlregb(nrow(wtloss), c(90,95,120), function(x) 
+nlregb(nrow(wtloss), c(90,95,120), function(x)
   Weight-x[1]-x[2]*2^(-Days/x[3]), lower=rep(0,3))$parameters
 detach()
 
@@ -187,8 +194,8 @@ wtloss.rg <- function(x, Weight, Days)
     temp <- 2^(-Days/x[3])
     -cbind(1, temp, x[2]*Days*temp*log(2)/x[3]^2)
 }
-wtloss.nl <- nlregb(nrow(wtloss), c(90, 95, 120), 
-   wtloss.r,  wtloss.rg, lower = rep(0,3), 
+wtloss.nl <- nlregb(nrow(wtloss), c(90, 95, 120),
+   wtloss.r,  wtloss.rg, lower = rep(0,3),
    Weight = wtloss$Weight, Days = wtloss$Days)
 
 vcov1 <- function(object)
@@ -203,7 +210,7 @@ sqrt(diag(vcov.nlregb(wtloss.nl, method="Fisher")))
 sqrt(diag(vcov.nlregb(wtloss.nl, method="observed")))
 sqrt(diag(vcov.nlregb(wtloss.nl, method="Huber")))
 
-wtloss.nl0 <-  nlregb(nrow(wtloss), c(90,95,120), wtloss.r, 
+wtloss.nl0 <-  nlregb(nrow(wtloss), c(90,95,120), wtloss.r,
          lower = rep(0,3), Weight = wtloss$Weight, Days = wtloss$Days)
 sqrt(diag(vcov.nlregb(wtloss.nl0)))
 
@@ -217,7 +224,7 @@ wait.dns <- density(waiting, 200, width=10)
 lines(wait.dns, lty=2)
 lmix2 <- deriv3(
      ~ -log(p*dnorm((x-u1)/s1)/s1 + (1-p)*dnorm((x-u2)/s2)/s2),
-     c("p", "u1", "s1", "u2", "s2"), 
+     c("p", "u1", "s1", "u2", "s2"),
      function(x, p, u1, s1, u2, s2) NULL)
 
 p0 <- c(p=mean(waiting < 70), u1=50, s1=5, u2=80, s2=5)
@@ -233,11 +240,11 @@ dmix2 <- function(x, p, u1, s1, u2, s2)
              p * dnorm(x, u1, s1) + (1-p) * dnorm(x, u2, s2)
 cf <- coef(wait.mix2)
 attach(structure(as.list(cf), names = names(cf)))
-wait.fdns <- list(x = wait.dns$x, 
+wait.fdns <- list(x = wait.dns$x,
                   y = dmix2(wait.dns$x, p, u1, s1, u2, s2))
 lines(wait.fdns)
 par(usr = c(0,1,0,1))
-legend(0.1, 0.9, c("Normal mixture", "Nonparametric"), 
+legend(0.1, 0.9, c("Normal mixture", "Nonparametric"),
     lty = c(1,2), bty = "n")
 
 
@@ -270,7 +277,7 @@ coef(wait.mix2e)
 
 mix.f <- function(p)
 {
-   e <- p[1]*dnorm((waiting-p[2])/p[3])/p[3] + 
+   e <- p[1]*dnorm((waiting-p[2])/p[3])/p[3] +
         (1-p[1])*dnorm((waiting-p[4])/p[5])/p[5]
    -sum(log(e))
 }
@@ -279,30 +286,30 @@ nlmin(mix.f, waiting.init, print.level=1)
 
 mix.obj <- function(p, x)
 {
-   e <- p[1]*dnorm((x-p[2])/p[3])/p[3] + 
+   e <- p[1]*dnorm((x-p[2])/p[3])/p[3] +
         (1-p[1])*dnorm((x-p[4])/p[5])/p[5]
    -sum(log(e))
 }
-mix.nl0 <- nlminb(waiting.init,  mix.obj, 
+mix.nl0 <- nlminb(waiting.init,  mix.obj,
    scale = c(10, rep(1,4)), lower = c(0, -Inf, 0, -Inf, 0),
    upper = c(1, rep(Inf, 4)), x = waiting)
 
 lmix2a <- deriv(
      ~ -log(p*dnorm((x-u1)/s1)/s1 + (1-p)*dnorm((x-u2)/s2)/s2),
-     c("p", "u1", "s1", "u2", "s2"), 
+     c("p", "u1", "s1", "u2", "s2"),
      function(x, p, u1, s1, u2, s2) NULL)
-mix.gr <- function(p, x) 
+mix.gr <- function(p, x)
 {
 # workaround for bug in 4.0
    u1 <- p[2]; s1 <- p[3]; u2 <- p[4]; s2 <- p[5]; p <- p[1]
    e <- lmix2a(x, p, u1, s1, u2, s2)
    rep(1, length(x)) %*% attr(e, "gradient")
 }
-mix.nl1 <- nlminb(waiting.init, mix.obj, mix.gr, 
+mix.nl1 <- nlminb(waiting.init, mix.obj, mix.gr,
    scale = c(10, rep(1,4)), lower = c(0, -Inf, 0, -Inf, 0),
    upper = c(1, rep(Inf, 4)), x = waiting)
 
-mix.grh <- function(p, x) 
+mix.grh <- function(p, x)
 {
    e <- lmix2(x, p[1], p[2], p[3], p[4], p[5])
    g <- attr(e, "gradient")
@@ -310,7 +317,7 @@ mix.grh <- function(p, x)
    H <- apply(attr(e, "hessian"), c(2,3), sum)
    list(gradient=g, hessian=H[row(H) <= col(H)])
 }
-mix.nl2 <- nlminb(waiting.init, mix.obj, mix.grh, T, 
+mix.nl2 <- nlminb(waiting.init, mix.obj, mix.grh, T,
    scale = c(10, rep(1,4)), lower = c(0, -Inf, 0, -Inf, 0),
    upper = c(1, rep(Inf, 4)), x = waiting)
 
@@ -335,9 +342,9 @@ AIDSfit <- function(y, z, start=rep(mean(y), ncol(z)), ...)
    nlminb(start, deviance, grad, lower = 0, y = y, z = z, ...)
 }
 
-Y <- scan(n=13)
-12 14 33 50 67 74 123 141 165 204 253 246 240
-
+#Y <- scan(n=13)
+#12 14 33 50 67 74 123 141 165 204 253 246 240
+#
 library(nnet) # for class.ind
 s <- seq(0, 13.999, 0.01); tint <- 1:14
 X <- expand.grid(s, tint)
@@ -360,6 +367,7 @@ if(version$major >= 4) {
   print(summary(storm.boot))
 
   print(jack.after.bootstrap(storm.boot, "Bias"))
+}
 }
 
 # End of ch09

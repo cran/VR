@@ -25,6 +25,7 @@ Hald, A. (1957)
 Wiley, New York.
 }
 \examples{
+data(cement)
 lm(y ~ x1 + x2 + x3 + x4, cement)
 }
 \keyword{datasets}

@@ -3,8 +3,9 @@
 ppinit <- function(file)
 {
     tfile <- file
-    if(exists(".sp.lib.name", envir=.GlobalEnv)) {
-        t1file <- paste(get(".sp.lib.name", envir=.GlobalEnv), file, sep="/")
+    pos <- match("package:spatial", search())
+    if(exists(".sp.lib.name", where=pos)) {
+        t1file <- paste(get(".sp.lib.name", pos=pos), file, sep="/")
         if(file.exists(t1file)) tfile <- t1file
     }
     h <- scan(tfile, list(xl = 0, xu = 0, yl = 0, yu = 0, fac = 0),

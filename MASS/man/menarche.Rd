@@ -37,6 +37,7 @@ On two families of transformations to additivity for binary response data.
 \bold{68}, 357-363.
 }
 \examples{
+data(menarche)
 mprob <- glm(cbind(Menarche, Total - Menarche) ~ Age, 
 		binomial(link = probit), menarche)
 }

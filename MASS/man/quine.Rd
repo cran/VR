@@ -35,6 +35,6 @@ Days absent from school in the year.
 S. Quine, quoted in Aitkin, M. (1978) The analysis of unbalanced cross
 classifications (with discussion).
 \emph{Journal of the Royal Statistical Society series A}
-\bold{141} 195-223.
+\bold{141}, 195-223.
 }
 \keyword{datasets}

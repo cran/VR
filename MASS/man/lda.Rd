@@ -119,7 +119,7 @@ the first few linear discriminants emphasize the differences between
 groups with the weights given by the prior, which may differ from
 their prevalence in the dataset.
 }
-\section{NOTE}{
+\note{
 This function may be called giving either a formula and
 optional data frame, or a matrix and grouping factor as the first
 two arguments.  All other arguments are optional, but \code{subset=} and

@@ -1,5 +1,6 @@
 Package: MASS
-Version: 5.3pl037-1 (1999/02/08)
+Version: 5.3pl037-2 (1999/02/08)
+Depends: R-0.65.0 or later for time series functions
 Author: S original by Venables & Ripley.
   R port by Brian Ripley <ripley@stats.ox.ac.uk>,
   following work by Kurt Hornik <Kurt.Hornik@ci.tuwien.ac.at>.

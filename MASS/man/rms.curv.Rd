@@ -55,11 +55,8 @@ Bates, D. M, and Watts, D. G. (1988)
 \emph{Nonlinear Regression Analysis and its Applications.}
 Wiley, New York.
 }
-\seealso{
-\code{\link{deriv3}}
-}
 \examples{
-### Not usable in R
+\dontrun{### Not usable in R
 > # The treated sample from the Puromycin data 
 > mmcurve <- deriv3(~ Vm * conc/(K + conc), c("Vm", "K"), 
 +   function(Vm, K, conc) NULL)
@@ -69,5 +66,5 @@ Wiley, New York.
 > rms.curv(Purfit1)
 Parameter effects: c^theta x sqrt(F) = 0.2121 
         Intrinsic: c^iota  x sqrt(F) = 0.092 
-}
+}}
 \keyword{nonlinear}

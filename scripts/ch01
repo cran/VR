@@ -7,14 +7,15 @@
 
 library(MASS)
 #trellis.device()
-par(ask=T)
+if(interactive()) par(ask=T)
 
 x <- rnorm(50)
 y <- rnorm(50)
 
-#h <- chull(x, y) # missing
-#plot(x, y)
-#polygon(x[h], y[h], dens=15, angle=30)
+h <- chull(x, y)
+plot(x, y)
+#polygon(x[h], y[h], dens=15, angle=30) # will not fill
+polygon(x[h], y[h], col="cornsilk")
 
 objects()
 rm(x,y,h)
@@ -56,7 +57,7 @@ rm(fm,fm1,lrf,dum)
 library(lqs)
 data(hills)
 hills
-#splom(~ hills)
+#splom(~ hills) # replace by next line
 pairs(hills)
 attach(hills)
 plot(dist, time)
@@ -65,19 +66,23 @@ abline(lm(time ~ dist))
 abline(ltsreg(dist, time), lty=3)
 detach()
 
+if(interactive()) {
 plot(c(0,1), c(0,1), type="n")
-xy <- locator() # type="p" is not implemented, so click away
+# xy <- locator(type="p") # from 0.65.0
+# Prior to 0.65 type="p" is not implemented, so click away
+xy <- locator()
 points(xy)
 abline(lm(y ~ x, xy), col=4)
-abline(rreg(xy$x, xy$y), lty=3, col=3)
+#abline(rreg(xy$x, xy$y), lty=3, col=3)
 abline(ltsreg(xy$x, xy$y), lty=2, col=2)
 rm(xy)
+}
 
 data(michelson)
 attach(michelson)
 search()
 plot(Expt, Speed,  main="Speed of Light Data", xlab="Experiment No.")
-fm <-  aov(Speed ~ Run + Expt) 
+fm <-  aov(Speed ~ Run + Expt)
 summary(fm)
 fm0 <- update(fm, . ~ .-Run)
 anova(fm0, fm)
@@ -89,7 +94,7 @@ butterfly <- function()
     theta <- seq(0, 24 * pi, len = 2000)
     radius <- exp(cos(theta)) - 2 * cos(4 * theta) +
                               sin(theta/12)^5
-    plot(radius * sin(theta), - radius * cos(theta), 
+    plot(radius * sin(theta), - radius * cos(theta),
         type = "l", axes = F, xlab = "", ylab = "")
 }
 butterfly()

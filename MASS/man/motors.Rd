@@ -1,8 +1,8 @@
 % file MASS/motors.d
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
-\name{motorette}
-\alias{motorette}
+\name{motors}
+\alias{motors}
 \title{
 Accelerated Life Testing of Motorettes
 }

@@ -13,7 +13,7 @@ for a transformation model of the form \code{log(y + alpha) ~ x1 + x2 + \dots{}}
 \usage{
 logtrans(object, \dots, alpha = seq(0.5, 6, by = 0.25) - min(y), 
          plotit = <<see below>>, interp = <<see below>>, 
-	 xlab="alpha", ylab="log Likelihood")
+         xlab="alpha", ylab="log Likelihood")
 }
 \arguments{
 \item{object}{

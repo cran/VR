@@ -59,7 +59,7 @@ median value of owner-occupied homes in $1000
 Harrison, D. and Rubinfeld, D.L. (1978)
 Hedonic prices and the demand for clean air.
 \emph{J. Environ. Economics and Management}
-\bold{5} 81-102.
+\bold{5}, 81-102.
 
 
 Belsley D.A., Kuh, E.  and Welsch, R.E. (1980)

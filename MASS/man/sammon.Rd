@@ -11,7 +11,7 @@ One form of non-metric multidimensional scaling.
 }
 \usage{
 sammon(d, y=cmdscale(d), k=2, niter=100, trace=TRUE, 
-magic=0.2, tol=1e-4)
+       magic=0.2, tol=1e-4)
 }
 \arguments{
 \item{d}{

@@ -17,22 +17,22 @@ This data frame contains the following columns:
 }
 \arguments{
 \item{stability}{
-Stable positioning or not (\code{stab/xstab})
+Stable positioning or not (\code{stab / xstab})
 }
 \item{error}{
-Size of error (\code{MM/SS/LX/XL})
+Size of error (\code{MM / SS / LX / XL})
 }
 \item{sign}{
-Sign of error, positive or negative (\code{pp/nn})
+Sign of error, positive or negative (\code{pp / nn})
 }
 \item{wind}{
-Wind sign (\code{head/tail})
+Wind sign (\code{head / tail})
 }
 \item{magn}{
-Wind strength (\code{Light/Medium/Strong/Out of Range})
+Wind strength (\code{Light / Medium / Strong / Out of Range})
 }
 \item{vis}{
-Visibility (\code{yes/no})
+Visibility (\code{yes / no})
 }
 \item{use}{
 Use the autolander or not

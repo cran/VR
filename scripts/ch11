@@ -1,4 +1,4 @@
-#-*- S -*- 
+#-*- S -*-
 
 # Chapter 11   Modern Regression
 
@@ -61,6 +61,7 @@ par(mfrow=c(2,2))
 plot.gam(rock.ns, se=T)
 
 if(!exists("bwt")) {
+  data(birthwt)
   attach(birthwt)
   race <- factor(race, labels=c("white", "black", "other"))
   ptd <- factor(ptl > 0)
@@ -104,8 +105,8 @@ SStot*rock.ppr2$esq
 rock.ppr2$allalpha[1,,1]*sqrt(diag(var(x[, 1:2])))
 rock.ppr2$allalpha[1:2,,2]*sqrt(diag(var(x[, 1:2])))
 area1 <- area/10000; peri1 <- peri/10000
-rock.gam3 <- gam(log(perm) ~ lo(area1, peri1) + 
-  lo(area1, shape) + lo(peri1, shape), 
+rock.gam3 <- gam(log(perm) ~ lo(area1, peri1) +
+  lo(area1, shape) + lo(peri1, shape),
   control=gam.control(maxit=50, bf.maxit=50))
 summary(rock.gam3)
 anova(rock.lm, rock.gam3)
@@ -123,18 +124,18 @@ a <- ace(body, brain)
 o1<- order(body); o2 <- order(brain)
 par(mfrow=c(2,2))
 plot(body, brain, main="Original Data", log="xy")
-plot(body[o1], a$tx[o1], main="Transformation of body wt", 
+plot(body[o1], a$tx[o1], main="Transformation of body wt",
    type="l", log="x")
-plot(brain[o2], a$ty[o2], main="Transformation of brain wt", 
+plot(brain[o2], a$ty[o2], main="Transformation of brain wt",
    type="l", log="x")
 plot(a$tx, a$ty, main="Transformed y vs  x")
 
 a <- avas(body, brain)
 par(mfrow=c(2,2))
 plot(body, brain, main="Original Data", log="xy")
-plot(body[o1], a$tx[o1], main="Transformation of body wt", 
+plot(body[o1], a$tx[o1], main="Transformation of body wt",
    type="l", log="x")
-plot(brain[o2], a$ty[o2], main="Transformation of brain wt", 
+plot(brain[o2], a$ty[o2], main="Transformation of brain wt",
    type="l", log="x")
 plot(a$tx, a$ty, main="Transformed y vs x")
 detach()
@@ -207,7 +208,7 @@ library(KernSmooth)
 attach(mcycle)
 plot(times, accel)
 lines(locpoly(times, accel, bandwidth=dpill(times,accel)))
-lines(locpoly(times, accel, bandwidth=dpill(times,accel), 
+lines(locpoly(times, accel, bandwidth=dpill(times,accel),
               degree=2), lty=3)
 detach()
 detach("package:KernSmooth")
@@ -232,7 +233,7 @@ for(i in 1:3) cpus0[,i] <- log10(cpus0[,i])
 samp <- sample(1:209, 100)
 cpus.lm <- lm(log10(perf) ~ ., data=cpus0[samp,])
 test <- function(fit)
-  sqrt(sum((log10(cpus0[-samp, "perf"]) - 
+  sqrt(sum((log10(cpus0[-samp, "perf"]) -
 	    predict(fit, cpus0[-samp,]))^2)/109)
 test(cpus.lm)
 
@@ -240,12 +241,12 @@ cpus.lm2 <- step(cpus.lm, trace=F)
 cpus.lm2$anova
 test(cpus.lm2)
 
-if(F){
+if(F){ ## no mda
 Xin <- as.matrix(cpus0[samp,1:6])
 library(mda)
 test2 <- function(fit) {
   Xp <- as.matrix(cpus0[-samp,1:6])
-  sqrt(sum((log10(cpus0[-samp, "perf"]) - 
+  sqrt(sum((log10(cpus0[-samp, "perf"]) -
 	    predict(fit, Xp))^2)/109)
 }
 cpus.bruto <- bruto(Xin, log10(cpus0[samp,7]))
@@ -312,14 +313,15 @@ plot(cv.tree(cpus.ltr,, prune.tree))
 cpus.ltr1 <- prune.tree(cpus.ltr, best=10)
 test(cpus.ltr1)
 
-#library(sm)
-#attach(birthwt)
-#sm.logit(age, low, h=5, display="se")
-#detach()
+library(sm)
+data(birthwt)
+attach(birthwt)
+sm.logit(age, low, h=5, display="se")
+detach()
 
 library(locfit)
 data(birthwt)
-bwt.lf <- locfit(low ~ age+lwt, data=birthwt, family="binomial", 
+bwt.lf <- locfit(low ~ age+lwt, data=birthwt, family="binomial",
                  deg=1, scale=0, alpha=c(0,0,2))
 plot(bwt.lf, get.data=T)
 
@@ -380,9 +382,9 @@ test(cpus.ppr3)
 
 
 library(ctest)
-res1 <- log10(cpus0[-samp, "perf"]) - 
+res1 <- log10(cpus0[-samp, "perf"]) -
               predict(cpus.lm, cpus0[-samp,])
-res2 <- log10(cpus0[-samp, "perf"]) - 
+res2 <- log10(cpus0[-samp, "perf"]) -
               predict(cpus.ppr2, cpus0[-samp,])
 wilcox.test(res1^2, res2^2, paired=T, alternative="greater")
 
@@ -412,12 +414,12 @@ summary(rock.nn)
 detach()
 
 attach(cpus0)
-cpus1 <- data.frame(syct=syct-2, mmin=mmin-3, mmax=mmax-4, 
+cpus1 <- data.frame(syct=syct-2, mmin=mmin-3, mmax=mmax-4,
 cach=cach/256, chmin=chmin/100, chmax=chmax/100, perf=perf)
 detach()
 
 test <- function(fit)
-  sqrt(sum((log10(cpus1[-samp, "perf"]) - 
+  sqrt(sum((log10(cpus1[-samp, "perf"]) -
            predict(fit, cpus1[-samp,]))^2)/109)
 cpus.nn1 <- nnet(log10(perf) ~ ., data=cpus1[samp,], linout=T,
                  skip=T, size=0)
@@ -435,7 +437,7 @@ cpus.nn4 <- nnet(log10(perf) ~ ., data=cpus1[samp,], linout=T,
                  skip=T, size=25, decay=0.01, maxit=1000)
 test(cpus.nn4)
 
-CVnn.cpus <- function(formula, data=cpus1[samp, ], 
+CVnn.cpus <- function(formula, data=cpus1[samp, ],
      size = c(0, 4, 4, 10, 10),
      lambda = c(0, rep(c(0.003, 0.01), 2)),
      nreps = 5, nifold = 10, ...)

@@ -74,7 +74,7 @@ specified, a regular grid of bins is used with width \code{h}.  If neither
 \code{h}.
 }
 \seealso{
-\code{\link{histplot}}, \code{\link{hist}}, \code{\link{histogram}}
+\code{\link{hist}}
 }
 \keyword{hplot}
 \keyword{dplot}

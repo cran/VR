@@ -67,11 +67,11 @@ Chapman \& Hall.
 \code{\link{cmdscale}}, \code{\link{sammon}}
 }
 \examples{
-library(mva)
+library(mva) # for dist
 data(swiss)
 swiss.x <- as.matrix(swiss[, -1])
 swiss.dist <- dist(swiss.x)
-swiss.mds<-isoMDS(swiss.dist)
+swiss.mds <- isoMDS(swiss.dist)
 plot(swiss.mds$points, type="n")
 text(swiss.mds$points, labels=as.character(1:nrow(swiss.x)))
 swiss.sh <- Shepard(swiss.dist, swiss.mds$points)
@@ -79,4 +79,3 @@ plot(swiss.sh)
 lines(swiss.sh$x, swiss.sh$yf, type="S")
 }
 \keyword{multivariate}
-% Converted by Sd2Rd version 0.3-2.

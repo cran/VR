@@ -2,9 +2,11 @@
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 cpgram <- function(ts, taper=0.1,
-   main=paste("Series: ", deparse(substitute(ts))) )
+   main=paste("Series: ", deparse(substitute(ts))), ci.col="blue")
 {
     eval(main)
+    if(NCOL(ts) > 1)
+        stop("only implemented for univariate time series")
     x <- as.vector(ts)
     x <- x[!is.na(x)]
     x <- spec.taper(scale(x, TRUE, FALSE), p=taper)
@@ -24,9 +26,9 @@ cpgram <- function(ts, taper=0.1,
     par(pty="s")
     plot(x, cumsum(y)/sum(y), type="s", xlim=c(0, xm),
          ylim=c(0, 1), xaxs="i", yaxs="i", xlab="frequency",
-         ylab="", pty="s")
-    lines(c(0, xm*(1-crit)), c(crit, 1))
-    lines(c(xm*crit, xm), c(0, 1-crit))
+         ylab="")
+    lines(c(0, xm*(1-crit)), c(crit, 1), col = ci.col, lty = 2)
+    lines(c(xm*crit, xm), c(0, 1-crit), col = ci.col, lty = 2)
     title(main = main)
     par(pty=oldpty)
     invisible()

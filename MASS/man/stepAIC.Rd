@@ -11,7 +11,7 @@ Performs stepwise model selection by exact AIC.
 }
 \usage{
 stepAIC(object, scope, scale, direction=c("both", "backward", "forward"), 
-	trace=1, keep=NULL, steps=1000, use.start=FALSE, k=2, \dots)
+        trace=1, keep=NULL, steps=1000, use.start=FALSE, k=2, \dots)
 }
 \arguments{
 \item{object}{
@@ -91,10 +91,10 @@ maximum-likelihood problem for variable \code{scale}.)
 
 Where a conventional deviance exists (e.g. for \code{lm}, \code{aov} and \code{glm}
 fits) this is quoted in the analysis of variance table: it is the
-\emph{unscaled\P deviance.
+\emph{unscaled} deviance.
 }
 \seealso{
-\code{\link{addterm}}, \code{\link{dropterm}}, \code{\link{step}}, \code{\link{step.glm}}
+\code{\link{addterm}}, \code{\link{dropterm}}, \code{\link{step}}
 }
 \examples{
 data(quine)
@@ -109,17 +109,17 @@ data(cpus)
 cpus1 <- cpus
 attach(cpus)
 for(v in names(cpus)[2:6]) 
-  cpus1[[v]] <- cut(cpus[[v]], quantile(cpus[[v]]), 
+  cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])), 
                     include.lowest = TRUE)
 detach()
-set.seed(123)
+
 cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
 cpus.samp <- sample(1:209, 100)
 cpus.lm <- lm(log10(perf) ~ ., data=cpus1[cpus.samp,2:8])
 cpus.lm2 <- stepAIC(cpus.lm, trace=FALSE)
 cpus.lm2$anova
 
-data(birthwt)
+example(birthwt)
 birthwt.glm <- glm(low ~ ., family=binomial, data=bwt)
 birthwt.step <- stepAIC(birthwt.glm, trace=FALSE)
 birthwt.step$anova

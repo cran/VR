@@ -1,9 +1,9 @@
-#-*- S -*-  
+#-*- S -*-
 
 # Chapter 5   Distributions and Data Summaries
 
 
-# needs R -v 30 for the bootstrap runs
+# needs R --vsize 30M for the bootstrap runs
 
 
 # for later use, from section 5.6
@@ -88,8 +88,8 @@ par(mfrow=c(1,1))
 # fgl.df is from Chapter 3
 data(fgl)
 fgl0 <- fgl[ ,-10] # omit type.
-fgl.df <- data.frame(type = rep(fgl$type, 9), 
-   y = as.vector(as.matrix(fgl0)), 
+fgl.df <- data.frame(type = rep(fgl$type, 9),
+   y = as.vector(as.matrix(fgl0)),
    meas = factor(rep(1:9, rep(214,9)), labels=names(fgl0)))
 #bwplot(type ~ y | meas, data=fgl.df, scales=list(x="free"),
 #   strip=function(...) strip.default(..., style=1), xlab="")
@@ -136,10 +136,10 @@ truehist(eruptions, h=0.5, x0=0.4, xlim=c(1, 6), ymax=0.6)
 
 breaks <- seq(1, 6.4, 0.1)
 counts <- numeric(length(breaks))
-for(i in (0:4)) counts[i+(1:50)] <- counts[i+(1:50)] + 
-    rep(hist(eruptions, breaks=0.1*i + seq(1, 6, 0.5), 
+for(i in (0:4)) counts[i+(1:50)] <- counts[i+(1:50)] +
+    rep(hist(eruptions, breaks=0.1*i + seq(1, 6, 0.5),
     prob=T, plot=F)$intensities, rep(5,10))
-plot(breaks+0.05, counts/5, type="l", xlab="eruptions", 
+plot(breaks+0.05, counts/5, type="l", xlab="eruptions",
     ylab="averaged", bty="n", xlim=c(1, 6), ylim=c(0, 0.6))
 detach()
 
@@ -156,8 +156,8 @@ dplot <- function(...)
    )
 }
 
-ourpanel.densityplot <- function(x, y, type = "l", n = 50, 
-   window = "gaussian", width = NULL, from = NULL, to = NULL, 
+ourpanel.densityplot <- function(x, y, type = "l", n = 50,
+   window = "gaussian", width = NULL, from = NULL, to = NULL,
    cut = NULL, ...)
 {
     denargs <- list(x = x, n = n, window = window)
@@ -169,11 +169,11 @@ ourpanel.densityplot <- function(x, y, type = "l", n = 50,
     panel.xyplot(d$x, d$y, type = type, ...)
     rug(jitter(x))
 }
-print(dplot(sub=list("default",cex=1.5)), 
+print(dplot(sub=list("default",cex=1.5)),
     split=c(1,2,2,2), more=T)
 print(dplot(sub=list("width=0.2",cex=1.5), width=0.2),
     split=c(2,2,2,2), more=T)
-print(dplot(sub=list("width=0.5",cex=1.5) ,width=0.5), 
+print(dplot(sub=list("width=0.5",cex=1.5) ,width=0.5),
     split=c(1,1,2,2), more=T)
 print(dplot(sub=list("width=1.5",cex=1.5), width=1.5),
     split=c(2,1,2,2), more=F)
@@ -198,31 +198,31 @@ attach(faithful)
 plot(eruptions, waiting, xlim=c(1,6), ylim=c(40,100))
 f1 <- kde2d(eruptions, waiting, n=50, lims=c(1,6,40,100))
 image(f1, zlim = c(0, 0.045))
-#levelplot(z ~ x*y, con2tr(f1), 
+#levelplot(z ~ x*y, con2tr(f1),
 #   xlab="duration", ylab="waiting",
 #   at = seq(0, 0.045, 0.001), colorkey=F,
 #   col.regions = rev(trellis.par.get("regions")$col))
 f2 <- kde2d(eruptions, waiting, n=50, lims=c(1,6,40,100),
    h = c(width.SJ(eruptions), width.SJ(waiting)) )
-#levelplot(z ~ x*y, con2tr(f2), 
+#levelplot(z ~ x*y, con2tr(f2),
 #   xlab="duration", ylab="waiting",
 #   at = seq(0, 0.045, 0.001), colorkey=F,
 #   col.regions = rev(trellis.par.get("regions")$col))
-#wireframe(z ~ x*y, con2tr(f2), 
+#wireframe(z ~ x*y, con2tr(f2),
 #   aspect = c(1, 0.5), screen=list(z=20, x=-60), zoom=1.2)
 image(f2, zlim = c(0, 0.045))
 persp(f2, phi=30, theta=20, d=5)
 
 plot(eruptions[-272], eruptions[-1], xlim=c(1,6), ylim=c(40,100))
-f1 <- kde2d(eruptions[-272], eruptions[-1], 
+f1 <- kde2d(eruptions[-272], eruptions[-1],
    h=rep(1.5, 2), n=50, lims=c(1,6,1,6))
 contour(f1 ,xlab="previous duration",
     ylab="duration", levels = c(0.05, 0.1, 0.2, 0.4) )
-f1 <- kde2d(eruptions[-272], eruptions[-1], 
+f1 <- kde2d(eruptions[-272], eruptions[-1],
    h=rep(0.6, 2), n=50, lims=c(1,6,1,6))
 contour(f1 ,xlab="previous duration",
     ylab="duration", levels = c(0.05, 0.1, 0.2, 0.4) )
-f1 <- kde2d(eruptions[-272], eruptions[-1], 
+f1 <- kde2d(eruptions[-272], eruptions[-1],
    h=rep(0.4, 2), n=50, lims=c(1,6,1,6))
 contour(f1 ,xlab="previous duration",
     ylab="duration", levels = c(0.05, 0.1, 0.2, 0.4) )
@@ -264,7 +264,7 @@ res <- numeric(n)
 for(i in 1:n) res[i] <- ttest(x <- d*sign(runif(10)-0.5))
 
 test.t.1 <- function(d) {
-   binary <- function(x, digits = if(x > 0) 1 + 
+   binary <- function(x, digits = if(x > 0) 1 +
                   floor(log(x, base = 2))    else 1)
    { ans <- 0:(digits - 1); (x %/% 2^ans) %% 2 }
    digits <- length(d)
@@ -352,7 +352,7 @@ akaike <- function(formula, alpha, pen=2, ...)
   cbind(alpha=alpha, LogLik=ll, df=vr, AIC=-2*ll+pen*vr)
 }
 attach(faithful)
-akaike( ~ eruptions, 
+akaike( ~ eruptions,
        alpha = cbind(0, 2.5 * seq( 0.1, 0.6, by = 0.05)),
        ev = "data", kern = "gauss")
 fit <- locfit(~ eruptions, alpha = c(0, 1.2), flim = c(1, 6),
@@ -362,13 +362,13 @@ lines(fit, m=200, lty=2)
 erupt.bin <- data.frame(duration=seq(1.6, 5.1, by=0.05),
     count=hist(eruptions, breaks=seq(1.575, 5.125, by=0.05),
                plot=F)$counts)
-fit2 <- locfit(count ~ duration, data=erupt.bin, 
-               weights=rep(272*0.05, 71), 
+fit2 <- locfit(count ~ duration, data=erupt.bin,
+               weights=rep(272*0.05, 71),
                alpha=c(0, 0, 2), family="poisson")
 lines(fit2, m=200, lty=4)
 detach()
 
-plot(locfit(~ eruptions+waiting, data=faithful, alpha=0.25, 
+plot(locfit(~ eruptions+waiting, data=faithful, alpha=0.25,
      scale=c(1,10)), type="persp")
 
 # galaxies
@@ -377,7 +377,7 @@ data(galaxies)
 plot(locfit(~galaxies, flim=c(8000, 35000)),
      get.data=T, ylim=c(0, 0.0003), mpv=200)
 
-akaike( ~ galaxies, 
+akaike( ~ galaxies,
        alpha=cbind(seq( 0.15, 0.7, 0.05), 0),
        ev="data", kern="gauss")
 fit <- locfit(~ galaxies, alpha=0.45, flim=c(8000, 35000),
@@ -387,8 +387,8 @@ lines(fit, m=200, lty=2)
 galaxies.bin <- data.frame(velocity=seq(8000, 35000, 500),
     count=hist(galaxies, breaks=seq(7750, 35250, 500),
                plot=F)$counts)
-fit2 <- locfit(count ~ velocity, data=galaxies.bin, 
-               weights=rep(82*500, nrow(galaxies.bin)), 
+fit2 <- locfit(count ~ velocity, data=galaxies.bin,
+               weights=rep(82*500, nrow(galaxies.bin)),
                alpha=c(0, 0, 2), family="poisson")
 lines(fit2, m=200, lty=3)
 detach("package:locfit")
@@ -401,19 +401,21 @@ attach(faithful)
 #set.seed(101)
 erupt.boot <- boot(eruptions, function(x,i) median(x[i]), R=1000)
 erupt.boot
-boot.ci(erupt.boot, conf=c(0.90, 0.95), 
+boot.ci(erupt.boot, conf=c(0.90, 0.95),
           type=c("norm","basic","perc","bca"))
 detach()
 
-if(F) {
+library(nls)
+data(stormer)
 storm.fm <- nls(Time ~ b*Viscosity/(Wt - c), stormer,
 		start = c(b=29.401, c=2.2183))
 storm.bf <- function(rs, ind) {
-     assign("Tim", fitted(storm.fm) + rs[ind], frame = 1)
-     nls(Tim ~ (b * Viscosity)/(Wt - c), stormer,
-	 start = coef(storm.fm))$parameters
-  }
-rs <- scale(resid(storm.fm), scale = F)
+    assign("Tim2", fitted(storm.fm) + rs[ind], envir=.GlobalEnv)
+    tmp <- nls(Tim2 ~ (b * Viscosity)/(Wt - c), stormer,
+               start = coef(storm.fm))
+    tmp$m$getAllPars()
+}
+rs <- scale(resid(storm.fm), scale = FALSE)
 storm.boot <- boot(rs, storm.bf, R = 1000)
 storm.boot
 
@@ -421,8 +423,6 @@ boot.ci(storm.boot, index=1,
 	type=c("norm", "basic", "perc", "bca"))
 boot.ci(storm.boot, index=2,
 	type=c("norm", "basic", "perc", "bca"))
-
-}
 detach("package:boot")
 
 #if(platform()!="WIN386") library(bootstrap, first=T)  else
@@ -442,22 +442,22 @@ erupt.boot2 <- bootstrap(eruptions, 1000, median, func=mean)
 boott(eruptions, median, perc=c(0.025, 0.05, 0.95, 0.975))
 detach()
 
-if(F){
 storm.bf1 <- function(rs) {
-     assign("Tim", fitted(storm.fm) + rs, frame = 1)
-     nls(Tim ~ (b * Viscosity)/(Wt - c), stormer,
-              start = coef(storm.fm))$parameters[1]
-  }
-storm.bf2 <- function(rs) {
-     assign("Tim", fitted(storm.fm) + rs, frame = 1)
-     nls(Tim ~ (b * Viscosity)/(Wt - c), stormer,
-              start = coef(storm.fm))$parameters[2]
-  }
-set.seed(101)
-boott(rs, storm.bf1, perc=c(0.025, 0.05, 0.95, 0.975))
-set.seed(101)
-boott(rs, storm.bf2, perc=c(0.025, 0.05, 0.95, 0.975))
+    assign("Tim2", fitted(storm.fm) + rs, envir=.GlobalEnv)
+    tmp <- nls(Tim2 ~ (b * Viscosity)/(Wt - c), stormer,
+               start = coef(storm.fm))
+    tmp$m$getAllPars()[1]
 }
+storm.bf2 <- function(rs) {
+    assign("Tim2", fitted(storm.fm) + rs, envir=.GlobalEnv)
+    tmp <- nls(Tim2 ~ (b * Viscosity)/(Wt - c), stormer,
+               start = coef(storm.fm))
+    tmp$m$getAllPars()[2]
+}
+#set.seed(101)
+boott(rs, storm.bf1, perc=c(0.025, 0.05, 0.95, 0.975))
+#set.seed(101)
+boott(rs, storm.bf2, perc=c(0.025, 0.05, 0.95, 0.975))
 detach("package:bootstrap")
 
 # end of ch05

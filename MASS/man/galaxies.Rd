@@ -24,12 +24,13 @@ Probes of large-scale structures in the Corona Borealis region.
 \emph{Astrophysical Journal}
 \bold{92}, 1238-1247.
 }
-\section{NOTE}{
+\note{
 There is an 83rd measurement of 5607 km/sec in the Postman 
 \emph{et al.} paper which is omitted in Roeder (1990) and from the 
 dataset here.
 }
 \examples{
+data(galaxies)
 gal <- galaxies/1000
 c(width.SJ(gal, method="dpi"), width.SJ(gal))
 plot(x=c(0, 40), y=c(0, 0.3), type="n", bty="l",

@@ -31,7 +31,7 @@ Ripley, B.D. (1994)
 Neural networks and related methods for
 classification (with discussion).
 \emph{Journal of the Royal Statistical Society series B,}
-\bold{56} 409-456.
+\bold{56}, 409-456.
 
 
 Ripley, B.D. (1996)

@@ -47,6 +47,7 @@ gamma.dispersion                (from complements)
 huber           Huber location with MAD scale
 hubers          Huber proposal 2
 rlm             robust linear model fitting (by Huber M-estimator)
+deviance.nls    deviance function for nls fits
 plot.profile    plot method for profiles
 pairs.profile   pairs method for profiles
 profile.glm	profiles for glm objects
@@ -68,9 +69,6 @@ The following depend on facilities not in R and so do not work:
 
 Choleski        Choleski decompositions for Matrices
 histplot        Trellis histogram plots
-deviance.nls    deviance function for nls fits
-anova.nls
-predict.nls
 rms.curv        curvature measures for non-linear regression
 deriv3          symbolic differentiation
 D, make.call    extended functions
@@ -78,5 +76,5 @@ vcov.nlregb     vcov methods for nlregb objects
 vcov.nlminb     vcov methods for nlminb objects
 
 
-BDR <ripley@stats.ox.ac.uk> 1999/01/07
+BDR <ripley@stats.ox.ac.uk> 1999/08/06
 

@@ -3,11 +3,11 @@
 \title{
   The Stanford heart transplant data
 }
-\section{SUMMARY}{
+\description{
   The Stanford heart transplant data from Kalbfliesch & Prentice.
   A data frame.
 }
-\section{DATA DESCRIPTION}{
+\details{
 The components are:
 }
 \arguments{
@@ -35,7 +35,7 @@ date of acceptance. Actually days since 1967/10/1 divided by 365.25.
 \item{id}{
   Patient's ID
 }}
-\section{SOURCE}{
+\source{
 Kalbfleisch, J.D. and Prentice R.L. (1980)
 \emph{The Statistical Analysis of Failure Time Data.} 
 }

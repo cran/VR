@@ -3,11 +3,11 @@
 \title{
   Veteran's Administration lung cancer trial.
 }
-\section{SUMMARY}{
+\description{
   Veteran's Administration lung cancer trial from Kalbfleisch & Prentice.
   A data frame.
 }
-\section{DATA DESCRIPTION}{
+\details{
 The components are:
 }
 \arguments{
@@ -35,7 +35,7 @@ patient's age in years
 \item{prior}{
   prior therapy?
 }}
-\section{SOURCE}{
+\source{
 Kalbfleisch, J.D. and Prentice R.L. (1980)
 \emph{The Statistical Analysis of Failure Time Data.} 
 }

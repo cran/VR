@@ -1,8 +1,8 @@
-#-*- S -*-  
+#-*- S -*-
 
 # Chapter 4   Programming in S
 
-# need R -n 250000 for conv1(a,b)
+# need R --nsize 250k for conv1(a,b)
 
 library(MASS)
 postscript(file="ch04.ps", width=8, height=6, pointsize=9)
@@ -34,7 +34,7 @@ ir.var <- apply(iris3, 3, var)
 ir.var <- array(ir.var, dim = dim(iris3)[c(2,2,3)],
                 dimnames = dimnames(iris3)[c(2,2,3)])
 
-matrix(rep(1/50, 50) %*% matrix(iris3, nrow = 50), nrow = 4, 
+matrix(rep(1/50, 50) %*% matrix(iris3, nrow = 50), nrow = 4,
          dimnames = dimnames(iris3)[-1])
 
 ir.means <- apply(iris3, c(2,3), mean)
@@ -77,12 +77,12 @@ Letters[sapply(Letters, exists)]
 sapply(list(quine, quine), function(x) dim(x))
 
 sapply(quine, is.factor)
-quineFO <- quine[,sapply(quine, is.factor)]  
+quineFO <- quine[,sapply(quine, is.factor)]
 tab <- do.call("table", quineFO) # or just table(quineFO) in R
 tab
 
 QuineF <- expand.grid(lapply(quineFO, levels))
-QuineF <- do.call("expand.grid", lapply(quineFO, levels))  
+QuineF <- do.call("expand.grid", lapply(quineFO, levels))
 QuineF$Freq <- as.vector(tab)
 QuineF
 
@@ -114,15 +114,15 @@ to.lower <- function(str) unix('tr "[A-Z]" "[a-z]"',str)
 # 4.7  Recursion and handling vectorization
 
 subsets <- function(r, n, v = 1:n)
-   if(r <= 0) NULL else 
-   if(r >= n) v[1:n] else 
-   rbind(cbind(v[1], Recall(r - 1, n - 1, v[-1])), 
+   if(r <= 0) NULL else
+   if(r >= n) v[1:n] else
+   rbind(cbind(v[1], Recall(r - 1, n - 1, v[-1])),
                      Recall(r,     n - 1, v[-1]))
 
 subsets(3, 5)
 
 library(integrate)
-Integrate <- function(...) 
+Integrate <- function(...)
   structure(integrate(...), class = "integral")
 print.integral <- function(x, ...) {
     y <- x
@@ -137,7 +137,7 @@ Integrate(function(x) rep(2, length(x)), 0, 1)
 
 # integrate in R has argument eps to which e matches, so e -> ee
 gn <- function(x, d, ee) prod(d*x + ee)
-fn <- function(x, d, ee) apply(outer(d, x) + ee, 2, prod)  
+fn <- function(x, d, ee) apply(outer(d, x) + ee, 2, prod)
 Integrate(fn, -4, -2, d = 1:3, ee = 4:6)
 Integrate(gn, -4, -2, d = 1:3, ee = 4:6) # works in R
 
@@ -166,7 +166,7 @@ plot(.x, fn(.x, 1:3, 4:6), xlab="x", ylab="fn(x, d, e)")
 # The C and Fortran code is in file ch04c, together with the S driver code.
 
 
-# 4.13  Group method functions 
+# 4.13  Group method functions
 
 polynomial <- function(a = c(0, 1))
 {
@@ -180,7 +180,7 @@ is.polynomial <- function(p) inherits(p, "polynomial")
 as.polynomial <- function(p)
   if(is.polynomial(p)) p else polynomial(p)
 
-"+.polynomial" <- function(e1, e2) 
+"+.polynomial" <- function(e1, e2)
 {
   if(missing(e2)) return(e1)
   e1 <- c(unclass(e1), rep(0, max(0, length(e2) - length(e1))))
@@ -192,14 +192,14 @@ Ops.polynomial <- function(e1, e2)
 {
   if(missing(e2))
     return(switch(.Generic,
-                  "+" = e1, 
+                  "+" = e1,
                   "-" = polynomial(NextMethod(.Generic)),
                   stop("unsupported unary operation")))
   e1 <- unclass(e1)
   e2 <- unclass(e2)
   l1 <- length(e1)
   l2 <- length(e2)
-  e1.op.e2 <- 
+  e1.op.e2 <-
     switch(.Generic,
            "+" = , "-" = {
              e1 <- c(e1, rep(0, max(0, l2 - l1)))
@@ -232,7 +232,7 @@ Ops.polynomial <- function(e1, e2)
            "!=" = return(l1 != l2 || any(e1 != e2)),
            stop("unsupported operation on polynomials"))
   polynomial(e1.op.e2)
-}    
+}
 Summary.polynomial <- function(p)
 {
     stop(paste(.Generic, "invalid for polynomials"))
@@ -284,13 +284,13 @@ as.character.polynomial <- function(p)
   stars <- rep("*", length(p))
   stars[p == "" | pow == ""] <- ""
   paste(signs, p, stars, pow, sep = "", collapse = " ")
-}  
+}
 # this is wrong in R as as.character() is not generic
 as.character.polynomial(p)
 
 print.polynomial <- function(p0, ...)
 {
-  p <- as.character.polynomial(signif(p0, 
+  p <- as.character.polynomial(signif(p0,
                            digits = options("digits")$digits))
   pc <- nchar(p)
   ow <- max(35, options("width")$width)
@@ -299,12 +299,12 @@ print.polynomial <- function(p0, ...)
      m1 <- m2 + 1
      m2 <- min(pc, m2 + ow)
      if(m2 < pc)
-        while(substring(p, m2, m2) != " " && m2 > m1 + 1) 
+        while(substring(p, m2, m2) != " " && m2 > m1 + 1)
            m2 <- m2 - 1
      cat(substring(p, m1, m2), "\n")
   }
   invisible(p0)
-}  
+}
 
 # R version is like as.function.poly2
 as.function.polynomial <- function(p)
@@ -312,7 +312,7 @@ as.function.polynomial <- function(p)
   f <- function(x) NULL
   body(f) <- parse(text = horner(p))[[1]]
   f
-}  
+}
 
 fp <- as.function(p)
 fp
@@ -340,7 +340,7 @@ poly.orth <- function(x, degree = length(unique(x)) - 1, norm = T)
   x <- polynomial()
   p <- list(polynomial(0), polynomial(1))
   for(j in 1:degree)
-    p[[j + 2]] <- 
+    p[[j + 2]] <-
       (x - a[j]) * p[[j + 1]] - N[j + 1]/N[j] * p[[j]]
   p <- p[-1]
   if(norm) {
@@ -348,7 +348,7 @@ poly.orth <- function(x, degree = length(unique(x)) - 1, norm = T)
     for(j in 1 + 0:degree) p[[j]] <- p[[j]]/sqrtN[j]
   }
   p
-}  
+}
 poly.orth(0:5, degree = 4, norm = F)
 }
 

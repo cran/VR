@@ -1,3 +1,20 @@
+pl037-2
+=======
+
+Update scripts for packages lme3.x, nls and ts.
+R CMD check is now passed on 0.64.2 and pre-0.65.0 if packages lme, nls
+survival4 and ts are installed.
+
+pl037-1
+=======
+
+Patch update.
+
+pl035-1
+=======
+
+Patch update.
+
 pl034-1
 =======
 

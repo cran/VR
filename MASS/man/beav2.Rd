@@ -1,13 +1,13 @@
-% file MASS/beaver2.d
+% file MASS/beav2.d
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
-\name{beaver2}
-\alias{beaver2}
+\name{beav2}
+\alias{beav2}
 \title{
 Body Temperature Series of Beaver 2
 }
 \description{
-The \code{beaver2} data frame has 100 rows and 4 columns on body
+The \code{beav2} data frame has 100 rows and 4 columns on body
 temperature measurements at 10 minute intervals.
 }
 \format{
@@ -44,10 +44,12 @@ and Greenhouse, J. eds (1994)
 New York: John Wiley and Sons.
 }
 \seealso{
-\code{\link{beaver1}}
+\code{\link{beav1}}
 }
 \examples{
-### Not usable in R
+if(version$minor >= 65.0) {
+library(ts)
+data(beav2)
 attach(beav2)
 beav2$hours <- 24*(day-307) + trunc(time/100) + (time\%\%100)/60
 plot(beav2$hours, beav2$temp, type="l", xlab="time", 
@@ -55,20 +57,20 @@ plot(beav2$hours, beav2$temp, type="l", xlab="time",
 usr <- par("usr"); usr[3:4] <- c(-0.2, 8); par(usr=usr)
 lines(beav2$hours, beav2$activ, type="s", lty=2)
 
-
-attach(beav2)
-temp <- rts(temp, start=8+2/3, frequency=6, units="hours")
-activ <- rts(activ, start=8+2/3, frequency=6, units="hours")
+temp <- ts(temp, start=8+2/3, frequency=6)
+activ <- ts(activ, start=8+2/3, frequency=6)
 acf(temp[activ==0]); acf(temp[activ==1]) # also look at PACFs
 ar(temp[activ==0]); ar(temp[activ==1])
 
+arima0(temp, order=c(1,0,0))
+arima0(temp, order=c(1,0,0), xreg=activ)
+dreg <- cbind(sin=sin(2*pi*beav2$hours/24), cos=cos(2*pi*beav2$hours/24))
+arima0(temp, order=c(1,0,0), xreg=cbind(active=activ,dreg))
 
-arima.mle(temp, xreg=rep(1, length(temp)), model=list(ar=0.75))
-arima.mle(temp, xreg=cbind(1, activ), model=list(ar=0.75))
-
-
-beav2.lme <- lme(temp ~ activ, cluster = ~rep(1,100), 
-     data=beav2,  serial.structure="ar1", est.method="ML")
-summary(beav2.lme)
-}
+library(lme)
+beav2.gls <- gls(temp ~ activ, data=beav2,  corr=corAR1(0.8), method="ML")
+summary(beav2.gls)
+summary(update(beav2.gls, subset=6:100))
+detach(); rm(temp, activ)
+}}
 \keyword{datasets}

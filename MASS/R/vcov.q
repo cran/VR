@@ -17,7 +17,9 @@ vcov.lm <- function(object)
     so <- summary(object, corr=FALSE)
     so$sigma^2 * so$cov.unscaled
 }
-deviance.nls <- function(object) sum(object$residuals^2)
+
+#deviance.nls <- function(object) sum(object$residuals^2)
+deviance.nls <- function(object) object$m$deviance()
 
 vcov.nlregb <- function(object, method=c("Fisher", "observed", "Huber"),
    scale=object$scale, eps=1e-3, tol=1)

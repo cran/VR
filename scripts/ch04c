@@ -71,8 +71,9 @@ ourdist <- function(x)
    res
 }
 
-C code:
+C code: 
 
+/* R VERSION follows
 #include <S.h>
 #include <math.h>
 
@@ -93,6 +94,31 @@ void  ourdist(double *x, long *nin, long *pin, double *res)
             }
          }
          if (!den) na_set3(&tmp, DOUBLE, Is_NaN);
+         else tmp = sqrt(tmp * p / den);
+         *res++ = tmp;
+      }
+}*/ 
+
+#include <Arith.h>
+#include <math.h>
+
+void  ourdist(double *x, long *nin, long *pin, double *res)
+{
+   int     i, j, k, den, n = *nin, p = *pin;
+   double  item, tmp;
+
+   for (i = 0; i < n-1; i++)
+      for (j = i+1; j < n; j++) {
+         den = 0; tmp = 0.0;
+         for (k = 0; k < p; k++)
+            if (!ISNA(x[i + n * k]) && !ISNAN(x[i + n * k])
+                !ISNA(x[j + n * k]) && !ISNAN(x[j + n * k]))
+            {
+               den++;
+               item = x[i + n * k] - x[j + n * k];
+               tmp += item * item;
+            }
+         if (!den) tmp = NA_REAL;
          else tmp = sqrt(tmp * p / den);
          *res++ = tmp;
       }

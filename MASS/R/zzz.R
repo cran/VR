@@ -11,8 +11,9 @@ spec.taper <- function(x, p = 0.1)
     else if (length(p) != nc)
         stop("length of p must be 1 or equal the number of columns of x")
     nr <- nrow(x)
-    for (i in 1 : nc) {
+    for (i in 1:nc) {
         m <- floor(nr * p[i])
+        if(m == 0) next
         w <- 0.5 * (1 - cos(pi * seq(1, 2 * m - 1, by = 2) / (2 * m)))
         x[, i] <- c(w, rep(1, nr - 2 * m), rev(w)) * x[, i]
     }

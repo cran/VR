@@ -32,11 +32,15 @@ If \code{TRUE}, causes successive iterations to be printed out.  The
 initial estimate is taken from the deviance.
 }}
 \value{
-List of two components called \code{alpha} and \code{SE} giving the
-maximum likelihood estimate and approximate standard error
-respectively.  The latter is the square-root of the reciprocal of
-the observed information.
+List of two components 
+
+\item{alpha}{
+the maximum likelihood estimate
 }
+\item{SE}{
+the approximate standard error, the square-root of the reciprocal of
+the observed information.
+}}
 \details{
 A glm fit for a Gamma family correctly calculates the maximum
 likelihood estimate of the mean parameters but provides only a
@@ -77,4 +81,3 @@ summary(gm, dispersion = gamma.dispersion(gm))  # better summary
 \dontrun{    \dots.}
 }
 \keyword{models}
-% Converted by Sd2Rd version 0.3-2.

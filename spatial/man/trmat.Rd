@@ -34,6 +34,7 @@ list with components \code{x}, \code{y} and \code{z} suitable for \code{contour}
 \code{\link{surf.ls}}, \code{\link{surf.gls}}
 }
 \examples{
+data(topo)
 topo.kr <- surf.ls(2, topo)
 trsurf <- trmat(topo.kr, 0, 6.5, 0, 6.5, 50)
 }

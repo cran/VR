@@ -94,7 +94,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
     if(length(wts) != nwts) stop("weights vector of incorrect length")
     if(length(mask) != length(wts)) stop("incorrect length of mask")
     if(trace) {
-        cat("                           # weights: ", length(wts))
+        cat("# weights: ", length(wts))
         nw <- sum(mask != 0)
         if(nw < length(wts)) cat(" (", nw, " variable)\n",sep="")
         else cat("\n")

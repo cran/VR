@@ -17,6 +17,7 @@ Skye                     AFM Compositions of Aphyric Skye Lavas
 Traffic                  Effect of Swedish Speed Limits on Accidents
 UScereal                 Nutritional and Marketing Information on US Cereals.
 UScrime                  The Effect of Punishment Regimes on Crime Rates
+VA            		 Veteran's administration lung cancer study
 abbey                    Determinations of Nickel Content
 accdeaths                Accidental Deaths in the US 1973-1978
 addterm			 Try All One-Term Additions to a Model
@@ -26,11 +27,12 @@ area                     Adaptive Numerical Integration
 austres                  Quarterly Time Series of the Number of
                            Australian Residents
 bcv                      Biased Cross-Validation for Bandwidth Selection
-beaver1                  Body Temperature Series of Beaver 1
-beaver2                  Body Temperature Series of Beaver 2
+beav1                    Body Temperature Series of Beaver 1
+beav2                    Body Temperature Series of Beaver 2
 biopsy                   Biopsy Data on Breast Cancer Patients
 birthwt                  Risk Factors Associated with Low Infant Birth Weight
 boxcox                   Box-Cox Transformations for Linear Models
+caith         		 Cross-tabulation of eye and hair colours in Caithness
 cats                     Anatomical Data from Domestic Cats
 cement                   Heat Evolved by Setting Cements
 chem                     Copper in Wholemeal Flour
@@ -86,7 +88,7 @@ mdeaths                  Monthly Deaths from Lung Diseases in the UK
 menarche                 Age of Menarche data
 michelson                Michelson's Speed of Light Data
 minn38                   Minnesota High School Graduates of 1938
-motorette                Accelerated Life Testing of Motorettes
+motors                   Accelerated Life Testing of Motorettes
 mvrnorm                  Simulate from a Multivariate Normal Distribution
 negative.binomial        Family function for Negative Binomial GLMs
 newcomb                  Newcomb's Measurements of the Passage Time of Light
@@ -118,6 +120,7 @@ rotifer                  Numbers of Rotifers by Fluid Density
 sammon                   Sammon's Non-Linear Mapping
 ships                    Ships Damage Data
 shoes                    Shoe wear data of Box, Hunter and Hunter
+shkap			 USSR petroleum reservoir dataset
 shrimp                   Percentage of Shrimp in Shrimp Cocktail
 shuttle                  Space Shuttle Autolander Problem
 snails                   Snail Mortality Data
@@ -139,8 +142,6 @@ truehist                 Plot a Histogram
 ucv                      Unbiased Cross-Validation for Bandwidth Selection
 vcov                     Calculate Variance-Covariance Matrix for a
                            Fitted Model Object
-vcov.nlregb              Calculate Variance-Covariance Matrix for a
-                           `nlregb' Fit
 waders                   Counts of Waders at 15 Sites in South Africa.
 width.SJ                 Bandwidth Selection by Pilot Estimation of Derivatives
 write.matrix             Write a Matrix or Data Frame

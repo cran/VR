@@ -8,7 +8,7 @@ Quarterly Time Series of the Number of Australian Residents
 }
 \description{
 Numbers (in thousands) of Australian residents measured quarterly from
-March 1971 to March 1994. The object is of class \code{"rts"}.
+March 1971 to March 1994. The object is of class \code{"ts"}.
 }
 \source{
 P. J. Brockwell and R. A. Davis (1996)

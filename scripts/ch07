@@ -20,10 +20,10 @@ plot(c(1,32), c(0,1), type="n", xlab="dose",
    ylab="prob", log="x")
 text(2^ldose, numdead/20,as.character(sex))
 ld <- seq(0, 5, 0.1)
-lines(2^ld, predict(budworm.lg, data.frame(ldose=ld, 
+lines(2^ld, predict(budworm.lg, data.frame(ldose=ld,
    sex=factor(rep("M", length(ld)), levels=levels(sex))),
    type="response"))
-lines(2^ld, predict(budworm.lg, data.frame(ldose=ld, 
+lines(2^ld, predict(budworm.lg, data.frame(ldose=ld,
    sex=factor(rep("F", length(ld)), levels=levels(sex))),
    type="response"))
 
@@ -150,11 +150,11 @@ minn38.fm
 summary(minn38.fm2, fitted=T)
 anova(minn38.fm, minn38.fm1, minn38.fm2)
 
-if(F) {
+if(F) { ## no crosstabs
 attach(Cars93)
 levels(Type)
 levels(Origin)
-detach()  
+detach()
 form <- ~ Type + Origin
 loglm(form, crosstabs(form, Cars93))
 }
@@ -184,7 +184,7 @@ clot2$deviance/clot2$df.residual
 gamma.dispersion(clot2)
 
 data(quine)
-gm <- glm(Days + 0.1 ~ Age*Eth*Sex*Lrn, 
+gm <- glm(Days + 0.1 ~ Age*Eth*Sex*Lrn,
             quasi(link=log, variance=mu^2), data=quine)
 summary(gm, cor=F)
 gamma.shape(gm, verbose=T)
