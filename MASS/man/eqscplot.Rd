@@ -14,8 +14,8 @@ is 1cm represents the same units on each
 eqscplot(x, y, ratio = 1, tol = 0.04, uin, \dots)
 }
 \synopsis{
-eqscplot(x, y, ratio = 1, tol = 0.04, uin, xlim = range(x, na.rm=TRUE),
-         ylim = range(y, na.rm=TRUE), xlab, ylab, ...)
+eqscplot(x, y, ratio = 1, tol = 0.04, uin, xlim = range(x[is.finite(x)]),
+         ylim = range(y[is.finite(y)]), xlab, ylab, ...)
 }
 \arguments{
 \item{x}{

@@ -20,7 +20,7 @@ glm.nb(formula, \dots,  init.theta, link = log)
 glm.nb(formula = formula(data), data = parent.frame(), weights,
                  subset, na.action, start = NULL, etastart = NULL,
                  control = glm.control(...), method = "glm.fit",
-                 model = FALSE, x = FALSE, y = TRUE, contrasts = NULL, ...,
+                 model = TRUE, x = FALSE, y = TRUE, contrasts = NULL, ...,
                  init.theta, link = log)
 }
 \arguments{
