@@ -1,16 +1,23 @@
 # file MASS/truehist.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2001 W. N. Venables and B. D. Ripley
 #
 "truehist"<-
-function(data, nbins = nclass.scott(data), h, x0 = -h/1000, breaks, prob = TRUE,
-	 xlim = range(breaks), ymax = max(est),
+function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
+         prob = TRUE, xlim = range(breaks), ymax = max(est),
 	 col = 5,
 	 xlab = deparse(substitute(data)), bty = "n", ...)
 {
   xlab # force evaluation
   data <- data[!is.na(data)]
   if(missing(breaks)) {
-    if(missing(h)) h <- diff(pretty(data, nbins))[1]
+    if(missing(h)) {
+        if(is.character(nbins))
+            nbins <- switch(casefold(nbins),
+                            scott = nclass.scott(data),
+                            "freedman-diaconis" = , fd = nclass.fd(data)
+                            )
+        h <- diff(pretty(data, nbins))[1]
+    }
     first <- floor((min(data) - x0)/h)
     last <- ceiling((max(data) - x0)/h)
     breaks <- x0 + h * c(first:last)

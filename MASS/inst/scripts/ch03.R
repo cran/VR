@@ -16,11 +16,12 @@ barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
    main="UK deaths from lung disease")
 if(interactive())
     legend(locator(1), c("Males", "Females"), fill=c(2,3))
-loc <- barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]])
+loc <- barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
+               angle = c(45, 135), density = 10, col = 1)
 total <- apply(lung.deaths, 1, sum)
 text(loc, total + par("cxy")[2], total, cex=0.7, xpd=T)
 
-if(interactive())  brush(as.matrix(hills))
+# if(interactive())  brush(as.matrix(hills))
 
 library(modreg)
 data(topo)
@@ -33,8 +34,8 @@ contour(topo.mar$x, topo.mar$y, topo.lo, xlab="", ylab="",
    levels = seq(700,1000,25), cex=0.7)
 points(topo$x, topo$y)
 par(pty="m")
-if(F) { # no contourplot
-contourplot(z ~ x * y, mat2tr(topo.lo), aspect=1,
+if(F) { # contourplot does not work yet
+contourplot(z ~ x * y, con2tr(c(topo.mar, list(z=topo.lo))), aspect=1,
    at = seq(700, 1000, 25), xlab="", ylab="",
    panel = function(x, y, subscripts, ...) {
       panel.contourplot(x, y, subscripts, ...)
@@ -97,11 +98,12 @@ box(bty="l")          # lower case "L"
 mtext("Quantiles of Standard Normal", side=1, line=2.5, font=3)
 mtext("Ri", side=2, line=2, at=yul[2])
 detach()
+dev.off()
 
 
 # 3.5  Trellis graphics
 
-library(lattice) ## still in Devel.
+library(lattice)
 trellis.device(postscript, file="ch03b.ps", width=8, height=6, pointsize=9)
 
 if(F){
@@ -120,13 +122,13 @@ xyplot(time ~ dist, data = hills,
      panel.xyplot(x, y, ...)
      panel.lmline(x, y, type="l")
      panel.abline(ltsreg(x, y), lty=3)
-#     identify(x, y, row.names(hills))
+#     identify(x, y, row.names(hills)) ## no lattice equivalent
   }
 )
 
 data(michelson)
 bwplot(Expt ~ Speed, data=michelson, ylab="Experiment No.")
-title("Speed of Light Data")
+# title("Speed of Light Data") ## fails in lattice
 
 lung.deaths.df <- data.frame(year = rep(1974:1979, 2),
   deaths = c(lung.deaths[, 1], lung.deaths[ ,2]),

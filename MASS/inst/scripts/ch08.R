@@ -468,8 +468,10 @@ R.nlme2 <- update(R.nlme1,
 anova(R.nlme2, R.nlme1)
 summary(R.nlme2)
 
-if(F) { # no Trellis
-xyplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
+if(require(lattice)) {
+trellis.device(postscript, file="ch08b.ps", width=8, height=6, pointsize=9)
+
+print(xyplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
    xlab = "log(Dose) of Phenylbiguanide",
    ylab = "Change in blood pressure (mm Hg)",
    subscripts = T, aspect = "xy", panel =
@@ -478,20 +480,10 @@ xyplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
          panel.xyplot(x, y)
          sp <- spline(x, fitted(R.nlme2)[subscripts])
          panel.xyplot(sp$x, sp$y, type="l")
-      })
-}
+      }))
 
-if(F) { ## prior to 1.1.0
-coplot(seq(0,40, len=60) ~ log(Dose) | Animal * Treatment, Rabbit,
-       show.given=FALSE,
-       panel = function(x, y, ...) {
-           ind <- round(1 + 59*y/40)
-           lines(spline(x, fitted(R.nlme2)[ind]))
-           points(x, Rabbit$BPchange[ind])
-       })
-}
+} else {
 
-## from 1.1.0
 coplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
        show.given=FALSE,
        xlab = "log(Dose) of Phenylbiguanide",
@@ -502,5 +494,6 @@ coplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
            lines(spline(x, fitted(R.nlme2)[subscripts]))
        })
 
+}
 
 # End of ch08

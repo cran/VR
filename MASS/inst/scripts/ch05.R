@@ -42,18 +42,18 @@ detach()
 x <- rt(250, 9)
 qqnorm(x); qqline(x)
 
-library(lattice)
+if(require(lattice)) {
 trellis.device(postscript, file="ch05b.ps", width=8, height=6, pointsize=9)
-qqmath(~ x, distribution=qnorm, aspect="xy",
+print(qqmath(~ x, distribution=qnorm, aspect="xy",
    prepanel = prepanel.qqmathline,
    panel = function(x, y, ...) {
       panel.qqmathline(y, distribution=qnorm, ...)
       panel.qqmath(x, y, ...)
    },
    xlab = "Quantiles of Standard Normal"
-)
+))
 dev.off()
-grid.stop()
+}
 
 # 5.2  Generating random data
 

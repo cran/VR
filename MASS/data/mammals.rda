@@ -1,236 +1,358 @@
-RDA1
-4 0
-9 row.names
-5 class
-5 names
-7 mammals
-2 0 0
-1 0 0
-4
--1
-19 0 1
+RDA2
+A
 2
-14 0 0
+66560
+66560
+1026
+1
+5129
+7
+mammals
+1811
+2
+1038
 62
- 3.385
- 0.48
- 1.35
- 465
- 36.33
- 27.66
- 14.83
- 1.04
- 4.19
- 0.425
- 0.101
- 0.92
- 1
- 0.005
- 0.06
- 3.5
- 2
- 1.7
- 2547
- 0.023
- 187.1
- 521
- 0.785
- 10
- 3.3
- 0.2
- 1.41
- 529
- 207
- 85
- 0.75
- 62
- 6654
- 3.5
- 6.8
- 35
- 4.05
- 0.12
- 0.023
- 0.01
- 1.4
- 250
- 2.5
- 55.5
- 100
- 52.16
- 10.55
- 0.55
- 60
- 3.6
- 4.288
- 0.28
- 0.075
- 0.122
- 0.048
- 192
- 3
- 160
- 0.9
- 1.62
- 0.104
- 4.235
--1
-
-14 0 0
+3.385
+0.48
+1.35
+465
+36.33
+27.66
+14.83
+1.04
+4.19
+0.425
+0.101
+0.92
+1
+0.005
+0.06
+3.5
+2
+1.7
+2547
+0.023
+187.1
+521
+0.785
+10
+3.3
+0.2
+1.41
+529
+207
+85
+0.75
 62
- 44.5
- 15.5
- 8.1
- 423
- 119.5
- 115
- 98.2
- 5.5
- 58
- 6.4
- 4
- 5.7
- 6.6
- 0.14
- 1
- 10.8
- 12.3
- 6.3
- 4603
- 0.3
- 419
- 655
- 3.5
- 115
- 25.6
- 5
- 17.5
- 680
- 406
- 325
- 12.3
- 1320
- 5712
- 3.9
- 179
- 56
- 17
- 1
- 0.4
- 0.25
- 12.5
- 490
- 12.1
- 175
- 157
- 440
- 179.5
- 2.4
- 81
- 21
- 39.2
- 1.9
- 1.2
- 3
- 0.33
- 180
- 25
- 169
- 2.6
- 11.4
- 2.5
- 50.4
--1
-
-2 0 0
-1 0 0
+6654
+3.5
+6.8
+35
+4.05
+0.12
+0.023
+0.01
+1.4
+250
+2.5
+55.5
+100
+52.16
+10.55
+0.55
+60
+3.6
+4.288
+0.28
+0.075
+0.122
+0.048
+192
 3
--1
-16 0 0
-2
- 4 body
- 5 brain
--1
-2 0 0
-1 0 0
-2
--1
-16 0 0
-1
- 10 data.frame
--1
-2 0 0
-1 0 0
-1
--1
-16 0 0
+160
+0.9
+1.62
+0.104
+4.235
+1038
 62
- 9 Artic\040fox
- 10 Owl\040monkey
- 15 Mountian\040beaver
- 3 Cow
- 9 Grey\040wolf
- 4 Goat
- 8 Roe\040deer
- 10 Guinea\040pig
- 6 Verbet
- 10 Chinchilla
- 15 Ground\040squirrel
- 21 Artic\040ground\040squirrel
- 25 African\040giant\040pouched\040rat
- 25 Lesser\040short-tailed\040shrew
- 15 Star-nosed\040mole
- 21 Nine-banded\040armadillo
- 10 Tree\040hyrax
- 12 N.A.\040opossum
- 14 Asian\040elephant
- 13 Big\040brown\040bat
- 6 Donkey
- 5 Horse
- 17 European\040hedgehog
- 12 Patas\040monkey
- 3 Cat
- 6 Galago
- 5 Genet
- 7 Giraffe
- 7 Gorilla
- 9 Grey\040seal
- 12 Rock\040hyrax-a
- 5 Human
- 16 African\040elephant
- 13 Water\040opossum
- 13 Rhesus\040monkey
- 8 Kangaroo
- 21 Yellow-bellied\040marmot
- 14 Golden\040hamster
- 5 Mouse
- 16 Little\040brown\040bat
- 10 Slow\040loris
- 5 Okapi
- 6 Rabbit
- 5 Sheep
- 6 Jaguar
- 10 Chimpanzee
- 6 Baboon
- 15 Desert\040hedgehog
- 15 Giant\040armadillo
- 12 Rock\040hyrax-b
- 7 Raccoon
- 3 Rat
- 16 E.\040American\040mole
- 8 Mole\040rat
- 10 Musk\040shrew
- 3 Pig
- 7 Echidna
- 15 Brazilian\040tapir
- 6 Tenrec
- 9 Phalanger
- 10 Tree\040shrew
- 7 Red\040fox
--1
--1
--1
--1
--1
--1
--1
+44.5
+15.5
+8.1
+423
+119.5
+115
+98.2
+5.5
+58
+6.4
+4
+5.7
+6.6
+0.14
+1
+10.8
+12.3
+6.3
+4603
+0.3
+419
+655
+3.5
+115
+25.6
+5
+17.5
+680
+406
+325
+12.3
+1320
+5712
+3.9
+179
+56
+17
+1
+0.4
+0.25
+12.5
+490
+12.1
+175
+157
+440
+179.5
+2.4
+81
+21
+39.2
+1.9
+1.2
+3
+0.33
+180
+25
+169
+2.6
+11.4
+2.5
+50.4
+1026
+1
+5129
+5
+names
+1040
+2
+1033
+4
+body
+1033
+5
+brain
+1026
+1
+5129
+5
+class
+1040
+1
+1033
+10
+data.frame
+1026
+1
+5129
+9
+row.names
+1040
+62
+1033
+9
+Artic\040fox
+1033
+10
+Owl\040monkey
+1033
+15
+Mountian\040beaver
+1033
+3
+Cow
+1033
+9
+Grey\040wolf
+1033
+4
+Goat
+1033
+8
+Roe\040deer
+1033
+10
+Guinea\040pig
+1033
+6
+Verbet
+1033
+10
+Chinchilla
+1033
+15
+Ground\040squirrel
+1033
+21
+Artic\040ground\040squirrel
+1033
+25
+African\040giant\040pouched\040rat
+1033
+25
+Lesser\040short-tailed\040shrew
+1033
+15
+Star-nosed\040mole
+1033
+21
+Nine-banded\040armadillo
+1033
+10
+Tree\040hyrax
+1033
+12
+N.A.\040opossum
+1033
+14
+Asian\040elephant
+1033
+13
+Big\040brown\040bat
+1033
+6
+Donkey
+1033
+5
+Horse
+1033
+17
+European\040hedgehog
+1033
+12
+Patas\040monkey
+1033
+3
+Cat
+1033
+6
+Galago
+1033
+5
+Genet
+1033
+7
+Giraffe
+1033
+7
+Gorilla
+1033
+9
+Grey\040seal
+1033
+12
+Rock\040hyrax-a
+1033
+5
+Human
+1033
+16
+African\040elephant
+1033
+13
+Water\040opossum
+1033
+13
+Rhesus\040monkey
+1033
+8
+Kangaroo
+1033
+21
+Yellow-bellied\040marmot
+1033
+14
+Golden\040hamster
+1033
+5
+Mouse
+1033
+16
+Little\040brown\040bat
+1033
+10
+Slow\040loris
+1033
+5
+Okapi
+1033
+6
+Rabbit
+1033
+5
+Sheep
+1033
+6
+Jaguar
+1033
+10
+Chimpanzee
+1033
+6
+Baboon
+1033
+15
+Desert\040hedgehog
+1033
+15
+Giant\040armadillo
+1033
+12
+Rock\040hyrax-b
+1033
+7
+Raccoon
+1033
+3
+Rat
+1033
+16
+E.\040American\040mole
+1033
+8
+Mole\040rat
+1033
+10
+Musk\040shrew
+1033
+3
+Pig
+1033
+7
+Echidna
+1033
+15
+Brazilian\040tapir
+1033
+6
+Tenrec
+1033
+9
+Phalanger
+1033
+10
+Tree\040shrew
+1033
+7
+Red\040fox
+254
+254

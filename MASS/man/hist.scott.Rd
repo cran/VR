@@ -1,8 +1,6 @@
 \name{hist.scott}
 \alias{hist.scott}
 \alias{hist.FD}
-\alias{nclass.scott}
-\alias{nclass.FD}
 \title{
 Plot a Histogram with Automatic Bin Width Selection
 }
@@ -13,14 +11,10 @@ or Freedman-Diaconis formulae.
 \usage{
 hist.scott(x, prob = TRUE, \dots)
 hist.FD(x, prob = TRUE,  \dots)
-nclass.scott(x)
-nclass.FD(x)
 }
 \synopsis{
 hist.scott(x, prob = TRUE, xlab = deparse(substitute(x)), ...)
 hist.FD(x, prob = TRUE, xlab = deparse(substitute(x)), ...)
-nclass.scott(x)
-nclass.FD(x)
 }
 \arguments{
 \item{x}{
@@ -36,12 +30,7 @@ Further arguments to \code{hist}.
 For the \code{nclass.*} functions, the suggested number of classes.
 }
 \section{Side Effects}{
-The \code{hist.*} function plot a histrogram.
-}
-\details{
-\code{nclass.scott} uses Scott's choice for a normal distribution based on
-the estimate of the standard error, and \code{nclass.FD} uses the
-Freedman-Diaconis choice based on the inter-quartile range.
+Plot a histogram.
 }
 \references{
 Venables, W. N. and Ripley, B. D. (1999)

@@ -10,17 +10,20 @@ Plot a Histogram
 Creates a histogram on the current graphics device.
 }
 \usage{
-truehist(data, nbins = nclass.scott(data), h, x0 = -h/1000, 
-breaks, prob = TRUE, xlim = range(breaks), ymax = max(est), col, 
-xlab = deparse(substitute(data)), bty = "n", \dots)
+truehist(data, nbins = "Scott", h, x0 = -h/1000, 
+         breaks, prob = TRUE, xlim = range(breaks), 
+         ymax = max(est), col, 
+         xlab = deparse(substitute(data)), bty = "n", \dots)
 }
 \arguments{
 \item{data}{
-numeric vector of  data  for  histogram.   Missing  values
-(\code{NA}s) are allowed and omitted.
+numeric vector of data for histogram.  Missing values (\code{NA}s) 
+are allowed and omitted.
 }
 \item{nbins}{
-The suggested number of bins.
+The suggested number of bins.  Either a number, or a character string
+naming a rule: \code{"Scott"} or \code{"Freedman-Diaconis"} or \code{"FD"}.  (Case is
+ignored.)
 }
 \item{h}{
 The bin width (takes precedence over \code{nbins}).

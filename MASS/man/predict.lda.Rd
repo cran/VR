@@ -11,7 +11,7 @@ Classify multivariate observations in conjunction with \code{lda}, and also
 project data onto the linear discriminants.
 }
 \usage{
-\method{predict}{lda}(object, newdata, prior, dimen,
+\method{predict}{lda}(object, newdata, prior = object$prior, dimen,
  method = c("plug-in", "predictive", "debiased"), \dots)
 }
 \arguments{

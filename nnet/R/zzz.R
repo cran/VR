@@ -1,1 +1,5 @@
-.First.lib <- function(lib, pkg) library.dynam("nnet", pkg, lib)
+.First.lib <- function(lib, pkg)
+{
+    library.dynam("nnet", pkg, lib)
+    require(MASS)
+}

@@ -42,7 +42,7 @@ trsurf <- trmat(topo.ls, 0, 6.5, 0, 6.5, 30)
 #            screen = list(z = -30, x = -60))
 # print(plt1, position = c(0, 0, 0.5, 1), more=T)
 # print(plt2, position = c(0.45, 0, 1, 1))
-image(trsurf)
+image(trsurf, col=grey(0:128/128))
 points(topo)
 
 library(modreg)

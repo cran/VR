@@ -1,17 +1,6 @@
 # file MASS/hist.scott.q
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
-nclass.scott <- function(x)
-{
-    h <- 3.5 * sqrt(var(x)) * length(x)^(-1/3)
-    ceiling(diff(range(x))/h)
-}
-nclass.FD <- function(x)
-{
-    r <- as.vector(quantile(x, c(0.25, 0.75)))
-    h <- 2 * (r[2] - r[1]) * length(x)^(-1/3)
-    ceiling(diff(range(x))/h)
-}
 
 hist.scott <- function(x, prob = TRUE, xlab = deparse(substitute(x)), ...)
    invisible(hist(x, nclass.scott(x), prob=prob, xlab=xlab, ...))

@@ -30,10 +30,10 @@ fitting methods, if na.action=na.exclude then the fitted values, residuals
 and predictions (without newdata) are filled with NAs. For ppr, multinom 
 and nnet, predictions with newdata are also filled with NAs.
 
-In earlier versions of S-PLUS na.exclude is not available. There is one
-change: if library MASS is attached ahead of survival4/5 and na.omit is used, 
-residuals will no longer be filled with NAs (this is the behaviour of S-PLUS
-2000).
+In earlier versions of S-PLUS na.exclude is not available. There is
+one change: if library MASS is attached ahead of survival4/5 and
+na.omit is used, residuals will no longer be filled with NAs (this is
+the behaviour of S-PLUS 2000).
 
 The improved prediction methods of S-PLUS 2000 (that we supplied) are
 incorporated, for that version and 6, so prediction involving factor
@@ -76,6 +76,8 @@ Library MASS
 - predict.lda and predict.qda try harder to avoid exponential underflow.
 
 - new function fitdistr for ML estimation of univariate distributions.
+- truehist allows rule for nbins to be specified as a character string.
+- relevel function.
 
 
 Library class

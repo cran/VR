@@ -1,134 +1,188 @@
-RDA1
-4 0
-9 row.names
-5 class
-5 names
-7 Animals
-2 0 0
-1 0 0
-4
--1
-19 0 1
+RDA2
+A
 2
-14 0 0
+66560
+66560
+1026
+1
+5129
+7
+Animals
+1811
+2
+1038
 28
- 1.35
- 465
- 36.33
- 27.66
- 1.04
- 11700
- 2547
- 187.1
- 521
- 10
- 3.3
- 529
- 207
- 62
- 6654
- 9400
- 6.8
- 35
- 0.12
- 0.023
- 2.5
- 55.5
- 100
- 52.16
- 0.28
- 87000
- 0.122
- 192
--1
-
-14 0 0
+1.35
+465
+36.33
+27.66
+1.04
+11700
+2547
+187.1
+521
+10
+3.3
+529
+207
+62
+6654
+9400
+6.8
+35
+0.12
+0.023
+2.5
+55.5
+100
+52.16
+0.28
+87000
+0.122
+192
+1038
 28
- 8.1
- 423
- 119.5
- 115
- 5.5
- 50
- 4603
- 419
- 655
- 115
- 25.6
- 680
- 406
- 1320
- 5712
- 70
- 179
- 56
- 1
- 0.4
- 12.1
- 175
- 157
- 440
- 1.9
- 154.5
- 3
- 180
--1
-
-2 0 0
-1 0 0
+8.1
+423
+119.5
+115
+5.5
+50
+4603
+419
+655
+115
+25.6
+680
+406
+1320
+5712
+70
+179
+56
+1
+0.4
+12.1
+175
+157
+440
+1.9
+154.5
 3
--1
-16 0 0
-2
- 4 body
- 5 brain
--1
-2 0 0
-1 0 0
-2
--1
-16 0 0
+180
+1026
 1
- 10 data.frame
--1
-2 0 0
-1 0 0
+5129
+5
+names
+1040
+2
+1033
+4
+body
+1033
+5
+brain
+1026
 1
--1
-16 0 0
+5129
+5
+class
+1040
+1
+1033
+10
+data.frame
+1026
+1
+5129
+9
+row.names
+1040
 28
- 15 Mountain\040beaver
- 3 Cow
- 9 Grey\040wolf
- 4 Goat
- 10 Guinea\040pig
- 11 Dipliodocus
- 14 Asian\040elephant
- 6 Donkey
- 5 Horse
- 12 Potar\040monkey
- 3 Cat
- 7 Giraffe
- 7 Gorilla
- 5 Human
- 16 African\040elephant
- 11 Triceratops
- 13 Rhesus\040monkey
- 8 Kangaroo
- 14 Golden\040hamster
- 5 Mouse
- 6 Rabbit
- 5 Sheep
- 6 Jaguar
- 10 Chimpanzee
- 3 Rat
- 13 Brachiosaurus
- 4 Mole
- 3 Pig
--1
--1
--1
--1
--1
--1
--1
+1033
+15
+Mountain\040beaver
+1033
+3
+Cow
+1033
+9
+Grey\040wolf
+1033
+4
+Goat
+1033
+10
+Guinea\040pig
+1033
+11
+Dipliodocus
+1033
+14
+Asian\040elephant
+1033
+6
+Donkey
+1033
+5
+Horse
+1033
+12
+Potar\040monkey
+1033
+3
+Cat
+1033
+7
+Giraffe
+1033
+7
+Gorilla
+1033
+5
+Human
+1033
+16
+African\040elephant
+1033
+11
+Triceratops
+1033
+13
+Rhesus\040monkey
+1033
+8
+Kangaroo
+1033
+14
+Golden\040hamster
+1033
+5
+Mouse
+1033
+6
+Rabbit
+1033
+5
+Sheep
+1033
+6
+Jaguar
+1033
+10
+Chimpanzee
+1033
+3
+Rat
+1033
+13
+Brachiosaurus
+1033
+4
+Mole
+1033
+3
+Pig
+254
+254

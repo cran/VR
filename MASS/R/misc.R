@@ -2,6 +2,11 @@
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 
+con2tr <- function(obj)
+{
+    data.frame(expand.grid(x=obj$x,y=obj$y),z=as.vector(obj$z))
+}
+
 Null <- function(M)
 {
     tmp <- qr(M)

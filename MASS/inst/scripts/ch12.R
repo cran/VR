@@ -43,8 +43,8 @@ survreg(Surv(time) ~ ag*log(wbc), leuk, dist="exponential")
 summary(survreg(Surv(time) ~ ag + log(wbc), leuk, dist="exp"))
 summary(survreg(Surv(time) ~ ag + log(wbc), leuk)) # Weibull
 summary(survreg(Surv(time) ~ ag + log(wbc), leuk, dist="loglogistic"))
-#anova(survreg(Surv(time) ~ log(wbc), leuk),
-#    survreg(Surv(time) ~ ag + log(wbc), leuk))
+anova(survreg(Surv(time) ~ log(wbc), leuk),
+      survreg(Surv(time) ~ ag + log(wbc), leuk))
 summary(survreg(Surv(time) ~ strata(ag) + log(wbc), data=leuk))
 
 leuk.wei <- survreg(Surv(time) ~ ag + log(wbc), leuk)

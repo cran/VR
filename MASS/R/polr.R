@@ -90,7 +90,7 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
     fit <- list(coefficients = beta, zeta = zeta, deviance = deviance,
                 fitted.values = fitted, lev = lev, terms = Terms,
                 df.residual = sum(wt) - pc - q, edf = pc + q, n = sum(wt),
-                call = match.call(), convergence = res$code, niter=niter)
+                call = match.call(), convergence = res$convergence, niter=niter)
     if(Hess) {
         dn <- c(names(beta), names(zeta))
         H <- res$hessian

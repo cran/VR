@@ -32,6 +32,7 @@ anova.negbin             Likelihood Ratio Tests for Negative Binomial
 area                     Adaptive Numerical Integration
 austres                  Quarterly Time Series of the Number of
                          Australian Residents
+bacteria                 Presence of Bacteria after Drug Treatments
 bandwidth.nrd            Bandwidth for density() via Normal Reference
                          Distribution.
 bcv                      Biased Cross-Validation for Bandwidth Selection
@@ -46,6 +47,7 @@ caith                    Colours of Eyes and Hair of People in Caithness
 cats                     Anatomical Data from Domestic Cats
 cement                   Heat Evolved by Setting Cements
 chem                     Copper in Wholemeal Flour
+con2tr                   Convert Lists to Data Frames for use by Trellis
 confint                  Confidence Intervals for Model Parameters
 contr.sdif               Successive Differences contrast coding
 coop                     Co-operative Trial in Analytical Chemistry
@@ -81,6 +83,7 @@ gilgais                  Line Transect of Soil in Gilgai Territory
 ginv                     Generalized Inverse of a Matrix
 glm.convert              Change a Negative Binomial fit to a GLM fit
 glm.nb                   Fit a Negative Binomial Generalized Linear Model
+glmmPQL                  Fit Generalized Linear Mixed Models via PQL
 heart                    The Stanford heart transplant data
 hills                    Record Times in Scottish Hill Races
 hist.scott               Plot a Histogram with Automatic Bin Width

@@ -94,16 +94,16 @@ the (effective) number of observations,  calculated using the weights
 the matched call.
 }
 \item{convergence}{
-the convergence message returned by \code{nlminb}.
+the convergence code returned by \code{optim}.
 }
 \item{niter}{
-the number of iterations, function and gradient evaluations used by \code{nlminb}.
+the number of function and gradient evaluations used by \code{optim}.
 }
 \item{Hessian}{
 (if \code{Hess} is true).
 }}
 \seealso{
-\code{\link{nlm}}, \code{\link{glm}}, \code{\link[nnet]{multinom}}.
+\code{\link{optim}}, \code{\link{glm}}, \code{\link[nnet]{multinom}}.
 }
 \examples{
 options(contrasts=c("contr.treatment", "contr.poly"))

@@ -9,17 +9,18 @@ options(contrasts=c("contr.helmert", "contr.poly"))
 # 6.1  A linear regression example
 
 data(whiteside)
-if(F) { ## can run this is lattice is available
-library(lattice)
+if(require(lattice)) { ## can run this is lattice is available
+
 trellis.device(postscript, file="ch06b.ps", width=8, height=6, pointsize=9)
-xyplot(Gas ~ Temp | Insul, whiteside, panel =
+print(xyplot(Gas ~ Temp | Insul, whiteside, panel =
  function(x, y, ...) {
     panel.xyplot(x, y, ...)
     panel.lmline(x, y, ...)
  }, xlab = "Average external temperature (deg. C)",
- ylab = "Gas consumption  (1000 cubic feet)")
+ ylab = "Gas consumption  (1000 cubic feet)"))
 dev.off()
-}
+
+} else {
 
 coplot(Gas ~ Temp | Insul, whiteside, panel =
   function(x, y, ...) {
@@ -27,6 +28,8 @@ coplot(Gas ~ Temp | Insul, whiteside, panel =
      abline(lm(y ~ x))
   }, xlab = "Average external temperature (deg. C)",
   ylab = "Gas consumption  (1000 cubic feet)")
+
+}
 
 gasB <- lm(Gas ~ Temp, whiteside, subset = Insul=="Before")
 gasA <- update(gasB, subset = Insul=="After")

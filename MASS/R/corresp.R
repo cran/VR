@@ -4,7 +4,7 @@
 "corresp" <- function(x, ...)
 {
   if(is.null(class(x))) class(x) <- data.class(x)
-  UseMethod("corresp")
+  UseMethod("corresp", x, ...)
 }
 
 "corresp.crosstabs" <- function(x, ...)
