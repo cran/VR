@@ -1,5 +1,7 @@
 #-*- R -*-
 
+## Script for the Third Edition of `Modern Applied Statistics with S-PLUS'
+
 # Chapter 14   Spatial Statistics
 
 postscript(file="ch14.ps", width=8, height=8, pointsize=9)

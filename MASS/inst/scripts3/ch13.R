@@ -1,5 +1,7 @@
 #-*- R -*-
 
+## Script for the Third Edition of `Modern Applied Statistics with S-PLUS'
+
 # Chapter 13   Time Series
 
 library(MASS)

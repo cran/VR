@@ -1,5 +1,7 @@
 #-*- R -*-
 
+## Script from Fourth Edition of `Modern Applied Statistics with S'
+
 # Chapter 8   Non-linear and Smooth Regression
 
 library(MASS)

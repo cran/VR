@@ -7,13 +7,9 @@
  *
  */
 
-#include <S.h>
-#include <stdio.h>
-#include <math.h>
+#include <R.h>
 
 typedef double Sdata;
-#include "R_ext/PrtUtil.h"
-#include "verS.h"
 
 static double *vect(int n);
 static void free_vect(double *v);
@@ -56,12 +52,6 @@ static Sdata *TrainOut;
 static Sdata *Weights;
 
 static Sdata *toutputs;
-
-static void
-errmsg(char *string)
-{
-    PROBLEM "%s", string RECOVER(NULL_ENTRY);
-}
 
 void
 VR_set_net(Sint *n, Sint *nconn, Sint *conn,
@@ -116,7 +106,7 @@ VR_nntest(Sint *ntest, Sdata *test, Sdata *result, double *inwts)
 	wts[i] = inwts[i];
     NTest = *ntest;
     if (Nweights == 0)
-	errmsg("No model set");
+	error("No model set");
 
     for (i = 0; i < Noutputs; i++)
 	toutputs[i] = 0.5;

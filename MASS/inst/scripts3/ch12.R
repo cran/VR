@@ -1,5 +1,7 @@
 #-*- R -*-
 
+## Script for the Third Edition of `Modern Applied Statistics with S-PLUS'
+
 # Chapter 12   Survival Analysis
 
 library(modreg)  # for scatter.smooth()

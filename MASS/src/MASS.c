@@ -2,14 +2,7 @@
  *  MASS/MASS.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
  */
 
-#include <stdio.h>
-#include <math.h>
-#include <S.h>
-
-typedef double Sfloat;
-typedef int Sint;
-
-#include "R_ext/PrtUtil.h"
+#include <R.h>
 
 #ifndef max
 #  define max(a,b) ((a) > (b) ? (a) : (b))

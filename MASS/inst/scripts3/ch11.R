@@ -1,5 +1,7 @@
 #-*- R -*-
 
+## Script for the Third Edition of `Modern Applied Statistics with S-PLUS'
+
 # Chapter 11   Multivariate Analysis
 
 library(mva)

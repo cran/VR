@@ -1,5 +1,7 @@
 #-*- R -*-
 
+## Script from Fourth Edition of `Modern Applied Statistics with S'
+
 # Chapter 13   Survival Analysis
 
 library(MASS)

@@ -2,10 +2,13 @@
  *  spatial/pps.c by W. N. Venables and B. D. Ripley.  Copyright (C) 1994-2002
  */
 
-#include <S.h>
-#include <math.h>
+#include <R.h>
+#include <Rmath.h> /* for M_PI */
 
-#include "verS.h"
+#define RANDIN  GetRNGstate()
+#define RANDOUT PutRNGstate()
+#define UNIF unif_rand()
+
 #include "spatial.h"
 
 #ifndef max
@@ -14,21 +17,13 @@
 #endif
 
 static Sfloat xl0, yl0, xu0, yu0;
-#ifndef Macintosh
-static Sfloat pi = 3.14159265;
-#endif
 
-static void
-errmsg(char *string)
-{
-    PROBLEM "%s", string RECOVER(NULL_ENTRY);
-}
 
 static void
 testinit(void)
 {
     if ((xu0 == xl0) || (yu0 == yl0))
-	errmsg("not initialized -- use ppregion");
+	error("not initialized -- use ppregion");
 }
 
 
@@ -73,7 +68,7 @@ edge(Sfloat x, Sfloat y, Sfloat a)
     for (i = 1; i <= 4; i++)
 	if (r[i] < a) {
 	    if (r[i] == 0.0)
-		b += pi;
+		b += M_PI;
 	    else {
 		c = acos(r[i] / a);
 		c1 = atan(r[i - 1] / r[i]);
@@ -83,7 +78,7 @@ edge(Sfloat x, Sfloat y, Sfloat a)
 	    }
 	}
     if (b < 6.28)
-	return (1.0 / (2.0 - b / pi));
+	return (1.0 / (2.0 - b / M_PI));
     return (0.0);
 }
 
@@ -128,7 +123,7 @@ VR_sp_pp2(Sfloat *x, Sfloat *y, Sint *npt, Sint *k,
     alm = 0.0;
     for (i = 0; i < k1; i++) {
 	a += h[i];
-	h[i] = sqrt(a / pi) * sarea;
+	h[i] = sqrt(a / M_PI) * sarea;
 	alm = max(alm, fabs(h[i] - (i + 1) / s1));
     }
     *dmin = dm;
@@ -138,7 +133,6 @@ VR_sp_pp2(Sfloat *x, Sfloat *y, Sint *npt, Sint *k,
 void
 VR_pdata(Sint *npt, Sfloat *x, Sfloat *y)
 {
-    S_EVALUATOR
     int   i;
     Sfloat ax, ay;
 
@@ -158,7 +152,6 @@ void
 VR_simpat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *c,
 	  Sfloat *r, Sint *init)
 {
-    S_EVALUATOR
     int   i, id, j, mm, n = *npt;
     Sfloat cc, rr, ax, ay, d, x1, y1, u;
 
@@ -200,7 +193,6 @@ VR_simpat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *c,
 void
 VR_simmat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *r)
 {
-    S_EVALUATOR
     int   i, icnt, j, n = *npt;
     Sfloat x1, y1, rr, ax, ay;
 

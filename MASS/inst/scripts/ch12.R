@@ -1,5 +1,7 @@
 #-*- R -*-
 
+## Script from Fourth Edition of `Modern Applied Statistics with S'
+
 # Chapter 12   Classification
 
 library(MASS)
@@ -381,11 +383,6 @@ res.svm <- CVtest(
   function(obj, x) predict(obj, fgl[x, ]),
   cost = 100, gamma = 1 )
 con(true = fgl$type, predicted = res.svm)
-
-# it's got the levels all twisted up.
-rs <- factor(unclass(res.svm), labels = sort(levels(fgl$type)))
-rs <- factor(rs, levels=levels(fgl$type))
-con(true = fgl$type, predicted = rs)
 
 svm(type ~ ., data = fgl, cost = 100, gamma = 1, cross = 10)
 

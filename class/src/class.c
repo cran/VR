@@ -2,18 +2,13 @@
  *  class/class.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
  */
 
-#include <S.h>
-/* for DOUBLE_XMAX and PROBLEM */
+#include <R.h>
 
 #define EPS 1e-4		/* relative test of equality of distances */
 
-#include "verS.h"
-
-static void
-errmsg(char *string)
-{
-    PROBLEM "%s", string RECOVER(NULL_ENTRY);
-}
+#define RANDIN  GetRNGstate()
+#define RANDOUT PutRNGstate()
+#define UNIF unif_rand()
 
 void
 VR_knn1(Sint *pntr, Sint *pnte, Sint *p, double *train, Sint *class,
@@ -22,7 +17,6 @@ VR_knn1(Sint *pntr, Sint *pnte, Sint *p, double *train, Sint *class,
     int   npat, index, i, j, k, ntr = *pntr, nte = *pnte, nind=0, ntie, *ind;
     double dm, dist, tmp;
 
-    S_EVALUATOR
     RANDIN;
     ind = Calloc(ntr, int);
     for (npat = 0; npat < nte; npat++) {
@@ -91,7 +85,6 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
     int   j1, j2, needed, t;
     double dist, tmp, nndist[MAX_TIES];
 
-    S_EVALUATOR
     RANDIN;
 /*
     Use a `fence' in the (k+1)st position to avoid special cases.
@@ -123,7 +116,7 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
 /* Keep an extra distance if the largest current one ties with current kth */
 			if (nndist[kn] <= nndist[kinit - 1])
 			    if (++kn == MAX_TIES - 1)
-				errmsg("too many ties in knn");
+				error("too many ties in knn");
 			break;
 		    }
 	    nndist[kn] = 0.99 * DOUBLE_XMAX;
@@ -376,10 +369,9 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
 	     Sint *pn, Sint *pp, Sint *pncodes, Sint *rlen)
 {
     int n = *pn, p = *pp, ncodes = *pncodes;
-    int cd, i, j, k, nearest, nind;
+    int cd, i, j, k, nearest = 0 /* -Wall */, nind;
     double dm, dist, tmp;
     
-    S_EVALUATOR
     RANDIN;
     for (k = 0; k < *rlen; k++) {
 	/* pick a random data point */

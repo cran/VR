@@ -1,8 +1,7 @@
 /*
  *  spatial/init.c by W. N. Venables and B. D. Ripley.  Copyright (C) 2002
  */
-#include <S.h>
-#include "verS.h"
+#include <R.h>
 #include "spatial.h"
 #include "R_ext/Rdynload.h"
 

@@ -2,9 +2,8 @@
  *  spatial/krc.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
  */
 
-#include <math.h>
-#include <S.h>
-#include "verS.h"
+#include <R.h>
+
 #include "spatial.h"
 
 #ifndef max

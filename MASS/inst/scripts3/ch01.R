@@ -1,10 +1,12 @@
 #-*- R -*-
 
+## Script for the Third Edition of `Modern Applied Statistics with S-PLUS'
+
+# Chapter 1    Introduction
+
 library(MASS)
 #trellis.device(postscript, file="ch01.ps", width=8, height=6, pointsize=9)
 postscript(file="ch01.ps", width=8, height=6, pointsize=9)
-
-# Chapter 1    Introduction
 
 # 1.1 A quick overview of S
 

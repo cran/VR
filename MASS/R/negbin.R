@@ -19,7 +19,7 @@ function(object, ..., test = "Chisq")
     mlist <- list(object, ...)
     nt <- length(mlist)
     dflis <- sapply(mlist, function(x) x$df.resid)
-    s <- order(-dflis)
+    s <- sort.list(-dflis)
     mlist <- mlist[s]
     if(any(!sapply(mlist, inherits, "negbin")))
       stop("not all objects are of class `negbin'")
@@ -83,7 +83,6 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
             y * log(mu + (y == 0)) - (th + y) * log(th + mu))
     }
     link <- substitute(link)
-    th <- as.name("th")
     if(missing(init.theta)) {
         fam0 <- do.call("poisson", list(link = link))
     } else {
@@ -148,7 +147,6 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
         t0 <- th
         th <- theta.ml(Y, mu, n, limit=control$maxit, trace = control$trace > 2)
         fam <- do.call("negative.binomial", list(theta = th, link = link))
-        class(fit) <- c("negbin", "glm", "lm")
         mu <- fit$fitted
         del <- t0 - th
         Lm0 <- Lm
