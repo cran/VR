@@ -4,7 +4,7 @@ batchSOM <- function(data, grid = somgrid(), radii, init)
     nd <- nrow(data)
     ng <- nrow(grid$pts)
     if(missing(init))
-        init <- data[sample(1:nd, ng, replace = FALSE),]
+        init <- data[sample(1:nd, ng, replace = FALSE), , drop = FALSE]
     nhbrdist <- as.matrix(dist(grid$pts))
     for(r in radii) {
         cl <- as.numeric(knn1(init, data, 1:ng))
@@ -57,6 +57,7 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
 {
     data <- as.matrix(data)
     nd <- nrow(data)
+    if(!nd) stop("SOM called with no data")
     ng <- nrow(grid$pts)
     nphases <- 1
     if(is.list(alpha)) {
@@ -65,7 +66,7 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
             stop("'radii' must be a list of the same length as 'alpha'")
     }
     if(missing(init))
-        init <- data[sample(1:nd, ng, replace = FALSE), ]
+        init <- data[sample(1:nd, ng, replace = FALSE), , drop = FALSE]
     codes <- init
     nhbrdist <- as.matrix(dist(grid$pts))
     if(nphases == 1) {

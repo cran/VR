@@ -99,6 +99,7 @@ Library class
 - knn* and lvq* explicitly check for missing values in the inputs.
 - knn1 was not handling ties correctly in some cases (but knn was).
 - added check for user error in inputs in knn.cv.
+- SOM segfaulted for 1D inputs.
 
 
 Library nnet

@@ -1,3 +1,5 @@
 Package: MASS
 Description: The main library and the datasets
 Title: Main Package of Venables and Ripley's MASS
+LazyLoad: yes
+LazyData: yes
