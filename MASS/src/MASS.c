@@ -158,17 +158,18 @@ static double *x;		/* configuration */
 static double *d;		/* dissimilarities */
 static double *y;		/* fitted distances (in rank of d order) */
 static double *yf;		/* isotonic regression fitted values (ditto) */
+static double mink_pow;
 
 void
 VR_mds_fn(double *, double *, Sint *, double *, Sint *,
-	  double *, Sint *, Sint *, double *, Sint *);
+	  double *, Sint *, Sint *, double *, Sint *, double *);
 
 /*
  *  Download the data.
  */
 void
 VR_mds_init_data(Sint *pn, Sint *pc, Sint *pr, Sint *orde,
-		 Sint *ordee, double *xx)
+		 Sint *ordee, double *xx, double *p)
 {
     int   i;
 
@@ -185,6 +186,7 @@ VR_mds_init_data(Sint *pn, Sint *pc, Sint *pr, Sint *orde,
     for (i = 0; i < n; i++) ord[i] = orde[i];
     for (i = 0; i < n; i++) ord2[i] = ordee[i];
     for (i = 0; i < dimx; i++) x[i] = xx[i];
+    mink_pow = *p;
 }
 
 void
@@ -197,7 +199,7 @@ VR_mds_unload()
 static void
 calc_dist(double *x)
 {
-    int   r1, r2, c, index;
+    int   r1, r2, c, index, euclid = (mink_pow == 2.);
     double tmp, tmp1;
 
     index = 0;
@@ -206,9 +208,9 @@ calc_dist(double *x)
 	    tmp = 0.0;
 	    for (c = 0; c < nc; c++) {
 		tmp1 = x[r1 + c * nr] - x[r2 + c * nr];
-		tmp += tmp1 * tmp1;
+		tmp += euclid ? (tmp1 * tmp1) : pow(fabs(tmp1), mink_pow);
 	    }
-	    d[index++] = sqrt(tmp);
+	    d[index++] = euclid ? sqrt(tmp) : pow(tmp, 1./mink_pow);
 	}
     for (index = 0; index < n; index++)
 	y[index] = d[ord[index]];
@@ -221,7 +223,8 @@ fminfn(int nn, double *x, void *dummy)
     Sint  do_derivatives = 0;
 
     calc_dist(x);
-    VR_mds_fn(y, yf, &n, &ssq, ord2, x, &nr, &nc, 0, &do_derivatives);
+    VR_mds_fn(y, yf, &n, &ssq, ord2, x, &nr, &nc, 0, &do_derivatives, 
+	      &mink_pow);
     return (ssq);
 }
 
@@ -232,7 +235,8 @@ fmingr(int nn, double *x, double *der, void *dummy)
     Sint  do_derivatives = 1;
 
     calc_dist(x);
-    VR_mds_fn(y, yf, &n, &ssq, ord2, x, &nr, &nc, der, &do_derivatives);
+    VR_mds_fn(y, yf, &n, &ssq, ord2, x, &nr, &nc, der, &do_derivatives, 
+	      &mink_pow);
 }
 
 #define abstol 		1.0e-2
@@ -258,10 +262,11 @@ VR_mds_dovm(double *val, Sint *maxit, Sint *trace, double *xx, double *tol)
 void
 VR_mds_fn(double *y, double *yf, Sint *pn, double *pssq, Sint *pd,
 	  double *x, Sint *pr, Sint *pncol, double *der,
-	  Sint *do_derivatives)
+	  Sint *do_derivatives, double *p)
 {
     int   n = *pn, i, ip=0, known, u, s, r = *pr, ncol = *pncol, k=0;
-    double tmp, ssq, *yc, slope, tstar, sstar;
+    double tmp, tmp1, sgn, ssq, *yc, slope, tstar, sstar, mink = *p;
+    int  euclid = (mink == 2.);
 
     yc = Calloc((n + 1), double);
     yc[0] = 0.0;
@@ -300,15 +305,18 @@ VR_mds_fn(double *y, double *yf, Sint *pn, double *pssq, Sint *pd,
 	for (i = 0; i < ncol; i++) {
 	    tmp = 0.0;
 	    for (s = 0; s < r; s++) {
+		if (s == u) continue;
 		if (s > u)
 		    k = r * u - u * (u + 1) / 2 + s - u;
 		else if (s < u)
 		    k = r * s - s * (s + 1) / 2 + u - s;
-		if (s != u) {
-		    k = pd[k - 1];
-		    tmp += ((y[k] - yf[k]) / sstar
-			    - y[k] / tstar) * (x[u + r * i] - x[s + r * i]) / y[k];
-		}
+		k = pd[k - 1];
+		if(k >= n) continue;
+		tmp1 = (x[u + r * i] - x[s + r * i]);
+		sgn = (tmp1 >= 0) ? 1: -1;
+		tmp1 =  fabs(tmp1)/ y[k];
+		tmp += ((y[k] - yf[k]) / sstar - y[k] / tstar) * sgn *
+		    (euclid ? tmp1 : pow(tmp1, mink-1.));
 	    }
 	    der[u + i * r] = tmp * ssq;
 	}

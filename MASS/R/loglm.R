@@ -88,7 +88,7 @@ function(formula, data, ...)
     dm <- sapply(dn, length)
     offset <- model.offset(data)
     if (is.null(offset)) offset <- 0
-    offset <- rep(offset, length = nrow(data))
+    offset <- rep(offset, length.out = nrow(data))
     data <- structure(array(-1, dm, dn), terms = trms)
     data[do.call("cbind", lapply(fac, as.numeric))] <- rsp
     st <- array(as.numeric(data >= 0), dm, dn)

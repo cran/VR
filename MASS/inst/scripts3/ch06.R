@@ -152,7 +152,7 @@ predict(gasBA, new.white) # wrong in earlier S
 # 6.5  Robust and resistant regression
 
 #haveLMR <- (version$major >= 5) | (version$major == 4  && version$minor >=5)
-library(lqs)
+# library(lqs)
 data(phones)
 phones.lm <- lm(calls ~ year, phones)
 attach(phones); plot(year, calls); detach()

@@ -28,7 +28,6 @@ text(loc, total + par("cxy")[2], total, cex = 0.7, xpd = T)
 topo.loess <- loess(z ~ x * y, topo, degree = 2, span = 0.25)
 topo.mar <- list(x = seq(0, 6.5, 0.2), y=seq(0, 6.5, 0.2))
 topo.lo <- predict(topo.loess, expand.grid(topo.mar))
-topo.lo <- matrix(topo.lo, length(topo.mar$x),length(topo.mar$y))
 par(pty = "s")       # square plot
 contour(topo.mar$x, topo.mar$y, topo.lo, xlab = "", ylab = "",
   levels = seq(700,1000,25), cex = 0.7)
@@ -115,7 +114,7 @@ detach()
 # 4.5  Trellis graphics
 
 
-library(lqs)
+# library(lqs)
 xyplot(time ~ dist, data = hills,
   panel = function(x, y, ...) {
      panel.xyplot(x, y, ...)
@@ -195,7 +194,7 @@ stripplot(Age ~ Days | Sex*Lrn*Eth, data = Quine,
          jitter = T, layout = c(4, 2))
 
 stripplot(Age ~ Days | Eth*Sex, data = Quine,
-   groups = Lrn, jitter = T,
+   groups = Lrn, jitter = TRUE,
    panel = function(x, y, subscripts, jitter.data = F, ...) {
        if(jitter.data)  y <- jitter(as.numeric(y))
        panel.superpose(x, y, subscripts, ...)
@@ -206,7 +205,7 @@ stripplot(Age ~ Days | Eth*Sex, data = Quine,
        points = Rows(trellis.par.get("superpose.symbol"), 1:2)
        ),
    strip = function(...)
-        strip.default(..., strip.names = c(T, T), style = 1)
+        strip.default(..., strip.names = c(TRUE, TRUE), style = 1)
 )
 
 fgl0 <- fgl[ ,-10] # omit type.
@@ -225,7 +224,7 @@ xyplot(ratio ~ scant | subject, data = A5,
       strip = function(factor, ...)
          strip.default(..., factor.levels = labs, style = 1),
       layout = c(8, 5, 1),
-      skip = c(rep(F, 37), rep(T, 1), rep(F, 1)),
+      skip = c(rep(FALSE, 37), rep(TRUE, 1), rep(FALSE, 1)),
       panel = function(x, y, subscripts, ID) {
           panel.xyplot(x, y, type = "b", cex = 0.5)
           which <- unique(ID[subscripts])

@@ -47,6 +47,8 @@ confint-MASS            Confidence Intervals for Model Parameters
 contr.sdif              Successive Differences contrast coding
 coop                    Co-operative Trial in Analytical Chemistry
 corresp                 Simple Correspondence Analysis
+cov.rob                 Resistant Estimation of Multivariate Location and
+                          Scatter
 cov.trob                Covariance Estimation for Multivariate t Distribution
 cpus                    Performance of Computer CPUs
 crabs                   Morphological Measurements on Leptograpsus Crabs
@@ -97,6 +99,7 @@ lm.ridge                Ridge Regression
 loglm                   Fit Log-Linear Models by Iterative
                         Proportional Scaling
 logtrans                Estimate log Transformation Parameter
+lqs			Resistant Regression
 mammals                 Brain and Body Weights for 62 Species of Land Mammals
 mca                     Multiple Correspondence Analysis
 mcycle                  Data from a Simulated Motorcycle Accident
@@ -124,6 +127,7 @@ plot.mca                Plot Method for Objects of Class 'mca'
 polr                    Proportional Odds Logistic Regression
 predict.lda             Classify Multivariate Observations by Linear
                           Discrimination
+predict.lqs  		Predict from an lqs Fit
 predict.mca             Predict Method for Class 'mca'
 predict.qda             Classify from Quadratic Discriminant Analysis
 qda                     Quadratic Discriminant Analysis

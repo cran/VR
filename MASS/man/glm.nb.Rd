@@ -9,7 +9,7 @@
 Fit a Negative Binomial Generalized Linear Model
 }
 \description{
-  A modification of the system function \code{glm()} to include
+  A modification of the system function \code{\link{glm}()} to include
   estimation of the additional parameter, \code{theta}, for a
   Negative Binomial generalized linear model.
 }
@@ -27,7 +27,8 @@ glm.nb(formula, data, weights, subset, na.action, start = NULL, etastart,
   Model formula, as for \code{glm()}.
 }
 \item{\dots}{
-  Any other arguments for the \code{glm()} function except \code{family}.
+  Any other arguments for the \code{\link{glm}()} function except \code{family}
+  and, in \R, \code{offset} (but \code{\link{offset}} can be used).
 }
 \item{init.theta}{
   Optional initial value for the theta parameter.  If omitted a moment

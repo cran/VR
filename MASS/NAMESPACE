@@ -14,6 +14,8 @@ export(area, as.fractions, bandwidth.nrd, bcv, boxcox, con2tr,
        select, Shepard, stdres, stepAIC, studres, theta.md, theta.ml,
        theta.mm, truehist, ucv, width.SJ, write.matrix)
 
+export(cov.mcd, cov.mve, cov.rob, lmsreg, lqs, lqs.formula, ltsreg)
+
 # datasets
 export(abbey, accdeaths, addterm, Aids2, Animals, anorexia, austres,
        bacteria, beav1, beav2, biopsy, birthwt, Boston, cabbages,
@@ -53,7 +55,11 @@ export(denumerate.formula, renumerate.formula)
 #        qda.data.frame, qda.default, qda.formula, qda.matrix,
 #        rlm.default, rlm.formula)
 
-importFrom(mva, biplot)
+importFrom(graphics, pairs, plot)
+importFrom(stats, anova, biplot, coef, confint, extractAIC, fitted, 
+	   logLik, model.frame, predict, profile, residuals, se.contrast,
+           terms, update, vcov)
+
 
 S3method("[", fractions)
 S3method("[<-", fractions)
@@ -107,6 +113,8 @@ S3method(logLik, negbin)
 S3method(logtrans, default)
 S3method(logtrans, formula)
 S3method(logtrans, lm)
+S3method(lqs, default)
+S3method(lqs, formula)
 S3method(Math, fractions)
 S3method(model.frame, lda)
 S3method(model.frame, polr)
@@ -120,6 +128,7 @@ S3method(plot, mca)
 S3method(plot, profile)
 S3method(plot, ridgelm)
 S3method(predict, lda)
+S3method(predict, lqs)
 S3method(predict, mca)
 S3method(predict, polr)
 S3method(predict, qda)
@@ -133,6 +142,7 @@ S3method(print, gamma.shape)
 S3method(print, glm.dose)
 S3method(print, lda)
 S3method(print, loglm)
+S3method(print, lqs)
 S3method(print, mca)
 S3method(print, polr)
 S3method(print, qda)

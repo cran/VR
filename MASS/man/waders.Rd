@@ -103,7 +103,6 @@ Wader migration systems in south and eastern Africa and western Asia.
 \bold{49} Supplement, 15--34.
 }
 \examples{
-library(mva)
 plot(corresp(waders, nf=2))
 }
 \keyword{datasets}

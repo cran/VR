@@ -33,6 +33,7 @@ to their printed tabular output.
 \code{\link{surf.ls}}
 }
 \examples{
+library(stats)
 data(topo, package="MASS")
 topo0 <- surf.ls(0, topo)
 topo1 <- surf.ls(1, topo)

@@ -60,8 +60,8 @@ of the configuration, weighted by the distances, the whole sum being
 divided by the sum of input distances to make the stress scale-free.
 
 An iterative algorithm is used, which will usually converge in around
-50 iterations. As this is necessarily an \eqn{O(n^2)} calculation, it is slow
-for large datasets. Further, since the configuration is only determined
+50 iterations.  As this is necessarily an \eqn{O(n^2)} calculation, it is slow
+for large datasets.  Further, since the configuration is only determined
 up to rotations and reflections (by convention the centroid is at the
 origin), the result can vary considerably from machine to machine.
 In this release the algorithm has been modified by adding a step-length
@@ -82,7 +82,6 @@ search (\code{magic}) to ensure that it always goes downhill.
 \code{\link{cmdscale}}, \code{\link{isoMDS}}
 }
 \examples{
-library(mva)
 data(swiss)
 swiss.x <- as.matrix(swiss[, -1])
 swiss.sam <- sammon(dist(swiss.x))

@@ -152,7 +152,7 @@ void
 VR_simpat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *c,
 	  Sfloat *r, Sint *init)
 {
-    int   i, id, j, mm, n = *npt;
+    int   i, attempts = 0, id, j, mm, n = *npt;
     Sfloat cc, rr, ax, ay, d, x1, y1, u;
 
     testinit();
@@ -172,6 +172,7 @@ VR_simpat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *c,
 	x[id] = x[0];
 	y[id] = y[0];
 	do {
+	    attempts++;
 	    x[0] = xl0 + ax * UNIF;
 	    y[0] = yl0 + ay * UNIF;
 	    u = UNIF;
@@ -184,6 +185,7 @@ VR_simpat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *c,
 		    if (d < u) continue;
 		}
 	    }
+	    if(attempts % 1000 == 0) R_CheckUserInterrupt();
 	}
 	while (d < u);
     }
@@ -193,7 +195,7 @@ VR_simpat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *c,
 void
 VR_simmat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *r)
 {
-    int   i, icnt, j, n = *npt;
+    int   i, icnt, attempts = 0, j, n = *npt;
     Sfloat x1, y1, rr, ax, ay;
 
     testinit();
@@ -203,6 +205,7 @@ VR_simmat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *r)
     rr = (*r) * (*r);
     for (i = 0; i < n; i++) {
 	do {
+	    attempts++;
 	    icnt = 0;
 	    x[i] = xl0 + ax * UNIF;
 	    y[i] = yl0 + ay * UNIF;
@@ -215,6 +218,7 @@ VR_simmat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *r)
 			break;
 		    }
 		}
+	    if(attempts % 1000 == 0) R_CheckUserInterrupt();
 	}
 	while (icnt > 0);
     }

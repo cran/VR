@@ -215,6 +215,7 @@ GAG.lm2 <- lm(GAG ~ Age + I(Age^2) + I(Age^3) + I(Age^4) +
 xx <- seq(0, 17, len = 200)
 lines(xx, predict(GAG.lm2, data.frame(Age = xx)))
 
+library(splines)
 plot(Age, GAG, type = "n", main = "Splines")
 lines(Age, fitted(lm(GAG ~ ns(Age, df = 5))))
 lines(Age, fitted(lm(GAG ~ ns(Age, df = 10))), lty = 3)

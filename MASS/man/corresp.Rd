@@ -86,7 +86,6 @@ correlation(s) and the row and column scores.
 (ct <- corresp(~ Age + Eth, data = quine))
 \dontrun{plot(ct)}
 
-library(mva)
 corresp(caith)
 biplot(corresp(caith, nf = 2))
 }

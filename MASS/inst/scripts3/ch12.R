@@ -142,8 +142,9 @@ VA.exp <- survreg(Surv(stime, status) ~ Karn + cell, VA,
 summary(VA.exp, cor=F)
 cox.zph(VA.coxs)
 par(mfrow=c(3,2), pty="m"); plot(cox.zph(VA.coxs))
-VA$Karnc <- VA$Karn - 50
-VA.coxc <- update(VA.cox, ~ . - Karn + Karnc)
+VA2 <- VA ## needed because VA and stepAIC are both in MASS
+VA2$Karnc <- VA2$Karn - 50
+VA.coxc <- update(VA.cox, ~ . - Karn + Karnc, data=VA2)
 VA.cox2 <- stepAIC(VA.coxc, ~ .^2)
 VA.cox2$anova
 VA.cox3 <- update(VA.cox2, ~ treat/Karnc + prior*Karnc

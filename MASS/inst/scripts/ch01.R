@@ -85,7 +85,7 @@ attach(hills)
 plot(dist, time)
 if(interactive()) identify(dist, time, row.names(hills))
 abline(lm(time ~ dist))
-library(lqs)
+# library(lqs)
 abline(lqs(time ~ dist), lty=3, col=4)
 detach()
 

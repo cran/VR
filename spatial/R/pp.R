@@ -168,8 +168,8 @@ pplik <- function(pp, R, ng=50, trace=FALSE)
   if(target == 0) return(0)
   tmp <- pplikfn(1, R, n, pp$x, pp$y, ng, target, FALSE)
   if(tmp <= 0) return(1)
-  uniroot(pplikfn, c(0,1),
-	  R=R, n=n, x=pp$x, y=pp$y, ng=ng, target=target,
-	  trace=trace)$root
+  stats::uniroot(pplikfn, c(0,1),
+                 R=R, n=n, x=pp$x, y=pp$y, ng=ng, target=target,
+                 trace=trace)$root
 }
 

@@ -60,7 +60,6 @@ limits for each parameter. These will be labelled as (1-level)/2 and
 \code{\link{profile}}
 }
 \examples{
-library(nls)
 expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
                function(b0, b1, th, x) {})
 

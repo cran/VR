@@ -56,7 +56,7 @@ corresp.matrix <- function(x, nf = 1, ...)
 
 plot.correspondence <- function(x, scale=1, ...)
 {
-    if(length(x$cor) > 1) return(invisible(mva::biplot(x, ...)))
+    if(length(x$cor) > 1) return(invisible(biplot(x, ...)))
     Fr <- x$Freq
     rs <- x$rscore
     cs <- x$cscore
@@ -89,17 +89,17 @@ print.correspondence <- function(x, ...)
 }
 
 biplot.correspondence <-
-    function(obj, type = c("symmetric", "rows", "columns"), ...)
+    function(x, type = c("symmetric", "rows", "columns"), ...)
 {
-    if(length(obj$cor) < 2) stop("biplot is only possible if nf >= 2")
+    if(length(x$cor) < 2) stop("biplot is only possible if nf >= 2")
     type <- match.arg(type)
-    X <- obj$rscore[, 1:2]
-    if(type != "columns") X <- X %*% diag(obj$cor[1:2])
+    X <- x$rscore[, 1:2]
+    if(type != "columns") X <- X %*% diag(x$cor[1:2])
     colnames(X) <- rep("", 2)
-    Y <- obj$cscore[, 1:2]
-    if(type != "rows")  Y <- Y %*% diag(obj$cor[1:2])
+    Y <- x$cscore[, 1:2]
+    if(type != "rows")  Y <- Y %*% diag(x$cor[1:2])
     colnames(Y) <- rep("", 2)
-    switch(type, "symmetric" = mva::biplot(X, Y, var.axes = FALSE, ...),
+    switch(type, "symmetric" = biplot(X, Y, var.axes = FALSE, ...),
            "rows" = biplot.bdr(X, Y, ...),
            "columns" = biplot.bdr(Y, X, ...))
     points(0, 0, pch = 3, cex = 3)
@@ -127,18 +127,18 @@ biplot.bdr <-
         vlab.real <- vlab <- paste("Var", 1:p)
         dimnames(bivars) <- list(vlab, colnames(bivars))
     }
-    if(length(olab)) olab <- rep(as.character(olab), length = n)
+    if(length(olab)) olab <- rep(as.character(olab), length.out = n)
     else {
         olab <- rownames(obs)
         if(length(olab) != n) olab <- as.character(1:n)
     }
-    if(length(cex) != 2) cex <- rep(cex, length = 2)
+    if(length(cex) != 2) cex <- rep(cex, length.out = 2)
     if(missing(col)) {
         col <- par("col")
         if (!is.numeric(col)) col <- match(col, palette())
         col <- c(col, col + 1)
     }
-    else if(length(col) != 2) col <- rep(col, length = 2)
+    else if(length(col) != 2) col <- rep(col, length.out = 2)
     ro1 <- expand.range(range(obs[, 1]))
     ro2 <- expand.range(range(obs[, 2]))
     rv1 <- expand.range(range(bivars[, 1]))

@@ -6,7 +6,7 @@
 
 library(MASS)
 postscript(file="ch15.ps", width=8, height=8, pointsize=9)
-options(echo = T,width=65, digits=5)
+options(echo = TRUE, width=65, digits=5)
 
 library(spatial)
 
@@ -38,29 +38,26 @@ contour(trsurf, levels = seq(600, 1000, 25), add = T)
 points(topo)
 title("Degree=6")
 
+library(lattice)
 topo.ls <- surf.ls(4, topo)
 trsurf <- trmat(topo.ls, 0, 6.5, 0, 6.5, 30)
-# trsurf[c("x", "y")] <- expand.grid(x=trsurf$x, y=trsurf$y)
-# plt1 <- levelplot(z ~ x * y, trsurf, aspect=1,
-#            at = seq(650, 1000, 10),  xlab = "", ylab = "")
-# plt2 <- wireframe(z ~ x * y, trsurf, aspect=c(1, 0.5),
-#            screen = list(z = -30, x = -60))
-# print(plt1, position = c(0, 0, 0.5, 1), more=T)
-# print(plt2, position = c(0.45, 0, 1, 1))
-image(trsurf)
-points(topo)
+trsurf[c("x", "y")] <- expand.grid(x=trsurf$x, y=trsurf$y)
+plt1 <- levelplot(z ~ x * y, trsurf, aspect=1,
+           at = seq(650, 1000, 10),  xlab = "", ylab = "")
+plt2 <- wireframe(z ~ x * y, trsurf, aspect=c(1, 0.5),
+           screen = list(z = -30, x = -60))
+print(plt1, position = c(0, 0, 0.5, 1), more=T)
+print(plt2, position = c(0.45, 0, 1, 1))
 
 par(mfcol = c(2, 2), pty = "s")
 topo.loess <- loess(z ~ x * y, topo, degree = 2, span = 0.25,
   normalize = F)
 topo.mar <- list(x = seq(0, 6.5, 0.1), y = seq(0, 6.5, 0.1))
 topo.lo <- predict(topo.loess, expand.grid(topo.mar), se = T)
-topo.lo$fit <- matrix(topo.lo$fit, length(topo.mar$x), length(topo.mar$y))
 eqscplot(topo.mar, xlab = "fit", ylab = "", type = "n")
 contour(topo.mar$x, topo.mar$y, topo.lo$fit,
    levels = seq(700, 1000, 25), add = T)
 points(topo)
-topo.lo$se.fit <- matrix(topo.lo$se.fit, length(topo.mar$x), length(topo.mar$y))
 eqscplot(topo.mar, xlab = "standard error", ylab = "", type = "n")
 contour(topo.mar$x,topo.mar$y,topo.lo$se.fit,
   levels = seq(5, 25, 5), add = T)
@@ -69,12 +66,10 @@ points(topo)
 
 topo.loess <- loess(z ~ x * y, topo, degree = 1, span = 0.25, normalize = F)
 topo.lo <- predict(topo.loess, expand.grid(topo.mar), se=T)
-topo.lo$fit <- matrix(topo.lo$fit, length(topo.mar$x), length(topo.mar$y))
 eqscplot(topo.mar, xlab = "fit", ylab = "", type = "n")
 contour(topo.mar$x,topo.mar$y,topo.lo$fit, levels = seq(700, 1000, 25),
         add = T)
 points(topo)
-topo.lo$se.fit <- matrix(topo.lo$se.fit, length(topo.mar$x), length(topo.mar$y))
 eqscplot(topo.mar, xlab = "standard error", ylab = "", type = "n")
 contour(topo.mar$x,topo.mar$y,topo.lo$se.fit, levels = seq(5, 25, 5),
         add = T)

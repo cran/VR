@@ -99,7 +99,7 @@ rlm.default <-
             if(init == "ls")
                 temp <- lm.wfit(x, y, w, method="qr")
             else if(init == "lts")
-                temp <- lqs::lqs(x, y, intercept=FALSE, nsamp=200)
+                temp <- lqs(x, y, intercept=FALSE, nsamp=200)
             else stop("init method is unknown")
             coef <- temp$coef
             resid <- temp$resid
@@ -110,7 +110,7 @@ rlm.default <-
         }
     } else if(method == "MM") {
         scale.est <- "MM"
-        temp <- lqs::lqs(x, y, intercept=FALSE, method="S", k0 = 1.548)
+        temp <- lqs(x, y, intercept=FALSE, method="S", k0 = 1.548)
         coef <- temp$coef
         resid <- temp$resid
         psi <- psi.bisquare

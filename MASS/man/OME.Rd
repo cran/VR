@@ -77,7 +77,6 @@ experience in their first two years, the test population was split
 into one group of high OME prevalence and one of low prevalence.
 }
 \examples{
-library(nls)
 # Fit logistic curve from p = 0.5 to p = 1.0
 fp1 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/scal)),
              c("L75", "scal"),

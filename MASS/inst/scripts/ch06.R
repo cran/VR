@@ -128,7 +128,7 @@ predict(quad2, newdata = new.x)
 
 # 6.5  Robust and resistant regression
 
-library(lqs)
+# library(lqs)
 phones.lm <- lm(calls ~ year, data = phones)
 attach(phones); plot(year, calls); detach()
 abline(phones.lm$coef)

@@ -162,28 +162,11 @@ fanny(swiss.px, 3)
 
 ## From the on-line Errata:
 ##
-##   `Very regretably, the authors of mclust have chosen to
-##   re-use the name for a completely incompatible package.  We can
-##   no longer recommend its use, and the code given here does not
-##   work in R's mclust-2.x. mclust1998 can be used.'
+##   `The authors of mclust have chosen to re-use the name for a
+##   completely incompatible package.  We can no longer recommend its
+##   use, and the code given in the first printing does not work in R's
+##   mclust-2.x.'
 ##
-library(mclust1998)
-h <- mhtree(swiss.x, modelid = "VVV")
-(mh <- as.vector(mhclass(h, 3)))
-z <- me(swiss.x, modelid = "VVV", z = (ctoz(mh)+1/3)/2)
-eqscplot(swiss.px[, 1:2], type = "n",
-         xlab = "first principal component",
-         ylab = "second principal component")
-text(swiss.px[, 1:2], labels = max.col(z))
-
-vals <- emclust(swiss.x) # all possible models, 0:9 clusters.
-(sm <- summary(vals, swiss.x))
-eqscplot(swiss.px[, 1:2], type = "n",
-         xlab = "first principal component",
-         ylab = "second principal component")
-text(swiss.px[, 1:2], labels = sm$classification)
-
-if(FALSE) {
 library(mclust) # 2.x equivalent commands
 h <- hc(modelName = "VVV", swiss.x)
 (mh <- as.vector(hclass(h, 3)))
@@ -199,7 +182,7 @@ eqscplot(swiss.px[, 1:2], type = "n",
          xlab = "first principal component",
          ylab = "second principal component")
 text(swiss.px[, 1:2], labels = sm$classification)
-}
+
 
 
 # 11.3 Factor analysis

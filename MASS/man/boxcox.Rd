@@ -11,7 +11,7 @@ Box-Cox Transformations for Linear Models
 }
 \description{
 Computes and optionally plots profile log-likelihoods for the
-parameter of the Box-Cox simple power transformation \code{y^lambda}.
+parameter of the Box-Cox power transformation.
 }
 \usage{
 boxcox(object, \dots)
@@ -27,27 +27,27 @@ boxcox(object, \dots)
 }
 \arguments{
 \item{object}{
-a formula or fitted model object.  Currently only \code{lm} and \code{aov} objects
-are handled.
+  a formula or fitted model object.  Currently only \code{lm} and
+  \code{aov} objects are handled.
 }
 \item{lambda}{
-vector of values of \code{lambda} -- default \eqn{(-2, 2)} in steps of 0.1
+vector of values of \code{lambda} -- default \eqn{(-2, 2)} in steps of 0.1.
 }
 \item{plotit}{
 logical which controls whether the result should be plotted.
 }
 \item{interp}{
 logical which controls whether spline interpolation is used.
-Default to \code{true} if plotting with \code{lambda} of length less than 100.
+Default to \code{TRUE} if plotting with \code{lambda} of length less than 100.
 }
 \item{eps}{
-Tolerance for \code{lambda = 0}; defaults to 0.02
+Tolerance for \code{lambda = 0}; defaults to 0.02.
 }
 \item{xlab}{
-defaults to \code{"lambda"}
+defaults to \code{"lambda"}.
 }
 \item{ylab}{
-defaults to \code{"log-Likelihood"}
+defaults to \code{"log-Likelihood"}.
 }
 \item{\dots}{
 additional parameters to be used in the model fitting.

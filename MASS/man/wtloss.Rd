@@ -30,7 +30,6 @@ Dr T. Davies, Adelaide.
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
-library(nls)
 wtloss.fm <- nls(Weight ~ b0 + b1*2^(-Days/th),
     data = wtloss, start = list(b0=90, b1=95, th=120),
     trace = TRUE)

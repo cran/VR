@@ -117,7 +117,7 @@ show.settings()
 }
 
 data(hills)
-library(lqs)
+# library(lqs)
 
 xyplot(time ~ dist, data = hills,
   panel = function(x, y, ...) {
@@ -129,7 +129,8 @@ xyplot(time ~ dist, data = hills,
 )
 
 data(michelson)
-bwplot(Expt ~ Speed, data=michelson, ylab="Experiment No.")
+bwplot(Expt ~ Speed, data=michelson, ylab="Experiment No.",
+       main = "Speed of Light Data")
 # title("Speed of Light Data") ## fails in lattice
 
 lung.deaths.df <- data.frame(year = rep(1974:1979, 2),
@@ -211,7 +212,7 @@ stripplot(Age ~ Days | Sex*Lrn*Eth, data=Quine,
 stripplot(Age ~ Days | Eth*Sex, data=Quine,
    groups = Lrn, jitter=T,
    panel = function(x, y, subscripts, jitter.data=F, ...) {
-       if(jitter.data)  y <- jitter(y)
+       if(jitter.data)  y <- jitter(as.numeric(y)) # lattice change
        panel.superpose(x, y, subscripts, ...)
    },
    xlab = "Days of absence",

@@ -1,5 +1,5 @@
 # file MASS/cov.trob.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 #
 cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
                      maxit = 25, tol = 0.01)
@@ -36,13 +36,12 @@ cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
     for(iter in 1:maxit) {
         w0 <- w
         X <- scale.simp(x, loc, n, p)
-        sX <- svd(sqrt(w/n) * X, nu = 0)
+        sX <- svd(sqrt(w/sum(w)) * X, nu = 0)
         wX <- X %*% sX$v %*% diag(1/sX$d,  , p)
         Q <- drop(wX^2 %*% rep(1, p))
         w <- (wt * (nu + p))/(nu + Q)
         #    print(summary(w))
-#        if(use.loc) loc <- apply(w * x, 2, sum)/n
-        if(use.loc) loc <- colSums(w * x)/n
+        if(use.loc) loc <- colSums(w * x)/sum(w)
         if(all(abs(w - w0) < tol)) break
         endit <- iter
     }

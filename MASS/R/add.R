@@ -69,7 +69,7 @@ addterm.lm <-
     }
 
     if(missing(scope) || is.null(scope)) stop("no terms in scope")
-    aod <- add1.lm(object, scope=scope, scale=scale)[ , -4]
+    aod <- stats:::add1.lm(object, scope=scope, scale=scale)[ , -4]
     dfs <- c(0, aod$Df[-1]) + object$rank; RSS <- aod$RSS
     n <- length(object$residuals)
     if(scale > 0) aic <- RSS/scale - n + k*dfs
@@ -261,7 +261,7 @@ dropterm.lm <-
   function(object, scope = drop.scope(object), scale = 0,
            test = c("none", "Chisq", "F"), k = 2, sorted = FALSE, ...)
 {
-    aod <- drop1.lm(object, scope=scope, scale=scale)[, -4]
+    aod <- stats:::drop1.lm(object, scope=scope, scale=scale)[, -4]
     dfs <-  object$rank - c(0, aod$Df[-1]); RSS <- aod$RSS
     n <- length(object$residuals)
     aod$AIC <- if(scale > 0)RSS/scale - n + k*dfs
