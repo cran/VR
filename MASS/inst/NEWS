@@ -75,3 +75,4 @@ This file documents software changes since the third edition.
 - polr() now works with transformed intercepts, and usually converges
   better (contributed by David Firth).
 - polr() handles a rank-deficient model matrix.
+- polr() now returns the method used, and uses it for predictions.

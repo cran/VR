@@ -7,17 +7,6 @@ polr <- function(formula, data, weights, start, ..., subset,
                  method = c("logistic", "probit", "cloglog", "cauchit"))
 {
     logit <- function(p) log(p/(1 - p))
-    pgumbel <- function(q, loc = 0, scale = 1, lower.tail = TRUE) {
-        q <- (q - loc)/scale
-        p <- exp(-exp(-q))
-        if (!lower.tail) 1 - p else p
-    }
-
-    dgumbel <- function (x, loc = 0, scale = 1, log = FALSE)
-    {
-        d <- log(1/scale) - x - exp(-x)
-        if (!log) exp(d) else d
-    }
 
     fmin <- function(beta) {
         theta <- beta[pc + 1:q]
@@ -55,10 +44,10 @@ polr <- function(formula, data, weights, start, ..., subset,
 
     m <- match.call(expand.dots = FALSE)
     method <- match.arg(method)
-    pfun <- switch(method, logistic=plogis, probit=pnorm, cloglog=pgumbel,
-                   cauchit = pcauchy)
-    dfun <- switch(method, logistic=dlogis, probit=dnorm, cloglog=dgumbel,
-                   cauchit = dcauchy)
+    pfun <- switch(method, logistic = plogis, probit = pnorm,
+                   cloglog = pgumbel, cauchit = pcauchy)
+    dfun <- switch(method, logistic = dlogis, probit = dnorm,
+                   cloglog = dgumbel, cauchit = dcauchy)
     if(is.matrix(eval.parent(m$data)))
         m$data <- as.data.frame(data)
     m$start <- m$Hess <- m$method <- m$... <- NULL
@@ -128,13 +117,14 @@ polr <- function(formula, data, weights, start, ..., subset,
     } else {
         eta <- rep(0, n)
     }
-    cumpr <- matrix(plogis(matrix(zeta, n, q, byrow=TRUE) - eta), , q)
+    cumpr <- matrix(pfun(matrix(zeta, n, q, byrow=TRUE) - eta), , q)
     fitted <- t(apply(cumpr, 1, function(x) diff(c(0, x, 1))))
     dimnames(fitted) <- list(row.names(m), lev)
     fit <- list(coefficients = beta, zeta = zeta, deviance = deviance,
                 fitted.values = fitted, lev = lev, terms = Terms,
                 df.residual = sum(wt) - pc - q, edf = pc + q, n = sum(wt),
-                call = match.call(), convergence = res$convergence, niter=niter)
+                call = match.call(), method = method,
+		convergence = res$convergence, niter=niter)
     if(Hess) {
         dn <- c(names(beta), names(zeta))
         H <- res$hessian
@@ -261,7 +251,9 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
         n <- nrow(X)
         q <- length(object$zeta)
         eta <- drop(X %*% object$coef)
-        cumpr <- matrix(plogis(matrix(object$zeta, n, q, byrow=TRUE) - eta), , q)
+        pfun <- switch(object$method, logistic = plogis, probit = pnorm,
+                       cloglog = pgumbel, cauchit = pcauchy)
+        cumpr <- matrix(pfun(matrix(object$zeta, n, q, byrow=TRUE) - eta), , q)
         Y <- t(apply(cumpr, 1, function(x) diff(c(0, x, 1))))
         dimnames(Y) <- list(rownames(X), object$lev)
     }
@@ -298,4 +290,17 @@ model.frame.polr <- function(formula, ...)
         }
         data
     } else formula$model
+}
+
+pgumbel <- function(q, loc = 0, scale = 1, lower.tail = TRUE)
+{
+    q <- (q - loc)/scale
+    p <- exp(-exp(-q))
+    if (!lower.tail) 1 - p else p
+}
+
+dgumbel <- function (x, loc = 0, scale = 1, log = FALSE)
+{
+    d <- log(1/scale) - x - exp(-x)
+    if (!log) exp(d) else d
 }

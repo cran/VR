@@ -132,6 +132,9 @@ A object of class \code{"polr"}.  This has components
 \item{call}{
   the matched call.
 }
+\item{method}{
+  the matched method used.
+}
 \item{convergence}{
   the convergence code returned by \code{optim}.
 }
