@@ -26,6 +26,15 @@ a test result, \code{"present"} or \code{"absent"}
 \item{\code{time}}{
 survival time in weeks
 }}}
+\details{
+  Survival times are given for 33 patients who died from acute
+  myelogenous leukaemia.  Also measured was the patient's white blood cell
+  count at the time of diagnosis.  The patients were also factored into 2
+  groups according to the presence or absence of a morphologic
+  characteristic of white blood cells. Patients termed AG positive were
+  identified by the presence of Auer rods and/or significant granulation
+  of the leukaemic cells in the bone marrow at the time of diagnosis.
+}
 \source{
   Cox, D. R. and Oakes, D. (1984) \emph{Analysis of Survival Data}.
   Chapman & Hall, p. 9.

@@ -111,8 +111,8 @@ ind <- match(paste(Strip, Conc),
 Muscle$logLength[ind] <- log(Length)
 detach()
 
-xyplot(Yhat ~ Conc | Strip, Muscle, as.table = T,
-  ylim = range(c(Muscle$Yhat, Muscle$logLength), na.rm = T),
+xyplot(Yhat ~ Conc | Strip, Muscle, as.table = TRUE,
+  ylim = range(c(Muscle$Yhat, Muscle$logLength), na.rm = TRUE),
   subscripts = T, xlab = "Calcium Chloride concentration (mM)",
   ylab = "log(Length in mm)", panel =
   function(x, y, subscripts, ...) {

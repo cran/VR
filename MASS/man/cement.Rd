@@ -13,6 +13,11 @@ cements.
 \usage{
 data(cement)
 }
+\details{
+13 samples of Portland cement were set. For each sample, the percentages of the
+four main chemical ingredients was accurately measured.  While the cement was
+setting the amount of heat evolved was also measured.
+}
 \format{
 \describe{
 \item{\code{x1, x2, x3, x4}}{
@@ -22,6 +27,11 @@ Proportions (\%) of active ingredients
 heat evolved in cals/gm
 }}}
 \source{
+Woods, H., Steinour, H.H. and Starke, H.R. (1932) Effect of composition of 
+Portland cement on heat evolved during hardening. 
+\emph{Industrial Engineering and Chemistry}, \bold{24}, 1207--1214.
+}
+\references{
 Hald, A. (1957)
 \emph{Statistical Theory with Engineering Applications.}
 Wiley, New York.

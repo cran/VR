@@ -47,6 +47,8 @@ Library MASS
 - truehist passes ... on to both plot.default() and rect().
 - isoMDS now uses the C interface to optim.
 - addterm, dropterm, stepAIC now work with lme and gls fits.
+- huber checks for MAD equal to zero.
+- glmmPQL now loads nlme if not already loaded.
 
 
 Library class

@@ -7,6 +7,7 @@ huber <- function(y, k=1.5, tol = 1.0e-6)
     n <- length(y)
     mu <- median(y)
     s <- mad(y)
+    if(s == 0) stop("cannot estimate scale: MAD is zero for this sample")
     repeat{
         yy <- pmin(pmax(mu-k*s,y),mu+k*s)
         mu1 <- sum(yy)/n

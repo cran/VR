@@ -17,7 +17,7 @@ data(cats)
 This data frame contains the following columns:
 \describe{
 \item{\code{Sex}}{
-Sex factor. Levels \code{"Female"} and \code{"Male"}.
+Sex factor. Levels \code{"F"} and \code{"M"}.
 }
 \item{\code{Bwt}}{
 Body weight in kg.

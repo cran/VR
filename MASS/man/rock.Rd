@@ -26,6 +26,9 @@ data(rock)
     }
 }
 \source{
-Data from BP Research, image analysis by Ronit Katz, U. Oxford.
+  Data from BP Research, image analysis by Ronit Katz, U. Oxford.
+
+  Katz, R. (1995) \emph{Spatial Analysis of Pore Images}. D.Phil. thesis,
+  Department of Statistics, University of Oxford.
 }
 \keyword{datasets}

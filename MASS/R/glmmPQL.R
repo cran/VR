@@ -1,6 +1,7 @@
 glmmPQL <- function(fixed, random, family, data, correlation, weights,
                     control, niter = 10, verbose = TRUE, ...)
 {
+    require(nlme)
     ## family
     if(is.character(family)) family <- get(family)
     if(is.function(family)) family <- family()

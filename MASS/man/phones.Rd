@@ -8,8 +8,14 @@ Belgium Phone Calls 1950-1973
 }
 \description{
 A list object with the annual numbers of telephone calls, in
-Belgium.  The components are: \code{year}: year - 1900 and \code{calls}:
-telephone calls in millions.
+Belgium.  The components are:
+\describe{
+\item{\code{year}}{
+The last two digits of the year.
+}
+\item{\code{calls}}{
+The number of telephone calls made (in millions of calls).
+}}
 }
 \source{
 P. J. Rousseeuw and A. M. Leroy (1987)

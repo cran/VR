@@ -188,9 +188,9 @@ plot(x = c(0, 40), y = c(0, 0.3), type = "n", bty = "l",
 rug(gal)
 lines(density(gal, width = "SJ-dpi", n = 256), lty = 1)
 lines(density(gal, width = "SJ", n = 256), lty = 3)
-library(logspline)
+library(polspline)
 x <- seq(5, 40, length = 500)
-lines(x, dlogspline(x, logspline.fit(gal)), lty = 2)
+lines(x, doldlogspline(x, oldlogspline(gal)), lty = 2)
 
 
 geyser2 <- data.frame(as.data.frame(geyser)[-1, ],
@@ -224,7 +224,7 @@ truehist(res, h = 0.1)
 lines(density(res, width = "SJ-dpi", n = 256))
 quantile(res, p = c(0.025, 0.975))
 x <- seq(19.5, 22.5, length = 500)
-lines(x, dlogspline(x, logspline.fit(res)), lty = 3)
+lines(x, doldlogspline(x, oldlogspline(res)), lty = 3)
 
 library(boot)
 set.seed(101)
@@ -235,7 +235,7 @@ boot.ci(gal.boot, conf = c(0.90, 0.95),
          type = c("norm","basic","perc","bca"))
 plot(gal.boot)
 
-if(F){
+if(F){ # bootstrap() is an S-PLUS function
 gal.bt <- bootstrap(gal, median, seed = 101, B = 1000)
 summary(gal.bt)
 plot(gal.bt)
