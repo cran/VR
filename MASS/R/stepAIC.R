@@ -226,6 +226,7 @@ extractAIC.lme <- function(fit, scale, k = 2, ...)
 
 extractAIC.gls <- function(fit, scale, k = 2, ...)
 {
+    if(fit$method != "ML") stop("AIC undefined for REML fit")
     res <- logLik(fit)
     edf <- attr(res, "df")
     c(edf,  -2*res + k * edf)
