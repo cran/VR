@@ -46,4 +46,3 @@ function(x, file = "", sep = " ")
 }}
 \keyword{file}
 \keyword{print}
-% Converted by Sd2Rd version 0.3-2.

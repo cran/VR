@@ -19,17 +19,27 @@ qda.formula <- function(formula, data = NULL, ...,
     Terms <- attr(m, "terms")
     grouping <- model.extract(m, "response")
     x <- model.matrix(Terms, m)
+    xvars <- as.character(attr(Terms, "variables"))[-1]
+    if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
+    xlev <- if (length(xvars) > 0) {
+        xlev <- lapply(m[xvars], levels)
+        xlev[!sapply(xlev, is.null)]
+    }
     xint <- match("(Intercept)", colnames(x), nomatch=0)
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- qda.default(x, grouping, ...)
     res$terms <- Terms
     res$call <- match.call()
+    res$contrasts <- attr(x, "contrasts")
+    res$xlevels <- xlev
+    attr(res, "na.message") <- attr(m, "na.message")
+    if(!is.null(attr(m, "na.action"))) res$na.action <- attr(m, "na.action")
     res
 }
 
 qda.data.frame <- function(x, ...)
 {
-    res <- qda.matrix(data.matrix(x), ...)
+    res <- qda.matrix(structure(data.matrix(x), class="matrix"), ...)
     res$call <- match.call()
     res
 }
@@ -61,15 +71,10 @@ qda.matrix <- function(x, grouping, ...,
 
 qda.default <-
   function(x, grouping, prior = proportions,
-           method = c("moment", "mle", "mve", "t"), CV=FALSE, nu = 5, ...)
+           method = c("moment", "mle", "mve", "t"), CV=F, nu = 5, ...)
 {
-    which.is.max <- function(x) {
-        d <- (1:length(x))[x == max(x)]
-        if(length(d) > 1) d <- sample(d, 1)
-        d
-    }
-
     if(is.null(dim(x))) stop("x is not a matrix")
+    x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)
     if(n != length(grouping)) stop("nrow(x) and length(grouping) are different")
@@ -80,11 +85,11 @@ qda.default <-
     if(any(counts < p+1)) stop("some group is too small for qda")
     proportions <- counts/length(g)
     ng <- length(proportions)
-    # allow for supplied prior
+# allow for supplied prior
     if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
     if(length(prior) != ng) stop("prior is of incorrect length")
     names(prior) <- lev
-    # means by group (rows) and variable (columns)
+# means by group (rows) and variable (columns)
     group.means <- tapply(x, list(rep(g, ncol(x)), col(x)), mean)
     scaling <- array(dim=c(p,p,ng))
     ldet <- numeric(ng)
@@ -146,10 +151,8 @@ qda.default <-
             (1 - nc/(nc-1)/(nc-NG) * dist[ind])
         dist <- 0.5 * dist + 0.5 * Ldet - matrix(log(prior), n, ng, byrow=TRUE)
         dist <- exp(-(dist - min(dist, na.rm=TRUE)))
-        cl <- factor(apply(dist, 1, which.is.max), levels=seq(along=lev),
-                     labels=lev)
-        # convert to posterior probabilities
         posterior <- dist/drop(dist %*% rep(1, length(prior)))
+        cl <- factor(max.col(posterior), levels=seq(along=lev), labels=lev)
         dimnames(posterior) <- list(rownames(x), lev)
         return(list(class = cl, posterior = posterior))
     }
@@ -170,12 +173,6 @@ predict.qda <- function(object, newdata, prior = object$prior,
 			method = c("plug-in", "predictive", "debiased",
                           "looCV"), ...)
 {
-    which.is.max <- function(x) {
-        d <- (1:length(x))[x == max(x)]
-        if(length(d) > 1) d <- sample(d, 1)
-        d
-    }
-
     if(!inherits(object, "qda")) stop("object not of class qda")
     method <- match.arg(method)
     if(method == "looCV" && !missing(newdata))
@@ -184,16 +181,20 @@ predict.qda <- function(object, newdata, prior = object$prior,
     if(method == "looCV" && !(mt == "moment" || mt == "mle"))
         stop(paste("Cannot use leave-one-out CV with method", mt))
     if(!is.null(Terms <- object$terms)) {
-        # formula fit
-        if(missing(newdata)) newdata <- model.frame.lm(object)
-        else newdata <- model.frame(as.formula(delete.response(Terms)),
-                                    newdata, na.action=function(x) x)
-        x <- model.matrix(delete.response(Terms), newdata)
+    # formula fit
+        if(missing(newdata)) newdata <- model.frame(object)
+        else {
+            newdata <- model.frame(as.formula(delete.response(Terms)),
+                                   newdata, na.action=function(x) x,
+                                   xlev = object$xlevels)
+        }
+        x <- model.matrix(delete.response(Terms), newdata,
+                          contrasts = object$contrasts)
         xint <- match("(Intercept)", colnames(x), nomatch=0)
         if(xint > 0) x <- x[, -xint, drop=FALSE]
         if(method == "looCV") g <- model.extract(newdata, "response")
-    } else {                            #
-        # matrix or data-frame fit
+    } else { #
+    # matrix or data-frame fit
         if(missing(newdata)) {
             if(!is.null(sub <- object$call$subset)) {
                 newdata <- eval(parse(text=paste(deparse(object$call$x),"[",
@@ -202,9 +203,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
                                 deparse(sub),"]")), sys.frame(sys.parent()))
             } else {
                 newdata <- eval(object$call$x, sys.frame(sys.parent()))
-                g <- eval(parse(text=deparse(gname)), sys.frame(sys.parent()))
                 g <- eval(object$call[[3]], sys.frame(sys.parent()))
-                g <- eval(parse(text=deparse(gname)), sys.frame(sys.parent()))
             }
             if(!is.null(nas <- object$call$na.action)) {
                 df <- data.frame(g = g, X = newdata)
@@ -215,7 +214,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
             g <- as.factor(g)
         }
         if(is.null(dim(newdata)))
-            dim(newdata) <- c(1, length(newdata))# a row vector
+            dim(newdata) <- c(1, length(newdata))  # a row vector
         x <- as.matrix(newdata)		# to cope with dataframes
     }
     p <- ncol(object$means)
@@ -238,8 +237,8 @@ predict.qda <- function(object, newdata, prior = object$prior,
         if(mt == "mle") NG <- 0
         ldet <- matrix(0, n, ngroup)
         for(i in 1:ngroup) {
-            dev <- ((x - matrix(object$means[i,  ], nrow(x),
-                                p, byrow = TRUE)) %*% object$scaling[,,i])
+            dev <- ((x - matrix(object$means[i,  ], nrow(x), p, byrow = TRUE))
+                    %*% object$scaling[,,i])
             dist[, i] <- apply(dev^2, 1, sum)
             ldet[, i] <- object$ldet[i]
         }
@@ -267,16 +266,16 @@ predict.qda <- function(object, newdata, prior = object$prior,
         for(i in 1:ngroup) {
             nk <- object$counts[i]
             dev <- ((x - matrix(object$means[i,  ], nrow = nrow(x),
-                                ncol = ncol(x), byrow = TRUE)) %*% object$scaling[,,i])
+                                ncol = ncol(x), byrow = TRUE))
+                    %*% object$scaling[,,i])
             dev <- 1 + apply(dev^2, 1, sum)/(nk+1)
-            dist[, i] <- object$prior[i] * exp(-object$ldet[i]/2) * dev^(-nk/2) *
-                (1 + nk)^(-p/2)
+            dist[, i] <- object$prior[i] * exp(-object$ldet[i]/2) *
+                dev^(-nk/2) * (1 + nk)^(-p/2)
         }
     }
-    cl <- factor(apply(dist, 1, which.is.max), levels=seq(along=object$lev),
-                 labels=object$lev)
-    # convert to posterior probabilities
     posterior <- dist/drop(dist %*% rep(1, length(object$prior)))
+    cl <- factor(max.col(posterior), levels=seq(along=object$lev),
+                 labels=object$lev)
     dimnames(posterior) <- list(rownames(x), object$lev)
     list(class = cl, posterior = posterior)
 }
@@ -294,3 +293,5 @@ print.qda <- function(x, ...)
     print(x$means, ...)
     invisible(x)
 }
+
+model.frame.qda <-  model.frame.lda

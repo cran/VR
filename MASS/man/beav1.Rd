@@ -50,8 +50,7 @@ New York: John Wiley and Sons.
 \code{\link{beav2}}
 }
 \examples{
-if(version$minor >= 65.0) {
-library(ts)
+if(library(ts, logical.return=TRUE)) {
 data(beav1)
 attach(beav1)
 beav1$hours <- 24*(day-346) + trunc(time/100) + (time\%\%100)/60

@@ -1,5 +1,5 @@
 % file MASS/rock.d
-% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-8 W. N. Venables and B. D. Ripley
 %
 % Manually converted to Rd data file description format by KH.
 \name{rock}
@@ -10,11 +10,11 @@
     A data frame with 48 rows and 4 numeric columns.
 
     \tabular{rll}{
-	[,1] \tab area  \tab area of pores space, in pixels
-	out of 256 by 256 \cr
-	[,2] \tab peri  \tab perimeter in pixels \cr
-	[,3] \tab shape \tab perimeter/sqrt(area) \cr
-	[,4] \tab perm  \tab permeability in milli-Darcies
+      [,1] \tab area  \tab area of pores space, in pixels
+      out of 256 by 256 \cr
+      [,2] \tab peri  \tab perimeter in pixels \cr
+      [,3] \tab shape \tab perimeter/sqrt(area) \cr
+      [,4] \tab perm  \tab permeability in milli-Darcies
     }
 }
 \details{

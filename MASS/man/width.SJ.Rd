@@ -37,7 +37,7 @@ selection method for kernel density estimation.
 
 
 Scott, D. W. (1992)
-\emph{Multivariate Density Estimation: Theory, Practice, and  Visualization. }
+\emph{Multivariate Density Estimation: Theory, Practice, and  Visualization.}
 Wiley.
 
 
@@ -49,6 +49,12 @@ Chapman \& Hall.
 \code{\link{ucv}}, \code{\link{bcv}}, \code{\link{density}}
 }
 \examples{
+data(geyser)
+attach(geyser)
+width.SJ(duration, method="dpi")
+width.SJ(duration)
+detach()
+
 data(galaxies)
 width.SJ(galaxies, method="dpi")
 width.SJ(galaxies)

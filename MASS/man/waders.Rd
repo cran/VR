@@ -4,7 +4,7 @@
 \name{waders}
 \alias{waders}
 \title{
-Counts of Waders at 15 Sites in South Africa.
+Counts of Waders at 15 Sites in South Africa
 }
 \description{
 The \code{waders} data frame has 15 rows and 19 columns.

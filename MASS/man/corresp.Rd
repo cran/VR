@@ -50,7 +50,7 @@ relationship between the row and column scores.  Think of this as an
 equally-scaled plot with two unrelated sets of labels.
 }
 \references{
-Venables \& Ripley (1997), chapter 13.
+Venables \& Ripley (1999), chapter 11.
 }
 \seealso{
 \code{\link{svd}}, \code{\link{princomp}}
@@ -63,8 +63,8 @@ ct
 
 data(caith)
 library(mva)
+corresp(caith)
 biplot(corresp(caith, nf=2))
 }
 \keyword{category}
 \keyword{multivariate}
-% Converted by Sd2Rd version 0.3-2.

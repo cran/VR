@@ -1,9 +1,9 @@
 # file MASS/logtrans.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
-"logtrans"<- function(object, ...) UseMethod("logtrans")
+logtrans <- function(object, ...) UseMethod("logtrans")
 
-"logtrans.default"<-
+logtrans.default<-
 function(object, ..., alpha = seq(0.5, 6, by = 0.25) - min(y),
 	plotit = length(dev.list()) > 0, interp = (plotit && (m <
 	100)), xlab = "alpha", ylab = "log Likelihood")
@@ -62,11 +62,11 @@ function(object, ..., alpha = seq(0.5, 6, by = 0.25) - min(y),
 "logtrans.formula"<-
 function(object, data = NULL, ...)
 {
-    object <- aov(object, data = data, y = TRUE, qr = TRUE)
-    invisible(NextMethod("logtrans"))
+  object <- aov(object, data = data, y = TRUE, qr = TRUE)
+  invisible(NextMethod("logtrans"))
 }
-"logtrans.lm"<-
-function(object, ...)
+
+logtrans.lm <- function(object, ...)
 {
     if(is.null(object$y) || is.null(object$qr))
         object <- update(object, y = TRUE, qr = TRUE)

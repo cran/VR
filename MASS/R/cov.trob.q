@@ -1,8 +1,8 @@
 # file MASS/cov.trob.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
-cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE,
-                     nu = 5, maxit = 25, tol = 0.01)
+cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
+                     maxit = 25, tol = 0.01)
 {
     test.values <- function(x)
     {

@@ -47,4 +47,3 @@ class of the object.
 \code{\link{loglm}}, \code{\link{summary}}
 }
 \keyword{models}
-% Converted by Sd2Rd version 0.3-2.

@@ -7,73 +7,73 @@ VA, heart
 
 The following are fully operational:
 
-ginv            generalized inverse
-write.matrix    write matrix or numeric data frame
-eqscplot        equally-scaled plots
+ginv		generalized inverse
+write.matrix	write matrix or numeric data frame
+eqscplot	equally-scaled plots
 area		simple integration 
-mvrnorm         simulate from a multivariate normal distribution
-truehist        histogram plots
-nclass.scott    choose number of histogram classes
-nclass.FD       choose number of histogram classes
-hist.scott      histogram with other bin choices
-hist.FD         histogram with other bin choices
+mvrnorm 	simulate from a multivariate normal distribution
+truehist	histogram plots
+nclass.scott	choose number of histogram classes
+nclass.FD	choose number of histogram classes
+hist.scott	histogram with other bin choices
+hist.FD 	histogram with other bin choices
 frequency.polygon
-nclass.freq     choose number of classes for frequency polygon
-kde2d           2D kernel density estimation
-ucv, bcv        cross-validation functions for density
-width.SJ        bandwidth choice for density.
-contr.sdif      contrasts function for successive differences
-stdres          standardized residuals for linear models
-studres         Studentized residuals for linear models
-vcov            variance-covariance summary for linear, glm and 
-                   non-linear regression fits
-boxcox          estimate Box-Cox transformation
-logtrans        estimate shift in log-transformations
-fraction        methods for operating on rational fractions
-stepAIC         stepwise AIC minimization
+nclass.freq	choose number of classes for frequency polygon
+kde2d		2D kernel density estimation
+ucv, bcv	cross-validation functions for density
+width.SJ	bandwidth choice for density.
+contr.sdif	contrasts function for successive differences
+stdres		standardized residuals for linear models
+studres 	Studentized residuals for linear models
+vcov		variance-covariance summary for linear, glm and 
+		   non-linear regression fits
+boxcox		estimate Box-Cox transformation
+logtrans	estimate shift in log-transformations
+fraction	methods for operating on rational fractions
+stepAIC 	stepwise AIC minimization
 addterm, dropterm  enhanced versions of add1 and drop1
-dose.p          function for LD50-like fits
-neg.bin         negative binomial family with fixed theta
-anova.negbin    functions for full negative binomial family
+dose.p		function for LD50-like fits
+neg.bin 	negative binomial family with fixed theta
+anova.negbin	functions for full negative binomial family
 glm.convert
 glm.nb
 negative.binomial
 rnegbin
 theta.md
 theta.mm
-loglm           Object-oriented wrapper for loglin() (from complements)
-gamma.shape     MLE of shape parameter for GLM fit with gamma family
-gamma.dispersion                (from complements)
-huber           Huber location with MAD scale
-hubers          Huber proposal 2
-rlm             robust linear model fitting (by Huber M-estimator)
-deviance.nls    deviance function for nls fits
-plot.profile    plot method for profiles
-pairs.profile   pairs method for profiles
+loglm		Object-oriented wrapper for loglin() (from complements)
+gamma.shape	MLE of shape parameter for GLM fit with gamma family
+gamma.dispersion		(from complements)
+huber		Huber location with MAD scale
+hubers		Huber proposal 2
+rlm		robust linear model fitting (by Huber M-estimator)
+deviance.nls	deviance function for nls fits
+plot.profile	plot method for profiles
+pairs.profile	pairs method for profiles
 profile.glm	profiles for glm objects
-lda             linear discrimination
-predict.lda     predict function for lda
-qda             quadratic discrimination
-predict.qda     predict function for qda
-sammon          Sammon non-linear mapping
-isoMDS          isotonic multidimensional scaling
-Shepard         Shepard plot for isoMDS
-corresp         correspondence analysis
-mca             multiple correspondence analysis (complements)
-cpgram          cumulative periodogram
-digamma, trigamma       first and second derivatives of log Gamma
+lda		linear discrimination
+predict.lda	predict function for lda
+qda		quadratic discrimination
+predict.qda	predict function for qda
+sammon		Sammon non-linear mapping
+isoMDS		isotonic multidimensional scaling
+Shepard 	Shepard plot for isoMDS
+corresp 	correspondence analysis
+mca		multiple correspondence analysis (complements)
+cpgram		cumulative periodogram
+digamma, trigamma	first and second derivatives of log Gamma
 		(even of complex argument).
 
 
 The following depend on facilities not in R and so do not work:
 
-Choleski        Choleski decompositions for Matrices
-histplot        Trellis histogram plots
-rms.curv        curvature measures for non-linear regression
-deriv3          symbolic differentiation
-D, make.call    extended functions
-vcov.nlregb     vcov methods for nlregb objects
-vcov.nlminb     vcov methods for nlminb objects
+Choleski	Choleski decompositions for Matrices
+histplot	Trellis histogram plots
+rms.curv	curvature measures for non-linear regression
+deriv3		symbolic differentiation
+D, make.call	extended functions
+vcov.nlregb	vcov methods for nlregb objects
+vcov.nlminb	vcov methods for nlminb objects
 
 
 BDR <ripley@stats.ox.ac.uk> 1999/08/06

@@ -3,7 +3,6 @@
 %
 \name{Animals}
 \alias{Animals}
-\alias{animals}
 \title{
 Brain and Body Weights for 28 Species
 }
@@ -19,12 +18,12 @@ body weight in kg
 \item{brain}{
 brain weight in g
 }}
-\section{NOTE}{
+\note{
 The name \code{Animals} avoids conflicts with a system dataset in S-PLUS
 4.5 and later.
 }
 \source{
-P. J. Rousseeuw,  and A. M. Leroy (1987)
+P. J. Rousseeuw  and A. M. Leroy (1987)
 \emph{Robust Regression and Outlier Detection.}
 Wiley, p. 57.
 }

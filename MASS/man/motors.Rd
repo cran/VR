@@ -40,21 +40,21 @@ Part 1 -- simple methods and their application.
 \bold{14}, 247-276.
 }
 \examples{
-library(survival4)
+library(survival5)
 data(motors)
-attach(motors)
-plot(survfit(Surv(time, cens) ~ factor(temp)), conf.int=FALSE)
+plot(survfit(Surv(time, cens) ~ factor(temp), motors), conf.int=FALSE)
 # fit Weibull model
-motor.wei <- survreg(Surv(time, cens) ~ temp)
+motor.wei <- survreg(Surv(time, cens) ~ temp, motors)
 summary(motor.wei)
 # and predict at 130C
-at130 <- predict(motor.wei, data.frame(temp=130), se.fit=TRUE)
-exp(at130$fit)
+unlist(predict(motor.wei, data.frame(temp=130), se.fit=TRUE))
 
 
-motor.cox <- coxph(Surv(time, cens) ~ temp)
+motor.cox <- coxph(Surv(time, cens) ~ temp, motors)
 summary(motor.cox)
 # predict at temperature 200
-plot( survfit(motor.cox, newdata=data.frame(temp=200)) )
+plot( survfit(motor.cox, newdata=data.frame(temp=200),
+     conf.type="log-log") )
+summary( survfit(motor.cox, newdata=data.frame(temp=130)) )
 }
 \keyword{datasets}

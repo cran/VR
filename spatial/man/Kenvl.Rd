@@ -51,4 +51,3 @@ lines(lims$x,lims$u, lty=2, col="green")
 lines(Kaver(10,25,Strauss(69,0.5,3.5)), col="red")
 }
 \keyword{spatial}
-% Converted by Sd2Rd version 0.3-1.

@@ -58,4 +58,3 @@ knn(train, test, cl, k=3, prob=TRUE)
 attributes(.Last.value)
 }
 \keyword{classif}
-% Converted by Sd2Rd version 0.3-2.

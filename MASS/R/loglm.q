@@ -30,13 +30,13 @@ renumerate.formula <- function(x)
     } else {
         x[[2]] <- Recall(x[[2]])
         if(length(x) == 3 && x[[1]] != as.name("^"))
-            x[[3]] <- Recall(x[[3]])
+           x[[3]] <- Recall(x[[3]])
     }
     x
 }
 
 loglm <-
-function(formula, data = sys.frame(sys.parent()), subset, na.action, ...)
+  function(formula, data = sys.frame(sys.parent()), subset, na.action, ...)
 {
     assign(".call", match.call(), envir=.GlobalEnv)
     if(missing(data) || inherits(data, "data.frame")) {
@@ -71,17 +71,17 @@ function(formula, data, ...)
                   names(data))
     fac <- data.frame(lapply(data[,  - resp], as.factor))
     rsp <- data[, resp]
-    tab <- do.call("table", fac)
+    tab <- table(fac)
     if(max(tab) > 1) {
-        #
-        # and extra factor needed for repeated frequencies
-        #
+#
+# and extra factor needed for repeated frequencies
+#
         i <- do.call("order", rev(fac))
         fac <- fac[i,  ]
         rsp <- rsp[i]
-        fac$.Within. <- factor(unlist(sapply(tab,
-                                             function(x)
-                                             if(x > 0) seq(x) else NULL)))
+        fac$.Within. <-
+            factor(unlist(sapply(tab,
+                                 function(x) if(x > 0) seq(x) else NULL)))
     }
     dn <- lapply(fac, levels)
     dm <- sapply(dn, length)
@@ -100,7 +100,7 @@ function(formula, data, start = rep(1, length(data)), fitted = FALSE,
     trms <- attr(data, "terms")
     if(is.null(trms)) stop("data has no trms attribute")
     factors <- attr(trms, "factors") > 0
-    if((r <- attr(trms, "response"))) factors <- factors[-r,  , drop = FALSE]
+    if((r <- attr(trms, "response"))) factors <- factors[ - r,  , drop = F]
     nt <- ncol(factors)
     fo <- order(apply(factors, 2, sum))
     factors <- factors[, fo, drop = FALSE]
@@ -243,22 +243,30 @@ print.summary.loglm <- function(x, ...)
     invisible(x)
 }
 
-update.loglm <- function(object, formula, ..., evaluate=TRUE, class)
+update.loglm <- function (object, formula., ...)
 {
     setdiff <- function(x, y)
         if(length(x) == 0 || length(y) == 0) x else x[match(x, y, 0) == 0]
 
-    if(is.null(object$call))
+    if (is.null(call <- object$call))
         stop("object has no call component.  Updating not possible")
-    if(fix <- !missing(formula)) {
+    if (fix <- !missing(formula.)) {
         object$formula <- denumerate(object$formula)
-        formula <- denumerate(formula)
+        formula. <- denumerate(formula.)
+        call$formula <- update.formula(formula(object), formula.)
     }
-    result <- NextMethod("update")
-    extras <- setdiff(names(m <- match.call()), c("", "object", "formula"))
-    if(length(extras))
-        result$call[extras] <- m[extras]
-    if(fix) {
+    extras <- match.call(expand.dots = FALSE)$...
+    if (length(extras) > 0) {
+        existing <- !is.na(match(names(extras), names(call)))
+        ## do these individually to allow NULL to remove entries.
+        for (a in names(extras)[existing]) call[[a]] <- extras[[a]]
+        if (any(!existing)) {
+            call <- c(as.list(call), extras[!existing])
+            call <- as.call(call)
+        }
+    }
+    result <- eval(call, sys.frame(sys.parent()))
+    if (fix) {
         form <- renumerate(result$formula)
         result$call$formula <- unclass(result$formula <- form)
     }
@@ -289,7 +297,8 @@ function(object, type = c("deviance", "pearson", "response"))
     mu <- mu[nz]
     res[nz] <-
         switch(type,
-               deviance = sign(y - mu) * sqrt(2*abs(y*log((y + (y == 0))/mu) - (y - mu))),
+               deviance = sign(y - mu) *
+                 sqrt(2*abs(y*log((y + (y == 0))/mu) - (y - mu))),
                pearson = (y - mu)/sqrt(mu),
                response = y - mu)
     res

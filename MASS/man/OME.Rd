@@ -78,8 +78,8 @@ experience in their first two years, the test population was split
 into one group of high OME prevalence and one of low prevalence.
 }
 \examples{
-data(OME)
-library(nls)
+### Not usable in R
+\dontrun{
 # Fit logistic curve from p=0.5 to p=1.0
 fp1 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-ld75)/scal)),
              c("ld75", "scal"),
@@ -96,7 +96,7 @@ nls(Correct/Trials ~ fp1(Loud, ld75, scal),
 
 # individual fits for each experiment
 
-\dontrun{
+
 aa <- factor(OME$Age)
 ab <- 10*OME$ID + unclass(aa)
 ac <- unclass(factor(ab))
@@ -116,7 +116,7 @@ OMEif <- data.frame(UID = round(as.numeric((names(tmp)))),
          L75 = as.vector(tmp))
 OMEif$Age <- OME$Age[match(OMEif$UID, OME$UID)]
 OMEif$OME <- OME$OME[match(OMEif$UID, OME$UID)]
-}
+
 
 # Or fit by weighted least squares
 fpl75 <- deriv(~sqrt(n)*(r/n - 0.5 - 0.5/(1 + exp(-(x-ld75)/scal))),
@@ -139,18 +139,17 @@ OME.nls1 <-
 nls(0 ~ fpl75age(Correct, Trials, Loud, Age, ld75, slope, scal),
     data=OME[OME$Noise=="coherent",],
     start=c(ld75=45, slope=0, scal=2))
-#sqrt(diag(vcov(OME.nls1)))
+sqrt(diag(vcov(OME.nls1)))
 
 
 OME.nls2 <-
 nls(0 ~ fpl75age(Correct, Trials, Loud, Age, ld75, slope, scal),
     data=OME[OME$Noise=="incoherent",],
     start=c(ld75=45, slope=0, scal=2))
-#sqrt(diag(vcov(OME.nls2)))
+sqrt(diag(vcov(OME.nls2)))
 
 
 # Now allow random effects by using NLME
-\dontrun{
 OMEf <- OME[rep(1:nrow(OME), OME$Trials),]
 attach(OME)
 OMEf$Resp <- rep(rep(c(1,0), length(Trials)),
@@ -166,7 +165,7 @@ G1.nlme <- nlme(Resp ~ fp2(Loud, L75, lsc),
      fixed = list(L75 ~ Age, lsc ~ .),
      random = list(L75 ~ ., lsc ~ .),
      cluster=~UID, data=OMEf[OMEf$Noise=="coherent",],
-     start = list(fixed=c(L75=c(48, -0.03), lsc=0)))
+     start = list(fixed=c(L75=c(48, -0.03), lsc=0)), verbose=TRUE)
 summary(G1.nlme)$fixed
 
 
@@ -176,5 +175,6 @@ G2.nlme <- nlme(Resp ~ fp2(Loud, L75, lsc),
      cluster=~UID, data=OMEf[OMEf$Noise=="incoherent",],
      start = list(fixed=c(L75=c(41, -0.1), lsc=0)), verbose=TRUE)
 summary(G2.nlme)$fixed
-}}
+}
+}
 \keyword{datasets}

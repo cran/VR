@@ -40,4 +40,3 @@ The required estimate of \code{theta}, as a scalar.
 \dontrun{theta <- theta.md(y, fitted(fm), dfr=123)}
 }
 \keyword{models}
-% Converted by Sd2Rd version 0.3-2.

@@ -45,4 +45,3 @@ topo.kr <- surf.ls(2, topo)
 variogram(topo.kr, 25)
 }
 \keyword{spatial}
-% Converted by Sd2Rd version 0.3-2.

@@ -1,14 +1,10 @@
 Software and datasets to support `Modern Applied Statistics with
-S-PLUS', second edition, by W. N. Venables and B. D. Ripley.
-Springer, 1997, ISBN 0-387-98214-0.
+S-PLUS', third edition, by W. N. Venables and B. D. Ripley.
+Springer, 1999.
 
-Version for R-0.63 and later
+Version for R-0.64 or later.
 
-From the text (pp. 497-8):
-
-    The datasets and software remain the property of the authors or of the
-    original source, but may be freely distributed provided the source is
-    acknowledged.
+From the text (pp. 469):
 
     These datasets and software are provided in good faith, but none of
     the authors, publishers or distributors warrant their accuracy
@@ -21,10 +17,6 @@ possible individual files also carry brief copyright notices.
 Copyrights
 ==========
 
-File MASS/R/plot.survfit.q is a modified version of files in
-the survival4 package of Terry Therneau (C) 1994 Mayo Foundation for
-Medical Education and Research, modified (C) 1994 B. D. Ripley.
-
 File MASS/R/profiles.q copyright (C) 1996 D. M. Bates and W. N. Venables.
                        port to R by B. D. Ripley copyright (C) 1998
 
@@ -36,7 +28,7 @@ copyright is asserted.
 The file COPYING is the copy of the `GNU General Public License',
 (C) 1989, 1991 Free Software Foundation, Inc.
 
-All other files are copyright (C) 1994-9 W. N. Venables and
+All other files are copyright (C) 1994-9  W. N. Venables and
 B. D. Ripley. Those parts which were distributed with the first
 edition are also copyright (C) 1994 Springer-Verlag New York Inc, with
 all rights assigned to W. N. Venables and B. D. Ripley.

@@ -79,5 +79,11 @@ quine.4 <- update(quine.3, . ~ . - Eth:Age)
 dropterm(quine.4, test="F")
 quine.5 <- update(quine.4, . ~ . - Age:Lrn)
 dropterm(quine.5, test="F")
+
+data(housing)
+house.glm0 <- glm(Freq ~ Infl*Type*Cont + Sat, family=poisson, 
+                   data=housing)
+house.glm1 <- update(house.glm0, . ~ . + Sat*(Infl+Type+Cont))
+dropterm(house.glm1, test="Chisq")
 }
 \keyword{models}

@@ -3,6 +3,7 @@
 %
 \name{stepAIC}
 \alias{stepAIC}
+\alias{extractAIC}
 \title{
 Choose a model by AIC in a Stepwise Algorithm
 }
@@ -12,6 +13,7 @@ Performs stepwise model selection by exact AIC.
 \usage{
 stepAIC(object, scope, scale, direction=c("both", "backward", "forward"), 
         trace=1, keep=NULL, steps=1000, use.start=FALSE, k=2, \dots)
+extractAIC(fit, scale, k=2, \dots)
 }
 \arguments{
 \item{object}{
@@ -26,10 +28,9 @@ used in the definition of the AIC statistic for selecting the models,
 currently only for \code{lm}, \code{aov} and \code{glm} models.
 }
 \item{direction}{
-the mode of stepwise search, can be one of \code{"both"}, \code{"backward"}, 
-or \code{"forward"}, with a default of \code{"both"}. 
-If the \code{scope} argument is missing, 
-the default for \code{direction} is \code{"backward"}. 
+the mode of stepwise search, can be one of \code{"both"}, \code{"backward"}, or
+\code{"forward"}, with a default of \code{"both"}.  If the \code{scope} argument is
+missing, the default for \code{direction} is \code{"backward"}.
 }
 \item{trace}{
 if positive, information is printed during the running of \code{stepAIC()}.
@@ -47,7 +48,10 @@ the maximum number of steps to be considered.  The default is 1000
 process early.
 }
 \item{use.start}{
-Not used in \R.
+if true the updated fits are done starting at the linear predictor for
+the currently selected model. This may speed up the iterative
+calculations for \code{glm} (and other fits), but it can also slow them
+down.
 }
 \item{k}{
 the multiple of the number of degrees of freedom used for the penalty.
@@ -112,7 +116,6 @@ for(v in names(cpus)[2:6])
   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])), 
                     include.lowest = TRUE)
 detach()
-
 cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
 cpus.samp <- sample(1:209, 100)
 cpus.lm <- lm(log10(perf) ~ ., data=cpus1[cpus.samp,2:8])
@@ -126,6 +129,7 @@ birthwt.step$anova
 birthwt.step2 <- stepAIC(birthwt.glm, ~ .^2 + I(scale(age)^2)
     + I(scale(lwt)^2), trace=FALSE)
 birthwt.step2$anova
+
 
 quine.nb <- glm.nb(Days ~ .^4, data=quine)
 quine.nb2 <- stepAIC(quine.nb)

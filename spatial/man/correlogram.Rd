@@ -47,4 +47,3 @@ d <- seq(0, 7, 0.1)
 lines(d, expcov(d, 0.7))
 }
 \keyword{spatial}
-% Converted by Sd2Rd version 0.3-2.

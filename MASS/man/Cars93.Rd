@@ -4,7 +4,7 @@
 \name{Cars93}
 \alias{Cars93}
 \title{
-Data from 93 cars on sale in the USA in 1993.
+Data from 93 Cars on Sale in the USA in 1993
 }
 \description{
 The \code{Cars93} data frame has 93 rows and 27 columns.

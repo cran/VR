@@ -90,4 +90,3 @@ Correlation of Coefficients:
 
 }}
 \keyword{robust}
-% Converted by Sd2Rd version 0.3-2.

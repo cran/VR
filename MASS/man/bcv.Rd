@@ -28,14 +28,14 @@ a bandwidth
 }
 \references{
 Scott, D. W. (1992)
-\emph{Multivariate Density Estimation: Theory, Practice, and Visualization. }
+\emph{Multivariate Density Estimation: Theory, Practice, and Visualization.}
 Wiley.
 }
 \seealso{
 \code{\link{ucv}}, \code{\link{width.SJ}}, \code{\link{density}}
 }
 \examples{
-data(faithful)
-bcv(faithful$eruptions)
+data(geyser)
+bcv(geyser$duration)
 }
 \keyword{dplot}

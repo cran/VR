@@ -1,49 +1,48 @@
 # file MASS/negbin.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 "anova.negbin"<-
 function(object, ..., test = "Chisq")
 {
-    dots <- list(...)
-    if(length(dots) == 0) {
-        warning("tests made without re-estimating theta")
-        object$call[[1]] <- as.name("glm")
-        if(is.null(object$link))
-            object$link <- as.name("log")
-        object$call$family <- call("negative.binomial", theta = object$
-                                   theta, link = object$link)
-        anova.glm(object, test = test)
-    } else {
-        if(test != "Chisq")
-            warning("only Chi-squared LR tests are implemented")
-        mlist <- list(object, ...)
-        nt <- length(mlist)
-        dflis <- sapply(mlist, function(x) x$df.resid)
-        #    s <- sort.list( - dflis)
-        s <- order( - dflis)
-        mlist <- mlist[s]
-        if(any(!sapply(mlist, inherits, "negbin")))
-            stop("not all objects are of class `negbin'")
-        rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
-        mds <- sapply(mlist, function(x) paste(formula(x)[3]))
-        ths <- sapply(mlist, function(x) x$theta)
-        dfs <- dflis[s]
-        lls <- sapply(mlist, function(x) x$twologlik)
-        tss <- c("", paste(1:(nt - 1), 2:nt, sep = " vs "))
-        df <- c(NA,  - diff(dfs))
-        x2 <- c(NA, diff(lls))
-        pr <- c(NA, 1 - pchisq(x2[-1], df[-1]))
-        out <- data.frame(Model = mds, theta = ths, Resid.df = dfs,
-                          "2 x log-lik." = lls, Test = tss, df = df, LRtest = x2,
-                          Prob = pr)
-        names(out) <- c("Model", "theta", "Resid. df",
-                        "   2 x log-lik.", "Test", "   df", "LR stat.", "Pr(Chi)")
-        class(out) <- c("Anova", "data.frame")
-        attr(out, "heading") <-
-            c("Likelihood ratio tests of Negative Binomial Models\n",
-              paste("Response:", rsp))
-        out
-    }
+  dots <- list(...)
+  if(length(dots) == 0) {
+    warning("tests made without re-estimating theta")
+    object$call[[1]] <- as.name("glm")
+    if(is.null(object$link))
+      object$link <- as.name("log")
+    object$call$family <- call("negative.binomial", theta = object$
+                               theta, link = object$link)
+    anova.glm(object, test = test)
+  } else {
+    if(test != "Chisq")
+      warning("only Chi-squared LR tests are implemented")
+    mlist <- list(object, ...)
+    nt <- length(mlist)
+    dflis <- sapply(mlist, function(x) x$df.resid)
+    s <- order(-dflis)
+    mlist <- mlist[s]
+    if(any(!sapply(mlist, inherits, "negbin")))
+      stop("not all objects are of class `negbin'")
+    rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
+    mds <- sapply(mlist, function(x) paste(formula(x)[3]))
+    ths <- sapply(mlist, function(x) x$theta)
+    dfs <- dflis[s]
+    lls <- sapply(mlist, function(x) x$twologlik)
+    tss <- c("", paste(1:(nt - 1), 2:nt, sep = " vs "))
+    df <- c(NA,  - diff(dfs))
+    x2 <- c(NA, diff(lls))
+    pr <- c(NA, 1 - pchisq(x2[-1], df[-1]))
+    out <- data.frame(Model = mds, theta = ths, Resid.df = dfs,
+                      "2 x log-lik." = lls, Test = tss, df = df, LRtest = x2,
+                      Prob = pr)
+    names(out) <- c("Model", "theta", "Resid. df",
+                    "   2 x log-lik.", "Test", "   df", "LR stat.", "Pr(Chi)")
+    class(out) <- c("Anova", "data.frame")
+    attr(out, "heading") <-
+      c("Likelihood ratio tests of Negative Binomial Models\n",
+        paste("Response:", rsp))
+    out
+  }
 }
 
 print.Anova <- function(x, ...)
@@ -54,7 +53,9 @@ print.Anova <- function(x, ...)
     print.data.frame(x)
 }
 
-"family.negbin"<- function(object) object$family
+"family.negbin"<-
+function(object)
+    object$family
 
 "glm.convert"<-
 function(object)
@@ -69,10 +70,10 @@ function(object)
     object
 }
 
-glm.nb <- function(formula = formula(data), data = sys.parent(), weights,
+glm.nb <- function(formula = formula(data), data = sys.frame(sys.parent()), weights,
 		   subset, na.action, start = eta,
 		   control = glm.control(...), method = "glm.fit",
-		   model = TRUE, x = FALSE, y = TRUE, contrasts = NULL,
+		   model = FALSE, x = FALSE, y = TRUE, contrasts = NULL,
 		   init.theta, link = log, ...)
 {
     loglik <- function(n, th, mu, y)
@@ -95,6 +96,11 @@ glm.nb <- function(formula = formula(data), data = sys.parent(), weights,
     m <- eval(m, sys.frame(sys.parent()))
     Terms <- attr(m, "terms")
     if(method == "model.frame") return(m)
+    xvars <- as.character(attr(Terms, "variables"))[-1]
+    if(length(xvars) > 0) {
+        xlev <- lapply(m[xvars], levels)
+        xlev <- xlev[!sapply(xlev, is.null)]
+    } else xlev <- NULL
     a <- attributes(m)
     Y <- model.extract(m, response)
     X <- model.matrix(Terms, m, contrasts)
@@ -105,8 +111,8 @@ glm.nb <- function(formula = formula(data), data = sys.parent(), weights,
     offset <- model.extract(m, offset)
     n <- length(Y)
     if(!is.null(method)) {
-        if(!exists(method, mode = "function"))
-            stop(paste("unimplemented method:", method))
+            if(!exists(method, mode = "function"))
+                stop(paste("unimplemented method:", method))
     }
     else method <- "glm.fit"
     glm.fitter <- get(method)
@@ -117,7 +123,7 @@ glm.nb <- function(formula = formula(data), data = sys.parent(), weights,
                       epsilon = control$epsilon,
                       trace = control$trace > 1))
     class(fit) <- c("glm", "lm")
-    mu <- fitted(fit)
+    mu <- fit$fitted
     th <- as.vector(theta.ml(Y, mu, n, limit=control$maxit, trace =
                              control$trace> 2))
     if(control$trace > 1)
@@ -141,7 +147,7 @@ glm.nb <- function(formula = formula(data), data = sys.parent(), weights,
         th <- theta.ml(Y, mu, n, limit=control$maxit, trace = control$trace > 2)
         fam <- do.call("negative.binomial", list(theta = th, link = link))
         class(fit) <- c("negbin", "glm", "lm")
-        mu <- fitted(fit)
+        mu <- fit$fitted
         del <- t0 - th
         Lm0 <- Lm
         Lm <- loglik(n, th, mu, Y)
@@ -158,10 +164,10 @@ glm.nb <- function(formula = formula(data), data = sys.parent(), weights,
         fit$th.warn <- "alternation limit reached"
     }
 
-    # If an offset and intercept are present, iterations are needed to
-    # compute the Null deviance; these are done here, unless the model
-    # is NULL, in which case the computations have been done already
-    #
+  # If an offset and intercept are present, iterations are needed to
+  # compute the Null deviance; these are done here, unless the model
+  # is NULL, in which case the computations have been done already
+  #
     if(any(offset) && attr(Terms, "intercept")) {
         null.deviance <-
             if(length(Terms))
@@ -170,7 +176,7 @@ glm.nb <- function(formula = formula(data), data = sys.parent(), weights,
                            control = list(maxit=control$maxit,
                            epsilon = control$epsilon, trace = control$trace > 1)
                            )$deviance
-            else fit$deviance
+           else fit$deviance
         fit$null.deviance <- null.deviance
     }
     class(fit) <- c("negbin", "glm", "lm")
@@ -187,6 +193,7 @@ glm.nb <- function(formula = formula(data), data = sys.parent(), weights,
     fit$twologlik <- as.vector(2 * Lm)
     fit$contrasts <- if (length(clv <- unlist(lapply(m, class))))
         options("contrasts")[[1]] else FALSE
+    fit$xlevels <- xlev
     fit
 }
 
@@ -249,25 +256,24 @@ function(object, dispersion = 1, correlation = TRUE, ...)
     summ
 }
 
-
 "print.summary.negbin" <- function(x, ...)
 {
     NextMethod()
     dp <- 2 - floor(log10(x$SE))
-    cat("\n              Theta: ", format(round(x$theta, dp), sci=FALSE, nsmall=dp),
-        "\n          Std. Err.: ", format(round(x$SE, dp), sci=FALSE, nsmall=dp),
+    cat("\n              Theta: ", format(round(x$theta, dp), sci=F, nsmall=dp),
+        "\n          Std. Err.: ", format(round(x$SE, dp), sci=F, nsmall=dp),
         "\n")
     if(!is.null(x$th.warn))
         cat("Warning while fitting theta:", x$th.warn,"\n")
-    cat("\n 2 x log-likelihood: ", format(round(x$twologlik, 3), sci=FALSE, nsmall=3), "\n")
+    cat("\n 2 x log-likelihood: ", format(round(x$twologlik, 3), sci=F, nsmall=3), "\n")
     invisible(x)
 }
 
 "theta.md" <-
-function(y, u, dfr, limit = 20, eps = .Machine$double.eps^0.25)
+    function(y, u, dfr, limit = 20, eps = .Machine$double.eps^0.25)
 {
     if(inherits(y, "lm")) {
-        u <- fitted(y)
+        u <- y$fitted
         dfr <- y$df.residual
         y <- if(is.null(y$y)) u + residuals(y) else y$y
     }
@@ -292,8 +298,8 @@ function(y, u, dfr, limit = 20, eps = .Machine$double.eps^0.25)
 }
 
 "theta.ml" <-
-function(y, mu, n = length(y), limit = 10, eps = .Machine$double.eps^0.25,
-         trace=FALSE)
+    function(y, mu, n = length(y), limit = 10, eps = .Machine$double.eps^0.25,
+             trace=FALSE)
 {
     score <- function(n, th, mu, y)
         sum(digamma(th + y) - digamma(th) + log(th) +
@@ -302,7 +308,7 @@ function(y, mu, n = length(y), limit = 10, eps = .Machine$double.eps^0.25,
         sum( - trigamma(th + y) + trigamma(th) - 1/th +
             2/(mu + th) - (y + th)/(mu + th)^2)
     if(inherits(y, "lm")) {
-        mu <- fitted(y)
+        mu <- y$fitted
         y <- if(is.null(y$y)) mu + residuals(y) else y$y
     }
     t0 <- n/sum((y/mu - 1)^2)
@@ -331,24 +337,24 @@ function(y, mu, n = length(y), limit = 10, eps = .Machine$double.eps^0.25,
 "theta.mm" <-
 function(y, u, dfr, limit = 10, eps = .Machine$double.eps^0.25)
 {
-    if(inherits(y, "lm")) {
-        u <- fitted(y)
-        dfr <- y$df.residual
-        y <- if(is.null(y$y)) u + residuals(y) else y$y
-    }
-    n <- length(y)
-    t0 <- n/sum((y/u - 1)^2)
-    it <- 0
-    del <- 1
-    while((it <- it + 1) < limit && abs(del) > eps) {
-        t0 <- abs(t0)
-        del <- (sum((y - u)^2/(u + u^2/t0)) - dfr)/sum((y - u)^2/(u + t0)^2)
-        t0 <- t0 - del
-    }
-    if(t0 < 0) {
-        t0 <- 0
-        warning("estimator truncated at zero")
-        attr(t0, "warn") <- "estimate truncated at zero"
-    }
-    t0
+  if(inherits(y, "lm")) {
+    u <- y$fitted
+    dfr <- y$df.residual
+    y <- if(is.null(y$y)) u + residuals(y) else y$y
+  }
+  n <- length(y)
+  t0 <- n/sum((y/u - 1)^2)
+  it <- 0
+  del <- 1
+  while((it <- it + 1) < limit && abs(del) > eps) {
+    t0 <- abs(t0)
+    del <- (sum((y - u)^2/(u + u^2/t0)) - dfr)/sum((y - u)^2/(u + t0)^2)
+    t0 <- t0 - del
+  }
+  if(t0 < 0) {
+    t0 <- 0
+    warning("estimator truncated at zero")
+    attr(t0, "warn") <- "estimate truncated at zero"
+  }
+  t0
 }

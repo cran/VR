@@ -35,7 +35,7 @@ Reported transmission category
 \item{age}{
 Age (years) at diagnosis
 }}
-\section{NOTE}{
+\note{
 This data set has been slightly jittered as a
 condition of its release, to ensure patient confidentiality.
 }

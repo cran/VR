@@ -1,7 +1,7 @@
 # file MASS/hubers.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
-hubers <- function(y, k=1.5, mu, s, initmu=median(y), tol = 1.0e-6)
+hubers <- function(y, k = 1.5, mu, s, initmu = median(y), tol = 1.0e-6)
 {
     y <- y[!is.na(y)]
     n <- length(y)

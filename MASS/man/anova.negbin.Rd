@@ -30,7 +30,7 @@ Argument to match the \code{test} argument of \code{anova.glm}.  Ignored (with a
 warning if changed) if a sequence of two or more Negative Binomial fitted
 model objects is specified, but possibly used if only one object is specified.
 }}
-\section{NOTE}{
+\note{
 If only one fitted model object is specified, a sequential analysis of
 deviance table is given for the fitted model.  The \code{theta} parameter is kept
 fixed.  If more than one fitted model object is specified they must all be

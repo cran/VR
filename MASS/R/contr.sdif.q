@@ -1,5 +1,5 @@
 # file MASS/contr.sdif.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 contr.sdif <- function(n, contrasts = TRUE)
 {

@@ -68,4 +68,3 @@ rational(solve(X, X/5))
 [5,]  0.0  0.0  0.0  0.0  0.2
 }}
 \keyword{math}
-% Converted by Sd2Rd version 0.3-2.

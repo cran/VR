@@ -1,5 +1,5 @@
 # file MASS/huber.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 huber <- function(y, k=1.5, tol = 1.0e-6)
 {

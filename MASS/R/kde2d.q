@@ -1,5 +1,5 @@
 # file MASS/kde2d.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 kde2d <- function(x, y, h, n = 25, lims=c(range(x), range(y)) )
 {

@@ -84,4 +84,3 @@ plot(swiss.sam$points, type="n")
 text(swiss.sam$points, labels=as.character(1:nrow(swiss.x)))
 }
 \keyword{multivariate}
-% Converted by Sd2Rd version 0.3-2.

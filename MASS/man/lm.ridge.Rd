@@ -1,0 +1,100 @@
+% file MASS/lm.ridge.d
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+%
+\name{lm.ridge}
+\alias{lm.ridge}
+\title{
+Ridge Regression
+}
+\description{
+Fit a linear model by ridge regression.
+}
+\usage{
+lm.ridge(formula, data, subset, na.action, lambda=0, model=FALSE, 
+         x=FALSE, y=FALSE, contrasts=NULL, \dots)
+}
+\arguments{
+\item{formula}{
+a formula expression as for regression models, of the form `response ~
+predictors'.  See the documentation of \code{formula} for other details.
+}
+\item{data}{
+an optional data frame in which to interpret the variables occurring
+in \code{formula}.
+}
+\item{subset}{
+expression saying which subset of the rows of the data should  be used
+in the fit. All observations are included by default.
+}
+\item{na.action}{
+a function to filter missing data.
+}
+\item{lambda}{
+A scalar or vector of ridge constants.
+}
+\item{model}{
+should the model frame be returned?
+}
+\item{x}{
+should the design matrix be returned?
+}
+\item{y}{
+should the response be returned?
+}
+\item{contrasts}{
+a list of contrasts to be used for some or all of
+}
+\item{...}{
+additional arguments to \code{lm.fit}.
+}}
+\value{
+A list with components
+
+\item{coef}{
+matrix of coefficients, one row for each value of \code{lambda}.
+}
+\item{scales}{
+scalings used on the X matrix.
+}
+\item{Inter}{
+was intercept included?
+}
+\item{lambda}{
+vector of lambda values
+}
+\item{ym}{
+mean of \code{y}
+}
+\item{xm}{
+column means of \code{x} matrix
+}
+\item{GCV}{
+vector of GCV values
+}
+\item{kHKB}{
+HKB estimate of the ridge constant.
+}
+\item{kLW}{
+L-W estimate of the ridge constant.
+}}
+\references{
+Brown, P. J. (1994)
+\emph{Measurement, Regression and Calibration}
+Oxford.
+}
+\seealso{
+\code{\link{lm}}
+}
+\examples{
+data(longley)
+names(longley)[1] <- "y"
+lm.ridge(y ~ ., longley)
+plot(lm.ridge(y ~ ., longley, 
+              lambda = seq(0,0.1,0.001)))
+select(lm.ridge(y ~ ., longley,
+              lambda = seq(0,0.1,0.0001)))
+# modified HKB estimator is 0.0042754 
+# modified L-W estimator is 0.032295 
+# smallest value of GCV  at 0.0028 
+}
+\keyword{models}

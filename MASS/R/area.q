@@ -1,5 +1,5 @@
 # file MASS/area.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 "area"<-
 function(f, a, b, ..., fa = f(a, ...), fb = f(b, ...), limit
@@ -27,9 +27,9 @@ function(x, alpha, beta)
     x^(alpha - 1) * (1 - x)^(beta - 1)
 }
 "print.abbrev"<-
-function(obj, ...)
+function(x, ...)
 {
-    if(is.list(obj))
-        obj <- unlist(obj)
+    if(is.list(x))
+        x <- unlist(x)
     NextMethod("print")
 }

@@ -39,4 +39,3 @@ function(M)
 }
 }
 \keyword{algebra}
-% Converted by Sd2Rd version 0.3-2.

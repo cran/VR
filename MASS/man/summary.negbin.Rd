@@ -48,4 +48,3 @@ class of the object.
 \code{\link{summary}}, \code{\link{glm.nb}}, \code{\link{negative.binomial}}, \code{\link{anova.negbin}}
 }
 \keyword{models}
-% Converted by Sd2Rd version 0.3-2.

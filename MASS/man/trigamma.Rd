@@ -4,7 +4,7 @@
 \name{trigamma}
 \alias{trigamma}
 \title{
-The Trigamma Function
+Trigamma Function
 }
 \description{
 Calculates the trigamma function, which is the second derivative of

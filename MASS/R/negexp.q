@@ -1,10 +1,10 @@
 # file MASS/negexp.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 negexp.ival <- function(x, b0, b1, th)
 {
     pnames <- as.character(sys.call()[3:5])
-    y <- get(".nls.initial.response", frame = 1)
+    y <- get(".nls.initial.response")
     if(length(unique(x)) < 3)
         stop("at least 3 distinct x values are needed")
     mx <- mean(x)
@@ -22,7 +22,6 @@ negexp.ival <- function(x, b0, b1, th)
     print(unlist(pars))
     pars
 }
-
 
 negexp.SSival <- function(mCall, data, LHS)
 {

@@ -88,4 +88,3 @@ fractions(solve(X, X/5)) + 1
 }
 }
 \keyword{math}
-% Converted by Sd2Rd version 0.3-2.

@@ -39,4 +39,3 @@ cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
 knn1(train, test, cl)
 }
 \keyword{classif}
-% Converted by Sd2Rd version 0.3-2.

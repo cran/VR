@@ -3,8 +3,8 @@
 #
 lda <- function(x, ...)
 {
-    if(is.null(class(x))) class(x) <- data.class(x)
-    UseMethod("lda", x, ...)
+   if(is.null(class(x))) class(x) <- data.class(x)
+   UseMethod("lda", x, ...)
 }
 
 lda.formula <- function(formula, data = NULL, ...,
@@ -19,17 +19,27 @@ lda.formula <- function(formula, data = NULL, ...,
     Terms <- attr(m, "terms")
     grouping <- model.extract(m, "response")
     x <- model.matrix(Terms, m)
+    xvars <- as.character(attr(Terms, "variables"))[-1]
+   if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
+    xlev <- if (length(xvars) > 0) {
+        xlev <- lapply(m[xvars], levels)
+        xlev[!sapply(xlev, is.null)]
+    }
     xint <- match("(Intercept)", colnames(x), nomatch=0)
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- lda.default(x, grouping, ...)
     res$terms <- Terms
     res$call <- match.call()
+    res$contrasts <- attr(x, "contrasts")
+    res$xlevels <- xlev
+    attr(res, "na.message") <- attr(m, "na.message")
+    if(!is.null(attr(m, "na.action"))) res$na.action <- attr(m, "na.action")
     res
 }
 
 lda.data.frame <- function(x, ...)
 {
-    res <- lda.matrix(data.matrix(x), ...)
+    res <- lda.matrix(structure(data.matrix(x), class="matrix"), ...)
     res$call <- match.call()
     res
 }
@@ -61,19 +71,15 @@ lda.matrix <- function(x, grouping, ...,
 
 lda.default <-
   function(x, grouping, prior = proportions, tol = 1.0e-4,
-           method = c("moment", "mle", "mve", "t"), CV=FALSE,
+           method = c("moment", "mle", "mve", "t"), CV=F,
            nu = 5, ...)
 {
-    which.is.max <- function(x) {
-        d <- (1:length(x))[x == max(x)]
-        if(length(d) > 1) d <- sample(d, 1)
-        d
-    }
-
     if(is.null(dim(x))) stop("x is not a matrix")
+    x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)
-    if(n != length(grouping)) stop("nrow(x) and length(grouping) are different")
+    if(n != length(grouping))
+        stop("nrow(x) and length(grouping) are different")
     g <- as.factor(grouping)
     lev <- lev1 <- levels(g)
     counts <- as.vector(table(g))
@@ -102,7 +108,7 @@ lda.default <-
     scaling <- diag(1/f1,,p)
     if(method == "mve") {
         # adjust to "unbiased" scaling of covariance matrix
-        cov <- n/(n-ng) * cov.mve((x - group.means[g,  ]) %*% scaling, , FALSE)$cov
+        cov <- n/(n-ng) * cov.rob((x - group.means[g,  ]) %*% scaling)$cov
         sX <- svd(cov, nu = 0)
         rank <- sum(sX$d > tol^2)
         if(rank < p) warning("variables are collinear")
@@ -159,8 +165,7 @@ lda.default <-
             (1 - cc*dist2[ind])
         dist <- 0.5 * dist - matrix(log(prior), n, ng, byrow=TRUE)
         dist <- exp(-(dist - min(dist, na.rm=TRUE)))
-        cl <- factor(apply(dist, 1, which.is.max), levels=seq(along=lev),
-                     labels=lev)
+        cl <- factor(max.col(dist), levels=seq(along=lev), labels=lev)
         #  convert to posterior probabilities
         posterior <- dist/drop(dist %*% rep(1, length(prior)))
         dimnames(posterior) <- list(rownames(x), lev1)
@@ -178,7 +183,6 @@ lda.default <-
         dimnames(scaling) <- list(colnames(x), paste("LD", 1:rank, sep = ""))
         dimnames(group.means)[[2]] <- colnames(x)
     }
-    dimnames(group.means)[[1]] <- names(prior)
     structure(list(prior = prior, counts = counts, means = group.means,
                    scaling = scaling, lev = lev, svd = X.s$d[1:rank],
                    N = n, call = match.call()),
@@ -189,29 +193,20 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
 			method = c("plug-in", "predictive", "debiased"), ...)
 {
     if(!inherits(object, "lda")) stop("object not of class lda")
-    which.is.max <- function(x) {
-        d <- (1:length(x))[x == max(x)]
-        if(length(d) > 1) d <- sample(d, 1)
-        d
-    }
-    model.frame.lda <- function(formula)
-    {
-        oc <- formula$call
-        oc$method <- "model.frame"
-        oc[[1]] <- as.name("lm")
-        eval(oc, sys.frame(sys.parent()))
-    }
-
-    if(!is.null(Terms <- object$terms)) {#
-        # formula fit
-        if(missing(newdata)) newdata <- model.frame.lda(object)
-        else newdata <- model.frame(as.formula(delete.response(Terms)),
-                                    newdata, na.action=function(x) x)
-        x <- model.matrix(delete.response(Terms), newdata)
+    if(!is.null(Terms <- object$terms)) { #
+    # formula fit
+        if(missing(newdata)) newdata <- model.frame(object)
+        else {
+            newdata <- model.frame(as.formula(delete.response(Terms)),
+                                   newdata, na.action=function(x) x,
+                                   xlev = object$xlevels)
+        }
+        x <- model.matrix(delete.response(Terms), newdata,
+                          contrasts = object$contrasts)
         xint <- match("(Intercept)", colnames(x), nomatch=0)
         if(xint > 0) x <- x[, -xint, drop=FALSE]
-    } else {                            #
-        # matrix or data-frame fit
+    } else { #
+    # matrix or data-frame fit
         if(missing(newdata)) {
             if(!is.null(sub <- object$call$subset))
                 newdata <- eval(parse(text=paste(deparse(object$call$x),"[",
@@ -221,17 +216,17 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
                 newdata <- eval(call(nas, newdata))
         }
         if(is.null(dim(newdata)))
-            dim(newdata) <- c(1, length(newdata))# a row vector
+            dim(newdata) <- c(1, length(newdata))  # a row vector
         x <- as.matrix(newdata)		# to cope with dataframes
     }
 
     if(ncol(x) != ncol(object$means)) stop("wrong number of variables")
     if(length(colnames(x)) > 0 &&
-       any(colnames(x) != dimnames(object$means)[[2]]))
-        warning("Variable names in newdata do not match those in object")
+      any(colnames(x) != dimnames(object$means)[[2]]))
+         warning("Variable names in newdata do not match those in object")
     ng <- length(prior)
-    #   remove overall means to keep distances small
-    means <- apply(object$means, 2, mean)
+#   remove overall means to keep distances small
+    means <- apply(prior*object$means, 2, sum)
     scaling <- object$scaling
     x <- scale(x, means, FALSE) %*% scaling
     dm <- scale(object$means, means, FALSE) %*% scaling
@@ -263,9 +258,9 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
             dist[, i] <- prior[i] * (nk/(nk+1))^(p/2) * dev^(-(N - ng + 1)/2)
         }
     }
-    cl <- factor(apply(dist, 1, which.is.max), levels=seq(along=object$lev),
-                 labels=object$lev)
     posterior <- dist / drop(dist %*% rep(1, ng))
+    cl <- factor(max.col(posterior), levels=seq(along=object$lev),
+                 labels=object$lev)
     dimnames(posterior) <- list(rownames(x), names(prior))
     list(class = cl, posterior = posterior, x = x[, 1:dimen, drop=FALSE])
 }
@@ -292,28 +287,21 @@ print.lda <- function(x, ...)
     invisible(x)
 }
 
-plot.lda <- function(x, panel=panel.lda, ..., cex=0.7,
-                     dimen, abbrev=FALSE, xlab="LD1", ylab="LD2")
+plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
+                     dimen, abbrev = F, xlab = "LD1", ylab = "LD2")
 {
     panel.lda <- function(x, y, ...) {
         text(x, y, as.character(g.lda), cex=tcex)
     }
-    model.frame.lda <- function(formula)
-    {
-        oc <- formula$call
-        oc$method <- "model.frame"
-        oc[[1]] <- as.name("lm")
-        eval(oc, sys.frame(sys.parent()))
-    }
-    if(!is.null(Terms <- x$terms)) {    #
-        # formula fit
-        data <- model.frame.lda(x)
+    if(!is.null(Terms <- x$terms)) { #
+    # formula fit
+        data <- model.frame(x)
         X <- model.matrix(delete.response(Terms), data)
         g <- model.extract(data, "response")
         xint <- match("(Intercept)", colnames(X), nomatch=0)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
-    } else {                            #
-        # matrix or data-frame fit
+    } else { #
+    # matrix or data-frame fit
         xname <- x$call$x
         gname <- x$call[[3]]
         if(!is.null(sub <- x$call$subset)) {
@@ -354,7 +342,7 @@ function(data, g, nbins = 25, h, x0 = -h/1000, breaks,
          col = 5,
 	 xlab = deparse(substitute(data)), bty = "n", ...)
 {
-    eval(xlab)
+    xlab
     type <- match.arg(type)
     data <- data[!is.na(data)]
     g <- g[!is.na(data)]
@@ -407,30 +395,27 @@ function(data, g, nbins = 25, h, x0 = -h/1000, breaks,
     invisible()
 }
 
-pairs.lda <- function(x, labels = colnames(x), panel=panel.lda,
-                      dimen, abbrev=FALSE, ..., cex=0.7,
-                      type=c("std", "trellis"))
+pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
+                      dimen, abbrev = FALSE, ..., cex = 0.7,
+                      type = c("std", "trellis"))
 {
     panel.lda <- function(x,y, ...) {
         text(x, y, as.character(g.lda), cex=tcex, ...)
     }
-    model.frame.lda <- function(formula)
-    {
-        oc <- formula$call
-        oc$method <- "model.frame"
-        oc[[1]] <- as.name("lm")
-        eval(oc, sys.frame(sys.parent()))
-    }
     type <- match.arg(type)
-    if(!is.null(Terms <- x$terms)) {    #
-        # formula fit
-        data <- model.frame.lda(x)
+    if(type == "trellis") {
+        warn("type = trellis is not supported in R")
+        type <- "std"
+    }
+    if(!is.null(Terms <- x$terms)) { #
+    # formula fit
+        data <- model.frame(x)
         X <- model.matrix(delete.response(Terms), data)
         g <- model.extract(data, "response")
         xint <- match("(Intercept)", colnames(X), nomatch=0)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
-    } else {                            #
-        # matrix or data-frame fit
+    } else { #
+    # matrix or data-frame fit
         xname <- x$call$x
         gname <- x$call[[3]]
         if(!is.null(sub <- x$call$subset)) {
@@ -469,3 +454,19 @@ pairs.lda <- function(x, labels = colnames(x), panel=panel.lda,
     }
     invisible(NULL)
 }
+
+model.frame.lda <-
+function(formula, data = NULL, na.action = NULL, ...)
+{
+    oc <- formula$call
+    names(oc)[2:3] <- c("formula", "data")
+    oc$prior <- oc$tol <- oc$method <- oc$CV <- oc$nu <- NULL
+    oc[[1]] <- as.name("model.frame")
+    if(length(data)) {
+        oc$data <- substitute(data)
+        eval(oc, sys.frame(sys.parent()))
+    }
+    else eval(oc, list())
+}
+
+

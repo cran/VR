@@ -1,8 +1,8 @@
 Package: class
-Version: 5.3pl037-2 (1999/02/08)
+Version: 6.1-4 (1999/08/15)
 Author: S original by Venables & Ripley.
   R port by Kurt Hornik <Kurt.Hornik@ci.tuwien.ac.at>.
   Further work by Brian Ripley <ripley@stats.ox.ac.uk>.
 Description: Various functions for classification from Venables and
-  Ripley, `Modern Applied Statistics with S-PLUS' (2nd edition).
+  Ripley, `Modern Applied Statistics with S-PLUS' (3rd edition).
 License: GPL (version 2 or later)

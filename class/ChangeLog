@@ -1,0 +1,80 @@
+Wednesday June  3 08:34:18 BST 1998 Brian Ripley <ripley@stats.ox.ac.uk.
+
+	* DESCRIPTION (Version):  New version is 5.3pl021-1.
+	* R/*.q, src/*.{c,h}:  Unchanged from S versions.
+	* man/*.Rd: examples are now executable.
+
+Fri May 22 19:29:47 1998  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* DESCRIPTION (Version):  New version is 5.3pl018-1.
+
+	* R/knn.q:
+	* R/lvq.q:
+	* R/multiedit.q:
+	Upgraded to current versions.
+
+Fri May 15 13:44:29 1998  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* DESCRIPTION (Version):  New version is 5.3pl015-2.
+
+	* PORTING:  Slightly updated.
+
+Wed May 13 13:34:16 1998  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* DESCRIPTION (Version):  New version is 5.3pl015-1.
+
+	* src/class.c:  Updated.
+
+	* src/verS.h:  New file.
+
+Mon May 11 12:55:14 1998  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* DESCRIPTION (Version):  New version is 5.3pl012-2.
+
+	* src/class.c:  Undo the extra parentheses.
+
+Tue May  5 09:47:44 1998  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* DESCRIPTION (Version):  New version is 5.3pl012-1.
+
+	* PORTING:
+	* R/knn.q:
+	* R/lvq.q:
+	Factor-related fixes are no longer necessary in 0.62.
+
+	* R/zzz.R:  Load so-file via .First.lib() only.
+
+	* src/class.c:  Put parentheses around PROBLEM.
+
+	* src-c:  Removed (obsolete in 0.62).
+
+Sun Feb 22 13:27:35 1998  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* DESCRIPTION:  New file.
+
+	* PORTING:  New file.
+
+	* VERSION:  Removed.  New version is 5.2pl005-1, corresponding
+	information now in `DESCRIPTION'.
+
+Fri Oct 24 16:12:55 1997  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* VERSION:  New version is VR5-4.
+
+	* test/test.R:  Use `iris3' directly rather than overloading
+	`iris'.
+
+	* man/*.Rd:  Replaced `iris' by `iris3' and added `data(iris3)' at
+	the beginning of each example which uses the (S version of) the
+	iris data set.
+
+	* data/iris.dat:  removed
+	* data/iris.S:  removed
+
+Wed Sep 17 13:09:14 1997  Kurt Hornik  <Kurt.Hornik@ci.tuwien.ac.at>
+
+	* VERSION:  New version is VR5-3.
+
+	* man:  All man sources converted to new Rd format.
+
+        * ChangeLog:  Finally started.

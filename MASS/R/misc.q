@@ -1,28 +1,13 @@
 # file MASS/misc.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
-Choleski <- function(x)
-{
-    .NotYetImplemented()
-    x <- as.Matrix(x)
-    class(x) <- Matrix.class(x)
-    if(!inherits(x, "Hermitian")) stop("x must be symmetric")
-    LU <- expand(lu(x))
-    B <- LU$block.diagonal
-    if(!inherits(B, "Diagonal") || any(diag(B) <= 0)
-       || !inherits(LU$permutation, "Identity"))
-        stop("x is not positive definite")
-    x <- LU$triangular %*% sqrt(B)
-    class(x) <- Matrix.class(x)
-    x
-}
 
 mat2tr <- function(z)
 {
     dn <- names(dimnames(z))
-    dx <- dimnames(z)[[1]]
+    dx <- rownames(z)
     x <- as.numeric(substring(dx, nchar(dn[1]) + 2))
-    dy <- dimnames(z)[[2]]
+    dy <- colnames(z)
     y <- as.numeric(substring(dy, nchar(dn[2]) + 2))
     cbind(expand.grid(x = x, y = y), z = as.vector(z))
 }
@@ -41,9 +26,9 @@ Null <- function(M)
 
 ginv <- function(X, tol = sqrt(.Machine$double.eps))
 {
-    #
-    # based on suggestions of R M Heiberger, T M Hesterburg and WNV
-    #
+#
+# based on suggestions of R. M. Heiberger, T. M. Hesterburg and WNV
+#
     if(length(dim(X)) > 2 || !(is.numeric(X) || is.complex(X)))
         stop("X must be a numeric or complex matrix")
     if(!is.matrix(X)) X <- as.matrix(X)

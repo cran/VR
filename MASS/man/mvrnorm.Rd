@@ -68,4 +68,3 @@ var(mvrnorm(n=1000, rep(0, 2), Sigma))
 }}
 \keyword{distribution}
 \keyword{multivariate}
-% Converted by Sd2Rd version 0.3-2.

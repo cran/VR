@@ -1,5 +1,5 @@
 # file MASS/mvrnorm.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 mvrnorm <- function(n = 1, mu, Sigma, tol=1e-6)
 {

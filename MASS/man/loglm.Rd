@@ -111,7 +111,6 @@ though.
 \code{\link{loglin}}
 }
 \examples{
-
 # The data frames  Cars93, minn38 and quine are available 
 # in the MASS library.
 
@@ -162,8 +161,8 @@ Statistics:
                     X^2 df  P(> X^2) 
 Likelihood Ratio 18.362  5 0.0025255
          Pearson 14.080  5 0.0151101
-}
 
+}
 # Case 2.  Frequencies given as a vector in a data frame
 data(quine)
 names(quine)

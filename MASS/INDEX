@@ -1,13 +1,16 @@
 Aids2                    Australian AIDS Survival Data
+Animals                  Brain and Body Weights for 28 Species
 Boston                   Housing Values in Suburbs of Boston
-Cars93                   Data from 93 cars on sale in the USA in 1993.
-Cushings                 Diagnostic Tests on Patients with Cushing's Syndrome
+Cars93                   Data from 93 Cars on Sale in the USA in 1993
+Cushings                 Diagnostic Tests on Patients with Cushing's
+                         Syndrome
 DDT                      DDT in Kale
 GAGurine                 Level of GAG in Urine of Children
 Insurance                Numbers of Car Insurance claims
 Melanoma                 Survival from Malignant Melanoma
 Null                     Null Spaces of Matrices
-OME                      Tests of Auditory Perception in Children with OME
+OME                      Tests of Auditory Perception in Children with
+                         OME
 Pima.tr                  Diabetes in Pima Indian Women
 Rabbit                   Blood Pressure in Rabbits
 Rubber                   Accelerated Testing of Tyre Rubber
@@ -15,37 +18,44 @@ Sitka                    Growth Curves for Sitka Spruce Trees in 1988
 Sitka89                  Growth Curves for Sitka Spruce Trees in 1989
 Skye                     AFM Compositions of Aphyric Skye Lavas
 Traffic                  Effect of Swedish Speed Limits on Accidents
-UScereal                 Nutritional and Marketing Information on US Cereals.
+UScereal                 Nutritional and Marketing Information on US
+                         Cereals.
 UScrime                  The Effect of Punishment Regimes on Crime Rates
-VA            		 Veteran's administration lung cancer study
+heart                    Veteran's Administration lung cancer trial.
 abbey                    Determinations of Nickel Content
 accdeaths                Accidental Deaths in the US 1973-1978
-addterm			 Try All One-Term Additions to a Model
-animals                  Brain and Body Weights for 28 Species
-anova.negbin             Likelihood Ratio Tests for Negative Binomial GLMs
+addterm                  Try All One-Term Additions to a Model
+anorexia                 Anorexia Data on WwIght Change
+anova.negbin             Likelihood Ratio Tests for Negative Binomial
+                         GLMs
 area                     Adaptive Numerical Integration
 austres                  Quarterly Time Series of the Number of
-                           Australian Residents
+                         Australian Residents
 bcv                      Biased Cross-Validation for Bandwidth Selection
 beav1                    Body Temperature Series of Beaver 1
 beav2                    Body Temperature Series of Beaver 2
 biopsy                   Biopsy Data on Breast Cancer Patients
-birthwt                  Risk Factors Associated with Low Infant Birth Weight
+birthwt                  Risk Factors Associated with Low Infant Birth
+                         Weight
 boxcox                   Box-Cox Transformations for Linear Models
-caith         		 Cross-tabulation of eye and hair colours in Caithness
+cabbages                 Data from a cabbage field trial
+caith                    Colours of Eyes and Hair of People in Caithness
 cats                     Anatomical Data from Domestic Cats
 cement                   Heat Evolved by Setting Cements
 chem                     Copper in Wholemeal Flour
+confint                  Confidence Intervals for Model Parameters
 coop                     Co-operative Trial in Analytical Chemistry
 corresp                  Simple Correspondence Analysis
-cov.trob                 Covariance Estimation for Multivariate t Distribution
+cov.trob                 Covariance Estimation for Multivariate t
+                         Distribution
 cpgram                   Plot Cumulative Periodogram
 cpus                     Performance of Computer CPUs
 crabs                    Morphological Measurements on Leptograpsus Crabs
 deaths                   Monthly Deaths from Lung Diseases in the UK
-digamma                  The Digamma Function
+digamma                  Digamma Function
 drivers                  Deaths of Car Drivers in Great Britain 1969-84
-dropterm		 Try All One-Term Deletions from a Model
+dropterm                 Try All One-Term Deletions from a Model
+eagles                   Foraging Ecology of Bald Eagles
 eqscplot                 Plots with Geometrically Equal Scales
 farms                    Ecological Factors in Farm Management
 fdeaths                  Monthly Deaths from Lung Diseases in the UK
@@ -54,20 +64,23 @@ forbes                   Forbes' Data on Boiling Points in the Alps
 fractions                Rational Approximation
 galaxies                 Velocities for 82 Galaxies
 gamma.dispersion         Calculate the MLE of the Gamma Dispersion
-                           Parameter in a GLM Fit
+                         Parameter in a GLM Fit
 gamma.shape.glm          Estimate the Shape Parameter of the Gamma
-                           Distribution in a GLM Fit
+                         Distribution in a GLM Fit
 gehan                    Remission Times of Leukaemia Patients
 genotype                 Rat Genotype Data
+geyser                   Old Faithful Geyser Data
 gilgais                  Line Transect of Soil in Gilgai Territory
 ginv                     Generalized Inverse of a Matrix
 glm.convert              Change a Negative Binomial fit to a GLM fit
 glm.nb                   Fit a Negative Binomial Generalized Linear Model
+heart                    The Stanford heart transplant data
 hills                    Record Times in Scottish Hill Races
-histplot                 Trellis of Histograms
+housing                  Frequency Table from a Copenhagen Housing
+                         Conditions Survey.
 huber                    Huber M-estimator of Location with MAD Scale
 hubers                   Huber "proposal 2" Robust Estimator of Location
-                           and/or Scale
+                         and/or Scale
 immer                    Yields from a Barley Field Trial
 isoMDS                   Kruskal's Non-metric Multidimensional Scaling
 janka                    Janka Hardness data
@@ -77,11 +90,14 @@ ldahist                  Histograms or Density Plots of Multiple Groups
 leuk                     Survival Times and White Blood Counts for
                          Leukaemia Patients
 lh                       Luteinizing Hormone in Blood Samples
+lm.gls                   Fit Linear Models by Generalized Least Squares
+lm.ridge                 Ridge Regression
 loglm                    Fit Log-Linear Models by Iterative Proportional
                          Scaling
 logtrans                 Estimate log Transformation Parameter
 mammals                  Brain and Body Weights for 62 Species of Land
                          Mammals
+max.col                  Find Maximum Position in Matrix
 mca                      Multiple Correspondence Analysis
 mcycle                   Data from a Simulated Motorcycle Accident
 mdeaths                  Monthly Deaths from Lung Diseases in the UK
@@ -89,30 +105,32 @@ menarche                 Age of Menarche data
 michelson                Michelson's Speed of Light Data
 minn38                   Minnesota High School Graduates of 1938
 motors                   Accelerated Life Testing of Motorettes
+muscle                   Effect of Calcium Chloride on Muscle Contraction
+                         in Rat Hearts
 mvrnorm                  Simulate from a Multivariate Normal Distribution
 negative.binomial        Family function for Negative Binomial GLMs
-newcomb                  Newcomb's Measurements of the Passage Time of Light
+newcomb                  Newcomb's Measurements of the Passage Time of
+                         Light
 nottem                   Average Monthly Temperatures at Nottingham,
-                           1920-1939
+                         1920-1939
+npk                      Classical N, P, K Factorial Experiment
 npr1                     US Naval Petroleum Reserve No. 1 data
 oats                     Data from an Oats Field Trial
+orlm                     Fit Robust Linear Regression Model
 painters                 The Painter's Data of de Piles
 pairs.lda                Produce Pairwise Scatterplots from an `lda' Fit
 petrol                   N. L. Prater's Petrol Refinery Data
 phones                   Belgium Phone Calls 1950-1973
-plot.lda                 Plot Method for Class `"lda"'
+plot.lda                 Plot Method for Class `lda'
 plot.mca                 Plot Method for Objects of Class `mca'
-plot.profile		 Plot Method for Profile Likelihoods
 predict.lda              Classify Multivariate Observations by Linear
-                           Discrimination
+                         Discrimination
 predict.mca              Predict Method for Class `mca'
 predict.qda              Classify from Quadratic Discriminant Analysis
-profile.glm		 Profile Likeilhoods from GLM fits
 qda                      Quadratic Discriminant Analysis
 quine                    Absenteeism from School in Rural New South Wales
 rational                 Rational Approximation
-rlm                      Fit Robust Linear Regression Model
-rms.curv                 Relative Curvature Measures for Non-Linear Regression
+rlm                      Robust Fitting of Linear Models
 rnegbin                  Simulate Negative Binomial Variates
 road                     Road Accident Deaths in US States
 rock                     Measurements on Petroleum Rock Samples
@@ -120,29 +138,39 @@ rotifer                  Numbers of Rotifers by Fluid Density
 sammon                   Sammon's Non-Linear Mapping
 ships                    Ships Damage Data
 shoes                    Shoe wear data of Box, Hunter and Hunter
-shkap			 USSR petroleum reservoir dataset
 shrimp                   Percentage of Shrimp in Shrimp Cocktail
 shuttle                  Space Shuttle Autolander Problem
 snails                   Snail Mortality Data
-stdres                   Extract Standardized Residuals from a Linear Model
+stdres                   Extract Standardized Residuals from a Linear
+                         Model
 steam                    The Saturated Steam Pressure Data
 stepAIC                  Choose a model by AIC in a Stepwise Algorithm
 stormer                  The Stormer Viscometer Data
-studres                  Extract Studentized Residuals from a Linear Model
-summary.loglm            Summary Method Function for Objects of Class `loglm'
-summary.negbin           Summary Method Function for Objects of Class `negbin'
+studres                  Extract Studentized Residuals from a Linear
+                         Model
+summary.loglm            Summary Method Function for Objects of Class
+                         `loglm'
+summary.negbin           Summary Method Function for Objects of Class
+                         `negbin'
 summary.rlm              Summary Method for Robust Linear Models
 survey                   Student Survey Data
 synth.tr                 Synthetic Classification Problem
-theta.md                 Estimate theta of the Negative Binomial by Deviance
-theta.mm                 Estimate theta of the Negative Binomial by Moments
+theta.md                 Estimate theta of the Negative Binomial by
+                         Deviance
+theta.mm                 Estimate theta of the Negative Binomial by
+                         Moments
 topo                     Spatial Topographic Data
-trigamma                 The Trigamma Function
+trigamma                 Trigamma Function
 truehist                 Plot a Histogram
-ucv                      Unbiased Cross-Validation for Bandwidth Selection
+ucv                      Unbiased Cross-Validation for Bandwidth
+                         Selection
 vcov                     Calculate Variance-Covariance Matrix for a
-                           Fitted Model Object
-waders                   Counts of Waders at 15 Sites in South Africa.
-width.SJ                 Bandwidth Selection by Pilot Estimation of Derivatives
+                         Fitted Model Object
+vcov.nlregb              Calculate Variance-Covariance Matrix for a
+                         `nlregb' Fit
+waders                   Counts of Waders at 15 Sites in South Africa
+whiteside                House Insulation: Whiteside's Data
+width.SJ                 Bandwidth Selection by Pilot Estimation of
+                         Derivatives
 write.matrix             Write a Matrix or Data Frame
 wtloss                   Weight Loss Data from an Obese Patient

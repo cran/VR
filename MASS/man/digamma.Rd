@@ -4,7 +4,7 @@
 \name{digamma}
 \alias{digamma}
 \title{
-The Digamma Function
+Digamma Function
 }
 \description{
 Calculates the digamma function, which is the first derivative of

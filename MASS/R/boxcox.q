@@ -1,5 +1,5 @@
 # file MASS/boxcox.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 "boxcox"<- function(object, ...)
 UseMethod("boxcox")
@@ -50,7 +50,7 @@ function(object, lambda = seq(-2, 2, 1/10), plotit = length(
             yt <- (y^la - 1)/la
         else yt <- logy * (1 + (la * logy)/2 *
                            (1 + (la * logy)/3 * (1 + (la * logy)/4)))
-        loglik[i] <-  - n/2 * log(sum(qr.resid(xqr, yt/ ydot^(la - 1))^2))
+        loglik[i] <-  - n/2 * log(sum(qr.resid(xqr, yt/ydot^(la - 1))^2))
     }
     if(interp) {
         sp <- spline(xl, loglik, n = 100)

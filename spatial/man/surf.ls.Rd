@@ -50,4 +50,3 @@ contour(trsurf)
 points(topo)
 }
 \keyword{spatial}
-% Converted by Sd2Rd version 0.3-2.

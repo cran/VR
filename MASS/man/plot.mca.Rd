@@ -36,4 +36,3 @@ plot(mca(farms, abbrev=TRUE))
 }
 \keyword{hplot}
 \keyword{multivariate}
-% Converted by Sd2Rd version 0.3-2.

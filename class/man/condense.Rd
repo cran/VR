@@ -48,4 +48,3 @@ keep2 <- reduce.nn(train, keep, cl)
 knn(train[keep2,], test, cl[keep2])
 }
 \keyword{classif}
-% Converted by Sd2Rd version 0.3-2.

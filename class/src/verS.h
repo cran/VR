@@ -11,10 +11,10 @@
 #endif
 
 #ifdef USING_R
-typedef int Sint;
 typedef double singl;
+typedef int Sint;
 #else
-typedef long Sint;
 typedef float singl;
+typedef long Sint;
 #endif
 

@@ -61,4 +61,3 @@ boxcox(Days+1 ~ Eth*Sex*Age*Lrn, data = quine, singular.ok = TRUE,
 \keyword{regression}
 \keyword{models}
 \keyword{hplot}
-% Converted by Sd2Rd version 0.3-2.

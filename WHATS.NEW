@@ -1,90 +1,95 @@
-This file documents software changes since the first edition of MASS in 1994
-============================================================================
+Software and datasets to support `Modern Applied Statistics with
+S-PLUS', third edition, by W. N. Venables and B. D. Ripley.
+Springer, 1999, ISBN 0-387-98825-4.
 
-There were extensive changes between the first and second printings:
-the latter included compiled code for dynamically linking into Windows
-(from S-PLUS 3.2 on) and replaced the Fortran code in library spatial
-by C code. An important addition was the treefix code in library MASS.
+This file documents software changes since the second edition
+=============================================================
+
 
 Version 5.1 (Jul 97) was the software release for the second edition.
 Version 5.2 (Jan 98) mainly differed in explicit copyright claims.
 Version 5.3 (Mar 98) has rewritten nnet code to use less memory and 
   to use double precision for all internal calculations. This may lead
-  to a different local minimum being found.
+  to a different local minimum being found.  Separate version for 
+  S-PLUS 5.0 (Dec 98).
 
+Version 6.0 (Jan 99) pre-release for the third edition, adds ppr and lqs, 
+  addterm, dropterm, enhanced rlm and stepAIC. Support for S-PLUS 5.x.
 
-Installation procedure
-----------------------
+Version 6.1 (Apr 99) release for the third edition. Support for S-PLUS
+  5.1 and 2000, added more na-handling.
 
-- By shell script only; includes support for dyn.load.shared platforms.
-- All the external symbols in dynamically loaded C code start with VR_ .
-- There is no longer support for S-only versions.
-- Support for pre-compiled help files for SGI platform (see Install).
+The na-handling methods of S-PLUS 2000 have been incorporated. With most
+fitting methods, if na.action=na.exclude then the fitted values, residuals
+and predictions (without newdata) are filled with NAs. For ppr, multinom 
+and nnet, predictions with newdata are also filled with NAs.
+
+In earlier versions of S-PLUS na.exclude is not available. There is one
+change: if library MASS is attached ahead of survival4/5 and na.omit is used, 
+residuals will no longer be filled with NAs (this is the behaviour of S-PLUS
+2000).
+
+The improved prediction methods of S-PLUS 2000 (that we supplied) are
+incorporated, for that version only, so prediction involving factor
+variables will be safer.
+
 
 Library MASS
 ------------
 
-- Library treefix is unbundled, as it is not needed for S-PLUS 3.4 and 4.x.
-- The lda and qda code uses method functions and has extensive extra
-    functionality, now including leave-one-out cross-validation for qda.
-- The bcv, ucv, width.SJ code uses a different, much faster, algorithm.
-- The sammon code uses a different, faster, algorithm.
-- The function boxcox has been made generic and enhanced, and has a 
-    companion logtrans.
-- Improvements to negbin, plot.survfit, rlm.
-- New methods for vcov, including for nlregb and nlminb.
-- New functions mvrnorm, kde2d, stepAIC, truehist, histplot, isoMDS, 
-                Choleski, ginv, Null, gamma.shape, digamma, trigamma
-		and mca.
-- Replacement version of plot.profile and new functions profile.glm and
-  pairs.profile.
-- Fractions package for manipulating fractions.
-- nls methods for predict and anova (for Unix 3.x versions only).
 - Revised biplot method for PCA, and a method for correspondence analysis.
 - plot and pairs methods for lda fits.
 - deriv/deriv3 will handle gamma, lgamma and digamma.
 - cross-validation methods for lda, qda and predict.qda.
 - corrected predict.glm to handle known dispersion.
+
 - enhanced stepAIC with fast code for linear least-squares methods, 
   use.start argument and option to change the penalty factor in AIC.
-- addterm and dropterm to replace add1 and drop1.
+- addterm and dropterm to replace add1 and drop1, with added features 
+  and default methods.
+- lqs for lmsreg, ltsreg and S-estimation.
+- enhanced rlm, including MM-estimation. The old rlm is available as orlm
+  for backward compatibility.
+- ppr for projection pursuit regression (formerly in a separate library, 
+  now in double precision). predict.ppr handles NAs in newdata.
+- loglm now works with addterm, dropterm, stepAIC.
+- polr for proportional odds logistic regression.
+- functions lm.gls and lm.ridge from the on-line answers.
+- max.col transferred from nnet allows missing values.
 
-- The kriging datasets topo, npr1, shkap are moved from library spatial.
-- New datasets 	austres, beav1, beav2, biopsy, Boston, Cars93, 
-		Cushings, farms, fgl, GAGurine, genotype, gilgais,
-		Insurance, janka, menarche, OME, petrol, Pima, Rabbit, 
-		Sitka, Skye, snails, synth, Traffic, UScereal, UScrime,
-		waders.
-- Removed dataset jasa1 (now supplied in S-Plus as heart).
-
-- Many more examples on the help pages.
+- new datasets anorexia, cabbages, eagles, housing, muscle, whiteside.
+- dataset Insurance has informative levels.
 
 
 Library nnet
 ------------
 
-- nnet is now generic, with a method for formulas.
-- the print and summary methods give a little more detail.
-- now incorporates the multinom procedures.
-- summary method for multinom.
-- multinom now handles offset terms.
-- coef methods for multinom and nnet, and vcov method for multinom.
 - `censored' argument for nnet.
 - no hard limits on the net size -- but see argument MaxNWts.
 - acctol and reltol are now user-settable arguments.
 - internal calculations are now entirely in double precision.
 - vcov.multinom now uses a generalized inverse for singular fits.
-- nnet fits have a residuals component.
-- anova method for multinom.
+- classes nnet and multinom now have residuals component.
+- anova, deviance and residuals methods.
+- at least 2 decimal places when printing deviance and AIC.
+- predict methods allow missing values in newdata.
+- max.col moved to MASS.
 
 
 Library spatial
 ---------------
 
-- The kriging datasets topo, npr1, shkap are moved to library MASS.
-- Improved interpolation algorithm for covariance functions in kriging code,
-    and improved handling of nugget effects (in fourth printing).
-- Slight changes in the rounding in Kfn (in fourth printing).
-- The `slow' S-only code for kriging has been removed.
 - No limit on nx in surf.gls. Large interpolation tables are no longer
-  stored in the object, so the objects are smaller.
+  stored in the object but re-created when needed, so the objects are
+  smaller.
+
+
+Library treefix
+---------------
+
+A more general version of the replacement code for prune.tree,
+predict.tree and na.replace.tree supplied to StatSci for S-PLUS 3.4
+and later.  This version is incorporated in S-PLUS 2000 and 5.1.
+
+- prune.tree/prune.misclass will now use losses as well as the number
+  of misclassifications.

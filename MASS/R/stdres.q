@@ -1,5 +1,5 @@
 # file MASS/stdres.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 lmwork <- function(object)
 {
@@ -10,7 +10,7 @@ lmwork <- function(object)
     switch(ifelse(n.miss > 2, 2, n.miss),
            warning("1 missing observation deleted"),
            warning(paste(n.miss, "missing observations deleted")))
-    resid <- resid[ok ]
+    resid <- resid[ok]
     n <- length(resid)
     p <- object$rank
     rdf <- object$df.resid
@@ -34,6 +34,10 @@ lmwork <- function(object)
         sr <- resid/(sqrt(1 - hat) * stddev)
         stdres <- sr
         studres <- sr/sqrt((n-p-sr^2)/(n-p-1))
+        if(!is.null(object$na.action)) {
+            stdres <- naresid(object$na.action, stdres)
+            studres <- naresid(object$na.action, studres)
+        }
     }
     else stddev <- stdres[] <- studres[]<- NA
     list(stdedv=stddev, stdres=stdres, studres=studres)

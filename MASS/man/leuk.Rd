@@ -36,13 +36,12 @@ probabilities with concomitant information.
 \bold{21}, 826-838.
 }
 \examples{
-library(survival4)
+library(survival5)
 data(leuk)
-attach(leuk)
-plot(survfit(Surv(time) ~ ag), lty=c(2,3))
+plot(survfit(Surv(time) ~ ag, data=leuk), lty=2:3, col=2:3)
 
 # now Cox models
-leuk.cox <- coxph(Surv(time) ~ ag+log(wbc))
+leuk.cox <- coxph(Surv(time) ~ ag + log(wbc), leuk)
 summary(leuk.cox)
 }
 \keyword{datasets}

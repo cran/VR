@@ -63,4 +63,3 @@ sesurf <- semat(topo.kr, 0, 6.5, 0, 6.5, 30)
 contour(sesurf, levels=c(22,25))
 }
 \keyword{spatial}
-% Converted by Sd2Rd version 0.3-2.

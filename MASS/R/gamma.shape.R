@@ -4,14 +4,14 @@
 gamma.shape <- function(object, ...) UseMethod("gamma.shape")
 
 gamma.shape.glm <- function(object, it.lim = 10,
-			    eps.max = .Machine$double.eps^0.25,
+                            eps.max = .Machine$double.eps^0.25,
 			    verbose = FALSE)
 {
     if(is.null(object$y)) object <- update(object, y = TRUE)
     y <- object$y
     A <- object$prior.weights
     if(is.null(A)) A <- rep(1, length(y))
-    u <- fitted(object)
+    u <- object$fitted
     Dbar <- object$deviance/object$df.residual
     alpha <- (6 + 2*Dbar)/(Dbar*(6 + Dbar))
     if(verbose) cat("Initial estimate:", format(alpha), "\n")

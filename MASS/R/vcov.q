@@ -2,23 +2,25 @@
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 vcov <- function(object, ...) UseMethod("vcov")
+
 vcov.nls <- function(object)
 {
     sm <- summary(object)
     sm$cov.unscaled * sm$sigma^2
 }
+
 vcov.glm <- function(object)
 {
     so <- summary(object, corr=FALSE)
     so$dispersion * so$cov.unscaled
 }
+
 vcov.lm <- function(object)
 {
     so <- summary(object, corr=FALSE)
     so$sigma^2 * so$cov.unscaled
 }
 
-#deviance.nls <- function(object) sum(object$residuals^2)
 deviance.nls <- function(object) object$m$deviance()
 
 vcov.nlregb <- function(object, method=c("Fisher", "observed", "Huber"),
@@ -90,14 +92,16 @@ vcov.nlregb <- function(object, method=c("Fisher", "observed", "Huber"),
         else V <- s2 * Jinv %*% K %*% Jinv
     } else {
         # no gradient supplied
-        if(method != "Fisher") warning("Only Fisher information is available without gradient information")
+        if(method != "Fisher")
+            warning("Only Fisher information is available without gradient information")
         fn <- eval(substitute(object$call$residuals))
         fn <- eval(as.expression(fn), sys.frame(sys.parent()))
         if(!length(fn)) stop("objective fn not found")
         argnames <- names(fn)
         argnames <- argnames[-c(1, length(argnames))]
         addargs <- object$aux[argnames]
-        scale <- do.call("vcovscale", c(list(fn, par, scale=scale, tol=tol*s2), addargs))
+        scale <- do.call("vcovscale",
+                         c(list(fn, par, scale=scale, tol=tol*s2), addargs))
         ind <- 1:p
         H <- matrix(, n, p)
         for (j in 1:p)
@@ -108,9 +112,13 @@ vcov.nlregb <- function(object, method=c("Fisher", "observed", "Huber"),
     }
     v <- 2*sqrt(diag(V))
     upper <- eval(substitute(object$call$upper))
-    if(is.null(upper)) upper <- Inf else upper <- eval(upper, sys.frame(sys.parent()))
+    if(is.null(upper))
+        upper <- Inf
+    else upper <- eval(upper, sys.frame(sys.parent()))
     lower <- eval(substitute(object$call$lower))
-    if(is.null(lower)) lower <- -Inf else lower <- eval(lower, sys.frame(sys.parent()))
+    if(is.null(lower))
+        lower <- -Inf else
+    lower <- eval(lower, sys.frame(sys.parent()))
     if(any(par - v <= lower) || any(par + v >= upper))
         warning("estimate is near the boundary: the estimated variance matrix may not be valid")
     V
@@ -199,7 +207,8 @@ vcov.nlminb <- function(object, tol=1, scale=object$scale, eps=1e-3, eps0=1)
         H[row(H) <= col(H)] <- hh
         H[row(H) > col(H)] <- t(H)[row(H) > col(H)]
     } else {
-        scale <- do.call("vcovscale", c(list(fn, par, scale=scale, tol=tol), addargs))
+        scale <- do.call("vcovscale",
+                         c(list(fn, par, scale=scale, tol=tol), addargs))
         if(!is.null(object$call$gradient)) {
             # gradient but no Hessian
             grfn <- eval(substitute(object$call$gradient))

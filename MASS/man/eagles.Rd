@@ -1,0 +1,48 @@
+% file MASS/eagles.d
+% copyright (C) 1999 W. N. Venables and B. D. Ripley
+%
+\name{eagles}
+\alias{eagles}
+\title{
+Foraging Ecology of Bald Eagles
+}
+\description{
+Knight and Skagen collected during a field study on the foraging
+behaviour of wintering Bald Eagles in Washington State, USA data
+concerning 160 attempts by one (pirating) Bald Eagle to steal a chum
+salmon from another (feeding) Bald Eagle.
+}
+\format{
+The \code{eagles} data frame has 8 rows and 5 columns.
+}
+\arguments{
+\item{y}{
+Number of successful attempts.
+}
+\item{n}{
+Total number of attempts.
+}
+\item{P}{
+Size of pirating eagle (\code{L} = large, \code{S} = small).
+}
+\item{A}{
+Age of pirating eagle (\code{I} = immature, \code{A} = adult).
+}
+\item{V}{
+Size of victim eagle (\code{L} = large, \code{S} = small).
+}}
+\source{
+Knight, R. L. and Skagen, S. K. (1988)
+Agonistic asymmetries and the foraging ecology of Bald Eagles.
+\emph{Ecology,}
+\bold{69}, 1188-1194.
+}
+\examples{
+data(eagles)
+eagles.glm <- glm(cbind(y, n-y) ~ P*A + V, data=eagles, family=binomial)
+dropterm(eagles.glm)
+prof <- profile(eagles.glm)
+plot(prof)
+pairs(prof)
+}
+\keyword{datasets}

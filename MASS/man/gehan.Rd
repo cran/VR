@@ -41,20 +41,15 @@ arbitrarily single-censored samples.
 \bold{52}, 203-233.
 }
 \examples{
-library(survival4)
+library(survival5)
 data(gehan)
-attach(gehan)
-gehan.surv <- survfit(Surv(time, cens) ~ treat)
-gehan.surv
-plot(gehan.surv, conf.int=TRUE, lty=c(3,4), log=TRUE,
-   xlab="time of remission (weeks)", ylab="survival")
-gehan.exp <- survreg(Surv(time, cens) ~ treat + factor(pair), dist="exp")
-summary(gehan.exp)
-gehan.exp <- survreg(Surv(time, cens) ~ treat, dist="exp")
-summary(gehan.exp)
-gehan.wei <- survreg(Surv(time, cens) ~ treat)
-summary(gehan.wei)
-gehan.cox <- coxph(Surv(time, cens) ~ treat)
+gehan.surv <- survfit(Surv(time, cens) ~ treat, data=gehan,
+     conf.type="log-log")
+summary(gehan.surv)
+survreg(Surv(time, cens) ~ factor(pair) + treat, gehan, dist="exp")
+summary(survreg(Surv(time, cens) ~ treat, gehan, dist="exp"))
+summary(survreg(Surv(time, cens) ~ treat, gehan))
+gehan.cox <- coxph(Surv(time, cens) ~ treat, gehan)
 summary(gehan.cox)
 }
 \keyword{datasets}

@@ -78,4 +78,3 @@ specified, a regular grid of bins is used with width \code{h}.  If neither
 }
 \keyword{hplot}
 \keyword{dplot}
-% Converted by Sd2Rd version 0.3-2.

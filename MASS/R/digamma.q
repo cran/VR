@@ -1,5 +1,5 @@
 # file MASS/digamma.q
-# copyright (C) 1994-8 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 digamma <- function(z)
 {
@@ -13,8 +13,8 @@ digamma <- function(z)
     if(any(small <- Mod(z) < 5)) {
         ps <- z
         x <- z[small]
-        ps[small] <- Recall(x + 5) - 1/x - 1/(x + 1) - 1/ (x + 2) -
-            1/(x + 3) - 1/(x + 4)
+        ps[small] <- Recall(x + 5) - 1/x - 1/(x + 1) - 1/
+            (x + 2) - 1/(x + 3) - 1/(x + 4)
         if(any(!small))
             ps[!small] <- Recall(z[!small])
         return(ps)
