@@ -15,7 +15,7 @@
 
 surf.ls <- function(np, x, y, z)
 {
-    if (np > 6) stop("np exceeds 6")
+    if (np > 6) stop("'np' exceeds 6")
     if(is.data.frame(x)) {
         if(any(is.na(match(c("x", "y", "z"), names(x)))))
             stop("'x' does not have columns 'x', 'y' and 'z'")
@@ -57,7 +57,7 @@ surf.ls <- function(np, x, y, z)
 
 surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
 {
-    if (np > 6) stop("np exceeds 6")
+    if (np > 6) stop("'np' exceeds 6")
     if(is.data.frame(x)) {
         if(any(is.na(match(c("x", "y", "z"), names(x)))))
             stop("'x' does not have columns 'x', 'y' and 'z'")
@@ -105,7 +105,7 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
             l1f = double(n * npar),
             PACKAGE = "spatial"
             )
-    if(Z$ifail > 0) stop("Rank failure in Choleski decomposition")
+    if(Z$ifail > 0) stop("rank failure in Choleski decomposition")
     if(nx > 1000) alph <- alph[1]
     res <- list(x=x, y=y, z=z, np=np, f=f, alph=alph, l=Z$l, r=Z$r,
                 beta=Z$beta, wz=Z$wz, yy=Z$yy, W=Z$W, l1f=Z$l1f, rx=rx, ry=ry,
@@ -130,9 +130,9 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
 predict.trls <- function (object, x, y, ...)
 {
     if (!inherits(object, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     n <- length(x)
-    if (length(y) != n) stop("x and y differ in length")
+    if (length(y) != n) stop("'x' and 'y' differ in length")
     .C("VR_frset",
        as.double(object$rx[1]),
        as.double(object$rx[2]),
@@ -146,7 +146,7 @@ predict.trls <- function (object, x, y, ...)
 trmat <- function (obj, xl, xu, yl, yu, n)
 {
     if (!inherits(obj, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     dx <- (xu - xl)/n
     dy <- (yu - yl)/n
     x <- seq(xl, xu, dx)
@@ -160,7 +160,7 @@ trmat <- function (obj, xl, xu, yl, yu, n)
 if(0){
 trmat <- function(obj, xl, xu, yl, yu, n)
 {
-    if(!inherits(obj, "trls")) stop("object not a fitted trend surface")
+    if(!inherits(obj, "trls")) stop("'object' is not a fitted trend surface")
     .C("VR_frset",
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
@@ -198,7 +198,7 @@ prmat <- function(obj, xl, xu, yl, yu, n)
     }
 
     if(!inherits(obj, "trgls")) stop("object not from kriging")
-    if(n > 999) stop("n is too large")
+    if(n > 999) stop("'n' is too large")
     .C("VR_frset",
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
@@ -253,7 +253,7 @@ semat <- function(obj, xl, xu, yl, yu, n, se)
     }
 
     if(!inherits(obj, "trgls")) stop("object not from kriging")
-    if(n > 999) stop("n is too large")
+    if(n > 999) stop("'n' is too large")
     .C("VR_frset",
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
@@ -366,35 +366,35 @@ sphercov <- function(r, d, alpha=0, se=1, D=2)
 residuals.trls <- function (object, ...)
 {
     if (!inherits(object, "trls"))
-            stop("object not a fitted trend surface")
+            stop("'object' is not a fitted trend surface")
     object$wz
 }
 
 fitted.trls <- function (object, ...)
 {
     if (!inherits(object, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     object$z - residuals(object)
 }
 
 deviance.trls <- function (object, ...)
 {
     if (!inherits(object, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     sum(residuals(object)^2)
 }
 
 df.residual.trls <- function (object, ...)
 {
     if (!inherits(object, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     length(object$z) - length(object$beta)
 }
 
 extractAIC.trls <- function (fit, scale, k = 2, ...)
 {
     if (!inherits(fit, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     n <- length(fit$z)
     edf <- df.residual.trls(fit)
     RSS <- deviance(fit)
@@ -412,7 +412,7 @@ anova.trls <- function (object, ...)
     if (length(list(object, ...)) > 1)
         return(anovalist.trls(object, ...))
     if (!inherits(object, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     rss <- deviance(object)
     rdf <- df.residual.trls(object)
     n <- length(object$z)
@@ -442,7 +442,7 @@ anovalist.trls <- function (object, ...)
     nmodels <- length(objs)
     for (i in 1:nmodels) {
         if (!inherits(objs[[i]], "trls"))
-            stop("object not a fitted trend surface")
+            stop("'object' is not a fitted trend surface")
     }
     if (nmodels == 1)
         return(anova.trls(object))
@@ -487,7 +487,7 @@ summary.trls <-
     function (object, digits = max(3, getOption("digits") - 3), ...)
 {
     if (!inherits(object, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     print(anova.trls(object))
     rdf <- df.residual.trls(object)
     n <- length(object$z)
@@ -524,7 +524,7 @@ summary.trls <-
 trls.influence <- function (object)
 {
     if (!inherits(object, "trls"))
-        stop("object not a fitted trend surface")
+        stop("'object' is not a fitted trend surface")
     nr <- length(object$z)
     nc <- length(object$beta)
     X <- matrix(object$f, nrow = nr, ncol = nc)

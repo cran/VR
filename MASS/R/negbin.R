@@ -112,7 +112,7 @@ glm.nb <- function(formula, data, weights,
     n <- length(Y)
     if(!is.null(method)) {
         if(!exists(method, mode = "function"))
-            stop(paste("unimplemented method:", method))
+            stop("unimplemented method: ", sQuote(method))
     }
     else method <- "glm.fit"
     glm.fitter <- get(method)
@@ -212,8 +212,7 @@ negative.binomial <-
     }
     if (any(linktemp == c("log", "identity", "sqrt")))
         stats <- make.link(linktemp)
-    else stop(paste(linktemp, "link not available for negative binomial",
-                    "family; available links are", "\"identity\", \"log\" and \"sqrt\""))
+    else stop(linktemp, " link not available for negative binomial family; available links are \"identity\", \"log\" and \"sqrt\"")
     env <- new.env(parent=.GlobalEnv)
     assign(".Theta", theta, envir=env)
     variance <- function(mu)

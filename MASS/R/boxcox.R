@@ -39,7 +39,7 @@ function(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
     y <- object$y
     n <- length(y)
     if(any(y <= 0))
-        stop("Response variable must be positive")
+        stop("response variable must be positive")
     xqr <- object$qr
     logy <- log(y)
     ydot <- exp(mean(logy))

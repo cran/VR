@@ -72,7 +72,7 @@ lqs.default <-
 	chi <- function(u, k0)
 	{ u <- (u/k0)^2; ifelse(u < 1, 3*u - 3*u^2 + u^3, 1) }
     }
-    if(quantile > n-1) stop(paste("quantile must be at most", n-1))
+    if(quantile > n-1) stop("'quantile' must be at most ", n-1)
     ps <- control$psamp
     if(is.na(ps)) ps <- p
     if(ps < p) {
@@ -85,7 +85,7 @@ lqs.default <-
     if(is.character(nsamp) && nsamp == "best") {
 	nsamp <- if(nexact < 5000) "exact" else "sample"
     } else if(is.numeric(nsamp) && nsamp > nexact) {
-	warning(paste("only", nexact, "sets, so all sets will be tried"))
+	warning("only ", nexact, " sets, so all sets will be tried")
 	nsamp <- "exact"
     }
     samp <- nsamp != "exact"
@@ -182,12 +182,12 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
     if(any(is.na(x)) || any(is.infinite(x)))
 	stop("missing or infinite values are not allowed")
     n <- nrow(x); p <- ncol(x)
-    if(n < p+1) stop(paste("At least", p+1, "cases are needed"))
+    if(n < p+1) stop("at least ", p+1, " cases are needed")
     if(method == "classical") {
 	ans <- list(center = colMeans(x), cov = var(x))
     } else {
-	if(quantile.used < p+1) stop(paste("quantile must be at least", p+1))
-	if(quantile.used > n-1) stop(paste("quantile must be at most", n-1))
+	if(quantile.used < p+1) stop("'quantile' must be at least ", p+1)
+	if(quantile.used > n-1) stop("'quantile' must be at most ", n-1)
 	## re-scale to roughly common scale
 	divisor <- apply(x, 2, IQR)
         if(any(divisor == 0)) stop("at least one column has IQR 0")
@@ -198,7 +198,7 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
 	if(is.character(nsamp) && nsamp == "best")
 	    nsamp <- if(nexact < 5000) "exact" else "sample"
 	if(is.numeric(nsamp) && nsamp > nexact) {
-	    warning(paste("only", nexact, "sets, so all sets will be tried"))
+	    warning("only ", nexact, " sets, so all sets will be tried")
 	    nsamp <- "exact"
 	}
 	samp <- nsamp != "exact"

@@ -6,7 +6,7 @@ corresp <- function(x, ...) UseMethod("corresp")
 corresp.xtabs <- function(x, ...)
 {
   if((m <- length(dim(x))) > 2)
-    stop(paste("Frequency table is", m, "dimensional"))
+    stop("frequency table is ", m, "-dimensional")
   corresp.matrix(x, ...)
 }
 
@@ -23,7 +23,7 @@ corresp.formula <- function(formula, data = parent.frame(), ...)
 {
     rhs <- formula[[length(formula)]]
     if(length(rhs[[2]]) > 1 || length(rhs[[3]]) > 1)
-        stop("higher way table requested.  Only 2 way allowed")
+        stop("higher-way table requested.  Only 2-way allowed")
     tab <- table(eval(rhs[[2]], data), eval(rhs[[3]], data))
     names(dimnames(tab)) <- as.character(c(rhs[[2]], rhs[[3]]))
     corresp.matrix(tab, ...)

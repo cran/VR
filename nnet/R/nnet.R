@@ -84,7 +84,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
   net <- norm.net(net)
   if(skip) net <- add.net(net, seq(1,net$n[1]),
 			  seq(1+net$n[1]+net$n[2], net$nunits-1))
-  if((nwts <- length(net$conn))==0) stop("No weights to fit")
+  if((nwts <- length(net$conn))==0) stop("no weights to fit")
   if(nwts > MaxNWts)
     stop(paste("Too many (", nwts, ") weights", sep=""))
   nsunits <- net$nunits
@@ -300,7 +300,7 @@ class.ind <- function(cl)
 
 print.nnet <- function(x, ...)
 {
-  if(!inherits(x, "nnet")) stop("Not legitimate a neural net fit")
+  if(!inherits(x, "nnet")) stop("not a legitimate neural net fit")
   cat("a ",x$n[1],"-",x$n[2],"-",x$n[3]," network", sep="")
   cat(" with", length(x$wts),"weights\n")
   if(length(x$coefnames))  cat("inputs:", x$coefnames, "\noutput(s):",

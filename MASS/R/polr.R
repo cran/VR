@@ -235,7 +235,7 @@ print.summary.polr <- function(x, digits = x$digits, ...)
 
 predict.polr <- function(object, newdata, type=c("class","probs"), ...)
 {
-    if(!inherits(object, "polr")) stop("Not a polr fit")
+    if(!inherits(object, "polr")) stop("not a polr fit")
     type <- match.arg(type)
     if(missing(newdata)) Y <- object$fitted
     else {

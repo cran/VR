@@ -66,7 +66,7 @@ function(formula, data, ...)
 {
     trms <- attr(data, "terms")
     if(is.null(trms)) stop("data has no terms attribute")
-    if(attr(trms, "response") == 0) stop("Formula specifies no response")
+    if(attr(trms, "response") == 0) stop("formula specifies no response")
     resp <- match(as.character(attr(trms, "variables"))[1+attr(trms, "response")],
                   names(data))
     off <- attr(trms, "offset")

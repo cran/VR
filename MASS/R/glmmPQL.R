@@ -88,7 +88,8 @@ predict.glmmPQL <-
         pred <- switch(type,
                        link = pred,
                        response = object$family$linkinv(pred))
-        if(!is.null(na.act)) pred <- napredict(object$na.action, pred)
+        if(!is.null(object$na.action))
+            pred <- napredict(object$na.action, pred)
     } else {
         class(object) <- class(object)[-1]
         pred <- predict(object, newdata, level = level,

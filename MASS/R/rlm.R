@@ -70,7 +70,7 @@ rlm.default <-
     if(is.null(colnames(x)))
         colnames(x) <- paste("X", seq(ncol(x)), sep="")
     if(qr(x)$rank < ncol(x))
-        stop("x is singular: singular fits are not implemented in rlm")
+        stop("'x' is singular: singular fits are not implemented in rlm")
 
     if(!(any(test.vec == c("resid", "coef", "w", "NULL"))
          || is.null(test.vec))) stop("invalid testvec")
@@ -78,8 +78,8 @@ rlm.default <-
     xx <- x
     if(!missing(weights)) {
         if(length(weights) != nrow(x))
-            stop("Length of weights must equal number of observations")
-        if(any(weights < 0)) stop("Negative weights value")
+            stop("length of weights must equal number of observations")
+        if(any(weights < 0)) stop("negative weights value")
         if(wt.method == "inv.var") {
             fac <- sqrt(weights)
             y <- y*fac; x <- x* fac
@@ -104,7 +104,7 @@ rlm.default <-
         if(is.character(init)) {
             temp <- if(init == "ls") lm.wfit(x, y, w, method="qr")
             else if(init == "lts") lqs(x, y, intercept=FALSE, nsamp=200)
-            else stop("init method is unknown")
+            else stop("'init' method is unknown")
             coef <- temp$coef
             resid <- temp$resid
         } else {
@@ -127,7 +127,7 @@ rlm.default <-
                 } else warning("c must be at least 1.548 and has been ignored")
             }
         scale <- temp$scale
-    } else stop("method is unknown")
+    } else stop("'method' is unknown")
 
     done <- FALSE
     conv <- NULL
@@ -343,17 +343,17 @@ se.contrast.rlm <-
             sapply(contrast.obj, function(x)
                {
                    if(!is.logical(x))
-                       stop(paste("Each element of", substitute(contrasts.list),
-                                  " must be\nlogical"))
+                       stop("each element of ", substitute(contrasts.list),
+                            " must be logical")
                    x/sum(x)
                })
         contrast <- contrast %*% coef
         if(!any(contrast) || all(is.na(contrast)))
-            stop("The contrast defined is empty (has no TRUE elements)")
+            stop("the contrast defined is empty (has no TRUE elements)")
     } else {
         contrast <- contrast.obj
         if(any(abs(colSums(contrast)) > 1e-8))
-            stop("Columns of contrast.obj must define a contrast (sum to zero)")
+            stop("columns of contrast.obj must define a contrast (sum to zero)")
         if(length(colnames(contrast)) == 0)
             colnames(contrast) <- paste("Contrast", seq(ncol(contrast)))
     }

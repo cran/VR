@@ -8,11 +8,11 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
     if(any(is.infinite(as.vector(d))))
         stop("Infs not allowed in d")
     if(any(is.na(d)) && missing(y))
-        stop("An initial configuration must be supplied with NAs in d")
+        stop("an initial configuration must be supplied with NAs in d")
     if(is.null(n <- attr(d, "Size"))) {
         x <- as.matrix(d)
         if((n <- nrow(x)) != ncol(x))
-            stop("Distances must be result of dist or a square matrix")
+            stop("distances must be result of dist or a square matrix")
     }
     else {
         x <- matrix(0, n, n)
@@ -23,9 +23,9 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
     if (any(ab, na.rm = TRUE)) {
         ab <- !is.na(ab) & ab
         aa <- cbind(as.vector(row(x)), as.vector(col(x)))[row(x) < col(x),]
-        aa <- aa[ab,,drop=FALSE]
-        stop(paste("zero or negative distance between objects", aa[1,1],
-                   "and", aa[1,2]))
+        aa <- aa[ab, , drop=FALSE]
+        stop("zero or negative distance between objects ", aa[1,1],
+             " and ", aa[1,2])
     }
     nas <- is.na(x)
     diag(nas) <- FALSE  # diag never used
@@ -36,8 +36,6 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
     if(any(!is.finite(y))) stop("initial configuration must be complete")
     storage.mode(x) <- "double"
     storage.mode(y) <- "double"
-    if(!is.loaded(symbol.C("VR_sammon")))
-        stop("Compiled code has not been dynamically loaded")
     z <- .C("VR_sammon",
             x = x,
             as.integer(n),

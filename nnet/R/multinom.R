@@ -151,7 +151,7 @@ multinom <-
 
 predict.multinom <- function(object, newdata, type=c("class","probs"), ...)
 {
-  if(!inherits(object, "multinom")) stop("Not a multinom fit")
+  if(!inherits(object, "multinom")) stop("not a multinom fit")
   type <- match.arg(type)
   if(missing(newdata)) Y <- fitted(object)
   else {

@@ -20,8 +20,8 @@ neg.bin <- function(theta = stop("theta must be given"))
         2 * sum(term * wt)
     }
     initialize <- expression({
-        if (any(y < 0)) stop(paste("Negative values not allowed for",
-                                   "the Poisson family"))
+        if (any(y < 0))
+            stop("negative values not allowed for the Negative Binomal family")
         n <- rep(1, nobs)
         mustart <- y + (y == 0)/6
     })

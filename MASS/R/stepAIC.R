@@ -59,7 +59,7 @@ stepAIC <-
     if(inherits(object, "lme")) object$call$fixed <- Terms
     else if(inherits(object, "gls")) object$call$model <- Terms
     else object$call$formula <- Terms
-    if(use.start) warning("use.start cannot be used with R's version of glm")
+    if(use.start) warning("'use.start' cannot be used with R's version of glm")
     md <- missing(direction)
     direction <- match.arg(direction)
     backward <- direction == "both" | direction == "backward"

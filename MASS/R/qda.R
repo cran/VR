@@ -90,7 +90,7 @@ qda.default <-
     ldet <- numeric(ng)
     method <- match.arg(method)
     if(CV && !(method == "moment" || method == "mle"))
-        stop(paste("Cannot use leave-one-out CV with method", method))
+        stop("cannot use leave-one-out CV with method ", sQuote(method))
     for (i in 1:ng){
         if(method == "mve") {
             cX <- cov.mve(x[unclass(g) == i, ])
@@ -114,7 +114,7 @@ qda.default <-
                 if(all(abs(w - w0) < 1e-2)) break
             }
             qx <- qr(sqrt(w)*scale(X, center=group.means[i, ], scale=FALSE))
-            if(qx$rank < p) stop(paste("Rank deficiency in group", lev[i]))
+            if(qx$rank < p) stop("rank deficiency in group ", lev[i])
             qx <- qx$qr* sqrt((1 + p/nu)/m)
             scaling[, , i] <- backsolve(qx[1:p,  ], diag(p))
             ldet[i] <- 2*sum(log(abs(diag(qx))))
@@ -122,7 +122,7 @@ qda.default <-
             if(method == "moment") nk <- counts[i] - 1 else nk <- counts[i]
             X <- scale(x[unclass(g) == i, ], center=group.means[i, ], scale=FALSE)/sqrt(nk)
             qx <- qr(X)
-            if(qx$rank < p) stop(paste("Rank deficiency in group", lev[i]))
+            if(qx$rank < p) stop("rank deficiency in group ", lev[i])
             qx <- qx$qr
             scaling[, , i] <- backsolve(qx[1:p, ], diag(p))
             ldet[i] <- 2*sum(log(abs(diag(qx))))
@@ -172,10 +172,10 @@ predict.qda <- function(object, newdata, prior = object$prior,
     if(!inherits(object, "qda")) stop("object not of class qda")
     method <- match.arg(method)
     if(method == "looCV" && !missing(newdata))
-        stop("Cannot have leave-one-out CV with newdata")
+        stop("cannot have leave-one-out CV with newdata")
     if(is.null(mt <- object$call$method)) mt <- "moment"
     if(method == "looCV" && !(mt == "moment" || mt == "mle"))
-        stop(paste("Cannot use leave-one-out CV with method", mt))
+        stop("cannot use leave-one-out CV with method ", sQuote(mt))
     if(!is.null(Terms <- object$terms)) {
     # formula fit
         if(missing(newdata)) newdata <- model.frame(object)
@@ -220,7 +220,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
     if(ncol(x) != p) stop("wrong number of variables")
     if(length(colnames(x)) > 0 &&
        any(colnames(x) != dimnames(object$means)[[2]]))
-        warning("Variable names in newdata do not match those in object")
+        warning("variable names in 'newdata' do not match those in 'object'")
     ngroup <- length(object$prior)
     dist <- matrix(0, nrow = nrow(x), ncol = ngroup)
     if(method == "plug-in") {

@@ -71,7 +71,8 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
     nhbrdist <- as.matrix(dist(grid$pts))
     if(nphases == 1) {
         rlen <- length(alpha)
-        if(length(radii) != rlen) stop("alpha and radii do not match")
+        if(length(radii) != rlen)
+            stop("'alpha' and 'radii' do not have the same lengths")
         codes <- .C("VR_onlineSOM",
                     data = as.double(data),
                     codes = as.double(codes),

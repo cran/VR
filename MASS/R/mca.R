@@ -12,7 +12,7 @@ mca <- function(df, nf = 2, abbrev = FALSE)
     x
   }
   if(!all(unlist(lapply(df, is.factor))))
-    stop("All variables must be factors")
+    stop("all variables must be factors")
   n <- nrow(df); p <- length(df)
   G <- as.matrix(do.call("data.frame", c(lapply(df, class.ind),
                                          check.names=FALSE)))

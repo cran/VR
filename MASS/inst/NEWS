@@ -77,3 +77,5 @@ This file documents software changes since the third edition.
 - polr() handles a rank-deficient model matrix.
 - polr() now returns the method used, and uses it for predictions.
 - anova() method for polr (contributed by John Fox).
+- predict.GLMMpql was not using the na.action in the object as intended.
+

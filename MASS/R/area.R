@@ -13,8 +13,7 @@ function(f, a, b, ..., fa = f(a, ...), fb = f(b, ...), limit
     if(abs(a1 - a2) < eps)
         return(a2)
     if(limit == 0) {
-        warning(paste("iteration limit reached near x = ",
-                      d))
+        warning("iteration limit reached near x = ", d)
         return(a2)
     }
     Recall(f, a, d, ..., fa = fa, fb = fd, limit = limit - 1,

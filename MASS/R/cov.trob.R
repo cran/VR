@@ -7,8 +7,7 @@ cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
     test.values <- function(x)
     {
         if(any(is.na(x)) || any(is.infinite(x)))
-            stop(paste("error in cov.trob: missing or infinite values in",
-                       deparse(substitute(x))))
+            stop("missing or infinite values in ", deparse(substitute(x)))
     }
     scale.simp <- function(x, center, n, p) x - rep(center, rep(n, p))
 
@@ -20,14 +19,14 @@ cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
     if(!(miss.wt <- missing(wt))) {
         test.values(wt)
         if(length(wt) != n)
-            stop("length of wt must equal number of observations")
+            stop("length of 'wt' must equal number of observations")
         if(any(wt < 0)) stop("negative weights not allowed")
         if(!sum(wt)) stop("no positive weights")
     }
 #    loc <- apply(wt * x, 2, sum)/sum(wt)
     loc <- colSums(wt * x)/sum(wt)
     if(is.numeric(center)) {
-        if(length(center) != p) stop("center is not the right length")
+        if(length(center) != p) stop("'center' is not the right length")
         loc <- center
     } else if(is.logical(center) && !center) loc <- rep(0, p)
     use.loc <- is.logical(center) && center

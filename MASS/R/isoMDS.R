@@ -5,13 +5,13 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
                    tol = 1e-3, p = 2)
 {
     if(any(!is.finite(d)) && missing(y))
-        stop("An initial configuration must be supplied with NA/Infs in d")
+        stop("an initial configuration must be supplied with NA/Infs in d")
     if(!is.matrix(y)) stop("y must be a matrix")
 
     if(is.null(n <- attr(d, "Size"))) {
         x <- as.matrix(d)
         if((n <- nrow(x)) != ncol(x))
-            stop("Distances must be result of dist or a square matrix")
+            stop("distances must be result of dist or a square matrix")
     } else {
         x <- matrix(0, n, n)
         x[row(x) > col(x)] <- d
@@ -22,8 +22,8 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
         ab <- !is.na(ab) & ab
         aa <- cbind(as.vector(row(x)), as.vector(col(x)))[row(x) < col(x),]
         aa <- aa[ab, , drop=FALSE]
-        stop(paste("zero or negative distance between objects", aa[1,1],
-                   "and", aa[1,2]))
+        stop("zero or negative distance between objects ", aa[1,1],
+             " and ", aa[1,2])
     }
     if(any(dim(y) != c(n, k)) ) stop("invalid initial configuration")
     if(any(!is.finite(y))) stop("initial configuration must be complete")

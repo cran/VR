@@ -24,7 +24,7 @@ gamma.shape.glm <- function(object, it.lim = 10,
         alpha <- alpha + (eps <- sc/inf)
         if(verbose) cat("Iter. ", itr, " Alpha:", alpha, "\n")
     }
-    if(itr > it.lim) warning("Iteration limit reached")
+    if(itr > it.lim) warning("iteration limit reached")
     res <- list(alpha = alpha, SE = sqrt(1/inf))
     class(res) <- "gamma.shape"
     res

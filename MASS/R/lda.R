@@ -79,8 +79,8 @@ lda.default <-
         prior <- prior[counts > 0]
     }
     if(any(counts == 0)) {
-        warning(paste("group(s)", paste(lev[counts == 0], collapse=" "),
-                      "are empty"))
+        warning("group(s) ", paste(lev[counts == 0], collapse=" "),
+                " are empty")
         lev1 <- lev[counts > 0]
         g <- factor(g, levels=lev1)
         counts <- as.vector(table(g))
@@ -90,13 +90,13 @@ lda.default <-
     names(prior) <- names(counts) <- lev1
     method <- match.arg(method)
     if(CV && !(method == "moment" || method == "mle"))
-        stop(paste("Cannot use leave-one-out CV with method", method))
+        stop("cannot use leave-one-out CV with method ", method)
     group.means <- tapply(x, list(rep(g, p), col(x)), mean)
     f1 <- sqrt(diag(var(x - group.means[g,  ])))
     if(any(f1 < tol))
-        stop(paste("variable(s)",
-                   paste(format((1:p)[f1 < tol]), collapse = " "),
-                   "appear to be constant within groups"))
+        stop("variable(s) ",
+             paste(format((1:p)[f1 < tol]), collapse = " "),
+             " appear to be constant within groups")
     # scale columns to unit variance before checking for collinearity
     scaling <- diag(1/f1,,p)
     if(method == "mve") {
@@ -222,7 +222,7 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
     if(ncol(x) != ncol(object$means)) stop("wrong number of variables")
     if(length(colnames(x)) > 0 &&
       any(colnames(x) != dimnames(object$means)[[2]]))
-         warning("Variable names in newdata do not match those in object")
+         warning("variable names in 'newdata' do not match those in 'object'")
     ng <- length(object$prior)
     if(!missing(prior)) {
         if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
