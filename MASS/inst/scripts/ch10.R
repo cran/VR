@@ -118,6 +118,10 @@ qqline(oats.pr[[4]][,"Residuals"])
 
 oats.aov <- aov(Y ~ N + V + Error(B/V), data = oats, qr = T)
 model.tables(oats.aov, type = "means", se = T)
+# we can get the unimplemented standard errors from
+se.contrast(oats.aov, list(N == "0.0cwt", N == "0.2cwt"), data=oats)
+se.contrast(oats.aov, list(V == "Golden.rain", V == "Victory"), data=oats)
+
 
 # is.random(oats$B) <- T
 # varcomp(Y ~ N + V + B/V, data = oats)

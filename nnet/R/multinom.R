@@ -411,3 +411,35 @@ model.frame.multinom <- function(formula, ...)
         eval(oc, env)
     } else formula$model
 }
+
+confint.multinom <- function (object, parm, level=0.95, ...)
+{
+    cf <- coef(object)
+    ## matrix case covers e.g. multinom.
+    pnames <- if(is.matrix(cf)) colnames(cf) else names(cf)
+    if (missing(parm))
+        parm <- seq(along = pnames)
+    else if (is.character(parm))
+        parm <- match(parm, pnames, nomatch = 0)
+    a <- (1 - level)/2
+    a <- c(a, 1 - a)
+    pct <- paste(round(100*a, 1), "%")
+    fac <- qnorm(a)
+    if(is.matrix(cf)) {
+        ci <- array(NA, dim = c(dim(cf), 2),
+                    dimnames = c(dimnames(cf), list(pct)))
+        ses <- matrix(sqrt(diag(vcov(object))), ncol=ncol(cf),
+                      byrow=TRUE)[, parm]
+        cf <- cf[, parm]
+        ci[,,1] <- cf + ses*fac[1]
+        ci[,,2] <- cf + ses*fac[2]
+        aperm(ci, c(2,3,1))
+    } else {
+        ci <- array(NA, dim = c(length(parm), 2),
+                    dimnames = list(pnames[parm], pct))
+        ses <- sqrt(diag(vcov(object)))[parm]
+        ci[] <- cf[parm] + ses %o% fac
+        ci
+    }
+}
+

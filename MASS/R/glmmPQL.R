@@ -19,7 +19,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
                          unlist(lapply(random, function(x) all.vars(formula(x)))))
         else c(all.vars(fixed), all.vars(random))
     ## allvars does not contain offset term.
-    Terms <- terms(fixed, data=data)
+    Terms <- if(missing(data)) terms(fixed) else terms(fixed, data=data)
     off <- attr(Terms, "offset")
     if(length(off<- attr(Terms, "offset"))) allvars <-
         c(allvars, as.character(attr(Terms, "variables"))[off+1])

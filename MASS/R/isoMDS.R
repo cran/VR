@@ -22,8 +22,8 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
         ab <- !is.na(ab) & ab
         aa <- cbind(as.vector(row(x)), as.vector(col(x)))[row(x) < col(x),]
         aa <- aa[ab, , drop=FALSE]
-        stop(sprintf(gettext("zero or negative distance between objects %d and %d"),
-                     aa[1,1], aa[1,2]), domain = NA)
+        stop(gettextf("zero or negative distance between objects %d and %d",
+                      aa[1,1], aa[1,2]), domain = NA)
     }
     if(any(dim(y) != c(n, k)) ) stop("invalid initial configuration")
     if(any(!is.finite(y))) stop("initial configuration must be complete")

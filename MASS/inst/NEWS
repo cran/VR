@@ -49,7 +49,8 @@ This file documents software changes since the third edition.
 - model.frame.lda/polr now look for the environment of the original formula.
 - polr has a new `model' argument defaulting to TRUE.
 - fitdistr supports the trivial case of a Normal distribution.
-- sammon and isoMDS now allow missing values in the dissimilarity matrix.
+- sammon and isoMDS now allow missing values in the dissimilarity matrix, and
+  isoMDS allows Minkowski distances in the configuration space.
 - cov.trob works better if wts are supplied, and may converge a little faster 
   in any case.
 - The ch11.R script now uses mclust not mclust1998.
@@ -76,8 +77,11 @@ This file documents software changes since the third edition.
 - polr() handles a rank-deficient model matrix.
 - polr() now returns the method used, and uses it for predictions.
 - anova() method for polr (contributed by John Fox).
-- predict.GLMMpql was not using the na.action in the object as intended.
+- predict.glmmPQL was not using the na.action in the object as intended.
 - The default methods for addterm and dropterm and anova.polr now check
   for changes in the number of cases in use caused e.g. by na.action=na.omit.
 - Added vcov() method for rlm fits.
+- eqscplot() accepts reversed values for xlim and ylim.
+- Script ch10.R uses se.contrast to calculate se's missing from model.tables.
+- profile() and confint() methods for polr().
 

@@ -157,7 +157,10 @@ pplik <- function(pp, R, ng=50, trace=FALSE)
                 res=double(1),
                 PACKAGE = "spatial"
                 )
-        if(trace) print(c(cc, z$res))
+        if(trace) {
+	    print(c(cc, z$res))
+	    flush.console()
+	}
         z$res
     }
 

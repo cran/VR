@@ -6,7 +6,7 @@ corresp <- function(x, ...) UseMethod("corresp")
 corresp.xtabs <- function(x, ...)
 {
   if((m <- length(dim(x))) > 2)
-    stop(sprintf(gettext("frequency table is %d-dimensional"), m), domain = NA)
+    stop(gettextf("frequency table is %d-dimensional", m), domain = NA)
   corresp.matrix(x, ...)
 }
 

@@ -24,7 +24,10 @@ addterm.default <-
     n0 <- length(object$residuals)
     for(i in seq(ns)) {
         tt <- scope[i]
-        if(trace) cat("trying +", tt, "\n")
+        if(trace) {
+	    cat("trying +", tt, "\n")
+	    flush.console()
+        }
         nfit <- update(object, as.formula(paste("~ . +", tt)),
                        evaluate = FALSE)
         nfit <- eval.parent(nfit)
@@ -149,8 +152,8 @@ addterm.glm <-
     y <- object$y
     newn <- length(y)
     if(newn < oldn)
-        warning(sprintf(gettext("using the %d/%d rows from a combined fit"),
-                        newn, oldn), domain = NA)
+        warning(gettextf("using the %d/%d rows from a combined fit",
+                         newn, oldn), domain = NA)
     wt <- object$prior.weights
     if(is.null(wt)) wt <- rep(1, n)
     Terms <- attr(Terms, "term.labels")
@@ -163,7 +166,10 @@ addterm.glm <-
     dfs[1] <- z$rank
     dev[1] <- z$deviance
     for(tt in scope) {
-        if(trace) cat("trying +", tt, "\n")
+        if(trace) {
+	    cat("trying +", tt, "\n")
+	    flush.console()
+	}
         usex <- match(asgn, match(tt, Terms), 0) > 0
         X <- x[, usex|ousex, drop = FALSE]
         z <-  glm.fit(X, y, wt, offset=object$offset,
@@ -233,7 +239,10 @@ dropterm.default <-
     n0 <- length(object$residuals)
     for(i in seq(ns)) {
         tt <- scope[i]
-        if(trace) cat("trying -", tt, "\n")
+        if(trace) {
+	    cat("trying -", tt, "\n")
+	    flush.console()
+	}
         nfit <- update(object, as.formula(paste("~ . -", tt)),
                        evaluate = FALSE)
         nfit <- eval.parent(nfit)
@@ -332,7 +341,10 @@ dropterm.glm <-
     wt <- object$prior.weights
     if(is.null(wt)) wt <- rep(1, n)
     for(i in 1:ns) {
-        if(trace) cat("trying -", scope[i], "\n")
+        if(trace) {
+	    cat("trying -", scope[i], "\n")
+	    flush.console()
+	}
         ii <- seq(along=asgn)[asgn == ndrop[i]]
         jj <- setdiff(seq(ncol(x)), ii)
         z <-  glm.fit(x[, jj, drop = FALSE], y, wt, offset=object$offset,
@@ -369,7 +381,7 @@ dropterm.glm <-
     } else if(test == "F") {
         fam <- object$family$family  ## extra line needed
         if(fam == "binomial" || fam == "poisson")
-            warning(sprintf(gettext("F test assumes quasi%s family"), fam),
+            warning(gettextf("F test assumes quasi%s family", fam),
                     domain = NA)
 	dev <- aod$Deviance
 	rms <- dev[1]/rdf

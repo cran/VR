@@ -40,12 +40,12 @@ knn <- function(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 	ntr <- nrow(train)
 	if(length(cl) != ntr) stop("'train' and 'class' have different lengths")
 	if(ntr < k) {
-            warning(sprintf(gettext("k = %d exceeds number %d of patterns"),
-                            k, ntr), domain = NA)
+            warning(gettextf("k = %d exceeds number %d of patterns", k, ntr),
+                    domain = NA)
 	   k <- ntr
 	}
 	if (k < 1)
-            stop(sprintf(gettext("k = %d must be at least 1"), k), domain = NA)
+            stop(gettextf("k = %d must be at least 1", k), domain = NA)
 	nte <- nrow(test)
 	if(ncol(test) != p) stop("dims of 'test' and 'train differ")
 	clf <- as.factor(cl)
@@ -80,12 +80,12 @@ knn.cv <- function(train, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 	ntr <- nrow(train)
 	if(length(cl) != ntr) stop("'train' and 'class' have different lengths")
 	if(ntr-1 < k) {
-            warning(sprintf(gettext("k = %d exceeds number %d of patterns"),
-                            k, ntr-1), domain = NA)
+            warning(gettextf("k = %d exceeds number %d of patterns", k, ntr-1),
+                    domain = NA)
 	   k <- ntr - 1
 	}
 	if (k < 1)
-            stop(sprintf(gettext("k = %d must be at least 1"), k), domain = NA)
+            stop(gettextf("k = %d must be at least 1", k), domain = NA)
 	clf <- as.factor(cl)
 	nc <- max(unclass(clf))
 	Z <- .C("VR_knn",

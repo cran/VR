@@ -103,7 +103,8 @@ polr(formula, data, weights, start, \dots, subset, na.action,
   There are methods for the standard model-fitting functions, including
   \code{\link{predict}}, \code{\link{summary}}, \code{\link{vcov}},
   \code{\link{anova}}, \code{\link{model.frame}} and an
-  \code{extractAIC} method for use with \code{\link{stepAIC}}.
+  \code{extractAIC} method for use with \code{\link{stepAIC}}.  There
+  are also \code{\link{profile}} and \code{\link{confint}} methods.
 }
 \value{
   A object of class \code{"polr"}.  This has components
@@ -151,5 +152,11 @@ addterm(house.plr, ~.^2, test = "Chisq")
 house.plr2 <- stepAIC(house.plr, ~.^2)
 house.plr2$anova
 anova(house.plr, house.plr2)
+
+house.plr <- update(house.plr, Hess=TRUE)
+pr <- profile(house.plr)
+confint(pr)
+plot(pr)
+pairs(pr)
 }
 \keyword{models}

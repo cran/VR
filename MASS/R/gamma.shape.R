@@ -14,7 +14,10 @@ gamma.shape.glm <- function(object, it.lim = 10,
     u <- object$fitted
     Dbar <- object$deviance/object$df.residual
     alpha <- (6 + 2*Dbar)/(Dbar*(6 + Dbar))
-    if(verbose) cat("Initial estimate:", format(alpha), "\n")
+    if(verbose) {
+	cat("Initial estimate:", format(alpha), "\n")
+	flush.console()
+    }
     fixed <-  -y/u - log(u) + log(A) + 1 + log(y + (y == 0))
     eps <- 1
     itr <- 0
@@ -22,7 +25,10 @@ gamma.shape.glm <- function(object, it.lim = 10,
         sc <- sum(A * (fixed + log(alpha) - digamma(A * alpha)))
         inf <- sum(A * (A * trigamma(A * alpha) - 1/alpha))
         alpha <- alpha + (eps <- sc/inf)
-        if(verbose) cat("Iter. ", itr, " Alpha:", alpha, "\n")
+        if(verbose) {
+	    cat("Iter. ", itr, " Alpha:", alpha, "\n")
+	    flush.console()
+	}
     }
     if(itr > it.lim) warning("iteration limit reached")
     res <- list(alpha = alpha, SE = sqrt(1/inf))

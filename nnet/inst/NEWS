@@ -15,4 +15,4 @@ This file documents software changes since the third edition.
 - multinom has a new `model' argument defaulting to TRUE.
 - the multinom methods for add1, dropterm and anova now check
   for changes in the number of cases in use caused e.g. by na.action=na.omit.
-
+- added confint() method for multinom.

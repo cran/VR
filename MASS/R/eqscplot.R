@@ -32,8 +32,8 @@ eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin,
   midy <- 0.5 * (ylim[2] + ylim[1])
   ylim <- midy + (1 + tol) * 0.5 * c(-1, 1) * (ylim[2] - ylim[1])
   oldpin <- par("pin")
-  xuin <- oxuin <- oldpin[1]/diff(xlim)
-  yuin <- oyuin <- oldpin[2]/diff(ylim)
+  xuin <- oxuin <- oldpin[1]/abs(diff(xlim))
+  yuin <- oyuin <- oldpin[2]/abs(diff(ylim))
   if(missing(uin)) {
     if(yuin > xuin*ratio) yuin <- xuin*ratio
     else xuin <- yuin/ratio

@@ -95,10 +95,11 @@ stepAIC <-
         stop("AIC is not defined for this model, so stepAIC cannot proceed")
     nm <- 1
     Terms <- terms(fit)
-    if(trace)
+    if(trace) {
         cat("Start:  AIC=", format(round(bAIC, 2)), "\n",
             cut.string(deparse(as.vector(formula(fit)))), "\n\n")
-
+	flush.console()
+    }
     models[[nm]] <- list(deviance = mydeviance(fit), df.resid = n - edf,
                          change = "", AIC = bAIC)
     if(!is.null(keep)) keep.list[[nm]] <- keep(fit, bAIC)
@@ -153,7 +154,10 @@ stepAIC <-
             nc <- match(c("Cp", "AIC"), names(aod))
             nc <- nc[!is.na(nc)][1]
             o <- order(aod[, nc])
-            if(trace) print(aod[o,  ])
+            if(trace) {
+		print(aod[o,  ])
+		flush.console()
+	    }
             if(o[1] == 1) break
             change <- rownames(aod)[o[1]]
         }
@@ -170,9 +174,11 @@ stepAIC <-
         bAIC <- extractAIC(fit, scale, k = k, ...)
         edf <- bAIC[1]
         bAIC <- bAIC[2]
-        if(trace)
+        if(trace) {
             cat("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
                 cut.string(deparse(as.vector(formula(fit)))), "\n\n")
+	    flush.console()
+	}
         ## add a tolerance as dropping 0-df terms might increase AIC slightly
         if(bAIC >= AIC + 1e-7) break
         nm <- nm + 1

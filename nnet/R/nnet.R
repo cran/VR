@@ -89,7 +89,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
 			  seq(1+net$n[1]+net$n[2], net$nunits-1))
   if((nwts <- length(net$conn))==0) stop("no weights to fit")
   if(nwts > MaxNWts)
-    stop(sprintf(gettext("too many (%d) weights"), nwts), domain=NA)
+    stop(gettextf("too many (%d) weights", nwts), domain=NA)
   nsunits <- net$nunits
   if(linout) nsunits <- net$nunits - net$n[3]
   net$nsunits <- nsunits
@@ -108,6 +108,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
     nw <- sum(mask != 0)
     if(nw < length(wts)) cat(" (", nw, " variable)\n",sep="")
     else cat("\n")
+    flush.console()
   }
   if(length(decay) == 1) decay <- rep(decay, length(wts))
   .C("VR_set_net",

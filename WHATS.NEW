@@ -103,6 +103,9 @@ Library MASS
 - The default methods for addterm and dropterm and anova.polr now check
   for changes in the number of cases in use caused e.g. by na.action=na.omit.
 - Added vcov() method for rlm fits.
+- eqscplot() accepts reversed values for xlim and ylim.
+- Script ch10.R uses se.contrast to calculate se's missing from model.tables.
+- profile() and confint() methods for polr().
 
 
 Library class
@@ -130,6 +133,8 @@ Library nnet
 - multinom has a new `model' argument defaulting to TRUE.
 - the multinom methods for add1, dropterm and anova now check
   for changes in the number of cases in use caused e.g. by na.action=na.omit.
+- added confint() method for multinom.
+
 
 
 Library spatial

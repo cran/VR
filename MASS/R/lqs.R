@@ -73,7 +73,7 @@ lqs.default <-
 	{ u <- (u/k0)^2; ifelse(u < 1, 3*u - 3*u^2 + u^3, 1) }
     }
     if(quantile > n-1)
-        stop(sprintf(gettext("'quantile' must be at most %d"), n-1),
+        stop(gettextf("'quantile' must be at most %d", n-1),
              domain = NA)
     ps <- control$psamp
     if(is.na(ps)) ps <- p
@@ -87,8 +87,8 @@ lqs.default <-
     if(is.character(nsamp) && nsamp == "best") {
 	nsamp <- if(nexact < 5000) "exact" else "sample"
     } else if(is.numeric(nsamp) && nsamp > nexact) {
-	warning(sprintf(gettext("only %d sets, so all sets will be tried"),
-                        nexact), domain = NA)
+	warning(gettextf("only %d sets, so all sets will be tried", nexact),
+                domain = NA)
 	nsamp <- "exact"
     }
     samp <- nsamp != "exact"
@@ -186,17 +186,14 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
 	stop("missing or infinite values are not allowed")
     n <- nrow(x); p <- ncol(x)
     if(n < p+1)
-        stop(sprintf(gettext("at least %d cases are needed"), p+1),
-             domain = NA)
+        stop(gettextf("at least %d cases are needed", p+1), domain = NA)
     if(method == "classical") {
 	ans <- list(center = colMeans(x), cov = var(x))
     } else {
 	if(quantile.used < p+1)
-            stop(sprintf(gettext("'quantile' must be at least %d"), p+1),
-                 domain = NA)
+            stop(gettextf("'quantile' must be at least %d", p+1), domain = NA)
 	if(quantile.used > n-1)
-            stop(sprintf(gettext("'quantile' must be at most %d"), p+1),
-                 domain = NA)
+            stop(gettextf("'quantile' must be at most %d", p+1), domain = NA)
 	## re-scale to roughly common scale
 	divisor <- apply(x, 2, IQR)
         if(any(divisor == 0)) stop("at least one column has IQR 0")
@@ -207,8 +204,8 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
 	if(is.character(nsamp) && nsamp == "best")
 	    nsamp <- if(nexact < 5000) "exact" else "sample"
 	if(is.numeric(nsamp) && nsamp > nexact) {
-            warning(sprintf(gettext("only %d sets, so all sets will be tried"),
-                            nexact), domain = NA)
+            warning(gettextf("only %d sets, so all sets will be tried", nexact),
+                    domain = NA)
 	    nsamp <- "exact"
 	}
 	samp <- nsamp != "exact"

@@ -81,8 +81,3 @@ msgid        "group %s is empty"
 msgid_plural "groups %s are empty"
 msgstr[0]    ""
 msgstr[1]    ""
-
-msgid        "group %s is empty"
-msgid_plural "groups %s are empty"
-msgstr[0]    ""
-msgstr[1]    ""

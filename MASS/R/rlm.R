@@ -160,7 +160,7 @@ rlm.default <-
         if(done) break
     }
     if(!done)
-        warning(sprintf(gettext("rlm failed to converge in %d steps"), maxit),
+        warning(gettextf("rlm failed to converge in %d steps", maxit),
                 domain = NA)
     fitted <- temp$fitted.values
     if(!missing(weights)) {
@@ -346,7 +346,8 @@ se.contrast.rlm <-
             sapply(contrast.obj, function(x)
                {
                    if(!is.logical(x))
-                       stop(sprintf(gettext("each element of %s must be logical"),substitute(contrasts.list)), domain = NA)
+                       stop(gettextf("each element of %s must be logical",
+                                     substitute(contrasts.list)), domain = NA)
                    x/sum(x)
                })
         contrast <- contrast %*% coef

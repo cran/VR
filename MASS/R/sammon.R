@@ -24,8 +24,8 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
         ab <- !is.na(ab) & ab
         aa <- cbind(as.vector(row(x)), as.vector(col(x)))[row(x) < col(x),]
         aa <- aa[ab, , drop=FALSE]
-        stop(sprintf(gettext("zero or negative distance between objects %d and %d"),
-                     aa[1,1], aa[1,2]), domain = NA)
+        stop(gettextf("zero or negative distance between objects %d and %d",
+                      aa[1,1], aa[1,2]), domain = NA)
     }
     nas <- is.na(x)
     diag(nas) <- FALSE  # diag never used

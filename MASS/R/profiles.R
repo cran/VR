@@ -121,7 +121,7 @@ function(x, colours = 2:3, ...)
     Pnames <- colnames(rng)
     npar <- length(Pnames)
     coefs <- coef(attr(x, "original.fit"))
-    form <- paste(as.character(attr(x, "original.fit")$formula)[c(2, 1, 3)],
+    form <- paste(as.character(formula(attr(x, "original.fit")))[c(2, 1, 3)],
                   collapse = "")
     oldpar <- par(mar = c(0, 0, 0, 0), mfrow = c(1, 1),
                   oma = c(3, 3, 6, 3), las = 1)

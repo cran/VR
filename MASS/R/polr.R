@@ -166,6 +166,7 @@ vcov.polr <- function(object, ...)
 {
     if(is.null(object$Hessian)) {
         cat("\nRe-fitting to get Hessian\n\n")
+	flush.console
         object <- update(object, Hess=TRUE,
                          start=c(object$coef, object$zeta))
     }
@@ -343,4 +344,167 @@ anova.polr <- function (object, ..., test = c("Chisq", "none"))
         c("Likelihood ratio tests of ordinal regression models\n",
           paste("Response:", rsp))
     out
+}
+
+polr.fit <- function(x, y, wt, start, offset, method)
+{
+    logit <- function(p) log(p/(1 - p))
+
+    fmin <- function(beta) {
+        theta <- beta[pc + 1:q]
+        gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
+        eta <- offset
+        if (pc > 0)
+            eta <- eta + drop(x %*% beta[1:pc])
+        pr <- pfun(gamm[y + 1] - eta) - pfun(gamm[y] - eta)
+        if (all(pr > 0))
+            -sum(wt * log(pr))
+        else Inf
+    }
+
+    gmin <- function(beta)
+    {
+        jacobian <- function(theta) { ## dgamma by dtheta matrix
+            k <- length(theta)
+            etheta <- exp(theta)
+            mat <- matrix(0 , k, k)
+            mat[, 1] <- rep(1, k)
+            for (i in 2:k) mat[i:k, i] <- etheta[i]
+            mat
+        }
+        theta <- beta[pc + 1:q]
+        gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
+        eta <- offset
+        if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
+        pr <- pfun(gamm[y+1] - eta) - pfun(gamm[y] - eta)
+        p1 <- dfun(gamm[y+1] - eta)
+        p2 <- dfun(gamm[y] - eta)
+        g1 <- if(pc > 0) t(x) %*% (wt*(p1 - p2)/pr) else numeric(0)
+        xx <- .polrY1*p1 - .polrY2*p2
+        g2 <- - t(xx) %*% (wt/pr)
+        g2 <- t(g2) %*% jacobian(theta)
+        if(all(pr) > 0) c(g1, g2) else rep(NA, pc+q)
+    }
+
+    pfun <- switch(method, logistic = plogis, probit = pnorm,
+                   cloglog = pgumbel, cauchit = pcauchy)
+    dfun <- switch(method, logistic = dlogis, probit = dnorm,
+                   cloglog = dgumbel, cauchit = dcauchy)
+    n <- nrow(x)
+    pc <- ncol(x)
+    lev <- levels(y)
+    if(length(lev) <= 2) stop("response must have 3 or more levels")
+    y <- unclass(y)
+    q <- length(lev) - 1
+    Y <- matrix(0, n, q)
+    .polrY1 <- col(Y) == y
+    .polrY2 <- col(Y) == y - 1
+    res <- optim(start, fmin, gmin, method="BFGS")
+    beta <- res$par[seq(len=pc)]
+    theta <- res$par[pc + 1:q]
+    zeta <- cumsum(c(theta[1],exp(theta[-1])))
+    deviance <- 2 * res$value
+    names(zeta) <- paste(lev[-length(lev)], lev[-1], sep="|")
+    if(pc > 0) {
+        names(beta) <- colnames(x)
+        eta <- drop(x %*% beta)
+    } else {
+        eta <- rep(0, n)
+    }
+    list(coefficients = beta, zeta = zeta, deviance = deviance)
+}
+
+profile.polr <- function(fitted, which = 1:p, alpha = 0.01,
+                         maxsteps = 10, del = zmax/5, trace = FALSE, ...)
+{
+    Pnames <- names(B0 <- coefficients(fitted))
+    pv0 <- t(as.matrix(B0))
+    p <- length(Pnames)
+    if(is.character(which)) which <- match(which, Pnames)
+    summ <- summary(fitted)
+    std.err <- summ$coefficients[, "Std. Error"]
+    mf <- model.frame(fitted)
+    n <- length(Y <- model.response(mf))
+    O <- model.offset(mf)
+    if(!length(O)) O <- rep(0, n)
+    W <- model.weights(mf)
+    if(length(W) == 0) W <- rep(1, n)
+    OriginalDeviance <- deviance(fitted)
+    X <- model.matrix(fitted)[, -1] # drop intercept
+    zmax <- sqrt(qchisq(1 - alpha/2, p))
+    profName <- "z"
+    prof <- vector("list", length=length(which))
+    names(prof) <- Pnames[which]
+    start <- c(fitted$coefficients, fitted$zeta)
+    for(i in which) {
+        zi <- 0
+        pvi <- pv0
+        Xi <- X[,  - i, drop = FALSE]
+        pi <- Pnames[i]
+        for(sgn in c(-1, 1)) {
+            if(trace) {
+                cat("\nParameter:", pi, c("down", "up")[(sgn + 1)/2 + 1], "\n")
+                flush.console()
+            }
+            step <- 0
+            z <- 0
+            ## LP is the linear predictor including offset.
+            LP <- X %*% fitted$coef + O
+            while((step <- step + 1) < maxsteps && abs(z) < zmax) {
+                bi <- B0[i] + sgn * step * del * std.err[i]
+                o <- O + X[, i] * bi
+                fm <- polr.fit(x = Xi, y = Y, wt = W, start = start[-i],
+                               offset = o, method = fitted$method)
+                ri <- pv0
+                ri[, names(coef(fm))] <- coef(fm)
+                ri[, pi] <- bi
+                pvi <- rbind(pvi, ri)
+                zz <- fm$deviance - OriginalDeviance
+                if(zz > - 1e-3) zz <- max(zz, 0)
+                else stop("profiling has found a better solution, so original fit had not converged")
+                z <- sgn * sqrt(zz)
+                zi <- c(zi, z)
+            }
+        }
+        si <- order(zi)
+        prof[[pi]] <- structure(data.frame(zi[si]), names = profName)
+        prof[[pi]]$par.vals <- pvi[si, ]
+    }
+    val <- structure(prof, original.fit = fitted, summary = summ)
+    class(val) <- c("profile.polr", "profile")
+    val
+}
+
+confint.polr <- function(object, parm, level = 0.95, trace = FALSE, ...)
+{
+    pnames <- names(coef(object))
+    if(missing(parm)) parm <- seq(along=pnames)
+    else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
+    cat("Waiting for profiling to be done...\n")
+    flush.console()
+    object <- profile(object, which = parm, alpha = (1. - level)/4.,
+                      trace = trace)
+    confint(object, parm=parm, level=level, trace=trace, ...)
+}
+
+confint.profile.polr <-
+  function(object, parm = seq(along=pnames), level = 0.95, ...)
+{
+    of <- attr(object, "original.fit")
+    pnames <- names(coef(of))
+    if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
+    a <- (1-level)/2
+    a <- c(a, 1-a)
+    pct <- paste(round(100*a, 1), "%")
+    ci <- array(NA, dim = c(length(parm), 2),
+                dimnames = list(pnames[parm], pct))
+    cutoff <- qnorm(a)
+    for(pm in parm) {
+        pro <- object[[ pnames[pm] ]]
+        if(length(pnames) > 1)
+            sp <- spline(x = pro[, "par.vals"][, pm], y = pro[, 1])
+        else sp <- spline(x = pro[, "par.vals"], y = pro[, 1])
+        ci[pnames[pm], ] <- approx(sp$y, sp$x, xout = cutoff)$y
+    }
+    drop(ci)
 }
