@@ -1,5 +1,5 @@
 % file MASS/polr.d
-% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 %
 \name{polr}
 \alias{polr}
@@ -12,15 +12,17 @@
 % \alias{model.frame.polr}
 
 \title{
-  Proportional Odds Logistic Regression
+  Ordered Logistic or Probit Regression
 }
 \description{
-  Fits a proportional odd logistic regression model to an ordered factor
-  response.
+  Fits a logistic or probit regression model to an ordered factor
+  response.  The default logistic case is \emph{proportional odds
+    logistic regression}, after which the function is named.
 }
 \usage{
 polr(formula, data, weights, start, \dots, subset, na.action,
-     contrasts = NULL, Hess = FALSE, model = TRUE)
+     contrasts = NULL, Hess = FALSE, model = TRUE,
+     method = c("logistic", "probit", "cloglog"))
 }
 \arguments{
 \item{formula}{
@@ -65,9 +67,39 @@ polr(formula, data, weights, start, \dots, subset, na.action,
 \item{model}{
   logical for whether the model matrix should be returned.
 }
+\item{method}{
+  logistic or probit or complementary log-log.
+}
+}
+\details{
+  This model is what Agresti (2002) calls a \emph{cumulative link}
+  model.  The basic interpretation is as a \emph{coarsened} version of a
+  latent variable \eqn{Y_i} which has a logistic or normal or
+  extreme-value distribution
+  with scale parameter one and a linear model for the mean.  The ordered
+  factor which is observed is which bin \eqn{Y_i} falls into with
+  breakpoints
+  \deqn{\zeta_0 = -\infty < \zeta_1 < \cdots < \zeta_K = \infty}{%
+    zeta_0 = -Inf < zeta_1 < \dots < zeta_K = Inf}
+  This leads to the model
+  \deqn{\mbox{logit} P(Y \le k | x) = \zeta_k - \eta}{%
+    logit P(Y <= k | x) = zeta_k - eta}
+  with \emph{logit} replaced by \emph{probit} for a normal latent
+  variable, and \eqn{\eta}{eta} being the linear predictor, a linear
+  function of the explanatory variables.  Note that it is quite common
+  for other software to use the opposite sign for \eqn{\eta}.
+
+  In the logistic case, the left-hand side of the last display is the
+  log odds of category \eqn{k} or less, and since these are log odds
+  which differ only by a constant for different \eqn{k}, the odds are
+  proportional.  Hence the term \emph{proportional odds logistic
+    regression}.
+
+  In the complementary log-log case, we have a \emph{proportional
+    hazards} model for grouped survival times.
 }
 \value{
-A object of class \code{"polr"}.
+A object of class \code{"polr"}.  This has components
 
 \item{coefficients}{
   the coefficients of the linear predictor.
@@ -112,6 +144,8 @@ A object of class \code{"polr"}.
   (if \code{model} is true).
 }}
 \references{
+  Agresti, A. (2002) \emph{Categorical Data.} Second edition.  Wiley.
+  
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
@@ -123,6 +157,11 @@ options(contrasts = c("contr.treatment", "contr.poly"))
 house.plr <- polr(Sat ~ Infl + Type + Cont, weights = Freq, data = housing)
 house.plr
 summary(house.plr)
+## slightly worse fit from
+summary(update(house.plr, method = "probit"))
+## although it is not really appropriate, can fit
+summary(update(house.plr, method = "cloglog"))
+
 predict(house.plr, housing, type = "p")
 addterm(house.plr, ~.^2, test = "Chisq")
 house.plr2 <- stepAIC(house.plr, ~.^2)

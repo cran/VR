@@ -17,9 +17,9 @@
     object inheriting from class \code{"lqs"}
   }
   \item{newdata}{
-    matrix or data frame of cases to be predicted or, if object
+    matrix or data frame of cases to be predicted or, if \code{object}
     has a formula, a data frame with columns of the same names as the
-    variables used. A vector will be interpreted
+    variables used.  A vector will be interpreted
     as a row vector.  If \code{newdata} is missing, an attempt will be
     made to retrieve the data used to fit the \code{lqs} object.
   }

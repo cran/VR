@@ -13,6 +13,7 @@ export(area, as.fractions, bandwidth.nrd, bcv, boxcox, con2tr,
        Shepard, stdres, stepAIC, studres, theta.md, theta.ml, theta.mm,
        truehist, ucv, width.SJ, write.matrix)
 
+# formerly in package lqs
 export(cov.mcd, cov.mve, cov.rob, lmsreg, lqs, lqs.formula, ltsreg)
 
 # datasets
@@ -50,7 +51,7 @@ export(denumerate.formula, renumerate.formula)
 #        summary.loglm, summary.negbin, summary.rlm)
 
 importFrom(graphics, pairs, plot)
-importFrom(stats, anova, biplot, coef, confint, extractAIC, fitted,
+importFrom(stats, anova, biplot, coef, confint, extractAIC, family, fitted,
 	   logLik, model.frame, predict, profile, residuals, se.contrast,
            terms, update, vcov)
 

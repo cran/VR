@@ -19,11 +19,11 @@ project data onto the linear discriminants.
 object  of class \code{"lda"}
 }
 \item{newdata}{
-data frame of cases to be classified or, if object
-has a formula, a data frame with columns of the same names as the
-variables used. A vector will be interpreted
-as a row vector.  If newdata is missing, an attempt will be
-made to retrieve the data used to fit the \code{lda} object.
+  data frame of cases to be classified or, if \code{object}
+  has a formula, a data frame with columns of the same names as the
+  variables used.  A vector will be interpreted
+  as a row vector.  If newdata is missing, an attempt will be
+  made to retrieve the data used to fit the \code{lda} object.
 }
 \item{prior}{
 The prior probabilities of the classes, by default the proportions in the

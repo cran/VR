@@ -82,6 +82,8 @@ Library MASS
 - weighted rlm fits are handled better, and default to "inv.var".
 - logtrans works without specifying 'data'.
 - predict() method for glmmPQL.
+- polr() has an option for probit or proportional hazard fits.
+- neg.bin and negative.binomial had an error in the aic() formula.
 
 
 Library class

@@ -1,17 +1,31 @@
 # file MASS/polr.q
-# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 #
 polr <- function(formula, data, weights, start, ..., subset,
                  na.action, contrasts = NULL, Hess = FALSE,
-                 model = TRUE)
+                 model = TRUE,
+                 method = c("logistic", "probit", "cloglog"))
 {
     logit <- function(p) log(p/(1-p))
+
+    pgumbel <- function (q, loc = 0, scale = 1, lower.tail = TRUE)
+    {
+        q <- (q - loc)/scale
+        p <- exp(-exp(-q))
+        if (!lower.tail) 1 - p else p
+    }
+
+    dgumbel <- function (x, loc = 0, scale = 1, log = FALSE)
+    {
+        d <- log(1/scale) - x - exp(-x)
+        if (!log) exp(d) else d
+    }
 
     fmin <- function(beta) {
         gamm <- c(-100, beta[pc+1:q], 100)
         eta <- offset
         if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
-        pr <- plogis(gamm[y+1] - eta) - plogis(gamm[y] - eta)
+        pr <- pfun(gamm[y+1] - eta) - pfun(gamm[y] - eta)
         if(all(pr > 0)) -sum(wt * log(pr)) else Inf
     }
 
@@ -19,9 +33,9 @@ polr <- function(formula, data, weights, start, ..., subset,
         gamm <- c(-100, beta[pc+1:q], 100)
         eta <- offset
         if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
-        pr <- plogis(gamm[y+1] - eta) - plogis(gamm[y] - eta)
-        p1 <- dlogis(gamm[y+1] - eta)
-        p2 <- dlogis(gamm[y] - eta)
+        pr <- pfun(gamm[y+1] - eta) - pfun(gamm[y] - eta)
+        p1 <- dfun(gamm[y+1] - eta)
+        p2 <- dfun(gamm[y] - eta)
         g1 <- if(pc > 0) t(x) %*% (wt*(p1-p2)/pr) else numeric(0)
         xx <- .polrY1*p1 - .polrY2*p2
         g2 <- - t(xx) %*% (wt/pr)
@@ -29,9 +43,12 @@ polr <- function(formula, data, weights, start, ..., subset,
     }
 
     m <- match.call(expand.dots = FALSE)
+    method <- match.arg(method)
+    pfun <- switch(method, logistic=plogis, probit=pnorm, cloglog=pgumbel)
+    dfun <- switch(method, logistic=dlogis, probit=dnorm, cloglog=dgumbel)
     if(is.matrix(eval.parent(m$data)))
         m$data <- as.data.frame(data)
-    m$start <- m$Hess <- m$... <- NULL
+    m$start <- m$Hess <- m$method <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
@@ -55,16 +72,23 @@ polr <- function(formula, data, weights, start, ..., subset,
     y <- unclass(y)
     q <- length(lev) - 1
     Y <- matrix(0, n, q)
-    assign(".polrY1", col(Y) == y)
-    assign(".polrY2", col(Y) == y-1)
+    .polrY1 <- col(Y) == y
+    .polrY2 <- col(Y) == y-1
     if(missing(start)) {
-        # try logistic regression on 'middle' cut
+        # try logistic/probit regression on 'middle' cut
         q1 <- length(lev) %/% 2
         y1 <- (y > q1)
         X <- cbind(Intercept = rep(1, n), x)
-        fit <- glm.fit(X, y1, wt, family = binomial(), offset = offset)
+        fit <-
+            switch(method,
+                   "logistic"= glm.fit(X, y1, wt, family = binomial(), offset = offset),
+                   "probit" = glm.fit(X, y1, wt, family = binomial(probit), offset = offset),
+                   "cloglog" = glm.fit(X, y1, wt, family = binomial(probit), offset = offset))
+        if(!fit$converged)
+            stop("attempt for find suitable starting values failed")
         coefs <- fit$coefficients
-        spacing <- logit((1:q)/(q+1))
+        spacing <- logit((1:q)/(q+1)) # just a guess
+        if(method != "logit") spacing <- spacing/1.7
         start <- c(coefs[-1], -coefs[1] + spacing - spacing[q1])
     }
     res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess, ...)

@@ -18,11 +18,11 @@ Classify multivariate observations in conjunction with \code{qda}
 object of class \code{"qda"}
 }
 \item{newdata}{
-data frame of cases to be classified or, if object
-has a formula, a data frame with columns of the same names as the
-variables used. A vector will be interpreted
-as a row vector.  If newdata is missing, an attempt will be
-made to retrieve the data used to fit the \code{qda} object.
+  data frame of cases to be classified or, if \code{object}
+  has a formula, a data frame with columns of the same names as the
+  variables used.  A vector will be interpreted
+  as a row vector.  If newdata is missing, an attempt will be
+  made to retrieve the data used to fit the \code{qda} object.
 }
 \item{prior}{
 The prior probabilities of the classes, by default the proportions in the

@@ -11,8 +11,8 @@
 }
 \arguments{
   \item{object}{a fitted object of class inheriting from \code{"glmmPQL"}.}
-  \item{newdata}{optionally, a new data frame from which to make the
-    predictions.}
+  \item{newdata}{optionally, a data frame in which to look for variables with
+    which to predict.}
   \item{type}{the type of prediction required.  The default is on the
     scale of the linear predictors; the alternative \code{"response"}
     is on the scale of the response variable.  Thus for a default

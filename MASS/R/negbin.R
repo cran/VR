@@ -224,7 +224,7 @@ negative.binomial <-
         2 * wt * (y * log(pmax(1, y)/mu) - (y + .Theta) *
                   log((y + .Theta)/ (mu + .Theta)))
     aic <- function(y, n, mu, wt, dev) {
-        term <- (y + .Theta) * log((y + .Theta)/ (mu + .Theta)) - y * log(mu) +
+        term <- (y + .Theta) * log(mu + .Theta) - y * log(mu) +
             lgamma(y + 1) - .Theta * log(.Theta) + lgamma(.Theta) - lgamma(.Theta+y)
         2 * sum(term * wt)
     }

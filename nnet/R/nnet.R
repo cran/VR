@@ -189,7 +189,7 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
     nout <- object$n[3]
     .C("VR_set_net",
        as.integer(object$n), as.integer(object$nconn),
-       as.integer(object$conn), as.double(object$decay),
+       as.integer(object$conn), rep(0.0, length(object$wts)),
        as.integer(object$nsunits), as.integer(0),
        as.integer(object$softmax), as.integer(object$censored),
        PACKAGE = "nnet")
