@@ -18,7 +18,7 @@ static singl pi = 3.14159265;
 static void
 errmsg(char *string)
 {
-    PROBLEM "%s\n", string RECOVER(NULL_ENTRY);
+    PROBLEM "%s", string RECOVER(NULL_ENTRY);
 }
 
 static void

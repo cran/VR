@@ -50,7 +50,7 @@ New York: John Wiley and Sons.
 \code{\link{beav2}}
 }
 \examples{
-if(library(ts, logical.return=TRUE)) {
+library(ts)
 data(beav1)
 attach(beav1)
 beav1$hours <- 24*(day-346) + trunc(time/100) + (time\%\%100)/60
@@ -73,6 +73,6 @@ stemp <- as.vector(temp - alpha*lag(temp, -1))
 sX <- X[-1, ] - alpha * X[-115,]
 beav1.ls <- lm(stemp ~ -1 + sX, na.action=na.omit)
 summary(beav1.ls, cor=F)
-detach(); rm(temp, activ)
-}}
+detach("beav1"); rm(temp, activ)
+}
 \keyword{datasets}

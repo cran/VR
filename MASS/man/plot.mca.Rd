@@ -20,7 +20,7 @@ An object of class \code{"mca"}.
 Should the coordinates for the rows be plotted, or just the vertices
 for the levels?
 }
-\item{col}{
+\item{col, cex}{
 The colours and \code{cex} to be used for the row points and level vertices
 respectively.
 }

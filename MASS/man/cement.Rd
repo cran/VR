@@ -13,7 +13,7 @@ cements.
 \format{
 }
 \arguments{
-\item{x1 x2 x3 x4}{
+\item{"x1, x2, x3, x4"}{
 Proportions (\%) of active ingredients
 }
 \item{y}{

@@ -72,7 +72,7 @@ static Sdata *toutputs;
 static void
 errmsg(char *string)
 {
-    PROBLEM "%s\n", string RECOVER(NULL_ENTRY);
+    PROBLEM "%s", string RECOVER(NULL_ENTRY);
 }
 
 void
@@ -413,8 +413,6 @@ vect(int n)
     double *v;
 
     v = Calloc(n, double);
-    if (!v)
-	errmsg("allocation failure in vect()");
     return v;
 }
 
@@ -431,13 +429,9 @@ matrix(int nrh, int nch)
     double **m;
 
     m = Calloc((nrh + 1), double *);
-    if (!m)
-	errmsg("allocation failure 1 in matrix()");
 
     for (i = 0; i <= nrh; i++) {
 	m[i] = Calloc((nch + 1), double);
-	if (!m[i])
-	    errmsg("allocation failure 2 in matrix()");
     }
     return m;
 }
@@ -459,13 +453,9 @@ Lmatrix(int n)
     double **m;
 
     m = Calloc(n, double *);
-    if (!m)
-	errmsg("fail1 in Lmatrix()");
 
     for (i = 0; i < n; i++) {
 	m[i] = Calloc((i + 1), double);
-	if (!m[i])
-	    errmsg("fail2 in Lmatrix()");
     }
     return m;
 }
@@ -487,8 +477,6 @@ svect(int n)
     Sdata *v;
 
     v = Calloc(n, Sdata);
-    if (!v)
-	errmsg("allocation failure in svect()");
     return v;
 }
 
@@ -537,8 +525,6 @@ vmmin(int n0, double *b, double *Fmin, int maxit, int trace, Sint *mask,
     int   n, *l;
 
     l = Calloc(n0, int);
-    if (!l)
-	errmsg("allocation failure in dovm()");
     n = 0;
     for (i = 0; i < n0; i++)
 	if (mask[i]) l[n++] = i;

@@ -21,11 +21,11 @@ Traffic                  Effect of Swedish Speed Limits on Accidents
 UScereal                 Nutritional and Marketing Information on US
                          Cereals.
 UScrime                  The Effect of Punishment Regimes on Crime Rates
-heart                    Veteran's Administration lung cancer trial.
+VA                       Veteran's Administration lung cancer trial.
 abbey                    Determinations of Nickel Content
 accdeaths                Accidental Deaths in the US 1973-1978
 addterm                  Try All One-Term Additions to a Model
-anorexia                 Anorexia Data on WwIght Change
+anorexia                 Anorexia Data on Weight Change
 anova.negbin             Likelihood Ratio Tests for Negative Binomial
                          GLMs
 area                     Adaptive Numerical Integration
@@ -83,7 +83,6 @@ hubers                   Huber "proposal 2" Robust Estimator of Location
                          and/or Scale
 immer                    Yields from a Barley Field Trial
 isoMDS                   Kruskal's Non-metric Multidimensional Scaling
-janka                    Janka Hardness data
 kde2d                    Two-Dimensional Kernel Density Estimation
 lda                      Linear Discriminant Analysis
 ldahist                  Histograms or Density Plots of Multiple Groups

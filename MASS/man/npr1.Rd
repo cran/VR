@@ -14,7 +14,7 @@ on 104 oil wells in the US Naval Petroleum Reserve No. 1 in California.
 This data frame contains the following columns:
 }
 \arguments{
-\item{x,}{
+\item{x, y}{
 x and y coordinates, in miles from an arbitrary origin
 }
 \item{perm}{

@@ -41,7 +41,7 @@ expn <- function(b0, b1, th, x)
 wtloss.gr <- nls(Weight ~ expn(b0, b1, th, Days),
    data = wtloss, start = wtloss.st, trace = T)
 
-expn1 <- deriv(~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
+expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
                function(b0, b1, th, x) {})
 
 negexp <- selfStart(model = ~ b0 + b1*exp(-x/th),
@@ -69,17 +69,17 @@ st <- list(alpha = B[2:22], beta = B[23], rho = B[1])
 rats.nls2 <- nls(log(Length) ~ alpha[Strip] + beta*rho^Conc,
                   data = muscle, start = st)
 
-if(F) { # no predict.nls
 attach(muscle)
 Muscle <- expand.grid(Conc = sort(unique(Conc)),
                      Strip = levels(Strip))
 Muscle$Yhat <- predict(rats.nls2, Muscle)
-Muscle <- cbind(Muscle, logLength = rep(NA, 126))
+Muscle$logLength <- as.numeric(rep(NA, nrow(Muscle)))
 ind <- match(paste(Strip, Conc),
             paste(Muscle$Strip, Muscle$Conc))
 Muscle$logLength[ind] <- log(Length)
 detach()
 
+if(F) { # no Trellis
 xyplot(Yhat ~ Conc | Strip, Muscle, as.table = T,
   ylim = range(c(Muscle$Yhat, Muscle$logLength), na.rm=T),
   subscripts = T, xlab = "Calcium Chloride concentration (mM)",
@@ -89,10 +89,16 @@ xyplot(Yhat ~ Conc | Strip, Muscle, as.table = T,
      panel.xyplot(x, Muscle$logLength[subscripts], ...)
   })
 }
+coplot(seq(0.8,4, len=126) ~ Conc | Strip, Muscle, show.given=FALSE,
+       xlab = "Calcium Chloride concentration (mM)",
+       ylab = "log(Length in mm)", panel = function(x, y, ...) {
+           ind <- round(1+125*(y-0.8)/3.2)
+           lines(spline(x, Muscle$Yhat[ind]))
+           points(x, Muscle$logLength[ind])
+       })
 
 # 8.5  Confidence intervals for parameters
 
-if(F) { # no profile.nls
 expn2 <- deriv(~b0 + b1*((w0 - b0)/b1)^(x/d0),
         c("b0","b1","d0"), function(b0, b1, d0, x, w0) {})
 
@@ -111,7 +117,6 @@ for(w0 in w0s) {
   }
 dimnames(out)[[1]] <- paste(w0s,"kg:")
 out
-}
 
 data(stormer)
 attach(stormer)
@@ -146,7 +151,6 @@ text(31.6, 0.3, labels="95% CR", adj=0, cex=0.75)
 points(bc[1], bc[2], pch=3, mkh=0.1)
 detach()
 
-
 library(boot)
 storm.fm <- nls(Time ~ b*Viscosity/(Wt - c), stormer,
                 start = c(b=29.401, c=2.2183))
@@ -160,7 +164,7 @@ storm.bf <- function(rs, i) {
   tmp$m$getAllPars()
 }
 rs <- scale(resid(storm.fm), scale = F) # remove the mean
-storm.boot <- boot(rs, storm.bf, R = 4999)
+storm.boot <- boot(rs, storm.bf, R = 4999) # pretty slow
 storm.boot
 boot.ci(storm.boot, index=1,
         type=c("norm", "basic", "perc", "bca"))
@@ -170,10 +174,10 @@ boot.ci(storm.boot, index=2,
 
 # 8.5  Assessing the linear approximation
 
-if(F) { # no profile.nls
-par(pty="m")
-plot(profile(wtloss.gr))
-}
+opar <- par(pty="m", mfrow=c(1,3))
+plot(profile(update(wtloss.gr, trace=F)))
+par(opar)
+
 
 # 8.6  Constrained non-linear regression
 
@@ -380,7 +384,7 @@ rm(s, X, Y, Z)
 
 # 8.8 Non-linear mixed effects models
 
-if(F) { # nlme is not yet operational
+library(nlme)
 options(contrasts = c("contr.treatment", "contr.poly"))
 data(Sitka)
 sitka.nlme <- nlme(size ~ A + B * (1 - exp(-(Time-100)/C)),
@@ -404,9 +408,10 @@ summary(sitka.nlme3)
 Fpl <- deriv(~ A + (B-A)/(1 + exp((log(d) - ld50)/th)),
    c("A","B","ld50","th"), function(d, A, B, ld50, th) {})
 
-st <- nls(BPchange ~ Fpl(Dose, A, B, ld50, th),
+data(Rabbit)
+st <- coef(nls(BPchange ~ Fpl(Dose, A, B, ld50, th),
           start = c(A=25, B=0, ld50=4, th=0.25),
-          data = Rabbit)$par
+          data = Rabbit))
 Rc.nlme <- nlme(BPchange ~ Fpl(Dose, A, B, ld50, th),
     fixed = list(A ~ 1, B ~ 1, ld50 ~ 1, th ~ 1),
     random = A + ld50 ~ 1 | Animal, data = Rabbit,
@@ -443,7 +448,6 @@ xyplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
          sp <- spline(x, fitted(R.nlme2)[subscripts])
          panel.xyplot(sp$x, sp$y, type="l")
       })
-}
 }
 
 # End of ch08

@@ -229,8 +229,8 @@ sqrt(t(c(1,1)) %*% beav2.sls$cov %*% c(1,1)) * beav2.sls$sigma
 plot(hours[-1], residuals(beav2.ls))
 detach(); rm(temp, activ)
 
-# lme3
-library(lme)
+# nlme3
+library(nlme)
 beav2.gls <- gls(temp ~ activ, data=beav2,  corr=corAR1(0.8), method="ML")
 summary(beav2.gls)
 summary(update(beav2.gls, subset=6:100))

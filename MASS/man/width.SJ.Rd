@@ -20,7 +20,7 @@ a numeric vector
 \item{nb}{
 number of bins to use.
 }
-\item{lower, upper}{
+\item{upper, lower}{
 range over which to search for solution if \code{method = "ste"}.
 }
 \item{method}{

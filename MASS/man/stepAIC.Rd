@@ -16,7 +16,7 @@ stepAIC(object, scope, scale, direction=c("both", "backward", "forward"),
 extractAIC(fit, scale, k=2, \dots)
 }
 \arguments{
-\item{object}{
+\item{object fit}{
 an object representing a model of an appropriate class.
 This is used as the initial model in the stepwise search.
 }

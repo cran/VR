@@ -51,7 +51,7 @@ E. (eds) (1993)
 Chapman \& Hall.
 }
 \examples{
-library(lme)
+library(nlme)
 data(petrol)
 Petrol <- petrol
 Petrol[, 2:5] <- scale(as.matrix(Petrol[, 2:5]), scale = FALSE)

@@ -1,5 +1,5 @@
 Package: spatial
-Version: 6.1-4 (1999/08/15)
+Version: 6.1-5 (1999/11/21)
 Depends: R-0.64 or later
 Author: S original by Brian Ripley <ripley@stats.ox.ac.uk>.
         R port by Albrecht Gebhardt <albrecht.gebhardt@uni-klu.ac.at>.

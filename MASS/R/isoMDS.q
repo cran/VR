@@ -24,6 +24,7 @@ isoMDS <- function(d, y=cmdscale(d, 2), maxit=50, trace=TRUE)
   nd <- length(ord)
   n <- nrow(y)
   k <- ncol(y)
+  on.exit(.C("VR_mds_unload"))
   .C("VR_mds_init_data",
      as.integer(nd),
      as.integer(k),
@@ -38,14 +39,13 @@ isoMDS <- function(d, y=cmdscale(d, 2), maxit=50, trace=TRUE)
 	    as.integer(trace),
 	    y = as.double(y)
 	    )
-  .C("VR_mds_unload")
   list(points = matrix(tmp$y,,k), stress = tmp$val)
 }
 
 Shepard <- function(d, x)
 {
 #
-# Given a dissimilarity d and configuration x, compute Shephard plot
+# Given a dissimilarity d and configuration x, compute Shepard plot
 #
   n <- nrow(x)
   k <- ncol(x)

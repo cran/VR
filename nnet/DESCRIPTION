@@ -1,5 +1,5 @@
 Package: nnet
-Version: 6.1-4 (1999/08/15)
+Version: 6.1-5 (1999/11/21)
 Author: S original by Venables & Ripley.
   R port by Kurt Hornik <Kurt.Hornik@ci.tuwien.ac.at>.
   Updated by Brian Ripley <ripley@stats.ox.ac.uk>.

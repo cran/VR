@@ -396,7 +396,7 @@ anova(pet2.lm, pet1.lm)
 pet3.lm <- lm(Y ~ SG + VP + V10 + EP, Petrol)
 anova(pet3.lm, pet2.lm)
 
-library(lme)
+library(nlme)
 pet3.lme <- lme(Y ~ SG + VP + V10 + EP,
                 random = ~ 1 | No, data = Petrol)
 summary(pet3.lme)

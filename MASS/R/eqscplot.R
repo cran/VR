@@ -1,9 +1,10 @@
 # file MASS/eqscplot.q
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
-eqscplot <- function(x, y, tol = 0.04, xlim = range(x), ylim = range(y),
+eqscplot <- function(x, y, ratio = 1, tol = 0.04, xlim = range(x, na.rm=TRUE),
+                     ylim = range(y, na.rm=TRUE),
 		     xlab, ylab,
-		     ...)
+		     uin, ...)
 {
   if(is.matrix(x)) {
     y <- x[, 2]
@@ -25,18 +26,23 @@ eqscplot <- function(x, y, tol = 0.04, xlim = range(x), ylim = range(y),
   }
   if(missing(xlab)) xlab <- xlab0
   if(missing(ylab)) ylab <- ylab0
-  oldpin <- par("pin")
   midx <- 0.5 * (xlim[2] + xlim[1])
   xlim <- midx + (1 + tol) * 0.5 * c(-1, 1) * (xlim[2] - xlim[1])
   midy <- 0.5 * (ylim[2] + ylim[1])
   ylim <- midy + (1 + tol) * 0.5 * c(-1, 1) * (ylim[2] - ylim[1])
-  xr <- oldpin[1]/(xlim[2] - xlim[1])
-  yr <- oldpin[2]/(ylim[2] - ylim[1])
-  if (yr > xr) {
-    ylim <- midy + yr * c(-1, 1) * (ylim[2] - ylim[1])/(2*xr)
+  oldpin <- par("pin")
+  xuin <- oxuin <- oldpin[1]/diff(xlim)
+  yuin <- oyuin <- oldpin[2]/diff(ylim)
+  if(missing(uin)) {
+    if(yuin > xuin*ratio) yuin <- xuin*ratio
+    else xuin <- yuin/ratio
   } else {
-    xlim <- midx + xr * c(-1, 1) * (xlim[2] - xlim[1])/(2*yr)
+    if(length(uin) == 1) uin <- uin * c(1, ratio)
+    if(any(c(xuin, yuin) < uin)) stop("uin is too large to fit plot in")
+    xuin <- uin[1]; yuin <- uin[2]
   }
-  plot(x, y, xlim=xlim, ylim=ylim, xaxs="i", yaxs="i",
-       xlab=xlab, ylab=ylab, ...)
+  xlim <- midx + oxuin/xuin * c(-1, 1) * diff(xlim) * 0.5
+  ylim <- midy + oyuin/yuin * c(-1, 1) * diff(ylim) * 0.5
+  plot(x, y, xlim = xlim, ylim = ylim, xaxs = "i", yaxs = "i",
+       xlab = xlab, ylab = ylab, ...)
 }

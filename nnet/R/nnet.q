@@ -128,6 +128,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
   Z <- as.double(cbind(x,y))
   storage.mode(weights) <- "double"
   z <- .C("VR_set_train", as.integer(ntr), Z, weights)
+  on.exit(.C("VR_unset_train"))
   tmp <- .C("VR_dovm",
 	    as.integer(length(wts)),
 	    wts=as.double(wts),
@@ -137,7 +138,6 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
 	    as.integer(mask),
             as.double(abstol), as.double(reltol)
 	    )
-  .C("VR_unset_train")
   net$value <- tmp$val
   net$wts <- tmp$wts
   tmp <- matrix(.C("VR_nntest",

@@ -12,7 +12,7 @@
 static void
 errmsg(char *string)
 {
-    PROBLEM "%s\n", string RECOVER(NULL_ENTRY);
+    PROBLEM "%s", string RECOVER(NULL_ENTRY);
 }
 
 void

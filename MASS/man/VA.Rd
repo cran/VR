@@ -1,5 +1,5 @@
-\name{heart}
-\alias{heart}
+\name{VA}
+\alias{VA}
 \title{
   Veteran's Administration lung cancer trial.
 }

@@ -3,7 +3,7 @@
 # Chapter 5   Distributions and Data Summaries
 
 
-# needs R --vsize 30M for the bootstrap runs
+# needs R --vsize 15M for the bootstrap runs
 
 
 # for later use, from section 5.6

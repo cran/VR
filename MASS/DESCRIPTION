@@ -1,9 +1,8 @@
 Package: MASS
-Version: 6.1-4 (1999/08/15)
+Version: 6.1-5 (1999/11/21)
 Author: S original by Venables & Ripley.
   R port by Brian Ripley <ripley@stats.ox.ac.uk>,
   following work by Kurt Hornik <Kurt.Hornik@ci.tuwien.ac.at>.
 Description: Functions and datasets from the main library of Venables and
   Ripley, `Modern Applied Statistics with S-PLUS (3rd edition).
-Depends: some examples need packages lme, nls, survival5
 License: GPL (version 2 or later)

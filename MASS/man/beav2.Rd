@@ -47,7 +47,7 @@ New York: John Wiley and Sons.
 \code{\link{beav1}}
 }
 \examples{
-if(library(ts, logical.return=TRUE)) {
+library(ts)
 data(beav2)
 attach(beav2)
 beav2$hours <- 24*(day-307) + trunc(time/100) + (time\%\%100)/60
@@ -66,10 +66,10 @@ arima0(temp, order=c(1,0,0), xreg=activ)
 dreg <- cbind(sin=sin(2*pi*beav2$hours/24), cos=cos(2*pi*beav2$hours/24))
 arima0(temp, order=c(1,0,0), xreg=cbind(active=activ,dreg))
 
-library(lme)
+library(nlme)
 beav2.gls <- gls(temp ~ activ, data=beav2,  corr=corAR1(0.8), method="ML")
 summary(beav2.gls)
 summary(update(beav2.gls, subset=6:100))
-detach(); rm(temp, activ)
-}}
+detach("beav2"); rm(temp, activ)
+}
 \keyword{datasets}

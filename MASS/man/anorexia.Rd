@@ -4,7 +4,7 @@
 \name{anorexia}
 \alias{anorexia}
 \title{
-Anorexia Data on WwIght Change
+Anorexia Data on Weight Change
 }
 \description{
 The \code{anorexia} data frame has 72 rows and 3 columns.

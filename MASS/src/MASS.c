@@ -47,7 +47,7 @@ VR_sammon(double *dd, Sint *nn, Sint *kd, double *Y, Sint *niter,
 	for (k = 0; k < j; k++) {
 	    d = dd[k * n + j];
 	    if (d <= 0.0)
-		PROBLEM "%s\n", "some distance is zero or negative"
+		PROBLEM "%s", "some distance is zero or negative"
 		    RECOVER(NULL_ENTRY);
 	    tot += d;
 	    d1 = 0.0;
@@ -175,7 +175,6 @@ void
 VR_mds_fn(double *, double *, Sint *, double *, Sint *,
 	  double *, Sint *, Sint *, double *, Sint *);
 static void vmmin(int, double *, double *, int, int);
-static void errmsg(char *);
 
 /*
  *  Download the data.
@@ -196,7 +195,6 @@ VR_mds_init_data(Sint *pn, Sint *pc, Sint *pr, Sint *orde,
     d = Calloc(n, double);
     y = Calloc(n, double);
     yf = Calloc(n, double);
-    if (!ord | !ord2 | !x | !d | !y | !yf) errmsg("Not enough space");
     for (i = 0; i < n; i++) ord[i] = orde[i];
     for (i = 0; i < n; i++) ord2[i] = ordee[i];
     for (i = 0; i < dimx; i++) x[i] = xx[i];
@@ -326,20 +324,12 @@ VR_mds_fn(double *y, double *yf, Sint *pn, double *pssq, Sint *pd,
 
 /*  From here on, code borrowed from nnet library  */
 
-
-static void
-errmsg(char *string)
-{
-    PROBLEM "%s\n", string RECOVER(NULL_ENTRY);
-}
-
 static double *
 vect(int n)
 {
     double *v;
 
     v = (double *) Calloc(n, double);
-    if (!v) errmsg("allocation failure in vect()");
     return v;
 }
 
@@ -356,11 +346,9 @@ Lmatrix(int n)
     double **m;
 
     m = (double **) Calloc(n, double *);
-    if (!m) errmsg("fail1 in Lmatrix()");
 
     for (i = 0; i < n; i++) {
 	m[i] = (double *) Calloc((i + 1), double);
-	if (!m[i]) errmsg("fail2 in Lmatrix()");
     }
     return m;
 }
@@ -657,10 +645,10 @@ VR_max_col(double *matrix, int *pnr, int *nc, int *maxes)
 	ntie = 1;
 	a = matrix[r];
 #ifdef USING_R
-	if (ISNA(a)) {
+	if (ISNAN(a)) { /* NA or NaN in R */
 	    maxes[r] = NA_INTEGER;
 #else
-	if (is_na(&a, DOUBLE)) {
+	if (is_na(&a, DOUBLE)) { /* NA or NaN in S */
 	    na_set(maxes + r, INT);
 #endif
 	    continue;
@@ -668,7 +656,7 @@ VR_max_col(double *matrix, int *pnr, int *nc, int *maxes)
 	for (c = 1; c < *nc; c++) {
 	    b = matrix[r + c * nr];
 #ifdef USING_R
-	    if (ISNA(a)) {
+	    if (ISNAN(a)) {
 		maxes[r] = NA_INTEGER;
 #else
 	    if (is_na(&b, DOUBLE)) {
@@ -690,4 +678,3 @@ VR_max_col(double *matrix, int *pnr, int *nc, int *maxes)
     }
     RANDOUT;
 }
-
