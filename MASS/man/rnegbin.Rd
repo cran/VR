@@ -38,7 +38,6 @@ Unlike \code{rnbinom} the index can be arbitrary.
 }
 \examples{
 # Negative Binomials with means fitted(fm) and theta = 4.5
-data(quine)
 fm <- glm.nb(Days ~ ., data = quine)
 dummy <- rnegbin(fitted(fm), theta = 4.5)
 }

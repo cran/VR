@@ -35,7 +35,7 @@ multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
   m <- match.call(expand = FALSE)
   m$summ <- m$Hess <- m$contrasts <- m$censored <- m$... <- NULL
   m[[1]] <- as.name("model.frame")
-  m <- eval(m, parent.frame())
+  m <- eval.parent(m)
   Terms <- attr(m, "terms")
   X <- model.matrix(Terms, m, contrasts)
   Xr <- qr(X)$rank
@@ -147,7 +147,7 @@ multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
   class(fit) <- c("multinom", "nnet")
   if(Hess) {
     mask <- as.logical(mask)
-    fit$Hessian <- nnet.Hess(fit, X, Y, w)[mask, mask, drop=FALSE]
+    fit$Hessian <- nnetHess(fit, X, Y, w)[mask, mask, drop=FALSE]
     cf <- fit$vcoefnames
     if(length(fit$lev) != 2) {
      bf <- if(length(fit$lev)) fit$lev else fit$lab
@@ -399,5 +399,5 @@ function(formula, data = NULL, na.action = NULL, ...)
     m <- match(names(oc)[-1], c("formula", "data", "na.action", "subset"))
     oc <- oc[c(TRUE, !is.na(m))]
     if(length(data)) oc$data <- substitute(data)
-    eval(oc, parent.frame())
+    eval.parent(oc)
 }

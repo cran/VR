@@ -43,7 +43,7 @@ loglm <-
         m <- match.call(expand = FALSE)
         m$... <- NULL
         m[[1]] <- as.name("model.frame")
-        data <- eval(m, parent.frame())
+        data <- eval.parent(m)
         assign(".formula", as.formula(attr(data, "terms")), envir=.GlobalEnv)
     } else {
         trms <- attr(data, "terms") <- terms(formula <- denumerate(formula))
@@ -272,7 +272,7 @@ update.loglm <- function (object, formula, ...)
             call <- as.call(call)
         }
     }
-    result <- eval(call, parent.frame())
+    result <- eval.parent(call)
     if (fix) {
         form <- renumerate(result$formula)
         result$call$formula <- unclass(result$formula <- form)

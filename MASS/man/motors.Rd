@@ -40,7 +40,6 @@ Part 1 -- simple methods and their application.
 }
 \examples{
 library(survival)
-data(motors)
 plot(survfit(Surv(time, cens) ~ factor(temp), motors), conf.int = FALSE)
 # fit Weibull model
 motor.wei <- survreg(Surv(time, cens) ~ temp, motors)

@@ -116,7 +116,6 @@ stepAIC(object, scope, scale = 0,
 \code{\link{addterm}}, \code{\link{dropterm}}, \code{\link{step}}
 }
 \examples{
-data(quine)
 quine.hi <- aov(log(Days + 2.5) ~ .^4, quine)
 quine.nxt <- update(quine.hi, . ~ . - Eth:Sex:Age:Lrn)
 quine.stp <- stepAIC(quine.nxt,
@@ -124,7 +123,6 @@ quine.stp <- stepAIC(quine.nxt,
     trace = FALSE)
 quine.stp$anova
 
-data(cpus)
 cpus1 <- cpus
 attach(cpus)
 for(v in names(cpus)[2:7])

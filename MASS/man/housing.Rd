@@ -41,7 +41,6 @@ Cox, D. R. and Snell, E. J. (1984)
 Chapman & Hall.
 }
 \examples{
-data(housing)
 options(contrasts = c("contr.treatment", "contr.poly"))
 
 # Surrogate Poisson models

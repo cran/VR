@@ -43,7 +43,6 @@ arbitrarily single-censored samples.
 }
 \examples{
 library(survival)
-data(gehan)
 gehan.surv <- survfit(Surv(time, cens) ~ treat, data = gehan,
      conf.type = "log-log")
 summary(gehan.surv)

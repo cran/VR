@@ -50,7 +50,6 @@ The matched call.
 \code{\link{predict.mca}}, \code{\link{plot.mca}}, \code{\link{corresp}}
 }
 \examples{
-data(farms)
 farms.mca <- mca(farms, abbrev=TRUE)
 farms.mca
 plot(farms.mca)

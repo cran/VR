@@ -109,7 +109,6 @@ A object of class \code{"polr"}.
 }
 \examples{
 options(contrasts = c("contr.treatment", "contr.poly"))
-data(housing)
 house.plr <- polr(Sat ~ Infl + Type + Cont, weights = Freq, data = housing)
 house.plr
 summary(house.plr)

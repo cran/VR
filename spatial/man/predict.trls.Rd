@@ -32,7 +32,7 @@ to matrix form.
 \code{\link{surf.ls}}, \code{\link{trmat}}
 }
 \examples{
-data(topo)
+data(topo, package="MASS")
 topo2 <- surf.ls(2, topo)
 topo4 <- surf.ls(4, topo)
 x <- c(1.78, 2.21)

@@ -14,11 +14,9 @@ library(survival)
 
 # 13.1  Estimators of survivor curves
 
-data(leuk)
 plot(survfit(Surv(time) ~ ag, data=leuk), lty = 2:3, col = 2:3)
 legend(80, 0.8, c("ag absent", "ag present"), lty = 2:3, col = 2:3)
 
-data(gehan)
 attach(gehan)
 Surv(time, cens)
 plot(log(time) ~ pair)
@@ -59,7 +57,6 @@ survreg(Surv(time, cens) ~ factor(pair) + treat, gehan,
 summary(survreg(Surv(time, cens) ~ treat, gehan, dist = "exponential"))
 summary(survreg(Surv(time, cens) ~ treat, gehan))
 
-data(motors)
 plot(survfit(Surv(time, cens) ~ factor(temp), motors),
       conf.int = F)
 motor.wei <- survreg(Surv(time, cens) ~ temp, motors)
@@ -111,7 +108,6 @@ summary( survfit(motor.cox, newdata = data.frame(temp=130)) )
 
 # 13.4  Further examples
 
-data(VA)
 # VA.temp <- as.data.frame(cancer.vet)
 # dimnames(VA.temp)[[2]] <- c("treat", "cell", "stime",
 #     "status", "Karn", "diag.time","age","therapy")
@@ -147,8 +143,9 @@ cox.zph(VA.coxs)
 
 par(mfrow = c(3, 2), pty="m"); plot(cox.zph(VA.coxs))
 
-VA$Karnc <- VA$Karn - 50
-VA.coxc <- update(VA.cox, ~ . - Karn + Karnc)
+VA2 <- VA ## needed because VA and stepAIC are both in MASS
+VA2$Karnc <- VA2$Karn - 50
+VA.coxc <- update(VA.cox, ~ . - Karn + Karnc, data=VA2)
 VA.cox2 <- stepAIC(VA.coxc, ~ .^2)
 VA.cox2$anova
 
@@ -160,7 +157,6 @@ cox.zph(VA.cox3)
 par(mfrow = c(2, 2))
 plot(cox.zph(VA.cox3), var = c(1, 3, 7))
 par(mfrow = c(1, 1))
-
 
 data(heart)
 coxph(Surv(start, stop, event) ~ transplant*
@@ -217,7 +213,6 @@ time.depend.covar <- function(data) {
   data.frame(idno, zid=factor(late), start, stop, status,
              state, T.categ, age, sex)
 }
-data(Aids2)
 Aids3 <- time.depend.covar(Aids2)
 
 attach(Aids3)

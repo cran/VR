@@ -39,7 +39,6 @@ R.H.G. Jongman, C.J.F. ter Braak and O.F.R. van Tongeren (1987)
 PUDOC, Wageningen
 }
 \examples{
-data(farms)
 farms.mca <- mca(farms, abbrev = TRUE)  # Use levels as names
 eqscplot(farms.mca$cs, type = "n")
 text(farms.mca$rs, cex = 0.7)

@@ -47,7 +47,6 @@ probabilities with concomitant information.
 }
 \examples{
 library(survival)
-data(leuk)
 plot(survfit(Surv(time) ~ ag, data = leuk), lty = 2:3, col = 2:3)
 
 # now Cox models

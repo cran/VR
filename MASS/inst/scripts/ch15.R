@@ -12,7 +12,6 @@ library(spatial)
 
 # 15.1  Spatial interpolation and smoothing
 
-data(topo)
 par(mfrow=c(2,2), pty = "s")
 topo.ls <- surf.ls(2, topo)
 trsurf <- trmat(topo.ls, 0, 6.5, 0, 6.5, 30)

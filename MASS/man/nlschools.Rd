@@ -39,7 +39,6 @@ Snijders, T. A. B. and Bosker, R. J. (1999)
 London: Sage.
 }
 \examples{
-data(nlschools)
 library(nlme)
 nl1 <- nlschools
 attach(nl1)

@@ -1,24 +1,6 @@
 # file MASS/confint.q
 # copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
-confint <- function(object, parm, level = 0.95, ...) UseMethod("confint")
-
-confint.lm <- function(object, parm, level = 0.95, ...)
-{
-    cf <- coef(object)
-    pnames <- names(cf)
-    if(missing(parm)) parm <- seq(along=pnames)
-    else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
-    a <- (1-level)/2
-    a <- c(a, 1-a)
-    pct <- paste(round(100*a, 1), "%")
-    ci <- array(NA, dim = c(length(parm), 2),
-                dimnames = list(pnames[parm], pct))
-    ses <- sqrt(diag(vcov(object)))
-    fac <- qt(a, object$df.residual)
-    ci[] <- cf + ses %o% fac
-    ci
-}
 
 confint.glm <- function(object, parm, level = 0.95, trace = FALSE, ...)
 {
@@ -44,7 +26,7 @@ confint.profile.glm <-
                 dimnames = list(pnames[parm], pct))
     cutoff <- qnorm(a)
     for(pm in parm) {
-        pro <- object[[pm]]
+        pro <- object[[ pnames[pm] ]]
         if(length(pnames) > 1)
             sp <- spline(x = pro[, "par.vals"][, pm], y = pro[, 1])
         else sp <- spline(x = pro[, "par.vals"], y = pro[, 1])

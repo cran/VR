@@ -37,7 +37,6 @@ Yield of peas, in pounds/plot (the plots were (1/70) acre).
 Imperial College, London, M.Sc. exercise sheet.
 }
 \examples{
-data(npk)
 npk.aov <- aov(yield ~ block + N*P*K, npk)
 npk.aov
 summary(npk.aov)

@@ -1,10 +1,10 @@
 # file MASS/rlm.q
-# copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
 rlm <- function(x, ...) UseMethod("rlm")
 
 rlm.formula <-
-    function(x, data = NULL, weights, ...,
+    function(formula, data = NULL, weights, ...,
              subset, na.action = na.fail,
              method = c("M", "MM", "model.frame"),
              wt.method = c("case", "inv.var"),
@@ -12,9 +12,8 @@ rlm.formula <-
 {
     mf <- match.call(expand.dots = FALSE)
     mf$method <- mf$wt.method <- mf$model <- mf$x.ret <- mf$y.ret <- mf$contrasts <- mf$... <- NULL
-    names(mf)[2] <- "formula"
     mf[[1]] <- as.name("model.frame")
-    mf <- eval(mf, parent.frame())
+    mf <- eval.parent(mf)
     method <- match.arg(method)
     wt.method <- match.arg(wt.method)
     if(method == "model.frame") return(mf)
@@ -99,7 +98,7 @@ rlm.default <-
             if(init == "ls")
                 temp <- lm.wfit(x, y, w, method="qr")
             else if(init == "lts")
-                temp <- lqs.default(x, y, intercept=FALSE, nsamp=200)
+                temp <- lqs::lqs(x, y, intercept=FALSE, nsamp=200)
             else stop("init method is unknown")
             coef <- temp$coef
             resid <- temp$resid
@@ -110,7 +109,7 @@ rlm.default <-
         }
     } else if(method == "MM") {
         scale.est <- "MM"
-        temp <- lqs.default(x, y, intercept=FALSE, method="S", k0 = 1.548)
+        temp <- lqs::lqs(x, y, intercept=FALSE, method="S", k0 = 1.548)
         coef <- temp$coef
         resid <- temp$resid
         psi <- psi.bisquare
@@ -119,7 +118,7 @@ rlm.default <-
                      nomatch = FALSE)) {
                 c0 <- arguments$c
                 if (c0 > 1.548) {
-                    psi$c <- c0
+                    formals(psi)$c <- c0
                 } else warning("c must be at least 1.548 and has been ignored")
             }
         scale <- temp$scale

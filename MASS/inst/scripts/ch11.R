@@ -25,7 +25,6 @@ eqscplot(ir.pc[, 1:2], type = "n",
 text(ir.pc[, 1:2], labels = as.character(ir.species),
      col = 3 + codes(ir.species))
 
-data(crabs)
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, each = 50)])
 (lcrabs.pca <- princomp(lcrabs))
@@ -70,7 +69,6 @@ lcrabs.sam <- sammon(dist(dslcrabs))
 eqscplot(lcrabs.sam$points, type = "n", xlab = "", ylab = "")
 text(lcrabs.sam$points, labels = as.character(crabs.grp))
 
-data(fgl)
 fgl.iso <- isoMDS(dist(as.matrix(fgl[-40, -10])))
 eqscplot(fgl.iso$points, type = "n", xlab = "", ylab = "", axes = F)
 # either
@@ -186,6 +184,7 @@ eqscplot(swiss.px[, 1:2], type = "n",
          ylab = "second principal component")
 text(swiss.px[, 1:2], labels = sm$classification)
 
+if(FALSE) {
 library(mclust) # 2.x equivalent commands
 h <- hc(modelName = "VVV", swiss.x)
 (mh <- as.vector(hclass(h, 3)))
@@ -201,6 +200,7 @@ eqscplot(swiss.px[, 1:2], type = "n",
          xlab = "first principal component",
          ylab = "second principal component")
 text(swiss.px[, 1:2], labels = sm$classification)
+}
 
 
 # 11.3 Factor analysis
@@ -228,11 +228,9 @@ arrows(rep(0, 2), rep(0, 2), naxes[,1], naxes[,2])
 
 # 11.4 Discrete multivariate analysis
 
-data(caith)
 caith <- as.matrix(caith)
 names(dimnames(caith)) <- c("eyes", "hair")
 mosaicplot(caith, color = T)
-data(housing)
 House <- xtabs(Freq ~ Type + Infl + Cont + Sat, housing)
 mosaicplot(House, color = T)
 
@@ -246,7 +244,6 @@ plot(corresp(caith2, nf = 2), type = "rows"); title("rows")
 plot(corresp(caith2, nf = 2), type = "col"); title("columns")
 par(mfrow = c(1, 1))
 
-data(farms)
 farms.mca <- mca(farms, abbrev = T)  # Use levels as names
 plot(farms.mca, cex = rep(0.7, 2))
 

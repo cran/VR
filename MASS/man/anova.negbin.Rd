@@ -50,7 +50,6 @@ class of the object.
 \code{\link{glm.nb}}, \code{\link{negative.binomial}}, \code{\link{summary.negbin}}
 }
 \examples{
-data(quine)
 m1 <- glm.nb(Days ~ Eth*Age*Lrn*Sex, quine, link = log)
 m2 <- update(m1, . ~ . - Eth:Age:Lrn:Sex)
 anova(m2, m1)

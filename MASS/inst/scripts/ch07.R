@@ -9,7 +9,6 @@ options(echo = T,width=65, digits=5, height=9999)
 postscript(file="ch07.ps", width=8, height=6, pointsize=9)
 options(contrasts = c("contr.treatment", "contr.poly"))
 
-data(anorexia)
 ax.1 <- glm(Postwt ~ Prewt + Treat + offset(Prewt),
             family = gaussian, data = anorexia)
 summary(ax.1)
@@ -48,7 +47,6 @@ dose.p(update(budworm.lg0, family = binomial(link = probit)),
        cf = c(1, 3), p = 1:3/4)
 
 options(contrasts = c("contr.treatment", "contr.poly"))
-data(birthwt)
 attach(birthwt)
 race <- factor(race, labels = c("white", "black", "other"))
 table(ptl)
@@ -85,7 +83,6 @@ detach()
 
 # 7.3  Poisson models
 
-data(housing)
 names(housing)
 house.glm0 <- glm(Freq ~ Infl*Type*Cont + Sat,
                   family = poisson, data = housing)
@@ -146,7 +143,6 @@ house.plr2$anova
 
 # 7.4  A negative binomial family
 
-data(quine)
 glm(Days ~ .^4, family = poisson, data = quine)
 quine.nb <- glm(Days ~ .^4, family = negative.binomial(2), data = quine)
 quine.nb0 <- update(quine.nb, . ~ Sex/(Age + Eth*Lrn))

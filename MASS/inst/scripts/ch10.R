@@ -12,7 +12,6 @@ library(nlme)
 
 # 10.1  Linear models
 
-data(petrol)
 xyplot(Y ~ EP | No, data = petrol,
    xlab = "ASTM end point (deg. F)",
    ylab = "Yield as a percent of crude",
@@ -52,7 +51,6 @@ coef(pet4.lme)
 pet5.lme <- update(pet4.lme, random = ~ 1 + EP | No)
 anova(pet4.lme, pet5.lme)
 
-data(nlschools)
 nl1 <- nlschools
 attach(nl1)
 classMeans <- tapply(IQ, class, mean)
@@ -74,7 +72,6 @@ nl2 <- cbind(aggregate(nl1[c(1,7)], list(class = nl1$class), mean),
 summary(lm(lang ~ IQave + COMB, data = nl2, weights = GS),
         cor = F)
 
-data(Sitka)
 sitka.lme <- lme(size ~ treat*ordered(Time),
    random = ~1 | tree, data = Sitka, method = "ML")
 Sitka <- Sitka  # make a local copy for S-PLUS
@@ -93,7 +90,6 @@ matrix(fitted(sitka.lme2, level = 0)[c(301:305, 1:5)],
 
 # 10.2  Classic nested designs
 
-data(coop)
 if(F) {
 summary(raov(Conc ~ Lab/Bat, data = coop, subset = Spc=="S1"))
 
@@ -107,7 +103,6 @@ varcomp(Conc ~ Lab/Bat, data = coop, subset = Spc=="S1",
         method = c("winsor", "minque0"))
 }
 
-data(oats)
 #oats <- oats  # make a local copy: needed in S-PLUS
 oats$Nf <- ordered(oats$N, levels = sort(levels(oats$N)))
 
@@ -147,7 +142,6 @@ summary(sitka.nlme)
 summary(update(sitka.nlme,
                corr = corCAR1(0.95, ~Time | tree)))
 
-data(Rabbit)
 Fpl <- deriv(~ A + (B-A)/(1 + exp((log(d) - ld50)/th)),
     c("A","B","ld50","th"), function(d, A, B, ld50, th) {})
 
@@ -198,7 +192,6 @@ xyplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
 
 # 10.4 Generalized linear mixed models
 
-data(bacteria)
 # bacteria <- bacteria # needed in S-PLUS
 contrasts(bacteria$trt) <- structure(contr.sdif(3),
     dimnames = list(NULL, c("drug", "encourage")))
@@ -207,7 +200,6 @@ summary(glm(y ~ trt * week, binomial, data = bacteria),
 summary(glm(y ~ trt + week, binomial, data = bacteria),
         cor = F)
 
-data(epil)
 summary(glm(y ~ lbase*trt + lage + V4, family = poisson,
             data = epil), cor = F)
 

@@ -51,7 +51,6 @@ Some covariance models for longitudinal count data with over-dispersion.
 \bold{46}, 657--671.
 }
 \examples{
-data(epil)
 summary(glm(y ~ lbase*trt + lage + V4, family = poisson,
             data = epil), cor = FALSE)
 epil2 <- epil[epil$period == 1, ]

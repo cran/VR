@@ -10,7 +10,6 @@ options(echo = T, width=65, digits=5)
 
 # 16.3 General optimization
 
-data(geyser)
 attach(geyser)
 truehist(waiting, xlim = c(35, 110), ymax = 0.04, h = 5)
 wait.dns <- density(waiting, n = 512, width = "SJ")
@@ -100,7 +99,6 @@ rbind(est = mix.nl1$par, se = sqrt(diag(solve(mix.nl1$hessian))))
 
 
 if(!exists("bwt")) {
-  data(birthwt)
   attach(birthwt)
   race <- factor(race, labels=c("white", "black", "other"))
   ptd <- factor(ptl > 0)

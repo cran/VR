@@ -50,7 +50,6 @@ Wiley.
 \code{\link{huber}}
 }
 \examples{
-data(chem)
 hubers(chem)
 hubers(chem, mu=3.68)
 }

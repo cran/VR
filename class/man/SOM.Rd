@@ -61,7 +61,6 @@ of Technology, Technical Report A31
 }
 \examples{
 library(MASS)
-data(crabs)
 library(mva) # for dist
 
 lcrabs <- log(crabs[, 4:8])

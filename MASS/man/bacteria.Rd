@@ -44,7 +44,6 @@ Menzies School of Health Research 1999--2000 Annual Report pp. 18--21
 (\url{http://www.menzies.edu.au/publications/anreps/MSHR00.pdf}).
 }
 \examples{
-data(bacteria)
 contrasts(bacteria$trt) <- structure(contr.sdif(3),
      dimnames = list(NULL, c("drug", "encourage")))
 ## fixed effects analyses

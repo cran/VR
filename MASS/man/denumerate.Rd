@@ -5,7 +5,7 @@
 \alias{denumerate}
 \alias{denumerate.formula}
 \title{
-Transform an Allowable Formula for `loglm' into one For `terms'.
+Transform an Allowable Formula for `loglm' into one for `terms'
 }
 \description{
 \code{\link{loglm}} allows dimension numbers to be used in place of names in

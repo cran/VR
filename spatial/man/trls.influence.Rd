@@ -53,7 +53,7 @@ control point distribution effects in trend surface models.
 }
 \examples{
 library(MASS)
-data(topo)
+data(topo, package="MASS")
 topo2 <- surf.ls(2, topo)
 infl.topo2 <- trls.influence(topo2)
 cand <- as.data.frame(infl.topo2)[abs(infl.topo2$stresid) > 1.5,]

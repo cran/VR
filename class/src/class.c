@@ -36,7 +36,7 @@ VR_knn1(Sint *pntr, Sint *pnte, Sint *p, double *train, Sint *class,
 		ind[nind] = j;
 	    }
 	}
-	for (i = 0; i < *nc; i++)
+	for (i = 1; i <= *nc; i++)
 	    votes[i] = 0;
 /* nind is the number of tied minima, minus one */
 	if (nind == 0)
@@ -44,15 +44,15 @@ VR_knn1(Sint *pntr, Sint *pnte, Sint *p, double *train, Sint *class,
 	else {
 	    for (i = 0; i <= nind; i++)
 		votes[class[ind[i]]]++;
-	    j = votes[0];
+	    j = votes[1];
 /*
      This uses `reservoir sampling' to choose amongst ties at random
      on a single pass.
 
  */
-	    index = 0;
+	    index = 1;
 	    ntie = 1;
-	    for (i = 1; i <= *nc; i++)
+	    for (i = 2; i <= *nc; i++)
 		if (votes[i] > j) {
 		    ntie = 1;
 		    index = i;

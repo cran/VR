@@ -14,8 +14,8 @@ the gamma distribution after fitting a \code{Gamma} generalized
 linear model.
 }
 \usage{
-gamma.shape.glm(object, it.lim = 10,
-                eps.max = .Machine$double.eps^0.25, verbose = FALSE, \dots)
+\method{gamma.shape}{glm}(object, it.lim = 10,
+            eps.max = .Machine$double.eps^0.25, verbose = FALSE, \dots)
 }
 \arguments{
 \item{object}{
@@ -68,7 +68,6 @@ gamma.shape(clot1)
 Alpha: 538.13
    SE: 253.60
 }
-data(quine)
 gm <- glm(Days + 0.1 ~ Age*Eth*Sex*Lrn,
 		quasi(link=log, variance=mu^2), quine, start = rep(0,32))
 gamma.shape(gm, verbose = TRUE)

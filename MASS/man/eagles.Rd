@@ -40,7 +40,6 @@ Agonistic asymmetries and the foraging ecology of Bald Eagles.
 \bold{69}, 1188--1194.
 }
 \examples{
-data(eagles)
 eagles.glm <- glm(cbind(y, n - y) ~ P*A + V, data = eagles,
                   family = binomial)
 dropterm(eagles.glm)

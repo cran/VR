@@ -26,7 +26,6 @@ text(ir.ld, labels = as.character(ir.species[-143]),
 plot(ir.lda, dimen = 1)
 plot(ir.lda, type = "density", dimen = 1)
 
-data(crabs)
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, each = 50)])
 
@@ -64,7 +63,6 @@ contour(x, y, matrix(cr.pr, length(x), length(y)),
 for(i in c("O", "o",  "B", "b"))
  print(var(lcrabs[crabs.grp == i, ]))
 
-data(fgl)
 fgl.ld <- predict(lda(type ~ ., fgl), dimen = 2)$x
 eqscplot(fgl.ld, type = "n", xlab = "LD1", ylab = "LD2")
 # either
@@ -130,7 +128,6 @@ cushplot <- function(xp, yp, Z)
     invisible()
 }
 
-data(Cushings)
 cush <- log(as.matrix(Cushings[, -3]))
 tp <- Cushings$Type[1:21, drop = T]
 cush.lda <- lda(cush[1:21,], tp); predplot(cush.lda, "LDA")

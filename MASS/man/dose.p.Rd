@@ -22,8 +22,9 @@ coefficient of (log-)dose
 Probabilities at which to predict the dose needed.
 }}
 \value{
-An object of class \code{"glm.dose"} giving the prediction and standard
-error at each response probability.
+  An object of class \code{"glm.dose"} giving the prediction (attribute
+  \code{"p"} and standard error (attribute \code{"SE"}) at each response
+  probability.
 }
 \references{
 Venables, W. N. and Ripley, B. D. (2002)

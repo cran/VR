@@ -41,7 +41,6 @@ Hand, D. J., Daly, F., McConway, K., Lunn, D. and Ostrowski, E. eds (1993)
 Chapman & Hall, p. 69.
 }
 \examples{
-data(whiteside)
 require(lattice)
 xyplot(Gas ~ Temp | Insul, whiteside, panel =
   function(x, y, ...) {

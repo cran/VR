@@ -40,7 +40,6 @@ Wiley.
 \code{\link{hubers}}, \code{\link{mad}}
 }
 \examples{
-data(chem)
 huber(chem)
 }
 \keyword{robust}

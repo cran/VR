@@ -2,10 +2,8 @@
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
 \name{confint}
-\alias{confint}
 \alias{confint.glm}
 \alias{confint.nls}
-\alias{confint.lm}
 \alias{confint.profile.glm}
 \alias{confint.profile.nls}
 \alias{profile.glm}
@@ -14,10 +12,10 @@ Confidence Intervals for Model Parameters
 }
 \description{
 Computes confidence intervals for one or more parameters in a fitted
-model.  Methods currently exist for \code{lm}, \code{glm} and \code{nls} fits.
+model.  Package \code{MASS} adds methods for \code{glm} and \code{nls} fits.
 }
 \usage{
-confint(object, parm, level = 0.95, \dots)
+\method{confint}{nls}(object, parm, level = 0.95, \dots)
 }
 \arguments{
 \item{object}{
@@ -41,20 +39,19 @@ limits for each parameter. These will be labelled as (1-level)/2 and
 1 - (1-level)/2 in \% (by default 2.5\% and 97.5\%).
 }
 \details{
-\code{confint} calls the appropriate profile method, then finds the
-confidence intervals by interpolation in the profile traces.
-If the profile object is already available it should be used as the
-main argument rather than the fitted model object itself.
-
-
-For objects of class \code{"lm"} the direct formulae based on t values are used.
+  \code{\link[base]{confint}} is a generic function in package \code{base}.
+  
+  These \code{confint} methods calls
+  the appropriate profile method, then finds the
+  confidence intervals by interpolation in the profile traces.
+  If the profile object is already available it should be used as the
+  main argument rather than the fitted model object itself.
 }
 \seealso{
 \code{\link{profile}}
 }
 \examples{
 library(nls)
-data(wtloss)
 expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
                function(b0, b1, th, x) {})
 
@@ -85,5 +82,7 @@ numdead <- c(1, 4, 9, 13, 18, 20, 0, 2, 6, 10, 12, 16)
 sex <- factor(rep(c("M", "F"), c(6, 6)))
 SF <- cbind(numdead, numalive = 20 - numdead)
 budworm.lg0 <- glm(SF ~ sex + ldose - 1, family = binomial)
+confint(budworm.lg0)
+confint(budworm.lg0, "ldose")
 }
 \keyword{models}

@@ -52,6 +52,5 @@ class of the object.
 }
 \keyword{models}
 \examples{
-data(quine)
 summary(glm.nb(Days ~ Eth*Age*Lrn*Sex, quine, link = log))
 }

@@ -1,21 +1,17 @@
 # file MASS/qda.q
-# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
-qda <- function(x, ...)
-{
-    if(is.null(class(x))) class(x) <- data.class(x)
-    UseMethod("qda", x, ...)
-}
+qda <- function(x, ...) UseMethod("qda", x, ...)
 
 qda.formula <- function(formula, data = NULL, ...,
 			subset, na.action = na.fail)
 {
     m <- match.call(expand.dots = FALSE)
-    if(is.matrix(eval(m$data, parent.frame())))
+    if(is.matrix(eval.parent(m$data)))
         m$data <- as.data.frame(data)
     m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, parent.frame())
+    m <- eval.parent(m)
     Terms <- attr(m, "terms")
     grouping <- model.extract(m, "response")
     x <- model.matrix(Terms, m)
@@ -192,13 +188,14 @@ predict.qda <- function(object, newdata, prior = object$prior,
     # matrix or data-frame fit
         if(missing(newdata)) {
             if(!is.null(sub <- object$call$subset)) {
-                newdata <- eval(parse(text=paste(deparse(object$call$x),"[",
-                                      deparse(sub),",]")), parent.frame())
-                g <- eval(parse(text=paste(deparse(object$call[[3]]),"[",
-                                deparse(sub),"]")), parent.frame())
+                newdata <-
+                    eval.parent(parse(text=paste(deparse(object$call$x),
+                                      "[", deparse(sub),",]")))
+                g <- eval.parent(parse(text=paste(deparse(object$call[[3]]),
+                                       "[", deparse(sub),"]")))
             } else {
-                newdata <- eval(object$call$x, parent.frame())
-                g <- eval(object$call[[3]], parent.frame())
+                newdata <- eval.parent(object$call$x)
+                g <- eval.parent(object$call[[3]])
             }
             if(!is.null(nas <- object$call$na.action)) {
                 df <- data.frame(g = g, X = newdata)

@@ -21,7 +21,6 @@ c(3, 5, 6, 7, 8, 10, 11, 16, 20, 21, 22, 23, 24, 25, 29, 33, 39, 41, 44, 45,
 174, 175, 176, 177, 183, 184, 187, 188, 189, 194, 195, 196, 197, 198,
 199, 202, 204, 205, 206, 208, 209)
 
-data(cpus)
 cpus1 <- cpus
 attach(cpus)
 for(v in names(cpus)[2:7])
@@ -41,7 +40,6 @@ test.cpus <- function(fit)
 
 # 8.1 An introductory example
 
-data(wtloss)
 attach(wtloss)
 # alter margin 4; others are default
 oldpar <- par(mar = c(5.1, 4.1, 4.1, 4.1))
@@ -91,7 +89,6 @@ summary(wtloss.gr)
 deviance(wtloss.gr)
 vcov(wtloss.gr)
 
-data(muscle)
 A <- model.matrix(~ Strip - 1, data = muscle)
 rats.nls1 <- nls(log(Length) ~ cbind(A, rho^Conc),
    data = muscle, start = c(rho = 0.1), algorithm = "plinear")
@@ -142,7 +139,6 @@ for(w0 in w0s) {
 dimnames(out)[[1]] <- paste(w0s,"kg:")
 out
 
-data(stormer)
 fm0 <- lm(Wt*Time ~ Viscosity + Time - 1,  data = stormer)
 b0 <- coef(fm0)
 names(b0) <- c("b1", "b2")
@@ -210,7 +206,6 @@ par(opar)
 # 8.7  One-dimensional curve fitting
 
 library(modreg)
-data(GAGurine)
 attach(GAGurine)
 par(mfrow = c(3, 2))
 plot(Age, GAG, main = "Degree 6 polynomial")
@@ -258,7 +253,6 @@ detach()
 
 ## R has a different gam() in package mgcv
 library(mgcv)
-data(rock)
 rock.lm <- lm(log(perm) ~ area + peri + shape, data = rock)
 summary(rock.lm)
 (rock.gam <- gam(log(perm) ~ s(area) + s(peri) + s(shape), data=rock))
@@ -340,7 +334,6 @@ detach()
 # 8.9  Projection-pursuit regression
 
 library(modreg)
-data(rock)
 attach(rock)
 rock1 <- data.frame(area = area/10000, peri = peri/10000,
                     shape = shape, perm = perm)

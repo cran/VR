@@ -33,7 +33,6 @@ Binomial generalized linear model.
 # Fitting a Negative Binomial model to the quine data
 #   with theta = 2 assumed known.
 #
-data(quine)
 glm(Days ~ .^4, family = negative.binomial(2), data = quine)
 }
 \keyword{regression}

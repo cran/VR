@@ -1,7 +1,7 @@
 \name{VA}
 \alias{VA}
 \title{
-  Veteran's Administration lung cancer trial.
+  Veteran's Administration Lung Cancer Trial
 }
 \description{
   Veteran's Administration lung cancer trial from Kalbfleisch & Prentice.

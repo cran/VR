@@ -93,7 +93,7 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
     m$method <- m$model <- m$x <- m$y <- m$control <- m$contrasts <-
         m$init.theta <- m$link <- m$start <- m$etastart <- m$... <-  NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, parent.frame())
+    m <- eval.parent(m)
     Terms <- attr(m, "terms")
     if(method == "model.frame") return(m)
     xvars <- as.character(attr(Terms, "variables"))[-1]
@@ -191,6 +191,7 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
     fit$theta <- as.vector(th)
     fit$SE.theta <- attr(th, "SE")
     fit$twologlik <- as.vector(2 * Lm)
+    fit$aic <- -fit$twologlik + 2*fit$rank + 2
     fit$contrasts <- if (length(clv <- unlist(lapply(m, class))))
         options("contrasts")[[1]] else FALSE
     fit$xlevels <- xlev
@@ -358,4 +359,16 @@ function(y, u, dfr, limit = 10, eps = .Machine$double.eps^0.25)
     attr(t0, "warn") <- "estimate truncated at zero"
   }
   t0
+}
+
+logLik.negbin <- function(object, ...)
+{
+    if (length(list(...)))
+        warning("extra arguments discarded")
+    p <- object$rank + 1 # for theta
+    val <- object$twologlik/2
+    attr(val, "df") <- p
+    class(val) <- "logLik"
+    val
+
 }

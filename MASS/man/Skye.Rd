@@ -66,7 +66,6 @@ ternary <- function(X, pch = par("pch"), lcex = 1,
   points((X[,2] - X[,3])*s3, X[,1], \dots)
 }
 
-data(Skye)
 ternary(Skye/100, ord=c(1,3,2))
 }
 \keyword{datasets}

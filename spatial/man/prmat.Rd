@@ -34,7 +34,7 @@ list with components \code{x}, \code{y} and \code{z} suitable for \code{contour}
 \code{\link{surf.gls}}, \code{\link{trmat}}, \code{\link{semat}}
 }
 \examples{
-data(topo)
+data(topo, package="MASS")
 topo.kr <- surf.gls(2, expcov, topo, d=0.7)
 prsurf <- prmat(topo.kr, 0, 6.5, 0, 6.5, 50)
 contour(prsurf, levels=seq(700, 925, 25))

@@ -48,13 +48,11 @@ Chapman & Hall.
 \code{\link{ucv}}, \code{\link{bcv}}, \code{\link{density}}
 }
 \examples{
-data(geyser)
 attach(geyser)
 width.SJ(duration, method = "dpi")
 width.SJ(duration)
 detach()
 
-data(galaxies)
 width.SJ(galaxies, method = "dpi")
 width.SJ(galaxies)
 }

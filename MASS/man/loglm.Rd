@@ -125,7 +125,6 @@ though.
 # in the MASS library.
 
 # Case 1: frequencies specified as an array.
-data(minn38)
 sapply(minn38, function(x) length(levels(x)))
 ## hs phs fol sex f
 ##  3   4   7   2 0
@@ -158,7 +157,6 @@ Saturated    0.000   0     47.745        36        0.09114
 }
 # Case 1. An array generated with xtabs.
 
-data(Cars93)
 loglm(~ Type + Origin, xtabs(~ Type + Origin, Cars93))
 \dontrun{Call:
 loglm(formula = ~Type + Origin, data = xtabs(~Type + Origin,
@@ -171,7 +169,6 @@ Likelihood Ratio 18.362  5 0.0025255
 
 }
 # Case 2.  Frequencies given as a vector in a data frame
-data(quine)
 names(quine)
 ## [1] "Eth"  "Sex"  "Age"  "Lrn"  "Days"
 fm <- loglm(Days ~ .^2, quine)

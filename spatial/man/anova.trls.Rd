@@ -1,7 +1,6 @@
 \name{anova.trls}
 \alias{anova.trls}
 \alias{anovalist.trls}
-\alias{summary.trls}
 \title{
 Anova tables for fitted trend surface objects
 }
@@ -13,8 +12,7 @@ called with multiple objects, it passes on the arguments to
 }
 \usage{
 \method{anova}{trls}(object, \dots)
-\method{anovalist}{trls}(object, \dots)
-\method{summary}{trls}(object, digits = max(3, getOption("digits") - 3), \dots)
+anovalist.trls(object, \dots)
 }
 \arguments{
 \item{object}{
@@ -34,7 +32,7 @@ to their printed tabular output.
 \code{\link{surf.ls}}
 }
 \examples{
-data(topo)
+data(topo, package="MASS")
 topo0 <- surf.ls(0, topo)
 topo1 <- surf.ls(1, topo)
 topo2 <- surf.ls(2, topo)

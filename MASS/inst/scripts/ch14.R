@@ -9,9 +9,7 @@ postscript(file="ch14.ps", width=8, height=6, pointsize=9)
 options(width=65, digits=5, echo = T)
 library(ts)
 
-data(lh)
 lh
-data(deaths)
 deaths
 #tspar(deaths)
 tsp(deaths)
@@ -20,8 +18,6 @@ end(deaths)
 frequency(deaths)
 cycle(deaths)
 ts.plot(lh)
-data(mdeaths)
-data(fdeaths)
 ts.plot(deaths, mdeaths, fdeaths,
         lty = c(1, 3, 4), xlab = "year", ylab = "deaths")
 
@@ -124,7 +120,6 @@ cpgram(deaths.arima2$resid)
     list(order = c(1,1,0), period = 12)) )
 tsdiag(deaths.arima3, gof.lag = 30)
 
-data(nottem)
 par(mfrow = c(3, 1))
 nott <- window(nottem, end = c(1936, 12))
 ts.plot(nott)
@@ -178,7 +173,6 @@ title("via Seasonal ARIMA model")
 
 # 14.6  Regression with autocorrelated errors
 
-data(beav1); data(beav2)
 attach(beav1)
 beav1$hours <- 24*(day-346) + trunc(time/100) + (time%%100)/60
 detach()
@@ -239,7 +233,6 @@ arima(beav1b$temp, c(1, 0, 0), xreg = beav1b[, 3:6])
 
 # 14.6  Models for financial time series
 
-data(SP500)
 plot(SP500, type = "l", xlab = "", ylab = "returns (%)", xaxt = "n", las = 1)
 axis(1, at = c(0, 254, 507, 761, 1014, 1266, 1518, 1772, 2025, 2277,
         2529, 2781), lab = 1990:2001)
@@ -260,7 +253,6 @@ plot(fit)
 summary(garch(SP500 ~ 1, ~egarch(1,1), cond.dist = "t", leverage = T))
 }
 
-data(SP500)
 library(tseries)
 summary(garch(x = SP500 - median(SP500), order = c(1, 1)))
 

@@ -53,7 +53,7 @@ and others for internal use only.
 \code{\link{trmat}}, \code{\link{surf.ls}}, \code{\link{prmat}}, \code{\link{semat}}, \code{\link{expcov}}, \code{\link{gaucov}}, \code{\link{sphercov}}
 }
 \examples{
-data(topo)
+data(topo, package="MASS")
 topo.kr <- surf.gls(2, expcov, topo, d=0.7)
 trsurf <- trmat(topo.kr, 0, 6.5, 0, 6.5, 50)
 contour(trsurf)

@@ -53,7 +53,6 @@ Hosmer, D.W. and Lemeshow, S. (1989)
 New York: Wiley
 }
 \examples{
-data(birthwt)
 attach(birthwt)
 race <- factor(race, labels = c("white", "black", "other"))
 ptd <- factor(ptl > 0)

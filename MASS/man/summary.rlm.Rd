@@ -69,7 +69,6 @@ class of the object.
 \code{\link{summary}}
 }
 \examples{
-data(phones)
 summary(rlm(calls ~ year, data = phones, maxit = 50))
 \dontrun{
 Call:

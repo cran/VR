@@ -4,6 +4,7 @@
 \name{glm.nb}
 \alias{glm.nb}
 \alias{family.negbin}
+\alias{logLik.negbin}
 \title{
 Fit a Negative Binomial Generalized Linear Model
 }
@@ -64,7 +65,6 @@ glm.nb(formula = formula(data), data = parent.frame(), weights,
   \code{\link{theta.ml}}, \code{\link{theta.md}}, \code{\link{theta.mm}}
 }
 \examples{
-data(quine)
 quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)
 quine.nb2 <- update(quine.nb1, . ~ . + Sex:Age:Lrn)
 quine.nb3 <- update(quine.nb2, Days ~ .^4)

@@ -40,7 +40,6 @@ ed. C. R. Rao, pp. 221--228. Oxford: Pergamon Press.
 }
 \examples{
 library(nls)
-data(muscle)
 A <- model.matrix(~ Strip - 1, data=muscle)
 rats.nls1 <- nls(log(Length) ~ cbind(A, rho^Conc),
    data = muscle, start = c(rho=0.1), algorithm="plinear")

@@ -34,14 +34,12 @@ library(lattice)
 trellis.device(postscript, file="ch05.ps", width=8, height=6, pointsize=9)
 
 rm(A, B) # precautionary clear-out
-data(shoes)
 attach(shoes)
 tperm <- perm.t.test(B - A) # see section 5.6
 detach()
 
 # from ch04
 if(!exists("fgl.df")) {
-data(fgl)
 fgl0 <- fgl[ ,-10] # omit type.
 fgl.df <- data.frame(type = rep(fgl$type, 9),
   y = as.vector(as.matrix(fgl0)),
@@ -73,7 +71,6 @@ contam <- rnorm( 100, 0, (1 + 2*rbinom(100, 1, 0.05)) )
 
 # 5.3  Data summaries
 
-data(geyser); data(chem); data(abbey)
 par(mfrow=c(2,3))
 hist(geyser$duration, "scott", xlab="duration")
 hist(chem, "scott")
@@ -181,7 +178,6 @@ lines(density(duration, width = "SJ", n = 256), lty = 3)
 lines(density(duration, n = 256, width = "SJ-dpi"), lty = 1)
 detach()
 
-data(galaxies)
 gal <- galaxies/1000
 plot(x = c(0, 40), y = c(0, 0.3), type = "n", bty = "l",
     xlab = "velocity of galaxy (1000km/s)", ylab = "density")

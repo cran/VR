@@ -3,11 +3,8 @@
 ppinit <- function(file)
 {
   tfile <- file
-  pos <- match("package:spatial", search())
-  if(exists(".sp.lib.name", where=pos)) {
-    t1file <- file.path(get(".sp.lib.name", pos=pos), file)
-    if(file.exists(t1file)) tfile <- t1file
-  }
+  t1file <- system.file("ppdata", file, package="spatial")
+  if(nchar(t1file) > 0) tfile <- t1file
   h <- scan(tfile, list(xl = 0, xu = 0, yl = 0, yu = 0, fac = 0),
 	    n = 5, skip = 2, quiet = TRUE)
   pp <- scan(tfile, list(x = 0, y = 0), skip = 3, quiet = TRUE)

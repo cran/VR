@@ -77,12 +77,10 @@ accordingly.
 \code{\link{dropterm}}, \code{\link{stepAIC}}
 }
 \examples{
-data(quine)
 quine.hi <- aov(log(Days + 2.5) ~ .^4, quine)
 quine.lo <- aov(log(Days+2.5) ~ 1, quine)
 addterm(quine.lo, quine.hi, test="F")
 
-data(housing)
 house.glm0 <- glm(Freq ~ Infl*Type*Cont + Sat, family=poisson,
                    data=housing)
 addterm(house.glm0, ~. + Sat:(Infl+Type+Cont), test="Chisq")

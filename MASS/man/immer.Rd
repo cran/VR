@@ -42,7 +42,6 @@ Fisher, R.A. (1947)
 Edinburgh: Oliver and Boyd.
 }
 \examples{
-data(immer)
 immer.aov <- aov(cbind(Y1,Y2) ~ Loc + Var, data = immer)
 summary(immer.aov)
 

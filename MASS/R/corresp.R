@@ -3,7 +3,7 @@
 #
 "corresp" <- function(x, ...)
 {
-  if(is.null(class(x))) class(x) <- data.class(x)
+  attr(x, "class") <- data.class(x)
   UseMethod("corresp", x, ...)
 }
 
@@ -60,7 +60,7 @@ corresp.matrix(table(x, y), ...)
 
 "plot.correspondence" <- function(x, scale=1, ...)
 {
-  if(length(x$cor) > 1) return(invisible(biplot(x, ...)))
+  if(length(x$cor) > 1) return(invisible(mva::biplot(x, ...)))
   Fr <- x$Freq
   rs <- x$rscore
   cs <- x$cscore
@@ -103,7 +103,7 @@ biplot.correspondence <-
   Y <- obj$cscore[, 1:2]
   if(type != "rows")  Y <- Y %*% diag(obj$cor[1:2])
   colnames(Y) <- rep("", 2)
-  switch(type, "symmetric" = biplot.default(X, Y, var.axes = FALSE, ...),
+  switch(type, "symmetric" = mva::biplot(X, Y, var.axes = FALSE, ...),
          "rows" = biplot.bdr(X, Y, ...),
          "columns" = biplot.bdr(Y, X, ...))
   points(0, 0, pch = 3, cex = 3)

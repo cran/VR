@@ -13,7 +13,6 @@ postscript(file="ch01.ps", width=8, height=6, pointsize=9)
 sqrt(3/4)/(1/3 - 2/pi^2)
 
 library(MASS)
-data(chem)
 mean(chem)
 m <- mean(chem); v <- var(chem)/length(chem)
 m/sqrt(v)
@@ -77,7 +76,6 @@ qqline(resid(fm))
 detach()
 rm(fm,fm1,lrf,dum)
 
-data(hills)
 hills
 # S: splom(~ hills)
 pairs(hills)
@@ -101,7 +99,6 @@ abline(lqs(y ~ x, xy), lty = 2, col = 2)
 rm(xy)
 }
 
-data(michelson)
 attach(michelson)
 search()
 plot(Expt, Speed, main="Speed of Light Data", xlab="Experiment No.")

@@ -31,7 +31,6 @@ Additional parameters to \code{plot}.
 \code{\link{mca}}, \code{\link{predict.mca}}
 }
 \examples{
-data(farms)
 plot(mca(farms, abbrev = TRUE))
 }
 \keyword{hplot}

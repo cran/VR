@@ -8,11 +8,9 @@ library(MASS)
 postscript(file="ch09.ps", width=8, height=6, pointsize=9)
 options(echo = TRUE, digits=5)
 
-data(cpus)
 library(rpart)
 
 # Figure 9.3
-data(shuttle)
 shuttle.rp <- rpart(use ~ ., data=shuttle, minbucket=0, xval = 0,
                     maxsurrogate = 0, cp = 0, subset = 1:253)
 post(shuttle.rp, horizontal = FALSE, height=10, width=8, title = "",
@@ -41,7 +39,6 @@ cpus.rp2 <- prune(cpus.rp, cp = 0.03)
 post(cpus.rp2, horizontal = FALSE, title = "", digits=4, pointsize=18)
 
 
-data(fgl)
 set.seed(123)
 fgl.rp <- rpart(type ~ ., fgl, cp = 0.001)
 plotcp(fgl.rp)

@@ -53,7 +53,6 @@ Chapman & Hall.
 }
 \examples{
 library(nlme)
-data(petrol)
 Petrol <- petrol
 Petrol[, 2:5] <- scale(as.matrix(Petrol[, 2:5]), scale = FALSE)
 pet3.lme <- lme(Y ~ SG + VP + V10 + EP,

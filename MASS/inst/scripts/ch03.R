@@ -37,7 +37,6 @@ find("objects")
 
 get("[<-.data.frame", pos = 2)
 
-data(hills)
 # hills <- hills  # only needed in S-PLUS
 hills$ispeed <- hills$time/hills$dist
 

@@ -40,7 +40,6 @@ The x and y coordinates of the grid points, vectors of length \code{n}.
 An \code{n}  x  \code{n} matrix of the evaluated density.
 }}
 \examples{
-data(geyser)
 attach(geyser)
 plot(duration, waiting, xlim = c(0.5,6), ylim = c(40,100))
 f1 <- kde2d(duration, waiting, n = 50, lims = c(0.5, 6, 40, 100))

@@ -18,6 +18,8 @@ Version 6.3 (Dec 2001) add material destined for fourth edition.
 Version 7.0 (Mar 2002) pre-release for the fourth edition.  S-PLUS 6.x
   and R only.
 
+Version 7.1 (Mar 2003) add namespaces, eliminate data() calls
+
 
 Library MASS
 ------------
@@ -49,8 +51,15 @@ Library MASS
 - addterm, dropterm, stepAIC now work with lme and gls fits.
 - huber checks for MAD equal to zero.
 - glmmPQL now loads nlme if not already loaded.
+- glmmPQL handles list `random' arguments (7.0-11).
+- The MASS datasets no longer require data(foo) to load them. (7.0-11)
+- mvrnorm uses eigen(EISPACK=TRUE) for back-compatibility (7.0-11, R 1.7.0)
 - print.summary.polr could lose dimnames for 1 coefficient.
+- remove heart as survival in R now has it.
+- confint.{lm,glm} didn't handle specifying parm in all cases.
+- confint and confint.lm have been migrated to base in R.
 - addterm.default, dropterm.default and stepAIC work better inside functions.
+- glm.nb now sets AIC in the object, and has a logLik() method.
 
 
 Library class
@@ -60,6 +69,7 @@ Library class
 - added SOM, batchSOM and ancilliary functions.
 - Bugfix in SOM (7.0-5)
 - knn* and lvq* explicitly check for missing values in the inputs.
+- knn1 was not handling ties correctly in some cases (but knn was).
 
 
 Library nnet
@@ -68,6 +78,7 @@ Library nnet
 - no copying of datasets even in R.
 - model.frame method for multinom (even in R).
 - nnet now uses the C interface to optim.
+- nnet.Hess has been renamed nnetHess.
 
 
 Library spatial
@@ -75,3 +86,5 @@ Library spatial
 
 - Methods for class "surf.ls" contributed by Roger Bivand.
 - surf.ls and surf.gls now check for x,y,z cols in a data frame given for x.
+- PP datasets moved from data to ppdata
+- no longer duplicate topo dataset from MASS

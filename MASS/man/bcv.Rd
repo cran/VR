@@ -35,7 +35,6 @@ Wiley.
 \code{\link{ucv}}, \code{\link{width.SJ}}, \code{\link{density}}
 }
 \examples{
-data(geyser)
 bcv(geyser$duration)
 }
 \keyword{dplot}

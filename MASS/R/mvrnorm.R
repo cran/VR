@@ -5,7 +5,7 @@ mvrnorm <- function(n = 1, mu, Sigma, tol=1e-6, empirical = FALSE)
 {
     p <- length(mu)
     if(!all(dim(Sigma) == c(p,p))) stop("incompatible arguments")
-    eS <- eigen(Sigma, sym = TRUE)
+    eS <- eigen(Sigma, sym = TRUE, EISPACK = TRUE)
     ev <- eS$values
     if(!all(ev >= -tol*abs(ev[1]))) stop("Sigma is not positive definite")
     X <- matrix(rnorm(p * n), n)

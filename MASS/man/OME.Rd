@@ -78,7 +78,6 @@ into one group of high OME prevalence and one of low prevalence.
 }
 \examples{
 library(nls)
-data(OME)
 # Fit logistic curve from p = 0.5 to p = 1.0
 fp1 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/scal)),
              c("L75", "scal"),
@@ -105,8 +104,10 @@ OMEi <- OME
 library(nlme)
 fp2 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/2)),
             "L75", function(x,L75) NULL)
+options(show.error.messages = FALSE)
 OMEi.nls <- nlsList(Correct/Trials ~ fp2(Loud, L75) | UIDn,
    data = OMEi, start = list(L75=45), control = list(maxiter=100))
+options(show.error.messages = TRUE)
 tmp <- sapply(OMEi.nls, function(X)
               {if(is.null(X)) NA else as.vector(coef(X))})
 OMEif <- data.frame(UID = round(as.numeric((names(tmp)))),
@@ -156,22 +157,22 @@ OMEf$Resp <- rep(rep(c(1,0), length(Trials)),
 OMEf <- OMEf[, -match(c("Correct", "Trials"), names(OMEf))]
 detach("OME")
 
+\dontrun{## this fails in R on some platforms
 fp2 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/exp(lsc))),
              c("L75", "lsc"),
              function(x, L75, lsc) NULL)
-\dontrun{## these fail in R at present
 G1.nlme <- nlme(Resp ~ fp2(Loud, L75, lsc),
      fixed = list(L75 ~ Age, lsc ~ 1),
      random = L75 + lsc ~ 1 | UID,
      data = OMEf[OMEf$Noise == "coherent",], method = "ML",
-     start = list(fixed=c(L75=c(48, -0.03), lsc=0.3)), verbose = TRUE)
+     start = list(fixed=c(L75=c(48.7, -0.03), lsc=0.24)), verbose = TRUE)
 summary(G1.nlme)
 
 G2.nlme <- nlme(Resp ~ fp2(Loud, L75, lsc),
      fixed = list(L75 ~ Age, lsc ~ 1),
      random = L75 + lsc ~ 1 | UID,
      data = OMEf[OMEf$Noise == "incoherent",], method="ML",
-     start = list(fixed=c(L75=c(41, -0.1), lsc=0)), verbose = TRUE)
+     start = list(fixed=c(L75=c(41.5, -0.1), lsc=0)), verbose = TRUE)
 summary(G2.nlme)
 }}
 \keyword{datasets}

@@ -13,7 +13,6 @@ options(contrasts = c("contr.helmert", "contr.poly"))
 
 # 6.1  A linear regression example
 
-data(whiteside)
 xyplot(Gas ~ Temp | Insul, whiteside, panel =
   function(x, y, ...) {
     panel.xyplot(x, y, ...)
@@ -47,6 +46,7 @@ gasBA1 <- lm(Gas ~ Insul*Temp, data = whiteside)
 summary(gasBA1)$coef
 options(oldcon)
 
+
 # 6.2  Model formulae and model matrices
 
 dat <- data.frame(a = factor(rep(1:3, 3)),
@@ -76,7 +76,6 @@ fractions(ginv(Cp))
 
 # 6.3  Regression diagnostics
 
-data(hills)
 (hills.lm <- lm(time ~ dist + climb, data = hills))
 frame()
 par(fig = c(0, 0.6, 0, 0.55))
@@ -115,7 +114,6 @@ cbind(hills[-18,], lev = hills2.hat)[hills2.hat > 1.8*2/34, ]
 
 # 6.4  Safe prediction
 
-data(wtloss)
 quad1 <- lm(Weight ~ Days + I(Days^2), data = wtloss)
 quad2 <- lm(Weight ~ poly(Days, 2), data = wtloss)
 
@@ -131,7 +129,6 @@ predict(quad2, newdata = new.x)
 # 6.5  Robust and resistant regression
 
 library(lqs)
-data(phones)
 phones.lm <- lm(calls ~ year, data = phones)
 attach(phones); plot(year, calls); detach()
 abline(phones.lm$coef)
@@ -192,7 +189,6 @@ ph <- data.frame(phones, res = resid(fit), fitted = fitted(fit))
 # 6.7  Factorial designs and designed experiments
 
 options(contrasts=c("contr.helmert", "contr.poly"))
-data(npk)
 (npk.aov <- aov(yield ~ block + N*P*K, data = npk))
 summary(npk.aov)
 
@@ -230,7 +226,6 @@ replications(~ .^2, data=Bike)
 
 # 6.8  An unbalanced four-way layout
 
-data(quine)
 attach(quine)
 table(Lrn, Age, Sex, Eth)
 
@@ -270,7 +265,6 @@ dropterm(quine.5, test = "F")
 
 # 6.9  Predicting computer performance
 
-data(cpus)
 par(mfrow = c(1, 2), pty = "s")
 boxcox(perf ~ syct + mmin + mmax + cach + chmin + chmax,
        data = cpus, lambda = seq(0, 1, 0.1))
@@ -310,7 +304,6 @@ test.cpus(cpus.lm2)
 
 # 6.10  Multiple comparisons
 
-data(immer)
 immer.aov <- aov((Y1 + Y2)/2 ~ Var + Loc, data = immer)
 summary(immer.aov)
 
@@ -333,10 +326,23 @@ multicomp(oats1, lmat = lmat, bounds = "lower", comparisons = "none")
 (tk <- TukeyHSD(immer.aov, which = "Var"))
 plot(tk)
 
-data(oats)
 oats1 <- aov(Y ~ N + V + B, data = oats)
 (tk <- TukeyHSD(oats1, which = "V"))
 plot(tk)
 
+## An alternative under R is to use package multcomp (which requires mvtnorm)
+library(multcomp)
+## next is slow:
+(tk <- simint((Y1 + Y2)/2 ~ Var + Loc, data = immer,
+              type="Tukey", whichf ="Var"))
+plot(tk)
+
+simint(Y ~ N + V + B, data = oats, whichf = "V", type = "Tukey")
+lmat <- matrix(c(0,-1,1,rep(0, 11), 0,0,-1,1, rep(0,10),
+                 0,0,0,-1,1,rep(0,9)),,3,
+               dimnames = list(NULL,
+               c("0.2cwt-0.0cwt", "0.4cwt-0.2cwt", "0.6cwt-0.4cwt")))
+simint(Y ~ N + V + B, data = oats, whichf = "N",
+       cmatrix = t(lmat[2:5, ]), alternative = "greater")
 
 # End of ch06

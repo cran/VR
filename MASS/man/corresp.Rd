@@ -69,11 +69,9 @@ Venables & Ripley (2002), chapter 11.
 \code{\link{svd}}, \code{\link{princomp}}
 }
 \examples{
-data(quine)
 (ct <- corresp(~ Age + Eth, data = quine))
 \dontrun{plot(ct)}
 
-data(caith)
 library(mva)
 corresp(caith)
 biplot(corresp(caith, nf = 2))

@@ -1,13 +1,9 @@
-# file nnet/nnet.q copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# file nnet/nnet.q copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
-nnet <- function(object, ...)
-{
-  if(is.null(class(object))) class(object) <- data.class(object)
-  UseMethod("nnet")
-}
+nnet <- function(x, ...) UseMethod("nnet")
 
 nnet.formula <- function(formula, data = NULL, weights, ...,
-			subset, na.action = na.fail, contrasts=NULL)
+                         subset, na.action = na.fail, contrasts=NULL)
 {
   class.ind <- function(cl)
   {
@@ -18,11 +14,11 @@ nnet.formula <- function(formula, data = NULL, weights, ...,
     x
   }
   m <- match.call(expand.dots = FALSE)
-  if(is.matrix(eval(m$data, parent.frame())))
+  if(is.matrix(eval.parent(m$data)))
       m$data <- as.data.frame(data)
   m$... <- m$contrasts <- NULL
   m[[1]] <- as.name("model.frame")
-  m <- eval(m, parent.frame())
+  m <- eval.parent(m)
   Terms <- attr(m, "terms")
   x <- model.matrix(Terms, m, contrasts)
   xint <- match("(Intercept)", colnames(x), nomatch=0)
@@ -151,7 +147,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
   if(entropy) net$lev <- c("0","1")
   if(softmax) net$lev <- colnames(y)
   net$call <- match.call()
-  if(Hess) net$Hessian <- nnet.Hess(net, x, y, weights)
+  if(Hess) net$Hessian <- nnetHess(net, x, y, weights)
   class(net) <- "nnet"
   net
 }
@@ -254,7 +250,7 @@ which.is.max <- function(x)
   if(length(y) > 1) sample(y,1) else y
 }
 
-nnet.Hess <- function(net, x, y, weights)
+nnetHess <- function(net, x, y, weights)
 {
   x <- as.matrix(x)
   y <- as.matrix(y)

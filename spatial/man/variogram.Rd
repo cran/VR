@@ -40,7 +40,7 @@ bins with 6 or more pairs.
 \code{\link{correlogram}}
 }
 \examples{
-data(topo)
+data(topo, package="MASS")
 topo.kr <- surf.ls(2, topo)
 variogram(topo.kr, 25)
 }

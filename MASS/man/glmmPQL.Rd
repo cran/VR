@@ -46,6 +46,10 @@ Further arguments for \code{lme}.
 \value{
 A object of class \code{"lme"}: see \code{\link[nlme]{lmeObject}}.
 }
+\details{
+  \code{glmmPQL} works by repeated calls to \code{\link[nlme]{lme}}, so
+  package \code{nlme} will be loaded at first use if necessary.
+}
 \references{
 Schall, R. (1991) Estimation in generalized linear models with
 random effects.
@@ -69,7 +73,6 @@ pseudo-likelihood approach.
 }
 \examples{
 library(nlme)
-data(bacteria)
 summary(glmmPQL(y ~ trt + I(week > 2), random = ~ 1 | ID,
                 family = binomial, data = bacteria))
 }

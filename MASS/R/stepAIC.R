@@ -6,24 +6,24 @@ stepAIC <-
            direction = c("both", "backward", "forward"),
            trace = 1, keep = NULL, steps = 1000, use.start = FALSE, k = 2, ...)
 {
-    fixFormulaObject <- function(object) {
-        tt <- terms(object)
-        tmp <- attr(tt, "term.labels")
-        if (!attr(tt, "intercept")) tmp <- c(tmp, "0")
-        if (!length(tmp)) tmp <- "1"
-        rhs <- paste(tmp, collapse = " + ")
-        form <- formula(object)         # loglm objects have no lhs
-        tmp <- if(length(form) > 2) paste(paste(deparse(form[[2]]),
-                                                collapse = ""), "~", rhs)
-        else paste("~", rhs)
-        ## must be as.character as deparse gives spurious ()
-        if (length(offset <- attr(tt, "offset")))
-            tmp <- paste(tmp, as.character(attr(tt, "variables")[offset + 1]),
-                         sep = " + ")
-        form <- formula(tmp)
-        environment(form) <- environment(tt)
-        form
-    }
+#     fixFormulaObject <- function(object) {
+#         tt <- terms(object)
+#         tmp <- attr(tt, "term.labels")
+#         if (!attr(tt, "intercept")) tmp <- c(tmp, "0")
+#         if (!length(tmp)) tmp <- "1"
+#         rhs <- paste(tmp, collapse = " + ")
+#         form <- formula(object)         # loglm objects have no lhs
+#         tmp <- if(length(form) > 2) paste(paste(deparse(form[[2]]),
+#                                                 collapse = ""), "~", rhs)
+#         else paste("~", rhs)
+#         ## must be as.character as deparse gives spurious ()
+#         if (length(offset <- attr(tt, "offset")))
+#             tmp <- paste(tmp, as.character(attr(tt, "variables")[offset + 1]),
+#                          sep = " + ")
+#         form <- formula(tmp)
+#         environment(form) <- environment(tt)
+#         form
+#     }
 
     mydeviance <- function(x, ...)
     {
@@ -73,14 +73,8 @@ stepAIC <-
         fit
     }
 
-    ## need to fix up . in formulae in R
-    if(!(inherits(object, "lme") || inherits(object, "gls"))) {
-        object$call$formula <- Terms <- object$formula <- fixFormulaObject(object)
-        attributes(Terms) <- attributes(terms(object))
-        object$terms <- Terms
-    } else {
-        Terms <- terms(object)
-    }
+    Terms <- terms(object)
+    object$call$formula <- object$formula <- Terms
     if(use.start) warning("use.start cannot be used with R's version of glm")
     md <- missing(direction)
     direction <- match.arg(direction)

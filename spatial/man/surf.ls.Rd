@@ -2,11 +2,6 @@
 %
 \name{surf.ls}
 \alias{surf.ls}
-\alias{deviance.trls}
-\alias{df.residual.trls}
-\alias{extractAIC.trls}
-\alias{fitted.trls}
-\alias{residuals.trls}
 \title{
 Fits a Trend Surface by Least-squares
 }
@@ -15,12 +10,6 @@ Fits a trend surface by least-squares.
 }
 \usage{
 surf.ls(np, x, y, z)
-
-\method{residuals}{trls}(object, \dots)
-\method{fitted}{trls}(object, \dots)
-\method{deviance}{trls}(object, \dots)
-\method{df.residual}{trls}(object, \dots)
-\method{extractAIC}{trls}(fit, scale, k = 2, \dots)
 }
 \arguments{
 \item{np}{
@@ -34,18 +23,6 @@ y coordinates
 }
 \item{z}{
 z coordinates. Will supersede \code{x$z}
-}
-\item{object, fit}{
-a fit inheriting from class \code{"trls"}
-}
-\item{scale}{
-unused for this method
-}
-\item{k}{
-the multiple of the number of degrees of freedom to be used.
-}
-\item{...}{
-arguments passed to or from other methods.
 }}
 \value{
 list with components
@@ -67,7 +44,7 @@ and others for internal use only.
 }
 \examples{
 library(MASS)
-data(topo)
+data(topo, package="MASS")
 topo.kr <- surf.ls(2, topo)
 trsurf <- trmat(topo.kr, 0, 6.5, 0, 6.5, 50)
 eqscplot(trsurf, type = "n")

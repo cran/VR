@@ -60,7 +60,7 @@ confidence interval about the maximum observed value of \code{lambda}. If
 data(trees)
 boxcox(Volume ~ log(Height) + log(Girth), data = trees,
        lambda = seq(-0.25, 0.25, length = 10))
-data(quine)
+
 boxcox(Days+1 ~ Eth*Sex*Age*Lrn, data = quine,
        lambda = seq(-0.05, 0.45, len = 20))
 }

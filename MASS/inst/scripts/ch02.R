@@ -49,12 +49,10 @@ inc <- ordered(c("Mid", "Hi", "Lo", "Mid", "Lo", "Hi", "Lo"),
                 levels = c("Lo", "Mid", "Hi"))
 inc
 
-data(geyser)
 erupt <- cut(geyser$duration, breaks = 0:6)
 erupt <- ordered(erupt, labels=levels(erupt))
 erupt
 
-data(painters)
 painters
 row.names(painters)
 
@@ -125,7 +123,6 @@ painters[grep("io$", row.names(painters)), ]
 
 detach("painters")
 
-data(fgl)
 m <- 30
 fglsub1 <- fgl[sort(sample(1:nrow(fgl), m)), ]
 
@@ -136,7 +133,6 @@ fglsub3 <- fgl[seq(1, nrow(fgl), by = 10), ]
 painters[sort.list(row.names(painters)), ]
 
 
-data(crabs)
 lcrabs <- crabs  # make a copy
 lcrabs[, 4:8] <- log(crabs[, 4:8])
 
@@ -175,7 +171,6 @@ books
 
 merge(authors, books, by.x = "surname", by.y = "name")
 
-data(quine)
 attach(quine)
 table(Age)
 table(Sex, Age)

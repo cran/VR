@@ -24,7 +24,6 @@ Fisher, R.A. (1940) The precision of discriminant functions.
 \bold{10}, 422--429.
 }
 \examples{
-data(caith)
 corresp(caith)
 dimnames(caith)[[2]] <- c("F", "R", "M", "D", "B")
 par(mfcol=c(1,3))

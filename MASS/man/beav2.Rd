@@ -47,7 +47,6 @@ New York: John Wiley and Sons.
 }
 \examples{
 library(ts)
-data(beav2)
 attach(beav2)
 beav2$hours <- 24*(day-307) + trunc(time/100) + (time\%\%100)/60
 plot(beav2$hours, beav2$temp, type = "l", xlab = "time",

@@ -57,7 +57,6 @@ Springer-Verlag
 }
 \examples{
 library(MASS)
-data(crabs)
 library(mva) # for dist
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, rep(50,4))])

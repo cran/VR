@@ -9,7 +9,6 @@
 \alias{extractAIC.multinom}
 \alias{predict.multinom}
 \alias{print.multinom}
-\alias{print.multinom}
 \alias{summary.multinom}
 \alias{print.summary.multinom}
 \alias{vcov.multinom}

@@ -19,13 +19,13 @@ Fit Neural Networks
 Fit single-hidden-layer neural network, possibly with skip-layer connections.
 }
 \usage{
-nnet.formula(formula, data = NULL, weights, \dots,
-             subset, na.action = na.fail, contrasts = NULL)
-nnet.default(x, y, weights, size, Wts, mask,
-             linout = FALSE, entropy = FALSE, softmax = FALSE,
-             censored = FALSE, skip = FALSE, rang = 0.7, decay = 0,
-             maxit = 100, Hess = FALSE, trace = TRUE, MaxNWts = 1000,
-             abstol = 1.0e-4, reltol = 1.0e-8, \dots)
+\method{nnet}{formula}(formula, data = NULL, weights, \dots,
+     subset, na.action = na.fail, contrasts = NULL)
+\method{nnet}{default}(x, y, weights, size, Wts, mask,
+     linout = FALSE, entropy = FALSE, softmax = FALSE,
+     censored = FALSE, skip = FALSE, rang = 0.7, decay = 0,
+     maxit = 100, Hess = FALSE, trace = TRUE, MaxNWts = 1000,
+     abstol = 1.0e-4, reltol = 1.0e-8, \dots)
 }
 \arguments{
 \item{formula}{
@@ -124,7 +124,7 @@ factor of at least \code{1 - reltol}.
 arguments passed to or from other methods.
 }}
 \value{
-object of class \code{nnet} or \code{nnet.formula}.
+object of class \code{"nnet"} or \code{"nnet.formula"}.
 Mostly internal structure, but has components
 
 \item{wts}{
@@ -146,11 +146,10 @@ number of levels is two, and a number of outputs equal to the number
 of classes and a softmax output stage for more levels.  If the
 response is not a factor, it is passed on unchanged to \code{nnet.default}.
 
-
-A quasi-Newton optimizer is used, written in \code{C}.
+Optimization is done via the BFGS method of \code{\link{optim}}.
 }
 \seealso{
-\code{\link{predict.nnet}}, \code{\link{nnet.Hess}}
+\code{\link{predict.nnet}}, \code{\link{nnetHess}}
 }
 \examples{
 data(iris3)
@@ -172,7 +171,7 @@ test.cl(targets[-samp,], predict(ir1, ir[-samp,]))
 ird <- data.frame(rbind(iris3[,,1], iris3[,,2], iris3[,,3]),
 	species = c(rep("s",50), rep("c", 50), rep("v", 50)))
 ir.nn2 <- nnet(species ~ ., data = ird, subset = samp, size = 2, rang = 0.1,
-            decay = 5e-4, maxit = 200)
+               decay = 5e-4, maxit = 200)
 table(ird$species[-samp], predict(ir.nn2, ird[-samp,], type = "class"))
 }
 \keyword{neural}

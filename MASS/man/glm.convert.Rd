@@ -32,7 +32,6 @@ structure of the fitted model object.
 \code{\link{glm.nb}}, \code{\link{negative.binomial}}, \code{\link{glm}}
 }
 \examples{
-data(quine)
 quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)
 quine.nbA <- glm.convert(quine.nb1)
 quine.nbB <- update(quine.nb1, . ~ . + Sex:Age:Lrn)

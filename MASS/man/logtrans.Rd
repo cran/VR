@@ -63,7 +63,6 @@ Venables & Ripley, Chapter 6.
 \code{\link{boxcox}}
 }
 \examples{
-data(quine)
 logtrans(Days ~ Age*Sex*Eth*Lrn, data = quine,
          alpha = seq(0.75, 6.5, len=20))
 }

@@ -42,7 +42,6 @@ Yates, F. (1970)
  London: Griffin.
 }
 \examples{
-data(oats)
 oats$Nf <- ordered(oats$N, levels = sort(levels(oats$N)))
 oats.aov <- aov(Y ~ Nf*V + Error(B/V), data = oats, qr = TRUE)
 summary(oats.aov)
