@@ -59,9 +59,10 @@ plot(beav1$hours, beav1$temp, type="l", xlab="time",
    ylab="temperature", main="Beaver 1")
 usr <- par("usr"); usr[3:4] <- c(-0.2, 8); par(usr=usr)
 lines(beav1$hours, beav1$activ, type="s", lty=2)
-temp <- ts(c(beav1$temp[1:82], NA, beav1$temp[83:114]), start=9.5, frequency=6)
-activ <- ts(c(beav1$activ[1:82], NA, beav1$activ[83:114]), start=9.5, frequency=6)
-
+temp <- ts(c(beav1$temp[1:82], NA, beav1$temp[83:114]),
+           start = 9.5, frequency = 6)
+activ <- ts(c(beav1$activ[1:82], NA, beav1$activ[83:114]),
+            start = 9.5, frequency = 6)
 
 acf(temp[1:53])
 acf(temp[1:53], type = "partial")

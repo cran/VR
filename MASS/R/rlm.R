@@ -159,15 +159,17 @@ rlm.default <-
         if(done) break
     }
     if(!done) warning("rlm failed to converge in ", maxit, " steps")
+    fitted <- temp$fitted.values
     if(!missing(weights)) {
         tmp <- (weights != 0)
         w[tmp] <- w[tmp]/weights[tmp]
+        fitted <- xx %*% coef
     }
     ## fix up call to refer to the generic, but leave arg name as `formula'
     cl <- match.call()
     cl[[1]] <- as.name("rlm")
     fit <- list(coefficients = coef, residuals = resid, effects = temp$effects,
-                rank = temp$rank, fitted.values = temp$fitted.values,
+                rank = temp$rank, fitted.values = fitted,
                 assign = temp$assign,  qr = temp$qr, df.residual = NA, w = w,
                 s = scale, psi = psi, k2 = k2,
                 weights = if(!missing(weights)) weights,

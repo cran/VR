@@ -10,8 +10,9 @@ Fit Linear Models by Generalized Least Squares
 Fit linear models by Generalized Least Squares
 }
 \usage{
-lm.gls(formula, data, W, subset, na.action, inverse = FALSE, method = "qr",
-       model = FALSE, x = FALSE, y = FALSE, contrasts = NULL, \dots)
+lm.gls(formula, data, W, subset, na.action, inverse = FALSE,
+       method = "qr", model = FALSE, x = FALSE, y = FALSE,
+       contrasts = NULL, \dots)
 }
 \arguments{
 \item{formula}{

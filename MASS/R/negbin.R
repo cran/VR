@@ -274,22 +274,22 @@ print.summary.negbin <- function(x, ...)
 }
 
 theta.md <-
-    function(y, u, dfr, limit = 20, eps = .Machine$double.eps^0.25)
+    function(y, mu, dfr, limit = 20, eps = .Machine$double.eps^0.25)
 {
     if(inherits(y, "lm")) {
-        u <- y$fitted
+        mu <- y$fitted
         dfr <- y$df.residual
-        y <- if(is.null(y$y)) u + residuals(y) else y$y
+        y <- if(is.null(y$y)) mu + residuals(y) else y$y
     }
     n <- length(y)
-    t0 <- n/sum((y/u - 1)^2)
-    a <- 2 * sum(y * log(pmax(1, y)/u)) - dfr
+    t0 <- n/sum((y/mu - 1)^2)
+    a <- 2 * sum(y * log(pmax(1, y)/mu)) - dfr
     it <- 0
     del <- 1
     while((it <- it + 1) < limit && abs(del) > eps) {
         t0 <- abs(t0)
-        top <- a - 2 * sum((y + t0) * log((y + t0)/(u + t0)))
-        bot <- 2 * sum((y - u)/(u + t0) - log((y + t0)/(u + t0)))
+        top <- a - 2 * sum((y + t0) * log((y + t0)/(mu + t0)))
+        bot <- 2 * sum((y - mu)/(mu + t0) - log((y + t0)/(mu + t0)))
         del <- top/bot
         t0 <- t0 - del
     }
@@ -302,8 +302,9 @@ theta.md <-
 }
 
 theta.ml <-
-    function(y, mu, n = length(y), limit = 10, eps = .Machine$double.eps^0.25,
-             trace=FALSE)
+    function(y, mu, n = length(y), limit = 10,
+             eps = .Machine$double.eps^0.25,
+             trace = FALSE)
 {
     score <- function(n, th, mu, y)
         sum(digamma(th + y) - digamma(th) + log(th) +
@@ -338,28 +339,28 @@ theta.ml <-
     t0
 }
 
-theta.mm <- function(y, u, dfr, limit = 10, eps = .Machine$double.eps^0.25)
+theta.mm <- function(y, mu, dfr, limit = 10, eps = .Machine$double.eps^0.25)
 {
-  if(inherits(y, "lm")) {
-    u <- y$fitted
-    dfr <- y$df.residual
-    y <- if(is.null(y$y)) u + residuals(y) else y$y
-  }
-  n <- length(y)
-  t0 <- n/sum((y/u - 1)^2)
-  it <- 0
-  del <- 1
-  while((it <- it + 1) < limit && abs(del) > eps) {
-    t0 <- abs(t0)
-    del <- (sum((y - u)^2/(u + u^2/t0)) - dfr)/sum((y - u)^2/(u + t0)^2)
-    t0 <- t0 - del
-  }
-  if(t0 < 0) {
-    t0 <- 0
-    warning("estimator truncated at zero")
-    attr(t0, "warn") <- "estimate truncated at zero"
-  }
-  t0
+    if(inherits(y, "lm")) {
+        mu <- y$fitted
+        dfr <- y$df.residual
+        y <- if(is.null(y$y)) mu + residuals(y) else y$y
+    }
+    n <- length(y)
+    t0 <- n/sum((y/mu - 1)^2)
+    it <- 0
+    del <- 1
+    while((it <- it + 1) < limit && abs(del) > eps) {
+        t0 <- abs(t0)
+        del <- (sum((y - mu)^2/(mu + mu^2/t0)) - dfr)/sum((y - mu)^2/(mu + t0)^2)
+        t0 <- t0 - del
+    }
+    if(t0 < 0) {
+        t0 <- 0
+        warning("estimator truncated at zero")
+        attr(t0, "warn") <- "estimate truncated at zero"
+    }
+    t0
 }
 
 logLik.negbin <- function(object, ...)

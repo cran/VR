@@ -16,7 +16,8 @@
 }
 \usage{
 cov.rob(x, cor = FALSE, quantile.used = floor((n + p + 1)/2),
-        method = c("mve", "mcd", "classical"), nsamp = "best", seed)
+        method = c("mve", "mcd", "classical"),
+        nsamp = "best", seed)
 
 cov.mve(\dots)
 cov.mcd(\dots)

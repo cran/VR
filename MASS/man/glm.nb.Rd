@@ -28,7 +28,7 @@ glm.nb(formula, data, weights, subset, na.action, start = NULL, etastart,
 }
 \item{\dots}{
   Any other arguments for the \code{\link{glm}()} function except \code{family}
-  and, in \R, \code{offset} (but \code{\link{offset}} can be used).
+  and, in \R, \code{offset} (but \code{\link{offset}()} can be used).
 }
 \item{init.theta}{
   Optional initial value for the theta parameter.  If omitted a moment
@@ -66,7 +66,7 @@ glm.nb(formula, data, weights, subset, na.action, start = NULL, etastart,
 \seealso{
   \code{\link{glm}}, \code{\link{negative.binomial}},
   \code{\link{anova.negbin}}, \code{\link{summary.negbin}},
-  \code{\link{theta.ml}}, \code{\link{theta.md}}, \code{\link{theta.mm}}
+  \code{\link{theta.md}}
 }
 \examples{
 quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)

@@ -16,7 +16,8 @@
 \usage{
 stepAIC(object, scope, scale = 0,
         direction = c("both", "backward", "forward"),
-        trace = 1, keep = NULL, steps = 1000, use.start = FALSE, k = 2, \dots)
+        trace = 1, keep = NULL, steps = 1000, use.start = FALSE,
+        k = 2, \dots)
 }
 \arguments{
   \item{object}{
@@ -92,7 +93,7 @@ stepAIC(object, scope, scale = 0,
 
   Models specified by \code{scope} can be templates to update
   \code{object} as used by \code{\link{update.formula}}.
-  
+
   There is a potential problem in using \code{\link{glm}} fits with a
   variable \code{scale}, as in that case the deviance is not simply
   related to the maximized log-likelihood. The \code{glm} method for

@@ -90,6 +90,8 @@ Library MASS
   been removed here.
 - Script ch07.R now gives details using the gam() function in package gam as
   well as that in package mgcv.
+- rlm's fitted component is now always unweighted.
+- theta.{md,ml,mm} now have one help file with examples.
 
 
 Library class

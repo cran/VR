@@ -20,7 +20,7 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
         x <- x + t(x)
     }
     ab <- x[row(x) < col(x)]<=0
-    if (any(ab)) {
+    if (any(ab, na.rm = TRUE)) {
         ab <- !is.na(ab) & ab
         aa <- cbind(as.vector(row(x)), as.vector(col(x)))[row(x) < col(x),]
         aa <- aa[ab,,drop=FALSE]

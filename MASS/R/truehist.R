@@ -20,7 +20,7 @@ function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
              col = col, border = border, lty = lty, lwd = lwd)
     }
     xlab  # force evaluation
-    data <- data[!is.na(data)]
+    data <- data[is.finite(data)]
     if(missing(breaks)) {
         if(missing(h)) {
             if(is.character(nbins))
