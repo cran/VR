@@ -6,209 +6,229 @@ stepAIC <-
            direction = c("both", "backward", "forward"),
            trace = 1, keep = NULL, steps = 1000, use.start = FALSE, k = 2, ...)
 {
-  fixFormulaObject <- function(object) {
-    tt <- terms(object)
-    tmp <- attr(tt, "term.labels")
-    if (!attr(tt, "intercept")) tmp <- c(tmp, "0")
-    if (!length(tmp)) tmp <- "1"
-    rhs <- paste(tmp, collapse = " + ")
-    form <- formula(object) # loglm objects have no lhs
-    tmp <- if(length(form) > 2) paste(paste(deparse(form[[2]]), collapse = ""), "~", rhs)
-    else paste("~", rhs)
-    ## must be as.character as deparse gives spurious ()
-    if (length(offset <- attr(tt, "offset")))
-      tmp <- paste(tmp, as.character(attr(tt, "variables")[offset + 1]),
-                   sep = " + ")
-    form <- formula(tmp)
-    environment(form) <- environment(tt)
-    form
-  }
-  mydeviance <- function(x, ...)
-  {
-    dev <- deviance(x)
-    if(!is.null(dev)) dev else extractAIC(x, k=0)[2]
-  }
+    fixFormulaObject <- function(object) {
+        tt <- terms(object)
+        tmp <- attr(tt, "term.labels")
+        if (!attr(tt, "intercept")) tmp <- c(tmp, "0")
+        if (!length(tmp)) tmp <- "1"
+        rhs <- paste(tmp, collapse = " + ")
+        form <- formula(object)         # loglm objects have no lhs
+        tmp <- if(length(form) > 2) paste(paste(deparse(form[[2]]),
+                                                collapse = ""), "~", rhs)
+        else paste("~", rhs)
+        ## must be as.character as deparse gives spurious ()
+        if (length(offset <- attr(tt, "offset")))
+            tmp <- paste(tmp, as.character(attr(tt, "variables")[offset + 1]),
+                         sep = " + ")
+        form <- formula(tmp)
+        environment(form) <- environment(tt)
+        form
+    }
 
-  cut.string <- function(string)
-  {
-    if(length(string) > 1)
-      string[-1] <- paste("\n", string[-1], sep = "")
-    string
-  }
+    mydeviance <- function(x, ...)
+    {
+        dev <- deviance(x)
+        if(!is.null(dev)) dev else extractAIC(x, k=0)[2]
+    }
 
-  re.arrange <- function(keep)
-  {
-    namr <- names(k1 <- keep[[1]])
-    namc <- names(keep)
-    nc <- length(keep)
-    nr <- length(k1)
-    array(unlist(keep, recursive = FALSE), c(nr, nc), list(namr, namc))
-  }
+    cut.string <- function(string)
+    {
+        if(length(string) > 1)
+            string[-1] <- paste("\n", string[-1], sep = "")
+        string
+    }
 
-  step.results <- function(models, fit, object, usingCp=FALSE)
-  {
-    change <- sapply(models, "[[", "change")
-    rd <- sapply(models, "[[", "deviance")
-    dd <- c(NA, abs(diff(rd)))
-    rdf <- sapply(models, "[[", "df.resid")
-    ddf <- c(NA, abs(diff(rdf)))
-    AIC <- sapply(models, "[[", "AIC")
-    heading <- c("Stepwise Model Path \nAnalysis of Deviance Table",
-                 "\nInitial Model:", deparse(as.vector(formula(object))),
-                 "\nFinal Model:", deparse(as.vector(formula(fit))),
-                 "\n")
-    aod <-
-      if(usingCp)
-        data.frame(Step = change, Df = ddf, Deviance = dd,
-                   "Resid. Df" = rdf, "Resid. Dev" = rd,
-                   Cp = AIC, check.names = FALSE)
-      else data.frame(Step = change, Df = ddf, Deviance = dd,
-                      "Resid. Df" = rdf, "Resid. Dev" = rd,
-                      AIC = AIC, check.names = FALSE)
-    attr(aod, "heading") <- heading
-    class(aod) <- c("Anova", "data.frame")
-    fit$anova <- aod
-    fit
-  }
+    re.arrange <- function(keep)
+    {
+        namr <- names(k1 <- keep[[1]])
+        namc <- names(keep)
+        nc <- length(keep)
+        nr <- length(k1)
+        array(unlist(keep, recursive = FALSE), c(nr, nc), list(namr, namc))
+    }
 
-  ## need to fix up . in formulae in R
-  object$formula <- fixFormulaObject(object)
-  Terms <- object$formula
-  object$call$formula <- object$formula
-  attributes(Terms) <- attributes(object$terms)
-  object$terms <- Terms
-  if(use.start) warning("use.start cannot be used with R's version of glm")
-  md <- missing(direction)
-  direction <- match.arg(direction)
-  backward <- direction == "both" | direction == "backward"
-  forward <- direction == "both" | direction == "forward"
-  if(missing(scope)) {
-    fdrop <- numeric(0)
-    fadd <- attr(Terms, "factors")
-    if(md) forward <- FALSE
-  } else {
-    if(is.list(scope)) {
-      fdrop <- if(!is.null(fdrop <- scope$lower))
-	attr(terms(update.formula(object, fdrop)), "factors")
-	else numeric(0)
-      fadd <- if(!is.null(fadd <- scope$upper))
-	attr(terms(update.formula(object, fadd)), "factors")
+    step.results <- function(models, fit, object, usingCp=FALSE)
+    {
+        change <- sapply(models, "[[", "change")
+        rd <- sapply(models, "[[", "deviance")
+        dd <- c(NA, abs(diff(rd)))
+        rdf <- sapply(models, "[[", "df.resid")
+        ddf <- c(NA, abs(diff(rdf)))
+        AIC <- sapply(models, "[[", "AIC")
+        heading <- c("Stepwise Model Path \nAnalysis of Deviance Table",
+                     "\nInitial Model:", deparse(as.vector(formula(object))),
+                     "\nFinal Model:", deparse(as.vector(formula(fit))),
+                     "\n")
+        aod <-
+            if(usingCp)
+                data.frame(Step = change, Df = ddf, Deviance = dd,
+                           "Resid. Df" = rdf, "Resid. Dev" = rd,
+                           Cp = AIC, check.names = FALSE)
+            else data.frame(Step = change, Df = ddf, Deviance = dd,
+                            "Resid. Df" = rdf, "Resid. Dev" = rd,
+                            AIC = AIC, check.names = FALSE)
+        attr(aod, "heading") <- heading
+        class(aod) <- c("Anova", "data.frame")
+        fit$anova <- aod
+        fit
+    }
+
+    ## need to fix up . in formulae in R
+    if(!(inherits(object, "lme") || inherits(object, "gls"))) {
+        object$call$formula <- Terms <- object$formula <- fixFormulaObject(object)
+        attributes(Terms) <- attributes(terms(object))
+        object$terms <- Terms
     } else {
-      fadd <- if(!is.null(fadd <- scope))
-	attr(terms(update.formula(object, scope)), "factors")
-      fdrop <- numeric(0)
+        Terms <- terms(object)
     }
-  }
-  models <- vector("list", steps)
-  if(!is.null(keep)) {
-    keep.list <- vector("list", steps)
-    nv <- 1
-  }
-  ## watch out for partial matching here.
-  if(is.list(object) && (nmm <- match("nobs", names(object), 0)) > 0)
-    n <- object[[nmm]]
-  else n <- length(residuals(object))
-  fit <- object
-  bAIC <- extractAIC(fit, scale, k = k, ...)
-  edf <- bAIC[1]
-  bAIC <- bAIC[2]
-  if(is.na(bAIC))
-    stop("AIC is not defined for this model, so stepAIC cannot proceed")
-  nm <- 1
-  Terms <- fit$terms
-  if(trace)
-    cat("Start:  AIC=", format(round(bAIC, 2)), "\n",
-        cut.string(deparse(as.vector(formula(fit)))), "\n\n")
-
-  models[[nm]] <- list(deviance = mydeviance(fit), df.resid = n - edf,
-		       change = "", AIC = bAIC)
-  if(!is.null(keep)) keep.list[[nm]] <- keep(fit, bAIC)
-  usingCp <- FALSE
-  while(steps > 0) {
-    steps <- steps - 1
-    AIC <- bAIC
-    bfit <- fit
-    ffac <- attr(Terms, "factors")
-    ## don't drop strata terms
-    if(!is.null(sp <- attr(Terms, "specials")) && !is.null(st <- sp$strata))
-        ffac <- ffac[-st,]
-    scope <- factor.scope(ffac, list(add = fadd, drop = fdrop))
-    aod <- NULL
-    change <- NULL
-    if(backward && length(scope$drop)) {
-      aod <- dropterm(fit, scope$drop, scale = scale,
-                      trace = max(0, trace - 1), k = k, ...)
-      rn <- row.names(aod)
-      row.names(aod) <- c(rn[1], paste("-", rn[-1], sep=" "))
-      ## drop all zero df terms first.
-      if(any(aod$Df == 0, na.rm=TRUE)) {
-        zdf <- aod$Df == 0 & !is.na(aod$Df)
-        nc <- match(c("Cp", "AIC"), names(aod))
-        nc <- nc[!is.na(nc)][1]
-        ch <- abs(aod[zdf, nc]) > 0.01
-        if(any(ch)) {
-            warning("0 df terms are changing AIC")
-            zdf <- zdf[!ch]
+    if(use.start) warning("use.start cannot be used with R's version of glm")
+    md <- missing(direction)
+    direction <- match.arg(direction)
+    backward <- direction == "both" | direction == "backward"
+    forward <- direction == "both" | direction == "forward"
+    if(missing(scope)) {
+        fdrop <- numeric(0)
+        fadd <- attr(Terms, "factors")
+        if(md) forward <- FALSE
+    } else {
+        if(is.list(scope)) {
+            fdrop <- if(!is.null(fdrop <- scope$lower))
+                attr(terms(update.formula(object, fdrop)), "factors")
+            else numeric(0)
+            fadd <- if(!is.null(fadd <- scope$upper))
+                attr(terms(update.formula(object, fadd)), "factors")
+        } else {
+            fadd <- if(!is.null(fadd <- scope))
+                attr(terms(update.formula(object, scope)), "factors")
+            fdrop <- numeric(0)
         }
-        if(length(zdf) > 0)
-            change <- paste((rownames(aod))[zdf])
-      }
     }
-    if(is.null(change)) {
-      if(forward && length(scope$add)) {
-        aodf <- addterm(fit, scope$add, scale = scale,
-                        trace = max(0, trace - 1), k = k, ...)
-        rn <- row.names(aodf)
-        row.names(aodf) <- c(rn[1], paste("+", rn[-1], sep=" "))
-        if(is.null(aod)) aod <- aodf
-        else {
-          aod <- rbind(aod, aodf[-1, , drop=FALSE])
-        }
-      }
-      attr(aod, "heading") <- NULL
-      if(is.null(aod) || ncol(aod) == 0) break
-      # need to remove any terms with zero df from consideration
-      nzdf <- if(!is.null(aod$Df)) aod$Df != 0 | is.na(aod$Df)
-      aod <- aod[nzdf, ]
-      if(is.null(aod) || ncol(aod) == 0) break
-      nc <- match(c("Cp", "AIC"), names(aod))
-      nc <- nc[!is.na(nc)][1]
-      o <- order(aod[, nc])
-      if(trace) print(aod[o,  ])
-      if(o[1] == 1) break
-      change <- rownames(aod)[o[1]]
+    models <- vector("list", steps)
+    if(!is.null(keep)) {
+        keep.list <- vector("list", steps)
+        nv <- 1
     }
-    usingCp <- match("Cp", names(aod), 0) > 0
-    fit <- update(fit, paste("~ .", change))
-    if(is.list(fit) && (nmm <- match("nobs", names(fit), 0)) > 0)
-        nnew <- fit[[nmm]]
-    else nnew <- length(residuals(fit))
-    if(nnew != n)
-        stop("number of rows in use has changed: remove missing values?")
-    fit$formula <- fixFormulaObject(fit)
-    Terms <- fit$formula
-    attributes(Terms) <- attributes(fit$terms)
-    fit$terms <- Terms
+    ## watch out for partial matching here.
+    if(is.list(object) && (nmm <- match("nobs", names(object), 0)) > 0)
+        n <- object[[nmm]]
+    else n <- length(residuals(object))
+    fit <- object
     bAIC <- extractAIC(fit, scale, k = k, ...)
     edf <- bAIC[1]
     bAIC <- bAIC[2]
+    if(is.na(bAIC))
+        stop("AIC is not defined for this model, so stepAIC cannot proceed")
+    nm <- 1
+    Terms <- terms(fit)
     if(trace)
-      cat("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
-          cut.string(deparse(as.vector(formula(fit)))), "\n\n")
-    if(bAIC >= AIC) break
-    nm <- nm + 1
-    models[[nm]] <-
-      list(deviance = mydeviance(fit), df.resid = n - edf,
-           change = change, AIC = bAIC)
-    if(!is.null(keep)) keep.list[[nm]] <- keep(fit, bAIC)
-  }
-  if(!is.null(keep)) fit$keep <- re.arrange(keep.list[seq(nm)])
-  step.results(models = models[seq(nm)], fit, object, usingCp)
-}
+        cat("Start:  AIC=", format(round(bAIC, 2)), "\n",
+            cut.string(deparse(as.vector(formula(fit)))), "\n\n")
 
+    models[[nm]] <- list(deviance = mydeviance(fit), df.resid = n - edf,
+                         change = "", AIC = bAIC)
+    if(!is.null(keep)) keep.list[[nm]] <- keep(fit, bAIC)
+    usingCp <- FALSE
+    while(steps > 0) {
+        steps <- steps - 1
+        AIC <- bAIC
+        bfit <- fit
+        ffac <- attr(Terms, "factors")
+        ## don't drop strata terms
+        if(!is.null(sp <- attr(Terms, "specials")) &&
+           !is.null(st <- sp$strata)) ffac <- ffac[-st,]
+        scope <- factor.scope(ffac, list(add = fadd, drop = fdrop))
+        aod <- NULL
+        change <- NULL
+        if(backward && length(scope$drop)) {
+            aod <- dropterm(fit, scope$drop, scale = scale,
+                            trace = max(0, trace - 1), k = k, ...)
+            rn <- row.names(aod)
+            row.names(aod) <- c(rn[1], paste("-", rn[-1], sep=" "))
+            ## drop all zero df terms first.
+            if(any(aod$Df == 0, na.rm=TRUE)) {
+                zdf <- aod$Df == 0 & !is.na(aod$Df)
+                nc <- match(c("Cp", "AIC"), names(aod))
+                nc <- nc[!is.na(nc)][1]
+                ch <- abs(aod[zdf, nc]) > 0.01
+                if(any(ch)) {
+                    warning("0 df terms are changing AIC")
+                    zdf <- zdf[!ch]
+                }
+                if(length(zdf) > 0)
+                    change <- paste((rownames(aod))[zdf])
+            }
+        }
+        if(is.null(change)) {
+            if(forward && length(scope$add)) {
+                aodf <- addterm(fit, scope$add, scale = scale,
+                                trace = max(0, trace - 1), k = k, ...)
+                rn <- row.names(aodf)
+                row.names(aodf) <- c(rn[1], paste("+", rn[-1], sep=" "))
+                if(is.null(aod)) aod <- aodf
+                else {
+                    aod <- rbind(aod, aodf[-1, , drop=FALSE])
+                }
+            }
+            attr(aod, "heading") <- NULL
+            if(is.null(aod) || ncol(aod) == 0) break
+            ## need to remove any terms with zero df from consideration
+            nzdf <- if(!is.null(aod$Df)) aod$Df != 0 | is.na(aod$Df)
+            aod <- aod[nzdf, ]
+            if(is.null(aod) || ncol(aod) == 0) break
+            nc <- match(c("Cp", "AIC"), names(aod))
+            nc <- nc[!is.na(nc)][1]
+            o <- order(aod[, nc])
+            if(trace) print(aod[o,  ])
+            if(o[1] == 1) break
+            change <- rownames(aod)[o[1]]
+        }
+        usingCp <- match("Cp", names(aod), 0) > 0
+        fit <- update(fit, paste("~ .", change))
+        if(is.list(fit) && (nmm <- match("nobs", names(fit), 0)) > 0)
+            nnew <- fit[[nmm]]
+        else nnew <- length(residuals(fit))
+        if(nnew != n)
+            stop("number of rows in use has changed: remove missing values?")
+#        Terms <- fit$formula <- fixFormulaObject(fit)
+#        attributes(Terms) <- attributes(terms(fit))
+#        fit$terms <- Terms
+        Terms <- terms(fit)
+        bAIC <- extractAIC(fit, scale, k = k, ...)
+        edf <- bAIC[1]
+        bAIC <- bAIC[2]
+        if(trace)
+            cat("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
+                cut.string(deparse(as.vector(formula(fit)))), "\n\n")
+        if(bAIC >= AIC) break
+        nm <- nm + 1
+        models[[nm]] <-
+            list(deviance = mydeviance(fit), df.resid = n - edf,
+                 change = change, AIC = bAIC)
+        if(!is.null(keep)) keep.list[[nm]] <- keep(fit, bAIC)
+    }
+    if(!is.null(keep)) fit$keep <- re.arrange(keep.list[seq(nm)])
+    step.results(models = models[seq(nm)], fit, object, usingCp)
+}
 
 extractAIC.loglm <- function(fit, scale, k = 2, ...)
 {
-  edf <- fit$n - fit$df
-  c(edf,  fit$deviance + k * edf)
+    edf <- fit$n - fit$df
+    c(edf,  fit$deviance + k * edf)
 }
+
+extractAIC.lme <- function(fit, scale, k = 2, ...)
+{
+    if(fit$method != "ML") stop("AIC undefined for REML fit")
+    res <- logLik(fit)
+    edf <- attr(res, "df")
+    c(edf,  -2*res + k * edf)
+}
+
+extractAIC.gls <- function(fit, scale, k = 2, ...)
+{
+    res <- logLik(fit)
+    edf <- attr(res, "df")
+    c(edf,  -2*res + k * edf)
+}
+
+terms.gls <- terms.lme <- function(x, ...) terms(formula(x), ...)

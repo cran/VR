@@ -191,7 +191,7 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
        as.integer(object$nsunits), as.integer(0),
        as.integer(object$softmax), as.integer(object$censored),
        PACKAGE = "nnet")
-    z <- matrix(NA, length(keep), nout,
+    z <- matrix(NA, nrow(newdata), nout,
                 dimnames = list(rn, dimnames(object$fitted)[[2]]))
     z[keep, ] <- matrix(.C("VR_nntest",
                            as.integer(ntr),

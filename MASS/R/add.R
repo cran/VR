@@ -124,7 +124,7 @@ addterm.glm <-
         scope <- add.scope(object, update.formula(object, scope))
     if(!length(scope))
         stop("no terms in scope for adding to object")
-    oTerms <- attr(object$terms, "term.labels")
+    oTerms <- attr(terms(object), "term.labels")
     int <- attr(object$terms, "intercept")
     ns <- length(scope)
     dfs <- dev <- numeric(ns+1)
@@ -211,7 +211,7 @@ dropterm.default <-
   function(object, scope, scale = 0, test = c("none", "Chisq"),
            k = 2, sorted = FALSE, trace = FALSE, ...)
 {
-    tl <- attr(object$terms, "term.labels")
+    tl <- attr(terms(object), "term.labels")
     if(missing(scope)) scope <- drop.scope(object)
     else {
         if(!is.character(scope))

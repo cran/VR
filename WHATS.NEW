@@ -46,6 +46,7 @@ Library MASS
 - glm.nb allows R-style `start' argument.
 - truehist passes ... on to both plot.default() and rect().
 - isoMDS now uses the C interface to optim.
+- addterm, dropterm, stepAIC now work with lme and gls fits.
 
 
 Library class

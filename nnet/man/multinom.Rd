@@ -94,8 +94,7 @@ the AIC for this fit.
 options(contrasts = c("contr.treatment", "contr.poly"))
 library(MASS)
 example(birthwt)
-bwt.mu <- multinom(low ~ ., bwt)
-bwt.mu
+(bwt.mu <- multinom(low ~ ., bwt))
 \dontrun{Call:
 multinom(formula = low ~ ., data = bwt)
 

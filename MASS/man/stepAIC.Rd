@@ -1,8 +1,12 @@
 % file MASS/stepAIC.d
-% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 %
 \name{stepAIC}
 \alias{stepAIC}
+\alias{extractAIC.gls}
+\alias{terms.gls}
+\alias{extractAIC.lme}
+\alias{terms.lme}
 \title{
   Choose a model by AIC in a Stepwise Algorithm
 }
