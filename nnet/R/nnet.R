@@ -2,7 +2,7 @@
 #
 nnet <- function(x, ...) UseMethod("nnet")
 
-nnet.formula <- function(formula, data = NULL, weights, ...,
+nnet.formula <- function(formula, data, weights, ...,
                          subset, na.action = na.fail, contrasts=NULL)
 {
   class.ind <- function(cl)
@@ -21,6 +21,7 @@ nnet.formula <- function(formula, data = NULL, weights, ...,
   m <- eval.parent(m)
   Terms <- attr(m, "terms")
   x <- model.matrix(Terms, m, contrasts)
+  cons <- attr(x, "contrast")
   xint <- match("(Intercept)", colnames(x), nomatch=0)
   if(xint > 0) x <- x[, -xint, drop=FALSE] # Bias term is used for intercepts
   w <- model.weights(m)
@@ -47,7 +48,9 @@ nnet.formula <- function(formula, data = NULL, weights, ...,
   res$terms <- Terms
   res$coefnames <- colnames(x)
   res$call <- match.call()
-  if(!is.null(attr(m, "na.action"))) res$na.action <- attr(m, "na.action")
+  res$na.action <- attr(m, "na.action")
+  res$contrasts <- cons
+  res$xlevels <- .getXlevels(Terms, m)
   class(res) <- c("nnet.formula", "nnet")
   res
 }
@@ -165,9 +168,12 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
       rn <- row.names(newdata)
 # work hard to predict NA for rows with missing data
       Terms <- delete.response(object$terms)
-      m <- model.frame(Terms, newdata, na.action = na.omit)
+      m <- model.frame(Terms, newdata, na.action = na.omit,
+                       xlev = object$xlevels)
+      if (!is.null(cl <- attr(Terms, "dataClasses")) &&
+          exists(".checkMFClasses", envir=NULL)) .checkMFClasses(cl, m)
       keep <- match(row.names(m), rn)
-      x <- model.matrix(Terms, m)
+      x <- model.matrix(Terms, m, contrasts = object$contrasts)
       xint <- match("(Intercept)", colnames(x), nomatch=0)
       if(xint > 0) x <- x[, -xint, drop=FALSE] # Bias term is used for intercepts
     } else { #
@@ -350,4 +356,4 @@ print.summary.nnet <- function(x, ...)
   invisible(x)
 }
 
-residuals.nnet <- function(object, ...) object$residuals
+# residuals.nnet <- function(object, ...) object$residuals

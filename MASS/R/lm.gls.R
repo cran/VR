@@ -16,12 +16,6 @@ lm.gls <-
     Terms <- attr(m, "terms")
     Y <- model.response(m)
     X <- model.matrix(Terms, m, contrasts)
-    xvars <- as.character(attr(Terms, "variables"))[-1]
-    if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
-    xlev <- if (length(xvars) > 0) {
-        xlev <- lapply(m[xvars], levels)
-        xlev[!sapply(xlev, is.null)]
-    }
     n <- nrow(X)
     if(any(dim(W) != c(n, n))) stop("dim(W) is not correct")
     eW <- eigen(W, TRUE)
@@ -34,10 +28,9 @@ lm.gls <-
     if(model) fit$model <- m
     if(x) fit$x <- X
     if(y) fit$y <- Y
-    attr(fit, "na.message") <- attr(m, "na.message")
-    if(!is.null(attr(m, "na.action"))) fit$na.action <- attr(m, "na.action")
+    fit$na.action <- attr(m, "na.action")
     class(fit) <- c("lm.gls", class(fit))
-    fit$xlevels <- xlev
+    fit$xlevels <- .getXlevels(Terms, m)
     fit$contrasts <- attr(X, "contrasts")
     fit
 }

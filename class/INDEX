@@ -2,8 +2,7 @@ SOM                     Self-Organizing Maps: Online Algorithm
 batchSOM                Self-Organizing Maps: Batch Algorithm
 condense                Condense training set for k-NN classifier
 knn                     k-Nearest Neighbour Classification
-knn.cv                  k-Nearest Neighbour Cross-Validatory
-                        Classification
+knn.cv                  k-Nearest Neighbour Cross-Validatory Classification
 knn1                    1-nearest neighbour classification
 lvq1                    Learning Vector Quantization 1
 lvq2                    Learning Vector Quantization 2.1

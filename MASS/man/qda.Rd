@@ -18,7 +18,7 @@ Quadratic discriminant analysis.
 \usage{
 qda(x, \dots)
 
-\method{qda}{formula}(formula, data, \dots, subset, na.action = na.fail)
+\method{qda}{formula}(formula, data, \dots, subset, na.action)
 
 \method{qda}{default}(x, grouping, prior = proportions,
     method, CV = FALSE, nu, \dots)

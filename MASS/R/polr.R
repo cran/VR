@@ -1,8 +1,9 @@
 # file MASS/polr.q
 # copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
-polr <- function(formula, data = NULL, weights, start, ..., subset,
-                 na.action = na.fail, contrasts = NULL, Hess=FALSE)
+polr <- function(formula, data, weights, start, ..., subset,
+                 na.action, contrasts = NULL, Hess = FALSE,
+                 model = TRUE)
 {
     logit <- function(p) log(p/(1-p))
 
@@ -35,12 +36,6 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
     x <- model.matrix(Terms, m, contrasts)
-    xvars <- as.character(attr(Terms, "variables"))[-1]
-    if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
-    xlev <- if (length(xvars) > 0) {
-        xlev <- lapply(m[xvars], levels)
-        xlev[!sapply(xlev, is.null)]
-    }
     xint <- match("(Intercept)", colnames(x), nomatch=0)
     n <- nrow(x)
     pc <- ncol(x)
@@ -97,10 +92,10 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
         dimnames(H) <- list(dn, dn)
         fit$Hessian <- H
     }
-    attr(fit, "na.message") <- attr(m, "na.message")
-    if(!is.null(attr(m, "na.action"))) fit$na.action <- attr(m, "na.action")
+    if(model) fit$model <- m
+    fit$na.action <- attr(m, "na.action")
     fit$contrasts <- cons
-    fit$xlevels <- xlev
+    fit$xlevels <- .getXlevels(Terms, m)
     class(fit) <- "polr"
     fit
 }
@@ -196,6 +191,8 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
         Terms <- delete.response(object$terms)
         m <- model.frame(Terms, newdata, na.action = function(x) x,
                          xlev = object$xlevels)
+        if (!is.null(cl <- attr(Terms, "dataClasses")) &&
+            exists(".checkMFClasses", envir=NULL)) .checkMFClasses(cl, m)
         X <- model.matrix(Terms, m, contrasts = object$contrasts)
         xint <- match("(Intercept)", colnames(X), nomatch=0)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
@@ -221,16 +218,22 @@ extractAIC.polr <- function(fit, scale = 0, k = 2, ...)
     c(edf, deviance(fit) + k * edf)
 }
 
-model.frame.polr <- function(formula, data, na.action, ...)
+model.frame.polr <- function(formula, ...)
 {
-    m <- formula$call
-    m$start <- m$Hess <- m$... <- NULL
-    m[[1]] <- as.name("model.frame")
-    data <- eval.parent(m)
-    if(!is.null(mw <- m$weights)) {
-        nm <- names(data)
-        nm[match("(weights)", nm)] <- as.character(mw)
-        names(data) <- nm
-    }
-    data
+    dots <- list(...)
+    nargs <- dots[match(c("data", "na.action", "subset"), names(dots), 0)]
+    if(any(nargs > 0) || is.null(formula$model)) {
+        m <- formula$call
+        m$start <- m$Hess <- m$... <- NULL
+        m[[1]] <- as.name("model.frame")
+        m[names(nargs)] <- nargs
+        if (is.null(env <- environment(formula$terms))) env <- parent.frame()
+        data <- eval(m, env)
+        if(!is.null(mw <- m$weights)) {
+            nm <- names(data)
+            nm[match("(weights)", nm)] <- as.character(mw)
+            names(data) <- nm
+        }
+        data
+    } else formula$model
 }

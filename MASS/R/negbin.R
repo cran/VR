@@ -70,11 +70,10 @@ function(object)
     object
 }
 
-glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
-		   subset, na.action, start = NULL, etastart = NULL,
+glm.nb <- function(formula, data, weights,
+		   subset, na.action, start = NULL, etastart,
 		   control = glm.control(...), method = "glm.fit",
-		   model = TRUE,
-                   x = FALSE, y = TRUE, contrasts = NULL, ...,
+		   model = TRUE, x = FALSE, y = TRUE, contrasts = NULL, ...,
 		   init.theta, link = log)
 {
     loglik <- function(n, th, mu, y)
@@ -89,24 +88,23 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
         fam0 <- do.call("negative.binomial", list(theta = init.theta, link = link))
     }
     Call <- match.call()
-    m <- match.call(expand = FALSE)
-    m$method <- m$model <- m$x <- m$y <- m$control <- m$contrasts <-
-        m$init.theta <- m$link <- m$start <- m$etastart <- m$... <-  NULL
-    m[[1]] <- as.name("model.frame")
-    m <- eval.parent(m)
-    Terms <- attr(m, "terms")
-    if(method == "model.frame") return(m)
-    xvars <- as.character(attr(Terms, "variables"))[-1]
-    if(length(xvars) > 0) {
-        xlev <- lapply(m[xvars], levels)
-        xlev <- xlev[!sapply(xlev, is.null)]
-    } else xlev <- NULL
-    Y <- model.response(m)
-    X <- model.matrix(Terms, m, contrasts)
-    w <- model.weights(m)
-    if(!length(w)) w <- rep(1, nrow(m))
+    mf <- match.call(expand.dots = FALSE)
+    mf$method <- mf$model <- mf$x <- mf$y <- mf$control <- mf$contrasts <-
+        mf$init.theta <- mf$link <- mf$start <- mf$... <-  NULL
+    mf$drop.unused.levels <- TRUE
+    mf[[1]] <- as.name("model.frame")
+    mf <- eval.parent(mf)
+    Terms <- attr(mf, "terms")
+    if(method == "model.frame") return(mf)
+    Y <- model.response(mf, "numeric")
+    ## null model support
+    X <- if (!is.empty.model(Terms)) model.matrix(Terms, mf, contrasts) else matrix(,NROW(Y),0)
+    w <- model.weights(mf)
+    if(!length(w)) w <- rep(1, nrow(mf))
     else if(any(w < 0)) stop("negative weights not allowed")
-    offset <- model.offset(m)
+    offset <- model.offset(mf)
+    ## these allow starting values to be expressed in terms of other vars.
+    etastart <- model.extract(mf, "etastart")
     n <- length(Y)
     if(!is.null(method)) {
         if(!exists(method, mode = "function"))
@@ -184,16 +182,16 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
     Call$init.theta <- as.vector(th)
     Call$link <- link
     fit$call <- Call
-    if(model) fit$model <- m
+    if(model) fit$model <- mf
+    fit$na.action <- attr(mf, "na.action")
     if(x) fit$x <- X
     if(!y) fit$y <- NULL
     fit$theta <- as.vector(th)
     fit$SE.theta <- attr(th, "SE")
     fit$twologlik <- as.vector(2 * Lm)
     fit$aic <- -fit$twologlik + 2*fit$rank + 2
-    fit$contrasts <- if (length(unlist(lapply(m, class))))
-        options("contrasts")[[1]] else FALSE
-    fit$xlevels <- xlev
+    fit$contrasts <- attr(X, "contrasts")
+    fit$xlevels <- .getXlevels(Terms, mf)
     fit$method <- method
     fit$control <- control
     fit

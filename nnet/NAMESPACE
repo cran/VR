@@ -21,7 +21,7 @@ S3method(coef, nnet)
 S3method(predict, nnet)
 S3method(print, nnet)
 S3method(print, summary.nnet)
-S3method(residuals, nnet)
+# S3method(residuals, nnet)
 S3method(summary, nnet)
 
 S3method(nnet, default)

@@ -20,8 +20,9 @@ Fit Multinomial Log-linear Models
 Fits multinomial log-linear models via neural networks.
 }
 \usage{
-multinom(formula, data = parent.frame(), weights, subset, na.action,
-         contrasts = NULL, Hess = FALSE, summ = 0, censored = FALSE, \dots)
+multinom(formula, data, weights, subset, na.action,
+         contrasts = NULL, Hess = FALSE, summ = 0, censored = FALSE,
+         model = FALSE, \dots)
 }
 \arguments{
 \item{formula}{
@@ -68,11 +69,15 @@ If Y is a matrix with \code{K > 2} columns, interpret the entries as one
 for possible classes, zero for impossible classes, rather than as
 counts.
 }
+\item{model}{
+  logical. If true, the model frame is saved as component \code{model}
+  of the returned object.
+}
 \item{\dots}{
 additional arguments for \code{nnet}
 }}
 \value{
-A \code{nnet} object with additional structure.
+A \code{nnet} object with additional components:
 
 \item{deviance}{
 the residual deviance.
@@ -85,6 +90,9 @@ the AIC for this fit.
 }
 \item{Hessian}{
 (if \code{Hess} is true).
+}
+\item{model}{
+(if \code{model} is true).
 }}
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

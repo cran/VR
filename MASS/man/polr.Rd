@@ -19,8 +19,8 @@
   response.
 }
 \usage{
-polr(formula, data = NULL, weights, start, \dots, subset,
-     na.action = na.fail, contrasts = NULL, Hess = FALSE)
+polr(formula, data, weights, start, \dots, subset, na.action,
+     contrasts = NULL, Hess = FALSE, model = TRUE)
 }
 \arguments{
 \item{formula}{
@@ -61,7 +61,11 @@ polr(formula, data = NULL, weights, start, \dots, subset,
 \item{Hess}{
   logical for whether the Hessian (the observed information matrix)
   should be returned.
-}}
+}
+\item{model}{
+  logical for whether the model matrix should be returned.
+}
+}
 \value{
 A object of class \code{"polr"}.
 
@@ -103,6 +107,9 @@ A object of class \code{"polr"}.
 }
 \item{Hessian}{
   (if \code{Hess} is true).
+}
+\item{model}{
+  (if \code{model} is true).
 }}
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

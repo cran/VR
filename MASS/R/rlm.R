@@ -4,8 +4,7 @@
 rlm <- function(x, ...) UseMethod("rlm")
 
 rlm.formula <-
-    function(formula, data = NULL, weights, ...,
-             subset, na.action = na.fail,
+    function(formula, data, weights, ..., subset, na.action,
              method = c("M", "MM", "model.frame"),
              wt.method = c("case", "inv.var"),
              model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)
@@ -37,9 +36,8 @@ rlm.formula <-
     cl[[1]] <- as.name("rlm")
     fit$call <- cl
     fit$contrasts <- attr(x, "contrasts")
-    fit$xlevels <- xlev
-    attr(fit, "na.message") <- attr(mf, "na.message")
-    if(!is.null(attr(mf, "na.action"))) fit$na.action <- attr(mf, "na.action")
+    fit$xlevels <- .getXlevels(mt, mf)
+    fit$na.action <- attr(mf, "na.action")
     if(model) fit$model <- mf
     if(!x.ret) fit$x <- NULL
     if(y.ret) fit$y <- y

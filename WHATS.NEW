@@ -66,6 +66,10 @@ Library MASS
   package:MASS in their environment.
 - stepAIC now drops (if allowed) 0-df terms sequentially from the right.
 - lda(CV=TRUE) now works for rank-deficient fits.
+- predict methods for lda, polr now check newdata types.
+- model.frame.lda/polr now look for the environment of the original formula.
+- polr has a new `model' argument defaulting to TRUE.
+- fitdistr supports the trivial case of a Normal distribution.
 
 
 Library class
@@ -86,6 +90,9 @@ Library nnet
 - nnet now uses the C interface to optim.
 - nnet.Hess has been renamed nnetHess.
 - vcov.multinom now computes the Hessian analytically (thanks to David Firth).
+- predict methods for multinom, nnet now check newdata types
+- model.frame.multinom now looks for the environment of the original formula
+- multinom has a new `model' argument defaulting to TRUE.
 
 
 Library spatial

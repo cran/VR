@@ -19,7 +19,7 @@ Linear discriminant analysis.
 \usage{
 lda(x, \dots)
 
-\method{lda}{formula}(formula, data, \dots, subset, na.action = na.fail)
+\method{lda}{formula}(formula, data, \dots, subset, na.action)
 
 \method{lda}{default}(x, grouping, prior = proportions, tol = 1.0e-4,
     method, CV = FALSE, nu, \dots)

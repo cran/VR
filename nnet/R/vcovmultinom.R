@@ -1,13 +1,6 @@
-# vcov.multinom <- function(object, ...)
-# {
-#     hess <- multinomHess(object)
-#     structure(chol2inv(chol(hess)), dimnames = dimnames(hess))
-# }
-
-multinomHess <- function(object)
+multinomHess <- function(object, Z = model.matrix(object))
 {
     probs <- fitted(object)
-    Z <- model.matrix(object)
     coefs <- coef(object)
     if (is.vector(coefs)){ # ie there are only 2 response categories
         coefs <- t(as.matrix(coefs))

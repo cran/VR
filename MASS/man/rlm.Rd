@@ -18,7 +18,7 @@ Fit a linear model by robust regression using an M estimator.
 \usage{
 rlm(x, \dots)
 
-\method{rlm}{formula}(formula, data, weights, \dots, subset, na.action = na.fail,
+\method{rlm}{formula}(formula, data, weights, \dots, subset, na.action,
     method = c("M", "MM", "model.frame"),
     wt.method = c("case", "inv.var"),
     model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)

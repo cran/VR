@@ -36,7 +36,7 @@ renumerate.formula <- function(x)
 }
 
 loglm <-
-  function(formula, data = parent.frame(), subset, na.action, ...)
+  function(formula, data, subset, na.action, ...)
 {
     assign(".call", match.call(), envir=.GlobalEnv)
     if(missing(data) || inherits(data, "data.frame")) {

@@ -4,24 +4,17 @@
 lda <- function(x, ...) UseMethod("lda")
 
 
-lda.formula <- function(formula, data = NULL, ...,
-			subset, na.action = na.fail)
+lda.formula <- function(formula, data, ..., subset, na.action)
 {
     m <- match.call(expand.dots = FALSE)
-    if(is.matrix(eval.parent(m$data)))
-        m$data <- as.data.frame(data)
+#    if(is.matrix(eval.parent(m$data))) # done in model.frame.default
+#        m$data <- as.data.frame(data)
     m$... <- NULL
     m[[1]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
     grouping <- model.response(m)
     x <- model.matrix(Terms, m)
-    xvars <- as.character(attr(Terms, "variables"))[-1]
-   if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
-    xlev <- if (length(xvars) > 0) {
-        xlev <- lapply(m[xvars], levels)
-        xlev[!sapply(xlev, is.null)]
-    }
     xint <- match("(Intercept)", colnames(x), nomatch=0)
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- lda.default(x, grouping, ...)
@@ -31,15 +24,14 @@ lda.formula <- function(formula, data = NULL, ...,
     cl[[1]] <- as.name("lda")
     res$call <- cl
     res$contrasts <- attr(x, "contrasts")
-    res$xlevels <- xlev
-    attr(res, "na.message") <- attr(m, "na.message")
-    if(!is.null(attr(m, "na.action"))) res$na.action <- attr(m, "na.action")
+    res$xlevels <- .getXlevels(Terms, m)
+    res$na.action <- attr(m, "na.action")
     res
 }
 
 lda.data.frame <- function(x, ...)
 {
-    res <- lda.matrix(structure(data.matrix(x), class="matrix"), ...)
+    res <- lda(structure(data.matrix(x), class="matrix"), ...)
     cl <- match.call()
     cl[[1]] <- as.name("lda")
     res$call <- cl
@@ -60,7 +52,8 @@ lda.matrix <- function(x, grouping, ...,
         grouping <- dfr$g
         x <- dfr$x
     }
-    res <- NextMethod("lda")
+#    res <- NextMethod("lda")
+    res <- lda.default(x, grouping, ...)
     cl <- match.call()
     cl[[1]] <- as.name("lda")
     res$call <- cl
@@ -195,14 +188,16 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
     if(!inherits(object, "lda")) stop("object not of class lda")
     if(!is.null(Terms <- object$terms)) { #
     # formula fit
+        Terms <- delete.response(Terms)
         if(missing(newdata)) newdata <- model.frame(object)
         else {
-            newdata <- model.frame(as.formula(delete.response(Terms)),
-                                   newdata, na.action=function(x) x,
+            newdata <- model.frame(Terms, newdata, na.action=na.pass,
                                    xlev = object$xlevels)
+            if (!is.null(cl <- attr(Terms, "dataClasses")) &&
+                exists(".checkMFClasses", envir=NULL))
+                .checkMFClasses(cl, newdata)
         }
-        x <- model.matrix(delete.response(Terms), newdata,
-                          contrasts = object$contrasts)
+        x <- model.matrix(Terms, newdata, contrasts = object$contrasts)
         xint <- match("(Intercept)", colnames(x), nomatch=0)
         if(xint > 0) x <- x[, -xint, drop=FALSE]
     } else { #
@@ -456,17 +451,17 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
     invisible(NULL)
 }
 
-model.frame.lda <-
-function(formula, data = NULL, na.action = NULL, ...)
+model.frame.lda <- function(formula, ...)
 {
     oc <- formula$call
     oc$prior <- oc$tol <- oc$method <- oc$CV <- oc$nu <- NULL
     oc[[1]] <- as.name("model.frame")
-    if(length(data)) {
-        oc$data <- substitute(data)
-        eval.parent(oc)
+    if(length(dots<- list(...))) {
+        nargs <- dots[match(c("data", "na.action", "subset"), names(dots), 0)]
+        oc[names(nargs)] <- nargs
     }
-    else eval(oc, list())
+    if (is.null(env <- environment(formula$terms))) env <- parent.frame()
+    eval(oc, env)
 }
 
 coef.lda <- function(object, ...) object$scaling

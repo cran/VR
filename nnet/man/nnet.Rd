@@ -9,7 +9,7 @@
 \alias{eval.nn}
 \alias{coef.nnet}
 \alias{print.nnet}
-\alias{residuals.nnet}
+% \alias{residuals.nnet}
 \alias{summary.nnet}
 \alias{print.summary.nnet}
 \title{
@@ -21,7 +21,7 @@ Fit single-hidden-layer neural network, possibly with skip-layer connections.
 \usage{
 nnet(x, \dots)
 
-\method{nnet}{formula}(formula, data = NULL, weights, \dots,
+\method{nnet}{formula}(formula, data, weights, \dots,
      subset, na.action = na.fail, contrasts = NULL)
 
 \method{nnet}{default}(x, y, weights, size, Wts, mask,

@@ -1,8 +1,10 @@
 # file nnet/multinom.q copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 
-multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
-	    contrasts=NULL, Hess=FALSE, summ=0, censored=FALSE, ...)
+multinom <-
+    function(formula, data, weights, subset, na.action,
+             contrasts = NULL, Hess = FALSE, summ = 0, censored = FALSE,
+             model = FALSE, ...)
 {
   class.ind <- function(cl)
   {
@@ -33,18 +35,13 @@ multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
 
   call <- match.call()
   m <- match.call(expand = FALSE)
-  m$summ <- m$Hess <- m$contrasts <- m$censored <- m$... <- NULL
+  m$summ <- m$Hess <- m$contrasts <- m$censored <- m$model <- m$... <- NULL
   m[[1]] <- as.name("model.frame")
   m <- eval.parent(m)
   Terms <- attr(m, "terms")
   X <- model.matrix(Terms, m, contrasts)
+  cons <- attr(X, "contrasts")
   Xr <- qr(X)$rank
-  xvars <- as.character(attr(Terms, "variables"))[-1]
-  if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
-  xlev <- if (length(xvars) > 0) {
-      xlev <- lapply(m[xvars], levels)
-      xlev[!sapply(xlev, is.null)]
-  }
   Y <- model.response(m)
   if(!is.matrix(Y)) Y <- as.factor(Y)
   w <- model.weights(m)
@@ -142,11 +139,13 @@ multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
   fit$coefnames <- colnames(X)
   fit$vcoefnames <- fit$coefnames[1:r] # remove offset cols
   fit$na.action <- attr(m, "na.action")
+  fit$contrasts <- cons
+  fit$xlevels <- .getXlevels(Terms, m)
   fit$edf <- edf
   fit$AIC <- fit$deviance + 2 * edf
+  if(model) fit$model <- m
   class(fit) <- c("multinom", "nnet")
-  if(Hess) fit$Hessian <- multinomHess(fit)
-  fit$xlevels <- xlev
+  if(Hess) fit$Hessian <- multinomHess(fit, X)
   fit
 }
 
@@ -158,10 +157,13 @@ predict.multinom <- function(object, newdata, type=c("class","probs"), ...)
   else {
     newdata <- as.data.frame(newdata)
     rn <- row.names(newdata)
-    form <- delete.response(object$terms)
-    m <- model.frame(form, newdata, na.action = na.omit, xlev = object$xlevels)
+    Terms <- delete.response(object$terms)
+    m <- model.frame(Terms, newdata, na.action = na.omit,
+                     xlev = object$xlevels)
+    if (!is.null(cl <- attr(Terms, "dataClasses")) &&
+        exists(".checkMFClasses", envir=NULL)) .checkMFClasses(cl, m)
     keep <- match(row.names(m), rn)
-    X <- model.matrix(form, m)
+    X <- model.matrix(Terms, m, contrasts = object$contrasts)
     Y1 <- predict.nnet(object, X)
     Y <- matrix(NA, nrow(newdata), ncol(Y1),
                 dimnames = list(rn, colnames(Y1)))
@@ -378,14 +380,17 @@ anova.multinom <- function(object, ..., test = c("Chisq", "none"))
 }
 
 
-## model.frame.default seems not to work in R.
-model.frame.multinom <-
-function(formula, data = NULL, na.action = NULL, ...)
+model.frame.multinom <- function(formula, ...)
 {
-    oc <- formula$call
-    oc[[1]] <- as.name("model.frame")
-    m <- match(names(oc)[-1], c("formula", "data", "na.action", "subset"))
-    oc <- oc[c(TRUE, !is.na(m))]
-    if(length(data)) oc$data <- substitute(data)
-    eval.parent(oc)
+    dots <- list(...)
+    nargs <- dots[match(c("data", "na.action", "subset"), names(dots), 0)]
+    if(any(nargs > 0) || is.null(formula$model)) {
+        oc <- formula$call
+        oc[[1]] <- as.name("model.frame")
+        m <- match(names(oc)[-1], c("formula", "data", "na.action", "subset"))
+        oc <- oc[c(TRUE, !is.na(m))]
+        oc[names(nargs)] <- nargs
+        if (is.null(env <- environment(formula$terms))) env <- parent.frame()
+        eval(oc, env)
+    } else formula$model
 }

@@ -3,12 +3,11 @@
 #
 qda <- function(x, ...) UseMethod("qda")
 
-qda.formula <- function(formula, data = NULL, ...,
-			subset, na.action = na.fail)
+qda.formula <- function(formula, data, ..., subset, na.action)
 {
     m <- match.call(expand.dots = FALSE)
-    if(is.matrix(eval.parent(m$data)))
-        m$data <- as.data.frame(data)
+#    if(is.matrix(eval.parent(m$data)))
+#        m$data <- as.data.frame(data)
     m$... <- NULL
     m[[1]] <- as.name("model.frame")
     m <- eval.parent(m)
@@ -29,15 +28,14 @@ qda.formula <- function(formula, data = NULL, ...,
     cl[[1]] <- as.name("qda")
     res$call <- cl
     res$contrasts <- attr(x, "contrasts")
-    res$xlevels <- xlev
-    attr(res, "na.message") <- attr(m, "na.message")
-    if(!is.null(attr(m, "na.action"))) res$na.action <- attr(m, "na.action")
+    res$xlevels <- .getXlevels(Terms, m)
+    res$na.action <- attr(m, "na.action")
     res
 }
 
 qda.data.frame <- function(x, ...)
 {
-    res <- qda.matrix(structure(data.matrix(x), class="matrix"), ...)
+    res <- qda(structure(data.matrix(x), class="matrix"), ...)
     cl <- match.call()
     cl[[1]] <- as.name("qda")
     res$call <- cl
@@ -58,7 +56,8 @@ qda.matrix <- function(x, grouping, ...,
         grouping <- dfr$g
         x <- dfr$x
     }
-    res <- NextMethod("qda")
+#    res <- NextMethod("qda")
+    res <- qda.default(x, grouping, ...)
     cl <- match.call()
     cl[[1]] <- as.name("qda")
     res$call <- cl

@@ -17,8 +17,7 @@ Fit a Negative Binomial Generalized Linear Model
 glm.nb(formula, \dots,  init.theta, link = log)
 }
 \synopsis{
-glm.nb(formula = formula(data), data = parent.frame(), weights,
-                 subset, na.action, start = NULL, etastart = NULL,
+glm.nb(formula, data, weights, subset, na.action, start = NULL, etastart,
                  control = glm.control(...), method = "glm.fit",
                  model = TRUE, x = FALSE, y = TRUE, contrasts = NULL, ...,
                  init.theta, link = log)

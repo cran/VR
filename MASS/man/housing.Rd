@@ -16,7 +16,7 @@ data(housing)
 \describe{
 \item{\code{Sat}}{
 Satisfaction of householders with their present housing
-circumstances, (High, Medium or Low).
+circumstances, (High, Medium or Low, ordered factor).
 }
 \item{\code{Infl}}{
 Perceived degree of influence householders have on the
@@ -64,7 +64,9 @@ dropterm(house.glm1, test = "Chisq")
 addterm(house.glm1, ~. + Sat:(Infl+Type+Cont)^2, test  =  "Chisq")
 
 hnames <- lapply(housing[, -5], levels) # omit Freq
-house.pm <- predict(house.glm1, expand.grid(hnames),
+newData <- expand.grid(hnames)
+newData$Sat <- ordered(newData$Sat)
+house.pm <- predict(house.glm1, newData,
                     type = "response")  # poisson means
 house.pm <- matrix(house.pm, ncol = 3, byrow = TRUE,
                    dimnames = list(NULL, hnames[[1]]))
@@ -77,9 +79,8 @@ loglm(Freq ~ Infl*Type*Cont + Sat*(Infl+Type+Cont), data = housing)
 
 # multinomial model
 library(nnet)
-house.mult<- multinom(Sat ~ Infl + Type + Cont, weights = Freq,
-                      data = housing)
-house.mult
+(house.mult<- multinom(Sat ~ Infl + Type + Cont, weights = Freq,
+                       data = housing))
 house.mult2 <- multinom(Sat ~ Infl*Type*Cont, weights = Freq,
                         data = housing)
 anova(house.mult, house.mult2)
@@ -92,12 +93,11 @@ cbind(expand.grid(hnames[-1]), round(house.pm, 2))
 house.cpr <- apply(house.pr, 1, cumsum)
 logit <- function(x) log(x/(1-x))
 house.ld <- logit(house.cpr[2, ]) - logit(house.cpr[1, ])
-sort(drop(house.ld))
-mean(.Last.value)
+(ratio <- sort(drop(house.ld)))
+mean(ratio)
 
-house.plr <- polr(Sat ~ Infl + Type + Cont,
-                  data = housing, weights = Freq)
-house.plr
+(house.plr <- polr(Sat ~ Infl + Type + Cont,
+                   data = housing, weights = Freq))
 
 house.pr1 <- predict(house.plr, expand.grid(hnames[-1]),
                    type = "probs")
