@@ -10,7 +10,7 @@ Sammon's Non-Linear Mapping
 One form of non-metric multidimensional scaling.
 }
 \usage{
-sammon(d, y = cmdscale(d, k), k = 2, niter = 100, trace = TRUE, 
+sammon(d, y = cmdscale(d, k), k = 2, niter = 100, trace = TRUE,
        magic = 0.2, tol = 1e-4)
 }
 \arguments{
@@ -67,7 +67,7 @@ In this release the algorithm has been modified by adding a step-length
 search (\code{magic}) to ensure that it always goes downhill.
 }
 \references{
-Sammon, J. W. (1969) 
+Sammon, J. W. (1969)
 A non-linear mapping for data structure analysis.
 \emph{IEEE Trans. Comput.}
 \bold{C-18} 401--409.
@@ -80,7 +80,7 @@ library(mva)
 data(swiss)
 swiss.x <- as.matrix(swiss[, -1])
 swiss.sam <- sammon(dist(swiss.x))
-plot(swiss.sam$points, type="n")
-text(swiss.sam$points, labels=as.character(1:nrow(swiss.x)))
+plot(swiss.sam$points, type = "n")
+text(swiss.sam$points, labels = as.character(1:nrow(swiss.x)))
 }
 \keyword{multivariate}

@@ -15,7 +15,7 @@ these patterns reflected in soil properties?  At each of 365 sampling
 locations on a linear grid of 4 meters spacing, samples were taken at
 depths 0-10 cm, 30-40 cm and 80-90 cm below the surface. pH, electrical
 conductivity and chloride content were measured on a 1:5 soil:water
-extract from each sample. 
+extract from each sample.
 }
 \usage{
 data(gilgais)
@@ -52,14 +52,13 @@ chloride content in ppm (80-90 cm)
 }}}
 \source{
 Webster, R. (1977) Spectral analysis of gilgai soil.
-\emph{Australian Journal of Soil Research }
+\emph{Australian Journal of Soil Research}
 \bold{15}, 191--204.
 
-
 Laslett, G. M. (1989)
-Kriging and splines: An empirical comparison of their 
+Kriging and splines: An empirical comparison of their
 predictive performance in some applications (with discussion).
-\emph{Journal of the American Statistical Association,}
+\emph{Journal of the American Statistical Association}
 \bold{89}, 319--409
 }
 \keyword{datasets}

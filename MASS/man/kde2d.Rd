@@ -11,7 +11,7 @@ Two-dimensional kernel density estimation with an axis-aligned
 bivariate normal kernel, evaluated on a square grid.
 }
 \usage{
-kde2d(x, y, h, n=25, lims=c(range(x), range(y)))
+kde2d(x, y, h, n = 25, lims = c(range(x), range(y)))
 }
 \arguments{
 \item{x}{
@@ -42,28 +42,28 @@ An \code{n}  x  \code{n} matrix of the evaluated density.
 \examples{
 data(geyser)
 attach(geyser)
-plot(duration, waiting, xlim=c(0.5,6), ylim=c(40,100))
-f1 <- kde2d(duration, waiting, n=50, lims=c(0.5,6,40,100))
+plot(duration, waiting, xlim = c(0.5,6), ylim = c(40,100))
+f1 <- kde2d(duration, waiting, n = 50, lims = c(0.5, 6, 40, 100))
 image(f1, zlim = c(0, 0.05))
-f2 <- kde2d(duration, waiting, n=50, lims=c(0.5,6,40,100),
-   h = c(width.SJ(duration), width.SJ(waiting)) )
+f2 <- kde2d(duration, waiting, n = 50, lims = c(0.5, 6, 40, 100),
+            h = c(width.SJ(duration), width.SJ(waiting)) )
 image(f2, zlim = c(0, 0.05))
-persp(f2, phi=30, theta=20, d=5)
+persp(f2, phi = 30, theta = 20, d = 5)
 
-plot(duration[-272], duration[-1], xlim=c(0.5, 6), 
-    ylim=c(1, 6),xlab="previous duration", ylab="duration")
-f1 <- kde2d(duration[-272], duration[-1], 
-   h=rep(1.5, 2), n=50, lims=c(0.5,6,0.5,6))
-contour(f1 ,xlab="previous duration",
-    ylab="duration", levels = c(0.05, 0.1, 0.2, 0.4) )
-f1 <- kde2d(duration[-272], duration[-1], 
-   h=rep(0.6, 2), n=50, lims=c(0.5,6,0.5,6))
-contour(f1 ,xlab="previous duration",
-    ylab="duration", levels = c(0.05, 0.1, 0.2, 0.4) )
-f1 <- kde2d(duration[-272], duration[-1], 
-   h=rep(0.4, 2), n=50, lims=c(0.5,6,0.5,6))
-contour(f1 ,xlab="previous duration",
-    ylab="duration", levels = c(0.05, 0.1, 0.2, 0.4) )
+plot(duration[-272], duration[-1], xlim = c(0.5, 6),
+     ylim = c(1, 6),xlab = "previous duration", ylab = "duration")
+f1 <- kde2d(duration[-272], duration[-1],
+            h = rep(1.5, 2), n = 50, lims = c(0.5, 6, 0.5, 6))
+contour(f1, xlab = "previous duration",
+        ylab = "duration", levels  =  c(0.05, 0.1, 0.2, 0.4) )
+f1 <- kde2d(duration[-272], duration[-1],
+            h = rep(0.6, 2), n = 50, lims = c(0.5, 6, 0.5, 6))
+contour(f1, xlab = "previous duration",
+        ylab = "duration", levels  =  c(0.05, 0.1, 0.2, 0.4) )
+f1 <- kde2d(duration[-272], duration[-1],
+            h = rep(0.4, 2), n = 50, lims = c(0.5, 6, 0.5, 6))
+contour(f1, xlab = "previous duration",
+        ylab = "duration", levels  =  c(0.05, 0.1, 0.2, 0.4) )
 detach("geyser")
 }
 \keyword{dplot}

@@ -412,3 +412,21 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
     }
     RANDOUT;
 }
+
+#include "R_ext/Rdynload.h"
+
+R_CMethodDef CEntries[] = {
+    {"VR_knn", (DL_FUNC) &VR_knn, 14},
+    {"VR_knn1", (DL_FUNC) &VR_knn1, 10},
+    {"VR_lvq1", (DL_FUNC) &VR_lvq1, 10},
+    {"VR_lvq2", (DL_FUNC) &VR_lvq2, 11},
+    {"VR_lvq3", (DL_FUNC) &VR_lvq3, 12},
+    {"VR_olvq", (DL_FUNC) &VR_olvq, 10},
+    {"VR_onlineSOM", (DL_FUNC) &VR_onlineSOM, 9},
+    {NULL, NULL, 0}
+};
+
+void R_init_class(DllInfo *dll)
+{
+    R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
+}

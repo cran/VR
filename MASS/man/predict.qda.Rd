@@ -31,7 +31,7 @@ training set or what was set in the call to \code{qda}.
 \item{method}{
 This determines how the parameter estimation is handled. With \code{"plug-in"}
 (the default) the usual unbiased parameter estimates are used and
-assumed to be correct. With \code{"debiased"} an unbiased estimator of 
+assumed to be correct. With \code{"debiased"} an unbiased estimator of
 the log posterior probabilities is used, and with \code{"predictive"} the
 parameter estimates are integrated out using a vague prior.  With
 \code{"looCV"} the leave-one-out cross-validation fits to the original
@@ -68,10 +68,10 @@ prediction.
 }
 \examples{
 data(iris3)
-tr <- sample(1:50,25)
-train <- rbind(iris3[tr,,1],iris3[tr,,2],iris3[tr,,3])
-test <- rbind(iris3[-tr,,1],iris3[-tr,,2],iris3[-tr,,3])
-cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
+tr <- sample(1:50, 25)
+train <- rbind(iris3[tr,,1], iris3[tr,,2], iris3[tr,,3])
+test <- rbind(iris3[-tr,,1], iris3[-tr,,2], iris3[-tr,,3])
+cl <- factor(c(rep("s",25), rep("c",25), rep("v",25)))
 zq <- qda(train, cl)
 predict(zq, test)$class
 }

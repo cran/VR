@@ -49,11 +49,11 @@ iron
 }
 \item{\code{type}}{
 The fragments were originally classed into seven types, one of which
-was absent in this dataset.  The categories which occur are 
+was absent in this dataset.  The categories which occur are
 window float glass (\code{WinF}: 70),
 window non-float glass (\code{WinNF}: 76),
-vehicle window glass (\code{Veh}: 17), 
-containers (\code{Con}: 13), 
+vehicle window glass (\code{Veh}: 17),
+containers (\code{Con}: 13),
 tableware (\code{Tabl}: 9) and
 vehicle headlamps (\code{Head}: 29).
 }}}

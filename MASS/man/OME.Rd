@@ -19,15 +19,12 @@ the same period to form the same increase in power).
 The threshold used in the original analysis was the stimulus loudness
 needs to get 75\% correct responses. Some of the children had
 suffered from otitis media with effusion (OME).
-
-
-The \code{OME} data frame has 1129 rows and 7 columns.
 }
 \usage{
 data(OME)
 }
 \format{
-This data frame contains the following columns:
+The \code{OME} data frame has 1129 rows and 7 columns:
 \describe{
 \item{\code{ID}}{
 Subject ID (1 to 99, with some IDs missing). A few subjects were
@@ -55,7 +52,7 @@ Number of trials performed.
 Sarah Hogan, Dept of Physiology, University of Oxford, via
 Dept of Statistics Consulting Service
 }
-\section{BACKGROUND}{
+\section{Background}{
 The experiment was to study otitis media with effusion (OME), a very
 common childhood condition where the middle ear space, which is
 normally air-filled, becomes congested by a fluid.  There is a
@@ -82,80 +79,74 @@ into one group of high OME prevalence and one of low prevalence.
 \examples{
 library(nls)
 data(OME)
-# Fit logistic curve from p=0.5 to p=1.0
+# Fit logistic curve from p = 0.5 to p = 1.0
 fp1 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/scal)),
              c("L75", "scal"),
              function(x,L75,scal)NULL)
-nls(Correct/Trials ~ fp1(Loud, L75, scal), data=OME,
+nls(Correct/Trials ~ fp1(Loud, L75, scal), data = OME,
+    start = c(L75=45, scal=3))
+nls(Correct/Trials ~ fp1(Loud, L75, scal),
+    data = OME[OME$Noise == "coherent",],
     start=c(L75=45, scal=3))
 nls(Correct/Trials ~ fp1(Loud, L75, scal),
-    data=OME[OME$Noise=="coherent",],
-    start=c(L75=45, scal=3))
-nls(Correct/Trials ~ fp1(Loud, L75, scal),
-    data=OME[OME$Noise=="incoherent",],
-    start=c(L75=45, scal=3))
-
+    data = OME[OME$Noise == "incoherent",],
+    start = c(L75=45, scal=3))
 
 # individual fits for each experiment
-
 
 aa <- factor(OME$Age)
 ab <- 10*OME$ID + unclass(aa)
 ac <- unclass(factor(ab))
 OME$UID <- as.vector(ac)
-OME$UIDn <- OME$UID + 0.1*(OME$Noise=="incoherent")
+OME$UIDn <- OME$UID + 0.1*(OME$Noise == "incoherent")
 rm(aa, ab, ac)
 OMEi <- OME
 
 library(nlme)
-fp2 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/2)), 
+fp2 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/2)),
             "L75", function(x,L75) NULL)
 OMEi.nls <- nlsList(Correct/Trials ~ fp2(Loud, L75) | UIDn,
-   data = OMEi, start=list(L75=45), control = list(maxiter=100))
-tmp <- sapply(OMEi.nls, function(X) 
+   data = OMEi, start = list(L75=45), control = list(maxiter=100))
+tmp <- sapply(OMEi.nls, function(X)
               {if(is.null(X)) NA else as.vector(coef(X))})
-OMEif <- data.frame(UID = round(as.numeric((names(tmp)))), 
+OMEif <- data.frame(UID = round(as.numeric((names(tmp)))),
          Noise = rep(c("coherent", "incoherent"), 110),
          L75 = as.vector(tmp))
 OMEif$Age <- OME$Age[match(OMEif$UID, OME$UID)]
 OMEif$OME <- OME$OME[match(OMEif$UID, OME$UID)]
 OMEif <- OMEif[OMEif$L75 > 30,]
-summary(lm(L75 ~ Noise/Age, data=OMEif, na.action=na.omit))
-summary(lm(L75 ~ Noise/(Age + OME), data=OMEif,
-           subset=Age >=30 & Age <= 60,
-           na.action=na.omit, singular.ok=T), cor=F)
-
+summary(lm(L75 ~ Noise/Age, data = OMEif, na.action = na.omit))
+summary(lm(L75 ~ Noise/(Age + OME), data = OMEif,
+           subset = (Age >= 30 & Age <= 60),
+           na.action = na.omit), cor = FALSE)
 
 # Or fit by weighted least squares
 fpl75 <- deriv(~ sqrt(n)*(r/n - 0.5 - 0.5/(1 + exp(-(x-L75)/scal))),
                c("L75", "scal"),
                function(r,n,x,L75,scal) NULL)
 nls(0 ~ fpl75(Correct, Trials, Loud, L75, scal),
-    data=OME[OME$Noise=="coherent",],
-    start=c(L75=45, scal=3))
+    data = OME[OME$Noise == "coherent",],
+    start = c(L75=45, scal=3))
 nls(0 ~ fpl75(Correct, Trials, Loud, L75, scal),
-    data=OME[OME$Noise=="incoherent",],
-    start=c(L75=45, scal=3))
-
+    data = OME[OME$Noise == "incoherent",],
+    start = c(L75=45, scal=3))
 
 # Test to see if the curves shift with age
 fpl75age <- deriv(~sqrt(n)*(r/n -  0.5 - 0.5/(1 +
-                  exp(-(x-L75-slope*age)/scal))), 
+                  exp(-(x-L75-slope*age)/scal))),
                   c("L75", "slope", "scal"),
-                  function(r,n,x,age,L75,slope,scal )NULL)
-OME.nls1 <- 
+                  function(r,n,x,age,L75,slope,scal) NULL)
+OME.nls1 <-
 nls(0 ~ fpl75age(Correct, Trials, Loud, Age, L75, slope, scal),
-    data=OME[OME$Noise=="coherent",],
-    start=c(L75=45, slope=0, scal=2))
+    data = OME[OME$Noise == "coherent",],
+    start = c(L75=45, slope=0, scal=2))
 sqrt(diag(vcov(OME.nls1)))
-
 
 OME.nls2 <-
 nls(0 ~ fpl75age(Correct, Trials, Loud, Age, L75, slope, scal),
-    data=OME[OME$Noise=="incoherent",],
-    start=c(L75=45, slope=0, scal=2))
+    data = OME[OME$Noise == "incoherent",],
+    start = c(L75=45, slope=0, scal=2))
 sqrt(diag(vcov(OME.nls2)))
-
 
 # Now allow random effects by using NLME
 OMEf <- OME[rep(1:nrow(OME), OME$Trials),]
@@ -165,23 +156,22 @@ OMEf$Resp <- rep(rep(c(1,0), length(Trials)),
 OMEf <- OMEf[, -match(c("Correct", "Trials"), names(OMEf))]
 detach("OME")
 
-
-fp2 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/exp(lsc))), 
+fp2 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/exp(lsc))),
              c("L75", "lsc"),
              function(x, L75, lsc) NULL)
 \dontrun{## these fail in R at present
 G1.nlme <- nlme(Resp ~ fp2(Loud, L75, lsc),
      fixed = list(L75 ~ Age, lsc ~ 1),
      random = L75 + lsc ~ 1 | UID,
-     data=OMEf[OMEf$Noise=="coherent",], method="ML",
-     start = list(fixed=c(L75=c(48, -0.03), lsc=0.3)), verbose=TRUE)
+     data = OMEf[OMEf$Noise == "coherent",], method = "ML",
+     start = list(fixed=c(L75=c(48, -0.03), lsc=0.3)), verbose = TRUE)
 summary(G1.nlme)
 
 G2.nlme <- nlme(Resp ~ fp2(Loud, L75, lsc),
      fixed = list(L75 ~ Age, lsc ~ 1),
      random = L75 + lsc ~ 1 | UID,
-      data=OMEf[OMEf$Noise=="incoherent",], method="ML",
-     start = list(fixed=c(L75=c(41, -0.1), lsc=0)), verbose=TRUE)
+     data = OMEf[OMEf$Noise == "incoherent",], method="ML",
+     start = list(fixed=c(L75=c(41, -0.1), lsc=0)), verbose = TRUE)
 summary(G2.nlme)
 }}
 \keyword{datasets}

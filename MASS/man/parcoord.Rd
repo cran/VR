@@ -22,29 +22,21 @@ A vector of line types, recycled as necessary for each observation.
 \item{...}{
 Further graphics parameters which are passed to \code{matplot}.
 }}
-\value{
-None.
-}
 \section{Side Effects}{
 a parallel coordinates plots is drawn.
 }
 \references{
 Wegman, E. J. (1990) Hyperdimensional data analysis using parallel
-coordinates. 
-\emph{Journal of the American Statistical Association,}
+coordinates.
+\emph{Journal of the American Statistical Association}
 \bold{85}, 664--675.
 }
 \examples{
-# The function is currently defined as
-function(x, col = 1, lty = 1, \dots)
-{
-    x <- apply(x, 2, function(x) (x - min(x))/(max(x) - min(x)))
-    matplot(1:ncol(x), t(x), type = "l", col = col, lty = lty,
-        xlab = "", ylab = "", axes = FALSE, \dots)
-    axis(1, at = 1:ncol(x), labels = dimnames(x)[[2]])
-    for(i in 1:ncol(x))
-        lines(c(i, i), c(0, 1), col = "grey70")
-    invisible()
-}
+data(state)
+parcoord(state.x77[, c(7, 4, 6, 2, 5, 3)])
+
+data(iris3)
+ir <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
+parcoord(log(ir)[, c(3, 4, 2, 1)], col = 1 + (0:149)\%/\%50)
 }
 \keyword{hplot}

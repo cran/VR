@@ -4,7 +4,7 @@
 \alias{plot.SOM}
 \alias{batchSOM}
 \title{
-Self-Organizing Maps
+Self-Organizing Maps: Batch Algorithm
 }
 \description{
 Kohonen's Self-Organizing Maps are a crude form of multidimensional scaling.
@@ -67,9 +67,9 @@ plot(crabs.som)
 
 bins <- as.numeric(knn1(crabs.som$code, lcrabs, 0:47))
 plot(crabs.som$grid, type = "n")
-symbols(crabs.som$grid$pts[, 1], crabs.som$grid$pts[, 2], 
+symbols(crabs.som$grid$pts[, 1], crabs.som$grid$pts[, 2],
         circles = rep(0.4, 48), inches = FALSE, add = TRUE)
-text(crabs.som$grid$pts[bins, ] + rnorm(400, 0, 0.1), 
+text(crabs.som$grid$pts[bins, ] + rnorm(400, 0, 0.1),
      as.character(crabs.grp))
 }
 \keyword{classif}

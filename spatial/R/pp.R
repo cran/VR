@@ -14,8 +14,6 @@ ppinit <- function(file)
   pp$x <- pp$x/h$fac
   pp$y <- pp$y/h$fac
   pp$area <- c(xl=h$xl/h$fac, xu=h$xu/h$fac, yl=h$yl/h$fac, yu=h$yu/h$fac)
-  if(!is.loaded(symbol.C("VR_ppset")))
-    stop("Compiled code has not been dynamically loaded")
   ppregion(pp)
   invisible(pp)
 }
@@ -32,7 +30,8 @@ Kfn <- function(pp, fs, k = 100)
 	  h = double(k),
 	  dmin = double(1),
 	  lm = double(1),
-	  as.double(fs))
+	  as.double(fs),
+          PACKAGE = "spatial")
   list(y = z$h[1:z$k1], x = (seq(1:z$k1) * fs)/k, k = k,
        dmin = z$dmin, lm = max(z$dmin, z$lm),
        call=match.call())
@@ -82,15 +81,18 @@ ppregion <- function(xl = 0, xu = 1, yl = 0, yu = 1)
             stop("invalid input")
     }
     if(is.list(xl)) {
-        if(length(xl$area)) .C("VR_ppset", as.double(xl$area))
-        else .C("VR_ppset", as.double(c(xl$xl, xl$xu, xl$yl, xl$yu)))
-    } else .C("VR_ppset", as.double(c(xl, xu, yl, yu)))
+        if(length(xl$area)) .C("VR_ppset", as.double(xl$area),
+                               PACKAGE = "spatial")
+        else .C("VR_ppset", as.double(c(xl$xl, xl$xu, xl$yl, xl$yu)),
+                PACKAGE = "spatial")
+    } else .C("VR_ppset", as.double(c(xl, xu, yl, yu)),
+              PACKAGE = "spatial")
     invisible()
 }
 
 ppgetregion <- function()
 {
-    xx <- .C("VR_ppget", z=double(4))$z
+    xx <- .C("VR_ppget", z=double(4), PACKAGE = "spatial")$z
     names(xx) <- c("xl", "xu", "yl", "yu")
     xx
 }
@@ -100,7 +102,8 @@ Psim <- function(n)
   z <- .C("VR_pdata",
 	  as.integer(n),
 	  x = double(n),
-	  y = double(n))
+	  y = double(n),
+          PACKAGE = "spatial")
   invisible(list(x = z$x, y = z$y, call=match.call()))
 }
 
@@ -112,7 +115,8 @@ Strauss <- function(n, c = 0, r)
     z <- .C("VR_pdata",
 	    as.integer(n),
 	    x = double(n),
-	    y = double(n))
+	    y = double(n),
+            PACKAGE = "spatial")
     assign(".ppx", z$x)
     assign(".ppy", z$y)
   }
@@ -122,7 +126,8 @@ Strauss <- function(n, c = 0, r)
 	  y = as.double(.ppy),
 	  as.double(c),
 	  as.double(r),
-	  as.integer(init))
+	  as.integer(init),
+          PACKAGE = "spatial")
   assign(".ppx", z$x)
   assign(".ppy", z$y)
   invisible(list(x = z$x, y = z$y, call=match.call()))
@@ -134,7 +139,8 @@ SSI <- function(n, r)
 	  as.integer(n),
 	  x = double(n),
 	  y = double(n),
-	  as.double(r))
+	  as.double(r),
+          PACKAGE = "spatial")
   invisible(list(x = z$x, y = z$y, call=match.call()))
 }
 
@@ -151,7 +157,8 @@ pplik <- function(pp, R, ng=50, trace=FALSE)
                 as.double(R),
                 as.integer(ng),
                 as.double(target),
-                res=double(1)
+                res=double(1),
+                PACKAGE = "spatial"
                 )
         if(trace) print(c(cc, z$res))
         z$res

@@ -35,7 +35,7 @@ plot.somgrid <- function(x, type = "p", ...)
     if(!inherits(x, "somgrid")) stop("wrong plot method used")
     eqscplot(c(0, x$xdim+(x$topo == "hexagonal") + 1),
              c(x$ydim + 1, 0),
-             axes = F, type = "n", xlab = "", ylab = "", ...)
+             axes = FALSE, type = "n", xlab = "", ylab = "", ...)
     if(type == "p") points(x$pts, cex = 2, ...)
     invisible()
 }
@@ -45,7 +45,7 @@ plot.SOM <- function(x, ...)
     if(!inherits(x, "SOM")) stop("wrong plot method used")
     eqscplot(c(0, x$grid$xdim+(x$grid$topo == "hexagonal") + 1),
              c(x$grid$ydim + 1, 0),
-             axes = F, type = "n", xlab = "", ylab = "", ...)
+             axes = FALSE, type = "n", xlab = "", ylab = "", ...)
     stars(x$codes, location = x$grid$pts, labels = NULL, len = 0.5)
     invisible()
 }

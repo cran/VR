@@ -23,7 +23,7 @@ Vector of prediction location northings (y coordinates)
 further arguments passed to or from other methods.
 }}
 \value{
-\code{predict.trls} produces a vector of predictions corresponding 
+\code{predict.trls} produces a vector of predictions corresponding
 to the prediction locations. To display the output with \code{image}
 or \code{contour}, use \code{trmat} or convert the returned vector
 to matrix form.

@@ -10,7 +10,7 @@ Plot Method for Objects of Class `mca'
 Plot a multiple correspondence analysis.
 }
 \usage{
-\method{plot}{mca}(x, rows=TRUE, col, cex=par("cex"), \dots)
+\method{plot}{mca}(x, rows = TRUE, col, cex = par("cex"), \dots)
 }
 \arguments{
 \item{x}{
@@ -32,7 +32,7 @@ Additional parameters to \code{plot}.
 }
 \examples{
 data(farms)
-plot(mca(farms, abbrev=TRUE))
+plot(mca(farms, abbrev = TRUE))
 }
 \keyword{hplot}
 \keyword{multivariate}

@@ -25,11 +25,11 @@ in a manner similar to that of other fitting functions, such as
 \code{glm}.
 }
 \usage{
-loglm(formula, data=parent.frame(), subset, na.action, \dots)
+loglm(formula, data = parent.frame(), subset, na.action, \dots)
 }
 \arguments{
 \item{formula}{
-A linear model formula specifying the log-linear model.  
+A linear model formula specifying the log-linear model.
 
 
 If the left-hand side is empty, the \code{data} argument is required
@@ -52,8 +52,7 @@ array of frequencies; in then second it provides the data frame
 from which the variables occurring in the formula are
 preferentially obtained in the usual way.
 
-
-This argument may be the result of a call to \code{crosstabs}.
+This argument may be the result of a call to \code{\link{xtabs}}.
 }
 \item{subset}{
 Specifies a subset of the rows in the data frame to be used.  The
@@ -73,11 +72,10 @@ May supply other arguments to the function \code{loglin}.
 }}
 \value{
 An object of class \code{"loglm"} conveying the results of the fitted
-log-linear model.  Methods exist for the generic functions
-\code{print}, \code{summary}, \code{deviance}, \code{fitted}, \code{coef}, \code{resid},
-\code{anova} and \code{update}, which perform the expected tasks.  Only
-log-likelihood ratio tests are allowed using \code{anova}.  
-
+log-linear model.  Methods exist for the generic functions \code{print},
+\code{summary}, \code{deviance}, \code{fitted}, \code{coef},
+\code{resid}, \code{anova} and \code{update}, which perform the expected
+tasks.  Only log-likelihood ratio tests are allowed using \code{anova}.
 
 The deviance is simply an alternative name for the log-likelihood
 ratio statistic for testing the current model within a saturated
@@ -102,7 +100,7 @@ list of faces on which the observed and fitted totals must agree,
 as required by \code{loglin}.  Hence terms such as \code{a:b}, \code{a*b} and
 \code{a/b} are all equivalent.
 }
-\section{WARNING}{
+\section{Warning}{
 If structural zeros are present, the calculation of degrees of
 freedom may not be correct.  \code{loglin} itself takes no action to
 allow for structural zeros.  \code{loglm} deducts one degree of
@@ -123,14 +121,13 @@ though.
 \code{\link{loglin}}
 }
 \examples{
-# The data frames  Cars93, minn38 and quine are available 
+# The data frames  Cars93, minn38 and quine are available
 # in the MASS library.
-
 
 # Case 1: frequencies specified as an array.
 data(minn38)
 sapply(minn38, function(x) length(levels(x)))
-## hs phs fol sex f 
+## hs phs fol sex f
 ##  3   4   7   2 0
 minn38a <- array(0, c(3,4,7,2), lapply(minn38[, -5], levels))
 minn38a[data.matrix(minn38[,-5])] <- minn38$f
@@ -139,38 +136,36 @@ deviance(fm)
 ##[1] 3711.9
 fm1 <- update(fm, .~.^2)
 fm2 <- update(fm, .~.^3, print = TRUE)
-## 5 iterations: deviation 0.0750732 
+## 5 iterations: deviation 0.0750732
 anova(fm, fm1, fm2)
 \dontrun{LR tests for hierarchical log-linear models
 
-
 Model 1:
-  ~  1 + 2 + 3 + 4 
+  ~  1 + 2 + 3 + 4
 Model 2:
- .  ~  1 + 2 + 3 + 4 + 1:2 + 1:3 + 1:4 + 2:3 + 2:4 + 3:4 
+ .  ~  1 + 2 + 3 + 4 + 1:2 + 1:3 + 1:4 + 2:3 + 2:4 + 3:4
 Model 3:
- .  ~  1 + 2 + 3 + 4 + 1:2 + 1:3 + 1:4 + 2:3 + 2:4 + 3:4 + 
-	1:2:3 + 1:2:4 + 1:3:4 + 2:3:4 
+ .  ~  1 + 2 + 3 + 4 + 1:2 + 1:3 + 1:4 + 2:3 + 2:4 + 3:4 +
+	1:2:3 + 1:2:4 + 1:3:4 + 2:3:4
 
 
-          Deviance  df Delta(Dev) Delta(df) P(> Delta(Dev) 
-  Model 1 3711.915 155                                    
+          Deviance  df Delta(Dev) Delta(df) P(> Delta(Dev)
+  Model 1 3711.915 155
   Model 2  220.043 108   3491.873        47        0.00000
   Model 3   47.745  36    172.298        72        0.00000
 Saturated    0.000   0     47.745        36        0.09114
 
 }
-# Case 1. An array generated with crosstabs.
+# Case 1. An array generated with xtabs.
 
 data(Cars93)
-\dontrun{loglm(~Type + Origin, xtabs(~Type + Origin, Cars93))
-Call:
-loglm(formula =  ~ Type + Origin, data = crosstabs( ~ Type + 
-	Origin, Cars93))
-
+loglm(~ Type + Origin, xtabs(~ Type + Origin, Cars93))
+\dontrun{Call:
+loglm(formula = ~Type + Origin, data = xtabs(~Type + Origin,
+    Cars93))
 
 Statistics:
-                    X^2 df  P(> X^2) 
+                    X^2 df  P(> X^2)
 Likelihood Ratio 18.362  5 0.0025255
          Pearson 14.080  5 0.0151101
 

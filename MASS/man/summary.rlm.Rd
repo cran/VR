@@ -11,7 +11,7 @@ Summary Method for Robust Linear Models
 \code{summary} method for objects of class \code{"rlm"}
 }
 \usage{
-\method{summary}{rlm}(object, method=c("XtX", "XtWX"), correlation=TRUE, \dots)
+\method{summary}{rlm}(object, method = c("XtX", "XtWX"), correlation = TRUE, \dots)
 }
 \arguments{
 \item{object}{
@@ -21,7 +21,7 @@ an object inheriting from the class \code{rlm}, in the sense that
 the components returned by the \code{rlm} function will be available.
 }
 \item{method}{
-Should the weighted (by the IWLS weights) or unweighted cross-products 
+Should the weighted (by the IWLS weights) or unweighted cross-products
 matrix be used?
 }
 \item{correlation}{
@@ -70,19 +70,19 @@ class of the object.
 }
 \examples{
 data(phones)
-summary(rlm(calls ~ year, data=phones, maxit=50))
+summary(rlm(calls ~ year, data = phones, maxit = 50))
 \dontrun{
 Call:
 rlm(formula = calls ~ year, data = phones, maxit = 50)
 
 Residuals:
-   Min     1Q Median     3Q    Max 
--18.31  -5.95  -1.68  26.46 173.77 
+   Min     1Q Median     3Q    Max
+-18.31  -5.95  -1.68  26.46 173.77
 
 Coefficients:
             Value    Std. Error t value
-(Intercept) -102.622   26.553   -3.86  
-year           2.041    0.429    4.76  
+(Intercept) -102.622   26.553   -3.86
+year           2.041    0.429    4.76
 
 Residual standard error: 9.03 on 22 degrees of freedom
 

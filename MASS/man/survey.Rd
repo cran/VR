@@ -8,7 +8,7 @@ Student Survey Data
 }
 \description{
 This data frame contains the responses of 237 Statistics I students at
-the University of Adelaide to a number of questions. 
+the University of Adelaide to a number of questions.
 }
 \usage{
 data(survey)
@@ -49,7 +49,7 @@ How much the student smokes. (Factor, levels \code{"Heavy"}, \code{"Regul"}
 (regularly), \code{"Occas"} (occasionally), \code{"Never"}.)
 }
 \item{\code{Height}}{
-The height of the student, in centimetres. 
+The height of the student, in centimetres.
 }
 \item{\code{M.I}}{
 Indicates whether the student expressed height in imperial

@@ -17,7 +17,7 @@ Computes confidence intervals for one or more parameters in a fitted
 model.  Methods currently exist for \code{lm}, \code{glm} and \code{nls} fits.
 }
 \usage{
-confint(object, parm = <<see below>>, level = 0.95, \dots)
+confint(object, parm, level = 0.95, \dots)
 }
 \arguments{
 \item{object}{
@@ -43,7 +43,7 @@ limits for each parameter. These will be labelled as (1-level)/2 and
 \details{
 \code{confint} calls the appropriate profile method, then finds the
 confidence intervals by interpolation in the profile traces.
-If the profile object is already available it should be used as the 
+If the profile object is already available it should be used as the
 main argument rather than the fitted model object itself.
 
 
@@ -58,21 +58,17 @@ data(wtloss)
 expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
                function(b0, b1, th, x) {})
 
-
 wtloss.gr <- nls(Weight ~ expn1(b0, b1, th, Days),
    data = wtloss, start = c(b0=90, b1=95, th=120))
 
-
-expn2 <- deriv(~b0 + b1*((w0 - b0)/b1)^(x/d0), 
+expn2 <- deriv(~b0 + b1*((w0 - b0)/b1)^(x/d0),
          c("b0","b1","d0"), function(b0, b1, d0, x, w0) {})
-
 
 wtloss.init <- function(obj, w0) {
   p <- coef(obj)
   d0 <-  - log((w0 - p["b0"])/p["b1"])/log(2) * p["th"]
   c(p[c("b0", "b1")], d0 = as.vector(d0))
 }
-
 
 out <- NULL
 w0s <- c(110, 100, 90)
@@ -84,11 +80,10 @@ for(w0 in w0s) {
 dimnames(out) <- list(paste(w0s, "kg:"),  c("d0", "low", "high"))
 out
 
-
 ldose <- rep(0:5, 2)
 numdead <- c(1, 4, 9, 13, 18, 20, 0, 2, 6, 10, 12, 16)
 sex <- factor(rep(c("M", "F"), c(6, 6)))
-SF <- cbind(numdead, numalive=20-numdead)
-budworm.lg0 <- glm(SF ~ sex + ldose - 1, family=binomial)
+SF <- cbind(numdead, numalive = 20 - numdead)
+budworm.lg0 <- glm(SF ~ sex + ldose - 1, family = binomial)
 }
 \keyword{models}

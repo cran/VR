@@ -1,92 +1,97 @@
-abbey		nickel in syenite rock
-accdeaths	US accidental deaths 1973-8
-Aids2		Australian AIDS survival data
-Animals		body and brain weights from Rousseeuw & Leroy
-anorexia	anorexia data on weight change
-austres		quarterly series of the number of Australian residents
-bacteria	presence of bacteria after drug treatments
-beav1		time series of body temperatures of two beavers
-beav2
-biopsy		biopsies on breast cancer patients
-birthwt		data on low birth weights for 189 babies from 
-		   Hosmer & Lemeshow (1989)
-Boston		the Boston housing data
-cabbages	field trial of cabbages
-caith		cross-tabulation of eye and hair colours in Caithness
-Cars93		data from 93 cars on sale in the USA in 1993
-cats		cat weights from Fisher (1947)
-cement		heat evolved in setting cements
-chem		copper in wholemeal flour
-coop		co-operative trial in analytical chemistry
-cpus		dataset on performance of cpus
-crabs		measurements of Leptograpsus crabs
-Cushings	tests on patients with Cushing's syndrome
-DDT		DDT in kale
-deaths		time-series on UK lung deaths 1974-9 from Diggle (1990)
-mdeaths, fdeaths  as above, for males and females
-drivers		time series on UK road deaths of drivers from Harvey (1989)
-eagles		foraging ecology of Bald Eagles
-epil            seizure counts for epileptics
-farms		ecological farm management in Terschelling island
-fgl		fragments of glass from forensic tests
-forbes		Forbes' dataset on boiling points, from Atkinson
-GAGurine	levels of GAG in urine of 314 children
-galaxies	velocities of 82 galaxies, from Roeder (1990)
-gehan		remission times on leukemia patients (censored)
-genotype	rat genotype data
-geyser		duration and waiting time for eruption from Old Faithful
-gilgais		line transect of soil in gilgai territory
-heart		early Stanford heart transplant survival experience
-hills		dataset on times of Scottish hill races
-housing 	frequency table from a Copenhagen housing conditions survey
-immer		bivariate randomized block expt on barley
-Insurance	numbers of car insurance claims by category
-leuk		(uncensored) survival times on leukemia patients
-lh		dataset on luteinizing hormone from Diggle
-mammals		body weight(kg) and brain weight (g) of mammals, from Weisberg
-mcycle		motorcycle impact data - Silverman JRSS B 1985
-Melanoma	survival from melanomas from Andersen et al. (1993)
-menarche	proportions of female children who have reached menarche
-michelson	Michelson's measurements of the speed of light
-minn38		status of Minnesota high-school leavers of 1938
-motors		accelerated life testing on motorettes
-muscle		effect of calcium chloride on muscle contraction in rat hearts
-newcomb		passage times for light
-nlschools       eighth-grade pupils in the Netherlands
-nottem		time-series of temperatures in Nottingham, 1920-1939
-npk		N,P,K factorial experiment on peas
-npr1		US Naval Petroleum Reserve 1 dataset
-oats		split-plot trial of oat varieties
-OME		tests of auditory perception in children with OME
-painters	de Piles' scores of painters
-petrol		Prater's data on the refining of oil
-phones		Belgian 'phone calls 1950-1973
-Pima.tr		diabetes in Pima Indians -- training data
-Pima.te		diabetes in Pima Indians -- test data
-quine		school absences from Aitkin (1978)
-Rabbit		blood pressure experiments on rabbits
-road		road deaths by state in the USA
-rock            measurements on Petroleum Rock Samples
-rotifer		numbers of rotifers of two species vs fluid density
-Rubber		dataset on rubber wear
-shkap		USSR petroleum reservoir dataset
-ships		ship damage incidents, from McCullagh & Nelder (1989)
-shrimp		shrimp in shrimp cocktail
-shuttle		decision tree problem from Michie (1989)
-Sitka		growth curve data for Sitka trees from Diggle et al. (1994)
-Sitka89		ditto for the trees in 1989
-Skye		AFM compositions of aphyric Skye lavas
-snails		snail mortailty data
-steam		steam pressure data from Draper & Smith (1981)
-stormer		Stormer viscometer calibration data from Williams (1959)
-survey		survey of Adelaide University students
-synth.tr	synthetic classification problem -- training data
-synth.te	synthetic classification problem -- test data
-topo		topographic dataset
-Traffic		effect of Swedish speed limits on accidents
-UScereal	nutritional and marketing information on US cereals
-UScrime		the effect of punishment regimes on crime rates
-VA		Veteran's Administration lung cancer study
-waders		wader counts in South Africa
-whiteside	energy consumption in a domestic house
-wtloss		weight loss by an obese patient
+abbey                    Determinations of Nickel Content
+accdeaths                Accidental Deaths in the US 1973-1978
+Aids2                    Australian AIDS Survival Data
+Animals                  Brain and Body Weights for 28 Species
+anorexia                 Anorexia Data on Weight Change
+austres                  Quarterly Time Series of the Number of
+                           Australian Residents
+bacteria                 Presence of Bacteria after Drug Treatments
+beav1                    Body Temperature Series of Beaver 1
+beav2                    Body Temperature Series of Beaver 2
+biopsy                   Biopsy Data on Breast Cancer Patients
+birthwt                  Risk Factors Associated with Low Infant Birth Weight
+Boston                   Housing Values in Suburbs of Boston
+cabbages                 Data from a cabbage field trial
+caith                    Colours of Eyes and Hair of People in Caithness
+Cars93                   Data from 93 Cars on Sale in the USA in 1993
+cats                     Anatomical Data from Domestic Cats
+cement                   Heat Evolved by Setting Cements
+chem                     Copper in Wholemeal Flour
+coop                     Co-operative Trial in Analytical Chemistry
+cpus                     Performance of Computer CPUs
+crabs                    Morphological Measurements on Leptograpsus Crabs
+Cushings                 Diagnostic Tests on Patients with Cushing's Syndrome
+DDT                      DDT in Kale
+deaths                   Monthly Deaths from Lung Diseases in the UK
+drivers                  Deaths of Car Drivers in Great Britain 1969-84
+eagles                   Foraging Ecology of Bald Eagles
+epil                     Seizure Counts for Epileptics
+farms                    Ecological Factors in Farm Management
+fdeaths                  Monthly Deaths from Lung Diseases in the UK
+fgl                      Measurements of Forensic Glass Fragments
+forbes                   Forbes' Data on Boiling Points in the Alps
+GAGurine                 Level of GAG in Urine of Children
+galaxies                 Velocities for 82 Galaxies
+gehan                    Remission Times of Leukaemia Patients
+genotype                 Rat Genotype Data
+geyser                   Old Faithful Geyser Data
+gilgais                  Line Transect of Soil in Gilgai Territory
+heart                    The Stanford heart transplant data
+hills                    Record Times in Scottish Hill Races
+housing                  Frequency Table from a Copenhagen Housing
+                           Conditions Survey.
+immer                    Yields from a Barley Field Trial
+Insurance                Numbers of Car Insurance claims
+leuk                     Survival Times and White Blood Counts for
+                           Leukaemia Patients
+lh                       Luteinizing Hormone in Blood Samples
+mammals                  Brain and Body Weights for 62 Species of
+                           Land Mammals
+mcycle                   Data from a Simulated Motorcycle Accident
+mdeaths                  Monthly Deaths from Lung Diseases in the UK
+Melanoma                 Survival from Malignant Melanoma
+menarche                 Age of Menarche data
+michelson                Michelson's Speed of Light Data
+minn38                   Minnesota High School Graduates of 1938
+motors                   Accelerated Life Testing of Motorettes
+muscle                   Effect of Calcium Chloride on Muscle Contraction
+                           in Rat Hearts
+newcomb                  Newcomb's Measurements of the Passage Time of Light
+nlschools                Eighth-Grade Pupils in the Netherlands
+nottem                   Average Monthly Temperatures at Nottingham,
+                           1920-1939
+npk                      Classical N, P, K Factorial Experiment
+npr1                     US Naval Petroleum Reserve No. 1 data
+oats                     Data from an Oats Field Trial
+OME                      Tests of Auditory Perception in Children with OME
+painters                 The Painter's Data of de Piles
+petrol                   N. L. Prater's Petrol Refinery Data
+phones                   Belgium Phone Calls 1950-1973
+Pima.tr                  Diabetes in Pima Indian Women
+quine                    Absenteeism from School in Rural New South Wales
+Rabbit                   Blood Pressure in Rabbits
+road                     Road Accident Deaths in US States
+rock                     Measurements on Petroleum Rock Samples
+rotifer                  Numbers of Rotifers by Fluid Density
+Rubber                   Accelerated Testing of Tyre Rubber
+ships                    Ships Damage Data
+shoes                    Shoe wear data of Box, Hunter and Hunter
+shrimp                   Percentage of Shrimp in Shrimp Cocktail
+shuttle                  Space Shuttle Autolander Problem
+Sitka                    Growth Curves for Sitka Spruce Trees in 1988
+Sitka89                  Growth Curves for Sitka Spruce Trees in 1989
+Skye                     AFM Compositions of Aphyric Skye Lavas
+snails                   Snail Mortality Data
+SP500                    Returns of the Standard and Poors 500
+steam                    The Saturated Steam Pressure Data
+stormer                  The Stormer Viscometer Data
+survey                   Student Survey Data
+synth.tr                 Synthetic Classification Problem
+topo                     Spatial Topographic Data
+Traffic                  Effect of Swedish Speed Limits on Accidents
+UScereal                 Nutritional and Marketing Information on US Cereals
+UScrime                  The Effect of Punishment Regimes on Crime Rates
+VA                       Veteran's Administration lung cancer trial.
+waders                   Counts of Waders at 15 Sites in South Africa
+whiteside                House Insulation: Whiteside's Data
+wtloss                   Weight Loss Data from an Obese Patient

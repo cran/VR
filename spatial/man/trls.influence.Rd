@@ -11,7 +11,7 @@ regression fits for trend surfaces calculated by \code{surf.ls}.
 }
 \usage{
 trls.influence(object)
-\method{plot}{trls}(x, border = "red", col = NA, pch = 4, cex = 0.6, 
+\method{plot}{trls}(x, border = "red", col = NA, pch = 4, cex = 0.6,
           add = FALSE, div = 8, \dots)
 }
 \arguments{
@@ -22,7 +22,7 @@ Fitted trend surface model from \code{surf.ls}
 scaling factor for influence circle radii in \code{plot.trls}
 }
 \item{add}{
-add influence plot to existing graphics if TRUE
+add influence plot to existing graphics if \code{TRUE}
 }
 \item{border, col, pch, cex, ...}{
 additional graphical parameters
@@ -44,7 +44,7 @@ Cook's statistic
 }}
 \references{
 Unwin, D. J., Wrigley, N. (1987) Towards a general-theory of
-control point distribution effects in trend surface models. 
+control point distribution effects in trend surface models.
 \emph{Computers and Geosciences,}
 \bold{13}, 351--355.
 }

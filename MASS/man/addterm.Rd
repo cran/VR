@@ -21,7 +21,7 @@ This function is generic; there exist methods for classes \code{lm} and
 \code{glm} and the default method will work for many other classes.
 }
 \usage{
-addterm(object, scope, scale = 0, test=c("none", "Chisq", "F"),
+addterm(object, scope, scale = 0, test = c("none", "Chisq", "F"),
         k = 2, sorted = FALSE, trace = FALSE, \dots)
 }
 \synopsis{
@@ -83,7 +83,7 @@ quine.lo <- aov(log(Days+2.5) ~ 1, quine)
 addterm(quine.lo, quine.hi, test="F")
 
 data(housing)
-house.glm0 <- glm(Freq ~ Infl*Type*Cont + Sat, family=poisson, 
+house.glm0 <- glm(Freq ~ Infl*Type*Cont + Sat, family=poisson,
                    data=housing)
 addterm(house.glm0, ~. + Sat:(Infl+Type+Cont), test="Chisq")
 house.glm1 <- update(house.glm0, . ~ . + Sat*(Infl+Type+Cont))

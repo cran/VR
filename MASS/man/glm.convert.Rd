@@ -17,7 +17,8 @@ glm.convert(object)
 }
 \arguments{
 \item{object}{
-An object of class \code{"negbin"}, typically the output from \code{glm.nb()}.
+  An object of class \code{"negbin"}, typically the output from
+  \code{\link{glm.nb}()}.
 }}
 \value{
 An object of class \code{"glm"} with negative binomial family.  The theta
@@ -32,7 +33,7 @@ structure of the fitted model object.
 }
 \examples{
 data(quine)
-quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data=quine)
+quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)
 quine.nbA <- glm.convert(quine.nb1)
 quine.nbB <- update(quine.nb1, . ~ . + Sex:Age:Lrn)
 anova(quine.nbA, quine.nbB)

@@ -9,7 +9,7 @@ Learning Vector Quantization 2.1
 Moves examples in a codebook to better represent the training set.
 }
 \usage{
-lvq2(x, cl, codebk, niter=100 * nrow(codebk$x), alpha=0.03, win=0.3)
+lvq2(x, cl, codebk, niter = 100 * nrow(codebk$x), alpha = 0.03, win = 0.3)
 }
 \arguments{
 \item{x}{
@@ -39,7 +39,7 @@ Selects \code{niter} examples at random  with replacement, and adjusts the neare
 two examples in the codebook if one is correct and the other incorrect.
 }
 \references{
-Kohonen, T. (1990) The self-organizing map.  
+Kohonen, T. (1990) The self-organizing map.
 \emph{Proc. IEEE}
 \bold{78}, 1464--1480.
 
@@ -49,13 +49,14 @@ Kohonen, T. (1995)
 Springer, Berlin.
 }
 \seealso{
-\code{\link{lvqinit}}, \code{\link{lvq1}}, \code{\link{olvq1}}, \code{\link{lvq3}}, \code{\link{lvqtest}}
+  \code{\link{lvqinit}}, \code{\link{lvq1}}, \code{\link{olvq1}},
+  \code{\link{lvq3}}, \code{\link{lvqtest}}
 }
 \examples{
 data(iris3)
-train <- rbind(iris3[1:25,,1],iris3[1:25,,2],iris3[1:25,,3])
-test <- rbind(iris3[26:50,,1],iris3[26:50,,2],iris3[26:50,,3])
-cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
+train <- rbind(iris3[1:25,,1], iris3[1:25,,2], iris3[1:25,,3])
+test <- rbind(iris3[26:50,,1], iris3[26:50,,2], iris3[26:50,,3])
+cl <- factor(c(rep("s",25), rep("c",25), rep("v",25)))
 cd <- lvqinit(train, cl, 10)
 lvqtest(cd, train)
 cd0 <- olvq1(train, cl, cd)

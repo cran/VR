@@ -5,75 +5,6 @@ Additional datasets to work our examples are:
 
 VA, geyser, heart
 
-The following are fully operational:
-
-ginv		generalized inverse
-write.matrix	write matrix or numeric data frame
-eqscplot	equally-scaled plots
-
-mvrnorm 	simulate from a multivariate normal distribution
-huber		Huber location with MAD scale
-hubers		Huber proposal 2
-truehist	histogram plots
-nclass.scott	choose number of histogram classes
-nclass.FD	choose number of histogram classes
-hist.scott	histogram with other bin choices
-hist.FD 	histogram with other bin choices
-frequency.polygon
-nclass.freq	choose number of classes for frequency polygon
-ucv, bcv	cross-validation functions for density
-width.SJ	bandwidth choice for density.
-kde2d		2D kernel density estimation
-
-boxcox		estimate Box-Cox transformation
-logtrans	estimate shift in log-transformations
-stdres		standardized residuals for linear models
-studres		Studentized residuals for linear models
-vcov		variance-covariance summary for linear, glm and 
-		   non-linear regression fits
-contr.sdif	contrasts function for successive differences
-fraction	methods for operating on rational fractions
-
-rlm		robust linear model fitting (by Huber M-estimator)
-lqs		resistant regression
-addterm		try all one-term additions to a model
-dropterm	try all one-term deletions from a model
-stepAIC		stepwise AIC minimization
-lm.gls		generalized least squares fit
-lm.ridge	ridge regression
-
-dose.p		function for LD50-like fits
-neg.bin 	negative binomial family with fixed theta
-anova.negbin	functions for full negative binomial family
-glm.convert
-glm.nb
-negative.binomial
-rnegbin
-theta.md
-theta.mm
-loglm		Object-oriented wrapper for loglin() (from complements)
-polr		proportional odds logistic regression
-gamma.shape	MLE of shape parameter for GLM fit with gamma family
-gamma.dispersion		(from complements)
-
-
-deviance.nls	deviance function for nls fits
-rms.curv	curvature measures for non-linear regression
-plot.profile	plot method for profiles
-pairs.profile	pairs method for profiles
-profile.glm	profiles for glm objects
-
-lda		linear discrimination
-predict.lda	predict function for lda
-qda		quadratic discrimination
-predict.qda	predict function for qda
-sammon		Sammon non-linear mapping
-isoMDS		isotonic multidimensional scaling
-Shepard 	Shepard plot for isoMDS
-cov.trob 	robust estimation of multivariate location and scatter
-corresp 	correspondence analysis
-mca		multiple correspondence analysis (complements)
-
 
 moved to base R:
 max.col		find largest column for each row of a matrix,
@@ -95,5 +26,5 @@ vcov.nlregb	vcov methods for nlregb objects
 vcov.nlminb	vcov methods for nlminb objects
 
 
-BDR <ripley@stats.ox.ac.uk> 2002/01/14
+BDR <ripley@stats.ox.ac.uk> 2002-01-14
 

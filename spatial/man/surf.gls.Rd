@@ -9,7 +9,7 @@ Fits a Trend Surface by Generalized Least-squares
 Fits a trend surface by generalized least-squares.
 }
 \usage{
-surf.gls(np, covmod, x, y, z, nx=1000, \dots)
+surf.gls(np, covmod, x, y, z, nx = 1000, \dots)
 }
 \arguments{
 \item{np}{
@@ -35,7 +35,7 @@ and increases size of the object.
 parameters for \code{covmod}
 }}
 \value{
-list with components 
+list with components
 
 \item{beta}{
 the coefficients

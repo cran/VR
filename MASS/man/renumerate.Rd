@@ -24,9 +24,6 @@ A formula where all variables with names of the form \code{.vn}, where
 \code{n} is an integer, converted to numbers, \code{n}, as allowed by the
 formula conventions of \code{\link{loglm}}.
 }
-\section{Side Effects}{
-None.
-}
 \details{
 This is an inverse function to \code{\link{denumerate}}.  It is only needed
 since \code{\link{terms}} returns an expanded form of the original formula

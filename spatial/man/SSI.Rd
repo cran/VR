@@ -25,18 +25,19 @@ list of vectors of \code{x} and \code{y} coordinates
 uses the region set by \code{ppinit} or \code{ppregion}.
 }
 \section{Side Effects}{
-Uses the random number generator.
+uses the random number generator.
 }
-\section{WARNINGS}{
-will never return if \code{r} is too large and it cannot place \code{n} points
+\section{Warnings}{
+  will never return if \code{r} is too large and it cannot place
+  \code{n} points.
 }
 \seealso{
 \code{\link{Psim}}, \code{\link{Strauss}}
 }
 \examples{
 towns <- ppinit("towns.dat")
-par(pty="s")
-plot(Kfn(towns, 10), type="b", xlab="distance", ylab="L(t)")
-lines(Kaver(10, 25, SSI(69,1.2)))
+par(pty = "s")
+plot(Kfn(towns, 10), type = "b", xlab = "distance", ylab = "L(t)")
+lines(Kaver(10, 25, SSI(69, 1.2)))
 }
 \keyword{spatial}

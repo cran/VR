@@ -9,7 +9,7 @@ Compute Spatial Variogram
 Compute spatial (semi-)variogram of spatial data or residuals.
 }
 \usage{
-variogram(krig, nint, plotit=TRUE, \dots)
+variogram(krig, nint, plotit = TRUE, \dots)
 }
 \arguments{
 \item{krig}{

@@ -29,9 +29,9 @@ Batch, \code{B1}, \code{B2}, \code{B3} (nested within \code{Spc/Lab}),
 Concentration of Analyte in g/kg.
 }}}
 \source{
-Analytical Methods Committee (1987)  
+Analytical Methods Committee (1987)
 Recommendations for the conduct and
-interpretation of co-operative trials, 
+interpretation of co-operative trials,
 \emph{The Analyst}
 \bold{112}, 679--686.
 }

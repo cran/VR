@@ -14,7 +14,7 @@ discriminant.
 ldahist(data, g, nbins = 25, h, x0 = - h/1000, breaks,
         xlim = range(breaks), ymax = 0, width,
         type = c("histogram", "density", "both"),
-        sep = (type != "density"), 
+        sep = (type != "density"),
         col = 5, xlab = deparse(substitute(data)), bty = "n", \dots)
 }
 \arguments{
@@ -31,7 +31,7 @@ Suggested number of bins to cover the whole range of the data.
 The bin width (takes precedence over \code{nbins}).
 }
 \item{x0}{
-Shift for the bins - the breaks are at \code{x0 + h * (\dots, -1, 0, 1, \dots)} 
+Shift for the bins - the breaks are at \code{x0 + h * (\dots, -1, 0, 1, \dots)}
 }
 \item{breaks}{
 The set of breakpoints to be used. (Usually omitted, takes precedence
@@ -65,9 +65,6 @@ The box type for the plot - defaults to none.
 \item{...}{
 additional arguments to \code{polygon}.
 }}
-\value{
-None.
-}
 \section{Side Effects}{
 Histogram and/or density plots are plotted on the current device.
 }

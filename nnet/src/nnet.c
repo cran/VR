@@ -1,4 +1,4 @@
-/*  nnet/nnet.c by W. N. Venables and B. D. Ripley  Copyright (C) 1992-9
+/*  nnet/nnet.c by W. N. Venables and B. D. Ripley  Copyright (C) 1992-2002
  *
  * weights are stored in order of their destination unit.
  * the array Conn gives the source unit for the weight (0 = bias unit)
@@ -10,17 +10,9 @@
 #include <S.h>
 #include <stdio.h>
 #include <math.h>
-#if defined(SPLUS_VERSION) && SPLUS_VERSION >= 4000 && SPLUS_VERSION < 5000
-#  include <newredef.h>
-#endif
 
-#ifdef USING_R
-  typedef double Sdata;
-#  include "R_ext/PrtUtil.h"
-#  define printf Rprintf
-#else
-  typedef float Sdata;  /* type of data, weights and Hessian in caller */
-#endif
+typedef double Sdata;
+#include "R_ext/PrtUtil.h"
 #include "verS.h"
 
 static double *vect(int n);
@@ -487,8 +479,7 @@ vmmin(int n0, double *b, double *Fmin, int maxit, int trace, Sint *mask,
     B = Lmatrix(n);
     f = fminfn(b);
     if (trace) {
-	printf("initial  value %f \n", f);
-	fflush(stdout);
+	Rprintf("initial  value %f \n", f);
     } {
 	*Fmin = f;
 	funcount = gradcount = 1;
@@ -588,8 +579,7 @@ vmmin(int n0, double *b, double *Fmin, int maxit, int trace, Sint *mask,
 		/* Resets unless has just been reset */
 	    }
 	    if (iter % REPORT == 0 && trace) {
-		printf("iter%4d value %f\n", iter, f);
-		fflush(stdout);
+		Rprintf("iter%4d value %f\n", iter, f);
 	    }
 	    if (iter >= maxit)
 		break;
@@ -598,11 +588,11 @@ vmmin(int n0, double *b, double *Fmin, int maxit, int trace, Sint *mask,
 	} while (count != n || ilast != gradcount);
     }
     if (trace) {
-	printf("final  value %f \n", *Fmin);
+	Rprintf("final  value %f \n", *Fmin);
 	if (iter < maxit)
-	    printf("converged\n");
+	    Rprintf("converged\n");
 	else
-	    printf("stopped after %i iterations\n", iter);
+	    Rprintf("stopped after %i iterations\n", iter);
     }
     free_vect(g);
     free_vect(t);
@@ -804,9 +794,6 @@ VR_nnHessian(Sint *ntr, Sdata *train, Sdata *weights,
 static int p, q;
 
 static int 
-#if( defined(WIN32) && defined(SPLUS_VERSION) && SPLUS_VERSION >= 6000 )
-__cdecl
-#endif
 Zcompar(const Sdata *a, const Sdata *b)
 {
     int   i;
@@ -828,12 +815,8 @@ VR_summ2(Sint *n0, Sint *p0, Sint *q0, Sdata *Z, Sint *na)
     p = *p0;
     q = *q0;
     m = p + q;
-#if( defined(WIN32) && defined(SPLUS_VERSION) && SPLUS_VERSION >= 6000 )
-    qsort(Z, n, m * sizeof(Sdata), Zcompar);
-#else
     qsort(Z, n, m * sizeof(Sdata), 
 	  (int (*)(const void *, const void *)) Zcompar);
-#endif
     j = 0;
     for (i = 1; i < n; i++) {
 	k = -1;
@@ -851,4 +834,22 @@ VR_summ2(Sint *n0, Sint *p0, Sint *q0, Sdata *Z, Sint *na)
 		Z[l + j * m] += Z[l + i * m];
     }
     *na = j + 1;
+}
+
+#include "R_ext/Rdynload.h"
+
+R_CMethodDef CEntries[] = {
+    {"VR_dfunc", (DL_FUNC) &VR_dfunc, 3},
+    {"VR_dovm", (DL_FUNC) &VR_dovm, 11},
+    {"VR_nnHessian", (DL_FUNC) &VR_nnHessian, 5},
+    {"VR_nntest", (DL_FUNC) &VR_nntest, 4},
+    {"VR_set_net", (DL_FUNC) &VR_set_net, 8},
+    {"VR_summ2", (DL_FUNC) &VR_summ2, 5},
+    {"VR_unset_net", (DL_FUNC) &VR_unset_net, 0},
+    {NULL, NULL, 0}
+};
+
+void R_init_nnet(DllInfo *dll)
+{
+    R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
 }

@@ -8,7 +8,7 @@ Diagnostic Tests on Patients with Cushing's Syndrome
 }
 \description{
 Cushing's syndrome is a hypertensive disorder associated with
-over-secretion of cortisol by the adrenal gland. The observations 
+over-secretion of cortisol by the adrenal gland. The observations
 are urinary excretion rates of two steroid metabolites.
 }
 \usage{

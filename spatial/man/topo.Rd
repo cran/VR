@@ -26,7 +26,7 @@ y coordinates (units of 50 feet)
 heights (feet)
 }}}
 \source{
-Davis, J.C. (1973) 
+Davis, J.C. (1973)
 \emph{Statistics and Data Analysis in Geology.}
 Wiley.
 }

@@ -28,7 +28,7 @@ are recognised, case being ignored.
 }
 \item{start}{
 A named list giving the parameters to be optimized with initial
-values.  This can be omitted for some of the named distributions 
+values.  This can be omitted for some of the named distributions
 (see Details).
 }
 \item{\dots}{

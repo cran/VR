@@ -27,20 +27,19 @@ Number who have reached menarche.
 }}}
 \source{
 Milicer, H. and Szczotka, F. (1966) Age at Menarche in Warsaw girls in
-1965. 
+1965.
 \emph{Human Biology}
 \bold{38}, 199--203.
 
-
-The data are also given in 
-Aranda-Ordaz, F.J. (1981) 
+The data are also given in\cr
+Aranda-Ordaz, F.J. (1981)
 On two families of transformations to additivity for binary response data.
-\emph{Biometrika,}
+\emph{Biometrika}
 \bold{68}, 357--363.
 }
 \examples{
 data(menarche)
-mprob <- glm(cbind(Menarche, Total - Menarche) ~ Age, 
-		binomial(link = probit), menarche)
+mprob <- glm(cbind(Menarche, Total - Menarche) ~ Age,
+             binomial(link = probit), data = menarche)
 }
 \keyword{datasets}

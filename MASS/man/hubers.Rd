@@ -11,7 +11,7 @@ Finds the Huber M-estimator for location with scale specified, scale
 with location specified, or both if neither is specified.
 }
 \usage{
-hubers(y, k=1.5, mu, s, initmu=median(y), tol=1e-06)
+hubers(y, k = 1.5, mu, s, initmu = median(y), tol = 1e-06)
 }
 \arguments{
 \item{y}{

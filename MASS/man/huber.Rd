@@ -10,7 +10,7 @@ Huber M-estimator of Location with MAD Scale
 Finds the Huber M-estimator of location with MAD scale.
 }
 \usage{
-huber(y, k=1.5, tol=1e-06)
+huber(y, k = 1.5, tol = 1e-06)
 }
 \arguments{
 \item{y}{

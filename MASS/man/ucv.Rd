@@ -11,7 +11,7 @@ Uses unbiased cross-validation to select the bandwidth of a Gaussian
 kernel density estimator.
 }
 \usage{
-ucv(x, nb=1000, lower, upper)
+ucv(x, nb = 1000, lower, upper)
 }
 \arguments{
 \item{x}{

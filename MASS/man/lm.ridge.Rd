@@ -14,12 +14,12 @@ Ridge Regression
 Fit a linear model by ridge regression.
 }
 \usage{
-lm.ridge(formula, data, subset, na.action, lambda=0, model=FALSE, 
-         x=FALSE, y=FALSE, contrasts=NULL, \dots)
+lm.ridge(formula, data, subset, na.action, lambda = 0, model = FALSE,
+         x = FALSE, y = FALSE, contrasts = NULL, \dots)
 }
 \arguments{
 \item{formula}{
-a formula expression as for regression models, of the form 
+a formula expression as for regression models, of the form
 \code{response ~ predictors}.
 See the documentation of \code{formula} for other details.
 }
@@ -94,12 +94,12 @@ Oxford.
 data(longley)
 names(longley)[1] <- "y"
 lm.ridge(y ~ ., longley)
-plot(lm.ridge(y ~ ., longley, 
+plot(lm.ridge(y ~ ., longley,
               lambda = seq(0,0.1,0.001)))
 select(lm.ridge(y ~ ., longley,
               lambda = seq(0,0.1,0.0001)))
-# modified HKB estimator is 0.0042754 
-# modified L-W estimator is 0.032295 
-# smallest value of GCV  at 0.0028 
+# modified HKB estimator is 0.0042754
+# modified L-W estimator is 0.032295
+# smallest value of GCV  at 0.0028
 }
 \keyword{models}

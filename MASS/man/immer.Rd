@@ -31,11 +31,10 @@ Yield in 1931
 Yield in 1932
 }}}
 \source{
-Immer, F.R., Hayes, H.D. and LeRoy Powers (1934) 
+Immer, F.R., Hayes, H.D. and LeRoy Powers (1934)
 Statistical determination of barley varietal adaptation.
 \emph{Journal of the American Society for Agronomy}
 \bold{26}, 403--407.
-
 
 Fisher, R.A. (1947)
 \emph{The Design of Experiments.}
@@ -44,12 +43,11 @@ Edinburgh: Oliver and Boyd.
 }
 \examples{
 data(immer)
-immer.aov <- aov(cbind(Y1,Y2) ~ Loc + Var, data=immer)
+immer.aov <- aov(cbind(Y1,Y2) ~ Loc + Var, data = immer)
 summary(immer.aov)
 
-
-immer.aov <- aov((Y1+Y2)/2 ~ Var + Loc, data=immer)
+immer.aov <- aov((Y1+Y2)/2 ~ Var + Loc, data = immer)
 summary(immer.aov)
-model.tables(immer.aov, type="means", se=TRUE, cterms="Var")
+model.tables(immer.aov, type = "means", se = TRUE, cterms = "Var")
 }
 \keyword{datasets}

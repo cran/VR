@@ -9,11 +9,11 @@ Adaptive Numerical Integration
 \description{
 Integrate a function of one variable over a finite range using a
 recursive adaptive method.  This function is mainly for
-demonstration purposes. 
+demonstration purposes.
 }
 \usage{
-area(f, a, b, \dots, fa=f(a, \dots), fb=f(b, \dots), 
-     limit=10, eps=1e-05))
+area(f, a, b, \dots, fa = f(a, \dots), fb = f(b, \dots),
+     limit = 10, eps = 1e-05))
 }
 \arguments{
 \item{f}{

@@ -7,14 +7,12 @@
 Estimate theta of the Negative Binomial by Moments
 }
 \description{
-Given the mean estimate, calculate the moment estimator of theta by
-equating
-\code{sum((y-mu)^2/(mu+mu^2/theta))} 
-to the residual degrees of
-freedom.
+Given the mean estimate, calculate the moment estimator of \code{theta} by
+equating \eqn{sum((y-\mu)^2/(\mu+\mu^2/\theta))} to the residual
+degrees of freedom.
 }
 \usage{
-theta.mm(y, u, dfr, limit=10, eps=.Machine$double.eps^0.25)
+theta.mm(y, u, dfr, limit = 10, eps = .Machine$double.eps^0.25)
 }
 \arguments{
 \item{y}{
@@ -39,6 +37,6 @@ The required estimate of \code{theta}, as a scalar.
 \code{\link{glm.nb}}, \code{\link{theta.ml}}, \code{\link{theta.md}}
 }
 \examples{
-\dontrun{theta <- theta.mm(y, fitted(fm), dfr=123)}
+\dontrun{theta <- theta.mm(y, fitted(fm), dfr = 123)}
 }
 \keyword{models}

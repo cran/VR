@@ -19,7 +19,7 @@ data(genotype)
 The data frame has the following components:
 \describe{
 \item{\code{Litter}}{
-The genotype of the litter 
+The genotype of the litter
 }
 \item{\code{Mother}}{
 The genotype of the foster mother

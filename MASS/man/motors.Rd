@@ -31,32 +31,28 @@ Kalbfleisch, J. D. and Prentice, R. L. (1980)
 \emph{The Statistical Analysis of Failure Time Data.}
 New York: Wiley.
 
-
 taken from
-
 
 Nelson, W. D. and Hahn, G. J. (1972)
 Linear regression of a regression relationship from censored data.
 Part 1 -- simple methods and their application.
-\emph{Technometrics }
-\bold{14}, 247--276.
+\emph{Technometrics}, \bold{14}, 247--276.
 }
 \examples{
 library(survival)
 data(motors)
-plot(survfit(Surv(time, cens) ~ factor(temp), motors), conf.int=FALSE)
+plot(survfit(Surv(time, cens) ~ factor(temp), motors), conf.int = FALSE)
 # fit Weibull model
 motor.wei <- survreg(Surv(time, cens) ~ temp, motors)
 summary(motor.wei)
 # and predict at 130C
-unlist(predict(motor.wei, data.frame(temp=130), se.fit=TRUE))
-
+unlist(predict(motor.wei, data.frame(temp=130), se.fit = TRUE))
 
 motor.cox <- coxph(Surv(time, cens) ~ temp, motors)
 summary(motor.cox)
 # predict at temperature 200
-plot( survfit(motor.cox, newdata=data.frame(temp=200),
-     conf.type="log-log") )
-summary( survfit(motor.cox, newdata=data.frame(temp=130)) )
+plot(survfit(motor.cox, newdata = data.frame(temp=200),
+     conf.type = "log-log"))
+summary( survfit(motor.cox, newdata = data.frame(temp=130)) )
 }
 \keyword{datasets}

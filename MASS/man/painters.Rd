@@ -33,7 +33,7 @@ Expression score
 \item{\code{School}}{
 The school to which a painter belongs, as indicated by a factor level
 code as follows:
-\code{"A"}: Renaissance; 
+\code{"A"}: Renaissance;
 \code{"B"}: Mannerist;
 \code{"C"}: Seicento;
 \code{"D"}: Venetian;
@@ -49,7 +49,7 @@ Edward Arnold.
 
 
 M. Davenport and G. Studdert-Kennedy (1972) The statistical
-analysis of aesthetic judgement: an exploration. 
+analysis of aesthetic judgement: an exploration.
 \emph{Applied Statistics}
 \bold{21},  324--333.
 

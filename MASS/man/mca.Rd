@@ -11,7 +11,7 @@ Multiple Correspondence Analysis
 Computes a multiple correspondence analysis of a set of factors.
 }
 \usage{
-mca(df, nf=2, abbrev=FALSE)
+mca(df, nf = 2, abbrev = FALSE)
 }
 \arguments{
 \item{df}{
@@ -22,8 +22,8 @@ The number of dimensions for the MCA. Rarely 3 might be useful.
 }
 \item{abbrev}{
 Should the vertex names be abbreviated?  By default these are of the
-form ``factor.level'' but if \code{abbrev=TRUE} they are just ``level'' which will
-suffice if the factors have distinct levels.
+form ``factor.level'' but if \code{abbrev = TRUE} they are just
+``level'' which will suffice if the factors have distinct levels.
 }}
 \value{
 An object of class \code{"mca"}, with components

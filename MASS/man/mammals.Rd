@@ -22,10 +22,10 @@ body weight in kg
 brain weight in g
 }
 \item{\code{name}}{
-Common name of species.  
+Common name of species.
 Rock hyrax-a =
 \emph{Heterohyrax brucci.}
-Rock hyrax-b = 
+Rock hyrax-b =
 \emph{Procavia habessinica.}
 }}}
 \source{

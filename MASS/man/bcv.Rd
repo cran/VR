@@ -11,7 +11,7 @@ Uses biased cross-validation to select the bandwidth of a  Gaussian
 kernel density estimator.
 }
 \usage{
-bcv(x, nb=1000, lower, upper)
+bcv(x, nb = 1000, lower, upper)
 }
 \arguments{
 \item{x}{

@@ -14,10 +14,7 @@ in shrimp cocktail.
 \source{
 F. J. King and J. J. Ryan (1976)
 Collaborative study of the determination of the amount of shrimp in
-shrimp cocktail.
-\emph{J. Off. Anal. Chem. }
-\bold{59}, 644--649
-
+shrimp cocktail. \emph{J. Off. Anal. Chem.} \bold{59}, 644--649
 
 R. G. Staudte and S. J. Sheather (1990)
 \emph{Robust Estimation and Testing.}

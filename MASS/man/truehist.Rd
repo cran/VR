@@ -10,14 +10,14 @@ Plot a Histogram
 Creates a histogram on the current graphics device.
 }
 \usage{
-truehist(data, nbins = "Scott", h, x0 = -h/1000, 
-         breaks, prob = TRUE, xlim = range(breaks), 
-         ymax = max(est), col, 
+truehist(data, nbins = "Scott", h, x0 = -h/1000,
+         breaks, prob = TRUE, xlim = range(breaks),
+         ymax = max(est), col,
          xlab = deparse(substitute(data)), bty = "n", \dots)
 }
 \arguments{
 \item{data}{
-numeric vector of data for histogram.  Missing values (\code{NA}s) 
+numeric vector of data for histogram.  Missing values (\code{NA}s)
 are allowed and omitted.
 }
 \item{nbins}{
@@ -29,7 +29,7 @@ ignored.)
 The bin width (takes precedence over \code{nbins}).
 }
 \item{x0}{
-Shift for the bins - the breaks are at \code{x0 + h * (\dots, -1, 0, 1, \dots)} 
+Shift for the bins - the breaks are at \code{x0 + h * (\dots, -1, 0, 1, \dots)}
 }
 \item{breaks}{
 The set of breakpoints to be used. (Usually omitted, takes precedence
@@ -37,7 +37,7 @@ over \code{h} and \code{nbins}).
 }
 \item{prob}{
 If true (the default) plot a true histogram.
-The vertical axis has a 
+The vertical axis has a
 \emph{relative frequency density}
 scale, so the product of the dimensions of any panel gives the
 relative frequency.  Hence the total area under the histogram
@@ -63,9 +63,6 @@ The box type for the plot - defaults to none.
 \item{...}{
 additional arguments to \code{polygon}.
 }}
-\value{
-None.
-}
 \section{Side Effects}{
 A histogram is plotted on the current device.
 }

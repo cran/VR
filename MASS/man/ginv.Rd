@@ -11,7 +11,7 @@ Calculates the Moore-Penrose generalized inverse of a matrix
 \code{X}.
 }
 \usage{
-ginv(X, tol=sqrt(.Machine$double.eps))
+ginv(X, tol = sqrt(.Machine$double.eps))
 }
 \arguments{
 \item{X}{

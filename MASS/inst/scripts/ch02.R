@@ -1,77 +1,50 @@
 #-*- R -*-
 
-# Chapter 2   The S Language
+# Chapter 2   Data Manipulation
 
 library(MASS)
-#postscript(file="ch02.ps", width=8, height=6, pointsize=9)
+options(echo = T, width=65, digits=5, height=9999)
 
+-2:2
 
-# 2.1  A concise description of S objects
+powers.of.pi <- pi^(-2:2)
+powers.of.pi
+class(powers.of.pi)
 
-mydata <- c(2.9, 3.4, 3.4, 3.7, 3.7, 2.8, 2.8, 2.5, 2.4, 2.4)
-colours <- c("red", "green", "blue", "white", "black")
-x1 <- 25:30
-x1
-mydata[7]
-colours[3]
+print(powers.of.pi)
+summary(powers.of.pi)
 
-mydata > 3
+# rm(powers.of.pi)
 
-names(mydata) <- c('a','b','c','d','e','f','g','h','i','j')
-mydata
-names(mydata)
-mydata["e"]
+powers.of.pi[5]
 
-letters[1:5]
-mydata[letters[1:5]]
-mydata[mydata > 3]
+names(powers.of.pi) <- -2:2
+powers.of.pi
+powers.of.pi["2"]
+class(powers.of.pi)
 
-mydata[-c(3:5)]
+as.vector(powers.of.pi)
+names(powers.of.pi) <- NULL
+powers.of.pi
 
-mode(mydata)
-mode(letters)
-mode(sin)
-length(mydata)
-length(letters)
-length(sin)
-
-names(mydata) <- NULL     # remove the names
-dim(mydata) <- c(2, 5)
-mydata
-dim(mydata) <- NULL
-matrix(mydata, 2, 5)
-matrix(mydata, 2, 5, byrow=T)
-
-Empl <- list(employee="Anna", spouse="Fred", children=3,
-               child.ages=c(4,7,9))
-Empl$employee
-Empl$child.ages[2]
-names(Empl) <- letters[1:4]
-Empl[3:4]
-Empl <- c(Empl, service = 8)
-unlist(Empl)
-unlist(Empl, use.names=F)
-
-c(list(x = 1:3, a = 3:6), list(y = 8:23, b = c(3, 8, 39)))
-c(list(x = 1:3, a = 3:6), list(y = 8:23, b = c(3, 8, 39)), recursive=T)
-
-
-citizen <- factor(c("uk","us","no","au","uk","us","us"))
+citizen <- factor(c("uk", "us", "no", "au", "uk", "us", "us"))
 citizen
-print.default(citizen)
+
 unclass(citizen)
 
-citizen <- factor(c("uk","us","no","au","uk","us","us"),
-     levels = c("us", "fr", "no", "au", "uk"))
-citizen
-table(citizen)
+citizen[5:7]
 
-income <- ordered(c("Mid","Hi","Lo","Mid","Lo","Hi","Lo"))
+citizen <- factor(c("uk", "us", "no", "au", "uk", "us", "us"),
+                   levels = c("us", "fr", "no", "au", "uk"))
+citizen
+
+income <- ordered(c("Mid", "Hi", "Lo", "Mid", "Lo", "Hi", "Lo"))
 income
+
 as.numeric(income)
 
-inc <- ordered(c("Mid","Hi","Lo","Mid","Lo","Hi","Lo"),
-    levels = c("Lo", "Mid", "Hi"))
+inc <- ordered(c("Mid", "Hi", "Lo", "Mid", "Lo", "Hi", "Lo"),
+                levels = c("Lo", "Mid", "Hi"))
 inc
 
 data(geyser)
@@ -82,101 +55,149 @@ erupt
 data(painters)
 painters
 row.names(painters)
-painters[1:5, c(2, 4)]
 
+summary(painters) # try it!
 
-# 2.2  Calling conventions for functions
+attach(painters)
+School
+detach("painters")
 
-args(hist)
+mymat <- matrix(1:30, 3, 10)
+mymat
 
+myarr <- mymat
+dim(myarr) <- c(3, 5, 2)
+class(myarr)
+myarr
+dim(myarr)
 
-# 2.3  Arithmetical expressions
+dimnames(myarr) <- list(letters[1:3], NULL, c("(i)", "(ii)"))
+myarr
 
-x <- c(10.4, 5.6, 3.1, 6.4, 21.7)
-y <- c(x, x)
-v <- 2 * x + y + 1
-xtrunc <- pmax(0, pmin(1,x))
-s3 <- seq(-5, 5, by=0.2)
-s3
-s4 <- seq(length=51, from=-5, by=0.2)
-s4
-s5 <- rep(x, times=5)
-s5
-x <- 1:4          # puts c(1,2,3,4)             into x
+newvar <- NA
+class(NA)
+
+newvar > 3
+
+x <- c(pi, 4, 5)
+x[2] <- NA
 x
-i <- rep(2, 4)    # puts c(2,2,2,2)             into i
-i
-y <- rep(x, 2)    # puts c(1,2,3,4,1,2,3,4)     into y
-y
-z <- rep(x, i)    # puts c(1,1,2,2,3,3,4,4)     into z
-z
-w <- rep(x, x)    # puts c(1,2,2,3,3,3,4,4,4,4) into w
-w
+class(x)
 
-colc <- rep(1:3,rep(8,3));  colc
-rowc <- rep(rep(1:4,rep(2,4)), 3); rowc
-1 + (ceiling(1:24/8) - 1) %% 3 -> colc; colc
-1 + (ceiling(1:24/2) - 1) %% 4 -> rowc; rowc
+is.na(x)
 
+1/0
 
-# 2.4, 2.5 omitted
+x <- c(-1, 0, 1)/0
+x
+is.na(x)
+x > Inf
+
+x <- c(2.9, 3.1, 3.4, 3.4, 3.7, 3.7, 2.8, 2.5)
 
 
-# 2.6  Character vector operations
-
-paste(c("X","Y"), 1:4)
-paste(c("X","Y"), 1:4, sep="")
-paste(c("X","Y"), 1:4, sep="", collapse=" + ")
-data(state)
-substring(state.name[44:50], 1, 4)
-
-
-# 2.7 omitted
-
-
-# 2.8  Indexing vectors, matrices and arrays
 
 letters[1:3]
-letters[1:3][c(1:3,3:1)]
+letters[c(1:3,3:1)]
 
-longitude <- state.center[["x"]]
+data(state)
+longitude <- state.center$x
 names(longitude) <- state.name
 longitude[c("Hawaii", "Alaska")]
 
-a <- 1:4
-a[0]
-a[0] <- 10
-a
+myarr[1, 2:4, ]
+myarr[1, 2:4, , drop = F]
+
+attach(painters)
+painters[Colour >= 17, ]
+
+painters[Colour >= 15 & Composition > 10, ]
+painters[Colour >= 15 & School != "D", ]
+
+painters[is.element(School, c("A", "B", "D")), ]
+painters[School %in% c("A", "B", "D"), ]   ## R only
+
+painters[cbind(1:nrow(painters), ifelse(Colour > Expression, 3, 4))]
+
+painters[grep("io$", row.names(painters)), ]
+
+detach("painters")
+
+data(fgl)
+m <- 30
+fglsub1 <- fgl[sort(sample(1:nrow(fgl), m)), ]
+
+fglsub2 <- fgl[rbinom(nrow(fgl), 1, 0.1) == 1, ]
+
+fglsub3 <- fgl[seq(1, nrow(fgl), by = 10), ]
+
+painters[sort.list(row.names(painters)), ]
 
 
-mydata
-sort(mydata)
+data(crabs)
+lcrabs <- crabs  # make a copy
+lcrabs[, 4:8] <- log(crabs[, 4:8])
 
-x <- rnorm(100001)
-sort(x, partial=50001)[50001]
+scrabs <- crabs  # make a copy
+scrabs[, 4:8] <- lapply(scrabs[, 4:8], scale)
+## or to just centre the variables
+scrabs[, 4:8] <- lapply(scrabs[, 4:8], scale, scale = F)
 
-latitude <- state.center[["y"]]
-names(latitude) <- state.name
-i <- sort.list(longitude)
-cbind(latitude = latitude[i], longitude = longitude[i])
+scrabs <- crabs  # make a copy
+scrabs[ ] <- lapply(scrabs,
+   function(x) {if(is.numeric(x)) scale(x) else x})
 
-data(shoes)
-shoes$B
-rank(shoes$B)
-rank(round(shoes$B))
-sort.list(sort.list(round(shoes$B)))
+sapply(crabs, is.numeric)
 
+by(crabs[, 4:8], list(crabs$sp, crabs$sex), summary)
 
-# 2.9  Input/Output facilities
+aggregate(crabs[, 4:8], by = list(sp=crabs$sp, sex=crabs$sex),
+           median)
 
-d <- date()
-cat("Today's date is:", substring(d,1,10),
-             substring(d,25,28), "\n")
-cat(1,2,3,4,5,6, fill=8, labels=letters)
-data(iris3)
-write(iris3[,1,1], "", 15)
-cat(format(iris3[,1,1]), fill=60)
+authors <- data.frame(
+         surname = c("Tukey", "Venables", "Tierney", "Ripley", "McNeil"),
+         nationality = c("US", "Australia", "US", "UK", "Australia"),
+         deceased = c("yes", rep("no", 4)))
+books <- data.frame(
+         name = c("Tukey", "Venables", "Tierney",
+                  "Ripley", "Ripley", "McNeil", "R Core"),
+         title = c("Exploratory Data Analysis",
+                   "Modern Applied Statistics ...",
+                   "LISP-STAT",
+                   "Spatial Statistics", "Stochastic Simulation",
+                   "Interactive Data Analysis",
+                   "An Introduction to R"))
 
-#if(version$major >= 5) showConnections(all=T)
+authors
+books
+
+merge(authors, books, by.x = "surname", by.y = "name")
+
+data(quine)
+attach(quine)
+table(Age)
+table(Sex, Age)
+
+tab <- xtabs(~ Sex + Age, quine)
+unclass(tab)
+
+tapply(Days, Age, mean)
+
+tapply(Days, Age, mean, trim = 0.1)
+
+tapply(Days, list(Sex, Age), mean)
+
+tapply(Days, list(Sex, Age),
+        function(x) sqrt(var(x)/length(x)))
+
+quineFO <- quine[sapply(quine, is.factor)]
+
+#tab <- do.call("table", quineFO)
+tab <- table(quineFO)
+
+QuineF <- expand.grid(lapply(quineFO, levels))
+
+QuineF$Freq <- as.vector(tab)
+QuineF
 
 # End of ch02

@@ -21,12 +21,12 @@ Fit Multinomial Log-linear Models
 Fits multinomial log-linear models via neural networks.
 }
 \usage{
-multinom(formula, data=parent.frame(), weights, subset, na.action, 
-contrasts=NULL, Hess=FALSE, summ=0, censored=FALSE, \dots)
+multinom(formula, data = parent.frame(), weights, subset, na.action,
+         contrasts = NULL, Hess = FALSE, summ = 0, censored = FALSE, \dots)
 }
 \arguments{
 \item{formula}{
-a formula expression as for regression models, of the form 
+a formula expression as for regression models, of the form
 \code{response ~ predictors}. The response should be a factor or a matrix with
 K columns, which will be interpreted as counts for each of K classes.
 A log-linear model is fitted, with coefficients zero for the first
@@ -99,14 +99,14 @@ bwt.mu
 multinom(formula = low ~ ., data = bwt)
 
 Coefficients:
- (Intercept)         age         lwt raceblack raceother  
+ (Intercept)         age         lwt raceblack raceother
     0.823477 -0.03724311 -0.01565475  1.192371 0.7406606
-     smoke      ptd        ht        ui       ftv1     ftv2+ 
+     smoke      ptd        ht        ui       ftv1     ftv2+
   0.7555234 1.343648 1.913213 0.6802007 -0.4363238 0.1789888
 
 
-Residual Deviance: 195.4755 
-AIC: 217.4755 
+Residual Deviance: 195.4755
+AIC: 217.4755
 }
 }
 \keyword{neural}

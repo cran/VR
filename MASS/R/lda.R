@@ -466,4 +466,4 @@ function(formula, data = NULL, na.action = NULL, ...)
     else eval(oc, list())
 }
 
-
+coef.lda <- function(object, ...) object$scaling

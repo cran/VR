@@ -98,7 +98,7 @@ Combination of Manufacturer and Model (character)
 }}}
 \details{
 Cars were selected at random from among 1993 passenger car models that
-were listed in both the \emph{Consumer Reports} issue and the 
+were listed in both the \emph{Consumer Reports} issue and the
 \emph{PACE Buying Guide}.  Pickup trucks and Sport/Utility vehicles were
 eliminated due to incomplete information in the \emph{Consumer Reports}
 source.  Duplicate models (e.g., Dodge Shadow and Plymouth Sundance)
@@ -106,10 +106,7 @@ were listed at most once.
 
 
 Further description can be found in Lock (1993). Use the URL
-\url{http://jse.stat.ncsu.edu/jse/v1n1/datasets.lock}
-or send the message
-     \code{send jse/v1n1/datasets.lock}
-to the email address \email{archive@jse.stat.ncsu.edu}
+\url{http://www.amstat.org/publications/jse/v1n1/datasets.lock.html}
 }
 \source{
 Lock, R. H. (1993)

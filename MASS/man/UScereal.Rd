@@ -54,6 +54,6 @@ vitamins and minerals (none, enriched, or 100\%)
 }}}
 \source{
 The original data are available at
-\code{http://lib.stat.cmu.edu/datasets/1993.expo/}
+\url{http://lib.stat.cmu.edu/datasets/1993.expo/}.
 }
 \keyword{datasets}

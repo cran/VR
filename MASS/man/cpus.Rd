@@ -7,7 +7,7 @@
 Performance of Computer CPUs
 }
 \description{
-A relative performance measure and characteristics of 209 CPUs.  
+A relative performance measure and characteristics of 209 CPUs.
 }
 \usage{
 data(cpus)

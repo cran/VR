@@ -75,7 +75,7 @@ theoretical and empirical investigation.
 
 Vandaele, W. (1978) Participation in illegitimate activities: Ehrlich
 revisited.  In
-\emph{Deterrence and Incapacitation,}
+\emph{Deterrence and Incapacitation},
 eds A. Blumstein, J. Cohen and D. Nagin, pp. 270--335.
 US National Academy of Sciences.
 }

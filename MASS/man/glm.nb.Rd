@@ -13,7 +13,7 @@ additional parameter, \code{theta}, for a Negative Binomial generalized linear
 model.
 }
 \usage{
-glm.nb(formula, \dots,  init.theta, link=log)
+glm.nb(formula, \dots,  init.theta, link = log)
 }
 \synopsis{
 glm.nb(formula = formula(data), data = parent.frame(), weights,
@@ -62,7 +62,7 @@ estimation of \code{theta}.
 }
 \examples{
 data(quine)
-quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data=quine)
+quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)
 quine.nb2 <- update(quine.nb1, . ~ . + Sex:Age:Lrn)
 quine.nb3 <- update(quine.nb2, Days ~ .^4)
 anova(quine.nb1, quine.nb2, quine.nb3)

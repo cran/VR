@@ -5,7 +5,7 @@
 }
 \description{
   Veteran's Administration lung cancer trial from Kalbfleisch & Prentice.
-  
+
 }
 \format{
 A data frame with columns:
@@ -37,6 +37,6 @@ patient's age in years
 }
 \source{
 Kalbfleisch, J.D. and Prentice R.L. (1980)
-\emph{The Statistical Analysis of Failure Time Data.} 
+\emph{The Statistical Analysis of Failure Time Data.}
 }
 \keyword{datasets}

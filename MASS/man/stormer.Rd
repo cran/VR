@@ -15,7 +15,7 @@ mechanism is suspended in fluids of accurately known viscosity.  The data
 comes from such a calibration, and theoretical considerations suggest a
 nonlinear relationship between time, weight and viscosity, of the form
 \code{Time = (B1*Viscosity)/(Weight - B2) + E}
-where \code{B1} and \code{B2} 
+where \code{B1} and \code{B2}
 are unknown parameters to be estimated, and \code{E} is error.
 }
 \usage{

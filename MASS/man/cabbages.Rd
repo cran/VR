@@ -30,8 +30,8 @@ Ascorbic acid content, in undefined units.
 \source{
 Rawlings, J. O. (1988)
 \emph{Applied Regression Analysis: A Research Tool.}
-Wadsworth and Brooks/Cole.  Example 8.4, page 219.  
-(Rawlings cites the original source as the files of the late 
+Wadsworth and Brooks/Cole.  Example 8.4, page 219.
+(Rawlings cites the original source as the files of the late
 Dr Gertrude M Cox.)
 }
 \keyword{datasets}

@@ -40,8 +40,8 @@ label of animal used (\code{"R1"} to \code{"R5"})
 J. Ludbrook (1994)
 Repeated measurements and multiple comparisons in cardiovascular research.
 \emph{Cardiovascular Research}
-\bold{28}, 303--311.
-[The numerical data are not in the paper but were supplied by 
+\bold{28}, 303--311.\cr
+[The numerical data are not in the paper but were supplied by
 Professor Ludbrook]
 }
 \keyword{datasets}

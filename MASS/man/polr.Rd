@@ -19,12 +19,12 @@ Fits a proportional odd logistic regression model to an ordered factor
 response.
 }
 \usage{
-polr(formula, data=NULL, weights, start, \dots, subset, 
-     na.action=na.fail, contrasts=NULL, Hess=FALSE)
+polr(formula, data = NULL, weights, start, \dots, subset,
+     na.action = na.fail, contrasts = NULL, Hess = FALSE)
 }
 \arguments{
 \item{formula}{
-a formula expression as for regression models, of the form 
+a formula expression as for regression models, of the form
 \code{response ~ predictors}. The response should be a factor (preferably an ordered
 factor), which will be interpreted as an ordinal response, with levels
 ordered as in the factor.  A proportional odds model will be
@@ -106,12 +106,12 @@ the number of function and gradient evaluations used by \code{optim}.
 \code{\link{optim}}, \code{\link{glm}}, \code{\link[nnet]{multinom}}.
 }
 \examples{
-options(contrasts=c("contr.treatment", "contr.poly"))
+options(contrasts = c("contr.treatment", "contr.poly"))
 data(housing)
 house.plr <- polr(Sat ~ Infl + Type + Cont, weights = Freq, data = housing)
 house.plr
 summary(house.plr)
-predict(house.plr,housing, type="p")
+predict(house.plr, housing, type = "p")
 addterm(house.plr, ~.^2, test = "Chisq")
 house.plr2 <- stepAIC(house.plr, ~.^2)
 house.plr2$anova

@@ -12,7 +12,8 @@ from a multivariate t distribution: this provides some degree of
 robustness to outlier without giving a high breakdown point.
 }
 \usage{
-cov.trob(x, wt=rep(1, n), cor=FALSE, center=TRUE, nu=5, maxit=25, tol=0.01)
+cov.trob(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
+         maxit = 25, tol = 0.01)
 }
 \arguments{
 \item{x}{
@@ -23,13 +24,13 @@ A vector of weights for each case: these are treated as if the case \code{i}
 actually occurred \code{wt[i]} times.
 }
 \item{cor}{
-Flag to choose between returning the correlation (\code{cor=TRUE}) or
-covariance (\code{cor=FALSE}) matrix.
+Flag to choose between returning the correlation (\code{cor = TRUE}) or
+covariance (\code{cor = FALSE}) matrix.
 }
 \item{center}{
 a logical value or a numeric vector providing the location about which
-the covariance is to be taken. If \code{center=FALSE}, no centering is done;
-if \code{center=TRUE} the MLE of the location vector is used.
+the covariance is to be taken. If \code{center = FALSE}, no centering
+is done; if \code{center = TRUE} the MLE of the location vector is used.
 }
 \item{nu}{
 ``degrees of freedom'' for the multivariate t distribution. Must exceed
@@ -66,9 +67,9 @@ The matched call.
 The number of iterations used.
 }}
 \references{
-J. T. Kent and D. E. Tyler and Y. Vardi (1994)
+J. T. Kent, D. E. Tyler and Y. Vardi (1994)
 A curious likelihood identity for the multivariate t-distribution.
-\emph{Communications in Statistics---Simulation and Computation,}
+\emph{Communications in Statistics---Simulation and Computation}
 \bold{23}, 441--453.
 }
 \seealso{

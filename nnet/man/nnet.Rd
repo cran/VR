@@ -19,17 +19,17 @@ Fit Neural Networks
 Fit single-hidden-layer neural network, possibly with skip-layer connections.
 }
 \usage{
-nnet.formula(formula, data=NULL, weights, \dots,
-             subset, na.action=na.fail, contrasts=NULL)
+nnet.formula(formula, data = NULL, weights, \dots,
+             subset, na.action = na.fail, contrasts = NULL)
 nnet.default(x, y, weights, size, Wts, mask,
-             linout=FALSE, entropy=FALSE, softmax=FALSE, censored=FALSE,
-             skip=FALSE, rang=0.7, decay=0, maxit=100,
-             Hess=FALSE, trace=TRUE, MaxNWts=1000, abstol=1.0e-4,
-	     reltol=1.0e-8, \dots)
+             linout = FALSE, entropy = FALSE, softmax = FALSE,
+             censored = FALSE, skip = FALSE, rang = 0.7, decay = 0,
+             maxit = 100, Hess = FALSE, trace = TRUE, MaxNWts = 1000,
+             abstol = 1.0e-4, reltol = 1.0e-8, \dots)
 }
 \arguments{
 \item{formula}{
-A formula of the form \code{class ~ x1 + x2 + \dots} 
+A formula of the form \code{class ~ x1 + x2 + \dots}
 }
 \item{x}{
 matrix or data frame of \code{x} values for examples.
@@ -71,8 +71,8 @@ logical vector indicating which parameters should be optimized (default all).
 switch for linear output units. Default logistic output units.
 }
 \item{entropy}{
-switch for entropy (= maximum conditional likelihood) fitting. 
-Default by least-squares. 
+switch for entropy (= maximum conditional likelihood) fitting.
+Default by least-squares.
 }
 \item{softmax}{
 switch for softmax (log-linear model) and maximum conditional
@@ -89,8 +89,8 @@ class is only known to be 2 or 3.
 switch to add skip-layer connections from input to output.
 }
 \item{rang}{
-Initial random weights on [-\code{rang}, \code{rang}].  Value about 0.5 unless the 
-inputs are large, in which case it should be chosen so that 
+Initial random weights on [-\code{rang}, \code{rang}].  Value about 0.5 unless the
+inputs are large, in which case it should be chosen so that
 \code{rang} * max(\code{|x|}) is about 1.
 }
 \item{decay}{
@@ -158,8 +158,8 @@ data(iris3)
 ir <- rbind(iris3[,,1],iris3[,,2],iris3[,,3])
 targets <- class.ind( c(rep("s", 50), rep("c", 50), rep("v", 50)) )
 samp <- c(sample(1:50,25), sample(51:100,25), sample(101:150,25))
-ir1 <- nnet(ir[samp,], targets[samp,], size=2, rang=0.1, 
-            decay=5e-4, maxit=200)
+ir1 <- nnet(ir[samp,], targets[samp,], size = 2, rang = 0.1,
+            decay = 5e-4, maxit = 200)
 test.cl <- function(true, pred){
         true <- max.col(true)
         cres <- max.col(pred)
@@ -170,9 +170,9 @@ test.cl(targets[-samp,], predict(ir1, ir[-samp,]))
 
 # or
 ird <- data.frame(rbind(iris3[,,1], iris3[,,2], iris3[,,3]),
-	species=c(rep("s",50), rep("c", 50), rep("v", 50)))
-ir.nn2 <- nnet(species ~ ., data=ird, subset=samp, size=2, rang=0.1, 
-            decay=5e-4, maxit=200)
-table(ird$species[-samp], predict(ir.nn2, ird[-samp,], type="class"))
+	species = c(rep("s",50), rep("c", 50), rep("v", 50)))
+ir.nn2 <- nnet(species ~ ., data = ird, subset = samp, size = 2, rang = 0.1,
+            decay = 5e-4, maxit = 200)
+table(ird$species[-samp], predict(ir.nn2, ird[-samp,], type = "class"))
 }
 \keyword{neural}

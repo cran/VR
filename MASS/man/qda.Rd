@@ -16,7 +16,7 @@ Quadratic Discriminant Analysis
 Quadratic discriminant analysis.
 }
 \usage{
-qda(formula, data, prior = proportions, subset, 
+qda(formula, data, prior = proportions, subset,
                    na.action = na.fail, method, CV = FALSE, nu)
 qda(x,   grouping, prior = proportions, subset,
                    na.action = na.fail, method, CV = FALSE, nu)
@@ -59,7 +59,7 @@ any required variable.  (NOTE: If given, this argument must be named.)
 }
 \item{method}{
 \code{"moment"} for standard estimators of the mean and variance,
-\code{"mle"} for MLEs, \code{"mve"} to use \code{cov.mve}, or \code{"t"} for robust 
+\code{"mle"} for MLEs, \code{"mve"} to use \code{cov.mve}, or \code{"t"} for robust
 estimates based on a t distribution.
 }
 \item{CV}{
@@ -93,7 +93,7 @@ a vector of half log determinants of the dispersion matrix.
 the levels of the grouping factor.
 }
 \item{terms}{
-(if formula is a formula) 
+(if formula is a formula)
 an object of mode expression and class term summarizing
 the  formula.
 }
@@ -117,10 +117,10 @@ within-group variance is singular for any group.
 }
 \examples{
 data(iris3)
-tr <- sample(1:50,25)
-train <- rbind(iris3[tr,,1],iris3[tr,,2],iris3[tr,,3])
-test <- rbind(iris3[-tr,,1],iris3[-tr,,2],iris3[-tr,,3])
-cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
+tr <- sample(1:50, 25)
+train <- rbind(iris3[tr,,1], iris3[tr,,2], iris3[tr,,3])
+test <- rbind(iris3[-tr,,1], iris3[-tr,,2], iris3[-tr,,3])
+cl <- factor(c(rep("s",25), rep("c",25), rep("v",25)))
 z <- qda(train, cl)
 predict(z,test)$class
 }

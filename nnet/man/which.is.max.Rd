@@ -22,7 +22,7 @@ index of a maximal value.
 Ties are broken at random.
 }
 \seealso{
-\code{\link{max.col}} in library MASS.
+\code{\link{max.col}}
 }
 \examples{
 \dontrun{

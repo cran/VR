@@ -21,7 +21,7 @@ This function is generic; there exist methods for classes \code{lm} and
 \code{glm} and the default method will work for many other classes.
 }
 \usage{
-dropterm(object, scope, scale = 0, test=c("none", "Chisq", "F"),
+dropterm(object, scope, scale = 0, test = c("none", "Chisq", "F"),
          k = 2, sorted = FALSE, trace = FALSE, \dots)
 }
 \synopsis{
@@ -50,8 +50,8 @@ likelihood-ratio test depending on the method.
 }
 \item{k}{
 the multiple of the number of degrees of freedom used for the penalty.
-Only \code{k=2} gives the genuine AIC: \code{k = log(n)} is sometimes referred
-to as BIC or SBC.
+Only \code{k = 2} gives the genuine AIC: \code{k = log(n)} is sometimes
+referred to as BIC or SBC.
 }
 \item{sorted}{
 should the results be sorted on the value of AIC?
@@ -81,22 +81,22 @@ accordingly.
 data(quine)
 quine.hi <- aov(log(Days + 2.5) ~ .^4, quine)
 quine.nxt <- update(quine.hi, . ~ . - Eth:Sex:Age:Lrn)
-dropterm(quine.nxt, test="F")
-quine.stp <- stepAIC(quine.nxt, 
-    scope = list(upper = ~Eth*Sex*Age*Lrn, lower = ~1), 
+dropterm(quine.nxt, test=  "F")
+quine.stp <- stepAIC(quine.nxt,
+    scope = list(upper = ~Eth*Sex*Age*Lrn, lower = ~1),
     trace = FALSE)
-dropterm(quine.stp, test="F")
+dropterm(quine.stp, test = "F")
 quine.3 <- update(quine.stp, . ~ . - Eth:Age:Lrn)
-dropterm(quine.3, test="F")
+dropterm(quine.3, test = "F")
 quine.4 <- update(quine.3, . ~ . - Eth:Age)
-dropterm(quine.4, test="F")
+dropterm(quine.4, test = "F")
 quine.5 <- update(quine.4, . ~ . - Age:Lrn)
-dropterm(quine.5, test="F")
+dropterm(quine.5, test = "F")
 
 data(housing)
-house.glm0 <- glm(Freq ~ Infl*Type*Cont + Sat, family=poisson, 
-                   data=housing)
+house.glm0 <- glm(Freq ~ Infl*Type*Cont + Sat, family=poisson,
+                   data = housing)
 house.glm1 <- update(house.glm0, . ~ . + Sat*(Infl+Type+Cont))
-dropterm(house.glm1, test="Chisq")
+dropterm(house.glm1, test = "Chisq")
 }
 \keyword{models}

@@ -1,7 +1,7 @@
 \name{SOM}
 \alias{SOM}
 \title{
-Self-Organizing Maps
+Self-Organizing Maps: Online Algorithm
 }
 \description{
 Kohonen's Self-Organizing Maps are a crude form of multidimensional scaling.
@@ -18,7 +18,7 @@ distance is appropriate.
 A grid for the representatives.
 }
 \item{rlen}{
-the number of updates: used only in the defaults for \code{alpha} and \code{radii}. 
+the number of updates: used only in the defaults for \code{alpha} and \code{radii}.
 }
 \item{alpha}{
 the amount of change: one update is done for each element of \code{alpha}.

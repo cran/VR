@@ -16,16 +16,16 @@ ppinit(file)
 string giving file name
 }}
 \value{
-pp object with components \code{x}, \code{y}, \code{xl}, \code{xu}, \code{yl}, \code{yu}
+  class \code{"pp"} object with components \code{x}, \code{y},
+  \code{xl}, \code{xu}, \code{yl}, \code{yu}
 }
 \details{
 The file should contain
 
-
-the number of points
-a header (ignored)
-xl xu yl yu scale
-x y (repeated n times)
+the number of points\cr
+a header (ignored)\cr
+xl xu yl yu scale\cr
+x y (repeated n times)\cr
 }
 \section{Side Effects}{
 Calls \code{ppregion} to set the domain.

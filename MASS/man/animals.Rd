@@ -21,11 +21,8 @@ body weight in kg
 brain weight in g
 }}}
 \note{
-The name \code{Animals} avoids conflicts with a system dataset in S-PLUS
-4.5 and later.
-
-
-Line 26, \code{rats} was missing in versions of MASS prior to 6.2pl003
+  The name \code{Animals} avoids conflicts with a system dataset
+  \code{animals} in S-PLUS 4.5 and later.
 }
 \source{
 P. J. Rousseeuw  and A. M. Leroy (1987)

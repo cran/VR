@@ -57,28 +57,22 @@ P. M. Murphy and D. W. Aha  (1992). UCI Repository of machine
 learning databases. [Machine-readable data repository]. Irvine, CA:
 University of California, Department of Information and Computer Science.
 
-
 O. L. Mangasarian and W. H. Wolberg (1990)
 Cancer diagnosis via linear programming.
-\emph{SIAM News}
-\bold{23}, pp 1 & 18.
-
+\emph{SIAM News} \bold{23}, pp 1 & 18.
 
 William H. Wolberg and O.L. Mangasarian (1990)
 Multisurface method of pattern separation for medical diagnosis
 applied to breast cytology.
-\emph{Proceedings of the National Academy of Sciences, U.S.A., }
-\bold{87},  pp 9193--9196.
-
+\emph{Proceedings of the National Academy of Sciences, U.S.A.}
+\bold{87}, pp. 9193--9196.
 
 O. L. Mangasarian, R. Setiono and W.H. Wolberg (1990)
-Pattern recognition via linear programming: Theory and application 
-to medical diagnosis. 
-In
+Pattern recognition via linear programming: Theory and application
+to medical diagnosis. In
 \emph{Large-scale Numerical Optimization}
 eds Thomas F. Coleman and Yuying Li, SIAM Publications, Philadelphia,
 pp 22--30.
-
 
 K. P. Bennett and O. L. Mangasarian (1992)
 Robust linear programming discrimination of two linearly inseparable sets.

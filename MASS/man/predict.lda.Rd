@@ -37,7 +37,7 @@ only the first \code{dimen} discriminant components are used (except for
 \item{method}{
 This determines how the parameter estimation is handled. With \code{"plug-in"}
 (the default) the usual unbiased parameter estimates are used and
-assumed to be correct. With \code{"debiased"} an unbiased estimator of 
+assumed to be correct. With \code{"debiased"} an unbiased estimator of
 the log posterior probabilities is used, and with \code{"predictive"} the
 parameter estimates are integrated out using a vague prior.
 }
@@ -57,33 +57,30 @@ posterior probabilities for the classes
 the scores of test cases on up to \code{dimen} discriminant variables
 }}
 \details{
-This function is a method for the generic function
-\code{predict()} for class \code{"lda"}.
-It can be invoked by calling \code{predict(x)} for an
-object \code{x} of the appropriate class, or directly by
-calling \code{predict.lda(x)} regardless of the
-class of the object.
 
+This function is a method for the generic function \code{predict()} for
+class \code{"lda"}.  It can be invoked by calling \code{predict(x)} for
+an object \code{x} of the appropriate class, or directly by calling
+\code{predict.lda(x)} regardless of the class of the object.
 
 Missing values in \code{newdata} are handled by returning \code{NA} if the
 linear discriminants cannot be evaluated. If \code{newdata} is omitted and
 the \code{na.action} of the fit omitted cases, these will be omitted on the
 prediction.
-}
-\note{
-This version differs from that in V&R2 in centering the linear
-discriminants so that the weighted mean (weighted by \code{prior}) of the
-group centroids is at the origin, rather than the unweighted mean.
+
+This version differs centres the linear discriminants so that the
+weighted mean (weighted by \code{prior}) of the group centroids is at
+the origin.
 }
 \seealso{
 \code{\link{lda}}, \code{\link{qda}}, \code{\link{predict.qda}}
 }
 \examples{
 data(iris3)
-tr <- sample(1:50,25)
-train <- rbind(iris3[tr,,1],iris3[tr,,2],iris3[tr,,3])
-test <- rbind(iris3[-tr,,1],iris3[-tr,,2],iris3[-tr,,3])
-cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
+tr <- sample(1:50, 25)
+train <- rbind(iris3[tr,,1], iris3[tr,,2], iris3[tr,,3])
+test <- rbind(iris3[-tr,,1], iris3[-tr,,2], iris3[-tr,,3])
+cl <- factor(c(rep("s",25), rep("c",25), rep("v",25)))
 z <- lda(train, cl)
 predict(z, test)$class
 }

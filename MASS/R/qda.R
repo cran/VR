@@ -140,10 +140,10 @@ qda.default <-
         }
         nc <- counts[g]
         ind <- cbind(1:n, g)
-        Ldet[ind] <- log(1 - nc/(nc-1)/(nc-NG) * dist[ind]) +
-            p * log((nc-NG)/(nc-1-NG)) + Ldet[ind]
-        dist[ind] <- dist[ind] * (nc^2/(nc-1)^2) * (nc-1-NG)/(nc-NG) /
-            (1 - nc/(nc-1)/(nc-NG) * dist[ind])
+        fac <- 1 - nc/(nc-1)/(nc-NG) * dist[ind]
+        fac[] <- pmax(fac, 1e-10)  # possibly degenerate dsn
+        Ldet[ind] <- log(fac) + p * log((nc-NG)/(nc-1-NG)) + Ldet[ind]
+        dist[ind] <- dist[ind] * (nc^2/(nc-1)^2) * (nc-1-NG)/(nc-NG) / fac
         dist <- 0.5 * dist + 0.5 * Ldet - matrix(log(prior), n, ng, byrow=TRUE)
         dist <- exp(-(dist - min(dist, na.rm=TRUE)))
         posterior <- dist/drop(dist %*% rep(1, length(prior)))
@@ -240,10 +240,10 @@ predict.qda <- function(object, newdata, prior = object$prior,
         }
         nc <- object$counts[g]
         ind <- cbind(1:n, g)
-        ldet[ind] <- log(1 - nc/(nc-1)/(nc-NG) * dist[ind]) +
-            p * log((nc-NG)/(nc-1-NG)) + ldet[ind]
-        dist[ind] <- dist[ind] * (nc^2/(nc-1)^2) * (nc-1-NG)/(nc-NG) /
-            (1 - nc/(nc-1)/(nc-NG) * dist[ind])
+        fac <- 1 - nc/(nc-1)/(nc-NG) * dist[ind]
+        fac[] <- pmax(fac, 1e-10)  # possibly degenerate dsn
+        ldet[ind] <- log(fac) + p * log((nc-NG)/(nc-1-NG)) + ldet[ind]
+        dist[ind] <- dist[ind] * (nc^2/(nc-1)^2) * (nc-1-NG)/(nc-NG) / fac
         dist <- 0.5 * dist + 0.5 * ldet -
             matrix(log(object$prior), n, ngroup, byrow=TRUE)
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))

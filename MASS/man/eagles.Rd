@@ -36,12 +36,13 @@ Size of victim eagle (\code{L} = large, \code{S} = small).
 \source{
 Knight, R. L. and Skagen, S. K. (1988)
 Agonistic asymmetries and the foraging ecology of Bald Eagles.
-\emph{Ecology,}
+\emph{Ecology}
 \bold{69}, 1188--1194.
 }
 \examples{
 data(eagles)
-eagles.glm <- glm(cbind(y, n-y) ~ P*A + V, data=eagles, family=binomial)
+eagles.glm <- glm(cbind(y, n - y) ~ P*A + V, data = eagles,
+                  family = binomial)
 dropterm(eagles.glm)
 prof <- profile(eagles.glm)
 plot(prof)

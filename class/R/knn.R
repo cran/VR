@@ -22,7 +22,7 @@ knn1 <- function(train, test, cl)
 		res = integer(nte),
 		integer(nc+1),
 		as.integer(nc),
-		d = double(nte)
+		d = double(nte), PACKAGE = "class"
 		)$res
 	factor(res, levels=seq(along=levels(clf)), labels=levels(clf))
 }
@@ -58,7 +58,7 @@ knn <- function(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 		integer(nc+1),
 		as.integer(nc),
 		as.integer(FALSE),
-		as.integer(use.all)
+		as.integer(use.all), PACKAGE = "class"
 		)
 	res <- factor(Z$res, levels=seq(along=levels(clf)),labels=levels(clf))
 	if(prob) attr(res, "prob") <- Z$pr
@@ -91,7 +91,7 @@ knn.cv <- function(train, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 		integer(nc+1),
 		as.integer(nc),
 		as.integer(TRUE),
-		as.integer(use.all)
+		as.integer(use.all), PACKAGE = "class"
 		)
 	res <- factor(Z$res, levels=seq(along=levels(clf)),labels=levels(clf))
 	if(prob) attr(res, "prob") <- Z$pr

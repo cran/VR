@@ -1,21 +1,15 @@
 /*
- *  MASS/MASS.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2001
+ *  MASS/MASS.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
  */
 
 #include <stdio.h>
 #include <math.h>
 #include <S.h>
 
-#if defined(SPLUS_VERSION) && SPLUS_VERSION >= 4000 && SPLUS_VERSION < 5000
-#  include <newredef.h>
-#endif
+typedef double Sfloat;
+typedef int Sint;
 
-#ifdef USING_R
-#  include "R_ext/PrtUtil.h"
-#  define printf Rprintf
-#endif
-
-#include "verS.h"
+#include "R_ext/PrtUtil.h"
 
 #ifndef max
 #  define max(a,b) ((a) > (b) ? (a) : (b))
@@ -65,8 +59,7 @@ VR_sammon(double *dd, Sint *nn, Sint *kd, double *Y, Sint *niter,
 	}
     e /= tot;
     if (*trace) {
-	printf("Initial stress        : %7.5f\n", e);
-	fflush(stdout);
+	Rprintf("Initial stress        : %7.5f\n", e);
     }
     epast = eprev = e;
 
@@ -120,8 +113,7 @@ CORRECT:
 	    magic = magic * 0.2;
 	    if (magic > 1.0e-3) goto CORRECT;
 	    if (*trace) {
-		printf("stress after %3d iters: %7.5f\n", i - 1, e);
-		fflush(stdout);
+		Rprintf("stress after %3d iters: %7.5f\n", i - 1, e);
 	    }
 	    break;
 	}
@@ -141,8 +133,7 @@ CORRECT:
 
 	if (i % 10 == 0) {
 	    if (*trace) {
-		printf("stress after %3d iters: %7.5f, magic = %5.3f\n", i, e, magic);
-		fflush(stdout);
+		Rprintf("stress after %3d iters: %7.5f, magic = %5.3f\n", i, e, magic);
 	    }
 	    if (e > epast - *tol)
 		break;
@@ -400,8 +391,7 @@ vmmin(int n, double *b, double *Fmin, int maxit, int trace)
     B = Lmatrix(n);
     f = fminfn(b);
     if (trace) {
-	printf("initial  value %f \n", f);
-	fflush(stdout);
+	Rprintf("initial  value %f \n", f);
     }
     {
 	*Fmin = f;
@@ -498,8 +488,7 @@ vmmin(int n, double *b, double *Fmin, int maxit, int trace)
 		/* Resets unless has just been reset */
 	    }
 	    if (iter % REPORT == 0 && trace) {
-		printf("iter%4d value %f\n", iter, f);
-		fflush(stdout);
+		Rprintf("iter%4d value %f\n", iter, f);
 	    } if (iter >= maxit)
 		break;
 	    if (gradcount - ilast > 2 * n)
@@ -507,11 +496,11 @@ vmmin(int n, double *b, double *Fmin, int maxit, int trace)
 	} while (count != n || ilast != gradcount);
     }
     if (trace) {
-	printf("final  value %f \n", *Fmin);
+	Rprintf("final  value %f \n", *Fmin);
 	if (iter < maxit)
-	    printf("converged\n");
+	    Rprintf("converged\n");
 	else
-	    printf("stopped after %i iterations\n", iter);
+	    Rprintf("stopped after %i iterations\n", iter);
     }
     free_vect(g);
     free_vect(t);
@@ -628,3 +617,23 @@ VR_den_bin(Sint *n, Sint *nb, Sfloat *d, Sfloat *x, Sint *cnt)
     }
 }
 
+#include "R_ext/Rdynload.h"
+
+R_CMethodDef CEntries[] = {
+    {"VR_bcv_bin", (DL_FUNC) &VR_bcv_bin, 6},
+    {"VR_den_bin", (DL_FUNC) &VR_den_bin, 5},
+    {"VR_mds_dovm", (DL_FUNC) &VR_mds_dovm, 4},
+    {"VR_mds_fn", (DL_FUNC) &VR_mds_fn, 10},
+    {"VR_mds_init_data", (DL_FUNC) &VR_mds_init_data, 6},
+    {"VR_mds_unload", (DL_FUNC) &VR_mds_unload, 0},
+    {"VR_phi4_bin", (DL_FUNC) &VR_phi4_bin, 6},
+    {"VR_phi6_bin", (DL_FUNC) &VR_phi6_bin, 6},
+    {"VR_sammon", (DL_FUNC) &VR_sammon, 9},
+    {"VR_ucv_bin", (DL_FUNC) &VR_ucv_bin, 6},
+    {NULL, NULL, 0}
+};
+
+void R_init_MASS(DllInfo *dll)
+{
+    R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
+}

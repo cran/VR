@@ -47,8 +47,7 @@ Estimate gasoline yields from crudes.
 
 
 This dataset is also given in
-D. J. Hand, F. Daly, K.  McConway, D.  Lunn, and E. Ostrowski
-E. (eds) (1993)
+D. J. Hand, F. Daly, K. McConway, D. Lunn and E. Ostrowski (eds) (1994)
 \emph{A Handbook of Small Data Sets.}
 Chapman & Hall.
 }

@@ -13,7 +13,7 @@ majority vote, with ties broken at random. If there are ties for the
 \code{k}th nearest vector, all candidates are included in the vote.
 }
 \usage{
-knn(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
+knn(train, test, cl, k = 1, l = 0, prob = FALSE, use.all = TRUE)
 }
 \arguments{
 \item{train}{
@@ -51,10 +51,10 @@ factor of classifications of test set. \code{doubt} will be returned as \code{NA
 }
 \examples{
 data(iris3)
-train <- rbind(iris3[1:25,,1],iris3[1:25,,2],iris3[1:25,,3])
-test <- rbind(iris3[26:50,,1],iris3[26:50,,2],iris3[26:50,,3])
-cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
-knn(train, test, cl, k=3, prob=TRUE)
+train <- rbind(iris3[1:25,,1], iris3[1:25,,2], iris3[1:25,,3])
+test <- rbind(iris3[26:50,,1], iris3[26:50,,2], iris3[26:50,,3])
+cl <- factor(c(rep("s",25), rep("c",25), rep("v",25)))
+knn(train, test, cl, k = 3, prob=TRUE)
 attributes(.Last.value)
 }
 \keyword{classif}

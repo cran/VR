@@ -11,7 +11,7 @@ Uses the method of Sheather & Jones (1991) to select the bandwidth of
 a Gaussian kernel density estimator.
 }
 \usage{
-width.SJ(x, nb=1000, lower, upper, method=c("ste", "dpi"))
+width.SJ(x, nb = 1000, lower, upper, method = c("ste", "dpi"))
 }
 \arguments{
 \item{x}{
@@ -24,7 +24,8 @@ number of bins to use.
 range over which to search for solution if \code{method = "ste"}.
 }
 \item{method}{
-Either \code{"ste"} ("solve-the-equation") or \code{"dpi"} ("direct plug-in").
+  Either \code{"ste"} ("solve-the-equation") or \code{"dpi"}
+  ("direct plug-in").
 }}
 \value{
 a bandwidth.
@@ -35,11 +36,9 @@ selection method for kernel density estimation.
 \emph{Journal of the Royal Statistical Society series B}
 \bold{53}, 683--690.
 
-
 Scott, D. W. (1992)
 \emph{Multivariate Density Estimation: Theory, Practice, and  Visualization.}
 Wiley.
-
 
 Wand, M. P. and Jones, M. C. (1995)
 \emph{Kernel Smoothing.}
@@ -51,12 +50,12 @@ Chapman & Hall.
 \examples{
 data(geyser)
 attach(geyser)
-width.SJ(duration, method="dpi")
+width.SJ(duration, method = "dpi")
 width.SJ(duration)
 detach()
 
 data(galaxies)
-width.SJ(galaxies, method="dpi")
+width.SJ(galaxies, method = "dpi")
 width.SJ(galaxies)
 }
 \keyword{dplot}

@@ -1,57 +1,86 @@
 #-*- R -*-
 
-# Chapter 8   Non-linear Models
+# Chapter 8   Non-linear and Smooth Regression
 
 library(MASS)
-library(nls)
-postscript(file="ch08.ps", width=8, height=6, pointsize=9)
-options(width=65, digits=5)
+library(lattice)
+options(echo = T, width=65, digits=5, height=9999)
+trellis.device(postscript, file="ch08.ps", width=8, height=6, pointsize=9)
+
+
+# From Chapter 6, for comparisons
+set.seed(123)
+cpus.samp <-
+c(3, 5, 6, 7, 8, 10, 11, 16, 20, 21, 22, 23, 24, 25, 29, 33, 39, 41, 44, 45,
+46, 49, 57, 58, 62, 63, 65, 66, 68, 69, 73, 74, 75, 76, 78, 83, 86,
+88, 98, 99, 100, 103, 107, 110, 112, 113, 115, 118, 119, 120, 122,
+124, 125, 126, 127, 132, 136, 141, 144, 146, 147, 148, 149, 150, 151,
+152, 154, 156, 157, 158, 159, 160, 161, 163, 166, 167, 169, 170, 173,
+174, 175, 176, 177, 183, 184, 187, 188, 189, 194, 195, 196, 197, 198,
+199, 202, 204, 205, 206, 208, 209)
+
+data(cpus)
+cpus1 <- cpus
+attach(cpus)
+for(v in names(cpus)[2:7])
+  cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])),
+                    include.lowest = T)
+detach()
+cpus.lm <- lm(log10(perf) ~ ., data=cpus1[cpus.samp, 2:8])
+cpus.lm2 <- stepAIC(cpus.lm, trace=F)
+res2 <- log10(cpus1[-cpus.samp, "perf"]) -
+              predict(cpus.lm2, cpus1[-cpus.samp,])
+cpus2 <- cpus[, 2:8]  # excludes names, authors' predictions
+cpus2[, 1:3] <- log10(cpus2[, 1:3])
+
+test.cpus <- function(fit)
+  sqrt(sum((log10(cpus2[-cpus.samp, "perf"]) -
+            predict(fit, cpus2[-cpus.samp,]))^2)/109)
 
 # 8.1 An introductory example
 
 data(wtloss)
 attach(wtloss)
 # alter margin 4; others are default
-oldpar <- par(mar=c(5.1, 4.1, 4.1, 4.1))
-plot(Days, Weight, type="p", ylab="Weight (kg)")
+oldpar <- par(mar = c(5.1, 4.1, 4.1, 4.1))
+plot(Days, Weight, type = "p", ylab = "Weight (kg)")
 Wt.lbs <- pretty(range(Weight*2.205))
-axis(side=4, at=Wt.lbs/2.205, lab=Wt.lbs, srt=90)
-mtext("Weight (lb)", side=4, line=3)
+axis(side = 4, at = Wt.lbs/2.205, lab = Wt.lbs, srt = 90)
+mtext("Weight (lb)", side = 4, line = 3)
 par(oldpar) # restore settings
 detach()
 
 
 # 8.2  Fitting non-linear regression models
 
-wtloss.st <- c(b0=90, b1=95, th=120)
+library(nls)
+wtloss.st <- c(b0 = 90, b1 = 95, th = 120)
 wtloss.fm <- nls(Weight ~ b0 + b1*2^(-Days/th),
    data = wtloss, start = wtloss.st, trace = T)
 wtloss.fm
 
-expn <- function(b0, b1, th, x)
-{
-    temp <- 2^(-x/th)
-    model.func <- b0 + b1 * temp
-    Z <- cbind(1, temp, (b1 * x * temp * log(2))/th^2)
-    dimnames(Z) <- list(NULL, c("b0","b1","th"))
-    attr(model.func, "gradient") <- Z
-    model.func
+expn <- function(b0, b1, th, x) {
+   temp <- 2^(-x/th)
+   model.func <- b0 + b1 * temp
+   Z <- cbind(1, temp, (b1 * x * temp * log(2))/th^2)
+   dimnames(Z) <- list(NULL, c("b0", "b1", "th"))
+   attr(model.func, "gradient") <- Z
+   model.func
 }
 
 wtloss.gr <- nls(Weight ~ expn(b0, b1, th, Days),
    data = wtloss, start = wtloss.st, trace = T)
 
-## R needs a different syntax here
 expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
-               c("b0", "b1", "th", "x"))
-expn1
+               function(b0, b1, th, x) {})
+
 
 negexp <- selfStart(model = ~ b0 + b1*exp(-x/th),
-    initial = negexp.SSival, parameters = c("b0", "b1", "th"),
-    template = function(x, b0, b1, th) {})
+   initial = negexp.SSival, parameters = c("b0", "b1", "th"),
+   template = function(x, b0, b1, th) {})
 
 wtloss.ss <- nls(Weight ~ negexp(Days, B0, B1, theta),
-                 data=wtloss, trace = T)
+                 data = wtloss, trace = T)
 
 
 # 8.3  Non-linear fitted model objects and method functions
@@ -61,11 +90,10 @@ deviance(wtloss.gr)
 vcov(wtloss.gr)
 
 data(muscle)
-A <- model.matrix(~ Strip - 1, data=muscle)
+A <- model.matrix(~ Strip - 1, data = muscle)
 rats.nls1 <- nls(log(Length) ~ cbind(A, rho^Conc),
-   data = muscle, start = c(rho=0.1), algorithm="plinear")
-B <- coef(rats.nls1)
-B
+   data = muscle, start = c(rho = 0.1), algorithm = "plinear")
+(B <- coef(rats.nls1))
 
 st <- list(alpha = B[2:22], beta = B[23], rho = B[1])
 rats.nls2 <- nls(log(Length) ~ alpha[Strip] + beta*rho^Conc,
@@ -75,41 +103,21 @@ attach(muscle)
 Muscle <- expand.grid(Conc = sort(unique(Conc)),
                      Strip = levels(Strip))
 Muscle$Yhat <- predict(rats.nls2, Muscle)
-Muscle$logLength <- as.numeric(rep(NA, nrow(Muscle)))
+Muscle$logLength <- rep(NA, nrow(Muscle))
 ind <- match(paste(Strip, Conc),
             paste(Muscle$Strip, Muscle$Conc))
 Muscle$logLength[ind] <- log(Length)
 detach()
 
-if(F) { # no Trellis
 xyplot(Yhat ~ Conc | Strip, Muscle, as.table = T,
-  ylim = range(c(Muscle$Yhat, Muscle$logLength), na.rm=T),
+  ylim = range(c(Muscle$Yhat, Muscle$logLength), na.rm = T),
   subscripts = T, xlab = "Calcium Chloride concentration (mM)",
   ylab = "log(Length in mm)", panel =
   function(x, y, subscripts, ...) {
      lines(spline(x, y))
      panel.xyplot(x, Muscle$logLength[subscripts], ...)
   })
-}
 
-if(F) { ## prior to 1.1.0
-coplot(seq(0.8, 4, len=126) ~ Conc | Strip, Muscle, show.given=FALSE,
-       xlab = "Calcium Chloride concentration (mM)",
-       ylab = "log(Length in mm)", panel = function(x, y, ...) {
-           ind <- round(1+125*(y-0.8)/3.2)
-           lines(spline(x, Muscle$Yhat[ind]))
-           points(x, Muscle$logLength[ind])
-       })
-}
-
-## from 1.1.0
-coplot(Yhat ~ Conc | Strip, Muscle, show.given=FALSE,
-       xlab = "Calcium Chloride concentration (mM)",
-       ylab = "log(Length in mm)", subscripts = TRUE,
-       panel = function(x, y, subscripts, ...) {
-           points(x, y)
-           lines(spline(x, Muscle$Yhat[subscripts]))
-       })
 
 # 8.5  Confidence intervals for parameters
 
@@ -128,18 +136,17 @@ for(w0 in w0s) {
     fm <- nls(Weight ~ expn2(b0, b1, d0, Days, w0),
               wtloss, start = wtloss.init(wtloss.gr, w0))
     out <- rbind(out, c(coef(fm)["d0"], confint(fm, "d0")))
-  }
+}
 dimnames(out)[[1]] <- paste(w0s,"kg:")
 out
 
 data(stormer)
-attach(stormer)
-fm0 <- lm(Wt*Time ~ Viscosity + Time - 1,  data=stormer)
+fm0 <- lm(Wt*Time ~ Viscosity + Time - 1,  data = stormer)
 b0 <- coef(fm0)
 names(b0) <- c("b1", "b2")
 b0
-storm.fm <- nls(Time ~ b1*Viscosity/(Wt-b2), data=stormer, start=b0,
-          trace=T)
+storm.fm <- nls(Time ~ b1*Viscosity/(Wt-b2), data = stormer,
+                start = b0, trace = T)
 
 bc <- coef(storm.fm)
 se <- sqrt(diag(vcov(storm.fm)))
@@ -149,350 +156,308 @@ par(pty = "s")
 b1 <- bc[1] + seq(-3*se[1], 3*se[1], length = 51)
 b2 <- bc[2] + seq(-3*se[2], 3*se[2], length = 51)
 bv <- expand.grid(b1, b2)
+
+attach(stormer)
 ssq <- function(b)
       sum((Time - b[1] * Viscosity/(Wt-b[2]))^2)
 dbetas <- apply(bv, 1, ssq)
+
 cc <- matrix(Time - rep(bv[,1],rep(23, 2601)) *
       Viscosity/(Wt - rep(bv[,2], rep(23, 2601))), 23)
 dbetas <- matrix(drop(rep(1, 23) %*% cc^2), 51)
+
 fstat <- matrix( ((dbetas - dv)/2) / (dv/21), 51, 51)
+
 qf(0.95, 2, 21)
-plot(b1, b2, type="n")
+
+plot(b1, b2, type = "n")
 lev <- c(1, 2, 5, 7, 10, 15, 20)
-contour(b1, b2, fstat, levels=lev, labex=0.75, lty=2, add=T)
-contour(b1, b2, fstat, levels=qf(0.95,2,21), add=T, labex=0)
-text(31.6, 0.3, labels="95% CR", adj=0, cex=0.75)
-points(bc[1], bc[2], pch=3, mkh=0.1)
+contour(b1, b2, fstat, levels = lev, labex = 0.75, lty = 2, add = T)
+contour(b1, b2, fstat, levels = qf(0.95,2,21), add = T, labex = 0)
+text(31.6, 0.3, labels = "95% CR", adj = 0, cex = 0.75)
+points(bc[1], bc[2], pch = 3, mkh = 0.1)
 detach()
+par(pty = "m")
 
 library(boot)
 storm.fm <- nls(Time ~ b*Viscosity/(Wt - c), stormer,
                 start = c(b=29.401, c=2.2183))
-summary(storm.fm)$parameter
+summary(storm.fm)$parameters
 st <- cbind(stormer, fit=fitted(storm.fm))
 storm.bf <- function(rs, i) {
-#  st <- st                              # for S-PLUS 5.x
-  st$Time <-  st$fit + rs[i]
-  coef(nls(Time ~ (b * Viscosity)/(Wt - c), st,
-           start = coef(storm.fm)))
+#    st <- st # for S-PLUS
+    st$Time <-  st$fit + rs[i]
+    coef(nls(Time ~ b * Viscosity/(Wt - c), st,
+             start = coef(storm.fm)))
 }
-rs <- scale(resid(storm.fm), scale = F) # remove the mean
-storm.boot <- boot(rs, storm.bf, R = 4999) # pretty slow
-storm.boot
-boot.ci(storm.boot, index=1,
-        type=c("norm", "basic", "perc", "bca"))
-boot.ci(storm.boot, index=2,
-        type=c("norm", "basic", "perc", "bca"))
+rs <- scale(resid(storm.fm), scale = FALSE) # remove the mean
+(storm.boot <- boot(rs, storm.bf, R = 9999)) ## slow
+boot.ci(storm.boot, index = 1,
+        type = c("norm", "basic", "perc", "bca"))
+boot.ci(storm.boot, index = 2,
+        type = c("norm", "basic", "perc", "bca"))
 
 
 # 8.5  Assessing the linear approximation
 
-opar <- par(pty="m", mfrow=c(1,3))
-plot(profile(update(wtloss.gr, trace=F)))
+opar <- par(pty = "m", mfrow = c(1, 3))
+plot(profile(update(wtloss.gr, trace = FALSE)))
 par(opar)
 
 
-# 8.6  Constrained non-linear regression
+# 8.7  One-dimensional curve fitting
 
-data(whiteside)
-attach(whiteside)
-Gas <- Gas[Insul=="Before"]
-Temp <- -Temp[Insul=="Before"]
-#nnls.fit(cbind(1, -1, Temp), Gas)
-# can use box-constrained optimizer
-fn <- function(par) sum((Gas - par[1] - par[2]*Temp)^2)
-optim(rep(0,2), fn, lower=0, method="L-BFGS-B")$par
-rm(Gas, Temp)
+library(modreg)
+data(GAGurine)
+attach(GAGurine)
+par(mfrow = c(3, 2))
+plot(Age, GAG, main = "Degree 6 polynomial")
+GAG.lm <- lm(GAG ~ Age + I(Age^2) + I(Age^3) + I(Age^4) +
+   I(Age^5) + I(Age^6) + I(Age^7) + I(Age^8))
+anova(GAG.lm)
+GAG.lm2 <- lm(GAG ~ Age + I(Age^2) + I(Age^3) + I(Age^4) +
+   I(Age^5) + I(Age^6))
+xx <- seq(0, 17, len = 200)
+lines(xx, predict(GAG.lm2, data.frame(Age = xx)))
+
+plot(Age, GAG, type = "n", main = "Splines")
+lines(Age, fitted(lm(GAG ~ ns(Age, df = 5))))
+lines(Age, fitted(lm(GAG ~ ns(Age, df = 10))), lty = 3)
+lines(Age, fitted(lm(GAG ~ ns(Age, df = 20))), lty = 4)
+lines(smooth.spline(Age, GAG), lwd = 3)
+legend(12, 50, c("df=5", "df=10", "df=20", "Smoothing"),
+       lty = c(1, 3, 4, 1), lwd = c(1,1,1,3), bty = "n")
+plot(Age, GAG, type = "n", main = "loess")
+lines(loess.smooth(Age, GAG))
+plot(Age, GAG, type = "n", main = "supsmu")
+lines(supsmu(Age, GAG))
+lines(supsmu(Age, GAG, bass = 3), lty = 3)
+lines(supsmu(Age, GAG, bass = 10), lty = 4)
+legend(12, 50, c("default", "base = 3", "base = 10"),
+       lty = c(1, 3, 4), bty = "n")
+plot(Age, GAG, type = "n", main = "ksmooth")
+lines(ksmooth(Age, GAG, "normal", bandwidth = 1))
+lines(ksmooth(Age, GAG, "normal", bandwidth = 5), lty = 3)
+legend(12, 50, c("width = 1", "width = 5"), lty = c(1, 3), bty = "n")
+
+library(KernSmooth)
+plot(Age, GAG, type = "n", main = "locpoly")
+(h <- dpill(Age, GAG))
+lines(locpoly(Age, GAG, degree = 0, bandwidth = h))
+
+lines(locpoly(Age, GAG, degree = 1, bandwidth = h), lty = 3)
+lines(locpoly(Age, GAG, degree = 2, bandwidth = h), lty = 4)
+legend(12, 50, c("const", "linear", "quadratic"),
+       lty = c(1, 3, 4), bty = "n")
 detach()
 
-data(wtloss)
-attach(wtloss)
-optim(c(90,95,120),
-      function(x) sum((Weight-x[1]-x[2]*2^(-Days/x[3]))^2),
-      lower=rep(0,3), method="L-BFGS-B")$par
-detach()
 
-if(F) { # have none of these
-wtloss.r <- function(x, Weight, Days)
-    Weight - x[1] - x[2] * 2^(-Days/x[3])
-wtloss.rg <- function(x, Weight, Days)
+# 8.8  Additive models
+
+## R has a different gam() in package mgcv
+library(mgcv)
+data(rock)
+rock.lm <- lm(log(perm) ~ area + peri + shape, data = rock)
+summary(rock.lm)
+(rock.gam <- gam(log(perm) ~ s(area) + s(peri) + s(shape), data=rock))
+#summary(rock.gam)
+#anova(rock.lm, rock.gam)
+par(mfrow = c(2, 3), pty = "s")
+plot(rock.gam, se = TRUE, pages = 0)
+rock.gam1 <- gam(log(perm) ~ area + peri + s(shape), data = rock)
+plot(rock.gam1, se = TRUE)
+par(pty="m")
+#anova(rock.lm, rock.gam1, rock.gam)
+
+library(mda)
+rock.bruto <- bruto(rock[, -4], rock[, 4])
+rock.bruto$type
+rock.bruto$df
+
+
+Xin <- as.matrix(cpus2[cpus.samp, 1:6])
+test2 <- function(fit) {
+ Xp <- as.matrix(cpus2[-cpus.samp, 1:6])
+ sqrt(sum((log10(cpus2[-cpus.samp, "perf"]) -
+           predict(fit, Xp))^2)/109)
+}
+
+cpus.bruto <- bruto(Xin, log10(cpus2[cpus.samp, 7]))
+test2(cpus.bruto)
+cpus.bruto$type
+cpus.bruto$df
+# examine the fitted functions
+par(mfrow = c(3, 2))
+Xp <- matrix(sapply(cpus2[cpus.samp, 1:6], mean), 100, 6, byrow = T)
+for(i in 1:6) {
+ xr <- sapply(cpus2, range)
+ Xp1 <- Xp; Xp1[, i] <- seq(xr[1, i], xr[2, i], len = 100)
+ Xf <- predict(cpus.bruto, Xp1)
+ plot(Xp1[ ,i], Xf, xlab=names(cpus2)[i], ylab=  "", type = "l")
+}
+
+cpus.mars <- mars(Xin, log10(cpus2[cpus.samp,7]))
+showcuts <- function(obj)
 {
-    temp <- 2^(-Days/x[3])
-    -cbind(1, temp, x[2]*Days*temp*log(2)/x[3]^2)
+ tmp <- obj$cuts[obj$sel, ]
+ dimnames(tmp) <- list(NULL, dimnames(Xin)[[2]])
+ tmp
 }
-wtloss.nl <- nlregb(nrow(wtloss), c(90, 95, 120),
-   wtloss.r,  wtloss.rg, lower = rep(0,3),
-   Weight = wtloss$Weight, Days = wtloss$Days)
-
-vcov1 <- function(object)
-{
-   gr <- object$jacobian
-   df <- length(object$resid) - length(object$param)
-   sum(object$resid^2)/df * solve(t(gr) %*% gr)
-}
-
-sqrt(diag(vcov1(wtloss.nl)))
-sqrt(diag(vcov.nlregb(wtloss.nl, method="Fisher")))
-sqrt(diag(vcov.nlregb(wtloss.nl, method="observed")))
-sqrt(diag(vcov.nlregb(wtloss.nl, method="Huber")))
-
-wtloss.nl0 <-  nlregb(nrow(wtloss), c(90,95,120),
-    wtloss.r, lower = rep(0,3),
-    Weight = wtloss$Weight, Days = wtloss$Days)
-sqrt(diag(vcov.nlregb(wtloss.nl0)))
+showcuts(cpus.mars)
+test2(cpus.mars)
+# examine the fitted functions
+Xp <- matrix(sapply(cpus2[cpus.samp, 1:6], mean), 100, 6, byrow = T)
+for(i in 1:6) {
+ xr <- sapply(cpus2, range)
+ Xp1 <- Xp; Xp1[, i] <- seq(xr[1, i], xr[2, i], len = 100)
+ Xf <- predict(cpus.mars, Xp1)
+ plot(Xp1[ ,i], Xf, xlab = names(cpus2)[i], ylab = "", type = "l")
 }
 
+cpus.mars2 <- mars(Xin, log10(cpus2[cpus.samp,7]), degree = 2)
+showcuts(cpus.mars2)
+test2(cpus.mars2)
 
-# 8.7  General optimization and maximum likelihood estimation
+cpus.mars6 <- mars(Xin, log10(cpus2[cpus.samp,7]), degree = 6)
+showcuts(cpus.mars6)
+test2(cpus.mars6)
 
-data(geyser)
-attach(geyser)
-truehist(waiting, xlim=c(35,110), ymax=0.04, h=5)
-width.SJ(waiting)
-wait.dns <- density(waiting, n=200, width=10.24)
-lines(wait.dns, lty=2)
-
-if(F) { # have none of these
-lmix2 <- deriv3(
-     ~ -log(p*dnorm((x-u1)/s1)/s1 + (1-p)*dnorm((x-u2)/s2)/s2),
-     c("p", "u1", "s1", "u2", "s2"),
-     function(x, p, u1, s1, u2, s2) NULL)
-
-p0 <- c(p=mean(waiting < 70), u1=50, s1=5, u2=80, s2=5)
-p0
-tr.ms <- function(info, theta, grad, scale, flags, fit.pars)
-{
-    cat(round(info[3], 3), ":", signif(theta), "\n")
-    invisible()
-}
-
-wait.mix2 <- ms(~ lmix2(waiting, p, u1, s1, u2, s2),
-   start=p0, data = geyser, trace = tr.ms)
-
-dmix2 <- function(x, p, u1, s1, u2, s2)
-            p * dnorm(x, u1, s1) + (1-p) * dnorm(x, u2, s2)
-cf <- coef(wait.mix2)
-attach(structure(as.list(cf), names = names(cf)))
-wait.fdns <- list(x = wait.dns$x,
-                  y = dmix2(wait.dns$x, p, u1, s1, u2, s2))
-lines(wait.fdns)
-par(usr = c(0,1,0,1))
-legend(0.1, 0.9, c("Normal mixture", "Nonparametric"),
-    lty = c(1,2), bty = "n")
-
-
-pmix2 <- deriv(~ p*pnorm((x-u1)/s1) + (1-p)*pnorm((x-u2)/s2),
-               "x", function(x, p, u1, s1, u2, s2) {})
-pr0 <- (seq(along = waiting) - 0.5)/length(waiting)
-x0 <- x1 <- as.vector(sort(waiting)) ; del <- 1; i <- 0
-while((i <- 1 + 1) < 10 && abs(del) > 0.0005) {
-    pr <- pmix2(x0, p, u1, s1, u2, s2)
-    del <- (pr - pr0)/attr(pr, "gradient")
-    x0 <- x0 - 0.5*del
-    cat(format(del <- max(abs(del))), "\n")
+library(acepack)
+attach(cpus2)
+cpus.avas <- avas(cpus2[, 1:6], perf)
+plot(log10(perf), cpus.avas$ty)
+par(mfrow = c(2, 3))
+for(i in 1:6) {
+  o <- order(cpus2[, i])
+  plot(cpus2[o, i], cpus.avas$tx[o, i], type = "l",
+       xlab = names(cpus2[i]), ylab = "")
 }
 detach()
 
-par(pty = "s")
-plot(x0, x1, xlim = range(x0, x1), ylim = range(x0, x1),
-    xlab = "Model quantiles", ylab = "Waiting time")
-abline(0,1)
-par(pty = "m")
 
-vmat <- summary(wait.mix2)$Information
-cbind(coef(wait.mix2), sqrt(diag(vmat)))
+# 8.9  Projection-pursuit regression
+
+library(modreg)
+data(rock)
+attach(rock)
+rock1 <- data.frame(area = area/10000, peri = peri/10000,
+                    shape = shape, perm = perm)
+detach()
+(rock.ppr <- ppr(log(perm) ~ area + peri + shape, data = rock1,
+                 nterms = 2, max.terms = 5))
+rock.ppr
+summary(rock.ppr)
+
+par(mfrow = c(3, 2))
+plot(rock.ppr)
+plot(update(rock.ppr, bass = 5))
+plot(rock.ppr2 <- update(rock.ppr, sm.method = "gcv", gcvpen = 2))
+par(mfrow = c(1, 1))
+
+summary(rock.ppr2)
+
+summary(rock1) # to find the ranges of the variables
+Xp <- expand.grid(area = seq(0.1, 1.2, 0.05),
+                  peri = seq(0, 0.5, 0.02), shape = 0.2)
+rock.grid <- cbind(Xp, fit = predict(rock.ppr2, Xp))
+# wireframe(fit ~ area + peri, rock.grid, screen = list(z=160,x=-60),
+#           aspect = c(1, 0.5), drape = T)
+persp(seq(0.1, 1.2, 0.05), seq(0, 0.5, 0.02), matrix(rock.grid$fit, 23),
+      d = 5, theta = -160, phi = 30, zlim = c(-1, 15))
 
 
-lmix2r <- deriv3(
-     ~ -log((exp(a+b*y)*dnorm((x-u1)/s1)/s1 +
-             dnorm((x-u2)/s2)/s2) / (1+exp(a+b*y)) ),
-     c("a", "b", "u1", "s1", "u2", "s2"),
-     function(x, y, a, b, u1, s1, u2, s2) NULL)
+(cpus.ppr <- ppr(log10(perf) ~ ., data = cpus2[cpus.samp,],
+                 nterms = 2, max.terms = 10, bass = 5))
+cpus.ppr <- ppr(log10(perf) ~ ., data = cpus2[cpus.samp,],
+                nterms = 8, max.terms = 10, bass = 5)
+test.cpus(cpus.ppr)
 
-p1 <- wait.mix2$par
-tmp <- as.vector(p1[1])
-p2 <- c(a=log(tmp/(1-tmp)), b=0, p1[-1])
+ppr(log10(perf) ~ ., data = cpus2[cpus.samp,],
+    nterms = 2, max.terms = 10, sm.method = "spline")
+cpus.ppr2 <- ppr(log10(perf) ~ ., data = cpus2[cpus.samp,],
+   nterms = 7, max.terms = 10, sm.method = "spline")
+test.cpus(cpus.ppr2)
+res3 <- log10(cpus2[-cpus.samp, "perf"]) -
+             predict(cpus.ppr, cpus2[-cpus.samp,])
+library(ctest)
+wilcox.test(res2^2, res3^2, paired = T, alternative = "greater")
 
-wait.mix2r <- ms(~ lmix2r(waiting[-1], duration[-299], a, b, u1, s1, u2, s2),
-                 start = p2, data = geyser, trace = tr.ms)
 
-grid <- expand.grid(x=seq(1.5, 5.5, 0.1), y=seq(40, 110, 0.5))
-grid$z <- exp(-lmix2r(grid$y, grid$x, 16.14, -5.74, 55.14, 5.663, 81.09, 6.838))
+# 8.10  Neural networks
 
-levelplot(z ~ x*y, grid, colorkey=F, at = seq(0, 0.075, 0.001),
-          panel= function(...) {
-            panel.levelplot(...)
-            points(duration[-299], waiting[-1])
-          }, xlab="previous duration", ylab="wait",
-   col.regions = rev(trellis.par.get("regions")$col))
-}
+library(nnet)
+attach(rock)
+area1 <- area/10000; peri1 <- peri/10000
+rock1 <- data.frame(perm, area = area1, peri = peri1, shape)
+rock.nn <- nnet(log(perm) ~ area + peri + shape, rock1,
+    size = 3, decay = 1e-3, linout = T, skip = T,
+    maxit = 1000, Hess = T)
+sum((log(perm) - predict(rock.nn))^2)
+detach()
+eigen(rock.nn$Hessian, T)$values    # rock.nn$Hessian in R
 
-mix.f <- function(p)
+Xp <- expand.grid(area = seq(0.1, 1.2, 0.05),
+                 peri = seq(0, 0.5, 0.02), shape = 0.2)
+rock.grid <- cbind(Xp, fit = predict(rock.nn, Xp))
+# wireframe(fit ~ area + peri, rock.grid, screen = list(z=160, x=-60),
+#           aspect = c(1, 0.5), drape = T)
+persp(seq(0.1, 1.2, 0.05), seq(0, 0.5, 0.02), matrix(rock.grid$fit, 23),
+      d = 5, theta = -160, phi = 30, zlim = c(-1, 15))
+
+attach(cpus2)
+cpus3 <-
+ data.frame(syct= syct-2, mmin=mmin-3, mmax=mmax-4, cach=cach/256,
+            chmin=chmin/100, chmax=chmax/100, perf=perf)
+detach()
+
+test.cpus <- function(fit)
+ sqrt(sum((log10(cpus3[-cpus.samp, "perf"]) -
+          predict(fit, cpus3[-cpus.samp,]))^2)/109)
+cpus.nn1 <- nnet(log10(perf) ~ ., cpus3[cpus.samp,],
+                linout = T, skip = T, size = 0)
+test.cpus(cpus.nn1)
+
+cpus.nn2 <- nnet(log10(perf) ~ ., cpus3[cpus.samp,], linout = T,
+                 skip = T, size = 4, decay = 0.01, maxit = 1000)
+test.cpus(cpus.nn2)
+cpus.nn3 <- nnet(log10(perf) ~ ., cpus3[cpus.samp,], linout = T,
+                 skip = T, size = 10, decay = 0.01, maxit = 1000)
+test.cpus(cpus.nn3)
+cpus.nn4 <- nnet(log10(perf) ~ ., cpus3[cpus.samp,], linout = T,
+                skip = T, size = 25, decay = 0.01, maxit = 1000)
+test.cpus(cpus.nn4)
+
+CVnn.cpus <- function(formula, data = cpus3[cpus.samp, ],
+    size = c(0, 4, 4, 10, 10),
+    lambda = c(0, rep(c(0.003, 0.01), 2)),
+    nreps = 5, nifold = 10, ...)
 {
-   e <- p[1]*dnorm((waiting-p[2])/p[3])/p[3] +
-        (1-p[1])*dnorm((waiting-p[4])/p[5])/p[5]
-   if(any(e <= 0)) Inf else -sum(log(e))
+  CVnn1 <- function(formula, data, nreps=1, ri,  ...)
+  {
+    truth <- log10(data$perf)
+    res <- numeric(length(truth))
+    cat("  fold")
+    for (i in sort(unique(ri))) {
+      cat(" ", i,  sep="")
+      for(rep in 1:nreps) {
+        learn <- nnet(formula, data[ri !=i,], trace=F, ...)
+        res[ri == i] <- res[ri == i] +
+                        predict(learn, data[ri == i,])
+      }
+    }
+    cat("\n")
+    sum((truth - res/nreps)^2)
+  }
+  choice <- numeric(length(lambda))
+  ri <- sample(nifold, nrow(data), replace = TRUE)
+  for(j in seq(along=lambda)) {
+    cat("  size =", size[j], "decay =", lambda[j], "\n")
+    choice[j] <- CVnn1(formula, data, nreps=nreps, ri=ri,
+                       size=size[j], decay=lambda[j], ...)
+    }
+  cbind(size=size, decay=lambda, fit=sqrt(choice/100))
 }
-waiting.init <- c(mean(waiting < 70), 50, 5, 80, 5)
-nlm(mix.f, waiting.init, print.level=1)
-
-mix.obj <- function(p, x)
-{
-   e <- p[1]*dnorm((x-p[2])/p[3])/p[3] +
-        (1-p[1])*dnorm((x-p[4])/p[5])/p[5]
-   if(any(e <= 0)) Inf else -sum(log(e))
-}
-optim(waiting.init, mix.obj, x = waiting)
-optim(waiting.init, mix.obj, method="BFGS", x = waiting)
-
-mix.nl0 <- optim(waiting.init, mix.obj, method="L-BFGS-B",
-                 lower = c(0, -Inf, 0, -Inf, 0),
-                 upper = c(1, rep(Inf, 4)), x = waiting)
-
-# mix.nl0 <- nlminb(waiting.init,  mix.obj,
-#    scale = c(10, rep(1,4)), lower = c(0, -Inf, 0, -Inf, 0),
-#    upper = c(1, rep(Inf, 4)), x = waiting)
-
-if(F) {
-lmix2a <- deriv(
-     ~ -log(p*dnorm((x-u1)/s1)/s1 + (1-p)*dnorm((x-u2)/s2)/s2),
-     c("p", "u1", "s1", "u2", "s2"),
-     function(x, p, u1, s1, u2, s2) NULL)
-
-mix.gr <- function(p, x)
-{
-   u1 <- p[2]; s1 <- p[3]; u2 <- p[4]; s2 <- p[5]; p <- p[1]
-   e <- lmix2a(x, p, u1, s1, u2, s2)
-   rep(1, length(x)) %*% attr(e, "gradient")
-}
-mix.nl1 <- nlminb(waiting.init, mix.obj, mix.gr,
-   scale = c(10, rep(1,4)), lower = c(0, -Inf, 0, -Inf, 0),
-   upper = c(1, rep(Inf, 4)), x = waiting)
-
-mix.grh <- function(p, x)
-{
-   e <- lmix2(x, p[1], p[2], p[3], p[4], p[5])
-   g <- attr(e, "gradient")
-   g <- rep(1, length(x)) %*% g
-   H <- apply(attr(e, "hessian"), c(2,3), sum)
-   list(gradient=g, hessian=H[row(H) <= col(H)])
-}
-mix.nl2 <- nlminb(waiting.init, mix.obj, mix.grh, T,
-   scale = c(10, rep(1,4)), lower = c(0, -Inf, 0, -Inf, 0),
-   upper = c(1, rep(Inf, 4)), x = waiting)
-
-sqrt(diag(vcov.nlminb(mix.nl0)))
-sqrt(diag(vcov.nlminb(mix.nl1)))
-sqrt(diag(vcov.nlminb(mix.nl2)))
-}
-detach(geyser)
-
-AIDSfit <- function(y, z, start=rep(mean(y), ncol(z)), ...)
-{
-  deviance <- function(beta, y, z) {
-      mu <- z %*% beta
-      2 * sum(mu - y - y*log(mu/y)) }
-  grad <- function(beta, y, z) {
-      mu <- z %*% beta
-      2 * t(1 - y/mu) %*% z }
-  optim(start, deviance, grad, lower = 0, y = y, z = z,
-        method="L-BFGS-B", ...)
-}
-
-Y <- scan(n=13)
-12 14 33 50 67 74 123 141 165 204 253 246 240
-
-library(nnet) # for class.ind
-s <- seq(0, 13.999, 0.01); tint <- 1:14
-X <- expand.grid(s, tint)
-Z <- matrix(pweibull(pmax(X[,2] - X[,1],0), 2.5, 10),length(s))
-Z <- Z[,2:14] - Z[,1:13]
-Z <- t(Z) %*% class.ind(factor(floor(s/2))) * 0.01
-round(AIDSfit(Y, Z)$par)
-rm(s, X, Y, Z)
-
-
-# 8.8 Non-linear mixed effects models
-
-library(nlme)
-options(contrasts = c("contr.treatment", "contr.poly"))
-data(Sitka)
-sitka.nlme <- nlme(size ~ A + B * (1 - exp(-(Time-100)/C)),
-   fixed = list(A ~ treat, B ~ treat, C ~ 1),
-   random =   A + B ~ 1 | tree, data = Sitka,
-   start  = list(fixed = c(2, 0, 4, 0, 80)),
-   method = "ML", verbose = T)
-
-summary(sitka.nlme)
-
-sitka.nlme2 <- update(sitka.nlme,
-    fixed = list(A ~ 1, B ~ 1, C ~ 1),
-    start = list(fixed=c(2.4, 3.6, 82)))
-summary(sitka.nlme2)
-anova(sitka.nlme2, sitka.nlme)
-
-sitka.nlme3 <- update(sitka.nlme,
-                       corr = corCAR1(0.95, ~Time | tree))
-summary(sitka.nlme3)
-
-Fpl <- deriv(~ A + (B-A)/(1 + exp((log(d) - ld50)/th)),
-   c("A","B","ld50","th"), function(d, A, B, ld50, th) {})
-
-data(Rabbit)
-st <- coef(nls(BPchange ~ Fpl(Dose, A, B, ld50, th),
-          start = c(A=25, B=0, ld50=4, th=0.25),
-          data = Rabbit))
-Rc.nlme <- nlme(BPchange ~ Fpl(Dose, A, B, ld50, th),
-    fixed = list(A ~ 1, B ~ 1, ld50 ~ 1, th ~ 1),
-    random = A + ld50 ~ 1 | Animal, data = Rabbit,
-    subset = Treatment=="Control",
-    start = list(fixed=st))
-Rm.nlme <- update(Rc.nlme, subset = Treatment=="MDL")
-
-Rc.nlme
-Rm.nlme
-
-options(contrasts=c("contr.treatment", "contr.poly"))
-c1 <- c(28, 1.6, 4.1, 0.27, 0)
-R.nlme1 <- nlme(BPchange ~ Fpl(Dose, A, B, ld50, th),
-                fixed = list(A ~ Treatment, B ~ Treatment,
-                             ld50 ~ Treatment, th ~ Treatment),
-                random =  A + ld50 ~ 1 | Animal/Run, data = Rabbit,
-                start = list(fixed=c1[c(1,5,2,5,3,5,4,5)]))
-summary(R.nlme1)
-
-R.nlme2 <- update(R.nlme1,
-     fixed = list(A ~ 1, B ~ 1, ld50 ~ Treatment, th ~ 1),
-     start = list(fixed=c1[c(1:3,5,4)]))
-anova(R.nlme2, R.nlme1)
-summary(R.nlme2)
-
-if(require(lattice)) {
-trellis.device(postscript, file="ch08b.ps", width=8, height=6, pointsize=9)
-
-print(xyplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
-   xlab = "log(Dose) of Phenylbiguanide",
-   ylab = "Change in blood pressure (mm Hg)",
-   subscripts = T, aspect = "xy", panel =
-      function(x, y, subscripts) {
-         panel.grid()
-         panel.xyplot(x, y)
-         sp <- spline(x, fitted(R.nlme2)[subscripts])
-         panel.xyplot(sp$x, sp$y, type="l")
-      }))
-
-} else {
-
-coplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
-       show.given=FALSE,
-       xlab = "log(Dose) of Phenylbiguanide",
-       ylab = "Change in blood pressure (mm Hg)",
-       subscripts = TRUE,
-       panel = function(x, y, subscripts, ...) {
-           points(x, y)
-           lines(spline(x, fitted(R.nlme2)[subscripts]))
-       })
-
-}
+CVnn.cpus(log10(perf) ~ ., data = cpus3[cpus.samp,],
+         linout = T, skip = T, maxit = 1000)
 
 # End of ch08

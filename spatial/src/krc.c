@@ -1,10 +1,11 @@
 /*
- *  spatial/krc.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-9
+ *  spatial/krc.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
  */
 
 #include <math.h>
 #include <S.h>
 #include "verS.h"
+#include "spatial.h"
 
 #ifndef max
 #  define max(a,b) ((a) > (b) ? (a) : (b))

@@ -32,9 +32,6 @@ Supplying \code{blocksize} is more memory-efficient and enables larger
 matrices to be writted, but each block of rows might be formatted
 slightly differently.
 }
-\value{
-none
-}
 \section{Side Effects}{
 A formatted file is produced, with column headings (if \code{x} has them)
 and columns of data.

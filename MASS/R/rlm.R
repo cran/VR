@@ -191,11 +191,11 @@ summary.rlm <- function(object, method=c("XtX", "XtWX"),
     method <- match.arg(method)
     s <- object$s
     coef <- object$coef
-    cnames <- names(coef)
     ptotal <- length(coef)
     resid <- object$resid
     n <- length(resid)
     if(any(na <- is.na(coef))) coef <- coef[!na]
+    cnames <- names(coef)
     p <- length(coef)
     rdf <- n - p
     rinv <- diag(p)

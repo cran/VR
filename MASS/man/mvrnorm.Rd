@@ -11,7 +11,7 @@ Produces one or more samples from the specified
 multivariate normal distribution.
 }
 \usage{
-mvrnorm(n=1, mu, Sigma, tol = 1e-6, empirical = FALSE)
+mvrnorm(n = 1, mu, Sigma, tol = 1e-6, empirical = FALSE)
 }
 \arguments{
 \item{n}{
@@ -42,7 +42,7 @@ not already exist, otherwise its value is updated.
 }
 \details{
 The matrix decomposition is done via \code{eigen}; although a Choleski
-decomposition might be faster, the eigendecomposition is 
+decomposition might be faster, the eigendecomposition is
 stabler.
 }
 \references{

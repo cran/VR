@@ -19,7 +19,7 @@ data(Sitka)
 This data frame contains the following columns:
 \describe{
 \item{\code{size}}{
-measured size (height times diameter squared) of tree, on log scale.
+measured size (height times diameter squared) of tree, on log scale
 }
 \item{\code{Time}}{
 time of measurement in  days since 1 January 1988

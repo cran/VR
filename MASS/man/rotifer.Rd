@@ -23,7 +23,7 @@ data(rotifer)
 specific density of fluid
 }
 \item{\code{pm.y}}{
-number falling out for 
+number falling out for
 \emph{P. major}
 }
 \item{\code{pm.total}}{

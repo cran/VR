@@ -8,7 +8,7 @@ Remission Times of Leukaemia Patients
 }
 \description{
 A data frame from a trial of 42 leukaemia patients. Some were
-treated with the drug 
+treated with the drug
 \emph{6-mercaptopurine}
 and the rest are controls.  The trial was designed as matched pairs,
 both withdrawn from the trial when either came out of remission.
@@ -36,8 +36,7 @@ Cox, D. R. and Oakes, D. (1984)
 \emph{Analysis of Survival Data.}
 Chapman & Hall, p. 7. Taken from
 
-
-Gehan, E.A. (1965) A generalized Wilcoxon test for comparing 
+Gehan, E.A. (1965) A generalized Wilcoxon test for comparing
 arbitrarily single-censored samples.
 \emph{Biometrika}
 \bold{52}, 203--233.
@@ -45,11 +44,11 @@ arbitrarily single-censored samples.
 \examples{
 library(survival)
 data(gehan)
-gehan.surv <- survfit(Surv(time, cens) ~ treat, data=gehan,
-     conf.type="log-log")
+gehan.surv <- survfit(Surv(time, cens) ~ treat, data = gehan,
+     conf.type = "log-log")
 summary(gehan.surv)
-survreg(Surv(time, cens) ~ factor(pair) + treat, gehan, dist="exp")
-summary(survreg(Surv(time, cens) ~ treat, gehan, dist="exp"))
+survreg(Surv(time, cens) ~ factor(pair) + treat, gehan, dist = "exp")
+summary(survreg(Surv(time, cens) ~ treat, gehan, dist = "exp"))
 summary(survreg(Surv(time, cens) ~ treat, gehan))
 gehan.cox <- coxph(Surv(time, cens) ~ treat, gehan)
 summary(gehan.cox)

@@ -21,7 +21,7 @@ column-scores from a correspondence analysis of a two-way contingency
 table.
 }
 \usage{
-corresp(x, nf=1, \dots)
+corresp(x, nf = 1, \dots)
 }
 \synopsis{
 corresp(x, ...)
@@ -47,7 +47,7 @@ satisfied.
 \value{
 An list object of class \code{"correspondence"} for which \code{print}, \code{plot} and
 \code{biplot} methods are supplied.  The main components are the canonical
-correlation(s) and the row and column scores. 
+correlation(s) and the row and column scores.
 }
 \details{
 See the reference.  The \code{plot} method produces a graphical
@@ -62,21 +62,21 @@ relationship between the row and column scores.  Think of this as an
 equally-scaled plot with two unrelated sets of labels.
 }
 \references{
-Venables & Ripley (1999), chapter 11.
+Venables & Ripley (2002), chapter 11.
 }
 \seealso{
 \code{\link{svd}}, \code{\link{princomp}}
 }
 \examples{
 data(quine)
-ct <- corresp(~ Age + Eth, data=quine)
+ct <- corresp(~ Age + Eth, data = quine)
 ct
 \dontrun{plot(ct)}
 
 data(caith)
 library(mva)
 corresp(caith)
-biplot(corresp(caith, nf=2))
+biplot(corresp(caith, nf = 2))
 }
 \keyword{category}
 \keyword{multivariate}

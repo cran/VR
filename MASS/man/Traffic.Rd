@@ -13,7 +13,7 @@ experiment was conducted on 92 days in each year, matched so that
 day \code{j} in 1962 was comparable to day \code{j} in 1961.  On some days
 the speed limit was in effect and enforced, while on other days
 there was no speed limit and cars tended to be driven faster.
-The speed limit days tended to be in contiguous blocks. 
+The speed limit days tended to be in contiguous blocks.
 }
 \usage{
 data(Traffic)
@@ -37,6 +37,6 @@ traffic accident count for that day
 Svensson, A. (1981)
 On the goodness-of-fit test for the multiplicative Poisson model.
 \emph{Annals of Statistics,}
-\bold{9} 697--704.
+\bold{9}, 697--704.
 }
 \keyword{datasets}

@@ -29,10 +29,3 @@ ginv <- function(X, tol = sqrt(.Machine$double.eps))
     else if(!any(Positive)) array(0, dim(X)[2:1])
     else Xsvd$v[, Positive, drop=FALSE] %*% ((1/Xsvd$d[Positive]) * t(Xsvd$u[, Positive, drop=FALSE]))
 }
-
-
-if(R.version$major == "1" && R.version$minor < "5.0") {
-rowSums <- function(x) apply(x, 1, sum)
-colSums <- function(x) apply(x, length(dim(x)), sum)
-colMeans <- function(x) apply(x, length(dim(x)), mean)
-}

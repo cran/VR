@@ -12,7 +12,7 @@ Distribution by equating the deviance to the residual degrees of freedom.
 Analogue of a moment estimator.
 }
 \usage{
-theta.md(y, u, dfr, limit=20, eps=.Machine$double.eps^0.25)
+theta.md(y, u, dfr, limit = 20, eps = .Machine$double.eps^0.25)
 }
 \arguments{
 \item{y}{
@@ -37,6 +37,6 @@ The required estimate of \code{theta}, as a scalar.
 \code{\link{glm.nb}}, \code{\link{theta.ml}}, \code{\link{theta.mm}}
 }
 \examples{
-\dontrun{theta <- theta.md(y, fitted(fm), dfr=123)}
+\dontrun{theta <- theta.md(y, fitted(fm), dfr = 123)}
 }
 \keyword{models}

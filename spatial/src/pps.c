@@ -1,19 +1,22 @@
 /*
- *  spatial/pps.c by W. N. Venables and B. D. Ripley.  Copyright (C) 1994-9
+ *  spatial/pps.c by W. N. Venables and B. D. Ripley.  Copyright (C) 1994-2002
  */
 
 #include <S.h>
 #include <math.h>
 
 #include "verS.h"
+#include "spatial.h"
+
 #ifndef max
 #  define max(a,b) ((a) > (b) ? (a) : (b))
 #  define min(a,b) ((a) < (b) ? (a) : (b))
 #endif
 
 static Sfloat xl0, yl0, xu0, yu0;
+#ifndef Macintosh
 static Sfloat pi = 3.14159265;
-
+#endif
 
 static void
 errmsg(char *string)

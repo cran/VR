@@ -29,12 +29,9 @@ J. Aitchison (1986)
 \emph{The Statistical Analysis of Compositional Data.}
 Chapman and Hall, p.360.
 
-
-R.N. Thompson, J. Esson and A.C. Duncan (1972) 
+R. N. Thompson, J. Esson and A. C. Duncan (1972)
 Major element chemical variation in the Eocene lavas of the Isle of
-Skye.
-\emph{J. Petrology}
-\bold{13}, 219--253.
+Skye. \emph{J. Petrology}, \bold{13}, 219--253.
 }
 \examples{
 # ternary() is from the on-line answers.
@@ -51,7 +48,7 @@ ternary <- function(X, pch = par("pch"), lcex = 1,
   }
   X <- X[, ord]
   s3 <- sqrt(1/3)
-  if(!add) 
+  if(!add)
   {
     oldpty <- par("pty")
     on.exit(par(pty=oldpty))

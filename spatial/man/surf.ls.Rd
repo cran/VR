@@ -20,7 +20,7 @@ surf.ls(np, x, y, z)
 \method{fitted}{trls}(object, \dots)
 \method{deviance}{trls}(object, \dots)
 \method{df.residual}{trls}(object, \dots)
-\method{extractAIC}{trls}(fit, scale, k=2, \dots)
+\method{extractAIC}{trls}(fit, scale, k = 2, \dots)
 }
 \arguments{
 \item{np}{
@@ -48,7 +48,7 @@ the multiple of the number of degrees of freedom to be used.
 arguments passed to or from other methods.
 }}
 \value{
-list with components 
+list with components
 
 \item{beta}{
 the coefficients
@@ -70,14 +70,13 @@ library(MASS)
 data(topo)
 topo.kr <- surf.ls(2, topo)
 trsurf <- trmat(topo.kr, 0, 6.5, 0, 6.5, 50)
-eqscplot(trsurf, type="n")
-contour(trsurf, add=TRUE)
+eqscplot(trsurf, type = "n")
+contour(trsurf, add = TRUE)
 points(topo)
 
-
-eqscplot(trsurf, type="n")
-contour(trsurf, add=TRUE)
-plot(topo.kr, add=TRUE)
-title(xlab="Circle radius proportional to Cook's influence statistic")
+eqscplot(trsurf, type = "n")
+contour(trsurf, add = TRUE)
+plot(topo.kr, add = TRUE)
+title(xlab= "Circle radius proportional to Cook's influence statistic")
 }
 \keyword{spatial}

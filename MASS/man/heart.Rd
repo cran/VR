@@ -36,6 +36,6 @@ date of acceptance. Actually days since 1967/10/1 divided by 365.25.
 }
 \source{
 Kalbfleisch, J.D. and Prentice R.L. (1980)
-\emph{The Statistical Analysis of Failure Time Data.} 
+\emph{The Statistical Analysis of Failure Time Data.}
 }
 \keyword{datasets}

@@ -13,7 +13,7 @@ ML estimate of theta, its standard error, and twice the log-likelihood
 function.
 }
 \usage{
-\method{summary}{negbin}(object, dispersion=1, correlation=TRUE, \dots)
+\method{summary}{negbin}(object, dispersion = 1, correlation = TRUE, \dots)
 }
 \arguments{
 \item{object}{

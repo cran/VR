@@ -11,7 +11,7 @@ lvqinit <- function(x, cl, size, prior, k=5) {
 	np <- length(prop)
 # allow for supplied prior
 	if(missing(prior)) prior <- prop
-	else if(any(prior <0)||round(sum(prior), 5) != 1) 
+	else if(any(prior <0)||round(sum(prior), 5) != 1)
 			stop("invalid prior")
 	if(length(prior) != np) stop("prior is of incorrect length")
 	if(missing(size)) size <- min(round(0.4 * np * (np-1+p/2),0), n)
@@ -19,7 +19,7 @@ lvqinit <- function(x, cl, size, prior, k=5) {
 	selected <- numeric(0)
 	for(i in 1:np){
 		set <- seq(along=g)[unclass(g)==i & inside]
-		if(length(set) > 1) 
+		if(length(set) > 1)
 		   set <- sample(set, min(length(set), round(size*prior[i])))
 		selected <- c(selected, set)
 	}
@@ -43,7 +43,7 @@ olvq1 <- function(x, cl, codebk, niter = 40*nrow(codebk$x), alpha = 0.3) {
 		xc = as.double(codebk$x),
 		as.integer(codebk$cl),
 		as.integer(niter),
-		as.integer(iters-1)
+		as.integer(iters-1), PACKAGE = "class"
 		)
 	xc <- matrix(z$xc,nc,p)
 	dimnames(xc) <- dimnames(codebk$x)
@@ -67,7 +67,7 @@ lvq1 <- function(x, cl, codebk, niter = 100*nrow(codebk$x), alpha = 0.03) {
 		xc = as.double(codebk$x),
 		as.integer(codebk$cl),
 		as.integer(niter),
-		as.integer(iters-1)
+		as.integer(iters-1), PACKAGE = "class"
 		)
 	xc <- matrix(z$xc,nc,p)
 	dimnames(xc) <- dimnames(codebk$x)
@@ -92,7 +92,7 @@ lvq2 <- function(x, cl, codebk, niter = 100*nrow(codebk$x), alpha = 0.03, win = 
 		xc = as.double(codebk$x),
 		as.integer(codebk$cl),
 		as.integer(niter),
-		as.integer(iters-1)
+		as.integer(iters-1), PACKAGE = "class"
 		)
 	xc <- matrix(z$xc,nc,p)
 	dimnames(xc) <- dimnames(codebk$x)
@@ -118,7 +118,7 @@ lvq3 <- function(x, cl, codebk, niter = 100*nrow(codebk$x), alpha = 0.03, win = 
 		xc = as.double(codebk$x),
 		as.integer(codebk$cl),
 		as.integer(niter),
-		as.integer(iters-1)
+		as.integer(iters-1), PACKAGE = "class"
 		)
 	xc <- matrix(z$xc,nc,p)
 	dimnames(xc) <- dimnames(codebk$x)

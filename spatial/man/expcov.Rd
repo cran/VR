@@ -11,9 +11,9 @@ Spatial Covariance Functions
 Spatial covariance functions for use with \code{surf.gls}.
 }
 \usage{
-expcov(r, d, alpha=0, se=1)
-gaucov(r, d, alpha=0, se=1)
-sphercov(r, d, alpha=0, se=1, D=2)
+expcov(r, d, alpha = 0, se = 1)
+gaucov(r, d, alpha = 0, se = 1)
+sphercov(r, d, alpha = 0, se = 1, D = 2)
 }
 \arguments{
 \item{r}{

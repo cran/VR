@@ -21,7 +21,7 @@ boxcox(object, ...)
 }
 \arguments{
 \item{object}{
-a formula or fitted model object.  Currently only \code{lm} and \code{aov} objects 
+a formula or fitted model object.  Currently only \code{lm} and \code{aov} objects
 are handled.
 }
 \item{lambda}{
@@ -58,11 +58,11 @@ confidence interval about the maximum observed value of \code{lambda}. If
 }
 \examples{
 data(trees)
-boxcox(Volume ~ log(Height) + log(Girth), data = trees, 
+boxcox(Volume ~ log(Height) + log(Girth), data = trees,
        lambda = seq(-0.25, 0.25, length = 10))
 data(quine)
-boxcox(Days+1 ~ Eth*Sex*Age*Lrn, data = quine, singular.ok = TRUE,
- lambda = seq(-0.05, 0.45, len = 20))
+boxcox(Days+1 ~ Eth*Sex*Age*Lrn, data = quine,
+       lambda = seq(-0.05, 0.45, len = 20))
 }
 \keyword{regression}
 \keyword{models}

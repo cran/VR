@@ -8,8 +8,8 @@ Minnesota High School Graduates of 1938
 }
 \description{
 The Minnesota high school graduates of 1938 were classified according to
-four factors, described below.  The \code{minn38} data frame has 168 rows and 5
-columns.
+four factors, described below.  The \code{minn38} data frame has 168
+rows and 5 columns.
 }
 \usage{
 data(minn38)
@@ -18,15 +18,18 @@ data(minn38)
 This data frame contains the following columns:
 \describe{
 \item{\code{hs}}{
-High school rank: \code{"L"}, \code{"M"} and \code{"U"} for lower, middle and upper third.
+  High school rank: \code{"L"}, \code{"M"} and \code{"U"} for lower,
+  middle and upper third.
 }
 \item{\code{phs}}{
 Post high school status: Enrolled in college, (\code{"C"}), enrolled in
-non-collegiate school, (\code{"N"}), employed full-time, (\code{"E"}) and other,
+non-collegiate school, (\code{"N"}), employed full-time, (\code{"E"})
+and other,
 (\code{"O"}).
 }
 \item{\code{fol}}{
-Father's occupational level, (seven levels, \code{"F1"}, \code{"F2"}, \dots, \code{"F7"}).
+  Father's occupational level, (seven levels, \code{"F1"}, \code{"F2"},
+  \dots, \code{"F7"}).
 }
 \item{\code{sex}}{
 Sex factor, \code{"F"} or \code{"M"}.
@@ -35,15 +38,15 @@ Sex factor, \code{"F"} or \code{"M"}.
 Frequency.
 }}}
 \source{
-Quoted from 
+Quoted from
 R. L. Plackett, (1974)
 \emph{The Analysis of Categorical Data.}
 London: Griffin
 
-
 who quotes the data from
+
 Hoyt, C. J., Krishnaiah, P. R.
-and Torrance, E. P. (1959) Analysis of complex contingency tables, 
+and Torrance, E. P. (1959) Analysis of complex contingency tables,
 \emph{J. Exp. Ed.}
 \bold{27}, 187--194.
 }

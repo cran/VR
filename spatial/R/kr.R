@@ -9,13 +9,12 @@
        as.double(x),
        as.double(y),
        as.integer(n),
-       as.integer(np))$f
+       as.integer(np),
+       PACKAGE = "spatial")$f
 }
 
 surf.ls <- function(np, x, y, z)
 {
-    if(!is.loaded(symbol.C("VR_frset")))
-        stop("Compiled code has not been dynamically loaded")
     if (np > 6) stop("np exceeds 6")
     if(is.data.frame(x)) {
         if(any(is.na(match(c("x", "y", "z"), names(x)))))
@@ -30,7 +29,8 @@ surf.ls <- function(np, x, y, z)
        as.double(rx[1]),
        as.double(rx[2]),
        as.double(ry[1]),
-       as.double(ry[2])
+       as.double(ry[2]),
+       PACKAGE = "spatial"
        )
     n <- length(x)
     npar <- ((np + 1) * (np + 2))/2
@@ -46,7 +46,8 @@ surf.ls <- function(np, x, y, z)
             r = double((npar * (npar + 1))/2),
             beta = double(npar),
             wz = double(n),
-            ifail = as.integer(0))
+            ifail = as.integer(0),
+            PACKAGE = "spatial")
     res <- list(x=x, y=y, z=z, np=np, f=f, r=Z$r, beta=Z$beta,
                 wz=Z$wz, rx=rx, ry=ry, call=match.call())
     class(res) <- "trls"
@@ -57,8 +58,6 @@ surf.ls <- function(np, x, y, z)
 surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
 {
     if (np > 6) stop("np exceeds 6")
-    if(!is.loaded(symbol.C("VR_frset")))
-        stop("Compiled code has not been dynamically loaded")
     if(is.data.frame(x)) {
         if(any(is.na(match(c("x", "y", "z"), names(x)))))
             stop("`x' does not have columns `x', `y' and `z'")
@@ -69,7 +68,7 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
     rx <- range(x)
     ry <- range(y)
     .C("VR_frset", as.double(rx[1]), as.double(rx[2]),
-       as.double(ry[1]), as.double(ry[2]))
+       as.double(ry[1]), as.double(ry[2]), PACKAGE = "spatial")
     covmod <- covmod
     arguments <- list(...)
     if (length(arguments)) {
@@ -83,7 +82,8 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
     }
     mm <- 1.5*sqrt((rx[2]-rx[1])^2 + (ry[2]-ry[1])^2)
     alph <- c(mm/nx, covmod(seq(0, mm, mm/nx)))
-    .C("VR_alset", as.double(alph), as.integer(length(alph)))
+    .C("VR_alset", as.double(alph), as.integer(length(alph)),
+       PACKAGE = "spatial")
     n <- length(x)
     npar <- ((np + 1) * (np + 2))/2
     f <- .spfmat(x, y, np)
@@ -102,7 +102,8 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
             yy = double(n),
             W = double(n),
             ifail = as.integer(0),
-            l1f = double(n * npar)
+            l1f = double(n * npar),
+            PACKAGE = "spatial"
             )
     if(Z$ifail > 0) stop("Rank failure in Choleski decomposition")
     if(nx > 1000) alph <- alph[1]
@@ -122,7 +123,8 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
        as.double(y),
        as.integer(n),
        as.double(obj$beta),
-       as.integer(obj$np))$z
+       as.integer(obj$np),
+       PACKAGE = "spatial")$z
 }
 
 predict.trls <- function (object, x, y, ...)
@@ -135,7 +137,8 @@ predict.trls <- function (object, x, y, ...)
        as.double(object$rx[1]),
        as.double(object$rx[2]),
        as.double(object$ry[1]),
-       as.double(object$ry[2])
+       as.double(object$ry[2]),
+       PACKAGE = "spatial"
        )
     invisible(.trval(object, x, y))
 }
@@ -162,7 +165,8 @@ trmat <- function(obj, xl, xu, yl, yu, n)
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
        as.double(obj$ry[1]),
-       as.double(obj$ry[2])
+       as.double(obj$ry[2]),
+       PACKAGE = "spatial"
        )
     dx <- (xu - xl)/n
     dy <- (yu - yl)/n
@@ -188,7 +192,8 @@ prmat <- function(obj, xl, xu, yl, yu, n)
            as.double(obj$y),
            as.integer(npt),
            as.integer(length(obj$x)),
-           as.double(obj$yy)
+           as.double(obj$yy),
+           PACKAGE = "spatial"
            )$z
     }
 
@@ -198,7 +203,8 @@ prmat <- function(obj, xl, xu, yl, yu, n)
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
        as.double(obj$ry[1]),
-       as.double(obj$ry[2])
+       as.double(obj$ry[2]),
+       PACKAGE = "spatial"
        )
     alph <- obj$alph
     if(length(alph) <= 1) {
@@ -207,7 +213,8 @@ prmat <- function(obj, xl, xu, yl, yu, n)
     }
     .C("VR_alset",
        as.double(alph),
-       as.integer(length(alph))
+       as.integer(length(alph)),
+       PACKAGE = "spatial"
        )
     dx <- (xu - xl)/n
     dy <- (yu - yl)/n
@@ -240,7 +247,8 @@ semat <- function(obj, xl, xu, yl, yu, n, se)
            as.integer(length(obj$x)),
            as.integer(np),
            as.integer(npar),
-           as.double(obj$l1f)
+           as.double(obj$l1f),
+           PACKAGE = "spatial"
            )$z
     }
 
@@ -250,14 +258,16 @@ semat <- function(obj, xl, xu, yl, yu, n, se)
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
        as.double(obj$ry[1]),
-       as.double(obj$ry[2])
+       as.double(obj$ry[2]),
+       PACKAGE = "spatial"
        )
     alph <- obj$alph
     if(length(alph) <= 1) {
         mm <- 1.5*sqrt((obj$rx[2]-obj$rx[1])^2 + (obj$ry[2]-obj$ry[1])^2)
         alph <- c(alph[1], obj$covmod(seq(0, mm, alph[1])))
   }
-    .C("VR_alset", as.double(alph), as.integer(length(alph)))
+    .C("VR_alset", as.double(alph), as.integer(length(alph)),
+       PACKAGE = "spatial")
     dx <- (xu - xl)/n
     dy <- (yu - yl)/n
     xs <- seq(xl, xu, dx)
@@ -274,8 +284,6 @@ semat <- function(obj, xl, xu, yl, yu, n, se)
 
 correlogram <- function(krig, nint, plotit=TRUE, ...)
 {
-  if(!is.loaded(symbol.C("VR_correlogram")))
-    stop("Compiled code has not been dynamically loaded")
   z <- .C("VR_correlogram",
           xp = double(nint),
           yp = double(nint),
@@ -284,7 +292,8 @@ correlogram <- function(krig, nint, plotit=TRUE, ...)
           as.double(krig$y),
           if(krig$np > 0) as.double(krig$wz) else as.double(krig$z),
           as.integer(length(krig$x)),
-          cnt = integer(nint)
+          cnt = integer(nint),
+       PACKAGE = "spatial"
           )
   xp <- z$xp[1:z$nint]
   yp <- z$yp[1:z$nint]
@@ -304,8 +313,6 @@ correlogram <- function(krig, nint, plotit=TRUE, ...)
 
 variogram <- function(krig, nint, plotit=TRUE, ...)
 {
-  if(!is.loaded(symbol.C("VR_variogram")))
-    stop("Compiled code has not been dynamically loaded")
   z <- .C("VR_variogram",
           xp = double(nint),
           yp = double(nint),
@@ -314,7 +321,8 @@ variogram <- function(krig, nint, plotit=TRUE, ...)
           as.double(krig$y),
           if(krig$np > 0) as.double(krig$wz) else as.double(krig$z),
           as.integer(length(krig$x)),
-          cnt = integer(nint)
+          cnt = integer(nint),
+          PACKAGE = "spatial"
           )
   xp <- z$xp[1:z$nint]
   yp <- z$yp[1:z$nint]

@@ -7,7 +7,7 @@
 Record Times in Scottish Hill Races
 }
 \description{
-The record times in 1984 for 35 Scottish hill races.  
+The record times in 1984 for 35 Scottish hill races.
 }
 \usage{
 data(hills)

@@ -22,7 +22,7 @@ rlm.formula(x, data, weights, \dots, subset, na.action = na.fail,
             wt.method = c("case", "inv.var"),
             model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)
 rlm.default(x, y, weights, \dots, w = rep(1, nrow(x)),
-            init, psi = psi.huber, scale.est, k2 = 1.345, 
+            init, psi = psi.huber, scale.est, k2 = 1.345,
             method = c("M", "MM"), wt.method = c("case", "inv.var"),
             maxit = 20, acc = 1e-4, test.vec = "resid")
 }
@@ -33,7 +33,7 @@ rlm.formula(formula, data, weights, \dots, subset, na.action = na.fail,
             wt.method = c("case", "inv.var"),
             model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)
 rlm.default(x, y, weights, \dots, w = rep(1, nrow(x)),
-            init, psi = psi.huber, scale.est, k2 = 1.345, 
+            init, psi = psi.huber, scale.est, k2 = 1.345,
             method = c("M", "MM"), wt.method = c("case", "inv.var"),
             maxit = 20, acc = 1e-4, test.vec = "resid")
 }
@@ -160,21 +160,19 @@ did the IWLS converge?
   The final estimator is an M-estimator with Tukey's biweight and fixed
   scale that will inherit this breakdown point provided \code{c > k0};
   this is true for the default value of \code{c} that corresponds to
-  95\% relative efficiency at the normal. 
+  95\% relative efficiency at the normal.
 }
 \references{
-P. J. Huber (1981) 
-\emph{Robust Statistics. }
+P. J. Huber (1981)
+\emph{Robust Statistics}.
 Wiley.
-
 
 F. R. Hampel, E. M. Ronchetti, P. J. Rousseeuw and W. A. Stahel (1986)
-\emph{Robust Statistics: The Approach based on Influence Functions. }
+\emph{Robust Statistics: The Approach based on Influence Functions}.
 Wiley.
 
-
 A. Marazzi (1993)
-\emph{Algorithms, Routines and S Functions for Robust Statistics. }
+\emph{Algorithms, Routines and S Functions for Robust Statistics}.
 Wadsworth & Brooks/Cole.
 }
 \seealso{
@@ -184,8 +182,8 @@ Wadsworth & Brooks/Cole.
 data(stackloss)
 summary(rlm(stack.loss ~ ., stackloss))
 library(lqs) # for lts
-rlm(stack.loss ~ ., stackloss, psi=psi.hampel, init="lts") 
-rlm(stack.loss ~ ., stackloss, psi=psi.bisquare)
+rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
+rlm(stack.loss ~ ., stackloss, psi = psi.bisquare)
 }
 \keyword{models}
 \keyword{robust}

@@ -7,7 +7,7 @@ Get Domain for Spatial Point Pattern Analyses
 }
 \description{
 Retrieves the rectangular domain \code{(xl, xu)}  x  \code{(yl, yu)} from the
-underlying \code{C} code..
+underlying \code{C} code.
 }
 \usage{
 ppgetregion()

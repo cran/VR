@@ -27,7 +27,7 @@ classes for training data.
 the (case) weights used in the \code{nnet} fit.
 }}
 \value{
-square symmetric matrix of the Hessian evaluated at the weights stored 
+square symmetric matrix of the Hessian evaluated at the weights stored
 in the net.
 }
 \seealso{
@@ -36,7 +36,7 @@ in the net.
 \examples{
 data(iris3)
 # use half the iris data
-ir <- rbind(iris3[,,1],iris3[,,2],iris3[,,3])
+ir <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
 targets <- matrix(c(rep(c(1,0,0),50), rep(c(0,1,0),50), rep(c(0,0,1),50)),
 150, 3, byrow=TRUE)
 samp <- c(sample(1:50,25), sample(51:100,25), sample(101:150,25))

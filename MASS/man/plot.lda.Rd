@@ -10,8 +10,8 @@ Plot Method for Class `lda'
 Plots a set of data on one, two or more linear discriminants.
 }
 \usage{
-\method{plot}{lda}(x, panel=panel.lda, \dots, cex=0.7, dimen, abbrev=FALSE,
-         xlab="LD1", ylab="LD2")
+\method{plot}{lda}(x, panel = panel.lda, \dots, cex = 0.7, dimen,
+     abbrev=FALSE, xlab = "LD1", ylab = "LD2")
 }
 \arguments{
 \item{x}{
@@ -40,9 +40,6 @@ label for the x axis
 \item{ylab}{
 label for the y axis
 }}
-\value{
-None.
-}
 \details{
 This function is a method for the generic function
 \code{plot()} for class \code{"lda"}.
@@ -51,12 +48,11 @@ object \code{x} of the appropriate class, or directly by
 calling \code{plot.lda(x)} regardless of the
 class of the object.
 
-
-The behaviour is determined by the value of \code{dimen}. For \code{dimen > 2},
-a \code{pairs} plot is used. For \code{dimen = 2}, an equiscaled scatter plot is
-drawn. For \code{dimen = 1}, a set of histograms or density plots are
-drawn.  Use argument \code{type} to match \code{"histogram"} or \code{"density"} or
-\code{"both"}.
+The behaviour is determined by the value of \code{dimen}. For
+\code{dimen > 2}, a \code{pairs} plot is used. For \code{dimen = 2}, an
+equiscaled scatter plot is drawn. For \code{dimen = 1}, a set of
+histograms or density plots are drawn.  Use argument \code{type} to
+match \code{"histogram"} or \code{"density"} or \code{"both"}.
 }
 \seealso{
 \code{\link{pairs.lda}}, \code{\link{ldahist}}, \code{\link{lda}}, \code{\link{predict.lda}}

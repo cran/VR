@@ -1,7 +1,7 @@
 \name{bandwidth.nrd}
 \alias{bandwidth.nrd}
 \title{
-Bandwidth for density() via Normal Reference Distribution.
+Bandwidth for density() via Normal Reference Distribution
 }
 \description{
 A well-supported rule-of-thumb for choosing the bandwidth of a Gaussian
@@ -15,12 +15,13 @@ bandwidth.nrd(x)
 A data vector.
 }}
 \value{
-A bandwidth on a scale suitable for the \code{width} argument of \code{density}.
+  A bandwidth on a scale suitable for the \code{width} argument of
+  \code{density}.
 }
 \references{
-Venables, W. N. and Ripley, B. D. (1999)
-\emph{Modern Applied Statistics with S-PLUS.}
-Springer, equation (5.5) on page 135.
+Venables, W. N. and Ripley, B. D. (2002)
+\emph{Modern Applied Statistics with S.}
+Springer, equation (5.5) on page 130.
 }
 \examples{
 # The function is currently defined as

@@ -9,9 +9,10 @@ House Insulation: Whiteside's Data
 \description{
 Mr Derek Whiteside of the UK Building Research Station recorded the
 weekly gas consumption and average external temperature at his own
-house in south-east England for 26 weeks before, and 30 weeks after
-cavity-wall insulation was installed. The object of the exercise was
-to assess the effect of the insulation on gas consumption.
+house in south-east England for two heating seasons, one of 26 weeks
+before, and one of 30 weeks after cavity-wall insulation was
+installed. The object of the exercise was to assess the effect of the
+insulation on gas consumption.
 }
 \usage{
 data(whiteside)
@@ -41,27 +42,26 @@ Chapman & Hall, p. 69.
 }
 \examples{
 data(whiteside)
-coplot(Gas ~ Temp | Insul, whiteside, panel = 
-  function(x, y, \dots) {
-     points(x, y, \dots)
-     abline(lm(y ~ x))
+require(lattice)
+xyplot(Gas ~ Temp | Insul, whiteside, panel =
+  function(x, y, ...) {
+    panel.xyplot(x, y, ...)
+    panel.lmline(x, y, ...)
   }, xlab = "Average external temperature (deg. C)",
-  ylab = "Gas consumption  (1000 cubic feet)")
+  ylab = "Gas consumption  (1000 cubic feet)", aspect = "xy",
+  strip = function(...) strip.default(..., style = 1))
 
-
-gasB <- lm(Gas ~ Temp, whiteside, subset=Insul=="Before")
-gasA <- update(gasB, subset=Insul=="After")
+gasB <- lm(Gas ~ Temp, whiteside, subset = Insul=="Before")
+gasA <- update(gasB, subset = Insul=="After")
 summary(gasB)
 summary(gasA)
 gasBA <- lm(Gas ~ Insul/Temp - 1, whiteside)
 summary(gasBA)
 
-
 gasQ <- lm(Gas ~ Insul/(Temp + I(Temp^2)) - 1, whiteside)
 summary(gasQ)$coef
 
-
-gasPR <- lm(Gas ~ Insul + Temp, whiteside)  
+gasPR <- lm(Gas ~ Insul + Temp, whiteside)
 anova(gasPR, gasBA)
 options(contrasts = c("contr.treatment", "contr.poly"))
 gasBA1 <- lm(Gas ~ Insul*Temp, whiteside)

@@ -27,9 +27,9 @@ in a one-way layout are the differences between the means of the
 second and first levels, the third and second levels, and so on.
 }
 \references{
-Venables, W. N. and Ripley, B. D. (1999)
-\emph{Modern Applied Statistics with S-PLUS.}
-Third Edition, Springer, p. 159
+Venables, W. N. and Ripley, B. D. (2002)
+\emph{Modern Applied Statistics with S.}
+Fourth Edition, Springer.
 }
 \seealso{
 \code{\link{contr.treatment}}, \code{\link{contr.sum}}, \code{\link{contr.helmert}}

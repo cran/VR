@@ -27,7 +27,7 @@ Heart weight in g.
 }}}
 \source{
 R. A. Fisher (1947) The analysis of covariance method for the relation
-between a part and the whole, 
+between a part and the whole,
 \emph{Biometrics}
 \bold{3}, 65--68.
 }

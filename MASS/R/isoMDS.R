@@ -24,22 +24,20 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE)
     nd <- length(ord)
     if(!is.matrix(y)) stop("y must be a matrix")
     if(any(dim(y) != c(n, k)) ) stop("invalid initial configuration")
-    on.exit(.C("VR_mds_unload"))
+    on.exit(.C("VR_mds_unload", PACKAGE = "MASS"))
     .C("VR_mds_init_data",
        as.integer(nd),
        as.integer(k),
        as.integer(n),
        as.integer(ord - 1),
        as.integer(order(ord) - 1),
-       as.double(y)
-       , PACKAGE = "MASS"
+       as.double(y), PACKAGE = "MASS"
        )
     tmp <- .C("VR_mds_dovm",
               val = double(1),
               as.integer(maxit),
               as.integer(trace),
-              y = as.double(y)
-              , PACKAGE = "MASS"
+              y = as.double(y), PACKAGE = "MASS"
               )
     points <- matrix(tmp$y,,k)
     rn <- if(is.matrix(d)) rownames(d) else names(d)
@@ -68,8 +66,7 @@ Shepard <- function(d, x)
 	  as.integer(n),
 	  as.integer(k),
 	  g=double(n*k),
-	  as.integer(1)
-          , PACKAGE = "MASS"
+	  as.integer(1), PACKAGE = "MASS"
 	  )
   list(x = d[ord], y = y, yf = Z$yf)
 }

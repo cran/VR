@@ -5,7 +5,7 @@
 \alias{denumerate}
 \alias{denumerate.formula}
 \title{
-Transform an Allowable Formula for `loglm' Into One For `terms'.
+Transform an Allowable Formula for `loglm' into one For `terms'.
 }
 \description{
 \code{\link{loglm}} allows dimension numbers to be used in place of names in
@@ -27,9 +27,6 @@ dimension numbers, say \code{n}, have been used to specify fixed
 margins these are replaced by names of the form \code{.vn} which may
 be processed by \code{terms}.
 }
-\section{Side Effects}{
-None.
-}
 \details{
 The model fitting function \code{\link{loglm}} fits log-linear models to
 frequency data using iterative proportional scaling.  To specify
@@ -49,6 +46,6 @@ numbers with names of a special form, namely \code{n} is replaced by
 }
 \examples{
 denumerate(~(1+2+3)^3 + a/b)
-##  ~ (.v1 + .v2 + .v3)^3 + a/b
+\dontrun{~ (.v1 + .v2 + .v3)^3 + a/b}
 }
 \keyword{models}

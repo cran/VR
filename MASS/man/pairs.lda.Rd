@@ -10,8 +10,8 @@ Produce Pairwise Scatterplots from an `lda' Fit
 Pairwise scatterplot of the data on the linear discriminants.
 }
 \usage{
-\method{pairs}{lda}(x, labels=colnames(x), panel=panel.lda, 
-         dimen, abbrev=FALSE, \dots, cex=0.7, type=c("std", "trellis"))
+\method{pairs}{lda}(x, labels = colnames(x), panel = panel.lda,
+     dimen, abbrev = FALSE, \dots, cex=0.7, type = c("std", "trellis"))
 }
 \arguments{
 \item{x}{
@@ -41,9 +41,6 @@ graphics parameter \code{cex} for labels on plots.
 type of plot. The default is in the style of \code{pair.default}; the
 tyle \code{"trellis"} uses the Trellis function \code{splom}.
 }}
-\value{
-None.
-}
 \details{
 This function is a method for the generic function
 \code{pairs()} for class \code{"lda"}.

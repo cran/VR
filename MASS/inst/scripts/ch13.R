@@ -1,262 +1,292 @@
 #-*- R -*-
 
-# Chapter 13   Time Series
+# Chapter 13   Survival Analysis
 
 library(MASS)
-postscript(file="ch13.ps", width=8, height=6, pointsize=9)
-options(width=65, digits=5)
-library(ts)
+options(echo=T, width=65, digits=5, height=9999)
+options(contrasts=c("contr.treatment", "contr.poly"))
+postscript("ch13.ps", width=8, height=6, pointsize=9)
 
-data(lh)
-lh
-data(deaths)
-deaths
-tsp(deaths)
-start(deaths)
-end(deaths)
-frequency(deaths)
-#units(deaths)
-cycle(deaths)
-plot(lh)
-data(mdeaths)
-data(fdeaths)
-plot(ts.union(deaths, mdeaths, fdeaths), lty=c(1,3,4))
-aggregate(deaths, 4, sum)
-aggregate(deaths, 1, mean)
+library(modreg)  # for scatter.smooth()
+library(survival)
 
+# 13.1  Estimators of survivor curves
 
-# 13.1  Second-order summaries
+data(leuk)
+plot(survfit(Surv(time) ~ ag, data=leuk), lty = 2:3, col = 2:3)
+legend(80, 0.8, c("ag absent", "ag present"), lty = 2:3, col = 2:3)
 
-acf(lh)
-acf(lh, type="covariance")
-acf(deaths)
-acf(ts.union(mdeaths, fdeaths))
-spectrum(lh)
-spectrum(deaths)
-par(mfrow=c(2,2))
-spectrum(lh)
-spectrum(lh, spans=3)
-spectrum(lh, spans=c(3,3))
-spectrum(lh, spans=c(3,5))
+data(gehan)
+attach(gehan)
+Surv(time, cens)
+plot(log(time) ~ pair)
+# product-limit estimators with Greenwood's formula for errors:
+gehan.surv <- survfit(Surv(time, cens) ~ treat, data = gehan,
+                      conf.type = "log-log")
+summary(gehan.surv)
+plot(gehan.surv, conf.int = T, lty = 3:2, log = T,
+     xlab = "time of remission (weeks)", ylab = "survival")
+lines(gehan.surv, lty = 3:2, lwd = 2, cex = 2)
+legend(25, 0.1 , c("control", "6-MP"), lty = 2:3, lwd = 2)
+detach()
 
-spectrum(deaths)
-spectrum(deaths, spans=c(3,3))
-spectrum(deaths, spans=c(3,5))
-spectrum(deaths, spans=c(5,7))
-par(mfrow=c(1,1))
-spectrum(deaths)
-deaths.spc <- spec.pgram(deaths, taper=0, plot=F)
-lines(deaths.spc$freq, deaths.spc$spec, lty=3)
-
-par(mfrow=c(1,2))
-cpgram(lh)
-cpgram(deaths)
-par(mfrow=c(1,1))
+survdiff(Surv(time, cens) ~ treat, data = gehan)
+survdiff(Surv(time) ~ ag, data = leuk)
 
 
-# 13.2  ARIMA models
+# 13.2  Parametric models
 
-#ts.sim <- arima.sim(list(order=c(1,1,0), ar=0.7), n=200)
+plot(gehan.surv,  lty = 3:4, col = 2:3, fun = "cloglog",
+     xlab = "time of remission (weeks)", ylab = "log H(t)")
+legend(2, 0.5, c("control","6-MP"), lty = 4:3, col = 3:2)
 
-acf(lh, type="partial")
-acf(deaths, type="partial")
-lh.ar1 <- ar(lh, F, 1)
-cpgram(lh.ar1$resid, main="AR(1) fit to lh")
-lh.ar <- ar(lh, order.max=9)
-lh.ar$order
-lh.ar$aic
-cpgram(lh.ar$resid, main="AR(3) fit to lh")
+survreg(Surv(time) ~ ag*log(wbc), leuk, dist = "exponential")
+summary(survreg(Surv(time) ~ ag + log(wbc), leuk, dist = "exponential"))
+summary(survreg(Surv(time) ~ ag + log(wbc), leuk)) # Weibull
+summary(survreg(Surv(time) ~ ag + log(wbc), leuk,
+                 dist="loglogistic"))
+anova(survreg(Surv(time) ~ log(wbc), data = leuk),
+   survreg(Surv(time) ~ ag + log(wbc), data = leuk))
+summary(survreg(Surv(time) ~ strata(ag) + log(wbc), data=leuk))
+leuk.wei <- survreg(Surv(time) ~ ag + log(wbc), leuk)
+ntimes <- leuk$time * exp(-leuk.wei$linear.predictors)
+plot(survfit(Surv(ntimes)), log = T)
 
-lh.arima1 <- arima0(lh, order=c(1,0,0), include.mean = T)
-arima0.diag(lh.arima1)
-lh.arima3 <- arima0(lh, order=c(3,0,0), include.mean = T)
-arima0.diag(lh.arima3)
-lh.arima11 <- arima0(lh, order=c(1,0,1), include.mean = T)
-arima0.diag(lh.arima11)
-#lh.fore <- arima.forecast(lh1, n=12, model=lh.arima3$model)
-lh.fore <- predict(lh.arima3, n.ahead=12)
-#lh.fore$mean <- lh.fore$mean + mean(lh)
-#ts.plot(lh, lh.fore$mean, lh.fore$mean+2*lh.fore$std.err,
-#        lh.fore$mean-2*lh.fore$std.err)
-plot(lh, xlim=c(1, 60))
-lines(lh.fore$pred, col="blue")
-lines(lh.fore$pred+2*lh.fore$se, lty=2, col="blue")
-lines(lh.fore$pred-2*lh.fore$se, lty=2, col="blue")
+survreg(Surv(time, cens) ~ factor(pair) + treat, gehan,
+          dist = "exponential")
+summary(survreg(Surv(time, cens) ~ treat, gehan, dist = "exponential"))
+summary(survreg(Surv(time, cens) ~ treat, gehan))
+
+data(motors)
+plot(survfit(Surv(time, cens) ~ factor(temp), motors),
+      conf.int = F)
+motor.wei <- survreg(Surv(time, cens) ~ temp, motors)
+summary(motor.wei)
+unlist(predict(motor.wei, data.frame(temp=130), se.fit = T))
+
+predict(motor.wei, data.frame(temp=130), type = "quantile",
+        p = c(0.5, 0.1))
+t1 <-  predict(motor.wei, data.frame(temp=130),
+               type = "uquantile", p = 0.5, se = T)
+exp(c(LL=t1$fit - 2*t1$se, UL=t1$fit + 2*t1$se))
+t1 <-  predict(motor.wei, data.frame(temp=130),
+               type = "uquantile", p = 0.1, se = T)
+exp(c(LL=t1$fit - 2*t1$se, UL=t1$fit + 2*t1$se))
+
+# summary(censorReg(censor(time, cens) ~ treat, gehan))
+
+# 13.3  Cox proportional hazards model
+
+attach(leuk)
+leuk.cox <- coxph(Surv(time) ~ ag + log(wbc), data = leuk)
+summary(leuk.cox)
+update(leuk.cox, ~ . -ag)
+
+(leuk.coxs <- coxph(Surv(time) ~ strata(ag) + log(wbc), data = leuk))
+
+(leuk.coxs1 <- update(leuk.coxs, . ~ . + ag:log(wbc)))
+plot(survfit(Surv(time) ~ ag), lty = 2:3, log = T)
+lines(survfit(leuk.coxs), lty = 2:3, lwd = 3)
+legend(80, 0.8, c("ag absent", "ag present"), lty = 2:3)
+leuk.cox <- coxph(Surv(time) ~ ag, leuk)
+detach()
+
+gehan.cox <- coxph(Surv(time, cens) ~ treat, gehan, method = "exact")
+summary(gehan.cox)
+
+# The next fit is slow
+coxph(Surv(time, cens) ~ treat + factor(pair), gehan,
+        method = "exact")
+1 - pchisq(45.5 - 16.2, 20)
+
+(motor.cox <- coxph(Surv(time, cens) ~ temp, motors))
+coxph(Surv(time, cens) ~ temp, motors, method = "breslow")
+coxph(Surv(time, cens) ~ temp, motors, method = "exact")
+plot( survfit(motor.cox, newdata=data.frame(temp=200),
+               conf.type = "log-log") )
+summary( survfit(motor.cox, newdata = data.frame(temp=130)) )
 
 
-# 13.3  Seasonality
+# 13.4  Further examples
 
-deaths.stl <- stl(deaths, "periodic")
-plot(deaths.stl)
-dsd <-  deaths.stl$time.series[, "trend"] + deaths.stl$time.series[, "remainder"]
-plot(dsd)
-acf(dsd)
-acf(dsd, type="partial")
-spectrum(dsd, span=c(3,3))
-cpgram(dsd)
-dsd.ar <- ar(dsd)
-dsd.ar$order
-dsd.ar$aic
-dsd.ar$ar
-cpgram(dsd.ar$resid, main="AR(1) residuals")
-if(F) {
-dsd.rar <- ar.gm(dsd)
-dsd.rar$ar
+data(VA)
+# VA.temp <- as.data.frame(cancer.vet)
+# dimnames(VA.temp)[[2]] <- c("treat", "cell", "stime",
+#     "status", "Karn", "diag.time","age","therapy")
+# attach(VA.temp)
+# VA <- data.frame(stime, status, treat = factor(treat), age,
+#     Karn, diag.time, cell = factor(cell), prior = factor(therapy))
+# detach(VA.temp)
+(VA.cox <- coxph(Surv(stime, status) ~ treat + age  + Karn +
+                 diag.time + cell + prior, data = VA))
+
+(VA.coxs <- coxph(Surv(stime, status) ~ treat + age + Karn +
+     diag.time + strata(cell) + prior, data = VA))
+
+par(mfrow=c(1,2), pty="s")
+plot(survfit(VA.coxs), log = T, lty = 1:4, col = 2:5)
+#legend(locator(1), c("squamous", "small", "adeno", "large"), lty = 1:4, col = 2:5)
+plot(survfit(VA.coxs), fun = "cloglog", lty = 1:4, col = 2:5)
+cKarn <- factor(cut(VA$Karn, 5))
+VA.cox1 <- coxph(Surv(stime, status) ~ strata(cKarn) + cell, data = VA)
+plot(survfit(VA.cox1), fun="cloglog")
+VA.cox2 <- coxph(Surv(stime, status) ~ Karn + strata(cell), data = VA)
+scatter.smooth(VA$Karn, residuals(VA.cox2))
+
+VA.wei <- survreg(Surv(stime, status) ~ treat + age + Karn +
+                  diag.time + cell + prior, data = VA)
+summary(VA.wei, cor = F)
+
+VA.exp <- survreg(Surv(stime, status) ~ Karn + cell,
+                  data = VA, dist = "exponential")
+summary(VA.exp, cor = F)
+
+cox.zph(VA.coxs)
+
+par(mfrow = c(3, 2), pty="m"); plot(cox.zph(VA.coxs))
+
+VA$Karnc <- VA$Karn - 50
+VA.coxc <- update(VA.cox, ~ . - Karn + Karnc)
+VA.cox2 <- stepAIC(VA.coxc, ~ .^2)
+VA.cox2$anova
+
+(VA.cox3 <- update(VA.cox2, ~ treat/Karnc + prior*Karnc
+   + treat:prior + cell/diag.time))
+
+cox.zph(VA.cox3)
+
+par(mfrow = c(2, 2))
+plot(cox.zph(VA.cox3), var = c(1, 3, 7))
+par(mfrow = c(1, 1))
+
+
+data(heart)
+coxph(Surv(start, stop, event) ~ transplant*
+    (age + surgery + year), data = heart)
+(stan <- coxph(Surv(start, stop, event) ~ transplant*year +
+    age + surgery, data = heart))
+
+stan1 <- coxph(Surv(start, stop, event) ~ strata(transplant) +
+    year + year:transplant + age + surgery, heart)
+par(mfrow=c(1,2), pty="s")
+plot(survfit(stan1), conf.int = T, log = T, lty = c(1, 3), col = 2:3)
+#legend(locator(1), c("before", "after"), lty = c(1, 3), col= 2:3)
+
+attach(heart)
+plot(year[transplant==0], residuals(stan1, collapse = id),
+     xlab = "year", ylab = "martingale residual")
+lines(lowess(year[transplant == 0],
+             residuals(stan1, collapse = id)))
+par(mfrow = c(1,1), pty = "m")
+sresid <- resid(stan1, type = "dfbeta", collapse = id)
+detach()
+-100 * sresid %*% diag(1/stan1$coef)
+
+# Survivor curve for the "average" subject
+summary(survfit(stan))
+#  follow-up for two years
+stan2 <- data.frame(start = c(0, 183), stop= c(183, 2*365),
+    event = c(0, 0), year = c(4, 4), age = c(50, 50) - 48,
+    surgery = c(1, 1), transplant = c(0, 1))
+summary(survfit(stan, stan2, individual = T,
+                 conf.type = "log-log"))
+
+# Aids analysis
+time.depend.covar <- function(data) {
+  id <- row.names(data); n <- length(id)
+  events <- c(0, 10043, 11139, 12053) # julian days
+  crit1 <- matrix(events[1:3], n, 3 ,byrow = T)
+  crit2 <- matrix(events[2:4], n, 3, byrow = T)
+  diag <- matrix(data$diag,n,3); death <- matrix(data$death,n,3)
+  incid <- (diag < crit2) & (death >= crit1); incid <- t(incid)
+  indr <- col(incid)[incid]; indc <- row(incid)[incid]
+  ind <- cbind(indr, indc); idno <- id[indr]
+  state <- data$state[indr]; T.categ <- data$T.categ[indr]
+  age <- data$age[indr]; sex <- data$sex[indr]
+  late <- indc - 1
+  start <- t(pmax(crit1 - diag, 0))[incid]
+  stop <- t(pmin(crit2, death + 0.9) - diag)[incid]
+  status <- matrix(as.numeric(data$status),n,3)-1 # 0/1
+  status[death > crit2] <- 0; status <- status[ind]
+  levels(state) <- c("NSW", "Other", "QLD", "VIC")
+  levels(T.categ) <- c("hs", "hsid", "id", "het", "haem",
+                       "blood", "mother", "other")
+  levels(sex) <- c("F", "M")
+  data.frame(idno, zid=factor(late), start, stop, status,
+             state, T.categ, age, sex)
 }
-deaths.diff <- diff(deaths, 12)
-acf(deaths.diff, 30)
-acf(deaths.diff, 30, type="partial")
-ar(deaths.diff)
-# this suggests the seasonal effect is still present.
-deaths.arima1 <- arima0(deaths, order=c(2,0,0),
-                        list(order=c(0,1,0), period=12))
-deaths.arima1
-arima0.diag(deaths.arima1, gof.lag=24)
-# suggests need a seasonal AR term
-deaths.arima2 <- arima0(deaths, order=c(2,0,0),
-                        list(order=c(1,0,0), period=12))
-deaths.arima2
-arima0.diag(deaths.arima2, gof.lag=24)
-cpgram(deaths.arima2$resid)
-deaths.arima3 <- arima0(deaths, order=c(2,0,0),
-                        list(order=c(1,1,0), period=12))
-deaths.arima3  # aic not comparable to deaths.arima2
-arima0.diag(deaths.arima3, gof.lag=24)
-arima0(deaths,order=c(2,0,0), list(order=c(1,0,0), period=12))
-arima0(deaths, order=c(2,0,0), list(order=c(2,0,0), period=12))
+data(Aids2)
+Aids3 <- time.depend.covar(Aids2)
 
-data(nottem)
-nott <- window(nottem, end=c(1936,12))
-plot(nott)
-nott.stl <- stl(nott, "period")
-plot(nott.stl)
-nott.stl <- stl(nott, 5)
-plot(nott.stl)
+attach(Aids3)
+aids.cox <- coxph(Surv(start, stop, status)
+     ~ zid + state + T.categ + sex + age, data = Aids3)
+summary(aids.cox)
 
-par(mfrow=c(1,1))
-boxplot(split(nott, cycle(nott)), names=month.abb)
+aids1.cox <- coxph(Surv(start, stop, status)
+  ~ zid + strata(state) + T.categ + age, data = Aids3)
+(aids1.surv <- survfit(aids1.cox))
+aids1.surv
+plot(aids1.surv, mark.time = F, lty = 1:4, col = 2:5,
+     xscale = 365.25/12, xlab = "months since diagnosis")
+#legend(locator(1), levels(state), lty = 1:4, col = 2:5)
 
-nott[110] <- 35
-nott.stl <- stl(nott, "period")
-nott1 <- nott.stl$time.series[, "trend"] + nott.stl$time.series[, "remainder"]
-acf(nott1)
-acf(nott1, type="partial")
-cpgram(nott1)
-ar(nott1)$aic
-plot(0:23, ar(nott1)$aic, xlab="order", ylab="AIC", main="AIC for AR(p)")
-nott1.ar1 <- arima0(nott1, order=c(1,0,0))
-nott1.ar1
+aids2.cox <- coxph(Surv(start, stop, status)
+  ~ zid + state + strata(T.categ) + age, data = Aids3)
+(aids2.surv <- survfit(aids2.cox))
 
-nott.fore <- predict(nott1.ar1, n.ahead=36)
-nott.fore$pred <- nott.fore$pred +
-    as.vector(nott.stl$time.series[1:36, "seasonal"])
-plot(window(nottem, 1937), lty=3, ylim=c(30, 70))
-lines(nott.fore$pred, col="blue")
-lines(nott.fore$pred + 2**nott.fore$se, lty=2, col="blue")
-lines(nott.fore$pred - 2**nott.fore$se, lty=2, col="blue")
+par(mfrow = c(1, 2), pty="s")
+plot(aids2.surv[1:4], mark.time = F, lty = 1:4, col = 2:5,
+  xscale=365.25/12, xlab="months since diagnosis")
+#legend(locator(1), levels(T.categ)[1:4], lty = 1:4, col = 2:5)
 
-# nott1.fore <- arima.forecast(nott1, n=36,
-#                              model=nott1.ar1$model)
-# nott1.fore$mean <- nott1.fore$mean + mean(nott.stl$rem) +
-#                         as.vector(nott.stl$sea[1:36])
-# ts.plot(window(nottem, 1937), nott1.fore$mean,
-#         nott1.fore$mean+2*nott1.fore$std.err,
-#         nott1.fore$mean-2*nott1.fore$std.err, lty=c(3,1,2,2))
-title("via Seasonal Decomposition")
+plot(aids2.surv[c(1, 5, 6, 8)], mark.time = F, lty = 1:4, col = 2:5,
+  xscale=365.25/12, xlab="months since diagnosis")
+#legend(locator(1), levels(T.categ)[c(1, 5, 6, 8)], lty = 1:4, col = 2:5)
+par(mfrow=c(1,1), pty="m")
 
+cases <- diff(c(0,idno)) != 0
+aids.res <- residuals(aids.cox, collapse = idno)
+scatter.smooth(age[cases], aids.res, xlab = "age",
+  ylab="martingale residual")
 
-acf(diff(nott,12), 30)
-acf(diff(nott,12), 30, type="partial")
-cpgram(diff(nott,12))
-nott.arima1 <- arima0(nott,order=c(1,0,0), list(order=c(2,1,0), period=12))
-nott.arima1
-arima0.diag(nott.arima1, gof.lag=24)
-nott.fore <- predict(nott.arima1, n.ahead=36)
-plot(window(nottem, 1937), lty=3, ylim=c(30, 70))
-lines(nott.fore$pred, col="blue")
-lines(nott.fore$pred + 2**nott.fore$se, lty=2, col="blue")
-lines(nott.fore$pred - 2**nott.fore$se, lty=2, col="blue")
+age2 <- cut(age, c(-1, 15, 30, 40, 50, 60, 100))
+c.age <- factor(as.numeric(age2), labels = c("0-15", "16-30",
+  "31-40", "41-50", "51-60", "61+"))
+table(c.age)
+c.age <- relevel(c.age, "31-40")
 
-# nott.fore <- arima.forecast(nott, n=36,
-#     model=nott.arima1$model)
-# ts.plot(window(nottem, 1937), nott.fore$mean,
-#     nott.fore$mean+2*nott.fore$std.err,
-#     nott.fore$mean-2*nott.fore$std.err, lty=c(3,1,2,2))
-title("via Seasonal ARIMA model")
-
-
-# 13.6  Regression with autocorrelated errors
-
-data(beav1); data(beav2)
-# beav1 <- beav1; beav2 <- beav2
-attach(beav1)
-beav1$hours <- 24*(day-346) + trunc(time/100) + (time%%100)/60
+summary(coxph(Surv(start, stop, status) ~ zid  + state
+  + T.categ + age + c.age, data = Aids3))
 detach()
-attach(beav2)
-beav2$hours <- 24*(day-307) + trunc(time/100) + (time%%100)/60
-detach()
-par(mfrow=c(2,2))
-plot(beav1$hours, beav1$temp, type="l", xlab="time",
-     ylab="temperature", main="Beaver 1")
-usr <- par("usr"); usr[3:4] <- c(-0.2, 8); par(usr=usr)
-lines(beav1$hours, beav1$activ, type="s", lty=2)
-plot(beav2$hours, beav2$temp, type="l", xlab="time",
-     ylab="temperature", main="Beaver 2")
-usr <- par("usr"); usr[3:4] <- c(-0.2, 8); par(usr=usr)
-lines(beav2$hours, beav2$activ, type="s", lty=2)
 
-attach(beav2)
-temp <- ts(temp, start=8+2/3, frequency=6)
-activ <- ts(activ, start=8+2/3, frequency=6)
-acf(temp[activ==0]); acf(temp[activ==1]) # also look at PACFs
-ar(temp[activ==0]); ar(temp[activ==1])
-par(mfrow=c(1,1))
+make.aidsp <- function(){
+  cutoff <- 10043
+  btime <- pmin(cutoff, Aids2$death) - pmin(cutoff, Aids2$diag)
+  atime <- pmax(cutoff, Aids2$death) - pmax(cutoff, Aids2$diag)
+  survtime <- btime + 0.5*atime
+  status <- as.numeric(Aids2$status)
+  data.frame(survtime, status = status - 1, state = Aids2$state,
+    T.categ = Aids2$T.categ, age = Aids2$age, sex = Aids2$sex)
+}
+Aidsp <- make.aidsp()
+aids.wei <- survreg(Surv(survtime + 0.9, status) ~  state
+    + T.categ + sex + age, data = Aidsp)
+summary(aids.wei, cor = F)
 
-arima0(temp, order=c(1,0,0))
-arima0(temp, order=c(1,0,0), xreg=activ)
+survreg(Surv(survtime + 0.9, status) ~ state + T.categ
+  + age, data = Aidsp)
 
-dreg <- cbind(sin=sin(2*pi*hours/24), cos=cos(2*pi*hours/24))
-arima0(temp, order=c(1,0,0), xreg=cbind(active=activ,dreg))
-
-
-alpha <- 0.8255
-stemp <- as.vector(temp - alpha*lag(temp, -1))
-X <- cbind(1, activ); sX <- X - alpha*lag(X, -1)
-beav2.ls <- lm(stemp ~ -1 + sX)
-beav2.sls <- summary(beav2.ls)
-beav2.sls
-sqrt(t(c(1,1)) %*% beav2.sls$cov %*% c(1,1)) * beav2.sls$sigma
-plot(hours[-1], residuals(beav2.ls))
-detach(); rm(temp, activ)
-
-# nlme3
-library(nlme)
-beav2.gls <- gls(temp ~ activ, data=beav2,  corr=corAR1(0.8), method="ML")
-summary(beav2.gls)
-summary(update(beav2.gls, subset=6:100))
-
-attach(beav1)
-temp <- ts(c(temp[1:82], NA, temp[83:114]), start=9.5,
-            frequency=6)
-activ <- ts(c(activ[1:82], NA, activ[83:114]), start=9.5,
-             frequency=6)
-acf(temp[1:53])
-acf(temp[1:53], type="partial")
-ar(temp[1:53])
-
-act <- c(rep(0, 10), activ)
-X <- cbind(1, act=act[11:125], act1 = act[10:124],
-          act2 = act[9:123], act3 = act[8:122])
-#arima0(temp, xreg=X, order=c(1,0,0)) ## currently fails due to NAs
-
-alpha <- 0.80
-stemp <- as.vector(temp - alpha*lag(temp, -1))
-sX <- X[-1, ] - alpha * X[-115,]
-beav1.ls <- lm(stemp ~ -1 + sX, na.action=na.omit)
-summary(beav1.ls, cor=F)
-detach(); rm(temp, activ)
-
-
+(aids.ps <- survreg(Surv(survtime + 0.9, status) ~  state
+   + T.categ + pspline(age, df=6), data = Aidsp))
+zz <- predict(aids.ps, data.frame(
+   state = factor(rep("NSW", 83), levels = levels(Aidsp$state)),
+   T.categ = factor(rep("hs", 83), levels = levels(Aidsp$T.categ)),
+   age = 0:82), se = T, type = "linear")
+plot(0:82, exp(zz$fit)/365.25, type = "l", ylim = c(0, 2),
+   xlab = "age", ylab = "expected lifetime (years)")
+lines(0:82, exp(zz$fit+1.96*zz$se.fit)/365.25, lty = 3, col = 2)
+lines(0:82, exp(zz$fit-1.96*zz$se.fit)/365.25, lty = 3, col = 2)
+rug(Aidsp$age+runif(length(Aidsp$age), -0.5, 0.5), ticksize = 0.015)
 
 # End of ch13
-

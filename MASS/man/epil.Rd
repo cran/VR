@@ -30,7 +30,7 @@ The counts in the baseline 8-week period.
 The subject's age, in years.
 }
 \item{\code{V4}}{
-0/1 indicator variable of period 4.
+\code{0/1} indicator variable of period 4.
 }
 \item{\code{subject}}{
 The subject number, 1 to 59.

@@ -108,8 +108,6 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
     else cat("\n")
   }
   if(length(decay) == 1) decay <- rep(decay, length(wts))
-  if(!is.loaded(symbol.C("VR_set_net")))
-    stop("Compiled code has not been dynamically loaded")
   .C("VR_set_net",
      as.integer(net$n),
      as.integer(net$nconn),
@@ -118,7 +116,8 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
      as.integer(nsunits),
      as.integer(entropy),
      as.integer(softmax),
-     as.integer(censored)
+     as.integer(censored),
+     PACKAGE = "nnet"
      )
   ntr <- dim(x)[1]
   nout <- dim(y)[2]
@@ -135,19 +134,20 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
 	    as.integer(maxit),
 	    as.logical(trace),
 	    as.integer(mask),
-            as.double(abstol), as.double(reltol)
+            as.double(abstol), as.double(reltol),
+            PACKAGE = "nnet"
 	    )
   net$value <- tmp$val
   net$wts <- tmp$wts
   tmp <- matrix(.C("VR_nntest",
 		   as.integer(ntr), Z, tclass = double(ntr*nout),
-		   as.double(net$wts))$tclass,  ntr, nout)
+		   as.double(net$wts), PACKAGE = "nnet")$tclass,  ntr, nout)
   dimnames(tmp) <- list(rownames(x), colnames(y))
   net$fitted.values <- tmp
   tmp <- y - tmp
   dimnames(tmp) <- list(rownames(x), colnames(y))
   net$residuals <- tmp
-  .C("VR_unset_net")
+  .C("VR_unset_net", PACKAGE = "nnet")
   if(entropy) net$lev <- c("0","1")
   if(softmax) net$lev <- colnames(y)
   net$call <- match.call()
@@ -185,22 +185,22 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
     }
     ntr <- nrow(x)
     nout <- object$n[3]
-    if(!is.loaded(symbol.C("VR_set_net")))
-      stop("Compiled code has not been dynamically loaded")
     .C("VR_set_net",
        as.integer(object$n), as.integer(object$nconn),
        as.integer(object$conn), as.double(object$decay),
        as.integer(object$nsunits), as.integer(0),
-       as.integer(object$softmax), as.integer(object$censored))
+       as.integer(object$softmax), as.integer(object$censored),
+       PACKAGE = "nnet")
     z <- matrix(NA, length(keep), nout,
                 dimnames = list(rn, dimnames(object$fitted)[[2]]))
     z[keep, ] <- matrix(.C("VR_nntest",
                            as.integer(ntr),
                            as.double(x),
                            tclass = double(ntr*nout),
-                           as.double(object$wts)
-                        )$tclass, ntr, nout)
-    .C("VR_unset_net")
+                           as.double(object$wts),
+                           PACKAGE = "nnet"
+                           )$tclass, ntr, nout)
+    .C("VR_unset_net", PACKAGE = "nnet")
   }
   switch(type, raw = z,
 	 class = {
@@ -213,7 +213,8 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
 eval.nn <- function(wts)
 {
   z <- .C("VR_dfunc",
-	 as.double(wts), df = double(length(wts)), fp = as.double(1))
+	 as.double(wts), df = double(length(wts)), fp = as.double(1),
+          PACKAGE = "nnet")
   fp <- z$fp
   attr(fp, "gradient") <- z$df
   fp
@@ -261,8 +262,6 @@ nnet.Hess <- function(net, x, y, weights)
   nw <- length(net$wts)
   decay <- net$decay
   if(length(decay) == 1) decay <- rep(decay, nw)
-  if(!is.loaded(symbol.C("VR_set_net")))
-    stop("Compiled code has not been dynamically loaded")
   .C("VR_set_net",
      as.integer(net$n),
      as.integer(net$nconn),
@@ -271,7 +270,8 @@ nnet.Hess <- function(net, x, y, weights)
      as.integer(net$nsunits),
      as.integer(net$entropy),
      as.integer(net$softmax),
-     as.integer(net$censored)
+     as.integer(net$censored),
+     PACKAGE = "nnet"
      )
   ntr <- dim(x)[1]
   nout <- dim(y)[2]
@@ -281,9 +281,9 @@ nnet.Hess <- function(net, x, y, weights)
   Z <- as.double(cbind(x,y))
   storage.mode(weights) <- "double"
   z <- matrix(.C("VR_nnHessian", as.integer(ntr), Z, weights,
-                 as.double(net$wts), H = double(nw*nw))$H,
+                 as.double(net$wts), H = double(nw*nw), PACKAGE = "nnet")$H,
               nw, nw)
-  .C("VR_unset_net")
+  .C("VR_unset_net", PACKAGE = "nnet")
   z
 }
 

@@ -9,7 +9,7 @@ Ecological Factors in Farm Management
 \description{
 The \code{farms} data frame has 20 rows and 4 columns. The rows are farms
 on the Dutch island of Terschelling and the columns are factors
-describing the management of grassland. 
+describing the management of grassland.
 }
 \usage{
 data(farms)
@@ -28,24 +28,21 @@ hobby farming, \code{NM} = nature conservation).
 Grassland use (\code{U1} = hay production, \code{U2} = intermediate, \code{U3} = grazing)
 }
 \item{\code{Manure}}{
-Manure usage -- classes C0 to C4.
+Manure usage -- classes \code{C0} to \code{C4}.
 }}}
 \source{
-J.C. Gower and D.J. Hand (1996)
-\emph{Biplots}
-Chapman & Hall, Table 4.6. 
+J.C. Gower and D.J. Hand (1996) \emph{Biplots}. Chapman & Hall, Table 4.6.
 
-
-Quoted as from:
+Quoted as from:\cr
 R.H.G. Jongman, C.J.F. ter Braak and O.F.R. van Tongeren (1987)
 \emph{Data Analysis in Community and Landscape Ecology.}
 PUDOC, Wageningen
 }
 \examples{
 data(farms)
-farms.mca <- mca(farms, abbrev=TRUE)  # Use levels as names
-eqscplot(farms.mca$cs, type="n")
-text(farms.mca$rs, cex=0.7)
-text(farms.mca$cs, labels=dimnames(farms.mca$cs)[[1]], cex=0.7)
+farms.mca <- mca(farms, abbrev = TRUE)  # Use levels as names
+eqscplot(farms.mca$cs, type = "n")
+text(farms.mca$rs, cex = 0.7)
+text(farms.mca$cs, labels = dimnames(farms.mca$cs)[[1]], cex = 0.7)
 }
 \keyword{datasets}

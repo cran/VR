@@ -9,7 +9,7 @@ Initialize a LVQ Codebook
 Construct an initial codebook for LVQ methods.
 }
 \usage{
-lvqinit(x, cl, size, prior, k=5)
+lvqinit(x, cl, size, prior, k = 5)
 }
 \arguments{
 \item{x}{
@@ -39,7 +39,7 @@ Selects \code{size} examples from the training set without replacement with
 proportions proportional to the prior or the original proportions.
 }
 \references{
-Kohonen, T. (1990) The self-organizing map.  
+Kohonen, T. (1990) The self-organizing map.
 \emph{Proc. IEEE }
 \bold{78}, 1464--1480.
 
@@ -53,9 +53,9 @@ Springer, Berlin.
 }
 \examples{
 data(iris3)
-train <- rbind(iris3[1:25,,1],iris3[1:25,,2],iris3[1:25,,3])
-test <- rbind(iris3[26:50,,1],iris3[26:50,,2],iris3[26:50,,3])
-cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
+train <- rbind(iris3[1:25,,1], iris3[1:25,,2], iris3[1:25,,3])
+test <- rbind(iris3[26:50,,1], iris3[26:50,,2], iris3[26:50,,3])
+cl <- factor(c(rep("s",25), rep("c",25), rep("v",25)))
 cd <- lvqinit(train, cl, 10)
 lvqtest(cd, train)
 cd1 <- olvq1(train, cl, cd)

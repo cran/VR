@@ -1,6 +1,5 @@
 glmmPQL <- function(fixed, random, family, data, correlation, weights,
-                    control,
-                    niter = 10, verbose = TRUE, ...)
+                    control, niter = 10, verbose = TRUE, ...)
 {
     ## family
     if(is.character(family)) family <- get(family)
@@ -15,7 +14,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     for(i in nm[!keep]) m[[i]] <- NULL
     allvars <- c(all.vars(fixed), all.vars(random))
     m$formula <- as.formula(paste("~", paste(allvars, collapse="+")))
-    m$drop.unused.levels <- T
+    m$drop.unused.levels <- TRUE
     m[[1]] <- as.name("model.frame")
     mf <- eval(m, parent.frame())
     off <- model.extract(mf, "offset")
@@ -29,7 +28,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     zz <- eta + fit0$residuals
     wz <- fit0$weights
     fam <- family
-    ## na.action fix here
+
     nm <- names(mcall)[-1]
     keep <- is.element(nm, c("fixed", "random", "data", "subset",
                              "na.action", "control"))
@@ -45,6 +44,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     mf$zz <- zz
     mf$invwt <- 1/wz
     mcall$data <- mf
+
     for(i in 1:niter) {
         if(verbose) cat("iteration", i, "\n")
         fit <- eval(mcall)

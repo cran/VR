@@ -21,7 +21,7 @@ Fitted model object of class \code{nls}.  The model must be fitted using the
 default algorithm.
 }
 }
-\value{  
+\value{
 A list of class \code{rms.curv} with components \code{pc} and \code{ic}
 for parameter effects and intrinsic relative curvatures multiplied by
 sqrt(F), \code{ct} and \code{ci} for \eqn{c^\theta} and \eqn{c^\iota} (unmultiplied),
@@ -41,7 +41,7 @@ If either \code{pc} or \code{ic} exceeds some threshold (0.3 has been
 suggested) the curvature is unacceptably high for the planar assumption.
 }
 \references{
-Bates, D. M, and Watts, D. G. (1988) 
+Bates, D. M, and Watts, D. G. (1988)
 \emph{Nonlinear Regression Analysis and its Applications.}
 Wiley, New York.
 }
@@ -51,13 +51,13 @@ Wiley, New York.
 \examples{
 # The treated sample from the Puromycin data
 data(Puromycin)
-mmcurve <- deriv3(~ Vm * conc/(K + conc), c("Vm", "K"), 
+mmcurve <- deriv3(~ Vm * conc/(K + conc), c("Vm", "K"),
                   function(Vm, K, conc) NULL)
 Treated <- Puromycin[Puromycin$state == "treated", ]
 (Purfit1 <- nls(rate ~ mmcurve(Vm, K, conc), data = Treated,
                 start = list(Vm=200, K=0.1)))
 rms.curv(Purfit1)
-##Parameter effects: c^theta x sqrt(F) = 0.2121 
-##        Intrinsic: c^iota  x sqrt(F) = 0.092 
+##Parameter effects: c^theta x sqrt(F) = 0.2121
+##        Intrinsic: c^iota  x sqrt(F) = 0.092
 }
 \keyword{nonlinear}

@@ -14,8 +14,8 @@ the gamma distribution after fitting a \code{Gamma} generalized
 linear model.
 }
 \usage{
-gamma.shape.glm(object, it.lim=10, 
-                eps.max=.Machine$double.eps^0.25, verbose=FALSE, \dots)
+gamma.shape.glm(object, it.lim = 10,
+                eps.max = .Machine$double.eps^0.25, verbose = FALSE, \dots)
 }
 \arguments{
 \item{object}{
@@ -27,7 +27,7 @@ Upper limit on the number of iterations.
 }
 \item{eps.max}{
 Maximum discrepancy between approximations for the iteration
-process to continue. 
+process to continue.
 }
 \item{verbose}{
 If \code{TRUE}, causes successive iterations to be printed out.  The
@@ -37,7 +37,7 @@ initial estimate is taken from the deviance.
 further arguments passed to or from other methods.
 }}
 \value{
-List of two components 
+List of two components
 
 \item{alpha}{
 the maximum likelihood estimate
@@ -62,23 +62,23 @@ clotting <- data.frame(
     u = c(5,10,15,20,30,40,60,80,100),
     lot1 = c(118,58,42,35,27,25,21,19,18),
     lot2 = c(69,35,26,21,18,16,13,12,12))
-clot1 <- glm(lot1 ~ log(u), data=clotting, family=Gamma)
+clot1 <- glm(lot1 ~ log(u), data = clotting, family = Gamma)
 gamma.shape(clot1)
-\dontrun{           
+\dontrun{
 Alpha: 538.13
    SE: 253.60
 }
 data(quine)
-gm <- glm(Days + 0.1 ~ Age*Eth*Sex*Lrn, 
-		quasi(link=log, variance=mu^2), quine, start=rep(0,32))
-gamma.shape(gm, verbose=TRUE)
+gm <- glm(Days + 0.1 ~ Age*Eth*Sex*Lrn,
+		quasi(link=log, variance=mu^2), quine, start = rep(0,32))
+gamma.shape(gm, verbose = TRUE)
 \dontrun{
-Initial estimate: 1.0603 
-Iter.  1  Alpha: 1.23840774338543 
-Iter.  2  Alpha: 1.27699745778205 
-Iter.  3  Alpha: 1.27834332265501 
-Iter.  4  Alpha: 1.27834485787226 
-               
+Initial estimate: 1.0603
+Iter.  1  Alpha: 1.23840774338543
+Iter.  2  Alpha: 1.27699745778205
+Iter.  3  Alpha: 1.27834332265501
+Iter.  4  Alpha: 1.27834485787226
+
 Alpha: 1.27834
    SE: 0.13452
 }

@@ -2,10 +2,6 @@
 #  define RANDIN  seed_in((long *)NULL, S_evaluator)
 #  define RANDOUT seed_out((long *)NULL, S_evaluator)
 #  define UNIF unif_rand(S_evaluator)
-#elif( defined(SPLUS_VERSION) && SPLUS_VERSION >= 5000 )
-#  define RANDIN  seedin((long *)NULL, S_evaluator)
-#  define RANDOUT seedout((long *)NULL, S_evaluator)
-#  define UNIF unif_rand(S_evaluator)
 #else
 #  define RANDIN  seed_in((long *)NULL)
 #  define RANDOUT seed_out((long *)NULL)

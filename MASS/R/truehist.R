@@ -1,5 +1,5 @@
 # file MASS/truehist.q
-# copyright (C) 1994-2001 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 #
 "truehist"<-
 function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
@@ -14,7 +14,7 @@ function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
         if(is.character(nbins))
             nbins <- switch(casefold(nbins),
                             scott = nclass.scott(data),
-                            "freedman-diaconis" = , fd = nclass.fd(data)
+                            "freedman-diaconis" = , fd = nclass.FD(data)
                             )
         h <- diff(pretty(data, nbins))[1]
     }

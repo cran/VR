@@ -9,7 +9,7 @@ Set Domain for Spatial Point Pattern Analyses
 Sets the rectangular domain \code{(xl, xu)}  x  \code{(yl, yu)}.
 }
 \usage{
-ppregion(xl=0, xu=1, yl=0, yu=1)
+ppregion(xl = 0, xu = 1, yl = 0, yu = 1)
 }
 \arguments{
 \item{xl}{

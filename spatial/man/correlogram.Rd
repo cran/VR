@@ -9,7 +9,7 @@ Compute Spatial Correlograms
 Compute spatial correlograms of spatial data or residuals.
 }
 \usage{
-correlogram(krig, nint, plotit=TRUE,  \dots)
+correlogram(krig, nint, plotit = TRUE,  \dots)
 }
 \arguments{
 \item{krig}{

@@ -53,12 +53,12 @@ subjects, and \code{Pima.te} contains the remaining 322 subjects.
 the explanatory variables.
 }
 \source{
-Smith, J. W., Everhart, J. E., Dickson, W. C., Knowler, W. C. 
+Smith, J. W., Everhart, J. E., Dickson, W. C., Knowler, W. C.
 and Johannes, R. S. (1988)
-Using the ADAP learning algorithm to forecast the onset of diabetes
-mellitus.
+Using the ADAP learning algorithm to forecast the onset of
+\emph{diabetes mellitus}.
 In
-\emph{Proceedings of the Symposium on Computer Applications in Medical Care (Washington, 1988), }
+\emph{Proceedings of the Symposium on Computer Applications in Medical Care (Washington, 1988),}
 ed. R. A. Greenes, pp. 261--265.
 Los Alamitos, CA: IEEE Computer Society Press.
 

@@ -11,7 +11,7 @@ Used to compute coordinates for additional rows or additional factors
 in a multiple correspondence analysis.
 }
 \usage{
-\method{predict}{mca}(object, newdata, type=c("row", "factor"), \dots)
+\method{predict}{mca}(object, newdata, type = c("row", "factor"), \dots)
 }
 \arguments{
 \item{object}{
@@ -33,7 +33,7 @@ If \code{type = "row"}, the coordinates for the additional rows.
 
 
 If \code{type = "factor"}, the coordinates of the column vertices for the
-levels of the new factors. 
+levels of the new factors.
 }
 \seealso{
 \code{\link{mca}}, \code{\link{plot.mca}}

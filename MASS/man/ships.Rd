@@ -9,7 +9,7 @@ Ships Damage Data
 \description{
 Data frame giving the number of damage incidents and aggregate
 months of service by ship type,
-year of construction, and period of operation. 
+year of construction, and period of operation.
 }
 \usage{
 data(ships)
@@ -20,7 +20,7 @@ data(ships)
 type: \code{"A"} to \code{"E"}
 }
 \item{\code{year}}{
-year of construction: 1960-64, 65-69, 70-74, 75-79 
+year of construction: 1960-64, 65-69, 70-74, 75-79
 (coded as \code{"60"}, \code{"65"}, \code{"70"}, \code{"75"})
 }
 \item{\code{period}}{

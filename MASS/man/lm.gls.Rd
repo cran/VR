@@ -10,12 +10,12 @@ Fit Linear Models by Generalized Least Squares
 Fit linear models by Generalized Least Squares
 }
 \usage{
-lm.gls(formula, data, W, subset, na.action, inverse=FALSE, method="qr", 
-       model=FALSE, x=FALSE, y=FALSE, contrasts=NULL, \dots)
+lm.gls(formula, data, W, subset, na.action, inverse = FALSE, method = "qr",
+       model = FALSE, x = FALSE, y = FALSE, contrasts = NULL, \dots)
 }
 \arguments{
 \item{formula}{
-a formula expression as for regression models, of the form 
+a formula expression as for regression models, of the form
 \code{response ~ predictors}.
 See the documentation of \code{formula} for other details.
 }
@@ -62,6 +62,6 @@ An object of class \code{"lm"}, with additional class \code{"lm.gls"}
 The problem is transformed to uncorrelated form and passed to \code{lm.fit}.
 }
 \seealso{
-\code{\link{lm}}, \code{\link{lm.ridge}}
+  \code{\link[nlme]{gls}}, \code{\link{lm}}, \code{\link{lm.ridge}}
 }
 \keyword{models}

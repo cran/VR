@@ -1,262 +1,187 @@
 #-*- R -*-
 
-# Chapter 3   Graphical Output
+# Chapter 3   S Language
 
 library(MASS)
-postscript(file="ch03.ps", width=8, height=6, pointsize=9)
-options(width=65, digits=5)
+options(echo = T, width=65, digits=5, height=9999)
+
+# from Chapter 2
+
+powers.of.pi <- pi^(-2:2)
+names(powers.of.pi) <- -2:2
+mymat <- matrix(1:30, 3, 10)
+myarr <- mymat
+dim(myarr) <- c(3, 5, 2)
+dimnames(myarr) <- list(letters[1:3], NULL, c("(i)", "(ii)"))
 
 
-# 3.2  Basic plotting functions
+# 3.1  Language layout
 
-data(mdeaths); data(fdeaths)
-library(ts)
-lung.deaths <- aggregate(ts.union(mdeaths, fdeaths), 1)
-barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
-   main="UK deaths from lung disease")
-if(interactive())
-    legend(locator(1), c("Males", "Females"), fill=c(2,3))
-loc <- barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
-               angle = c(45, 135), density = 10, col = 1)
-total <- apply(lung.deaths, 1, sum)
-text(loc, total + par("cxy")[2], total, cex=0.7, xpd=T)
+1 - pi + exp(1.7)
 
-# if(interactive())  brush(as.matrix(hills))
+a <- 6
 
-library(modreg)
-data(topo)
-topo.loess <- loess(z ~ x * y, topo, degree=2, span = 0.25)
-topo.mar <- list(x = seq(0, 6.5, 0.2), y=seq(0, 6.5, 0.2))
-topo.lo <- predict(topo.loess, expand.grid(topo.mar))
-topo.lo <- matrix(topo.lo, length(topo.mar$x),length(topo.mar$y))
-par(pty="s")       # square plot
-contour(topo.mar$x, topo.mar$y, topo.lo, xlab="", ylab="",
-   levels = seq(700,1000,25), cex=0.7)
-points(topo$x, topo$y)
-par(pty="m")
-if(F) { # contourplot does not work yet
-contourplot(z ~ x * y, con2tr(c(topo.mar, list(z=topo.lo))), aspect=1,
-   at = seq(700, 1000, 25), xlab="", ylab="",
-   panel = function(x, y, subscripts, ...) {
-      panel.contourplot(x, y, subscripts, ...)
-      panel.xyplot(topo$x,topo$y, cex=0.5)
-   }
-)
-}
+b <- a <- 6
 
+(z <- 1 - pi + exp(1.7))
 
-# 3.3  Enhancing plots
+search()
 
-data(wtloss)
-attach(wtloss)
-oldpar <- par(no.readonly=TRUE)
-# alter margin 4; others are default
-par(mar=c(5.1, 4.1, 4.1, 4.1))
-plot(Days, Weight, type="p",ylab="Weight (kg)")
-Wt.lbs <- pretty(range(Weight*2.205))
-axis(side=4, at=Wt.lbs/2.205, lab=Wt.lbs, srt=90)
-mtext("Weight (lb)", side=4, line=3)
-detach()
-par(oldpar)
+objects()
 
+objects(2)
 
-# 3.4  Fine control of graphics
+find("objects")
 
-# dataset swiss is done differently in R
-data(swiss)
-swiss.df <- swiss
-attach(swiss.df)
-qqnorm(Infant.Mortality)
-qqline(Infant.Mortality)
-
-samp <- cbind(Infant.Mortality, matrix(rnorm(47*19), 47, 19))
-samp <- apply(scale(samp), 2, sort)
-rs <- samp[,1]
-xs <- qqnorm(rs, plot=F)$x
-env <- t(apply(samp[,-1], 1, range))
-
-matplot(xs, cbind(rs,env), type="pnn", pch=4, mkh=0.06, axes=FALSE,
-        xlab="", ylab="")
-
-xyul <- par("usr")
-smidge <- min(diff(c(xyul[1], xs, xyul[2])))/2
-segments(xs-smidge, env[,1], xs+smidge, env[,1])
-segments(xs-smidge, env[,2], xs+smidge, env[,2])
-
-xul <- trunc(10*xyul[1:2])/10
-axis(1, at=seq(xul[1], xul[2], by=0.1), labels=FALSE, tck=0.01)
-xi <- trunc(xyul[1:2])
-axis(1, at=seq(xi[1], xi[2], by=0.5), tck=0.02)
-yul <- trunc(5*xyul[3:4])/5
-axis(2, at=seq(yul[1], yul[2], by=0.2), labels=FALSE, tck=0.01)
-yi <- trunc(xyul[3:4])
-axis(2, at=yi[1]:yi[2], tck=0.02)
-
-box(bty="l")          # lower case "L"
-# ps.options()$fonts
-# R cannot change font family in a plot.
-mtext("Quantiles of Standard Normal", side=1, line=2.5, font=3)
-mtext("Ri", side=2, line=2, at=yul[2])
-detach()
-dev.off()
-
-
-# 3.5  Trellis graphics
-
-library(lattice)
-trellis.device(postscript, file="ch03b.ps", width=8, height=6, pointsize=9)
-
-if(F){
-# trellis.device()
-p1 <- histogram(geyser$waiting)
-p1     # plots it on screen
-
-show.settings()
-}
+get("[<-.data.frame", pos = 2)
 
 data(hills)
-library(lqs)
-
-xyplot(time ~ dist, data = hills,
-  panel = function(x, y, ...) {
-     panel.xyplot(x, y, ...)
-     panel.lmline(x, y, type="l")
-     panel.abline(ltsreg(x, y), lty=3)
-#     identify(x, y, row.names(hills)) ## no lattice equivalent
-  }
-)
-
-data(michelson)
-bwplot(Expt ~ Speed, data=michelson, ylab="Experiment No.")
-# title("Speed of Light Data") ## fails in lattice
-
-lung.deaths.df <- data.frame(year = rep(1974:1979, 2),
-  deaths = c(lung.deaths[, 1], lung.deaths[ ,2]),
-  sex = rep(c("Male", "Female"), rep(6,2)))
-barchart(year ~ deaths | sex, lung.deaths.df, xlim=c(0, 20000))
-
-splom(~ swiss.df, aspect="fill",
-   panel = function(x, y, ...) {
-      panel.xyplot(x, y, ...)
-      panel.loess(x, y, ...)
-   }
-)
-
-data(stormer)
-sps <- trellis.par.get("superpose.symbol")
-sps$pch <- 1:7
-trellis.par.set("superpose.symbol", sps)
-xyplot(Time ~ Viscosity, stormer, groups = Wt,
-   panel = panel.superpose, type = "b",
-   key = list(columns = 3,
-       text = list(paste(c("Weight:   ", "", ""),
-                         unique(stormer$Wt), "gms")),
-       points = Rows(sps, 1:3)
-       )
-)
-rm(sps)
-
-if(F) {
-## very slow, incorrect so far
-topo.plt <- expand.grid(topo.mar)
-topo.plt$pred <- as.vector(predict(topo.loess, topo.plt))
-levelplot(pred ~ x * y, topo.plt, aspect=1,
-  at = seq(690, 960, 10), xlab="", ylab="",
-  panel = function(x, y, subscripts, ...) {
-     panel.levelplot(x, y, subscripts, ...)
-     panel.xyplot(topo$x,topo$y, cex=0.5, col=1)
-  }
-)
-}
-
-if(F) {
-wireframe(pred ~ x * y, topo.plt, aspect=c(1, 0.5), drape=T,
-  screen = list(z = -150, x = -60),
-  colorkey=list(space="right", height=0.6))
-}
-
-data(crabs)
-library(mva)
-lcrabs.pc <- predict(princomp(log(crabs[,4:8])))
-crabs.grp <- c("B", "b", "O", "o")[rep(1:4, rep(50,4))]
-splom(~ lcrabs.pc[, 1:3], groups = crabs.grp,
-   panel = panel.superpose,
-   key = list(text = list(c("Blue male", "Blue female",
-                           "Orange Male", "Orange female")),
-       points = Rows(trellis.par.get("superpose.symbol"), 1:4),
-       columns = 4)
-  )
-
-sex <- crabs$sex; levels(sex) <- c("Female", "Male")
-sp <- crabs$sp; levels(sp) <- c("Blue", "Orange")
-splom(~ lcrabs.pc[, 1:3] | sp*sex, cex=0.5, pscales=0)
+# hills <- hills  # only needed in S-PLUS
+hills$ispeed <- hills$time/hills$dist
 
 
-data(quine)
-Quine <- quine
-levels(Quine$Eth) <- c("Aboriginal", "Non-aboriginal")
-levels(Quine$Sex) <- c("Female", "Male")
-levels(Quine$Age) <- c("primary", "first form",
-                       "second form", "third form")
-levels(Quine$Lrn) <- c("Average learner", "Slow learner")
-bwplot(Age ~ Days | Sex*Lrn*Eth, data=Quine)
+# 3.2  More on S objects
 
-bwplot(Age ~ Days | Sex*Lrn*Eth, data=Quine, layout=c(4,2))
+length(letters)
 
-stripplot(Age ~ Days | Sex*Lrn*Eth, data=Quine,
-   jitter = T, layout = c(4,2))
+Empl <- list(employee = "Anna", spouse = "Fred", children = 3,
+            child.ages = c(4, 7, 9))
 
-stripplot(Age ~ Days | Eth*Sex, data=Quine,
-   groups = Lrn, jitter=T,
-   panel = function(x, y, subscripts, jitter.data=F, ...) {
-       if(jitter.data)  y <- jitter(y)
-       panel.superpose(x, y, subscripts, ...)
-   },
-   xlab = "Days of absence",
-   between = list(y=1), par.strip.text = list(cex=1.2),
-   key = list(columns = 2, text = list(levels(Quine$Lrn)),
-       points = Rows(trellis.par.get("superpose.symbol"), 1:2)
-       ),
-   strip = function(...)
-             strip.default(..., strip.names=c(T, T), style=1)
-)
+Empl$employee
+Empl$child.ages[2]
 
-data(fgl)
-fgl0 <- fgl[ ,-10] # omit type.
-fgl.df <- data.frame(type = rep(fgl$type, 9),
-  y = as.vector(as.matrix(fgl0)),
-  meas = factor(rep(1:9, rep(214,9)), labels=names(fgl0)))
-stripplot(type ~ y | meas, data=fgl.df, scales=list(x="free"),
-  strip=function(...) strip.default(style=1, ...), xlab="")
+x <- "spouse"; Empl[[x]]
 
-Cath <- equal.count(swiss.df$Catholic, number=2, overlap=0)
-Agr5 <- equal.count(swiss.df$Agric, number=5, overlap=0.25)
-xyplot(Fertility ~ Education | Agr5 * Cath, data=swiss.df,
-          layout=c(2,3), skip = c(F,F,F,F,F,T))
+unlist(Empl)
+unlist(Empl, use.names = F)
 
-# reorder.factor(Quine$Age, Quine$Days, median)
+attributes(myarr)
+attr(myarr, "dim")
 
-Cath <- equal.count(swiss.df$Catholic, number=6, overlap=0.25)
-xyplot(Fertility ~ Education | Cath, data=swiss.df,
-   panel = function(x, y) {
-      panel.xyplot(x, y)
-      panel.loess(x, y)
-   }
-)
+Empl <- c(Empl, service = 8)
 
-Cath <- equal.count(swiss.df$Catholic, number=2, overlap=0)
-Agr <- equal.count(swiss.df$Agric, number=3, overlap=0.25)
-xyplot(Fertility ~ Education | Cath * Agr, data=swiss.df,
-   panel = function(x, y) {
-      panel.xyplot(x, y)
-      panel.loess(x, y)
-   }
-)
+c(list(x = 1:3, a = 3:6), list(y = 8:23, b = c(3, 8, 39)))
 
-Cath <- equal.count(swiss.df$Cath, number=6, overlap=0.25)
-Cath
-levels(Cath)
-plot(Cath, aspect = 0.3)
+library(methods)
+as(powers.of.pi, "vector")
+as(powers.of.pi, "numeric")
+is(powers.of.pi, "numeric")
+as(powers.of.pi, "character")
+is(powers.of.pi, "vector")
+as(powers.of.pi, "integer")
+is(mymat, "array")
 
+
+# 3.3  Arithmetical expressions
+
+x <- c(10.4, 5.6, 3.1, 6.4, 21.7)
+y <- c(x, x)
+v <- 2 * x + y + 1
+
+
+s3 <- seq(-5, 5, by = 0.2)
+s4 <- seq(length = 51, from = -5, by = 0.2)
+
+s5 <- rep(x, times = 5) # repeat whole vector
+s5 <- rep(x, each = 5)  # repeat element-by-element
+
+x <- 1:4          # puts c(1,2,3,4)             into x
+i <- rep(2, 4)    # puts c(2,2,2,2)             into i
+y <- rep(x, 2)    # puts c(1,2,3,4,1,2,3,4)     into y
+z <- rep(x, i)    # puts c(1,1,2,2,3,3,4,4)     into z
+w <- rep(x, x)    # puts c(1,2,2,3,3,3,4,4,4,4) into w
+
+( colc <- rep(1:3, each = 8) )
+( rowc <- rep(rep(1:4, each = 2), 3) )
+
+1 + (ceiling(1:24/8) - 1) %% 3 -> colc; colc
+1 + (ceiling(1:24/2) - 1) %% 4 -> rowc; rowc
+# or
+gl(3, 8)
+gl(4, 2, 24)
+
+
+# 3.4  Character vector operations
+
+paste(c("X", "Y"), 1:4)
+paste(c("X", "Y"), 1:4, sep = "")
+
+paste(c("X", "Y"), 1:4, sep = "", collapse = " + ")
+
+
+data(state)
+substring(state.name[44:50], 1, 4)
+
+as.vector(abbreviate(state.name[44:50]))
+as.vector(abbreviate(state.name[44:50], use.classes = F))
+
+grep("na$", state.name)
+regexpr("na$", state.name)
+state.name[regexpr("na$", state.name)> 0]
+
+
+# 3.5  Formatting and printing
+
+d <- date()
+cat("Today's date is:", substring(d, 1, 10),
+                         substring(d, 25, 28), "\n")
+
+cat(1, 2, 3, 4, 5, 6, fill = 8, labels = letters)
+
+cat(powers.of.pi, "\n")
+format(powers.of.pi)
+cat(format(powers.of.pi), "\n", sep="  ")
+
+
+# 3.6  Calling conventions for functions
+
+args(hist.default)
+
+
+# 3.8  Control stuctures
+
+yp <- rpois(50, lambda = 1) # full Poisson sample of size 50
+table(yp)
+y <- yp[yp > 0]             # truncate the zeros; n = 29
+
+ybar <- mean(y); ybar
+lam <- ybar
+it <- 0                     # iteration count
+del <- 1                    # iterative adjustment
+while (abs(del) > 0.0001 && (it <- it + 1) < 10) {
+   del <- (lam - ybar*(1 - exp(-lam)))/(1 - ybar*exp(-lam))
+   lam <- lam - del
+   cat(it, lam, "\n")}
+
+
+# 3.9  Array and matrix operations
+
+p <- dbinom(0:4, size = 4, prob = 1/3)  # an example
+CC <- -(p %o% p)
+diag(CC) <- p + diag(CC)
+structure(3^8 * CC, dimnames = list(0:4, 0:4))  # convenience
+
+data(iris3)
+apply(iris3, c(2, 3), mean)
+apply(iris3, c(2, 3), mean, trim = 0.1)
+apply(iris3, 2, mean)
+
+ir.var <- apply(iris3, 3, var)
+
+ir.var <- array(ir.var, dim = dim(iris3)[c(2, 2, 3)],
+                dimnames = dimnames(iris3)[c(2, 2, 3)])
+
+matrix(rep(1/50, 50) %*% matrix(iris3, nrow = 50), nrow = 4,
+        dimnames = dimnames(iris3)[-1])
+
+ir.means <- colMeans(iris3)
+sweep(iris3, c(2, 3), ir.means)
+log(sweep(iris3, c(2, 3), ir.means, "/"))
+
+
+# 3.10  Introduction to classes and methods
+
+methods(summary)
 
 # End of ch03
+

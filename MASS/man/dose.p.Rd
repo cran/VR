@@ -8,7 +8,7 @@ Predict Doses for Binomial Assay model
 Calibrate binomial assays, generalizing the calculation of LD50.
 }
 \usage{
-dose.p(obj, cf=1:2, p=0.5)
+dose.p(obj, cf = 1:2, p = 0.5)
 }
 \arguments{
 \item{obj}{
@@ -26,20 +26,19 @@ An object of class \code{"glm.dose"} giving the prediction and standard
 error at each response probability.
 }
 \references{
-Venables, W. N. and Ripley, B. D. (1999)
-\emph{Modern Applied Statistics with S-PLUS.}
-Springer, pages 218--222.
+Venables, W. N. and Ripley, B. D. (2002)
+\emph{Modern Applied Statistics with S.}
+Springer.
 }
 \examples{
 ldose <- rep(0:5, 2)
 numdead <- c(1, 4, 9, 13, 18, 20, 0, 2, 6, 10, 12, 16)
 sex <- factor(rep(c("M", "F"), c(6, 6)))
-SF <- cbind(numdead, numalive=20-numdead)
-budworm.lg0 <- glm(SF ~ sex + ldose - 1, family=binomial)
-
+SF <- cbind(numdead, numalive = 20 - numdead)
+budworm.lg0 <- glm(SF ~ sex + ldose - 1, family = binomial)
 
 dose.p(budworm.lg0, cf = c(1,3), p = 1:3/4)
-dose.p(update(budworm.lg0, family=binomial(link=probit)),
+dose.p(update(budworm.lg0, family = binomial(link=probit)),
        cf = c(1,3), p = 1:3/4)
 }
 \keyword{regression}

@@ -1,20 +1,9 @@
-Software and datasets to support `Modern Applied Statistics with
-S-PLUS', third edition, by W. N. Venables and B. D. Ripley.
-Springer, 1999, ISBN 0-387-98825-4.
+Software and datasets to support `Modern Applied Statistics with S',
+fourth edition, by W. N. Venables and B. D. Ripley.
+Springer, 2002, ISBN 0-387-95457-0.
 
-This file documents software changes since the second edition
-=============================================================
+This file documents software changes since the third edition.
 
-
-Version 5.1 (Jul 1997) was the software release for the second edition.
-Version 5.2 (Jan 1998) mainly differed in explicit copyright claims.
-Version 5.3 (Mar 1998) has rewritten nnet code to use less memory and 
-  to use double precision for all internal calculations. This may lead
-  to a different local minimum being found.  Separate version for 
-  S-PLUS 5.0 (Dec 1998).
-
-Version 6.0 (Jan 1999) pre-release for the third edition, adds ppr and lqs, 
-  addterm, dropterm, enhanced rlm and stepAIC. Support for S-PLUS 5.x.
 
 Version 6.1 (Apr 1999) release for the third edition. Support for S-PLUS
   5.1 and 2000, added more na-handling.
@@ -24,67 +13,29 @@ Version 6.2 (Aug 2000) tidy up documentation.  Would be 6.1pl010, but that
   (Oct 2000) support for S-PLUS 6.0 for Unix.
   (July 2001) support for S-PLUS 6.0 for Windows.
 
+Version 6.3 (Dec 2001) add material destined for fourth edition.
 
-The na-handling methods of S-PLUS 2000 have been incorporated. With most
-fitting methods, if na.action=na.exclude then the fitted values, residuals
-and predictions (without newdata) are filled with NAs. For ppr, multinom 
-and nnet, predictions with newdata are also filled with NAs.
-
-In earlier versions of S-PLUS na.exclude is not available. There is
-one change: if library MASS is attached ahead of survival4/5 and
-na.omit is used, residuals will no longer be filled with NAs (this is
-the behaviour of S-PLUS 2000).
-
-The improved prediction methods of S-PLUS 2000 (that we supplied) are
-incorporated, for that version and 6, so prediction involving factor
-variables will be safer.
+Version 7.0 (Mar 2002) pre-release for the fourth edition.  S-PLUS 6.x
+  and R only.
 
 
 Library MASS
 ------------
 
-- Revised biplot method for PCA, and a method for correspondence analysis.
-- plot and pairs methods for lda fits.
-- deriv/deriv3 will handle gamma, lgamma and digamma.
-- cross-validation methods for lda, qda and predict.qda.
-- corrected predict.glm to handle known dispersion.
-
-- enhanced stepAIC with fast code for linear least-squares methods, 
-  use.start argument and option to change the penalty factor in AIC.
-- addterm and dropterm to replace add1 and drop1, with added features 
-  and default methods.
-- lqs for lmsreg, ltsreg and S-estimation.
-- enhanced rlm, including MM-estimation. The old rlm is available as orlm
-  for backward compatibility.
-- ppr for projection pursuit regression (formerly in a separate library, 
-  now in double precision). predict.ppr handles NAs in newdata.
-- loglm now works with addterm, dropterm, stepAIC.
-- polr for proportional odds logistic regression.
-- functions lm.gls and lm.ridge from the on-line answers.
-- max.col transferred from nnet allows missing values.
-
-- new datasets anorexia, cabbages, eagles, housing, muscle, whiteside.
-- dataset Insurance has informative levels.
 
 - eqscplot has new arguments ratio and uin.
 - stepAIC will not drop strata terms in coxph or survreg models.
 - profile.glm will report inadequate supplied glm fits, not just fail.
 - new method confint.lm.
 - fractions/rational allow missing values.
-- stepAIC/addterm/dropterm now work with survReg as well as survreg fits.
 - mvrnorm has an `empirical' argument.
 - predict.lda and predict.qda try harder to avoid exponential underflow.
 
 - new function fitdistr for ML estimation of univariate distributions.
-- new function glmmPQL to use lme to fit GLMMs by PQL (S+6 and R only)
+- new function glmmPQL to use lme to fit GLMMs by PQL
 - truehist allows rule for nbins to be specified as a character string.
-
-- relevel function (not R, where it is built in).
 - parcoord function.
-- mosaicplot function (not R, where it is built in).
-
 - new datasets bacteria, epil, nlschools, SP500
-- time series wrapper functions VRarima and diagnostics.
 
 
 Library class
@@ -97,16 +48,6 @@ Library class
 Library nnet
 ------------
 
-- `censored' argument for nnet.
-- no hard limits on the net size -- but see argument MaxNWts.
-- acctol and reltol are now user-settable arguments.
-- internal calculations are now entirely in double precision.
-- vcov.multinom now uses a generalized inverse for singular fits.
-- classes nnet and multinom now have a residuals component.
-- anova, deviance and residuals methods.
-- at least 2 decimal places when printing deviance and AIC.
-- predict methods allow missing values in newdata.
-- max.col moved to MASS.
 - no copying of datasets even in R.
 - model.frame method for multinom (even in R).
 
@@ -114,21 +55,5 @@ Library nnet
 Library spatial
 ---------------
 
-- No limit on nx in surf.gls. Large interpolation tables are no longer
-  stored in the object but re-created when needed, so the objects are
-  smaller.
-
 - Methods for class "surf.ls" contributed by Roger Bivand.
-
 - surf.ls and surf.gls now check for x,y,z cols in a data frame given for x.
-
-
-Library treefix
----------------
-
-A more general version of the replacement code for prune.tree,
-predict.tree and na.replace.tree supplied to StatSci for S-PLUS 3.4
-and later.  This version is incorporated in S-PLUS 2000, 5.1 and 6.
-
-- prune.tree/prune.misclass will now use losses as well as the number
-  of misclassifications.

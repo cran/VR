@@ -33,9 +33,9 @@ For the \code{nclass.*} functions, the suggested number of classes.
 Plot a histogram.
 }
 \references{
-Venables, W. N. and Ripley, B. D. (1999)
-\emph{Modern Applied Statistics with S-PLUS.}
-Springer, pages 118--9.
+Venables, W. N. and Ripley, B. D. (2002)
+\emph{Modern Applied Statistics with S.}
+Springer.
 }
 \seealso{
 \code{\link{hist}}

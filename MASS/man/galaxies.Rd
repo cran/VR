@@ -18,25 +18,24 @@ by superclusters and voids in galaxies.
 \emph{Journal of the American Statistical Association}
 \bold{85}, 617--624.
 
-
 Postman, M., Huchra, J. P. and Geller, M. J. (1986)
 Probes of large-scale structures in the Corona Borealis region.
 \emph{Astrophysical Journal}
 \bold{92}, 1238--1247.
 }
 \note{
-There is an 83rd measurement of 5607 km/sec in the Postman 
-\emph{et al.} paper which is omitted in Roeder (1990) and from the 
+There is an 83rd measurement of 5607 km/sec in the Postman
+\emph{et al.} paper which is omitted in Roeder (1990) and from the
 dataset here.
 }
 \examples{
 data(galaxies)
 gal <- galaxies/1000
-c(width.SJ(gal, method="dpi"), width.SJ(gal))
-plot(x=c(0, 40), y=c(0, 0.3), type="n", bty="l",
-     xlab="velocity of galaxy (1000km/s)", ylab="density")
+c(width.SJ(gal, method = "dpi"), width.SJ(gal))
+plot(x = c(0, 40), y = c(0, 0.3), type = "n", bty = "l",
+     xlab = "velocity of galaxy (1000km/s)", ylab = "density")
 rug(gal)
-lines(density(gal, width=3.25, n=200), lty=1)
-lines(density(gal, width=2.56, n=200), lty=3)
+lines(density(gal, width = 3.25, n = 200), lty = 1)
+lines(density(gal, width = 2.56, n = 200), lty = 3)
 }
 \keyword{datasets}

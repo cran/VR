@@ -9,7 +9,7 @@ Multiedit for k-NN Classifier
 Multiedit for k-NN classifier
 }
 \usage{
-multiedit(x, class, k=1, V=3, I=5, trace=TRUE)
+multiedit(x, class, k = 1, V = 3, I = 5, trace = TRUE)
 }
 \arguments{
 \item{x}{
@@ -43,9 +43,9 @@ Prentice-Hall, p. 115.
 }
 \examples{
 data(iris3)
-tr <- sample(1:50,25)
-train <- rbind(iris3[tr,,1],iris3[tr,,2],iris3[tr,,3])
-test <- rbind(iris3[-tr,,1],iris3[-tr,,2],iris3[-tr,,3])
+tr <- sample(1:50, 25)
+train <- rbind(iris3[tr,,1], iris3[tr,,2], iris3[tr,,3])
+test <- rbind(iris3[-tr,,1], iris3[-tr,,2], iris3[-tr,,3])
 cl <- factor(c(rep(1,25),rep(2,25), rep(3,25)), labels=c("s", "c", "v"))
 table(cl, knn(train, test, cl, 3))
 ind1 <- multiedit(train, cl, 3)

@@ -40,7 +40,7 @@ The observation at 22:20 is missing.
 \source{
 P. S. Reynolds (1994) Time-series analyses of beaver body temperatures.
 Chapter 11 of
-Lange, N., Ryan, L., Billard, L., Brillinger, D., Conquest, L. 
+Lange, N., Ryan, L., Billard, L., Brillinger, D., Conquest, L.
 and Greenhouse, J. eds (1994)
 \emph{Case Studies in Biometry.}
 New York: John Wiley and Sons.
@@ -53,7 +53,7 @@ library(ts)
 data(beav1)
 attach(beav1)
 beav1$hours <- 24*(day-346) + trunc(time/100) + (time\%\%100)/60
-plot(beav1$hours, beav1$temp, type="l", xlab="time", 
+plot(beav1$hours, beav1$temp, type="l", xlab="time",
    ylab="temperature", main="Beaver 1")
 usr <- par("usr"); usr[3:4] <- c(-0.2, 8); par(usr=usr)
 lines(beav1$hours, beav1$activ, type="s", lty=2)
@@ -62,16 +62,16 @@ activ <- ts(c(beav1$activ[1:82], NA, beav1$activ[83:114]), start=9.5, frequency=
 
 
 acf(temp[1:53])
-acf(temp[1:53], type="partial")
+acf(temp[1:53], type = "partial")
 ar(temp[1:53])
 act <- c(rep(0, 10), activ)
-X <- cbind(1, act=act[11:125], act1 = act[10:124], 
+X <- cbind(1, act = act[11:125], act1 = act[10:124],
           act2 = act[9:123], act3 = act[8:122])
 alpha <- 0.80
 stemp <- as.vector(temp - alpha*lag(temp, -1))
 sX <- X[-1, ] - alpha * X[-115,]
-beav1.ls <- lm(stemp ~ -1 + sX, na.action=na.omit)
-summary(beav1.ls, cor=FALSE)
+beav1.ls <- lm(stemp ~ -1 + sX, na.action = na.omit)
+summary(beav1.ls, cor = FALSE)
 detach("beav1"); rm(temp, activ)
 }
 \keyword{datasets}
