@@ -5,7 +5,7 @@
 \alias{summary.loglm}
 \alias{print.summary.loglm}
 \title{
-Summary Method Function for Objects of Class `loglm'
+Summary Method Function for Objects of Class 'loglm'
 }
 \description{
 Returns a summary list for log-linear models fitted by

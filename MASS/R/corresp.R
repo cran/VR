@@ -3,7 +3,7 @@
 #
 corresp <- function(x, ...) UseMethod("corresp")
 
-corresp.crosstabs <- function(x, ...)
+corresp.xtabs <- function(x, ...)
 {
   if((m <- length(dim(x))) > 2)
     stop(paste("Frequency table is", m, "dimensional"))

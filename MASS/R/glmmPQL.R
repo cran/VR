@@ -1,13 +1,13 @@
 glmmPQL <- function(fixed, random, family, data, correlation, weights,
                     control, niter = 10, verbose = TRUE, ...)
 {
-    if(!require(nlme)) stop("package nlme is essential")
+    if(!require("nlme")) stop("package nlme is essential")
     ## family
     if(is.character(family)) family <- get(family)
     if(is.function(family)) family <- family()
     if(is.null(family$family)) {
 	print(family)
-	stop("`family' not recognized")
+	stop("'family' not recognized")
     }
     m <- mcall <- Call <- match.call()
     nm <- names(m)[-1]
@@ -23,9 +23,9 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     m$drop.unused.levels <- TRUE
     m[[1]] <- as.name("model.frame")
     mf <- eval.parent(m)
-    off <- model.extract(mf, "offset")
+    off <- model.offset(mf)
     if(is.null(off)) off <- 0
-    w <-  model.extract(mf, "weights")
+    w <-  model.weights(mf)
     if(is.null(w)) w <- rep(1, nrow(mf))
     mf$wts <- w
     fit0 <- glm(formula=fixed, family=family, data=mf, weights = wts, ...)

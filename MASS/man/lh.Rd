@@ -1,7 +1,7 @@
 % file MASS/lh.d
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
-\name{lh}
+\name{lh-MASS}
 \alias{lh}
 \title{
 Luteinizing Hormone in Blood Samples
@@ -9,6 +9,9 @@ Luteinizing Hormone in Blood Samples
 \description{
 A regular time series giving the luteinizing hormone in blood
 samples at 10mins intervals from a human female, 48 samples.
+}
+\usage{
+data(lh)
 }
 \source{
 P.J. Diggle (1990)

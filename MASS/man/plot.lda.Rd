@@ -4,14 +4,14 @@
 \name{plot.lda}
 \alias{plot.lda}
 \title{
-Plot Method for Class `lda'
+Plot Method for Class 'lda'
 }
 \description{
 Plots a set of data on one, two or more linear discriminants.
 }
 \usage{
 \method{plot}{lda}(x, panel = panel.lda, \dots, cex = 0.7, dimen,
-     abbrev=FALSE, xlab = "LD1", ylab = "LD2")
+     abbrev = FALSE, xlab = "LD1", ylab = "LD2")
 }
 \arguments{
 \item{x}{

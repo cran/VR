@@ -1,7 +1,7 @@
 % file MASS/confint.d
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
-\name{confint}
+\name{confint-MASS}
 \alias{confint.glm}
 \alias{confint.nls}
 \alias{confint.profile.glm}
@@ -12,9 +12,11 @@ Confidence Intervals for Model Parameters
 }
 \description{
 Computes confidence intervals for one or more parameters in a fitted
-model.  Package \code{MASS} adds methods for \code{glm} and \code{nls} fits.
+model.  Package \pkg{MASS} adds methods for \code{glm} and \code{nls} fits.
 }
 \usage{
+\method{confint}{glm}(object, parm, level = 0.95, trace = FALSE, \dots)
+
 \method{confint}{nls}(object, parm, level = 0.95, \dots)
 }
 \arguments{
@@ -30,9 +32,11 @@ missing, all parameters are considered.
 \item{level}{
 the confidence level required.
 }
+\item{trace}{
+  logical.  Should profiling be traced?
+}
 \item{\dots}{
-  additional argument(s) for methods -- the \code{glm} methods allows
-  \code{trace}.
+  additional argument(s) for methods.
 }}
 \value{
 A matrix (or vector) with columns giving lower and upper confidence

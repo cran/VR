@@ -252,9 +252,6 @@ print.summary.loglm <- function(x, ...)
 
 update.loglm <- function (object, formula, ...)
 {
-    setdiff <- function(x, y)
-        if(length(x) == 0 || length(y) == 0) x else x[match(x, y, 0) == 0]
-
     if (is.null(call <- object$call))
         stop("object has no call component.  Updating not possible")
     if (fix <- !missing(formula)) {

@@ -57,8 +57,8 @@ The experiment was to study otitis media with effusion (OME), a very
 common childhood condition where the middle ear space, which is
 normally air-filled, becomes congested by a fluid.  There is a
 concomitant fluctuating, conductive hearing loss which can result in
-various language, cognitive and social deficits. The term ``binaural
-hearing'' is used to describe the listening conditions in which the
+various language, cognitive and social deficits. The term \dQuote{binaural
+hearing} is used to describe the listening conditions in which the
 brain is processing information from both ears at the same time.  The
 brain computes differences in the intensity and/or timing of signals
 arriving at each ear which contributes to sound localisation and also

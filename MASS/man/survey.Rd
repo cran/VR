@@ -30,15 +30,15 @@ Span of non-writing hand
 Writing hand of student. (Factor, with levels \code{"Left"} and \code{"Right"}.)
 }
 \item{\code{Fold}}{
-"Fold your arms! Which is on top" (Factor, with levels \code{"R on L"}, \code{"L on R"},
-\code{"Neither"}.)
+  \dQuote{Fold your arms! Which is on top} (Factor, with levels
+  \code{"R on L"}, \code{"L on R"}, \code{"Neither"}.)
 }
 \item{\code{Pulse}}{
 Pulse rate of student (beats per minute.)
 }
 \item{\code{Clap}}{
-``Clap your hands! Which hand is on top?'' (Factor, with levels "\code{Right"},
-\code{"Left"}, \code{"Neither"}.)
+  \sQuote{Clap your hands! Which hand is on top?} (Factor, with levels
+  \code{"Right"}, \code{"Left"}, \code{"Neither"}.)
 }
 \item{\code{Exer}}{
 How often the student exercises. (Factor, with levels \code{"Freq"}

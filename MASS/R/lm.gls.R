@@ -14,7 +14,7 @@ lm.gls <-
     m <- eval.parent(m)
     if(method == "model.frame") return(m)
     Terms <- attr(m, "terms")
-    Y <- model.extract(m, response)
+    Y <- model.response(m)
     X <- model.matrix(Terms, m, contrasts)
     xvars <- as.character(attr(Terms, "variables"))[-1]
     if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]

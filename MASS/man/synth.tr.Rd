@@ -15,9 +15,10 @@ It is intended that \code{synth.tr} be used from training and
 }
 \usage{
 data(synth.tr)
+data(synth.te)
 }
 \format{
-This data frame contains the following columns:
+These data frames contains the following columns:
 \describe{
 \item{\code{xs}}{
 x-coordinate

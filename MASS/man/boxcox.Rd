@@ -14,10 +14,16 @@ Computes and optionally plots profile log-likelihoods for the
 parameter of the Box-Cox simple power transformation \code{y^lambda}.
 }
 \usage{
-boxcox(object, lambda, plotit, interp, eps, xlab, ylab, \dots)
-}
-\synopsis{
-boxcox(object, ...)
+boxcox(object, \dots)
+
+\method{boxcox}{default}(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
+       interp, eps = 1/50, xlab = "lambda", ylab = "log-Likelihood", \dots)
+
+\method{boxcox}{formula}(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
+       interp, eps = 1/50, xlab = "lambda", ylab = "log-Likelihood", \dots)
+
+\method{boxcox}{lm}(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
+       interp, eps = 1/50, xlab = "lambda", ylab = "log-Likelihood", \dots)
 }
 \arguments{
 \item{object}{
@@ -29,7 +35,6 @@ vector of values of \code{lambda} -- default \eqn{(-2, 2)} in steps of 0.1
 }
 \item{plotit}{
 logical which controls whether the result should be plotted.
-Default to \code{true} if a graphics device is currently open.
 }
 \item{interp}{
 logical which controls whether spline interpolation is used.

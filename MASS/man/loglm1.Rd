@@ -12,11 +12,14 @@ Fit Log-Linear Models by Iterative Proportional Scaling -- Internal function
 }
 \usage{
 loglm1(formula, data, \dots)
-loglm1.xtabs(formula, data, \dots)
-loglm1.data.frame(formula, data, \dots)
-loglm1.default(formula, data, start = rep(1, length(data)), fitted = FALSE,
-	       keep.frequencies = fitted, param = TRUE, eps = 1/10,
-               iter = 40, print = FALSE, \dots)
+
+\method{loglm1}{xtabs}(formula, data, \dots)
+
+\method{loglm1}{data.frame}(formula, data, \dots)
+
+\method{loglm1}{default}(formula, data, start = rep(1, length(data)), fitted = FALSE,
+       keep.frequencies = fitted, param = TRUE, eps = 1/10,
+       iter = 40, print = FALSE, \dots)
 }
 \arguments{
   \item{formula}{

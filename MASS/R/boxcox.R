@@ -5,8 +5,8 @@
 UseMethod("boxcox")
 
 "boxcox.formula"<-
-function(object, lambda = seq(-2, 2, 1/10), plotit = length(
-	dev.list()) > 0, interp = (plotit && (m < 100)), eps = 1/
+function(object, lambda = seq(-2, 2, 1/10), plotit =  TRUE,
+         interp = (plotit && (m < 100)), eps = 1/
 	50, xlab = "lambda", ylab = "log-Likelihood", ...)
 {
     object <- lm(object, y = TRUE, qr = TRUE, ...)
@@ -16,8 +16,8 @@ function(object, lambda = seq(-2, 2, 1/10), plotit = length(
 }
 
 "boxcox.lm"<-
-function(object, lambda = seq(-2, 2, 1/10), plotit = length(
-	dev.list()) > 0, interp = (plotit && (m < 100)), eps = 1/
+function(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
+         interp = (plotit && (m < 100)), eps = 1/
 	50, xlab = "lambda", ylab = "log-Likelihood", ...)
 {
     if(is.null(object$y) || is.null(object$qr))
@@ -28,13 +28,13 @@ function(object, lambda = seq(-2, 2, 1/10), plotit = length(
 }
 
 "boxcox.default"<-
-function(object, lambda = seq(-2, 2, 1/10), plotit = length(
-	dev.list()) > 0, interp = (plotit && (m < 100)), eps = 1/
-	50, xlab = "lambda", ylab = "log-Likelihood", ...)
+function(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
+         interp = (plotit && (m < 100)), eps = 1/
+         50, xlab = "lambda", ylab = "log-Likelihood", ...)
 {
     if(is.null(object$y) || is.null(object$qr))
         stop(paste(deparse(substitute(object)),
-                   "does not have both `qr' and `y' components"
+                   "does not have both 'qr' and 'y' components"
                    ))
     y <- object$y
     n <- length(y)

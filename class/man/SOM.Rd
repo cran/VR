@@ -15,7 +15,7 @@ a matrix or data frame of observations, scaled so that Euclidean
 distance is appropriate.
 }
 \item{grid}{
-A grid for the representatives.
+A grid for the representatives: see \code{\link{somgrid}}.
 }
 \item{rlen}{
 the number of updates: used only in the defaults for \code{alpha} and \code{radii}.
@@ -47,7 +47,7 @@ a matrix of representatives.
 used in turn, allowing two- or more phase training.
 }
 \seealso{
-\code{\link{batchSOM}}
+  \code{\link{somgrid}}, \code{\link{batchSOM}}
 }
 \references{
   Kohonen, T. (1995) \emph{Self-Organizing Maps.} Springer-Verlag
@@ -64,7 +64,7 @@ used in turn, allowing two- or more phase training.
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
-library(MASS)
+data(crabs, package = "MASS")
 
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, rep(50,4))])

@@ -1,7 +1,7 @@
 % file MASS/rock.d
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
-\name{rock}
+\name{rock-MASS}
 \alias{rock}
 \title{
   Measurements on Petroleum Rock Samples

@@ -12,6 +12,9 @@ well-separated conic sections of an \code{unfilled} survey of the Corona
 Borealis region.  Multimodality in such surveys is evidence for voids
 and superclusters in the far universe.
 }
+\usage{
+data(galaxies)
+}
 \source{
 Roeder, K. (1990) Density estimation with confidence sets exemplified
 by superclusters and voids in galaxies.

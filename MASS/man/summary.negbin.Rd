@@ -5,7 +5,7 @@
 \alias{summary.negbin}
 \alias{print.summary.negbin}
 \title{
-Summary Method Function for Objects of Class `negbin'
+Summary Method Function for Objects of Class 'negbin'
 }
 \description{
 Identical to \code{summary.glm}, but with three lines of additional output: the

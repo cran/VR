@@ -4,13 +4,12 @@
 lm.ridge <- function(formula, data, subset, na.action,
     lambda = 0, model = FALSE, x = FALSE, y = FALSE, contrasts = NULL, ...)
 {
-    call <- match.call()
     m <- match.call(expand = FALSE)
     m$model <- m$x <- m$y <- m$contrasts <- m$... <- m$lambda <- NULL
     m[[1]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
-    Y <- model.extract(m, response)
+    Y <- model.response(m)
     X <- model.matrix(Terms, m, contrasts)
     n <- nrow(X); p <- ncol(X)
     if(Inter <- attr(Terms, "intercept"))

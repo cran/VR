@@ -12,6 +12,9 @@ the pesticide DDT in kale,
 in ppm (parts per million) using the multiple pesticide residue
 measurement.
 }
+\usage{
+data(DDT)
+}
 \source{
 C. E. Finsterwalder (1976)
 Collaborative study of an extension of the Mills

@@ -16,13 +16,16 @@ Quadratic Discriminant Analysis
 Quadratic discriminant analysis.
 }
 \usage{
-qda(formula, data, prior = proportions, subset,
-                   na.action = na.fail, method, CV = FALSE, nu, \dots)
-qda(x,   grouping, prior = proportions, subset,
-                   na.action = na.fail, method, CV = FALSE, nu, \dots)
-}
-\synopsis{
-qda(x, ...)
+qda(x, \dots)
+
+\method{qda}{formula}(formula, data, \dots, subset, na.action = na.fail)
+
+\method{qda}{default}(x, grouping, prior = proportions,
+    method, CV = FALSE, nu, \dots)
+
+\method{qda}{data.frame}(x, \dots)
+
+\method{qda}{matrix}(x, grouping, \dots, subset, na.action = na.fail)
 }
 \arguments{
 \item{formula}{

@@ -47,7 +47,7 @@ and others for internal use only.
 \code{\link{trmat}}, \code{\link{surf.gls}}
 }
 \examples{
-library(MASS)
+library(MASS)  # for eqscplot
 data(topo, package="MASS")
 topo.kr <- surf.ls(2, topo)
 trsurf <- trmat(topo.kr, 0, 6.5, 0, 6.5, 50)

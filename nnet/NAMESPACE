@@ -2,8 +2,6 @@ useDynLib(nnet)
 
 export(class.ind, multinom, nnet, nnetHess, which.is.max)
 
-## this group is only needed to correct argument mismatching
-# export(anova.multinom, predict.multinom, predict.nnet)
 # match.call problem
 export(nnet.default, nnet.formula)
 

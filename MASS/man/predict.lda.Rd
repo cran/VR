@@ -12,7 +12,7 @@ project data onto the linear discriminants.
 }
 \usage{
 \method{predict}{lda}(object, newdata, prior = object$prior, dimen,
- method = c("plug-in", "predictive", "debiased"), \dots)
+        method = c("plug-in", "predictive", "debiased"), \dots)
 }
 \arguments{
 \item{object}{

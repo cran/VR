@@ -13,7 +13,7 @@ underlying \code{C} code.
 ppgetregion()
 }
 \value{
-A vector of length four with names `c("xl", "xu", "yl", "yu")'.
+A vector of length four with names \code{c("xl", "xu", "yl", "yu")}.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

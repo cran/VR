@@ -19,8 +19,11 @@ Fit Neural Networks
 Fit single-hidden-layer neural network, possibly with skip-layer connections.
 }
 \usage{
+nnet(x, \dots)
+
 \method{nnet}{formula}(formula, data = NULL, weights, \dots,
      subset, na.action = na.fail, contrasts = NULL)
+
 \method{nnet}{default}(x, y, weights, size, Wts, mask,
      linout = FALSE, entropy = FALSE, softmax = FALSE,
      censored = FALSE, skip = FALSE, rang = 0.7, decay = 0,

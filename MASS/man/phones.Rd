@@ -1,10 +1,13 @@
 % file MASS/phones.d
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
-\name{phones}
+\name{Belgian-phones}
 \alias{phones}
 \title{
 Belgium Phone Calls 1950-1973
+}
+\usage{
+data(phones)
 }
 \description{
 A list object with the annual numbers of telephone calls, in

@@ -54,7 +54,7 @@ a list of contrasts to be used for some or all of
 the factors appearing as variables in the model formula.
 }
 \item{Hess}{
-logical for whether the Hessian (the observed information matrix)
+logical for whether the Hessian (the observed/expected information matrix)
 should be returned.
 }
 \item{summ}{

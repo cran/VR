@@ -5,8 +5,7 @@ batchSOM <- function(data, grid = somgrid(), radii, init)
     ng <- nrow(grid$pts)
     if(missing(init))
         init <- data[sample(1:nd, ng, replace = FALSE),]
-    require(mva)
-    nhbrdist <- as.matrix(dist(grid$pts))
+    nhbrdist <- as.matrix(mva::dist(grid$pts))
     for(r in radii) {
         cl <- as.numeric(knn1(init, data, 1:ng))
         A <- (nhbrdist <= r)[, cl]
@@ -34,9 +33,9 @@ somgrid <- function(xdim = 8, ydim = 6, topo = c("rectangular", "hexagonal"))
 plot.somgrid <- function(x, type = "p", ...)
 {
     if(!inherits(x, "somgrid")) stop("wrong plot method used")
-    eqscplot(c(0, x$xdim+(x$topo == "hexagonal") + 1),
-             c(x$ydim + 1, 0),
-             axes = FALSE, type = "n", xlab = "", ylab = "", ...)
+    MASS::eqscplot(c(0, x$xdim+(x$topo == "hexagonal") + 1),
+                   c(x$ydim + 1, 0),
+                   axes = FALSE, type = "n", xlab = "", ylab = "", ...)
     if(type == "p") points(x$pts, cex = 2, ...)
     invisible()
 }
@@ -44,9 +43,9 @@ plot.somgrid <- function(x, type = "p", ...)
 plot.SOM <- function(x, ...)
 {
     if(!inherits(x, "SOM")) stop("wrong plot method used")
-    eqscplot(c(0, x$grid$xdim+(x$grid$topo == "hexagonal") + 1),
-             c(x$grid$ydim + 1, 0),
-             axes = FALSE, type = "n", xlab = "", ylab = "", ...)
+    MASS::eqscplot(c(0, x$grid$xdim+(x$grid$topo == "hexagonal") + 1),
+                   c(x$grid$ydim + 1, 0),
+                   axes = FALSE, type = "n", xlab = "", ylab = "", ...)
     stars(x$codes, location = x$grid$pts, labels = NULL, len = 0.5)
     invisible()
 }
@@ -63,13 +62,12 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
     if(is.list(alpha)) {
         nphases <- length(alpha)
         if(!is.list(radii) || length(radii) != nphases)
-            stop("`radii' must be a list of the same length as `alpha'")
+            stop("'radii' must be a list of the same length as 'alpha'")
     }
     if(missing(init))
         init <- data[sample(1:nd, ng, replace = FALSE), ]
     codes <- init
-    require(mva)
-    nhbrdist <- as.matrix(dist(grid$pts))
+    nhbrdist <- as.matrix(mva::dist(grid$pts))
     if(nphases == 1) {
         rlen <- length(alpha)
         if(length(radii) != rlen) stop("alpha and radii do not match")

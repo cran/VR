@@ -11,6 +11,9 @@ A numeric vector with 18 determinations by different laboratories
 of the amount (percentage of the declared total weight) of shrimp
 in shrimp cocktail.
 }
+\usage{
+data(shrimp)
+}
 \source{
 F. J. King and J. J. Ryan (1976)
 Collaborative study of the determination of the amount of shrimp in

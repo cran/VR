@@ -8,9 +8,9 @@ fitdistr <- function(x, densfun, start, ...)
     dots <- names(list(...))
     dots <- dots[!is.element(dots, c("upper", "lower"))]
     if(missing(x) || length(x) == 0 || mode(x) != "numeric")
-        stop("`x' must be a non-empty numeric vector")
+        stop("'x' must be a non-empty numeric vector")
     if(missing(densfun) || !(is.function(densfun) || is.character(densfun)))
-        stop("`densfun' must be supplied as a function or name")
+        stop("'densfun' must be supplied as a function or name")
     if(is.character(densfun)) {
         distname <- tolower(densfun)
         densfun <-
@@ -63,14 +63,14 @@ fitdistr <- function(x, densfun, start, ...)
         }
     }
     if(is.null(start) || !is.list(start))
-        stop("`start' must be a named list")
+        stop("'start' must be a named list")
     nm <- names(start)
     ## reorder arguments to densfun
     f <- formals(densfun)
     args <- names(f)
     m <- match(nm, args)
     if(any(is.na(m)))
-        stop("`start' specifies names which are not arguments to `densfun'")
+        stop("'start' specifies names which are not arguments to 'densfun'")
     formals(densfun) <- c(f[c(1, m)], f[-c(1, m)])
     dens <- function(parm, x, ...) densfun(x, parm, ...)
     if((l <- length(nm)) > 1)

@@ -3,7 +3,7 @@
 #
 contr.sdif <- function(n, contrasts = TRUE)
 {
-    # contrasts generator giving `successive difference' contrasts.
+    # contrasts generator giving 'successive difference' contrasts.
     if(is.numeric(n) && length(n) == 1) {
         if(n %% 1 || n < 2)
             stop("invalid degree")

@@ -4,7 +4,7 @@
 \name{plot.mca}
 \alias{plot.mca}
 \title{
-Plot Method for Objects of Class `mca'
+Plot Method for Objects of Class 'mca'
 }
 \description{
 Plot a multiple correspondence analysis.

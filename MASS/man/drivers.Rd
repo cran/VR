@@ -12,6 +12,9 @@ Great Britain killed or seriously
 injured Jan 1969 to Dec 1984. Compulsory wearing of seat belts was
 introduced on 31 Jan 1983.
 }
+\usage{
+data(drivers)
+}
 \source{
 Harvey, A.C. (1989)
 \emph{Forecasting, Structural Time Series Models and the Kalman Filter.}

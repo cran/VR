@@ -31,7 +31,7 @@ anorexia                Anorexia Data on Weight Change
 anova.negbin            Likelihood Ratio Tests for Negative Binomial
                         GLMs
 area                    Adaptive Numerical Integration
-austres                 Quarterly Time Series of the Number of
+austres-MASS            Quarterly Time Series of the Number of
                         Australian Residents
 bacteria                Presence of Bacteria after Drug Treatments
 bandwidth.nrd           Bandwidth for density() via Normal Reference
@@ -52,7 +52,7 @@ cement                  Heat Evolved by Setting Cements
 chem                    Copper in Wholemeal Flour
 con2tr                  Convert Lists to Data Frames for use by
                         Trellis
-confint                 Confidence Intervals for Model Parameters
+confint-MASS            Confidence Intervals for Model Parameters
 contr.sdif              Successive Differences contrast coding
 coop                    Co-operative Trial in Analytical Chemistry
 corresp                 Simple Correspondence Analysis
@@ -71,7 +71,6 @@ eagles                  Foraging Ecology of Bald Eagles
 epil                    Seizure Counts for Epileptics
 eqscplot                Plots with Geometrically Equal Scales
 farms                   Ecological Factors in Farm Management
-fdeaths                 Monthly Deaths from Lung Diseases in the UK
 fgl                     Measurements of Forensic Glass Fragments
 fitdistr                Maximum-likelihood Fitting of Univariate
                         Distributions
@@ -106,7 +105,7 @@ lda                     Linear Discriminant Analysis
 ldahist                 Histograms or Density Plots of Multiple Groups
 leuk                    Survival Times and White Blood Counts for
                         Leukaemia Patients
-lh                      Luteinizing Hormone in Blood Samples
+lh-MASS                 Luteinizing Hormone in Blood Samples
 lm.gls                  Fit Linear Models by Generalized Least Squares
 lm.ridge                Ridge Regression
 loglm                   Fit Log-Linear Models by Iterative
@@ -116,7 +115,6 @@ mammals                 Brain and Body Weights for 62 Species of Land
                         Mammals
 mca                     Multiple Correspondence Analysis
 mcycle                  Data from a Simulated Motorcycle Accident
-mdeaths                 Monthly Deaths from Lung Diseases in the UK
 menarche                Age of Menarche data
 michelson               Michelson's Speed of Light Data
 minn38                  Minnesota High School Graduates of 1938
@@ -129,7 +127,7 @@ negative.binomial       Family function for Negative Binomial GLMs
 newcomb                 Newcomb's Measurements of the Passage Time of
                         Light
 nlschools               Eighth-Grade Pupils in the Netherlands
-nottem                  Average Monthly Temperatures at Nottingham,
+nottem-MASS             Average Monthly Temperatures at Nottingham,
                         1920-1939
 npk                     Classical N, P, K Factorial Experiment
 npr1                    US Naval Petroleum Reserve No. 1 data
@@ -139,7 +137,7 @@ pairs.lda               Produce Pairwise Scatterplots from an 'lda'
                         Fit
 parcoord                Parallel Coordinates Plot
 petrol                  N. L. Prater's Petrol Refinery Data
-phones                  Belgium Phone Calls 1950-1973
+Belgian-phones          Belgium Phone Calls 1950-1973
 plot.lda                Plot Method for Class 'lda'
 plot.mca                Plot Method for Objects of Class 'mca'
 polr                    Proportional Odds Logistic Regression
@@ -157,7 +155,7 @@ rms.curv                Relative Curvature Measures for Non-Linear
                         Regression
 rnegbin                 Simulate Negative Binomial Variates
 road                    Road Accident Deaths in US States
-rock                    Measurements on Petroleum Rock Samples
+rock-MASS               Measurements on Petroleum Rock Samples
 rotifer                 Numbers of Rotifers by Fluid Density
 sammon                  Sammon's Non-Linear Mapping
 ships                   Ships Damage Data

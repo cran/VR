@@ -57,13 +57,17 @@ and others for internal use only.
 \code{\link{trmat}}, \code{\link{surf.ls}}, \code{\link{prmat}}, \code{\link{semat}}, \code{\link{expcov}}, \code{\link{gaucov}}, \code{\link{sphercov}}
 }
 \examples{
+library(MASS)  # for eqscplot
 data(topo, package="MASS")
 topo.kr <- surf.gls(2, expcov, topo, d=0.7)
 trsurf <- trmat(topo.kr, 0, 6.5, 0, 6.5, 50)
-contour(trsurf)
+eqscplot(trsurf, type = "n")
+contour(trsurf, add = TRUE)
+
 prsurf <- prmat(topo.kr, 0, 6.5, 0, 6.5, 50)
 contour(prsurf, levels=seq(700, 925, 25))
 sesurf <- semat(topo.kr, 0, 6.5, 0, 6.5, 30)
-contour(sesurf, levels=c(22,25))
+eqscplot(sesurf, type = "n")
+contour(sesurf, levels = c(22, 25), add = TRUE)
 }
 \keyword{spatial}

@@ -18,7 +18,7 @@ surf.ls <- function(np, x, y, z)
     if (np > 6) stop("np exceeds 6")
     if(is.data.frame(x)) {
         if(any(is.na(match(c("x", "y", "z"), names(x)))))
-            stop("`x' does not have columns `x', `y' and `z'")
+            stop("'x' does not have columns 'x', 'y' and 'z'")
         if(missing(y)) y <- x$y
         if(missing(z)) z <- x$z
         x <- x$x
@@ -60,7 +60,7 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
     if (np > 6) stop("np exceeds 6")
     if(is.data.frame(x)) {
         if(any(is.na(match(c("x", "y", "z"), names(x)))))
-            stop("`x' does not have columns `x', `y' and `z'")
+            stop("'x' does not have columns 'x', 'y' and 'z'")
         if(missing(y)) y <- x$y
         if(missing(z)) z <- x$z
         x <- x$x
@@ -491,11 +491,9 @@ summary.trls <-
     print(anova.trls(object))
     rdf <- df.residual.trls(object)
     n <- length(object$z)
-    edf <- n - rdf - 1
     rss <- deviance(object)
     tss <- var(object$z) * (n - 1)
     ess <- tss - rss
-    ems <- ess/edf
     rsquared <- ess/tss
     adj.rsquared <- 1 - (1 - rsquared) * ((n - 1)/rdf)
     cat("Multiple R-Squared:", format(rsquared, digits = digits))
@@ -543,7 +541,7 @@ plot.trls <-
               add = FALSE, div = 8, ...)
 {
     if (!inherits(x, "trls"))
-        stop("`x' not a fitted trend surface")
+        stop("'x' not a fitted trend surface")
     infl <- trls.influence(x)
     dx <- diff(range(x$x))
     dy <- diff(range(x$y))

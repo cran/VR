@@ -9,7 +9,7 @@ Condense training set for k-NN classifier
 Condense training set for k-NN classifier
 }
 \usage{
-condense(train, class, store, trace=TRUE)
+condense(train, class, store, trace = TRUE)
 }
 \arguments{
 \item{train}{

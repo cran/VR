@@ -11,6 +11,9 @@ A regular time series giving the monthly totals of accidental
 deaths in the USA. The values for first six months of 1979 (p. 326) are
 \code{7798 7406 8363 8460 9217 9316}
 }
+\usage{
+data(accdeaths)
+}
 \source{
 P. J. Brockwell and R. A. Davis (1991)
 \emph{Time Series: Theory and Methods.}

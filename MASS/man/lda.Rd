@@ -17,15 +17,16 @@ Linear Discriminant Analysis
 Linear discriminant analysis.
 }
 \usage{
-lda(formula, data, prior = proportions, tol = 1.0e-4,
-                   subset, na.action = na.fail,
-		   method, CV = FALSE, nu, \dots)
-lda(x,   grouping, prior = proportions, tol = 1.0e-4,
-                   subset, na.action = na.fail,
-                   method, CV = FALSE, nu, \dots)
-}
-\synopsis{
-lda(x, ...)
+lda(x, \dots)
+
+\method{lda}{formula}(formula, data, \dots, subset, na.action = na.fail)
+
+\method{lda}{default}(x, grouping, prior = proportions, tol = 1.0e-4,
+    method, CV = FALSE, nu, \dots)
+
+\method{lda}{data.frame}(x, \dots)
+
+\method{lda}{matrix}(x, grouping, \dots, subset, na.action = na.fail)
 }
 \arguments{
   \item{formula}{

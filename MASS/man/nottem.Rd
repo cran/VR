@@ -1,7 +1,7 @@
 % file MASS/nottem.d
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
-\name{nottem}
+\name{nottem-MASS}
 \alias{nottem}
 \title{
 Average Monthly Temperatures at Nottingham, 1920-1939
@@ -9,6 +9,9 @@ Average Monthly Temperatures at Nottingham, 1920-1939
 \description{
 A regular time-series object containing average air temperatures at Nottingham
 Castle in degrees F for 20 years.
+}
+\usage{
+data(nottem)
 }
 \source{
 Anderson, O.D. (1976)

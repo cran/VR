@@ -10,6 +10,9 @@ Shoe wear data of Box, Hunter and Hunter
 A list of two vectors, giving the wear of shoes of materials A and B
 for one foot each of ten boys.
 }
+\usage{
+data(shoes)
+}
 \source{
 G. E. P. Box, W. G. Hunter and J. S. Hunter (1978)
 \emph{Statistics for Experimenters.}

@@ -23,9 +23,9 @@ nnet.formula <- function(formula, data = NULL, weights, ...,
   x <- model.matrix(Terms, m, contrasts)
   xint <- match("(Intercept)", colnames(x), nomatch=0)
   if(xint > 0) x <- x[, -xint, drop=FALSE] # Bias term is used for intercepts
-  w <- model.extract(m, weights)
+  w <- model.weights(m)
   if(length(w) == 0) w <- rep(1, nrow(x))
-  y <- model.extract(m, response)
+  y <- model.response(m)
   if(is.factor(y)) {
     lev <- levels(y)
     counts <- table(y)
@@ -270,7 +270,6 @@ nnetHess <- function(net, x, y, weights)
      PACKAGE = "nnet"
      )
   ntr <- dim(x)[1]
-  nout <- dim(y)[2]
   if(missing(weights)) weights <- rep(1, ntr)
   if(length(weights) != ntr || any(weights < 0))
     stop("invalid weights vector")
@@ -299,7 +298,7 @@ print.nnet <- function(x, ...)
   cat("a ",x$n[1],"-",x$n[2],"-",x$n[3]," network", sep="")
   cat(" with", length(x$wts),"weights\n")
   if(length(x$coefnames))  cat("inputs:", x$coefnames, "\noutput(s):",
-                               deparse(formula(x)[[2]]), "\n")
+                               deparse(formula(x)[[2]], backtick=TRUE), "\n")
   cat("options were -")
   tconn <- diff(x$nconn)
   if(tconn[length(tconn)] > x$n[2]+1) cat(" skip-layer connections ")

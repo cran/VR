@@ -4,7 +4,7 @@
 \name{predict.mca}
 \alias{predict.mca}
 \title{
-Predict Method for Class `mca'
+Predict Method for Class 'mca'
 }
 \description{
 Used to compute coordinates for additional rows or additional factors

@@ -55,9 +55,6 @@ separately to each half of the interval and the results added together.
   \emph{Modern Applied Statistics with S-Plus.} Springer.
   pp. 105--110.
 }
-\seealso{
-\code{\link[integrate]{integrate}}
-}
 \examples{
 area(sin, 0, pi)  # integrate the sin function from 0 to pi.
 }

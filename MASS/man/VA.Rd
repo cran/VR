@@ -5,7 +5,9 @@
 }
 \description{
   Veteran's Administration lung cancer trial from Kalbfleisch & Prentice.
-
+}
+\usage{
+data(VA)
 }
 \format{
 A data frame with columns:

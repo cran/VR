@@ -82,10 +82,7 @@ stepAIC <-
         }
     }
     models <- vector("list", steps)
-    if(!is.null(keep)) {
-        keep.list <- vector("list", steps)
-        nv <- 1
-    }
+    if(!is.null(keep)) keep.list <- vector("list", steps)
     ## watch out for partial matching here.
     if(is.list(object) && (nmm <- match("nobs", names(object), 0)) > 0)
         n <- object[[nmm]]
@@ -109,7 +106,6 @@ stepAIC <-
     while(steps > 0) {
         steps <- steps - 1
         AIC <- bAIC
-        bfit <- fit
         ffac <- attr(Terms, "factors")
         ## don't drop strata terms
         if(!is.null(sp <- attr(Terms, "specials")) &&
@@ -127,13 +123,15 @@ stepAIC <-
                 zdf <- aod$Df == 0 & !is.na(aod$Df)
                 nc <- match(c("Cp", "AIC"), names(aod))
                 nc <- nc[!is.na(nc)][1]
-                ch <- abs(aod[zdf, nc]) > 0.01
+                ch <- abs(aod[zdf, nc] - aod[1, nc]) > 0.01
                 if(any(ch)) {
                     warning("0 df terms are changing AIC")
                     zdf <- zdf[!ch]
                 }
+                ## drop zero df terms first: one at time since they
+                ## may mask each other
                 if(length(zdf) > 0)
-                    change <- paste((rownames(aod))[zdf])
+                    change <- rev(rownames(aod)[zdf])[1]
             }
         }
         if(is.null(change)) {
@@ -142,10 +140,9 @@ stepAIC <-
                                 trace = max(0, trace - 1), k = k, ...)
                 rn <- row.names(aodf)
                 row.names(aodf) <- c(rn[1], paste("+", rn[-1], sep=" "))
-                if(is.null(aod)) aod <- aodf
-                else {
-                    aod <- rbind(aod, aodf[-1, , drop=FALSE])
-                }
+                aod <-
+                    if(is.null(aod)) aodf
+                    else rbind(aod, aodf[-1, , drop=FALSE])
             }
             attr(aod, "heading") <- NULL
             if(is.null(aod) || ncol(aod) == 0) break
@@ -161,8 +158,9 @@ stepAIC <-
             change <- rownames(aod)[o[1]]
         }
         usingCp <- match("Cp", names(aod), 0) > 0
-        ## may need to look for a `data' argument in parent
-        fit <- update(fit, paste("~ .", change))
+        ## may need to look for a 'data' argument in parent
+	fit <- update(fit, paste("~ .", change), evaluate = FALSE)
+        fit <- eval.parent(fit)
         if(is.list(fit) && (nmm <- match("nobs", names(fit), 0)) > 0)
             nnew <- fit[[nmm]]
         else nnew <- length(residuals(fit))
@@ -175,7 +173,8 @@ stepAIC <-
         if(trace)
             cat("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
                 cut.string(deparse(as.vector(formula(fit)))), "\n\n")
-        if(bAIC >= AIC) break
+        ## add a tolerance as dropping 0-df terms might increase AIC slightly
+        if(bAIC >= AIC + 1e-7) break
         nm <- nm + 1
         models[[nm]] <-
             list(deviance = mydeviance(fit), df.resid = n - edf,

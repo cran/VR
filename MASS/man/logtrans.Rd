@@ -14,12 +14,15 @@ Find and optionally plot the marginal likelihood for alpha
 for a transformation model of the form \code{log(y + alpha) ~ x1 + x2 + \dots}.
 }
 \usage{
-logtrans(object, \dots, alpha = seq(0.5, 6, by = 0.25) - min(y),
-         plotit = <<see below>>, interp = <<see below>>,
-         xlab = "alpha", ylab = "log Likelihood")
-}
-\synopsis{
 logtrans(object, ...)
+
+\method{logtrans}{default}(object, \dots, alpha = seq(0.5, 6, by = 0.25) - min(y),
+         plotit = TRUE, interp = <<see below>>,
+         xlab = "alpha", ylab = "log Likelihood")
+
+\method{logtrans}{formula}(object, data = NULL, \dots)
+
+\method{logtrans}{lm}(object, \dots)
 }
 \arguments{
 \item{object}{
@@ -34,8 +37,7 @@ as for \code{lm}.
 Set of values for the transformation parameter, alpha.
 }
 \item{plotit}{
-Should plotting be done?  (Default is \code{TRUE} if a non-null device is
-currently active, else \code{FALSE}.)
+Should plotting be done?
 }
 \item{interp}{
 Should the marginal log-likelihood be interpolated with a spline
@@ -47,7 +49,11 @@ as for \code{plot}.
 }
 \item{ylab}{
 as for \code{plot}.
-}}
+}
+\item{data}{
+  \code{data} argument for \code{lm} fit.
+}
+}
 \value{
 List with components \code{x} (for alpha) and \code{y} (for the marginal
 log-likelihood values).

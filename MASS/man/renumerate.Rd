@@ -5,7 +5,7 @@
 \alias{renumerate}
 \alias{renumerate.formula}
 \title{
-Convert a Formula Transformed by `denumerate'
+Convert a Formula Transformed by 'denumerate'
 }
 \description{
 \code{\link{denumerate}} converts a formula written using the conventions of

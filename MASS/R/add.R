@@ -144,7 +144,6 @@ addterm.glm <-
     x <- model.matrix(Terms, model.frame(fob, xlev = object$xlevels),
                       contrasts = object$contrasts)
     n <- nrow(x)
-    m <- model.frame(object)
     oldn <- length(object$residuals)
     y <- object$y
     newn <- length(y)
@@ -260,8 +259,7 @@ dropterm.default <-
 
 dropterm.lm <-
   function(object, scope = drop.scope(object), scale = 0,
-           test = c("none", "Chisq", "F"),
-           k = 2, sorted = FALSE, ...)
+           test = c("none", "Chisq", "F"), k = 2, sorted = FALSE, ...)
 {
     aod <- drop1.lm(object, scope=scope, scale=scale)[, -4]
     dfs <-  object$rank - c(0, aod$Df[-1]); RSS <- aod$RSS
@@ -306,7 +304,6 @@ dropterm.glm <-
            k = 2, sorted = FALSE, trace = FALSE, ...)
 {
     x <- model.matrix(object)
-    iswt <- !is.null(wt <- object$weights)
     n <- nrow(x)
     asgn <- attr(x, "assign")
     tl <- attr(object$terms, "term.labels")
@@ -325,10 +322,8 @@ dropterm.glm <-
     dev <- numeric(ns)
     y <- object$y
     if(is.null(y)) y <- model.response(model.frame(object), "numeric")
-    na.coef <- (1:length(object$coefficients))[!is.na(object$coefficients)]
     wt <- object$prior.weights
     if(is.null(wt)) wt <- rep(1, n)
-    rank <- object$rank
     for(i in 1:ns) {
         if(trace) cat("trying -", scope[i], "\n")
         ii <- seq(along=asgn)[asgn == ndrop[i]]

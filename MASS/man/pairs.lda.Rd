@@ -4,7 +4,7 @@
 \name{pairs.lda}
 \alias{pairs.lda}
 \title{
-Produce Pairwise Scatterplots from an `lda' Fit
+Produce Pairwise Scatterplots from an 'lda' Fit
 }
 \description{
 Pairwise scatterplot of the data on the linear discriminants.
@@ -38,8 +38,8 @@ additional arguments for \code{pairs.default}.
 graphics parameter \code{cex} for labels on plots.
 }
 \item{type}{
-type of plot. The default is in the style of \code{pair.default}; the
-tyle \code{"trellis"} uses the Trellis function \code{splom}.
+type of plot. The default is in the style of \code{\link{pairs.default}}; the
+style \code{"trellis"} uses the Trellis function \code{\link[lattice]{splom}}.
 }}
 \details{
 This function is a method for the generic function

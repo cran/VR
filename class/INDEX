@@ -13,3 +13,4 @@ lvqtest                 Classify Test Set from LVQ Codebook
 multiedit               Multiedit for k-NN Classifier
 olvq1                   Optimized Learning Vector Quantization 1
 reduce.nn               Reduce Training Set for a k-NN Classifier
+somgrid                 Plot SOM Fits

@@ -1,5 +1,5 @@
 % file MASS/sammon.d
-% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 %
 \name{sammon}
 \alias{sammon}
@@ -17,11 +17,13 @@ sammon(d, y = cmdscale(d, k), k = 2, niter = 100, trace = TRUE,
 \item{d}{
 distance structure of the form returned by \code{dist}, or a full, symmetric
 matrix.  Data are assumed to be dissimilarities or relative distances,
-but must be positive except for self-distance.
+but must be positive except for self-distance.  This can contain missing
+values.
 }
 \item{y}{
-An initial configuration. If none is supplied, \code{cmdscale} is used to provide
-the classical solution.
+  An initial configuration. If none is supplied, \code{cmdscale}
+  is used to provide the classical solution.  (If there are missing
+  values in \code{d}, an initial configuration must be provided.)
 }
 \item{k}{
 The dimension of the configuration.

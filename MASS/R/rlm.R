@@ -18,7 +18,7 @@ rlm.formula <-
     wt.method <- match.arg(wt.method)
     if(method == "model.frame") return(mf)
     mt <- attr(mf, "terms")
-    y <- model.extract(mf, "response")
+    y <- model.response(mf)
     x <- model.matrix(mt, mf, contrasts)
     xvars <- as.character(attr(mt, "variables"))[-1]
     if ((yvar <- attr(mt, "response")) > 0)
@@ -27,12 +27,15 @@ rlm.formula <-
         xlev <- lapply(mf[xvars], levels)
         xlev[!sapply(xlev, is.null)]
     }
-    weights <- model.extract(mf, weights)
+    weights <- model.weights(mf)
     if(!length(weights)) weights <- rep(1, nrow(x))
     fit <- rlm.default(x, y, weights, method = method,
                        wt.method = wt.method, ...)
     fit$terms <- mt
-    fit$call <- match.call()
+    ## fix up call to refer to the generic, but leave arg name as `formula'
+    cl <- match.call()
+    cl[[1]] <- as.name("rlm")
+    fit$call <- cl
     fit$contrasts <- attr(x, "contrasts")
     fit$xlevels <- xlev
     attr(fit, "na.message") <- attr(mf, "na.message")
@@ -156,11 +159,14 @@ rlm.default <-
         tmp <- (weights != 0)
         w[tmp] <- w[tmp]/weights[tmp]
     }
+    ## fix up call to refer to the generic, but leave arg name as `formula'
+    cl <- match.call()
+    cl[[1]] <- as.name("rlm")
     fit <- list(coefficients = coef, residuals = resid, effects = temp$effects,
                 rank = temp$rank, fitted.values = temp$fitted.values,
                 assign = temp$assign,  qr = temp$qr, df.residual = NA, w = w,
                 s = scale, psi = psi, k2 = k2,
-                conv = conv, converged = done, x = x, call = match.call())
+                conv = conv, converged = done, x = x, call = cl)
     class(fit) <- c("rlm", "lm")
     fit
 }
@@ -297,4 +303,53 @@ psi.bisquare <- function(u, c = 4.685, deriv=0)
     if(!deriv) return((1  - pmin(1, abs(u/c))^2)^2)
     t <- (u/c)^2
     ifelse(t < 1, (1 - t)*(1 - 5*t), 0)
+}
+
+se.contrast.rlm <-
+    function(object, contrast.obj, coef = contr.helmert(ncol(contrast))[, 1],
+             data = NULL, ...)
+{
+    contrast.weight.aov <- function(object, contrast)
+    {
+        asgn <- object$assign[object$qr$pivot[1:object$rank]]
+        uasgn <- unique(asgn)
+        nterms <- length(uasgn)
+        nmeffect <- c("(Intercept)",
+                      attr(object$terms, "term.labels"))[1 + uasgn]
+        effects <- as.matrix(qr.qty(object$qr, contrast))
+        res <- matrix(0, nrow = nterms, ncol = ncol(effects),
+                      dimnames = list(nmeffect, colnames(contrast)))
+        for(i in seq(nterms)) {
+            select <- (asgn == uasgn[i])
+            res[i,] <- colSums(effects[seq(along=asgn)[select], , drop = FALSE]^2)
+        }
+        res
+    }
+    if(is.null(data)) contrast.obj <- eval(contrast.obj)
+    else contrast.obj <- eval(substitute(contrast.obj), data, parent.frame())
+    if(!is.matrix(contrast.obj)) { # so a list
+        if(sum(coef) != 0)
+            stop("coef must define a contrast, i.e., sum to 0")
+        if(length(coef) != length(contrast.obj))
+            stop("coef must have same length as contrast.obj")
+        contrast <-
+            sapply(contrast.obj, function(x)
+               {
+                   if(!is.logical(x))
+                       stop(paste("Each element of", substitute(contrasts.list),
+                                  " must be\nlogical"))
+                   x/sum(x)
+               })
+        contrast <- contrast %*% coef
+        if(!any(contrast) || all(is.na(contrast)))
+            stop("The contrast defined is empty (has no TRUE elements)")
+    } else {
+        contrast <- contrast.obj
+        if(any(abs(colSums(contrast)) > 1e-8))
+            stop("Columns of contrast.obj must define a contrast (sum to zero)")
+        if(length(colnames(contrast)) == 0)
+            colnames(contrast) <- paste("Contrast", seq(ncol(contrast)))
+    }
+    weights <- contrast.weight.aov(object, contrast)
+    object$sigma * if(!is.matrix(contrast.obj)) sqrt(sum(weights)) else sqrt(colSums(weights))
 }

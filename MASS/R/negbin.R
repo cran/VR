@@ -22,7 +22,7 @@ function(object, ..., test = "Chisq")
     s <- sort.list(-dflis)
     mlist <- mlist[s]
     if(any(!sapply(mlist, inherits, "negbin")))
-      stop("not all objects are of class `negbin'")
+      stop("not all objects are of class 'negbin'")
     rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
     mds <- sapply(mlist, function(x) paste(formula(x)[3]))
     ths <- sapply(mlist, function(x) x$theta)
@@ -101,13 +101,12 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
         xlev <- lapply(m[xvars], levels)
         xlev <- xlev[!sapply(xlev, is.null)]
     } else xlev <- NULL
-    a <- attributes(m)
-    Y <- model.extract(m, response)
+    Y <- model.response(m)
     X <- model.matrix(Terms, m, contrasts)
-    w <- model.extract(m, weights)
+    w <- model.weights(m)
     if(!length(w)) w <- rep(1, nrow(m))
     else if(any(w < 0)) stop("negative weights not allowed")
-    offset <- model.extract(m, offset)
+    offset <- model.offset(m)
     n <- length(Y)
     if(!is.null(method)) {
         if(!exists(method, mode = "function"))
@@ -192,7 +191,7 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
     fit$SE.theta <- attr(th, "SE")
     fit$twologlik <- as.vector(2 * Lm)
     fit$aic <- -fit$twologlik + 2*fit$rank + 2
-    fit$contrasts <- if (length(clv <- unlist(lapply(m, class))))
+    fit$contrasts <- if (length(unlist(lapply(m, class))))
         options("contrasts")[[1]] else FALSE
     fit$xlevels <- xlev
     fit$method <- method
@@ -200,8 +199,8 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
     fit
 }
 
-"negative.binomial" <-
-function(theta = stop("theta must be specified"), link = "log")
+negative.binomial <-
+    function(theta = stop("theta must be specified"), link = "log")
 {
     linktemp <- substitute(link)
     if (!is.character(linktemp)) {
@@ -213,7 +212,8 @@ function(theta = stop("theta must be specified"), link = "log")
         stats <- make.link(linktemp)
     else stop(paste(linktemp, "link not available for negative binomial",
                     "family; available links are", "\"identity\", \"log\" and \"sqrt\""))
-    .Theta <- theta
+    env <- new.env(parent=.GlobalEnv)
+    assign(".Theta", theta, envir=env)
     variance <- function(mu)
         mu + mu^2/.Theta
     validmu <- function(mu)
@@ -228,10 +228,12 @@ function(theta = stop("theta must be specified"), link = "log")
     }
     initialize <- expression({
         if (any(y < 0)) stop(paste("Negative values not allowed for",
-                                   "the Poisson family"))
+                                   "the negative binomial family"))
         n <- rep(1, nobs)
         mustart <- y + (y == 0)/6
     })
+    environment(variance) <- environment(validmu) <-
+        environment(dev.resids) <- environment(aic) <- env
     famname <- paste("Negative Binomial(", format(round(theta, 4)), ")",
                      sep = "")
     structure(list(family = famname, link = linktemp, linkfun = stats$linkfun,

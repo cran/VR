@@ -1,53 +1,59 @@
 useDynLib(MASS)
 
-export(abbey, accdeaths, addterm, Aids2, Animals, anorexia,
-       anova.loglm, anova.negbin, area, as.fractions, austres,
-       bacteria, bandwidth.nrd, bcv, beav1, beav2, biopsy, birthwt,
-       Boston, boxcox, cabbages, caith, Cars93, cats, cement, chem,
-       con2tr, confint.glm, confint.nls, contr.sdif, coop, corresp,
-       cov.trob, cpus, crabs, Cushings, DDT, deaths, denumerate,
-       dose.p, drivers, dropterm, eagles, enlist, epil, eqscplot,
-       family.negbin, farms, fbeta, fdeaths, fgl, fitdistr, forbes,
-       fractions, frequency.polygon, GAGurine, galaxies,
-       gamma.dispersion, gamma.shape, gehan, genotype, geyser,
-       gilgais, ginv, glm.convert, glm.nb, glmmPQL, hills, hist.FD,
-       hist.scott, housing, huber, hubers, immer, Insurance,
-       is.fractions, isoMDS, kde2d, lda, ldahist, leuk, lh, lm.gls,
-       lm.ridge, lmwork, loglm, loglm1, logtrans, mammals,
-       MASS.data.load, mca, mcycle, mdeaths, Melanoma, menarche,
-       michelson, minn38, motors, muscle, mvrnorm, nclass.freq,
-       neg.bin, negative.binomial, negexp.SSival, newcomb, nlschools,
-       nottem, npk, npr1, Null, oats, OME, painters, parcoord, petrol,
-       phones, Pima.te, Pima.tr, Pima.tr2, polr, psi.bisquare,
-       psi.hampel, psi.huber, qda, quine, Rabbit, rational,
-       renumerate, renumerate.formula, rlm, rms.curv, rnegbin, road,
-       rock, rotifer, Rubber, sammon, select, Shepard, ships, shoes,
-       shrimp, shuttle, Sitka, Sitka89, Skye, snails, SP500, stdres,
-       steam, stepAIC, stormer, studres, survey, synth.te, synth.tr,
-       theta.md, theta.ml, theta.mm, topo, Traffic, truehist, ucv,
-       UScereal, UScrime, VA, waders, whiteside, width.SJ,
-       write.matrix, wtloss)
+# functions
+export(area, as.fractions, bandwidth.nrd, bcv, boxcox, con2tr,
+       contr.sdif, corresp, cov.trob, denumerate, dose.p, dropterm, enlist,
+       eqscplot, family.negbin, fbeta, fitdistr, fractions,
+       frequency.polygon, gamma.dispersion, gamma.shape, ginv,
+       glm.convert, glm.nb, glmmPQL, hist.FD, hist.scott, huber,
+       hubers, is.fractions, isoMDS, kde2d, lda, ldahist, lm.gls,
+       lm.ridge, lmwork, loglm, loglm1, logtrans, MASS.data.load, mca,
+       mvrnorm, nclass.freq, neg.bin, negative.binomial,
+       negexp.SSival, Null, parcoord, polr, psi.bisquare, psi.hampel,
+       psi.huber, qda, rational, renumerate, rlm, rms.curv, rnegbin,
+       select, Shepard, stdres, stepAIC, studres, theta.md, theta.ml,
+       theta.mm, truehist, ucv, width.SJ, write.matrix)
+
+# datasets
+export(abbey, accdeaths, addterm, Aids2, Animals, anorexia, austres,
+       bacteria, beav1, beav2, biopsy, birthwt, Boston, cabbages,
+       caith, Cars93, cats, cement, chem, coop, cpus, crabs, Cushings,
+       DDT, deaths, drivers, eagles, epil, farms, fdeaths, fgl,
+       forbes, GAGurine, galaxies, gehan, genotype, geyser, gilgais,
+       hills, housing, immer, Insurance, leuk, lh, mammals, mcycle,
+       mdeaths, Melanoma, menarche, michelson, minn38, motors, muscle,
+       newcomb, nlschools, nottem, npk, npr1, oats, OME, painters,
+       petrol, phones, Pima.te, Pima.tr, Pima.tr2, quine, Rabbit,
+       road, rock, rotifer, Rubber, sammon, ships, shoes, shrimp,
+       shuttle, Sitka, Sitka89, Skye, snails, SP500, steam, stormer,
+       survey, synth.te, synth.tr, topo, Traffic, UScereal, UScrime,
+       VA, waders, whiteside, wtloss)
+
 
 # needed for Recall
-export(denumerate.formula)
+export(denumerate.formula, renumerate.formula)
 
 # documented but unexported methods
-# export(addterm.default, addterm.glm, addterm.lm, addterm.mlm,
-#        addterm.negbin, addterm.survreg, biplot.correspondence,
-#        boxcox.default, boxcox.formula, boxcox.lm, dropterm.default,
-#        dropterm.glm, dropterm.lm, dropterm.mlm, dropterm.negbin,
-#        dropterm.survreg, fitted.loglm, gamma.shape.glm,
+# export(addterm.default, addterm.glm, addterm.lm,
+#        anova.loglm, anova.negbin,
+#        boxcox.default, boxcox.formula, boxcox.lm,
+#        confint.glm, confint.nls,
+#        dropterm.default, dropterm.glm, dropterm.lm,
+#        gamma.shape.glm,
 #        loglm1.data.frame, loglm1.default, loglm1.xtabs,
-#        logtrans.default, logtrans.formula, logtrans.lm, pairs.lda,
-#        pairs.profile, plot.correspondence, plot.lda, plot.mca,
+#        logtrans.default, logtrans.formula, logtrans.lm,
+#        pairs.lda, pairs.profile, plot.lda, plot.mca,
 #        plot.profile, plot.ridgelm, predict.lda, predict.mca,
-#        predict.polr, predict.qda, print.abbrev, print.Anova,
-#        profile.glm, select.ridgelm, summary.loglm, summary.negbin, summary.rlm)
+#        predict.qda, print.abbrev, print.Anova,
+#        profile.glm, select.ridgelm,
+#        summary.loglm, summary.negbin, summary.rlm)
 
 # use match.call and record the call
-export(lda.data.frame, lda.default, lda.formula, lda.matrix,
-       qda.data.frame, qda.default, qda.formula, qda.matrix,
-       rlm.default, rlm.formula)
+# export(lda.data.frame, lda.default, lda.formula, lda.matrix,
+#        qda.data.frame, qda.default, qda.formula, qda.matrix,
+#        rlm.default, rlm.formula)
+
+importFrom(mva, biplot)
 
 S3method("[", fractions)
 S3method("[<-", fractions)
@@ -71,7 +77,7 @@ S3method(confint, glm)
 S3method(confint, nls)
 S3method(confint, profile.glm)
 S3method(confint, profile.nls)
-S3method(corresp, crosstabs)
+S3method(corresp, xtabs)
 S3method(corresp, data.frame)
 S3method(corresp, default)
 S3method(corresp, factor)
@@ -97,6 +103,7 @@ S3method(lda, matrix)
 S3method(loglm1, data.frame)
 S3method(loglm1, default)
 S3method(loglm1, xtabs)
+S3method(logLik, negbin)
 S3method(logtrans, default)
 S3method(logtrans, formula)
 S3method(logtrans, lm)
@@ -144,6 +151,7 @@ S3method(qda, matrix)
 S3method(residuals, loglm)
 S3method(rlm, default)
 S3method(rlm, formula)
+S3method(se.contrast, rlm)
 S3method(select, ridgelm)
 S3method(Summary, fractions)
 S3method(summary, loglm)
@@ -155,5 +163,3 @@ S3method(terms, gls)
 S3method(terms, lme)
 S3method(update, loglm)
 S3method(vcov, polr)
-
-importFrom(mva, biplot)

@@ -23,7 +23,6 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
         p2 <- dlogis(gamm[y] - eta)
         g1 <- if(pc > 0) t(x) %*% (wt*(p1-p2)/pr) else numeric(0)
         xx <- .polrY1*p1 - .polrY2*p2
-        d <- pmin(diff(beta[pc+1:q]), 0)
         g2 <- - t(xx) %*% (wt/pr)
         if(all(pr) > 0) c(g1, g2) else rep(NA, pc+q)
     }
@@ -50,11 +49,11 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
         x <- x[, -xint, drop=FALSE]
         pc <- pc - 1
     } else warning("an intercept is needed and assumed")
-    wt <- model.extract(m, weights)
+    wt <- model.weights(m)
     if(!length(wt)) wt <- rep(1, n)
-    offset <- model.extract(m, offset)
+    offset <- model.offset(m)
     if(length(offset) <= 1) offset <- rep(0, n)
-    y <- model.extract(m, response)
+    y <- model.response(m)
     if(!is.factor(y)) stop("response must be a factor")
     lev <- levels(y)
     if(length(lev) <= 2) stop("response must have 3 or more levels")
@@ -64,7 +63,7 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
     assign(".polrY1", col(Y) == y)
     assign(".polrY2", col(Y) == y-1)
     if(missing(start)) {
-        # try logistic regression on `middle' cut
+        # try logistic regression on 'middle' cut
         q1 <- length(lev) %/% 2
         y1 <- (y > q1)
         X <- cbind(Intercept = rep(1, n), x)

@@ -3,14 +3,14 @@
 %
 \name{loglm}
 \alias{loglm}
-\alias{anova.loglm}
-\alias{print.anova.loglm}
-\alias{coef.loglm}
-\alias{extractAIC.loglm}
-\alias{fitted.loglm}
-\alias{print.loglm}
-\alias{residuals.loglm}
-\alias{update.loglm}
+% \alias{anova.loglm}
+% \alias{print.anova.loglm}
+% \alias{coef.loglm}
+% \alias{extractAIC.loglm}
+% \alias{fitted.loglm}
+% \alias{print.loglm}
+% \alias{residuals.loglm}
+% \alias{update.loglm}
 \title{
 Fit Log-Linear Models by Iterative Proportional Scaling
 }
@@ -37,8 +37,8 @@ loglm(formula, data = parent.frame(), subset, na.action, \dots)
     frequencies.  In this case the data argument, if present, must be
     a data frame from which the left-hand side vector and the
     classifying factors on the right-hand side are (preferentially)
-    obtained.  The usual abbreviation of a \code{.} to stand for ``all
-    other variables in the data frame'' is allowed.  Any non-factors
+    obtained.  The usual abbreviation of a \code{.} to stand for \sQuote{all
+    other variables in the data frame} is allowed.  Any non-factors
     on the right-hand side of the formula are coerced to factor.
   }
   \item{data}{

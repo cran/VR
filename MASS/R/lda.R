@@ -14,7 +14,7 @@ lda.formula <- function(formula, data = NULL, ...,
     m[[1]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
-    grouping <- model.extract(m, "response")
+    grouping <- model.response(m)
     x <- model.matrix(Terms, m)
     xvars <- as.character(attr(Terms, "variables"))[-1]
    if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
@@ -26,7 +26,10 @@ lda.formula <- function(formula, data = NULL, ...,
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- lda.default(x, grouping, ...)
     res$terms <- Terms
-    res$call <- match.call()
+    ## fix up call to refer to the generic, but leave arg name as `formula'
+    cl <- match.call()
+    cl[[1]] <- as.name("lda")
+    res$call <- cl
     res$contrasts <- attr(x, "contrasts")
     res$xlevels <- xlev
     attr(res, "na.message") <- attr(m, "na.message")
@@ -37,7 +40,9 @@ lda.formula <- function(formula, data = NULL, ...,
 lda.data.frame <- function(x, ...)
 {
     res <- lda.matrix(structure(data.matrix(x), class="matrix"), ...)
-    res$call <- match.call()
+    cl <- match.call()
+    cl[[1]] <- as.name("lda")
+    res$call <- cl
     res
 }
 
@@ -56,7 +61,9 @@ lda.matrix <- function(x, grouping, ...,
         x <- dfr$x
     }
     res <- NextMethod("lda")
-    res$call <- match.call()
+    cl <- match.call()
+    cl[[1]] <- as.name("lda")
+    res$call <- cl
     res
 }
 
@@ -174,9 +181,11 @@ lda.default <-
         dimnames(scaling) <- list(colnames(x), paste("LD", 1:rank, sep = ""))
         dimnames(group.means)[[2]] <- colnames(x)
     }
+    cl <- match.call()
+    cl[[1]] <- as.name("lda")
     structure(list(prior = prior, counts = counts, means = group.means,
                    scaling = scaling, lev = lev, svd = X.s$d[1:rank],
-                   N = n, call = match.call()),
+                   N = n, call = cl),
               class = "lda")
 }
 
@@ -201,8 +210,9 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
         if(missing(newdata)) {
             if(!is.null(sub <- object$call$subset))
                 newdata <-
-                    eval.parent(parse(text=paste(deparse(object$call$x),"[",
-                                      deparse(sub),",]")))
+                    eval.parent(parse(text=paste(deparse(object$call$x,
+                                      backtick=TRUE),
+                                      "[", deparse(sub, backtick=TRUE),",]")))
             else newdata <- eval.parent(object$call$x)
             if(!is.null(nas <- object$call$na.action))
                 newdata <- eval(call(nas, newdata))
@@ -292,7 +302,7 @@ plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
     # formula fit
         data <- model.frame(x)
         X <- model.matrix(delete.response(Terms), data)
-        g <- model.extract(data, "response")
+        g <- model.response(data)
         xint <- match("(Intercept)", colnames(X), nomatch=0)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
     } else { #
@@ -300,10 +310,10 @@ plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
         xname <- x$call$x
         gname <- x$call[[3]]
         if(!is.null(sub <- x$call$subset)) {
-            X <- eval.parent(parse(text=paste(deparse(xname),"[",
-                                   deparse(sub),",]")))
-            g <- eval.parent(parse(text=paste(deparse(gname),"[",
-                                   deparse(sub),"]")))
+            X <- eval.parent(parse(text=paste(deparse(xname, backtick=TRUE),
+                                   "[", deparse(sub, backtick=TRUE),",]")))
+            g <- eval.parent(parse(text=paste(deparse(gname, backtick=TRUE),
+                                   "[", deparse(sub, backtick=TRUE),"]")))
         } else {
             X <- eval.parent(xname)
             g <- eval.parent(gname)
@@ -398,15 +408,11 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
         text(x, y, as.character(g.lda), cex=tcex, ...)
     }
     type <- match.arg(type)
-    if(type == "trellis") {
-        warn("type = trellis is not supported in R")
-        type <- "std"
-    }
     if(!is.null(Terms <- x$terms)) { #
     # formula fit
         data <- model.frame(x)
         X <- model.matrix(delete.response(Terms), data)
-        g <- model.extract(data, "response")
+        g <- model.response(data)
         xint <- match("(Intercept)", colnames(X), nomatch=0)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
     } else { #
@@ -414,13 +420,13 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
         xname <- x$call$x
         gname <- x$call[[3]]
         if(!is.null(sub <- x$call$subset)) {
-            X <- eval.parent(parse(text=paste(deparse(xname),"[",
-                                   deparse(sub),",]")))
-            g <- eval.parent(parse(text=paste(deparse(gname),"[",
-                                   deparse(sub),"]")))
+            X <- eval.parent(parse(text=paste(deparse(xname, backtick=TRUE),
+                                   "[", deparse(sub, backtick=TRUE),",]")))
+            g <- eval.parent(parse(text=paste(deparse(gname, backtick=TRUE),
+                                   "[", deparse(sub, backtick=TRUE),"]")))
         } else {
             X <- eval.parent(xname)
-            g <- eval.parent(gnamew)
+            g <- eval.parent(gname)
         }
         if(!is.null(nas <- x$call$na.action)) {
             df <- data.frame(g = g, X = X)
@@ -436,15 +442,15 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
     means <- colMeans(x$means)
     X <- scale(X, center=means, scale=FALSE) %*% x$scaling
     if(!missing(dimen) && dimen < ncol(X)) X <- X[, 1:dimen]
-    if(type=="std") pairs.default(X, panel=panel, ...)
+    if(type == "std") pairs.default(X, panel=panel, ...)
     else {
-        print(splom(~X, groups = g, panel=panel.superpose,
-                    key = list(
-                    text=list(levels(g)),
-                    points = Rows(trellis.par.get("superpose.symbol"),
-                    seq(along=levels(g))),
-                    columns = min(5, length(levels(g)))
-                    )
+        print(lattice::splom(~X, groups = g, panel = lattice::panel.superpose,
+                             key = list(
+                             text=list(levels(g)),
+                             points = lattice::Rows(lattice::trellis.par.get("superpose.symbol"),
+                             seq(along=levels(g))),
+                             columns = min(5, length(levels(g)))
+                             )
                     ))
     }
     invisible(NULL)

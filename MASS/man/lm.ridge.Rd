@@ -29,7 +29,7 @@ in \code{formula}.
 }
 \item{subset}{
 expression saying which subset of the rows of the data should  be used
-in the fit. All observations are included by default.
+in the fit.  All observations are included by default.
 }
 \item{na.action}{
 a function to filter missing data.
@@ -97,7 +97,7 @@ lm.ridge(y ~ ., longley)
 plot(lm.ridge(y ~ ., longley,
               lambda = seq(0,0.1,0.001)))
 select(lm.ridge(y ~ ., longley,
-              lambda = seq(0,0.1,0.0001)))
+               lambda = seq(0,0.1,0.0001)))
 # modified HKB estimator is 0.0042754
 # modified L-W estimator is 0.032295
 # smallest value of GCV  at 0.0028

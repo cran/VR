@@ -1,9 +1,10 @@
 # file MASS/neg.bin.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
 neg.bin <- function(theta = stop("theta must be given"))
 {
-  .Theta <- theta
+  env <- new.env(parent=.GlobalEnv)
+  assign(".Theta", theta, envir=env)
   stats <- make.link("log")
   variance <- function(mu)
     mu + mu^2/.Theta
@@ -23,6 +24,8 @@ neg.bin <- function(theta = stop("theta must be given"))
     n <- rep(1, nobs)
     mustart <- y + (y == 0)/6
   })
+  environment(variance) <- environment(validmu) <-
+    environment(dev.resids) <- environment(aic) <- env
   structure(list(family = "Negative Binomial", link = "log", linkfun = stats$linkfun,
                  linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids,
                  aic = aic, mu.eta = stats$mu.eta, initialize = initialize,

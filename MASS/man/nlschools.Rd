@@ -20,6 +20,9 @@ language test score
 \item{\code{IQ}}{
 Verbal IQ
 }
+\item{\code{class}}{
+class ID
+}
 \item{\code{GS}}{
 Class size: number of eighth-grade pupils recorded in the class (there
 may be others: see \code{COMB}, and some may have been omitted with missing

@@ -31,7 +31,7 @@ Minimum Price (in \$1,000) - price for a basic version
 Midrange Price (in \$1,000) - average of \code{Min.Price} and \code{Max.Price}
 }
 \item{\code{Max.Price}}{
-Maximum Price (in \$1,000) - price for ``a premium version''
+Maximum Price (in \$1,000) - price for \dQuote{a premium version}
 }
 \item{\code{MPG.city}}{
 City MPG (miles per US gallon by EPA rating)

@@ -45,9 +45,9 @@ multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
       xlev <- lapply(m[xvars], levels)
       xlev[!sapply(xlev, is.null)]
   }
-  Y <- model.extract(m, response)
+  Y <- model.response(m)
   if(!is.matrix(Y)) Y <- as.factor(Y)
-  w <- model.extract(m, weights)
+  w <- model.weights(m)
   if(length(w) == 0)
     if(is.matrix(Y)) w <- rep(1, dim(Y)[1])
     else w <- rep(1, length(Y))
@@ -89,7 +89,7 @@ multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
     w <- rep(1, nrow(X))
     print(dim(X))
   }
-  offset <- model.extract(m, offset)
+  offset <- model.offset(m)
   r <- ncol(X)
   if(is.matrix(Y)) {
 # 3 or more response levels or direct matrix spec.
@@ -145,16 +145,7 @@ multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
   fit$edf <- edf
   fit$AIC <- fit$deviance + 2 * edf
   class(fit) <- c("multinom", "nnet")
-  if(Hess) {
-    mask <- as.logical(mask)
-    fit$Hessian <- nnetHess(fit, X, Y, w)[mask, mask, drop=FALSE]
-    cf <- fit$vcoefnames
-    if(length(fit$lev) != 2) {
-     bf <- if(length(fit$lev)) fit$lev else fit$lab
-     cf <- t(outer(bf[-1], cf, function(x,y) paste(x,y,sep=":")))
-    }
-    dimnames(fit$Hessian) <- list(cf, cf)
-  }
+  if(Hess) fit$Hessian <- multinomHess(fit)
   fit$xlevels <- xlev
   fit
 }
@@ -283,11 +274,8 @@ vcov.multinom <- function(object, ...)
       else Xsvd$v[, Positive] %*% ((1/Xsvd$d[Positive]) * t(Xsvd$u[, Positive]))
     }
 
-  if(is.null(object$Hessian)) {
-    cat("\nRe-fitting to get Hessian\n\n")
-    object <- update(object, Hess=TRUE, trace=FALSE)
-  }
-  structure(ginv(object$Hessian), dimnames = dimnames(object$Hessian))
+  if(is.null(Hess <- object$Hessian)) Hess <- multinomHess(object)
+  structure(ginv(Hess), dimnames = dimnames(Hess))
 }
 
 summary.multinom <-
@@ -367,7 +355,7 @@ anova.multinom <- function(object, ..., test = c("Chisq", "none"))
   dflis <- nrow(residuals(object)) * (ncol(residuals(object))-1) - dflis
   mlist <- mlist[s]
   if(any(!sapply(mlist, inherits, "multinom")))
-    stop("not all objects are of class `multinom'")
+    stop("not all objects are of class 'multinom'")
   rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
   mds <- sapply(mlist, function(x) paste(formula(x)[3]))
   dfs <- dflis[s]

@@ -5,12 +5,12 @@ logtrans <- function(object, ...) UseMethod("logtrans")
 
 logtrans.default<-
 function(object, ..., alpha = seq(0.5, 6, by = 0.25) - min(y),
-	plotit = length(dev.list()) > 0, interp = (plotit && (m <
+	plotit = TRUE, interp = (plotit && (m <
 	100)), xlab = "alpha", ylab = "log Likelihood")
 {
     if(is.null(object$y) || is.null(object$qr))
         stop(paste(deparse(substitute(object)),
-                   "does not have both `qr' and `y' components"))
+                   "does not have both 'qr' and 'y' components"))
     y <- object$y
     n <- length(y)
     if(any(y + min(alpha) <= 0))
@@ -59,7 +59,8 @@ function(object, ..., alpha = seq(0.5, 6, by = 0.25) - min(y),
     }
     invisible(list(x = xl, y = loglik))
 }
-"logtrans.formula"<-
+
+logtrans.formula <-
 function(object, data = NULL, ...)
 {
   object <- aov(object, data = data, y = TRUE, qr = TRUE)

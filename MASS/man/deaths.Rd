@@ -3,13 +3,20 @@
 %
 \name{deaths}
 \alias{deaths}
+\alias{fdeaths}
+\alias{mdeaths}
 \title{
 Monthly Deaths from Lung Diseases in the UK
 }
 \description{
-  A regular time series giving the monthly deaths from bronchitis,
+  A time series giving the monthly deaths from bronchitis,
   emphysema and asthma in the UK, 1974-1979, both sexes (\code{deaths}),
   males (\code{mdeaths}) and females (\code{fdeaths}).
+}
+\usage{
+data(deaths)
+data(mdeaths)
+data(deaths)
 }
 \source{
 P. J. Diggle (1990)

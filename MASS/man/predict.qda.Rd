@@ -11,7 +11,7 @@ Classify multivariate observations in conjunction with \code{qda}
 }
 \usage{
 \method{predict}{qda}(object, newdata, prior = object$prior,
-  method = c("plug-in", "predictive", "debiased", "looCV"), \dots)
+        method = c("plug-in", "predictive", "debiased", "looCV"), \dots)
 }
 \arguments{
 \item{object}{

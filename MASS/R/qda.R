@@ -13,7 +13,7 @@ qda.formula <- function(formula, data = NULL, ...,
     m[[1]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
-    grouping <- model.extract(m, "response")
+    grouping <- model.response(m)
     x <- model.matrix(Terms, m)
     xvars <- as.character(attr(Terms, "variables"))[-1]
     if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
@@ -25,7 +25,9 @@ qda.formula <- function(formula, data = NULL, ...,
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- qda.default(x, grouping, ...)
     res$terms <- Terms
-    res$call <- match.call()
+    cl <- match.call()
+    cl[[1]] <- as.name("qda")
+    res$call <- cl
     res$contrasts <- attr(x, "contrasts")
     res$xlevels <- xlev
     attr(res, "na.message") <- attr(m, "na.message")
@@ -36,7 +38,9 @@ qda.formula <- function(formula, data = NULL, ...,
 qda.data.frame <- function(x, ...)
 {
     res <- qda.matrix(structure(data.matrix(x), class="matrix"), ...)
-    res$call <- match.call()
+    cl <- match.call()
+    cl[[1]] <- as.name("qda")
+    res$call <- cl
     res
 }
 
@@ -55,7 +59,9 @@ qda.matrix <- function(x, grouping, ...,
         x <- dfr$x
     }
     res <- NextMethod("qda")
-    res$call <- match.call()
+    cl <- match.call()
+    cl[[1]] <- as.name("qda")
+    res$call <- cl
     res
 }
 
@@ -153,9 +159,10 @@ qda.default <-
         dimnames(scaling) <- list(colnames(x), as.character(1:p), lev)
         dimnames(group.means)[[2]] <- colnames(x)
     }
+    cl <- match.call()
+    cl[[1]] <- as.name("qda")
     res <- list(prior = prior, counts = counts, means = group.means,
-                scaling = scaling, ldet = ldet, lev = lev, N = n,
-                call = match.call())
+                scaling = scaling, ldet = ldet, lev = lev, N = n, call = cl)
     class(res) <- "qda"
     res
 }
@@ -183,16 +190,18 @@ predict.qda <- function(object, newdata, prior = object$prior,
                           contrasts = object$contrasts)
         xint <- match("(Intercept)", colnames(x), nomatch=0)
         if(xint > 0) x <- x[, -xint, drop=FALSE]
-        if(method == "looCV") g <- model.extract(newdata, "response")
+        if(method == "looCV") g <- model.response(newdata)
     } else { #
     # matrix or data-frame fit
         if(missing(newdata)) {
             if(!is.null(sub <- object$call$subset)) {
                 newdata <-
-                    eval.parent(parse(text=paste(deparse(object$call$x),
-                                      "[", deparse(sub),",]")))
-                g <- eval.parent(parse(text=paste(deparse(object$call[[3]]),
-                                       "[", deparse(sub),"]")))
+                    eval.parent(parse(text=paste(deparse(object$call$x,
+                                      backtick=TRUE),
+                                      "[", deparse(sub, backtick=TRUE),",]")))
+                g <- eval.parent(parse(text=paste(deparse(object$call[[3]],
+                                       backtick=TRUE),
+                                       "[", deparse(sub, backtick=TRUE),"]")))
             } else {
                 newdata <- eval.parent(object$call$x)
                 g <- eval.parent(object$call[[3]])
@@ -255,7 +264,6 @@ predict.qda <- function(object, newdata, prior = object$prior,
         }
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else {
-        N <- object$N
         for(i in 1:ngroup) {
             nk <- object$counts[i]
             dev <- ((x - matrix(object$means[i,  ], nrow = nrow(x),

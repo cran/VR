@@ -46,7 +46,7 @@ VR_knn1(Sint *pntr, Sint *pnte, Sint *p, double *train, Sint *class,
 		votes[class[ind[i]]]++;
 	    j = votes[1];
 /*
-     This uses `reservoir sampling' to choose amongst ties at random
+     This uses 'reservoir sampling' to choose amongst ties at random
      on a single pass.
 
  */
@@ -87,7 +87,7 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
 
     RANDIN;
 /*
-    Use a `fence' in the (k+1)st position to avoid special cases.
+    Use a 'fence' in the (k+1)st position to avoid special cases.
     Simple insertion sort will suffice since k will be small.
  */
 
@@ -103,7 +103,7 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
 		tmp = test[npat + k * nte] - train[j + k * ntr];
 		dist += tmp * tmp;
 	    }
-/* Use `fuzz' since distance computed could depend on order of coordinates */
+/* Use 'fuzz' since distance computed could depend on order of coordinates */
 	    if (dist <= nndist[kinit - 1] * (1 + EPS))
 		for (k = 0; k <= kn; k++)
 		    if (dist < nndist[k]) {
@@ -376,7 +376,7 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
     for (k = 0; k < *rlen; k++) {
 	/* pick a random data point */
 	i = (int)(n * UNIF);
-	/* find the nearest code `near' */
+	/* find the nearest code 'near' */
 	nind = 0; dm = DOUBLE_XMAX;
 	for (cd = 0; cd < ncodes; cd++) {
 	    dist = 0.0;
@@ -393,7 +393,7 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
 		}
 		dm = dist;
 	    }
-	    /* update all codes within radii[k] of `nearest' */
+	    /* update all codes within radii[k] of 'nearest' */
 	    for (cd = 0; cd < ncodes; cd++) {
 		if(nhbrdist[cd + ncodes*nearest] > radii[k]) continue;
 		for(j = 0; j < p; j++)

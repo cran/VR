@@ -1,7 +1,4 @@
 \name{batchSOM}
-\alias{somgrid}
-\alias{plot.somgrid}
-\alias{plot.SOM}
 \alias{batchSOM}
 \title{
 Self-Organizing Maps: Batch Algorithm
@@ -11,14 +8,15 @@ Kohonen's Self-Organizing Maps are a crude form of multidimensional scaling.
 }
 \usage{
 batchSOM(data, grid = somgrid(), radii, init)
-somgrid(xdim = 8, ydim = 6, topo = c("rectangular", "hexagonal"))
 }
 \arguments{
   \item{data}{
     a matrix or data frame of observations, scaled so that Euclidean
     distance is appropriate.
   }
-  \item{grid}{A grid for the representatives.}
+  \item{grid}{
+    A grid for the representatives: see \code{\link{somgrid}}.
+  }
   \item{radii}{
     the radii of the neighbourhood to be used for each pass: one pass is
     run for each element of \code{radii}.
@@ -27,8 +25,6 @@ somgrid(xdim = 8, ydim = 6, topo = c("rectangular", "hexagonal"))
     the initial representatives.  If missing, chosen (without replacement)
     randomly from \code{data}.
   }
-  \item{xdim, ydim}{dimensions of the grid}
-  \item{topo}{the topology of the grid.}
 }
 \value{
   an object of class \code{"SOM"} with components
@@ -39,7 +35,7 @@ somgrid(xdim = 8, ydim = 6, topo = c("rectangular", "hexagonal"))
   The batch SOM algorithm of Kohonen(1995, section 3.14) is used.
 }
 \seealso{
-  \code{\link{SOM}}
+  \code{\link{somgrid}}, \code{\link{SOM}}
 }
 \references{
   Kohonen, T. (1995) \emph{Self-Organizing Maps.} Springer-Verlag.
@@ -51,7 +47,8 @@ somgrid(xdim = 8, ydim = 6, topo = c("rectangular", "hexagonal"))
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
-library(MASS)
+data(crabs, package = "MASS")
+
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, rep(50,4))])
 gr <- somgrid(topo = "hexagonal")

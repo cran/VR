@@ -6,9 +6,9 @@
 \alias{dropterm.default}
 \alias{dropterm.glm}
 \alias{dropterm.lm}
-\alias{dropterm.mlm}
-\alias{dropterm.negbin}
-\alias{dropterm.survreg}
+%\alias{dropterm.mlm}
+%\alias{dropterm.negbin}
+%\alias{dropterm.survreg}
 \title{
 Try All One-Term Deletions from a Model
 }
@@ -21,11 +21,16 @@ This function is generic; there exist methods for classes \code{lm} and
 \code{glm} and the default method will work for many other classes.
 }
 \usage{
-dropterm(object, scope, scale = 0, test = c("none", "Chisq", "F"),
+dropterm (object, \dots)
+
+\method{dropterm}{default}(object, scope, scale = 0, test = c("none", "Chisq", "F"),
          k = 2, sorted = FALSE, trace = FALSE, \dots)
-}
-\synopsis{
-dropterm (object, ...)
+
+\method{dropterm}{lm}(object, scope, scale = 0, test = c("none", "Chisq", "F"),
+         k = 2, sorted = FALSE, \dots)
+
+\method{dropterm}{glm}(object, scope, scale = 0, test = c("none", "Chisq", "F"),
+         k = 2, sorted = FALSE, trace = FALSE, \dots)
 }
 \arguments{
 \item{object}{
