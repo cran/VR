@@ -41,7 +41,7 @@ assumed to be correct. With \code{"debiased"} an unbiased estimator of
 the log posterior probabilities is used, and with \code{"predictive"} the
 parameter estimates are integrated out using a vague prior.
 }
-\item{...}{
+\item{\dots}{
 arguments based from or to other methods
 }}
 \value{
@@ -74,6 +74,9 @@ the origin.
 \references{
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks}. Cambridge University Press.
 }
 \seealso{
 \code{\link{lda}}, \code{\link{qda}}, \code{\link{predict.qda}}

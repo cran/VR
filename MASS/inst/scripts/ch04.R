@@ -125,8 +125,9 @@ xyplot(time ~ dist, data = hills,
   }
 )
 
-bwplot(Expt ~ Speed, data = michelson, ylab = "Experiment No.")
-title("Speed of Light Data")
+## note: don't use separate title() call
+bwplot(Expt ~ Speed, data = michelson, ylab = "Experiment No.",
+       main = "Speed of Light Data")
 
 data(swiss)
 splom(~ swiss, aspect = "fill",

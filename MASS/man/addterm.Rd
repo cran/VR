@@ -58,7 +58,7 @@ should the results be sorted on the value of AIC?
 \item{trace}{
 if \code{TRUE} additional information may be given on the fits as they are tried.
 }
-\item{...}{
+\item{\dots}{
 arguments passed to or from other methods.
 }}
 \value{

@@ -107,7 +107,7 @@ the accuracy for the stopping criterion.
 \item{test.vec}{
 the stopping criterion is based on changes in this vector.
 }
-\item{...}{
+\item{\dots}{
 additional arguments to be passed to \code{rlm.default} or to the \code{psi}
 function.
 }}

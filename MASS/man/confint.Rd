@@ -30,8 +30,9 @@ missing, all parameters are considered.
 \item{level}{
 the confidence level required.
 }
-\item{...}{
-additional argument(s) for methods -- the \code{glm} methods allows \code{trace}.
+\item{\dots}{
+  additional argument(s) for methods -- the \code{glm} methods allows
+  \code{trace}.
 }}
 \value{
 A matrix (or vector) with columns giving lower and upper confidence

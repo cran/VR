@@ -21,12 +21,12 @@ number of bins used
 \item{plotit}{
 logical for plotting
 }
-\item{...}{
+\item{\dots}{
 parameters for the plot
 }}
 \value{
-\code{x} and \code{y} coordinates of the variogram and \code{cnt}, the number of pairs
-averaged per bin.
+  \code{x} and \code{y} coordinates of the variogram and \code{cnt},
+  the number of pairs averaged per bin.
 }
 \section{Side Effects}{
 Plots the variogram if \code{plotit = TRUE}

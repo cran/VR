@@ -26,7 +26,7 @@ Lower limit of integration.
 \item{b}{
 Upper limit of integration.
 }
-\item{...}{
+\item{\dots}{
 Additional arguments needed by the integrand.
 }
 \item{fa}{

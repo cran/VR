@@ -27,7 +27,7 @@ matrix be used?
 \item{correlation}{
 logical. Should correlations be computed (and printed)?
 }
-\item{...}{
+\item{\dots}{
 arguments passed to or from other methods.
 }}
 \value{

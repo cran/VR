@@ -19,10 +19,10 @@ Linear discriminant analysis.
 \usage{
 lda(formula, data, prior = proportions, tol = 1.0e-4,
                    subset, na.action = na.fail,
-		   method, CV = FALSE, nu)
+		   method, CV = FALSE, nu, \dots)
 lda(x,   grouping, prior = proportions, tol = 1.0e-4,
                    subset, na.action = na.fail,
-                   method, CV = FALSE, nu)
+                   method, CV = FALSE, nu, \dots)
 }
 \synopsis{
 lda(x, ...)
@@ -79,7 +79,7 @@ lda(x, ...)
   \item{nu}{
     degrees of freedom for \code{method = "t"}.
   }
-  \item{...}{
+  \item{\dots}{
     arguments passed to or from other methods.
 }}
 \value{
@@ -139,6 +139,9 @@ modified using \code{update()} in the usual way.
 \references{
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks}. Cambridge University Press.
 }
 \seealso{
 \code{\link{predict.lda}}, \code{\link{qda}}, \code{\link{predict.qda}}

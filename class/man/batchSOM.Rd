@@ -14,46 +14,35 @@ batchSOM(data, grid = somgrid(), radii, init)
 somgrid(xdim = 8, ydim = 6, topo = c("rectangular", "hexagonal"))
 }
 \arguments{
-\item{data}{
-a matrix or data frame of observations, scaled so that Euclidean
-distance is appropriate.
+  \item{data}{
+    a matrix or data frame of observations, scaled so that Euclidean
+    distance is appropriate.
+  }
+  \item{grid}{A grid for the representatives.}
+  \item{radii}{
+    the radii of the neighbourhood to be used for each pass: one pass is
+    run for each element of \code{radii}.
+  }
+  \item{init}{
+    the initial representatives.  If missing, chosen (without replacement)
+    randomly from \code{data}.
+  }
+  \item{xdim, ydim}{dimensions of the grid}
+  \item{topo}{the topology of the grid.}
 }
-\item{grid}{
-A grid for the representatives.
-}
-\item{radii}{
-the radii of the neighbourhood to be used for each pass: one pass is
-run for each element of \code{radii}.
-}
-\item{init}{
-the initial representatives.  If missing, chosen (without replacement)
-randomly from \code{data}.
-}
-\item{xdim, ydim}{
-dimensions of the grid
-}
-\item{topo}{
-the topology of the grid.
-}}
 \value{
-an object of class \code{"SOM"} with components
-
-\item{grid}{
-the grid, an object of class \code{"somgrid"}.
+  an object of class \code{"SOM"} with components
+  \item{grid}{the grid, an object of class \code{"somgrid"}.}
+  \item{codes}{a matrix of representatives.}
 }
-\item{codes}{
-a matrix of representatives.
-}}
 \details{
-The batch SOM algorithm of Kohonen(1995, section 3.14) is used.
+  The batch SOM algorithm of Kohonen(1995, section 3.14) is used.
 }
 \seealso{
-\code{\link{SOM}}
+  \code{\link{SOM}}
 }
 \references{
-Kohonen, T. (1995)
-\emph{Self-Organizing Maps.}
-Springer-Verlag
+  Kohonen, T. (1995) \emph{Self-Organizing Maps.} Springer-Verlag.
 
   Ripley, B. D. (1996)
   \emph{Pattern Recognition and Neural Networks.} Cambridge.
@@ -63,7 +52,6 @@ Springer-Verlag
 }
 \examples{
 library(MASS)
-library(mva) # for dist
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, rep(50,4))])
 gr <- somgrid(topo = "hexagonal")

@@ -18,9 +18,6 @@ anovalist.trls(object, \dots)
 \item{object}{
 A fitted trend surface model object from \code{surf.ls}
 }
-\item{digits}{
-number of significant figures used in printing.
-}
 \item{\dots}{
 Further objects of the same kind
 }}

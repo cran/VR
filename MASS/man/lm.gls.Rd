@@ -52,14 +52,15 @@ should the response be returned?
 \item{contrasts}{
 a list of contrasts to be used for some or all of
 }
-\item{...}{
-additional arguments to \code{lm.fit}.
+\item{\dots}{
+additional arguments to \code{\link{lm.fit}}.
 }}
 \value{
 An object of class \code{"lm"}, with additional class \code{"lm.gls"}
 }
 \details{
-The problem is transformed to uncorrelated form and passed to \code{lm.fit}.
+  The problem is transformed to uncorrelated form and passed to
+  \code{\link{lm.fit}}.
 }
 \seealso{
   \code{\link[nlme]{gls}}, \code{\link{lm}}, \code{\link{lm.ridge}}

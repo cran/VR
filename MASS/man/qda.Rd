@@ -17,9 +17,9 @@ Quadratic discriminant analysis.
 }
 \usage{
 qda(formula, data, prior = proportions, subset,
-                   na.action = na.fail, method, CV = FALSE, nu)
+                   na.action = na.fail, method, CV = FALSE, nu, \dots)
 qda(x,   grouping, prior = proportions, subset,
-                   na.action = na.fail, method, CV = FALSE, nu)
+                   na.action = na.fail, method, CV = FALSE, nu, \dots)
 }
 \synopsis{
 qda(x, ...)
@@ -70,7 +70,7 @@ the proportions in the whole dataset are used.
 \item{nu}{
 degrees of freedom for \code{method = "t"}.
 }
-\item{...}{
+\item{\dots}{
 arguments passed to or from other methods.
 }}
 \value{
@@ -115,6 +115,9 @@ within-group variance is singular for any group.
 \references{
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks}. Cambridge University Press.
 }
 \seealso{
 \code{\link{predict.qda}}, \code{\link{lda}}

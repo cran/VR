@@ -44,7 +44,7 @@ defaults to \code{"lambda"}
 \item{ylab}{
 defaults to \code{"log-Likelihood"}
 }
-\item{...}{
+\item{\dots}{
 additional parameters to be used in the model fitting.
 }}
 \value{

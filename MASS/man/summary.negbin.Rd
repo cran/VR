@@ -26,7 +26,7 @@ as for \code{summary.glm}, with a default of 1.
 \item{correlation}{
 as for \code{summary.glm}.
 }
-\item{...}{
+\item{\dots}{
 arguments passed to or from other methods.
 }}
 \value{

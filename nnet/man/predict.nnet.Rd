@@ -22,7 +22,7 @@ a row vector comprising a single case.
 \item{type}{
 Type of output
 }
-\item{...}{
+\item{\dots}{
 arguments passed to or from other methods.
 }}
 \value{

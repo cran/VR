@@ -26,7 +26,7 @@ logtrans(object, ...)
 Fitted linear model object, or formula defining the untransformed
 model that is \code{y ~ x1 + x2 + \dots}.  The function is generic.
 }
-\item{...}{
+\item{\dots}{
 If \code{object} is a formula, this argument may specify a data frame
 as for \code{lm}.
 }

@@ -49,8 +49,8 @@ should the response be returned?
 \item{contrasts}{
 a list of contrasts to be used for some or all of
 }
-\item{...}{
-additional arguments to \code{lm.fit}.
+\item{\dots}{
+additional arguments to \code{\link{lm.fit}}.
 }}
 \value{
 A list with components

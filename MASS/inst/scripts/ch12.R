@@ -21,7 +21,7 @@ ir.ld <- predict(ir.lda, dimen = 2)$x
 eqscplot(ir.ld, type = "n", xlab = "first linear discriminant",
           ylab = "second linear discriminant")
 text(ir.ld, labels = as.character(ir.species[-143]),
-      col = 3 + codes(ir.species), cex = 0.8)
+      col = 3 + unclass(ir.species), cex = 0.8)
 
 plot(ir.lda, dimen = 1)
 plot(ir.lda, type = "density", dimen = 1)

@@ -40,7 +40,7 @@ maximum number of iterations.
 \item{verbose}{
 logical: print out record of iterations?
 }
-\item{...}{
+\item{\dots}{
 Further arguments for \code{lme}.
 }}
 \value{

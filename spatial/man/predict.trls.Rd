@@ -19,7 +19,7 @@ Vector of prediction location eastings (x coordinates)
 \item{y}{
 Vector of prediction location northings (y coordinates)
 }
-\item{...}{
+\item{\dots}{
 further arguments passed to or from other methods.
 }}
 \value{

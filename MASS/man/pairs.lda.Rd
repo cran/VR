@@ -31,7 +31,7 @@ exceeds the number determined by \code{x} the smaller value is used.
 whether the group labels are abbreviated on the plots. If \code{abbrev > 0}
 this gives \code{minlength} in the call to \code{abbreviate}.
 }
-\item{...}{
+\item{\dots}{
 additional arguments for \code{pairs.default}.
 }
 \item{cex}{

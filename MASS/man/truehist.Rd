@@ -60,7 +60,7 @@ label for the plot x-axis. By default, this will be the name of \code{data}.
 \item{bty}{
 The box type for the plot - defaults to none.
 }
-\item{...}{
+\item{\dots}{
   additional arguments to \code{\link{rect}} or \code{\link{plot}}.
 }}
 \section{Side Effects}{

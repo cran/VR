@@ -21,7 +21,7 @@ number of bins used
 \item{plotit}{
 logical for plotting
 }
-\item{...}{
+\item{\dots}{
 parameters for the plot
 }}
 \value{

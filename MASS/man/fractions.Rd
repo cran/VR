@@ -21,7 +21,7 @@ Find rational approximations to the components of a real numeric
 object using a standard continued fraction method.
 }
 \usage{
-fractions(x, cycles = 10, max.denominator = 2000)
+fractions(x, cycles = 10, max.denominator = 2000, \dots)
 }
 \synopsis{
 fractions(x, ...)
@@ -38,7 +38,7 @@ approximation process.
 An early termination criterion.  If any partial denominator
 exceeds \code{max.denominator} the continued fraction stops at that point.
 }
-\item{...}{
+\item{\dots}{
 arguments passed to or from other methods.
 }}
 \value{

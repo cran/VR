@@ -31,7 +31,7 @@ z coordinates. Will supersede \code{x$z}
 Number of bins for table of the covariance. Increasing adds accuracy,
 and increases size of the object.
 }
-\item{...}{
+\item{\dots}{
 parameters for \code{covmod}
 }}
 \value{

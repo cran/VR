@@ -37,7 +37,7 @@ parameter estimates are integrated out using a vague prior.  With
 \code{"looCV"} the leave-one-out cross-validation fits to the original
 dataset are computed and returned.
 }
-\item{...}{
+\item{\dots}{
 arguments based from or to other methods
 }}
 \value{
@@ -65,6 +65,9 @@ prediction.
 \references{
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks}. Cambridge University Press.
 }
 \seealso{
 \code{\link{qda}}, \code{\link{lda}}, \code{\link{predict.lda}}

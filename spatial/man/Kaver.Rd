@@ -18,7 +18,7 @@ full scale for K-fn
 \item{nsim}{
 number of simulations
 }
-\item{...}{
+\item{\dots}{
 arguments to simulate one point process object
 }}
 \value{

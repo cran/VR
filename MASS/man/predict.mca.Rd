@@ -25,7 +25,7 @@ original fit.
 \item{type}{
 Are predictions required for further rows or for new factors?
 }
-\item{...}{
+\item{\dots}{
 Additional arguments from \code{predict}: unused.
 }}
 \value{

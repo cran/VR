@@ -5,6 +5,7 @@ batchSOM <- function(data, grid = somgrid(), radii, init)
     ng <- nrow(grid$pts)
     if(missing(init))
         init <- data[sample(1:nd, ng, replace = FALSE),]
+    require(mva)
     nhbrdist <- as.matrix(dist(grid$pts))
     for(r in radii) {
         cl <- as.numeric(knn1(init, data, 1:ng))
@@ -67,6 +68,7 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
     if(missing(init))
         init <- data[sample(1:nd, ng, replace = FALSE), ]
     codes <- init
+    require(mva)
     nhbrdist <- as.matrix(dist(grid$pts))
     if(nphases == 1) {
         rlen <- length(alpha)

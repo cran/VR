@@ -33,7 +33,7 @@ process to continue.
 If \code{TRUE}, causes successive iterations to be printed out.  The
 initial estimate is taken from the deviance.
 }
-\item{...}{
+\item{\dots}{
 further arguments passed to or from other methods.
 }}
 \value{

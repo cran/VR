@@ -24,7 +24,7 @@ for the levels?
 The colours and \code{cex} to be used for the row points and level vertices
 respectively.
 }
-\item{...}{
+\item{\dots}{
 Additional parameters to \code{plot}.
 }}
 \references{

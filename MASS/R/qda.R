@@ -1,7 +1,7 @@
 # file MASS/qda.q
 # copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
-qda <- function(x, ...) UseMethod("qda", x, ...)
+qda <- function(x, ...) UseMethod("qda")
 
 qda.formula <- function(formula, data = NULL, ...,
 			subset, na.action = na.fail)

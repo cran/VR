@@ -22,7 +22,7 @@ a fitted loglm model object.
 if \code{TRUE} return observed and expected frequencies in the result.
 Using \code{fitted = TRUE} may necessitate re-fitting the object.
 }
-\item{...}{
+\item{\dots}{
 arguments to be passed to or from other methods.
 }}
 \value{

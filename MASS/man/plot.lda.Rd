@@ -20,7 +20,7 @@ An object of class \code{"lda"}.
 \item{panel}{
 the panel function used to plot the data.
 }
-\item{...}{
+\item{\dots}{
 additional arguments to \code{pairs}, \code{ldahist} or \code{eqscplot}.
 }
 \item{cex}{

@@ -23,7 +23,7 @@ A data vector
 \item{prob}{
 Should the plot have unit area, so be a density estimate?
 }
-\item{...}{
+\item{\dots}{
 Further arguments to \code{hist}.
 }}
 \value{

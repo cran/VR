@@ -19,21 +19,20 @@ A vector of colours, recycled as necessary for each observation.
 \item{lty}{
 A vector of line types, recycled as necessary for each observation.
 }
-\item{...}{
+\item{\dots}{
 Further graphics parameters which are passed to \code{matplot}.
 }}
 \section{Side Effects}{
 a parallel coordinates plots is drawn.
 }
 \references{
-Wegman, E. J. (1990) Hyperdimensional data analysis using parallel
-coordinates.
-\emph{Journal of the American Statistical Association}
-\bold{85}, 664--675.
+  Wegman, E. J. (1990) Hyperdimensional data analysis using parallel
+  coordinates.
+  \emph{Journal of the American Statistical Association}
+  \bold{85}, 664--675.
 
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
-
 }
 \examples{
 data(state)

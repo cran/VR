@@ -11,9 +11,7 @@ A numeric vector of 31 determinations of nickel content (ppm) in
 a Canadian syenite rock.
 }
 \source{
-S. Abbey (1988)
-\emph{Geostandards Newsletter}
-\bold{12}, 241.
+  S. Abbey (1988) \emph{Geostandards Newsletter} \bold{12}, 241.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

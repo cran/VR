@@ -120,7 +120,7 @@ essentially perfect fit.
 Stop if the optimizer is unable to reduce the fit criterion by a
 factor of at least \code{1 - reltol}.
 }
-\item{...}{
+\item{\dots}{
 arguments passed to or from other methods.
 }}
 \value{

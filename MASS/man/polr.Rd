@@ -43,7 +43,7 @@ polr(formula, data = NULL, weights, start, \dots, subset,
 \item{start}{
   initial values for the parameters.
 }
-\item{...}{
+\item{\dots}{
   additional arguments to be passed to \code{\link{optim}}, most often a
   \code{control} argument.
 }

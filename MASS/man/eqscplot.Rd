@@ -37,7 +37,7 @@ proportion of white space at the margins of plot
 desired values for the units per inch parameter. If of length 1, the
 desired units per inch on the x axis.
 }
-\item{...}{
+\item{\dots}{
 further arguments for \code{plot}
 }}
 \value{

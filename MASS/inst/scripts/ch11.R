@@ -22,7 +22,7 @@ eqscplot(ir.pc[, 1:2], type = "n",
     xlab = "first principal component",
     ylab = "second principal component")
 text(ir.pc[, 1:2], labels = as.character(ir.species),
-     col = 3 + codes(ir.species))
+     col = 3 + unclass(ir.species))
 
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, each = 50)])
@@ -42,7 +42,7 @@ ir.scal <- cmdscale(dist(ir), k = 2, eig = T)
 ir.scal$points[, 2] <- -ir.scal$points[, 2]
 eqscplot(ir.scal$points, type = "n")
 text(ir.scal$points, labels = as.character(ir.species),
-     col = 3 + codes(ir.species), cex = 0.8)
+     col = 3 + unclass(ir.species), cex = 0.8)
 
 distp <- dist(ir)
 dist2 <- dist(ir.scal$points)
@@ -51,12 +51,12 @@ sum((distp - dist2)^2)/sum(distp^2)
 ir.sam <- sammon(dist(ir[-143,]))
 eqscplot(ir.sam$points, type = "n")
 text(ir.sam$points, labels = as.character(ir.species[-143]),
-     col = 3 + codes(ir.species), cex = 0.8)
+     col = 3 + unclass(ir.species), cex = 0.8)
 
 ir.iso <- isoMDS(dist(ir[-143,]))
 eqscplot(ir.iso$points, type = "n")
 text(ir.iso$points, labels = as.character(ir.species[-143]),
-     col = 3 + codes(ir.species), cex = 0.8)
+     col = 3 + unclass(ir.species), cex = 0.8)
 
 cr.scale <- 0.5 * log(crabs$CL * crabs$CW)
 slcrabs <- lcrabs - cr.scale

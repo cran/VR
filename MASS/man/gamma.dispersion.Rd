@@ -17,7 +17,7 @@ gamma.dispersion(object, \dots)
 \item{object}{
 Fitted model object giving the gamma fit.
 }
-\item{...}{
+\item{\dots}{
 Additional arguments passed on to \code{gamma.shape}.
 }}
 \value{

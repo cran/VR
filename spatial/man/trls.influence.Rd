@@ -24,7 +24,7 @@ scaling factor for influence circle radii in \code{plot.trls}
 \item{add}{
 add influence plot to existing graphics if \code{TRUE}
 }
-\item{border, col, pch, cex, ...}{
+\item{border, col, pch, cex, \dots}{
 additional graphical parameters
 }
 \value{

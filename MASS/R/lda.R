@@ -1,7 +1,7 @@
 # file MASS/lda.q
 # copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
-lda <- function(x, ...) UseMethod("lda", x, ...)
+lda <- function(x, ...) UseMethod("lda")
 
 
 lda.formula <- function(formula, data = NULL, ...,

@@ -63,18 +63,19 @@ Two components:
   origin), the result can vary considerably from machine to machine.
 }
 \references{
-T. F. Cox and M. A. A. Cox (1994, 2001)
-\emph{Multidimensional Scaling}.
-Chapman & Hall.
+  T. F. Cox and M. A. A. Cox (1994, 2001)
+  \emph{Multidimensional Scaling}. Chapman & Hall.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks}. Cambridge University Press.
 
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
-\code{\link{cmdscale}}, \code{\link{sammon}}
+  \code{\link{cmdscale}}, \code{\link{sammon}}
 }
 \examples{
-library(mva) # for dist
 data(swiss)
 swiss.x <- as.matrix(swiss[, -1])
 swiss.dist <- dist(swiss.x)

@@ -68,7 +68,7 @@ If Y is a matrix with \code{K > 2} columns, interpret the entries as one
 for possible classes, zero for impossible classes, rather than as
 counts.
 }
-\item{...}{
+\item{\dots}{
 additional arguments for \code{nnet}
 }}
 \value{

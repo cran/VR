@@ -50,14 +50,12 @@ used in turn, allowing two- or more phase training.
 \code{\link{batchSOM}}
 }
 \references{
-Kohonen, T. (1995)
-\emph{Self-Organizing Maps.}
-Springer-Verlag
+  Kohonen, T. (1995) \emph{Self-Organizing Maps.} Springer-Verlag
 
-Kohonen, T., Hynninen, J., Kangas, J. and Laaksonen, J. (1996)
-SOM PAK: The self-organizing map program package.
-Laboratory of Computer and Information Science, Helsinki University
-of Technology, Technical Report A31
+  Kohonen, T., Hynninen, J., Kangas, J. and Laaksonen, J. (1996)
+  \emph{SOM PAK: The self-organizing map program package.}
+  Laboratory of Computer and Information Science, Helsinki University
+  of Technology, Technical Report A31.
 
   Ripley, B. D. (1996)
   \emph{Pattern Recognition and Neural Networks.} Cambridge.
@@ -67,7 +65,6 @@ of Technology, Technical Report A31
 }
 \examples{
 library(MASS)
-library(mva) # for dist
 
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, rep(50,4))])
