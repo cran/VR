@@ -45,6 +45,7 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
     xint <- match("(Intercept)", colnames(x), nomatch=0)
     n <- nrow(x)
     pc <- ncol(x)
+    cons <- attr(x, "contrasts") # will get dropped by subsetting
     if(xint > 0) {
         x <- x[, -xint, drop=FALSE]
         pc <- pc - 1
@@ -99,7 +100,7 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
     }
     attr(fit, "na.message") <- attr(m, "na.message")
     if(!is.null(attr(m, "na.action"))) fit$na.action <- attr(m, "na.action")
-    fit$contrasts <- attr(x, "contrasts")
+    fit$contrasts <- cons
     fit$xlevels <- xlev
     class(fit) <- "polr"
     fit

@@ -163,7 +163,7 @@ static double *yf;		/* isotonic regression fitted values (ditto) */
 void
 VR_mds_fn(double *, double *, Sint *, double *, Sint *,
 	  double *, Sint *, Sint *, double *, Sint *);
-static void vmmin(int, double *, double *, int, int);
+static void vmmin(int, double *, double *, int, int, double);
 
 /*
  *  Download the data.
@@ -238,11 +238,11 @@ fmingr(double *x, double *der)
 }
 
 void
-VR_mds_dovm(double *val, Sint *maxit, Sint *trace, double *xx)
+VR_mds_dovm(double *val, Sint *maxit, Sint *trace, double *xx, double *tol)
 {
     int   i;
 
-    vmmin(dimx, x, val, (int) *maxit, (int) *trace);
+    vmmin(dimx, x, val, (int) *maxit, (int) *trace, *tol);
     for (i = 0; i < dimx; i++)
 	xx[i] = x[i];
 }
@@ -358,7 +358,6 @@ typedef unsigned char Boolean;
 #define acctol		0.0001
 #define reltest		10.0
 #define abstol 		1.0e-2
-#define reltol 		1.0e-3
 #define REPORT		5
 
 
@@ -367,7 +366,7 @@ in J.C. Nash, `Compact Numerical Methods for Computers', 2nd edition,
 converted by p2c then re-crafted by B.D. Ripley */
 
 static void
-vmmin(int n, double *b, double *Fmin, int maxit, int trace)
+vmmin(int n, double *b, double *Fmin, int maxit, int trace, double reltol)
 {
     Boolean accpoint, enough;
     double *g, *t, *X, *c, **B;
@@ -601,21 +600,22 @@ VR_den_bin(Sint *n, Sint *nb, Sfloat *d, Sfloat *x, Sint *cnt)
     rang = (xmax - xmin) * 1.01;
     *d = dd = rang / (*nb);
     for (i = 1; i < nn; i++) {
-	ii = x[i] / dd;
+	ii = (int) (x[i] / dd);
 	for (j = 0; j < i; j++) {
-	    jj = x[j] / dd;
+	    jj = (int) (x[j] / dd);
 	    iij = abs9((ii - jj));
 	    cnt[iij]++;
 	}
     }
 }
 
+/*
 #include "R_ext/Rdynload.h"
 
 R_CMethodDef CEntries[] = {
     {"VR_bcv_bin", (DL_FUNC) &VR_bcv_bin, 6},
     {"VR_den_bin", (DL_FUNC) &VR_den_bin, 5},
-    {"VR_mds_dovm", (DL_FUNC) &VR_mds_dovm, 4},
+    {"VR_mds_dovm", (DL_FUNC) &VR_mds_dovm, 5},
     {"VR_mds_fn", (DL_FUNC) &VR_mds_fn, 10},
     {"VR_mds_init_data", (DL_FUNC) &VR_mds_init_data, 6},
     {"VR_mds_unload", (DL_FUNC) &VR_mds_unload, 0},
@@ -630,3 +630,4 @@ void R_init_MASS(DllInfo *dll)
 {
     R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
 }
+*/

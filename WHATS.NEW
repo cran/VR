@@ -39,6 +39,9 @@ Library MASS
 - polr allows control argment for optim, reports lack of convergence.
 - stepAIC works again if formula has an offset (R had changed).
 - biplot.correspondence now shows the origin as a cross.
+- polr was not preserving contrasts to put in the fit object.
+- vcov methods for lme, gls, coxph and survReg.
+- Added `tol' argument to isoMDS.
 
 
 Library class

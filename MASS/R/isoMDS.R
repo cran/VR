@@ -1,7 +1,8 @@
-# file MASS/isoMDS.q
-# copyright (C) 1994-2001 W. N. Venables and B. D. Ripley
+# file MASS/R/isoMDS.R
+# copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 #
-isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE)
+isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
+                   tol = 1e-3)
 {
     if(any(!is.finite(as.vector(d)))) stop("NAs/Infs not allowed in d")
     if(is.null(n <- attr(d, "Size"))) {
@@ -34,11 +35,8 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE)
        as.double(y), PACKAGE = "MASS"
        )
     tmp <- .C("VR_mds_dovm",
-              val = double(1),
-              as.integer(maxit),
-              as.integer(trace),
-              y = as.double(y), PACKAGE = "MASS"
-              )
+              val = double(1), as.integer(maxit), as.integer(trace),
+              y = as.double(y), as.double(tol), PACKAGE = "MASS")
     points <- matrix(tmp$y,,k)
     rn <- if(is.matrix(d)) rownames(d) else names(d)
     dimnames(points) <- list(rn, NULL)

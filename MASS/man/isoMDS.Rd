@@ -1,5 +1,5 @@
-% file MASS/isoMDS.d
-% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file MASS/man/isoMDS.Rd
+% copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 %
 \name{isoMDS}
 \alias{isoMDS}
@@ -11,7 +11,7 @@ Kruskal's Non-metric Multidimensional Scaling
 One form of non-metric multidimensional scaling
 }
 \usage{
-isoMDS(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE)
+isoMDS(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE, tol = 1e-3)
 }
 \arguments{
 \item{d}{
@@ -31,7 +31,10 @@ isoMDS(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE)
   The maximum number of iterations.
 }
 \item{trace}{
-  Logical for tracing optimization. Default \code{true}.
+  Logical for tracing optimization. Default \code{TRUE}.
+}
+\item{tol}{
+  convergence tolerance.
 }}
 \value{
 Two components:

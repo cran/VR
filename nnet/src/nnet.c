@@ -826,6 +826,7 @@ VR_summ2(Sint *n0, Sint *p0, Sint *q0, Sdata *Z, Sint *na)
     *na = j + 1;
 }
 
+/*
 #include "R_ext/Rdynload.h"
 
 R_CMethodDef CEntries[] = {
@@ -843,3 +844,4 @@ void R_init_nnet(DllInfo *dll)
 {
     R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
 }
+*/

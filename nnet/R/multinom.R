@@ -270,7 +270,7 @@ add1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
 extractAIC.multinom <- function(fit, scale, k = 2, ...)
   c(fit$edf, fit$AIC + (k-2)*fit$edf)
 
-vcov.multinom <- function(object)
+vcov.multinom <- function(object, ...)
 {
   ginv <- function(X, tol = sqrt(.Machine$double.eps))
     {

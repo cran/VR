@@ -405,6 +405,7 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
     RANDOUT;
 }
 
+/*
 #include "R_ext/Rdynload.h"
 
 R_CMethodDef CEntries[] = {
@@ -422,3 +423,4 @@ void R_init_class(DllInfo *dll)
 {
     R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
 }
+*/
