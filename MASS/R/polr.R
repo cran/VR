@@ -4,12 +4,10 @@
 polr <- function(formula, data, weights, start, ..., subset,
                  na.action, contrasts = NULL, Hess = FALSE,
                  model = TRUE,
-                 method = c("logistic", "probit", "cloglog"))
+                 method = c("logistic", "probit", "cloglog", "cauchit"))
 {
-    logit <- function(p) log(p/(1-p))
-
-    pgumbel <- function (q, loc = 0, scale = 1, lower.tail = TRUE)
-    {
+    logit <- function(p) log(p/(1 - p))
+    pgumbel <- function(q, loc = 0, scale = 1, lower.tail = TRUE) {
         q <- (q - loc)/scale
         p <- exp(-exp(-q))
         if (!lower.tail) 1 - p else p
@@ -22,30 +20,45 @@ polr <- function(formula, data, weights, start, ..., subset,
     }
 
     fmin <- function(beta) {
-        gamm <- c(-100, beta[pc+1:q], 100)
+        theta <- beta[pc + 1:q]
+        gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
         eta <- offset
-        if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
-        pr <- pfun(gamm[y+1] - eta) - pfun(gamm[y] - eta)
-        if(all(pr > 0)) -sum(wt * log(pr)) else Inf
+        if (pc > 0)
+            eta <- eta + drop(x %*% beta[1:pc])
+        pr <- pfun(gamm[y + 1] - eta) - pfun(gamm[y] - eta)
+        if (all(pr > 0))
+            -sum(wt * log(pr))
+        else Inf
     }
-
+    jacobian <- function(theta) { ## dgamma by dtheta matrix
+        k <- length(theta)
+        etheta <- exp(theta)
+        mat <- matrix(0 , k, k)
+        mat[, 1] <- rep(1, k)
+        for (i in 2:k) mat[i:k, i] <- etheta[i]
+        mat
+    }
     gmin <- function(beta) {
-        gamm <- c(-100, beta[pc+1:q], 100)
+        theta <- beta[pc + 1:q]
+        gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
         eta <- offset
         if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
         pr <- pfun(gamm[y+1] - eta) - pfun(gamm[y] - eta)
         p1 <- dfun(gamm[y+1] - eta)
         p2 <- dfun(gamm[y] - eta)
-        g1 <- if(pc > 0) t(x) %*% (wt*(p1-p2)/pr) else numeric(0)
+        g1 <- if(pc > 0) t(x) %*% (wt*(p1 - p2)/pr) else numeric(0)
         xx <- .polrY1*p1 - .polrY2*p2
         g2 <- - t(xx) %*% (wt/pr)
+        g2 <- t(g2) %*% jacobian(theta)
         if(all(pr) > 0) c(g1, g2) else rep(NA, pc+q)
     }
 
     m <- match.call(expand.dots = FALSE)
     method <- match.arg(method)
-    pfun <- switch(method, logistic=plogis, probit=pnorm, cloglog=pgumbel)
-    dfun <- switch(method, logistic=dlogis, probit=dnorm, cloglog=dgumbel)
+    pfun <- switch(method, logistic=plogis, probit=pnorm, cloglog=pgumbel,
+                   cauchit = pcauchy)
+    dfun <- switch(method, logistic=dlogis, probit=dnorm, cloglog=dgumbel,
+                   cauchit = dcauchy)
     if(is.matrix(eval.parent(m$data)))
         m$data <- as.data.frame(data)
     m$start <- m$Hess <- m$method <- m$... <- NULL
@@ -73,7 +86,7 @@ polr <- function(formula, data, weights, start, ..., subset,
     q <- length(lev) - 1
     Y <- matrix(0, n, q)
     .polrY1 <- col(Y) == y
-    .polrY2 <- col(Y) == y-1
+    .polrY2 <- col(Y) == y - 1
     if(missing(start)) {
         # try logistic/probit regression on 'middle' cut
         q1 <- length(lev) %/% 2
@@ -83,17 +96,29 @@ polr <- function(formula, data, weights, start, ..., subset,
             switch(method,
                    "logistic"= glm.fit(X, y1, wt, family = binomial(), offset = offset),
                    "probit" = glm.fit(X, y1, wt, family = binomial(probit), offset = offset),
-                   "cloglog" = glm.fit(X, y1, wt, family = binomial(probit), offset = offset))
+                   ## this is deliberate, a better starting point
+                   "cloglog" = glm.fit(X, y1, wt, family = binomial(probit), offset = offset),
+                   "cauchit" = glm.fit(X, y1, wt, family = binomial(cauchit), offset = offset))
         if(!fit$converged)
             stop("attempt for find suitable starting values failed")
         coefs <- fit$coefficients
+        if(any(is.na(coefs))) {
+            warning("design appears to be rank-deficient, so dropping some coefs")
+            keep <- names(coefs)[!is.na(coefs)]
+            coefs <- coefs[keep]
+            x <- x[, keep[-1], drop = FALSE]
+            pc <- ncol(x)
+        }
         spacing <- logit((1:q)/(q+1)) # just a guess
         if(method != "logit") spacing <- spacing/1.7
-        start <- c(coefs[-1], -coefs[1] + spacing - spacing[q1])
+        gammas <- -coefs[1] + spacing - spacing[q1]
+        thetas <- c(gammas[1], log(diff(gammas)))
+        start <- c(coefs[-1], thetas)
     }
     res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess, ...)
     beta <- res$par[seq(len=pc)]
-    zeta <- res$par[pc + 1:q]
+    theta <- res$par[pc + 1:q]
+    zeta <- cumsum(c(theta[1],exp(theta[-1])))
     deviance <- 2 * res$value
     niter <- c(f.evals=res$counts[1], g.evals=res$counts[2])
     names(zeta) <- paste(lev[-length(lev)], lev[-1], sep="|")
@@ -166,6 +191,19 @@ summary.polr <- function(object, digits = max(3, .Options$digits - 3),
                                c("Value", "Std. Error", "t value")))
     coef[, 1] <- cc
     vc <- vcov(object)
+    z.ind <- (pc + 1):(pc + q)
+    gamma <- object$zeta
+    theta <- c(gamma[1], log(diff(gamma)))
+    jacobian <- function(theta) { ## dgamma by dtheta matrix
+        k <- length(theta)
+        etheta <- exp(theta)
+        mat <- matrix(0 , k, k)
+        mat[, 1] <- rep(1, k)
+        for (i in 2:k) mat[i:k, i] <- etheta[i]
+        mat
+    }
+    J <- jacobian(theta)
+    vc[z.ind, z.ind] <- J %*% vc[z.ind, z.ind] %*% t(J)
     coef[, 2] <- sd <- sqrt(diag(vc))
     coef[, 3] <- coef[, 1]/coef[, 2]
     object$coefficients <- coef

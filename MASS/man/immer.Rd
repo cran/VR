@@ -34,7 +34,7 @@ Yield in 1932
 Immer, F.R., Hayes, H.D. and LeRoy Powers (1934)
 Statistical determination of barley varietal adaptation.
 \emph{Journal of the American Society for Agronomy}
-\bold{26}, 403--407.
+\bold{26}, 403--419.
 
 Fisher, R.A. (1947)
 \emph{The Design of Experiments.}

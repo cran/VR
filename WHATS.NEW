@@ -92,6 +92,11 @@ Library MASS
   well as that in package mgcv.
 - rlm's fitted component is now always unweighted.
 - theta.{md,ml,mm} now have one help file with examples.
+- polr() has a new method "cauchit" suggested by Roger Koenker.
+  (Requires R >= 2.1.0)
+- polr() now works with transformed intercepts, and usually converges
+  better (contributed by David Firth).
+- polr() handles a rank-deficient model matrix.
 
 
 Library class

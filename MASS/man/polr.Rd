@@ -22,7 +22,7 @@
 \usage{
 polr(formula, data, weights, start, \dots, subset, na.action,
      contrasts = NULL, Hess = FALSE, model = TRUE,
-     method = c("logistic", "probit", "cloglog"))
+     method = c("logistic", "probit", "cloglog", "cauchit"))
 }
 \arguments{
 \item{formula}{
@@ -68,14 +68,15 @@ polr(formula, data, weights, start, \dots, subset, na.action,
   logical for whether the model matrix should be returned.
 }
 \item{method}{
-  logistic or probit or complementary log-log.
+  logistic or probit or complementary log-log or cauchit (corresponding
+  to a Cauchy latent variable and only available in \R >= 2.1.0).
 }
 }
 \details{
   This model is what Agresti (2002) calls a \emph{cumulative link}
   model.  The basic interpretation is as a \emph{coarsened} version of a
   latent variable \eqn{Y_i} which has a logistic or normal or
-  extreme-value distribution
+  extreme-value or Cauchy distribution
   with scale parameter one and a linear model for the mean.  The ordered
   factor which is observed is which bin \eqn{Y_i} falls into with
   breakpoints
