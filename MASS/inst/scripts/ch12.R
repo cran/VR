@@ -3,7 +3,7 @@
 # Chapter 12   Survival Analysis
 
 library(modreg)  # for scatter.smooth()
-library(survival5)
+library(survival)
 library(MASS)  # need our heart
 options(width=65, digits=5, height=9999)
 options(contrasts=c("contr.treatment", "contr.poly"))

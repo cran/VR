@@ -23,6 +23,9 @@ table.
 \usage{
 corresp(x, nf=1, \dots)
 }
+\synopsis{
+corresp(x, ...)
+}
 \arguments{
 \item{x}{
 The function is generic, accepting various forms of the principal

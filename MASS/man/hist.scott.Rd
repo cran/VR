@@ -16,6 +16,12 @@ hist.FD(x, prob = TRUE,  \dots)
 nclass.scott(x)
 nclass.FD(x)
 }
+\synopsis{
+hist.scott(x, prob = TRUE, xlab = deparse(substitute(x)), ...)
+hist.FD(x, prob = TRUE, xlab = deparse(substitute(x)), ...)
+nclass.scott(x)
+nclass.FD(x)
+}
 \arguments{
 \item{x}{
 A data vector

@@ -51,6 +51,7 @@ surf.ls <- function(np, x, y, z)
     res
 }
 
+
 surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
 {
     if (np > 6) stop("np exceeds 6")
@@ -120,7 +121,36 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
        as.integer(obj$np))$z
 }
 
+predict.trls <- function (obj, x, y)
+{
+    if (!inherits(obj, "trls"))
+        stop("object not a fitted trend surface")
+    n <- length(x)
+    if (length(y) != n) stop("x and y differ in length")
+    .C("VR_frset",
+       as.double(obj$rx[1]),
+       as.double(obj$rx[2]),
+       as.double(obj$ry[1]),
+       as.double(obj$ry[2])
+       )
+    invisible(.trval(obj, x, y))
+}
 
+trmat <- function (obj, xl, xu, yl, yu, n)
+{
+    if (!inherits(obj, "trls"))
+        stop("object not a fitted trend surface")
+    dx <- (xu - xl)/n
+    dy <- (yu - yl)/n
+    x <- seq(xl, xu, dx)
+    y <- seq(yl, yu, dy)
+    z <- matrix(nrow = length(x), ncol = length(y))
+    for (i in seq(along = y))
+        z[, i] <- predict(obj, x, rep(y[i], length(x)))
+    invisible(list(x = x, y = y, z = z))
+}
+
+if(0){
 trmat <- function(obj, xl, xu, yl, yu, n)
 {
     if(!inherits(obj, "trls")) stop("object not a fitted trend surface")
@@ -138,6 +168,7 @@ trmat <- function(obj, xl, xu, yl, yu, n)
     for(i in seq(along = y))
         z[, i] <- .trval(obj, x, rep(y[i], length(x)))
     invisible(list(x = x, y = y, z = z))
+}
 }
 
 prmat <- function(obj, xl, xu, yl, yu, n)
@@ -317,3 +348,201 @@ sphercov <- function(r, d, alpha=0, se=1, D=2)
     }
     se^2*(alpha*(r < 1/10000) + (1-alpha)*ifelse(r < 1, t, 0))
 }
+
+# Method despatch functions for trend surface trls class objects
+#
+residuals.trls <- function (object, ...)
+{
+    if (!inherits(object, "trls"))
+            stop("object not a fitted trend surface")
+    object$wz
+}
+
+fitted.trls <- function (object, ...)
+{
+    if (!inherits(object, "trls"))
+        stop("object not a fitted trend surface")
+    object$z - residuals(object)
+}
+
+deviance.trls <- function (object, ...)
+{
+    if (!inherits(object, "trls"))
+        stop("object not a fitted trend surface")
+    sum(residuals(object)^2)
+}
+
+df.residual.trls <- function (object, ...)
+{
+    if (!inherits(object, "trls"))
+        stop("object not a fitted trend surface")
+    length(object$z) - length(object$beta)
+}
+
+extractAIC.trls <- function (object, k = 2, ...)
+{
+    if (!inherits(object, "trls"))
+        stop("object not a fitted trend surface")
+    n <- length(object$z)
+    edf <- df.residual.trls(object)
+    RSS <- deviance(object)
+    dev <- n * log(RSS/n)
+    c(edf, dev + k * edf)
+}
+
+#
+# Anova output to match Burrough & McDonnell (1998) Principals
+# of Geographical Information Systems (Oxford University Press)
+# book tabulation
+#
+anova.trls <- function (object, ...)
+{
+    if (length(list(object, ...)) > 1)
+        return(anovalist.trls(object, ...))
+    if (!inherits(object, "trls"))
+        stop("object not a fitted trend surface")
+    rss <- deviance(object)
+    rdf <- df.residual.trls(object)
+    n <- length(object$z)
+    edf <- n - rdf - 1
+    tss <- var(object$z) * (n - 1)
+    ess <- tss - rss
+    ems <- ess/edf
+    rms <- rss/rdf
+    f <- ems/rms
+    p <- 1 - pf(f, edf, rdf)
+    table <- data.frame(format(c(ess, rss, tss)),
+                        format(c(edf, rdf, edf + rdf)),
+                        c(format(c(ems, rms)), ""),
+                        c(format(f), "", ""),
+                        c(format.pval(p), "", ""))
+    dimnames(table) <-
+        list(c("Regression", "Deviation", "Total"),
+             c("Sum Sq", "Df", "Mean Sq", "F value", "Pr(>F)"))
+    cat("Analysis of Variance Table\n", "Model: ")
+    cat(deparse(object$call), "\n", sep="")
+    table
+}
+
+anovalist.trls <- function (object, ...)
+{
+    objs <- list(object, ...)
+    nmodels <- length(objs)
+    for (i in 1:nmodels) {
+        if (!inherits(objs[[i]], "trls"))
+            stop("object not a fitted trend surface")
+    }
+    if (nmodels == 1)
+        return(anova.trls(object))
+    models <- as.character(lapply(objs, function(x) x$call))
+    df.r <- unlist(lapply(objs, df.residual.trls))
+    ss.r <- unlist(lapply(objs, deviance.trls))
+    df <- c(NA, -diff(df.r))
+    ss <- c(NA, -diff(ss.r))
+    ms <- ss/df
+    f <- p <- rep(NA, nmodels)
+    for (i in 2:nmodels) {
+        if (df[i] > 0) {
+            f[i] <- ms[i]/(ss.r[i]/df.r[i])
+            p[i] <- 1 - pf(f[i], df[i], df.r[i])
+        } else if (df[i] < 0) {
+            f[i] <- ms[i]/(ss.r[i - 1]/df.r[i - 1])
+            p[i] <- 1 - pf(f[i], -df[i], df.r[i - 1])
+        } else {
+            ss[i] <- 0
+        }
+    }
+    table <- data.frame(df.r, ss.r, df, ss, f, p)
+    dimnames(table) <-
+        list(1:nmodels, c("Res.Df", "Res.Sum Sq",
+                          "Df", "Sum Sq", "F value", "Pr(>F)"))
+    title <- "Analysis of Variance Table\n"
+    topnote <- paste("Model ", format(1:nmodels), ": ", models,
+                     sep = "", collapse = "\n")
+    sss <- getOption("show.signif.stars")
+    if (sss) options(show.signif.stars = FALSE)
+    print(structure(table, heading = c(title, topnote),
+                    class = c("anova", "data.frame")))
+    if (sss) options(show.signif.stars = TRUE)
+    invisible(structure(table, heading = c(title, topnote),
+                        class = c("anova", "data.frame")))
+}
+
+#
+# and a basic summary method, avoiding the coefficient values
+#
+summary.trls <-
+    function (object, digits = max(3, .Options$digits - 3))
+{
+    if (!inherits(object, "trls"))
+        stop("object not a fitted trend surface")
+    print(anova.trls(object))
+    rdf <- df.residual.trls(object)
+    n <- length(object$z)
+    edf <- n - rdf - 1
+    rss <- deviance(object)
+    tss <- var(object$z) * (n - 1)
+    ess <- tss - rss
+    ems <- ess/edf
+    rsquared <- ess/tss
+    adj.rsquared <- 1 - (1 - rsquared) * ((n - 1)/rdf)
+    cat("Multiple R-Squared:", format(rsquared, digits = digits))
+    cat(",\tAdjusted R-squared:", format(adj.rsquared, digits = digits),
+        "\n")
+    AIC <- extractAIC(object)
+    cat("AIC: (df = ", AIC[1], ") ", AIC[2], "\n", sep = "")
+    cat("Fitted:\n")
+    if (rdf > 5) {
+        nam <- c("Min", "1Q", "Median", "3Q", "Max")
+        rq <- structure(quantile(fitted.trls(object)), names = nam)
+        print(rq, digits = digits)
+    } else {
+        print(fitted(object), digits = digits)
+    }
+    cat("Residuals:\n")
+    if (rdf > 5) {
+        nam <- c("Min", "1Q", "Median", "3Q", "Max")
+        rq <- structure(quantile(residuals(object)), names = nam)
+        print(rq, digits = digits)
+    } else {
+        print(residuals(object), digits = digits)
+    }
+}
+#
+# Influence measures, rather fewer than lm.influence
+#
+trls.influence <- function (object)
+{
+    if (!inherits(object, "trls"))
+        stop("object not a fitted trend surface")
+    nr <- length(object$z)
+    nc <- length(object$beta)
+    X <- matrix(object$f, nrow = nr, ncol = nc)
+    hii <- hat(X, FALSE)
+    s <- sqrt(deviance(object)/df.residual.trls(object))
+    r <- residuals(object)
+    stresid <- r/(s * sqrt(1 - hii))
+    Di <- ((stresid^2) * hii)/(nc * (1 - hii))
+    invisible(list(r = r, hii = hii, stresid = stresid, Di = Di))
+}
+
+plot.trls <-
+    function (object, border = "red", col = NA, pch = 4, cex = 0.6,
+              add = FALSE, div = 8)
+{
+    if (!inherits(object, "trls"))
+        stop("object not a fitted trend surface")
+    infl <- trls.influence(object)
+    dx <- diff(range(object$x))
+    dy <- diff(range(object$y))
+    dxy <- (dx + dy)/2
+    mDi <- max(infl$Di)
+    sc <- (mDi * dxy)/div
+    if (!add)
+        plot(object$x, object$y, type = "n", xlab = "", ylab = "")
+    symbols(object$x, object$y, circles=sc * infl$Di, add=TRUE,
+            fg=border,
+            inches=FALSE)
+    points(object$x, object$y, pch = pch)
+}
+

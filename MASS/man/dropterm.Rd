@@ -24,6 +24,9 @@ This function is generic; there exist methods for classes \code{lm} and
 dropterm(object, scope, scale = 0, test=c("none", "Chisq", "F"),
          k = 2, sorted = FALSE, trace = FALSE, \dots)
 }
+\synopsis{
+dropterm (object, ...)
+}
 \arguments{
 \item{object}{
 A object fitted by some model-fitting function.

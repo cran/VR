@@ -24,6 +24,8 @@ This function is generic; there exist methods for classes \code{lm} and
 addterm(object, scope, scale = 0, test=c("none", "Chisq", "F"),
         k = 2, sorted = FALSE, trace = FALSE, \dots)
 }
+\synopsis{
+addterm(object, ...)}
 \arguments{
 \item{object}{
 An object fitted by some model-fitting function.

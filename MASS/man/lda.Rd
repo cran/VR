@@ -23,6 +23,9 @@ lda(x,   grouping, prior = proportions, tol = 1.0e-4,
                    subset, na.action = na.fail,
                    method, CV = FALSE, nu)
 }
+\synopsis{
+lda(x, ...)
+}
 \arguments{
 \item{formula}{
 A formula of the form \code{groups ~ x1 + x2 + \dots}  That is, the

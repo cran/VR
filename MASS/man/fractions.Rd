@@ -23,6 +23,9 @@ object using a standard continued fraction method.
 \usage{
 fractions(x, cycles=10, max.denominator=2000)
 }
+\synopsis{
+fractions(x, ...)
+}
 \arguments{
 \item{x}{
 Any object of mode numeric. Missing values are now allowed.

@@ -119,8 +119,8 @@ print.polr <- function(x, ...)
     }
     cat("\nIntercepts:\n")
     print(x$zeta, ...)
-    cat("\nResidual Deviance:", format(round(x$deviance, 2)), "\n")
-    cat("AIC:", format(round(x$deviance + 2*x$edf, 2)), "\n")
+    cat("\nResidual Deviance:", format(x$deviance, nsmall=2), "\n")
+    cat("AIC:", format(x$deviance + 2*x$edf, nsmall=2), "\n")
     invisible(x)
 }
 
@@ -172,8 +172,8 @@ print.summary.polr <- function(x, digits = x$digits, ...)
     }
     cat("\nIntercepts:\n")
     print(coef[(pc+1):nrow(coef), ], quote = FALSE, ...)
-    cat("\nResidual Deviance:", format(round(x$deviance, 2)), "\n")
-    cat("AIC:", format(round(x$deviance + 2*x$edf, 2)), "\n")
+    cat("\nResidual Deviance:", format(x$deviance, nsmall=2), "\n")
+    cat("AIC:", format(x$deviance + 2*x$edf, nsmall=2), "\n")
     if(!is.null(correl <- x$correlation)) {
         cat("\nCorrelation of Coefficients:\n")
         ll <- lower.tri(correl)

@@ -11,7 +11,7 @@ Classify multivariate observations in conjunction with \code{qda}
 }
 \usage{
 \method{predict}{qda}(object, newdata, prior = object$prior,
-  method = c("plug-in", "predictive", "debiased", "looCV", \dots))
+  method = c("plug-in", "predictive", "debiased", "looCV"), \dots)
 }
 \arguments{
 \item{object}{
@@ -36,6 +36,9 @@ the log posterior probabilities is used, and with \code{"predictive"} the
 parameter estimates are integrated out using a vague prior.  With
 \code{"looCV"} the leave-one-out cross-validation fits to the original
 dataset are computed and returned.
+}
+\item{...}{
+arguments based from or to other methods
 }}
 \value{
 a list with components

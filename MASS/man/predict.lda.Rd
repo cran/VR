@@ -12,7 +12,7 @@ project data onto the linear discriminants.
 }
 \usage{
 \method{predict}{lda}(object, newdata, prior, dimen,
- method = c("plug-in", "predictive", "debiased", \dots))
+ method = c("plug-in", "predictive", "debiased"), \dots)
 }
 \arguments{
 \item{object}{
@@ -40,6 +40,9 @@ This determines how the parameter estimation is handled. With \code{"plug-in"}
 assumed to be correct. With \code{"debiased"} an unbiased estimator of 
 the log posterior probabilities is used, and with \code{"predictive"} the
 parameter estimates are integrated out using a vague prior.
+}
+\item{...}{
+arguments based from or to other methods
 }}
 \value{
 a list with components

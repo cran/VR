@@ -21,6 +21,9 @@ qda(formula, data, prior = proportions, subset,
 qda(x,   grouping, prior = proportions, subset,
                    na.action = na.fail, method, CV = FALSE, nu)
 }
+\synopsis{
+qda(x, ...)
+}
 \arguments{
 \item{formula}{
 A formula of the form \code{groups ~ x1 + x2 + \dots}  That is, the

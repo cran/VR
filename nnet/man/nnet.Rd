@@ -25,7 +25,7 @@ nnet.default(x, y, weights, size, Wts, mask,
              linout=FALSE, entropy=FALSE, softmax=FALSE, censored=FALSE,
              skip=FALSE, rang=0.7, decay=0, maxit=100,
              Hess=FALSE, trace=TRUE, MaxNWts=1000, abstol=1.0e-4,
-             reltol=1.0e-8)
+	     reltol=1.0e-8, \dots)
 }
 \arguments{
 \item{formula}{

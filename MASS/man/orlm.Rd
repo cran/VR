@@ -20,6 +20,10 @@ Huber's psi function.
 orlm(formula, data, weights, subset, na.action, 
      model=FALSE, k=1.345, sw=1000, \dots)
 }
+\synopsis{
+orlm(formula, data, weights, subset, na.action, method = "qr",
+     model = FALSE, x = FALSE, y = FALSE, ...)
+}
 \arguments{
 \item{formula}{
 a formula object, with the response on the left of a \code{~} operator,

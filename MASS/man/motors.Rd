@@ -42,7 +42,7 @@ Part 1 -- simple methods and their application.
 \bold{14}, 247--276.
 }
 \examples{
-library(survival5)
+library(survival)
 data(motors)
 plot(survfit(Surv(time, cens) ~ factor(temp), motors), conf.int=FALSE)
 # fit Weibull model

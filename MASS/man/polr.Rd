@@ -116,4 +116,4 @@ addterm(house.plr, ~.^2, test = "Chisq")
 house.plr2 <- stepAIC(house.plr, ~.^2)
 house.plr2$anova
 }
-\keyword{model}
+\keyword{models}

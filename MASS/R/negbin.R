@@ -73,8 +73,8 @@ function(object)
 glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
 		   subset, na.action, start = eta,
 		   control = glm.control(...), method = "glm.fit",
-		   model = FALSE, x = FALSE, y = TRUE, contrasts = NULL,
-		   init.theta, link = log, ...)
+		   model = FALSE, x = FALSE, y = TRUE, contrasts = NULL, ...,
+		   init.theta, link = log)
 {
     loglik <- function(n, th, mu, y)
     {
@@ -260,12 +260,12 @@ function(object, dispersion = 1, correlation = TRUE, ...)
 {
     NextMethod()
     dp <- 2 - floor(log10(x$SE.theta))
-    cat("\n              Theta: ", format(round(x$theta, dp)),
-        "\n          Std. Err.: ", format(round(x$SE.theta, dp)),
+    cat("\n              Theta: ", format(round(x$theta, dp, nsmall=dp)),
+        "\n          Std. Err.: ", format(round(x$SE.theta, dp, nsmall=dp)),
         "\n")
     if(!is.null(x$th.warn))
         cat("Warning while fitting theta:", x$th.warn,"\n")
-    cat("\n 2 x log-likelihood: ", format(round(x$twologlik, 3)), "\n")
+    cat("\n 2 x log-likelihood: ", format(round(x$twologlik, 3, nsmall=dp)), "\n")
     invisible(x)
 }
 

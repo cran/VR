@@ -43,7 +43,7 @@ arbitrarily single-censored samples.
 \bold{52}, 203--233.
 }
 \examples{
-library(survival5)
+library(survival)
 data(gehan)
 gehan.surv <- survfit(Surv(time, cens) ~ treat, data=gehan,
      conf.type="log-log")

@@ -15,6 +15,13 @@ model.
 \usage{
 glm.nb(formula, \dots,  init.theta, link=log)
 }
+\synopsis{
+glm.nb(formula = formula(data), data = sys.parent(), weights,
+                 subset, na.action, start = eta,
+                 control = glm.control(...), method = "glm.fit",
+                 model = F, x = F, y = T, contrasts = NULL, ...,
+                 init.theta, link = log)
+}
 \arguments{
 \item{formula}{
 Model formula, as for \code{glm()}.

@@ -38,7 +38,7 @@ probabilities with concomitant information.
 \bold{21}, 826--838.
 }
 \examples{
-library(survival5)
+library(survival)
 data(leuk)
 plot(survfit(Surv(time) ~ ag, data=leuk), lty=2:3, col=2:3)
 

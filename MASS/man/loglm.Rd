@@ -9,7 +9,7 @@
 \alias{extractAIC.loglm}
 \alias{fitted.loglm}
 \alias{loglm1}
-\alias{loglm1.crosstabs}
+\alias{loglm1.xtabs}
 \alias{loglm1.data.frame}
 \alias{loglm1.default}
 \alias{print.loglm}
@@ -159,11 +159,11 @@ Model 3:
   Model 3   47.745  36    172.298        72        0.00000
 Saturated    0.000   0     47.745        36        0.09114
 
-
+}
 # Case 1. An array generated with crosstabs.
 
-
-> loglm(~Type + Origin, crosstabs(~Type + Origin, Cars93))
+data(Cars93)
+\dontrun{loglm(~Type + Origin, xtabs(~Type + Origin, Cars93))
 Call:
 loglm(formula =  ~ Type + Origin, data = crosstabs( ~ Type + 
 	Origin, Cars93))
@@ -184,6 +184,7 @@ gm <- glm(Days ~ .^2, poisson, quine)  # check glm.
 c(deviance(fm), deviance(gm))          # deviances agree
 ## [1] 1368.7 1368.7
 c(fm$df, gm$df)                        # resid df do not!
+c(fm$df, gm$df.residual)               # resid df do not!
 ## [1] 127 128
 # The loglm residual degrees of freedom is wrong because of
 # a non-detectable redundancy in the model matrix.

@@ -44,4 +44,15 @@ M. Aitkin, D. Anderson, B. Francis and J. Hinde (1989)
 \emph{Statistical Modelling in GLIM.}
 Oxford University Press
 }
+\examples{
+data(Insurance)
+## main-effects fit as Poisson GLM with offset
+glm(Claims ~ District + Group + Age + offset(log(Holders)), 
+    data=Insurance, family=poisson)
+
+
+# same via loglm
+fit <- loglm(Claims ~ District + Group + Age + offset(log(Holders)),
+             data=Insurance)
+}
 \keyword{datasets}

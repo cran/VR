@@ -2,6 +2,11 @@
 %
 \name{surf.ls}
 \alias{surf.ls}
+\alias{deviance.trls}
+\alias{df.residual.trls}
+\alias{extractAIC.trls}
+\alias{fitted.trls}
+\alias{residuals.trls}
 \title{
 Fits a Trend Surface by Least-squares
 }
@@ -10,6 +15,12 @@ Fits a trend surface by least-squares.
 }
 \usage{
 surf.ls(np, x, y, z)
+
+\method{residuals}{trls}(object, \dots)
+\method{fitted}{trls}(object, \dots)
+\method{deviance}{trls}(object, \dots)
+\method{df.residual}{trls}(object, \dots)
+\method{extractAIC}{trls}(object, k=2, \dots)
 }
 \arguments{
 \item{np}{
@@ -23,6 +34,9 @@ y coordinates
 }
 \item{z}{
 z coordinates. Will supersede \code{x$z}
+}
+\item{object}{
+a fit inheriting from class \code{"trls"}
 }}
 \value{
 list with components 
@@ -43,10 +57,18 @@ and others for internal use only.
 \code{\link{trmat}}, \code{\link{surf.gls}}
 }
 \examples{
+library(MASS)
 data(topo)
 topo.kr <- surf.ls(2, topo)
 trsurf <- trmat(topo.kr, 0, 6.5, 0, 6.5, 50)
-contour(trsurf)
+eqscplot(trsurf, type="n")
+contour(trsurf, add=TRUE)
 points(topo)
+
+
+eqscplot(trsurf, type="n")
+contour(trsurf, add=TRUE)
+plot(topo.kr, add=TRUE)
+title(xlab="Circle radius proportional to Cook's influence statistic")
 }
 \keyword{spatial}

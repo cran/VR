@@ -16,6 +16,9 @@ parameter of the Box-Cox simple power transformation \code{y^lambda}.
 \usage{
 boxcox(object, lambda, plotit, interp, eps, xlab, ylab, \dots)
 }
+\synopsis{
+boxcox(object, ...)
+}
 \arguments{
 \item{object}{
 a formula or fitted model object.  Currently only \code{lm} and \code{aov} objects 

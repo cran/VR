@@ -97,6 +97,8 @@ Library spatial
   stored in the object but re-created when needed, so the objects are
   smaller.
 
+- Methods for class "surf.ls" contributed by Roger Bivand.
+
 
 Library treefix
 ---------------

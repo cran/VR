@@ -18,6 +18,9 @@ logtrans(object, \dots, alpha = seq(0.5, 6, by = 0.25) - min(y),
          plotit = <<see below>>, interp = <<see below>>,
          xlab="alpha", ylab="log Likelihood")
 }
+\synopsis{
+logtrans(object, ...)
+}
 \arguments{
 \item{object}{
 Fitted linear model object, or formula defining the untransformed

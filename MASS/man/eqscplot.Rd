@@ -13,6 +13,10 @@ is 1cm represents the same units on each
 \usage{
 eqscplot(x, y, ratio = 1, tol = 0.04, uin, \dots)
 }
+\synopsis{
+eqscplot(x, y, ratio = 1, tol = 0.04, uin, xlim = range(x, na.rm=TRUE),
+         ylim = range(y, na.rm=TRUE), xlab, ylab, ...)
+}
 \arguments{
 \item{x}{
 vector of x values, or a 2-column matrix, or a list with components

@@ -7,6 +7,7 @@ Cushings                 Diagnostic Tests on Patients with Cushing's
 DDT                      DDT in Kale
 GAGurine                 Level of GAG in Urine of Children
 Insurance                Numbers of Car Insurance claims
+MASS-internal            Internal MASS functions
 Melanoma                 Survival from Malignant Melanoma
 Null                     Null Spaces of Matrices
 OME                      Tests of Auditory Perception in Children with
@@ -112,7 +113,6 @@ motors                   Accelerated Life Testing of Motorettes
 muscle                   Effect of Calcium Chloride on Muscle Contraction
                          in Rat Hearts
 mvrnorm                  Simulate from a Multivariate Normal Distribution
-naresid                  Adjust for Missing Values
 negative.binomial        Family function for Negative Binomial GLMs
 newcomb                  Newcomb's Measurements of the Passage Time of
                          Light

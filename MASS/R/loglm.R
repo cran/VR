@@ -54,7 +54,7 @@ loglm <-
 
 loglm1 <- function(formula, data, ...) UseMethod("loglm1", data)
 
-loglm1.crosstabs <-
+loglm1.xtabs <-
 function(formula, data, ...)
 {
     attr(data, "marginals") <- attr(data, "call") <- class(data) <- NULL
@@ -69,12 +69,13 @@ function(formula, data, ...)
     if(attr(trms, "response") == 0) stop("Formula specifies no response")
     resp <- match(as.character(attr(trms, "variables"))[1+attr(trms, "response")],
                   names(data))
-    fac <- data.frame(lapply(data[,  - resp], as.factor))
+    off <- attr(trms, "offset")
+    fac <- data.frame(lapply(data[, -c(resp, off)], as.factor))
     rsp <- data[, resp]
     tab <- table(fac)
     if(max(tab) > 1) {
 #
-# and extra factor needed for repeated frequencies
+# an extra factor needed for repeated frequencies
 #
         i <- do.call("order", rev(fac))
         fac <- fac[i,  ]
@@ -85,9 +86,13 @@ function(formula, data, ...)
     }
     dn <- lapply(fac, levels)
     dm <- sapply(dn, length)
+    offset <- model.offset(data)
+    if (is.null(offset)) offset <- 0
+    offset <- rep(offset, length = nrow(data))
     data <- structure(array(-1, dm, dn), terms = trms)
     data[do.call("cbind", lapply(fac, as.numeric))] <- rsp
     st <- array(as.numeric(data >= 0), dm, dn)
+    st[do.call("cbind", lapply(fac, as.numeric))] <- exp(offset)
     data[data < 0] <- 0
     loglm1.default(formula, data, ..., start = st)
 }
@@ -244,17 +249,17 @@ print.summary.loglm <- function(x, ...)
     invisible(x)
 }
 
-update.loglm <- function (object, formula., ...)
+update.loglm <- function (object, formula, ...)
 {
     setdiff <- function(x, y)
         if(length(x) == 0 || length(y) == 0) x else x[match(x, y, 0) == 0]
 
     if (is.null(call <- object$call))
         stop("object has no call component.  Updating not possible")
-    if (fix <- !missing(formula.)) {
+    if (fix <- !missing(formula)) {
         object$formula <- denumerate(object$formula)
-        formula. <- denumerate(as.formula(formula.))
-        call$formula <- update.formula(formula(object), formula.)
+        formula <- denumerate(as.formula(formula))
+        call$formula <- update.formula(formula(object), formula)
     }
     extras <- match.call(expand.dots = FALSE)$...
     if (length(extras) > 0) {
@@ -283,7 +288,7 @@ fitted.loglm <- function(object, ...)
 }
 
 residuals.loglm <-
-function(object, type = c("deviance", "pearson", "response"))
+    function(object, type = c("deviance", "pearson", "response"))
 {
     type <- match.arg(type)
     if(is.null(object$fit) || is.null(object$freq)) {

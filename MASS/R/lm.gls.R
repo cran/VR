@@ -27,7 +27,7 @@ lm.gls <- function(formula, data, W, subset, na.action,
     d <- eW$values
     if(any(d <= 0)) stop("W is not positive definite")
     A <- diag(d^ifelse(inverse, -0.5, 0.5)) %*% t(eW$vector)
-    fit <- lm.fit(A %*% X, A %*% Y, method, ...)
+    fit <- lm.fit(A %*% X, A %*% Y, method=method, ...)
     fit$terms <- Terms
     fit$call <- call
     if(model) fit$model <- m

@@ -1,10 +1,11 @@
 # file MASS/eqscplot.q
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
-eqscplot <- function(x, y, ratio = 1, tol = 0.04, xlim = range(x, na.rm=TRUE),
+eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin,
+                     xlim = range(x, na.rm=TRUE),
                      ylim = range(y, na.rm=TRUE),
 		     xlab, ylab,
-		     uin, ...)
+		     ...)
 {
   if(is.matrix(x)) {
     y <- x[, 2]

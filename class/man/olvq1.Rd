@@ -9,7 +9,7 @@ Optimized Learning Vector Quantization 1
 Moves examples in a codebook to better represent the training set.
 }
 \usage{
-olvq1(x, cl, codebk, niter=10 * 40 * nrow(codebk$x), alpha=0.3)
+olvq1(x, cl, codebk, niter=40 * nrow(codebk$x), alpha=0.3)
 }
 \arguments{
 \item{x}{
