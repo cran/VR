@@ -121,12 +121,16 @@ could result from poor scaling of the problem, but is more
 likely to result from constant variables.
 
 Specifying the \code{prior} will affect the classification unless
-over-ridden in \code{predict.lda}. Unlike in most statistical packages, it
+over-ridden in \code{predict.lda}.  Unlike in most statistical packages, it
 will also affect the rotation of the linear discriminants within their
 space, as a weighted between-groups covariance matrix is used. Thus
 the first few linear discriminants emphasize the differences between
 groups with the weights given by the prior, which may differ from
 their prevalence in the dataset.
+
+If one or more groups is missing in the supplied data, they are dropped
+with a warning, but the classifications produced are with respect to the
+original set of levels.
 }
 \note{
 This function may be called giving either a formula and
@@ -161,6 +165,6 @@ predict(z, Iris[-train, ])$class
 ##  [1] s s s s s s s s s s s s s s s s s s s s s s s s s s s c c c
 ## [31] c c c c c c c v c c c c v c c c c c c c c c c c c v v v v v
 ## [61] v v v v v v v v v v v v v v v
-z1 <- update(z, . ~ . - Petal.W.)
+(z1 <- update(z, . ~ . - Petal.W.))
 }
 \keyword{multivariate}

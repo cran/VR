@@ -17,7 +17,7 @@ rms.curv(obj)
 }
 \arguments{
 \item{obj}{
-Fitted model object of class \code{nls}.  The model must be fitted using the
+Fitted model object of class \code{"nls"}.  The model must be fitted using the
 default algorithm.
 }
 }

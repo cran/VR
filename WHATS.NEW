@@ -61,7 +61,6 @@ Library MASS
 - addterm.default, dropterm.default and stepAIC work better inside functions.
 - glm.nb now sets AIC in the object, and has a logLik() method.
 - truehist now accepts a 'ylab' argument.
-- sammon now accepts missing values in the dissimilarity matrix.
 - negative.binomial and neg.bin no longer generate objects with
   package:MASS in their environment.
 - stepAIC now drops (if allowed) 0-df terms sequentially from the right.
@@ -70,6 +69,7 @@ Library MASS
 - model.frame.lda/polr now look for the environment of the original formula.
 - polr has a new `model' argument defaulting to TRUE.
 - fitdistr supports the trivial case of a Normal distribution.
+- sammon now accepts missing values in the dissimilarity matrix. (7.1-14)
 
 
 Library class

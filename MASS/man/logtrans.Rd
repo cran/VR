@@ -17,8 +17,7 @@ for a transformation model of the form \code{log(y + alpha) ~ x1 + x2 + \dots}.
 logtrans(object, ...)
 
 \method{logtrans}{default}(object, \dots, alpha = seq(0.5, 6, by = 0.25) - min(y),
-         plotit = TRUE, interp = <<see below>>,
-         xlab = "alpha", ylab = "log Likelihood")
+         plotit = TRUE, interp =, xlab = "alpha", ylab = "log Likelihood")
 
 \method{logtrans}{formula}(object, data = NULL, \dots)
 

@@ -39,18 +39,19 @@ A numeric vector.
   they will be held fixed.
 }}
 \value{
-an object of class \code{"fitdistr"}, a list with two components,
+  An object of class \code{"fitdistr"}, a list with two components,
 
-\item{estimate}{
-  the parameter estimates, and
+  \item{estimate}{the parameter estimates, and}
+  \item{sd}{the estimated standard errors.}
 }
-\item{sd}{
-  the estimated standard errors.
-}}
 \details{
-  Direct optimization of the log-likelihood is performed, with numerical
-  derivatives.  The estimated standard errors are taken from the
-  observed information, calculated by a numerical approximation.
+  For \code{densfun = "normal"} the closed-form MLEs (and standard
+  errors) are used, and \code{start} should not be supplied.
+
+  For all other distributions, direct optimization of the log-likelihood
+  is performed, with numerical derivatives.  The estimated standard
+  errors are taken from the observed information matrix, calculated by a
+  numerical approximation.
 
   For the following named distributions, reasonable starting values will
   be computed if \code{start} is omitted or only partially specified:

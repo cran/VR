@@ -67,7 +67,7 @@ linear discriminants cannot be evaluated. If \code{newdata} is omitted and
 the \code{na.action} of the fit omitted cases, these will be omitted on the
 prediction.
 
-This version differs centres the linear discriminants so that the
+This version centres the linear discriminants so that the
 weighted mean (weighted by \code{prior}) of the group centroids is at
 the origin.
 }

@@ -1,5 +1,5 @@
 # file MASS/lda.q
-# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 #
 lda <- function(x, ...) UseMethod("lda")
 
@@ -74,6 +74,11 @@ lda.default <-
     g <- as.factor(grouping)
     lev <- lev1 <- levels(g)
     counts <- as.vector(table(g))
+    if(!missing(prior)) {
+        if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
+        if(length(prior) != nlevels(g)) stop("prior is of incorrect length")
+        prior <- prior[counts > 0]
+    }
     if(any(counts == 0)) {
         warning(paste("group(s)", paste(lev[counts == 0], collapse=" "),
                       "are empty"))
@@ -83,8 +88,6 @@ lda.default <-
     }
     proportions <- counts/n
     ng <- length(proportions)
-    if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
-    if(length(prior) != ng) stop("prior is of incorrect length")
     names(prior) <- names(counts) <- lev1
     method <- match.arg(method)
     if(CV && !(method == "moment" || method == "mle"))
@@ -156,7 +159,7 @@ lda.default <-
             (1 - cc*dist2[ind])
         dist <- 0.5 * dist - matrix(log(prior), n, ng, byrow=TRUE)
         dist <- exp(-(dist - min(dist, na.rm=TRUE)))
-        cl <- factor(max.col(dist), levels=seq(along=lev), labels=lev)
+        cl <- factor(lev1[max.col(dist)], levels=lev)
         #  convert to posterior probabilities
         posterior <- dist/drop(dist %*% rep(1, length(prior)))
         dimnames(posterior) <- list(rownames(x), lev1)
@@ -221,7 +224,11 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
     if(length(colnames(x)) > 0 &&
       any(colnames(x) != dimnames(object$means)[[2]]))
          warning("Variable names in newdata do not match those in object")
-    ng <- length(prior)
+    ng <- length(object$prior)
+    if(!missing(prior)) {
+        if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
+        if(length(prior) != ng) stop("prior is of incorrect length")
+    }
 #   remove overall means to keep distances small
     means <- colSums(prior*object$means)
     scaling <- object$scaling
@@ -235,7 +242,6 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
         dm <- dm[, 1:dimen, drop=FALSE]
         dist <- matrix(0.5 * rowSums(dm^2) - log(prior), nrow(x),
                        length(prior), byrow = TRUE) - x[, 1:dimen, drop=FALSE] %*% t(dm)
-#        dist <- exp( -(dist - min(dist, na.rm=T)))
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else if (method == "debiased") {
         dm <- dm[, 1:dimen, drop=FALSE]
@@ -243,7 +249,6 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
             x[, 1:dimen, drop=FALSE] %*% t(dm)
         dist <- (N - ng - dimen - 1)/(N - ng) * dist -
             matrix(log(prior) - dimen/object$counts , nrow(x), ng, byrow=TRUE)
-#        dist <- exp( -(dist - min(dist, na.rm=T)))
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else {                            # predictive
         dist <- matrix(0, nrow = nrow(x), ncol = ng)
@@ -258,9 +263,9 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
         }
     }
     posterior <- dist / drop(dist %*% rep(1, ng))
-    cl <- factor(max.col(posterior), levels=seq(along=object$lev),
-                 labels=object$lev)
-    dimnames(posterior) <- list(rownames(x), names(prior))
+    nm <- names(object$prior)
+    cl <- factor(nm[max.col(posterior)], levels=object$lev)
+    dimnames(posterior) <- list(rownames(x), nm)
     list(class = cl, posterior = posterior, x = x[, 1:dimen, drop=FALSE])
 }
 

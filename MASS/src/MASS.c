@@ -1,5 +1,5 @@
 /*
- *  MASS/MASS.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
+ *  MASS/MASS.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2004
  */
 
 #include <R.h>
@@ -39,9 +39,7 @@ VR_sammon(double *dd, Sint *nn, Sint *kd, double *Y, Sint *niter,
     for (j = 1; j < n; j++)
 	for (k = 0; k < j; k++) {
 	    d = dd[k * n + j];
-	    if (d <= 0.0)
-		PROBLEM "%s", "some distance is zero or negative"
-		    RECOVER(NULL_ENTRY);
+	    if (ISNAN(d)) continue;
 	    tot += d;
 	    d1 = 0.0;
 	    for (m = 0; m < nd; m++) {
@@ -52,9 +50,7 @@ VR_sammon(double *dd, Sint *nn, Sint *kd, double *Y, Sint *niter,
 	    e += (ee * ee / d);
 	}
     e /= tot;
-    if (*trace) {
-	Rprintf("Initial stress        : %7.5f\n", e);
-    }
+    if (*trace) Rprintf("Initial stress        : %7.5f\n", e);
     epast = eprev = e;
 
     /* Iterate */
@@ -66,6 +62,8 @@ CORRECT:
 	    for (k = 0; k < n; k++) {
 		if (j == k)
 		    continue;
+		dt = dd[k * n + j];
+		if (ISNAN(dt)) continue;
 		d1 = 0.0;
 		for (m = 0; m < nd; m++) {
 		    xd = Y[j + m * n] - Y[k + m * n];
@@ -75,7 +73,6 @@ CORRECT:
 		dpj = sqrt(d1);
 
 		/* Calculate derivatives */
-		dt = dd[k * n + j];
 		dq = dt - dpj;
 		dr = dt * dpj;
 		for (m = 0; m < nd; m++) {
@@ -93,6 +90,7 @@ CORRECT:
 	for (j = 1; j < n; j++)
 	    for (k = 0; k < j; k++) {
 		d = dd[k * n + j];
+		if (ISNAN(d)) continue;
 		d1 = 0.0;
 		for (m = 0; m < nd; m++) {
 		    xd = xu[j + m * n] - xu[k + m * n];
@@ -321,7 +319,7 @@ VR_mds_fn(double *y, double *yf, Sint *pn, double *pssq, Sint *pd,
  *  Former ucv.c
  */
 
-#if !defined(M_PI)		/* it is currently defined in S_tokens.h */
+#if !defined(M_PI)
 #  define M_PI 3.141592653589793238462643383280
 #endif
 #define DELMAX 1000

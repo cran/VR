@@ -35,8 +35,12 @@ fitdistr <- function(x, densfun, start, ...)
             if(!is.null(start))
                 stop("supplying pars for the Normal is not supported")
             n <- length(x)
-            structure(list(estimate=mean(x), sd = sqrt((n-1)/n)*sd(x)),
-                      class = "fitdistr")
+            sd0 <- sqrt((n-1)/n)*sd(x)
+            estimate <- c(mean(x), sd0)
+            sds <- c(sd0/sqrt(n), sd0/sqrt(2*n))
+            names(estimate) <- names(sds) <- c("mean", "sd")
+            return(structure(list(estimate = estimate, sd = sds),
+                             class = "fitdistr"))
         }
         if(distname == "weibull" && is.null(start)) {
             ## log-Weibull is Gumbel, so start from that
