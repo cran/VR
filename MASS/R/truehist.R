@@ -7,7 +7,7 @@ function(data, nbins = nclass.scott(data), h, x0 = -h/1000, breaks, prob = TRUE,
 	 col = 5,
 	 xlab = deparse(substitute(data)), bty = "n", ...)
 {
-  eval(xlab)
+  xlab # force evaluation
   data <- data[!is.na(data)]
   if(missing(breaks)) {
     if(missing(h)) h <- diff(pretty(data, nbins))[1]

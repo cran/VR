@@ -96,6 +96,13 @@ Where a conventional deviance exists (e.g. for \code{lm}, \code{aov} and \code{g
 fits) this is quoted in the analysis of variance table: it is the
 \emph{unscaled} deviance.
 }
+\note{
+The model fitting must apply the models to the same dataset. This may
+be a problem if there are missing values and an \code{na.action} other than
+\code{na.fail} is used (as may be the default if \code{options(na.action=)} has
+been set, including in R).  We suggest you remove the missing values
+first.
+}
 \seealso{
 \code{\link{addterm}}, \code{\link{dropterm}}, \code{\link{step}}
 }

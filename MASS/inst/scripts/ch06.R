@@ -9,13 +9,16 @@ options(contrasts=c("contr.helmert", "contr.poly"))
 # 6.1  A linear regression example
 
 data(whiteside)
-if(F) {
+if(F) { ## can run this is lattice is available
+library(lattice)
+trellis.device(postscript, file="ch06b.ps", width=8, height=6, pointsize=9)
 xyplot(Gas ~ Temp | Insul, whiteside, panel =
  function(x, y, ...) {
     panel.xyplot(x, y, ...)
     panel.lmline(x, y, ...)
  }, xlab = "Average external temperature (deg. C)",
  ylab = "Gas consumption  (1000 cubic feet)")
+dev.off()
 }
 
 coplot(Gas ~ Temp | Insul, whiteside, panel =
@@ -43,9 +46,10 @@ summary(gasQ)$coef
 gasPR <- lm(Gas ~ Insul + Temp, whiteside)
 anova(gasPR, gasBA)
 
-options(contrasts = c("contr.treatment", "contr.poly"))
+oldcon <- options(contrasts = c("contr.treatment", "contr.poly"))
 gasBA1 <- lm(Gas ~ Insul*Temp, whiteside)
 summary(gasBA1)$coef
+options(oldcon)
 
 
 # 6.2  Model formulae and model matrices
@@ -204,6 +208,7 @@ ph <- data.frame(phones, res=resid(fit), fitted=fitted(fit))
 
 # 6.7  Factorial designs and designed experiments
 
+options(contrasts=c("contr.helmert", "contr.poly"))
 data(npk)
 npk.aov <- aov(yield ~ block + N*P*K, npk)
 npk.aov

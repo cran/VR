@@ -73,7 +73,9 @@ Library MASS
 - fractions/rational allow missing values.
 - stepAIC/addterm/dropterm now work with survReg as well as survreg fits.
 - mvrnorm was an `empirical' argument.
-- predict.lda tries harder to avoid exponential underflow.
+- predict.lda and predict.qda try harder to avoid exponential underflow.
+
+- new function fitdistr for ML estimation of univariate distributions.
 
 
 Library nnet

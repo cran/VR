@@ -33,7 +33,7 @@ contour(topo.mar$x, topo.mar$y, topo.lo, xlab="", ylab="",
    levels = seq(700,1000,25), cex=0.7)
 points(topo$x, topo$y)
 par(pty="m")
-if(F) {
+if(F) { # no contourplot
 contourplot(z ~ x * y, mat2tr(topo.lo), aspect=1,
    at = seq(700, 1000, 25), xlab="", ylab="",
    panel = function(x, y, subscripts, ...) {
@@ -101,12 +101,19 @@ detach()
 
 # 3.5  Trellis graphics
 
+library(lattice) ## still in Devel.
+trellis.device(postscript, file="ch03b.ps", width=8, height=6, pointsize=9)
+
 if(F){
 # trellis.device()
 p1 <- histogram(geyser$waiting)
 p1     # plots it on screen
 
 show.settings()
+}
+
+data(hills)
+library(lqs)
 
 xyplot(time ~ dist, data = hills,
   panel = function(x, y, ...) {
@@ -117,6 +124,7 @@ xyplot(time ~ dist, data = hills,
   }
 )
 
+data(michelson)
 bwplot(Expt ~ Speed, data=michelson, ylab="Experiment No.")
 title("Speed of Light Data")
 
@@ -132,6 +140,7 @@ splom(~ swiss.df, aspect="fill",
    }
 )
 
+data(stormer)
 sps <- trellis.par.get("superpose.symbol")
 sps$pch <- 1:7
 trellis.par.set("superpose.symbol", sps)
@@ -145,6 +154,8 @@ xyplot(Time ~ Viscosity, stormer, groups = Wt,
 )
 rm(sps)
 
+if(F) {
+## very slow, in correct so far
 topo.plt <- expand.grid(topo.mar)
 topo.plt$pred <- as.vector(predict(topo.loess, topo.plt))
 levelplot(pred ~ x * y, topo.plt, aspect=1,
@@ -154,11 +165,16 @@ levelplot(pred ~ x * y, topo.plt, aspect=1,
      panel.xyplot(topo$x,topo$y, cex=0.5, col=1)
   }
 )
+}
+
+if(F) {
 wireframe(pred ~ x * y, topo.plt, aspect=c(1, 0.5), drape=T,
   screen = list(z = -150, x = -60),
   colorkey=list(space="right", height=0.6))
+}
 
-
+data(crabs)
+library(mva)
 lcrabs.pc <- predict(princomp(log(crabs[,4:8])))
 crabs.grp <- c("B", "b", "O", "o")[rep(1:4, rep(50,4))]
 splom(~ lcrabs.pc[, 1:3], groups = crabs.grp,
@@ -171,12 +187,10 @@ splom(~ lcrabs.pc[, 1:3], groups = crabs.grp,
 
 sex <- crabs$sex; levels(sex) <- c("Female", "Male")
 sp <- crabs$sp; levels(sp) <- c("Blue", "Orange")
-if(version$major==3 && version$minor < 4) {
-  splom(~ lcrabs.pc[, 1:3] | sp*sex, cex=0.5)
-} else
-  splom(~ lcrabs.pc[, 1:3] | sp*sex, cex=0.5, pscales=0)
+splom(~ lcrabs.pc[, 1:3] | sp*sex, cex=0.5, pscales=0)
 
 
+data(quine)
 Quine <- quine
 levels(Quine$Eth) <- c("Aboriginal", "Non-aboriginal")
 levels(Quine$Sex) <- c("Female", "Male")
@@ -205,6 +219,7 @@ stripplot(Age ~ Days | Eth*Sex, data=Quine,
              strip.default(..., strip.names=c(T, T), style=1)
 )
 
+data(fgl)
 fgl0 <- fgl[ ,-10] # omit type.
 fgl.df <- data.frame(type = rep(fgl$type, 9),
   y = as.vector(as.matrix(fgl0)),
@@ -217,7 +232,7 @@ Agr5 <- equal.count(swiss.df$Agric, number=5, overlap=0.25)
 xyplot(Fertility ~ Education | Agr5 * Cath, data=swiss.df,
           layout=c(2,3), skip = c(F,F,F,F,F,T))
 
-reorder.factor(Quine$Age, Quine$Days, median)
+# reorder.factor(Quine$Age, Quine$Days, median)
 
 Cath <- equal.count(swiss.df$Catholic, number=6, overlap=0.25)
 xyplot(Fertility ~ Education | Cath, data=swiss.df,
@@ -240,6 +255,6 @@ Cath <- equal.count(swiss.df$Cath, number=6, overlap=0.25)
 Cath
 levels(Cath)
 plot(Cath, aspect = 0.3)
-}
+
 
 # End of ch03

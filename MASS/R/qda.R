@@ -225,7 +225,8 @@ predict.qda <- function(object, newdata, prior = object$prior,
                                 ncol(x), byrow = TRUE)) %*% object$scaling[,,i])
             dist[, i] <- 0.5 * apply(dev^2, 1, sum) + 0.5 * object$ldet[i] - log(object$prior[i])
         }
-        dist <- exp(-(dist - min(dist, na.rm=TRUE)))
+#        dist <- exp( -(dist - min(dist, na.rm=T)))
+        dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else if(method == "looCV") {
         n <- nrow(x)
         NG <- 1
@@ -245,7 +246,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
             (1 - nc/(nc-1)/(nc-NG) * dist[ind])
         dist <- 0.5 * dist + 0.5 * ldet -
             matrix(log(object$prior), n, ngroup, byrow=TRUE)
-        dist <- exp(-(dist - min(dist, na.rm=TRUE)))
+        dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else if(method == "debiased") {
         for(i in 1:ngroup) {
             nk <- object$counts[i]
@@ -255,7 +256,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
             dist[, i] <- 0.5 * (1 - (p-1)/(nk-1)) * apply(dev^2, 1, sum) +
                 0.5 * object$ldet[i] - log(object$prior[i]) + 0.5 * Bm - p/(2*nk)
         }
-        dist <- exp(-(dist - min(dist, na.rm=TRUE)))
+        dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else {
         N <- object$N
         for(i in 1:ngroup) {

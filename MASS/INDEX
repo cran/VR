@@ -65,6 +65,8 @@ eqscplot                 Plots with Geometrically Equal Scales
 farms                    Ecological Factors in Farm Management
 fdeaths                  Monthly Deaths from Lung Diseases in the UK
 fgl                      Measurements of Forensic Glass Fragments
+fitdistr                 Maximum-likelihood Fitting of Univariate
+                         Distributions
 forbes                   Forbes' Data on Boiling Points in the Alps
 fractions                Rational Approximation
 galaxies                 Velocities for 82 Galaxies

@@ -1,5 +1,5 @@
 /*
- *  MASS/MASS.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-9
+ *  MASS/MASS.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2001
  */
 
 #include <stdio.h>

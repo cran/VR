@@ -3,9 +3,6 @@
 # Chapter 5   Distributions and Data Summaries
 
 
-# needs R --vsize 15M for the bootstrap runs
-
-
 # for later use, from section 5.6
 perm.t.test <- function(d) {
 # ttest is function(x) mean(x)/sqrt(var(x)/length(x))
@@ -45,15 +42,18 @@ detach()
 x <- rt(250, 9)
 qqnorm(x); qqline(x)
 
-#qqmath(~ x, distribution=qnorm, aspect="xy",
-#   prepanel = prepanel.qqmathline,
-#   panel = function(x, y, ...) {
-#      panel.qqmathline(y, distribution=qnorm, ...)
-#      panel.qqmath(x, y, ...)
-#   },
-#   xlab= "Quantiles of Standard Normal"
-#)
-
+library(lattice)
+trellis.device(postscript, file="ch05b.ps", width=8, height=6, pointsize=9)
+qqmath(~ x, distribution=qnorm, aspect="xy",
+   prepanel = prepanel.qqmathline,
+   panel = function(x, y, ...) {
+      panel.qqmathline(y, distribution=qnorm, ...)
+      panel.qqmath(x, y, ...)
+   },
+   xlab = "Quantiles of Standard Normal"
+)
+dev.off()
+grid.stop()
 
 # 5.2  Generating random data
 
@@ -214,7 +214,7 @@ lines(x, dlogspline(x, logspline.fit(gal)), lty=2)
 
 plot(duration, waiting, xlim=c(0.5,6), ylim=c(40,100))
 f1 <- kde2d(duration, waiting, n=50, lims=c(0.5,6,40,100))
-image(f1, zlim = c(0, 0.05))
+image(f1, zlim = c(0, 0.05), col=grey(128:0/128))
 # levelplot(z ~ x*y, con2tr(f1),
 #    at = seq(0, 0.07, 0.001), colorkey=F,
 #    col.regions = rev(trellis.par.get("regions")$col))
@@ -226,7 +226,7 @@ f2 <- kde2d(duration, waiting, n=50, lims=c(0.5,6,40,100),
 #   col.regions = rev(trellis.par.get("regions")$col))
 #wireframe(z ~ x*y, con2tr(f2),
 #   aspect = c(1, 0.5), screen=list(z=20, x=-60), zoom=1.2)
-image(f2, zlim = c(0, 0.05))
+image(f2, zlim = c(0, 0.05), col=grey(128:0/128))
 persp(f2, phi=30, theta=20, d=5)
 
 plot(duration[-272], duration[-1], xlim=c(0.5, 6),
