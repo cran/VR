@@ -1,5 +1,5 @@
 # file MASS/stepAIC.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 stepAIC <-
   function(object, scope, scale = 0,
@@ -12,11 +12,15 @@ stepAIC <-
     if (!attr(tt, "intercept")) tmp <- c(tmp, "0")
     if (!length(tmp)) tmp <- "1"
     rhs <- paste(tmp, collapse = " + ")
-    tmp <- paste(deparse(formula(object)[[2]]), "~", rhs)
+    form <- formula(object) # loglm objects have no lhs
+    tmp <- if(length(form) > 2) paste(deparse(form[[2]]), "~", rhs)
+    else paste("~", rhs)
     if (length(offset <- attr(tt, "offset")))
       tmp <- paste(tmp, deparse(attr(tt, "variables")[offset + 1]),
                    sep = " + ")
-    formula(tmp)
+    form <- formula(tmp)
+    environment(form) <- environment(tt)
+    form
   }
   mydeviance <- function(x, ...)
   {

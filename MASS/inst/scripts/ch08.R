@@ -41,8 +41,10 @@ expn <- function(b0, b1, th, x)
 wtloss.gr <- nls(Weight ~ expn(b0, b1, th, Days),
    data = wtloss, start = wtloss.st, trace = T)
 
+## R needs a different syntax here
 expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
-               function(b0, b1, th, x) {})
+               c("b0", "b1", "th", "x"))
+expn1
 
 negexp <- selfStart(model = ~ b0 + b1*exp(-x/th),
     initial = negexp.SSival, parameters = c("b0", "b1", "th"),

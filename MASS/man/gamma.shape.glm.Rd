@@ -14,11 +14,11 @@ the gamma distribution after fitting a \code{Gamma} generalized
 linear model.
 }
 \usage{
-gamma.shape.glm(fm, it.lim=10, 
+gamma.shape.glm(object, it.lim=10, 
 		eps.max=.Machine$double.eps^0.25, verbose=FALSE)
 }
 \arguments{
-\item{fm}{
+\item{object}{
 Fitted model object from a \code{Gamma} family or \code{quasi} family with
 \code{variance = mu^2}.
 }

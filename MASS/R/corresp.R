@@ -23,7 +23,7 @@ stop("invalid table specification")
 "corresp.factor" <- function(x, y, ...)
 corresp.matrix(table(x, y), ...)
 
-"corresp.formula" <- function(formula, data = sys.frame(sys.parent()), ...)
+"corresp.formula" <- function(formula, data = parent.frame(), ...)
 {
   rhs <- formula[[length(formula)]]
   if(length(rhs[[2]]) > 1 || length(rhs[[3]]) > 1)

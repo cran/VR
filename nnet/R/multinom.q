@@ -1,7 +1,7 @@
 # file nnet/multinom.q copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
 
-multinom <- function(formula, data=sys.frame(sys.parent()), weights, subset, na.action,
+multinom <- function(formula, data=parent.frame(), weights, subset, na.action,
 	    contrasts=NULL, Hess=FALSE, summ=0, censored=FALSE, ...)
 {
   class.ind <- function(cl)
@@ -35,7 +35,7 @@ multinom <- function(formula, data=sys.frame(sys.parent()), weights, subset, na.
   m <- match.call(expand = FALSE)
   m$summ <- m$Hess <- m$contrasts <- m$censored <- m$... <- NULL
   m[[1]] <- as.name("model.frame")
-  m <- eval(m, sys.frame(sys.parent()))
+  m <- eval(m, parent.frame())
   Terms <- attr(m, "terms")
   X <- model.matrix(Terms, m, contrasts)
   Xr <- qr(X)$rank
@@ -147,7 +147,7 @@ multinom <- function(formula, data=sys.frame(sys.parent()), weights, subset, na.
   class(fit) <- c("multinom", "nnet")
   if(Hess) {
     mask <- as.logical(mask)
-    fit$Hessian <- nnet.Hess(fit, X, Y, w)[mask, mask]
+    fit$Hessian <- nnet.Hess(fit, X, Y, w)[mask, mask, drop=FALSE]
     cf <- fit$vcoefnames
     if(length(fit$lev) != 2) {
      bf <- if(length(fit$lev)) fit$lev else fit$lab
@@ -275,7 +275,7 @@ vcov.multinom <- function(object)
   ginv <- function(X, tol = sqrt(.Machine$double.eps))
     {
     #
-    # based on suggestions of R M Heiberger, TRUE M Hesterburg and WNV
+    # simplified version of ginv in MASS
     #
       Xsvd <- svd(X)
       Positive <- Xsvd$d > max(tol * Xsvd$d[1], 0)
@@ -283,7 +283,7 @@ vcov.multinom <- function(object)
       else Xsvd$v[, Positive] %*% ((1/Xsvd$d[Positive]) * t(Xsvd$u[, Positive]))
     }
 
-if(is.null(object$Hessian)) {
+  if(is.null(object$Hessian)) {
     cat("\nRe-fitting to get Hessian\n\n")
     object <- update(object, Hess=TRUE, trace=FALSE)
   }

@@ -1,5 +1,5 @@
 # file MASS/add.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 addterm <-
     function(object, ...) UseMethod("addterm")
@@ -30,7 +30,7 @@ addterm.default <-
     dfs <- ans[,1] - ans[1,1]
     dfs[1] <- NA
     aod <- data.frame(Df = dfs, AIC = ans[,2])
-    if(sorted) aod <- aod[order(aod$AIC), ]
+    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     test <- match.arg(test)
     if(test == "Chisq") {
         dev <- ans[,2] - k*ans[, 1]
@@ -40,6 +40,7 @@ addterm.default <-
         P[nas] <- 1 - pchisq(dev[nas], dfs[nas])
         aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
     }
+    aod <- aod[o, ]
     head <- c("Single term additions", "\nModel:",
               deparse(as.vector(formula(object))))
     if(scale > 0)
@@ -72,7 +73,7 @@ addterm.lm <-
     if(scale > 0) aic <- RSS/scale - n + k*dfs
     else aic <- n * log(RSS/n) + k*dfs
     aod$AIC <- aic
-    if(sorted) aod <- aod[order(aod$AIC), ]
+    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     if(scale > 0) names(aod) <- c("Df", "Sum of Sq", "RSS", "Cp")
     test <- match.arg(test)
     if(test == "Chisq") {
@@ -90,6 +91,7 @@ addterm.lm <-
         rdf <- object$df.resid
         aod[, c("F Value", "Pr(F)")] <- Fstat(aod, aod$RSS[1], rdf)
     }
+    aod <- aod[o, ]
     head <- c("Single term additions", "\nModel:",
               deparse(as.vector(formula(object))))
     if(scale > 0)
@@ -175,7 +177,7 @@ addterm.glm <-
     dfs[1] <- NA
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
                       row.names = names(dfs))
-    if(sorted) aod <- aod[order(aod$AIC), ]
+    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]
     test <- match.arg(test)
     if(test == "Chisq") {
@@ -190,6 +192,7 @@ addterm.glm <-
 	rdf <- object$df.residual
 	aod[, c("F value", "Pr(F)")] <- Fstat(aod, rdf)
     }
+    aod <- aod[o, ]
     head <- c("Single term additions", "\nModel:",
               deparse(as.vector(formula(object))))
     if(scale > 0)
@@ -231,7 +234,7 @@ dropterm.default <-
     dfs <- ans[1,1] - ans[,1]
     dfs[1] <- NA
     aod <- data.frame(Df = dfs, AIC = ans[,2])
-    if(sorted) aod <- aod[order(aod$AIC), ]
+    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     test <- match.arg(test)
     if(test == "Chisq") {
         dev <- ans[, 2] - k*ans[, 1]
@@ -241,6 +244,7 @@ dropterm.default <-
         P[nas] <- 1 - pchisq(dev[nas], dfs[nas])
         aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
     }
+    aod <- aod[o, ]
     head <- c("Single term deletions", "\nModel:",
               deparse(as.vector(formula(object))))
     if(scale > 0)
@@ -260,7 +264,7 @@ dropterm.lm <-
     n <- length(object$residuals)
     aod$AIC <- if(scale > 0)RSS/scale - n + k*dfs
     else n * log(RSS/n) + k*dfs
-    if(sorted) aod <- aod[order(aod$AIC), ]
+    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     if(scale > 0) names(aod) <- c("Df", "Sum of Sq", "RSS", "Cp")
     test <- match.arg(test)
     if(test == "Chisq") {
@@ -280,6 +284,7 @@ dropterm.lm <-
         P[nas] <- 1 - pf(Fs[nas], dfs[nas], rdf)
         aod[, c("F Value", "Pr(F)")] <- list(Fs, P)
     }
+    aod <- aod[o, ]
     head <- c("Single term deletions", "\nModel:",
               deparse(as.vector(formula(object))))
     if(scale > 0)
@@ -344,7 +349,7 @@ dropterm.glm <-
     dfs[1] <- NA
     aic <- aic + (extractAIC(object)[2] - aic[1])
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic, row.names = scope)
-    if(sorted) aod <- aod[order(aod$AIC), ]
+    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]
     test <- match.arg(test)
     if(test == "Chisq") {
@@ -370,6 +375,7 @@ dropterm.glm <-
 	P[nas] <- pf(Fs[nas], dfs[nas], rdf, lower.tail=FALSE)
 	aod[, c("F value", "Pr(F)")] <- list(Fs, P)
     }
+    aod <- aod[o, ]
     head <- c("Single term deletions", "\nModel:",
               deparse(as.vector(formula(object))))
     if(scale > 0)

@@ -98,10 +98,9 @@ The number of observations used.
 }
 \item{call}{
 The (matched) function call.
-
+}
 
 unless \code{CV=TRUE}, when the return value is a list with components:
-}
 \item{class}{
 The MAP classification (a factor)
 }

@@ -10,7 +10,7 @@ lm.gls <- function(formula, data, W, subset, na.action,
     m$W <- m$inverse <- m$method <- m$model <- m$x <-
         m$y <- m$contrasts <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, sys.frame(sys.parent()))
+    m <- eval(m, parent.frame())
     if(method == "model.frame") return(m)
     Terms <- attr(m, "terms")
     Y <- model.extract(m, response)

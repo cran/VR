@@ -1,5 +1,5 @@
 # file MASS/lda.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 lda <- function(x, ...)
 {
@@ -11,11 +11,11 @@ lda.formula <- function(formula, data = NULL, ...,
 			subset, na.action = na.fail)
 {
     m <- match.call(expand.dots = FALSE)
-    if(is.matrix(eval(m$data, sys.frame(sys.parent()))))
+    if(is.matrix(eval(m$data, parent.frame())))
         m$data <- as.data.frame(data)
     m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, sys.frame(sys.parent()))
+    m <- eval(m, parent.frame())
     Terms <- attr(m, "terms")
     grouping <- model.extract(m, "response")
     x <- model.matrix(Terms, m)
@@ -204,8 +204,8 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
         if(missing(newdata)) {
             if(!is.null(sub <- object$call$subset))
                 newdata <- eval(parse(text=paste(deparse(object$call$x),"[",
-                                      deparse(sub),",]")), sys.frame(sys.parent()))
-            else newdata <- eval(object$call$x, sys.frame(sys.parent()))
+                                      deparse(sub),",]")), parent.frame())
+            else newdata <- eval(object$call$x, parent.frame())
             if(!is.null(nas <- object$call$na.action))
                 newdata <- eval(call(nas, newdata))
         }
@@ -300,12 +300,12 @@ plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
         gname <- x$call[[3]]
         if(!is.null(sub <- x$call$subset)) {
             X <- eval(parse(text=paste(deparse(xname),"[", deparse(sub),",]")),
-                      sys.frame(sys.parent()))
+                      parent.frame())
             g <- eval(parse(text=paste(deparse(gname),"[", deparse(sub),"]")),
-                      sys.frame(sys.parent()))
+                      parent.frame())
         } else {
-            X <- eval(xname, sys.frame(sys.parent()))
-            g <- eval(gname, sys.frame(sys.parent()))
+            X <- eval(xname, parent.frame())
+            g <- eval(gname, parent.frame())
         }
         if(!is.null(nas <- x$call$na.action)) {
             df <- data.frame(g = g, X = X)
@@ -414,12 +414,12 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
         gname <- x$call[[3]]
         if(!is.null(sub <- x$call$subset)) {
             X <- eval(parse(text=paste(deparse(xname),"[", deparse(sub),",]")),
-                      sys.frame(sys.parent()))
+                      parent.frame())
             g <- eval(parse(text=paste(deparse(gname),"[", deparse(sub),"]")),
-                      sys.frame(sys.parent()))
+                      parent.frame())
         } else {
-            X <- eval(xname, sys.frame(sys.parent()))
-            g <- eval(gname, sys.frame(sys.parent()))
+            X <- eval(xname, parent.frame())
+            g <- eval(gname, parent.frame())
         }
         if(!is.null(nas <- x$call$na.action)) {
             df <- data.frame(g = g, X = X)
@@ -458,7 +458,7 @@ function(formula, data = NULL, na.action = NULL, ...)
     oc[[1]] <- as.name("model.frame")
     if(length(data)) {
         oc$data <- substitute(data)
-        eval(oc, sys.frame(sys.parent()))
+        eval(oc, parent.frame())
     }
     else eval(oc, list())
 }

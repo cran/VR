@@ -1,14 +1,15 @@
 # file MASS/fractions.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 .rat <- function(x, cycles = 10, max.denominator = 2000)
 {
   a0 <- rep(0, length(x))
   A <- matrix(b0 <- rep(1, length(x)))
+  fin <- is.finite(x)
   B <- matrix(floor(x))
   r <- as.vector(x) - drop(B)
   len <- 0
-  while(any(which <- (r > 1/max.denominator)) &&
+  while(any(which <- fin & (r > 1/max.denominator)) &&
 	(len <- len + 1) <= cycles) {
     a <- a0
     b <- b0
@@ -27,6 +28,7 @@
     pq1 <- pq
     pq <- B[, len] * pq1 + A[, len] * pq0
   }
+  pq[!fin, 1] <- x[!fin]
   list(rat = pq, x = x)
 }
 

@@ -323,7 +323,7 @@ summary(immer.aov)
 
 model.tables(immer.aov, type="means", se=T, cterms="Var")
 
-if(F || version$major >= 4) {
+if(F) {
   print(multicomp(immer.aov, plot=T))
 
   oats1 <- aov(Y ~ N + V + B, data=oats)

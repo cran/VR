@@ -12,7 +12,7 @@ set vector is found, and its classification used. If there is more than
 one nearest, a majority vote is used with ties broken at random.
 }
 \usage{
-knn1(train, test, class)
+knn1(train, test, cl)
 }
 \arguments{
 \item{train}{
@@ -22,7 +22,7 @@ matrix or data frame of training set cases.
 matrix or data frame of test set cases. A vector will be interpreted
 as a row vector for a single case.
 }
-\item{class}{
+\item{cl}{
 factor of true classification of training set.
 }}
 \value{

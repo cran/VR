@@ -8,7 +8,7 @@ lm.ridge <- function(formula, data, subset, na.action,
     m <- match.call(expand = FALSE)
     m$model <- m$x <- m$y <- m$contrasts <- m$... <- m$lambda <- NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, sys.frame(sys.parent()))
+    m <- eval(m, parent.frame())
     Terms <- attr(m, "terms")
     Y <- model.extract(m, response)
     X <- model.matrix(Terms, m, contrasts)

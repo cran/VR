@@ -20,7 +20,8 @@ Version 6.1 (Apr 1999) release for the third edition. Support for S-PLUS
   5.1 and 2000, added more na-handling.
 
 Version 6.2 (Aug 2000) tidy up documentation.  Would be 6.1pl010, but that
-  causes R problems
+  causes R problems.
+  (Oct 2000) support for S-PLUS 6.0 for Unix.
 
 
 The na-handling methods of S-PLUS 2000 have been incorporated. With most
@@ -67,7 +68,8 @@ Library MASS
 - eqscplot has new arguments ratio and uin.
 - stepAIC will not drop strata terms in coxph or survreg models.
 - profile.glm will report inadequate supplied glm fits, not just fail.
-- new method confint.lm
+- new method confint.lm.
+- fractions/rational allow missing values.
 
 
 Library nnet

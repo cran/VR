@@ -1,5 +1,5 @@
 # file MASS/polr.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 polr <- function(formula, data = NULL, weights, start, ..., subset,
                  na.action = na.fail, contrasts = NULL, Hess=FALSE)
@@ -29,11 +29,11 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
     }
 
     m <- match.call(expand.dots = FALSE)
-    if(is.matrix(eval(m$data, sys.frame(sys.parent()))))
+    if(is.matrix(eval(m$data, parent.frame())))
         m$data <- as.data.frame(data)
     m$start <- m$Hess <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, sys.frame(sys.parent()))
+    m <- eval(m, parent.frame())
     Terms <- attr(m, "terms")
     x <- model.matrix(Terms, m, contrasts)
     xvars <- as.character(attr(Terms, "variables"))[-1]
@@ -223,7 +223,7 @@ model.frame.polr <- function(formula, data, na.action, ...)
     m <- formula$call
     m$start <- m$Hess <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    data <- eval(m, sys.frame(sys.parent()))
+    data <- eval(m, parent.frame())
     if(!is.null(mw <- m$weights)) {
         nm <- names(data)
         nm[match("(weights)", nm)] <- as.character(mw)

@@ -16,7 +16,7 @@ rational(x, cycles = 10, max.denominator = 2000)
 }
 \arguments{
 \item{x}{
-Any object of mode numeric.
+Any object of mode numeric. Missing values are now allowed.
 }
 \item{cycles}{
 The maximum number of steps to be used in the continued fraction

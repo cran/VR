@@ -1,5 +1,5 @@
 # file MASS/confint.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 confint <- function(object, parm, level = 0.95, ...) UseMethod("confint")
 

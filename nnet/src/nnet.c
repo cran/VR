@@ -803,7 +803,10 @@ VR_nnHessian(Sint *ntr, Sdata *train, Sdata *weights,
 
 static int p, q;
 
-static int
+static int 
+#if( defined(WIN32) && defined(SPLUS_VERSION) && SPLUS_VERSION >= 6000 )
+__cdecl
+#endif
 Zcompar(const Sdata *a, const Sdata *b)
 {
     int   i;
@@ -825,8 +828,12 @@ VR_summ2(Sint *n0, Sint *p0, Sint *q0, Sdata *Z, Sint *na)
     p = *p0;
     q = *q0;
     m = p + q;
+#if( defined(WIN32) && defined(SPLUS_VERSION) && SPLUS_VERSION >= 6000 )
+    qsort(Z, n, m * sizeof(Sdata), Zcompar);
+#else
     qsort(Z, n, m * sizeof(Sdata), 
 	  (int (*)(const void *, const void *)) Zcompar);
+#endif
     j = 0;
     for (i = 1; i < n; i++) {
 	k = -1;

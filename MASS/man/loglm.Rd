@@ -25,7 +25,7 @@ in a manner similar to that of other fitting functions, such as
 \code{glm}.
 }
 \usage{
-loglm(formula, data=sys.frame(sys.parent()), subset, na.action, \dots)
+loglm(formula, data=parent.frame(), subset, na.action, \dots)
 }
 \arguments{
 \item{formula}{

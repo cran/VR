@@ -68,7 +68,7 @@ arriving at each ear which contributes to sound localisation and also
 to our ability to hear in background noise.
 
 
-Some years ago, it was found that children of 7--8 years with a history
+Some years ago, it was found that children of 7-8 years with a history
 of significant OME had significantly worse binaural hearing than
 children without such a history, despite having equivalent
 sensitivity. The question remained as to whether it was the timing,

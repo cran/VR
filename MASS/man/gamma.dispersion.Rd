@@ -11,10 +11,10 @@ A front end to \code{gamma.shape} for convenience.  Finds the
 reciprocal of the estimate of the shape parameter only.
 }
 \usage{
-gamma.dispersion(fm, \dots)
+gamma.dispersion(object, \dots)
 }
 \arguments{
-\item{fm}{
+\item{object}{
 Fitted model object giving the gamma fit.
 }
 \item{...}{

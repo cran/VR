@@ -1,5 +1,5 @@
 # file MASS/negbin.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 "anova.negbin"<-
 function(object, ..., test = "Chisq")
@@ -70,7 +70,7 @@ function(object)
     object
 }
 
-glm.nb <- function(formula = formula(data), data = sys.frame(sys.parent()), weights,
+glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
 		   subset, na.action, start = eta,
 		   control = glm.control(...), method = "glm.fit",
 		   model = FALSE, x = FALSE, y = TRUE, contrasts = NULL,
@@ -93,7 +93,7 @@ glm.nb <- function(formula = formula(data), data = sys.frame(sys.parent()), weig
     m$method <- m$model <- m$x <- m$y <- m$control <- m$contrasts <-
         m$init.theta <- m$link <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, sys.frame(sys.parent()))
+    m <- eval(m, parent.frame())
     Terms <- attr(m, "terms")
     if(method == "model.frame") return(m)
     xvars <- as.character(attr(Terms, "variables"))[-1]

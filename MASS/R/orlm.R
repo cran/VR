@@ -9,7 +9,7 @@ orlm <-
     m <- match.call(expand = FALSE)
     m$method <- m$model <- m$x <- m$y <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, sys.frame(sys.parent()))
+    m <- eval(m, parent.frame())
     if(method == "model.frame") return(m)
     Terms <- attr(m, "terms")
     weights <- model.extract(m, weights)

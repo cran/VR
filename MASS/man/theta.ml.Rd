@@ -11,17 +11,17 @@ Given the estimated mean vector, estimate \code{theta} of the Negative Binomial
 Distribution.
 }
 \usage{
-theta.ml(y, u, dfr, limit=20, eps=.Machine$double.eps^0.25, trace=FALSE)
+theta.ml(y, mu, n, limit=20, eps=.Machine$double.eps^0.25, trace=FALSE)
 }
 \arguments{
 \item{y}{
 Vector of observed values from the Negative Binomial.
 }
-\item{u}{
+\item{mu}{
 Estimated mean vector.
 }
-\item{dfr}{
-Residual degrees of freedom (assuming \code{theta} known).
+\item{n}{
+Number of data points (defaults to length of \code{y})
 }
 \item{limit}{
 Limit on the number of iterations.

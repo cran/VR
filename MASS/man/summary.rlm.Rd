@@ -11,7 +11,7 @@ Summary Method for Robust Linear Models
 \code{summary} method for objects of class \code{"rlm"}
 }
 \usage{
-summary.rlm(object, print.it=TRUE, digits=4)
+summary.rlm(object, method=c("XtX", "XtWX"), correlation=TRUE, \dots)
 }
 \arguments{
 \item{object}{
@@ -20,15 +20,12 @@ This is assumed to be the result of some fit that produces
 an object inheriting from the class \code{rlm}, in the sense that
 the components returned by the \code{rlm} function will be available.
 }
-\item{print.it}{
-optional argument.  If false, the standard printing will not
-take place, and instead a structure will be returned
-with components containing the
-important computed for summarizing, as below.
+\item{method}{
+Should the weighted (by the IWLS weights) or unweighted cross-products 
+matrix be used?
 }
-\item{digits}{
-the number of digits to be used in printing summaries, in the sense
-of the argument to \code{print} of the same name.
+\item{correlation}{
+logical. Should correlations be computed (and printed)?
 }}
 \value{
 If printing takes place, only a null value is returned.

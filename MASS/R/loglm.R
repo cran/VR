@@ -36,14 +36,14 @@ renumerate.formula <- function(x)
 }
 
 loglm <-
-  function(formula, data = sys.frame(sys.parent()), subset, na.action, ...)
+  function(formula, data = parent.frame(), subset, na.action, ...)
 {
     assign(".call", match.call(), envir=.GlobalEnv)
     if(missing(data) || inherits(data, "data.frame")) {
         m <- match.call(expand = FALSE)
         m$... <- NULL
         m[[1]] <- as.name("model.frame")
-        data <- eval(m, sys.frame(sys.parent()))
+        data <- eval(m, parent.frame())
         assign(".formula", as.formula(attr(data, "terms")), envir=.GlobalEnv)
     } else {
         trms <- attr(data, "terms") <- terms(formula <- denumerate(formula))
@@ -98,7 +98,7 @@ function(formula, data, start = rep(1, length(data)), fitted = FALSE,
 	1/10, iter = 40, print = FALSE, ...)
 {
     trms <- attr(data, "terms")
-    if(is.null(trms)) stop("data has no trms attribute")
+    if(is.null(trms)) stop("data has no terms attribute")
     factors <- attr(trms, "factors") > 0
     if((r <- attr(trms, "response"))) factors <- factors[ - r,  , drop = F]
     nt <- ncol(factors)
@@ -134,6 +134,7 @@ function(formula, data, start = rep(1, length(data)), fitted = FALSE,
     Fit$deviance <- Fit$lrt
     Fit$nobs <- length(data)
     Fit$df <- Fit$df - sum(start == 0)
+    Fit$terms <- trms # for stepAIC
     Fit
 }
 
@@ -252,7 +253,7 @@ update.loglm <- function (object, formula., ...)
         stop("object has no call component.  Updating not possible")
     if (fix <- !missing(formula.)) {
         object$formula <- denumerate(object$formula)
-        formula. <- denumerate(formula.)
+        formula. <- denumerate(as.formula(formula.))
         call$formula <- update.formula(formula(object), formula.)
     }
     extras <- match.call(expand.dots = FALSE)$...
@@ -265,7 +266,7 @@ update.loglm <- function (object, formula., ...)
             call <- as.call(call)
         }
     }
-    result <- eval(call, sys.frame(sys.parent()))
+    result <- eval(call, parent.frame())
     if (fix) {
         form <- renumerate(result$formula)
         result$call$formula <- unclass(result$formula <- form)

@@ -13,7 +13,7 @@ majority vote, with ties broken at random. If there are ties for the
 \code{k}th nearest vector, all candidates are included in the vote.
 }
 \usage{
-knn(train, test, class, k=1, l=1, prob=FALSE, use.all=TRUE)
+knn(train, test, cl, k=1, l=1, prob=FALSE, use.all=TRUE)
 }
 \arguments{
 \item{train}{
@@ -23,7 +23,7 @@ matrix or data frame of training set cases.
 matrix or data frame of test set cases. A vector will be interpreted
 as a row vector for a single case.
 }
-\item{class}{
+\item{cl}{
 factor of true classifications of training set
 }
 \item{k}{

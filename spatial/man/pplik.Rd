@@ -9,7 +9,7 @@ Pseudo-likelihood Estimation of a Strauss Spatial Point Process
 Pseudo-likelihood estimation of a Strauss spatial point process.
 }
 \usage{
-pplik(pp, R, ng=25)
+pplik(pp, R, ng=50, trace=FALSE)
 }
 \arguments{
 \item{pp}{
@@ -19,7 +19,11 @@ a pp object
 the fixed parameter \code{R}
 }
 \item{ng}{
-use a \code{ng}  x  \code{ng} grid with border \code{R} in the domain for numerical integration.
+use a \code{ng}  x  \code{ng} grid with border \code{R} in the domain for numerical
+integration.
+}
+\item{trace}{
+logical? Should function evaluations be printed?
 }}
 \value{
 estimate for \code{c} in the interval \code{[0, 1]}.

@@ -13,7 +13,7 @@ rlm.formula <-
     mf <- match.call(expand.dots = FALSE)
     mf$method <- mf$model <- mf$x <- mf$y <- mf$contrasts <- mf$... <- NULL
     mf[[1]] <- as.name("model.frame")
-    mf <- eval(mf, sys.frame(sys.parent()))
+    mf <- eval(mf, parent.frame())
     method <- match.arg(method)
     wt.method <- match.arg(wt.method)
     if(method == "model.frame") return(mf)

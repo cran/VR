@@ -2,6 +2,7 @@
 #
 # port to R by B. D. Ripley copyright (C) 1998
 #
+#corrections copyright (C) 2000 B. D. Ripley
 profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
 			maxsteps = 10, del = zmax/5, trace = FALSE)
 {

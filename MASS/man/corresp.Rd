@@ -21,10 +21,10 @@ column-scores from a correspondence analysis of a two-way contingency
 table.
 }
 \usage{
-corresp(tabl, nf=1, \dots)
+corresp(x, nf=1, \dots)
 }
 \arguments{
-\item{tabl}{
+\item{x}{
 The function is generic, accepting various forms of the principal
 argument for specifying a two-way frequency table.  Currently accepted
 forms are matrices, data frames (coerced to frequency tables), objects

@@ -1,5 +1,5 @@
 # file MASS/sammon.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 sammon <- function(d, y, k=2, niter=100, trace=TRUE, magic=0.2, tol=1e-4)
 {

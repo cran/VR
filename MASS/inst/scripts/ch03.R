@@ -17,8 +17,7 @@ barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
    main="UK deaths from lung disease")
 if(interactive())
     legend(locator(1), c("Males", "Females"), fill=c(2,3))
-loc <- barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
-   style="old", dbangle=c(45,135), density=10)
+loc <- barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]])
 total <- apply(lung.deaths, 1, sum)
 text(loc, total + par("cxy")[2], total, cex=0.7, xpd=T)
 
@@ -76,7 +75,8 @@ rs <- samp[,1]
 xs <- qqnorm(rs, plot=F)$x
 env <- t(apply(samp[,-1], 1, range))
 
-matplot(xs, cbind(rs,env), type="pnn", pch=4, mkh=0.06, axes=F)
+matplot(xs, cbind(rs,env), type="pnn", pch=4, mkh=0.06, axes=FALSE,
+        xlab="", ylab="")
 
 xyul <- par("usr")
 smidge <- min(diff(c(xyul[1], xs, xyul[2])))/2
@@ -84,18 +84,19 @@ segments(xs-smidge, env[,1], xs+smidge, env[,1])
 segments(xs-smidge, env[,2], xs+smidge, env[,2])
 
 xul <- trunc(10*xyul[1:2])/10
-axis(1, at=seq(xul[1], xul[2], by=0.1), labels=F, tck=0.01)
+axis(1, at=seq(xul[1], xul[2], by=0.1), labels=FALSE, tck=0.01)
 xi <- trunc(xyul[1:2])
 axis(1, at=seq(xi[1], xi[2], by=0.5), tck=0.02)
 yul <- trunc(5*xyul[3:4])/5
-axis(2, at=seq(yul[1], yul[2], by=0.2), labels=F, tck=0.01)
+axis(2, at=seq(yul[1], yul[2], by=0.2), labels=FALSE, tck=0.01)
 yi <- trunc(xyul[3:4])
 axis(2, at=yi[1]:yi[2], tck=0.02)
 
 box(bty="l")          # lower case "L"
 # ps.options()$fonts
+# R cannot change font family in a plot.
 mtext("Quantiles of Standard Normal", side=1, line=2.5, font=3)
-mtext("Ri", side=2, line=2, at=yul[2], font=10)
+mtext("Ri", side=2, line=2, at=yul[2])
 detach()
 
 

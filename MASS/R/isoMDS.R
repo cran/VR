@@ -1,5 +1,5 @@
 # file MASS/isoMDS.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
 isoMDS <- function(d, y=cmdscale(d, 2), maxit=50, trace=TRUE)
 {

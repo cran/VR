@@ -18,11 +18,11 @@ nnet.formula <- function(formula, data = NULL, weights, ...,
     x
   }
   m <- match.call(expand.dots = FALSE)
-  if(is.matrix(eval(m$data, sys.frame(sys.parent()))))
+  if(is.matrix(eval(m$data, parent.frame())))
       m$data <- as.data.frame(data)
   m$... <- m$contrasts <- NULL
   m[[1]] <- as.name("model.frame")
-  m <- eval(m, sys.frame(sys.parent()))
+  m <- eval(m, parent.frame())
   Terms <- attr(m, "terms")
   x <- model.matrix(Terms, m, contrasts)
   xint <- match("(Intercept)", colnames(x), nomatch=0)

@@ -14,10 +14,10 @@ Computes and optionally plots profile log-likelihoods for the
 parameter of the Box-Cox simple power transformation \code{y^lambda}.
 }
 \usage{
-boxcox(model, lambda, plotit, interp, eps, xlab, ylab, \dots)
+boxcox(object, lambda, plotit, interp, eps, xlab, ylab, \dots)
 }
 \arguments{
-\item{model}{
+\item{object}{
 a formula or fitted model object.  Currently only \code{lm} and \code{aov} objects 
 are handled.
 }

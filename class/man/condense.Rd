@@ -9,7 +9,7 @@ Condense training set for k-NN classifier
 Condense training set for k-NN classifier
 }
 \usage{
-condense(train, class, store)
+condense(train, class, store, trace=TRUE)
 }
 \arguments{
 \item{train}{
@@ -20,6 +20,9 @@ vector of classifications for test set
 }
 \item{store}{
 initial store set. Default one randomly chosen element of the set.
+}
+\item{trace}{
+logical. Trace iterations?
 }}
 \details{
 The store set is used to 1-NN classify the rest, and misclassified

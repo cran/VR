@@ -72,7 +72,8 @@ table(Sex, Age)
 
 #tab <- crosstabs(~Sex + Age, quine)
 #print.default(tab)
-
+## R equivalent (from 1.2.0)
+xtabs(~Sex + Age, quine)
 
 tapply(Days, Age, mean)
 tapply(Days, Age, mean, trim = 0.1)
