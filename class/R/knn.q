@@ -24,7 +24,7 @@ knn1 <- function(train, test, cl)
 		as.integer(nc),
 		d = double(nte)
 		)$res
-	factor(res, levels=seq(along=levels(clf)), labels=levels(clf)) 
+	factor(res, levels=seq(along=levels(clf)), labels=levels(clf))
 }
 
 knn <- function(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)

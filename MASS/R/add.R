@@ -172,7 +172,7 @@ addterm.glm <-
         else loglik <- n * log(dev/n)
     } else loglik <- dev/dispersion
     aic <- loglik + k * dfs
-    aic <- aic + (extractAIC(object)[2] - aic[1]) # same baseline for AIC
+    aic <- aic + (extractAIC(object, k = k)[2] - aic[1]) # same baseline for AIC
     dfs <- dfs - dfs[1]
     dfs[1] <- NA
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
@@ -347,7 +347,7 @@ dropterm.glm <-
     aic <- loglik + k * dfs
     dfs <- dfs[1] - dfs
     dfs[1] <- NA
-    aic <- aic + (extractAIC(object)[2] - aic[1])
+    aic <- aic + (extractAIC(object, k = k)[2] - aic[1])
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic, row.names = scope)
     o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]

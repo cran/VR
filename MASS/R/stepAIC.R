@@ -13,7 +13,7 @@ stepAIC <-
     if (!length(tmp)) tmp <- "1"
     rhs <- paste(tmp, collapse = " + ")
     form <- formula(object) # loglm objects have no lhs
-    tmp <- if(length(form) > 2) paste(deparse(form[[2]]), "~", rhs)
+    tmp <- if(length(form) > 2) paste(paste(deparse(form[[2]]), collapse = ""), "~", rhs)
     else paste("~", rhs)
     if (length(offset <- attr(tt, "offset")))
       tmp <- paste(tmp, deparse(attr(tt, "variables")[offset + 1]),
