@@ -27,10 +27,10 @@ survival time in weeks
 \source{
 Cox, D. R. and Oakes, D. (1984)
 \emph{Analysis of Survival Data, }
-Chapman \& Hall, p. 9.  Taken from
+Chapman & Hall, p. 9.  Taken from
 
 
-Feigl, P. \& Zelen, M. (1965) Estimation of exponential survival
+Feigl, P. & Zelen, M. (1965) Estimation of exponential survival
 probabilities with concomitant information.
 \emph{Biometrics,}
 \bold{21}, 826-838.

@@ -66,17 +66,15 @@ biplot(princomp(state, cor=T), pc.biplot=T, cex = 0.7, ex=0.8)
 # 11.2  Cluster analysis
 
 h <- hclust(dist(swiss.x), method="single")
-plot(h) # plclust(h)
-#cutree(h, 3)
+plot(h) # or plcust with library(cluster)
+cutree(h, 3)
 #plclust( clorder(h, cutree(h, 3) ))
 
-if(F){
 h <- hclust(dist(swiss.x), method="average")
 initial <- tapply(swiss.x, list(rep(cutree(h, 3),
    ncol(swiss.x)), col(swiss.x)), mean)
 dimnames(initial) <- list(NULL, dimnames(swiss.x)[[2]])
-}
-km <- kmeans(swiss.x, 3) #initial)
+km <- kmeans(swiss.x, initial)
 swiss.pca <- princomp(swiss.x)
 swiss.pca
 swiss.px <- predict(swiss.pca)
@@ -110,10 +108,10 @@ points(swiss.pam$medoid[,1:2], pch=3, cex=3)
 
 fanny(swiss.px, 3)
 
-#par(mfrow=c(2,1))
-#pltree(agnes(swiss.x, method="single"))
-#pltree(diana(swiss.x))
-#par(mfrow=c(1,1))
+par(mfrow=c(2,1))
+pltree(agnes(swiss.x, method="single"))
+pltree(diana(swiss.x))
+par(mfrow=c(1,1))
 
 
 # 11.3 Correspondence analysis
@@ -266,7 +264,6 @@ b1 <- function(Z, ...)
       add=T, levels=0, labex=0, ...)
 }
 
-set.seed <- function(x) {}
 cush <- cush[1:21,]; tpi <- class.ind(tp)
 # functions pltnn and plt.bndry given in the scripts
 par(mfrow=c(2,2))

@@ -32,7 +32,7 @@ treatment, control or 6-MP
 \source{
 Cox, D. R. and Oakes, D. (1984)
 \emph{Analysis of Survival Data.}
-Chapman \& Hall, p. 7. Taken from
+Chapman & Hall, p. 7. Taken from
 
 
 Gehan, E.A. (1965) A generalized Wilcoxon test for comparing 

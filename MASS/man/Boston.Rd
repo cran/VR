@@ -41,19 +41,19 @@ weighted mean of distances to five Boston employment centres
 index of accessibility to radial highways
 }
 \item{tax}{
-full-value property-tax rate per $10,000
+full-value property-tax rate per \$10,000
 }
 \item{ptratio}{
 pupil-teacher ratio by town
 }
 \item{black}{
-1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
+\eqn{1000(Bk - 0.63)^2} where Bk is the proportion of blacks by town
 }
 \item{lstat}{
 lower status of the population (percent)
 }
 \item{medv}{
-median value of owner-occupied homes in $1000
+median value of owner-occupied homes in \$1000
 }}
 \source{
 Harrison, D. and Rubinfeld, D.L. (1978)

@@ -13,7 +13,7 @@ telephone calls in millions.
 }
 \source{
 P. J. Rousseeuw and A. M. Leroy (1987)
-\emph{Robust Regression \& Outlier Detection.}
+\emph{Robust Regression & Outlier Detection.}
 Wiley.
 }
 \keyword{datasets}

@@ -147,7 +147,7 @@ Wiley.
 
 A. Marazzi (1993)
 \emph{Algorithms, Routines and S Functions for Robust Statistics. }
-Wadsworth \& Brooks/Cole.
+Wadsworth & Brooks/Cole.
 }
 \seealso{
 \code{\link{lm}}, \code{\link{lqs}}.

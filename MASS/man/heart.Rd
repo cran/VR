@@ -4,7 +4,7 @@
   The Stanford heart transplant data
 }
 \description{
-  The Stanford heart transplant data from Kalbfliesch & Prentice.
+  The Stanford heart transplant data from Kalbfleisch & Prentice.
   A data frame.
 }
 \details{

@@ -50,7 +50,7 @@ relationship between the row and column scores.  Think of this as an
 equally-scaled plot with two unrelated sets of labels.
 }
 \references{
-Venables \& Ripley (1999), chapter 11.
+Venables & Ripley (1999), chapter 11.
 }
 \seealso{
 \code{\link{svd}}, \code{\link{princomp}}

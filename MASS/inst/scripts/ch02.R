@@ -94,7 +94,7 @@ args(hist)
 
 x <- c(10.4, 5.6, 3.1, 6.4, 21.7)
 y <- c(x, x)
-v <- 2 * x + 1
+v <- 2 * x + y + 1
 xtrunc <- pmax(0, pmin(1,x))
 s3 <- seq(-5, 5, by=0.2)
 s3
@@ -157,16 +157,14 @@ sort(x, partial=50001)[50001]
 
 latitude <- state.center[["y"]]
 names(latitude) <- state.name
-#i <- sort.list(longitude)
-i <- order(longitude)
+i <- sort.list(longitude)
 cbind(latitude = latitude[i], longitude = longitude[i])
 
 data(shoes)
 shoes$B
 rank(shoes$B)
 rank(round(shoes$B))
-#sort.list(sort.list(round(shoes$B)))
-order(order(round(shoes$B)))
+sort.list(sort.list(round(shoes$B)))
 
 
 # 2.9  Input/Output facilities

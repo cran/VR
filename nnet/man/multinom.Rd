@@ -92,8 +92,10 @@ Coefficients:
      smoke      ptd        ht        ui       ftv1     ftv2+ 
   0.7555234 1.343648 1.913213 0.6802007 -0.4363238 0.1789888
 
+
 Residual Deviance: 195.4755 
 AIC: 217.4755 
-}}
+}
+}
 \keyword{neural}
 \keyword{models}

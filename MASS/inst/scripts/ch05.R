@@ -253,7 +253,7 @@ detach("geyser")
 density(gal, n=1, from=20.833, to=20.834, width=3.2562)$y
 density(gal, n=1, from=20.833, to=20.834, width=2.5655)$y
 1/(2*sqrt(length(gal))*0.13)
-m <- 1000
+set.seed(101); m <- 1000
 res <- numeric(m)
 for (i in 1:m) res[i] <- median(sample(gal, replace=T))
 mean(res - median(gal))
@@ -266,7 +266,7 @@ x <- seq(19.5, 22.5, length=500)
 lines(x, dlogspline(x, logspline.fit(res)), lty=3)
 
 library(boot)
-#set.seed(101)
+set.seed(101)
 gal.boot <- boot(gal, function(x,i) median(x[i]), R=1000)
 gal.boot
 plot(gal.boot)
@@ -289,7 +289,7 @@ sim.gen  <- function(data, mle) {
 gal.boot2 <- boot(gal, median, R=1000,
   sim="parametric", ran.gen=sim.gen, mle=0.5)
 boot.ci(gal.boot2, conf=c(0.90, 0.95),
-          type=c("norm","basic","perc"))
+        type=c("norm","basic","perc"))
 
 
 attach(shoes)

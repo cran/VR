@@ -24,7 +24,7 @@ The matrix \code{N} with the basis for the null space, or an empty
 vector if the matrix \code{M} is square and of maximal rank.
 }
 \references{
-Venables \& Ripley, Chapter 2.
+Venables & Ripley, Chapter 2.
 }
 \seealso{
 \code{\link{qr}}, \code{\link{qr.Q}}

@@ -7,7 +7,7 @@
 Bandwidth Selection by Pilot Estimation of Derivatives
 }
 \description{
-Uses the method of Sheather \& Jones (1991) to select the bandwidth of
+Uses the method of Sheather & Jones (1991) to select the bandwidth of
 a Gaussian kernel density estimator.
 }
 \usage{
@@ -43,7 +43,7 @@ Wiley.
 
 Wand, M. P. and Jones, M. C. (1995)
 \emph{Kernel Smoothing.}
-Chapman \& Hall.
+Chapman & Hall.
 }
 \seealso{
 \code{\link{ucv}}, \code{\link{bcv}}, \code{\link{density}}

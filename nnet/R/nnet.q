@@ -250,7 +250,7 @@ norm.net <- function(net)
 
 which.is.max <- function(x)
 {
-  y <- seq(length(x))[x == max(x)]
+  y <- seq(along=x)[x == max(x)]
   if(length(y) > 1) sample(y,1) else y
 }
 

@@ -92,7 +92,7 @@ O = Natal wetland
 \source{
 J.C. Gower and D.J. Hand (1996)
 \emph{Biplots}
-Chapman \& Hall Table 9.1. Quoted as from:
+Chapman & Hall Table 9.1. Quoted as from:
 
 
 R.W. Summers, L.G. Underhill, D.J. Pearson and D.A. Scott (1987)

@@ -115,6 +115,7 @@ house.ld <- logit(house.cpr[2, ]) - logit(house.cpr[1, ])
 sort(drop(house.ld))
 mean(.Last.value)
 
+
 house.plr <- polr(Sat ~ Infl + Type + Cont,
                data = housing, weights = Freq)
 house.plr
@@ -128,6 +129,7 @@ Fr <- matrix(housing$Freq, ncol = 3, byrow=T)
 
 house.plr2 <- stepAIC(house.plr, ~.^2)
 house.plr2$anova
+
 
 # 7.4  A negative binomial family
 

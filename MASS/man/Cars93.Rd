@@ -23,13 +23,13 @@ Model
 Type: Small, Sporty, Compact, Midsize, Large, Van
 }
 \item{Min.Price}{
-Minimum Price (in $1,000) - price for a basic version
+Minimum Price (in \$1,000) - price for a basic version
 }
 \item{Price}{
-Midrange Price (in $1,000) - average of \code{Min.Price} and \code{Max.Price}
+Midrange Price (in \$1,000) - average of \code{Min.Price} and \code{Max.Price}
 }
 \item{Max.Price}{
-Maximum Price (in $1,000) - price for "a premium version"
+Maximum Price (in \$1,000) - price for "a premium version"
 }
 \item{MPG.city}{
 City MPG (miles per US gallon by EPA rating)
@@ -38,7 +38,7 @@ City MPG (miles per US gallon by EPA rating)
 Highway MPG
 }
 \item{AirBags}{
-Air Bags standard. Factor: none, driver only, or driver \& passenger
+Air Bags standard. Factor: none, driver only, or driver & passenger
 }
 \item{DriveTrain}{
 Drive train type: rear wheel, front wheel or 4WD; (factor).
@@ -104,10 +104,10 @@ were listed at most once.
 
 
 Further description can be found in Lock (1993). Use the URL
-\code{http://jse.stat.ncsu.edu/jse/v1n1/datasets.lock}
+\url{http://jse.stat.ncsu.edu/jse/v1n1/datasets.lock}
 or send the message
-     \code{send jse/v1n1/datasets.lock}
-to the email address \code{archive@jse.stat.ncsu.edu}
+     \url{send jse/v1n1/datasets.lock}
+to the email address \url{archive@jse.stat.ncsu.edu}
 }
 \source{
 Lock, R. H. (1993)

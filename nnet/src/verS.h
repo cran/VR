@@ -1,4 +1,8 @@
-#if( defined(SPLUS_VERSION) && SPLUS_VERSION >= 5000 )
+#if( defined(SPLUS_VERSION) && SPLUS_VERSION > 5100 )
+#  define RANDIN  seed_in((long *)NULL, S_evaluator)
+#  define RANDOUT seed_out((long *)NULL, S_evaluator)
+#  define UNIF unif_rand(S_evaluator)
+#elif( defined(SPLUS_VERSION) && SPLUS_VERSION >= 5000 )
 #  define RANDIN  seedin((long *)NULL, S_evaluator)
 #  define RANDOUT seedout((long *)NULL, S_evaluator)
 #  define UNIF unif_rand(S_evaluator)
@@ -11,10 +15,12 @@
 #endif
 
 #ifdef USING_R
-typedef double singl;
-typedef int Sint;
+  typedef double Sfloat;
+  typedef int Sint;
+# define SINT_MAX INT_MAX
 #else
-typedef float singl;
-typedef long Sint;
+  typedef float Sfloat;
+  typedef long Sint;
+# define SINT_MAX LONG_MAX
 #endif
 

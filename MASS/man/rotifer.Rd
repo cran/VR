@@ -39,7 +39,7 @@ total number of
 \source{
 D. Collett (1991)
 \emph{Modelling Binary Data.}
-Chapman \& Hall.
+Chapman & Hall.
 p.217
 }
 \keyword{datasets}

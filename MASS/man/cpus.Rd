@@ -40,10 +40,10 @@ maximum number of channels
 published performance on a benchmark mix relative to an IBM 370/158-3
 }
 \item{estperf}{
-estimated performance (by Ein-Dor \& Feldmesser)
+estimated performance (by Ein-Dor & Feldmesser)
 }}
 \source{
-P. Ein-Dor \& J. Feldmesser (1987)
+P. Ein-Dor & J. Feldmesser (1987)
 Attributes of the performance of central processing units: a relative
 performance prediction model.
 \emph{Comm. ACM.}

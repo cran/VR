@@ -134,7 +134,7 @@ nott.stl <- stl(nott, 5)
 plot(nott.stl)
 
 par(mfrow=c(1,1))
-boxplot(split(nott, cycle(nott)), names.x=month.abb)
+boxplot(split(nott, cycle(nott)), names=month.abb)
 
 nott[110] <- 35
 nott.stl <- stl(nott, "period")

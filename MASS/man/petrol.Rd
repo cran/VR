@@ -48,7 +48,7 @@ This dataset is also given in
 D. J. Hand, F. Daly, K.  McConway, D.  Lunn, and E. Ostrowski
 E. (eds) (1993)
 \emph{A Handbook of Small Data Sets.}
-Chapman \& Hall.
+Chapman & Hall.
 }
 \examples{
 library(nlme)

@@ -10,9 +10,7 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
         gamm <- c(-100, beta[pc+1:q], 100)
         eta <- drop(x %*% beta[1:pc]) + offset
         pr <- plogis(gamm[y+1] - eta) - plogis(gamm[y] - eta)
-        res <- if(all(pr > 0)) -sum(wt * log(pr)) else Inf
-        attr(res, "gradient") <- gmin(beta)
-        res
+        if(all(pr > 0)) -sum(wt * log(pr)) else Inf
     }
 
     gmin <- function(beta) {
@@ -69,11 +67,11 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
         spacing <- logit((1:q)/(q+1))
         start <- c(coefs[-1], -coefs[1] + spacing - spacing[q1])
     }
-    res <- nlm(fmin, start, hessian=Hess)
-    beta <- res$estimate[1:pc]
-    zeta <- res$estimate[pc+1:q]
-    deviance <- 2*res$minimum
-    niter <- c(iterations=res$iterations)
+    res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess)
+    beta <- res$par[1:pc]
+    zeta <- res$par[pc + 1:q]
+    deviance <- 2 * res$value
+    niter <- c(f.evals=res$counts[1], g.evals=res$counts[2])
     names(beta) <- colnames(x)
     names(zeta) <- paste(lev[-length(lev)], lev[-1], sep="|")
     eta <- drop(x %*% beta)

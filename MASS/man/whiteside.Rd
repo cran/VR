@@ -35,7 +35,7 @@ UK~Building Research Station. Reported by
 
 Hand, D. J., Daly, F., McConway, K., Lunn, D. and Ostrowski, E. eds (1993)
 \emph{A Handbook of Small Data Sets.}
-Chapman \& Hall, p. 69.
+Chapman & Hall, p. 69.
 }
 \examples{
 data(whiteside)

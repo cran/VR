@@ -51,7 +51,7 @@ A plot of the marginal log-likelihood is produced, if requested,
 together with an approximate mle and 95\% confidence interval.
 }
 \references{
-Venables \& Ripley, Chapter 6.
+Venables & Ripley, Chapter 6.
 }
 \seealso{
 \code{\link{boxcox}}

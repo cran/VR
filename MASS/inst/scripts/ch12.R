@@ -2,10 +2,6 @@
 
 # Chapter 12   Survival Analysis
 
-# awaits survival5 for R
-
-# You will need something like R --vsize 10M --nsize 300k for this file.
-
 library(modreg)  # for scatter.smooth()
 library(survival5)
 library(MASS)  # need our heart

@@ -10,7 +10,7 @@ Kruskal's Non-metric Multidimensional Scaling
 One form of non-metric multidimensional scaling
 }
 \usage{
-isoMDS(d, y = cmdscale(d, k), k = 2, niter = 50, trace = TRUE)
+isoMDS(d, y = cmdscale(d, 2), maxit = 50, trace = TRUE)
 }
 \arguments{
 \item{d}{
@@ -20,12 +20,10 @@ but must be positive except for self-distance.
 }
 \item{y}{
 An initial configuration. If none is supplied, \code{cmdscale} is used to provide
-the classical solution.
+the classical solution. The dimension of the initial configuration
+determines that of the answer
 }
-\item{k}{
-The dimension of the configuration.
-}
-\item{niter}{
+\item{maxit}{
 The maximum number of iterations.
 }
 \item{trace}{
@@ -45,15 +43,15 @@ If trace is true, the initial stress and the current stress are printed
 out every 5 iterations.
 }
 \details{
-This chooses a two-dimensional configuration to minimize the stress,
-the square root of the ratio of the the sum of squared differences
-between the input distances and those of the configuration to the sum
-of configuration distances squared. However, the input distances are
-allowed a monotonic transformation.
+This chooses a k-dimensional (default k = 2) configuration to minimize
+the stress, the square root of the ratio of the the sum of squared
+differences between the input distances and those of the configuration
+to the sum of configuration distances squared. However, the input
+distances are allowed a monotonic transformation.
 
 
 An iterative algorithm is used, which will usually converge in around
-10 iterations. As this is necessarily an O(n^2) calculation, it is slow
+10 iterations. As this is necessarily an \eqn{O(n^2)} calculation, it is slow
 for large datasets. Further, since the configuration is only determined
 up to rotations and reflections (by convention the centroid is at the
 origin), the result can vary considerably from machine to machine.
@@ -61,7 +59,7 @@ origin), the result can vary considerably from machine to machine.
 \references{
 T. F. Cox and M. A. A. Cox (1994) 
 \emph{Multidimensional Scaling.}
-Chapman \& Hall.
+Chapman & Hall.
 }
 \seealso{
 \code{\link{cmdscale}}, \code{\link{sammon}}

@@ -59,7 +59,7 @@ University of California, Department of Information and Computer Science.
 O. L. Mangasarian and W. H. Wolberg (1990)
 Cancer diagnosis via linear programming.
 \emph{SIAM News}
-\bold{23}, pp 1 \& 18.
+\bold{23}, pp 1 & 18.
 
 
 William H. Wolberg and O.L. Mangasarian (1990)
@@ -81,6 +81,6 @@ pp 22-30.
 K. P. Bennett and O. L. Mangasarian (1992)
 Robust linear programming discrimination of two linearly inseparable sets.
 \emph{Optimization Methods and Software}
-\bold{1}, pp. 23-34 (Gordon \& Breach Science Publishers).
+\bold{1}, pp. 23-34 (Gordon & Breach Science Publishers).
 }
 \keyword{datasets}

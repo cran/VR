@@ -18,9 +18,9 @@ if(interactive())
 loc <- barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
    style="old", dbangle=c(45,135), density=10)
 total <- apply(lung.deaths, 1, sum)
-text(loc, total + yinch(par("csi")), total, cex=0.7)
+text(loc, total + par("cxy")[2], total, cex=0.7, xpd=T)
 
-#if(interactive())  brush(as.matrix(hills))
+if(interactive())  brush(as.matrix(hills))
 
 library(modreg)
 data(topo)
@@ -48,7 +48,7 @@ contourplot(z ~ x * y, mat2tr(topo.lo), aspect=1,
 
 data(wtloss)
 attach(wtloss)
-oldpar <- par()
+oldpar <- par(no.readonly=TRUE)
 # alter margin 4; others are default
 par(mar=c(5.1, 4.1, 4.1, 4.1))
 plot(Days, Weight, type="p",ylab="Weight (kg)")

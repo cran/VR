@@ -28,7 +28,7 @@ static double *alph1 = NULL;
 static double xl1, xu1, yl1, yu1;
 
 void
-VR_alset(singl *alph, Sint *nalph)
+VR_alset(Sfloat *alph, Sint *nalph)
 {
     int   i;
 
@@ -426,7 +426,7 @@ solv(double *x, double *y, int n, double *l, double *u)
 }
 
 void
-VR_frset(singl *xl, singl *xu, singl *yl, singl *yu)
+VR_frset(Sfloat *xl, Sfloat *xu, Sfloat *yl, Sfloat *yu)
 {
     xl1 = *xl;
     yl1 = *yl;
@@ -573,7 +573,7 @@ VR_prvar(double *z, double *xp, double *yp, Sint *npt,
 /*  CORRELOGRAM AND VARIOGRAM ROUTINES */
 
 void
-VR_correlogram(singl *xp, singl *yp, Sint *nint, double *x,
+VR_correlogram(Sfloat *xp, Sfloat *yp, Sint *nint, double *x,
 	       double *y, double *z, Sint *n, Sint *cnt)
 {
     double xd, yd, d, sc, zb, xm, var, sum;
@@ -639,7 +639,7 @@ VR_correlogram(singl *xp, singl *yp, Sint *nint, double *x,
 }
 
 void
-VR_variogram(singl *xp, singl *yp, Sint *nint, double *x,
+VR_variogram(Sfloat *xp, Sfloat *yp, Sint *nint, double *x,
 	     double *y, double *z, Sint *n, Sint *cnt)
 {
     double xd, yd, d, sc, xm;

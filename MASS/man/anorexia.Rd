@@ -27,7 +27,7 @@ Weight of patient after study period, in lbs.
 \source{
 Hand, D. J., Daly, F., McConway, K., Lunn, D. and Ostrowski, E. eds (1993)
 \emph{A Handbook of Small Data Sets.}
-Chapman \& Hall, Data set 285 (p. 229)
+Chapman & Hall, Data set 285 (p. 229)
 
 
 (Note that the original source mistakenly says that weights are in kg.)

@@ -33,6 +33,6 @@ number of damage incidents
 \source{
 P. McCullagh and J. A. Nelder, (1983),
 \emph{Generalized Linear Models.}
-Chapman \& Hall, section 6.3.2, page 137
+Chapman & Hall, section 6.3.2, page 137
 }
 \keyword{datasets}

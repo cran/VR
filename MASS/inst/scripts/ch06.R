@@ -132,7 +132,7 @@ predict(quad2, newdata=new.x)
 
 new.white <- data.frame(Temp = 5*(0:2),
               Insul = factor(rep("After", 3)))
-predict(gasBA, new.white) # gives error in S
+predict(gasBA, new.white) # gives error
 
 new.white <- data.frame(Temp = 5*(0:2),
               Insul = factor(rep("After", 3),
@@ -294,7 +294,7 @@ detach()
 boxcox(perf ~ syct+mmin+mmax+cach+chmin+chmax, data = cpus1,
        lambda = seq(-0.25, 1, 0.1))
 
-#set.seed(123)
+set.seed(123)
 cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
 cpus.samp <- sample(1:209, 100)
 cpus.lm <- lm(log10(perf) ~ ., data=cpus1[cpus.samp,2:8])
@@ -405,9 +405,8 @@ summary(pet3.lme)
 pet4.lme <- update(pet3.lme, fixed = Y ~ V10 + EP)
 anova(pet4.lme, pet3.lme)
 coef(pet4.lme)
-# next line fails (lack of convergence) under lme 3.1
-#pet5.lme <- update(pet4.lme, random = ~ 1 + EP | No)
-#anova(pet4.lme, pet5.lme)
+pet5.lme <- update(pet4.lme, random = ~ 1 + EP | No)
+anova(pet4.lme, pet5.lme)
 
 data(coop)
 lme(Conc ~ 1, random = ~1 | Lab/Bat, data=coop, subset=Spc=="S1")

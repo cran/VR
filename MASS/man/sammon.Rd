@@ -59,7 +59,7 @@ divided by the sum of input distances to make the stress scale-free.
 
 
 An iterative algorithm is used, which will usually converge in around
-50 iterations. As this is necessarily an O(n^2) calculation, it is slow
+50 iterations. As this is necessarily an \eqn{O(n^2)} calculation, it is slow
 for large datasets. Further, since the configuration is only determined
 up to rotations and reflections (by convention the centroid is at the
 origin), the result can vary considerably from machine to machine.

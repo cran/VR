@@ -31,7 +31,7 @@ Manure usage -- classes C0 to C4.
 \source{
 J.C. Gower and D.J. Hand (1996)
 \emph{Biplots}
-Chapman \& Hall, Table 4.6. 
+Chapman & Hall, Table 4.6. 
 
 
 Quoted as from:

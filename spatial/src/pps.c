@@ -11,8 +11,8 @@
 #  define min(a,b) ((a) < (b) ? (a) : (b))
 #endif
 
-static singl xl0, yl0, xu0, yu0;
-static singl pi = 3.14159265;
+static Sfloat xl0, yl0, xu0, yu0;
+static Sfloat pi = 3.14159265;
 
 
 static void
@@ -30,7 +30,7 @@ testinit(void)
 
 
 void
-VR_ppset(singl *area)
+VR_ppset(Sfloat *area)
 {
     xl0 = *area++;
     xu0 = *area++;
@@ -40,9 +40,9 @@ VR_ppset(singl *area)
 }
 
 void
-VR_ppget(singl *xx)
+VR_ppget(Sfloat *xx)
 {
-    singl *z = xx;
+    Sfloat *z = xx;
 
     testinit();
     *z++ = xl0;
@@ -51,10 +51,10 @@ VR_ppget(singl *xx)
     *z++ = yu0;
 }
 
-static singl
-edge(singl x, singl y, singl a)
+static Sfloat
+edge(Sfloat x, Sfloat y, Sfloat a)
 {
-    singl b, c, c1, c2, r[6], w;
+    Sfloat b, c, c1, c2, r[6], w;
     int   i;
 
     w = x - xl0;
@@ -85,11 +85,11 @@ edge(singl x, singl y, singl a)
 }
 
 void
-VR_sp_pp2(singl *x, singl *y, Sint *npt, Sint *k,
-	  singl *h, singl *dmin, singl *lm, singl *fs)
+VR_sp_pp2(Sfloat *x, Sfloat *y, Sint *npt, Sint *k,
+	  Sfloat *h, Sfloat *dmin, Sfloat *lm, Sfloat *fs)
 {
     int   n = *npt, kk = *k, k1, i, j, ib;
-    singl ax, ay, xi, yi, sarea, g, dm, alm;
+    Sfloat ax, ay, xi, yi, sarea, g, dm, alm;
     double a, x1, y1, rr, fss = *fs, fs1, s1;
 
     testinit();
@@ -133,11 +133,11 @@ VR_sp_pp2(singl *x, singl *y, Sint *npt, Sint *k,
 }
 
 void
-VR_pdata(Sint *npt, singl *x, singl *y)
+VR_pdata(Sint *npt, Sfloat *x, Sfloat *y)
 {
     S_EVALUATOR
     int   i;
-    singl ax, ay;
+    Sfloat ax, ay;
 
     testinit();
     ax = xu0 - xl0;
@@ -152,12 +152,12 @@ VR_pdata(Sint *npt, singl *x, singl *y)
 
 
 void
-VR_simpat(Sint *npt, singl *x, singl *y, singl *c,
-	  singl *r, Sint *init)
+VR_simpat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *c,
+	  Sfloat *r, Sint *init)
 {
     S_EVALUATOR
     int   i, id, j, mm, n = *npt;
-    singl cc, rr, ax, ay, d, x1, y1, u;
+    Sfloat cc, rr, ax, ay, d, x1, y1, u;
 
     testinit();
     cc = *c;
@@ -195,11 +195,11 @@ VR_simpat(Sint *npt, singl *x, singl *y, singl *c,
 }
 
 void
-VR_simmat(Sint *npt, singl *x, singl *y, singl *r)
+VR_simmat(Sint *npt, Sfloat *x, Sfloat *y, Sfloat *r)
 {
     S_EVALUATOR
     int   i, icnt, j, n = *npt;
-    singl x1, y1, rr, ax, ay;
+    Sfloat x1, y1, rr, ax, ay;
 
     testinit();
     RANDIN;
@@ -227,10 +227,10 @@ VR_simmat(Sint *npt, singl *x, singl *y, singl *r)
 }
 
 void
-VR_plike(singl *x, singl *y, Sint *npt, singl *c,
-	 singl *r, Sint *ng, singl *target, singl *res)
+VR_plike(Sfloat *x, Sfloat *y, Sint *npt, Sfloat *c,
+	 Sfloat *r, Sint *ng, Sfloat *target, Sfloat *res)
 {
-    singl ar, rr, suma = 0, sumb = 0, xi, yi, x1, y1, c1, cc = *c;
+    Sfloat ar, rr, suma = 0, sumb = 0, xi, yi, x1, y1, c1, cc = *c;
     int   ic, i1, i2, j, n = *npt, g = *ng;
 
     testinit();

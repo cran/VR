@@ -181,19 +181,25 @@ par(opar)
 
 # 8.6  Constrained non-linear regression
 
-if(F) { # have none of these
+data(whiteside)
 attach(whiteside)
 Gas <- Gas[Insul=="Before"]
 Temp <- -Temp[Insul=="Before"]
-nnls.fit(cbind(1, -1, Temp), Gas)
+#nnls.fit(cbind(1, -1, Temp), Gas)
+# can use box-constrained optimizer
+fn <- function(par) sum((Gas - par[1] - par[2]*Temp)^2)
+optim(rep(0,2), fn, lower=0, method="L-BFGS-B")$par
 rm(Gas, Temp)
 detach()
 
+data(wtloss)
 attach(wtloss)
-nlregb(nrow(wtloss), c(90,95,120), function(x)
-  Weight-x[1]-x[2]*2^(-Days/x[3]), lower=rep(0,3))$parameters
+optim(c(90,95,120),
+      function(x) sum((Weight-x[1]-x[2]*2^(-Days/x[3]))^2),
+      lower=rep(0,3), method="L-BFGS-B")$par
 detach()
 
+if(F) { # have none of these
 wtloss.r <- function(x, Weight, Days)
     Weight - x[1] - x[2] * 2^(-Days/x[3])
 wtloss.rg <- function(x, Weight, Days)
@@ -226,13 +232,14 @@ sqrt(diag(vcov.nlregb(wtloss.nl0)))
 
 # 8.7  General optimization and maximum likelihood estimation
 
-if(F) { # have none of these
+data(geyser)
 attach(geyser)
 truehist(waiting, xlim=c(35,110), ymax=0.04, h=5)
 width.SJ(waiting)
-wait.dns <- density(waiting, 200, width=10.24)
+wait.dns <- density(waiting, n=200, width=10.24)
 lines(wait.dns, lty=2)
 
+if(F) { # have none of these
 lmix2 <- deriv3(
      ~ -log(p*dnorm((x-u1)/s1)/s1 + (1-p)*dnorm((x-u2)/s2)/s2),
      c("p", "u1", "s1", "u2", "s2"),
@@ -305,26 +312,35 @@ levelplot(z ~ x*y, grid, colorkey=F, at = seq(0, 0.075, 0.001),
             points(duration[-299], waiting[-1])
           }, xlab="previous duration", ylab="wait",
    col.regions = rev(trellis.par.get("regions")$col))
+}
 
 mix.f <- function(p)
 {
    e <- p[1]*dnorm((waiting-p[2])/p[3])/p[3] +
         (1-p[1])*dnorm((waiting-p[4])/p[5])/p[5]
-   -sum(log(e))
+   if(any(e <= 0)) Inf else -sum(log(e))
 }
 waiting.init <- c(mean(waiting < 70), 50, 5, 80, 5)
-nlmin(mix.f, waiting.init, print.level=1)
+nlm(mix.f, waiting.init, print.level=1)
 
 mix.obj <- function(p, x)
 {
    e <- p[1]*dnorm((x-p[2])/p[3])/p[3] +
         (1-p[1])*dnorm((x-p[4])/p[5])/p[5]
-   -sum(log(e))
+   if(any(e <= 0)) Inf else -sum(log(e))
 }
-mix.nl0 <- nlminb(waiting.init,  mix.obj,
-   scale = c(10, rep(1,4)), lower = c(0, -Inf, 0, -Inf, 0),
-   upper = c(1, rep(Inf, 4)), x = waiting)
+optim(waiting.init, mix.obj, x = waiting)
+optim(waiting.init, mix.obj, method="BFGS", x = waiting)
 
+mix.nl0 <- optim(waiting.init, mix.obj, method="L-BFGS-B",
+                 lower = c(0, -Inf, 0, -Inf, 0),
+                 upper = c(1, rep(Inf, 4)), x = waiting)
+
+# mix.nl0 <- nlminb(waiting.init,  mix.obj,
+#    scale = c(10, rep(1,4)), lower = c(0, -Inf, 0, -Inf, 0),
+#    upper = c(1, rep(Inf, 4)), x = waiting)
+
+if(F) {
 lmix2a <- deriv(
      ~ -log(p*dnorm((x-u1)/s1)/s1 + (1-p)*dnorm((x-u2)/s2)/s2),
      c("p", "u1", "s1", "u2", "s2"),
@@ -355,8 +371,8 @@ mix.nl2 <- nlminb(waiting.init, mix.obj, mix.grh, T,
 sqrt(diag(vcov.nlminb(mix.nl0)))
 sqrt(diag(vcov.nlminb(mix.nl1)))
 sqrt(diag(vcov.nlminb(mix.nl2)))
-
-detach()
+}
+detach(geyser)
 
 AIDSfit <- function(y, z, start=rep(mean(y), ncol(z)), ...)
 {
@@ -366,11 +382,12 @@ AIDSfit <- function(y, z, start=rep(mean(y), ncol(z)), ...)
   grad <- function(beta, y, z) {
       mu <- z %*% beta
       2 * t(1 - y/mu) %*% z }
-  nlminb(start, deviance, grad, lower = 0, y = y, z = z, ...)
+  optim(start, deviance, grad, lower = 0, y = y, z = z,
+        method="L-BFGS-B", ...)
 }
 
-#Y <- scan(n=13)
-#12 14 33 50 67 74 123 141 165 204 253 246 240
+Y <- scan(n=13)
+12 14 33 50 67 74 123 141 165 204 253 246 240
 
 library(nnet) # for class.ind
 s <- seq(0, 13.999, 0.01); tint <- 1:14
@@ -378,9 +395,9 @@ X <- expand.grid(s, tint)
 Z <- matrix(pweibull(pmax(X[,2] - X[,1],0), 2.5, 10),length(s))
 Z <- Z[,2:14] - Z[,1:13]
 Z <- t(Z) %*% class.ind(factor(floor(s/2))) * 0.01
-round(AIDSfit(Y, Z)$param)
+round(AIDSfit(Y, Z)$par)
 rm(s, X, Y, Z)
-}
+
 
 # 8.8 Non-linear mixed effects models
 
@@ -425,10 +442,11 @@ Rm.nlme
 options(contrasts=c("contr.treatment", "contr.poly"))
 c1 <- c(28, 1.6, 4.1, 0.27, 0)
 R.nlme1 <- nlme(BPchange ~ Fpl(Dose, A, B, ld50, th),
-    fixed = list(A ~ Treatment, B ~ Treatment,
-                 ld50 ~ Treatment, th ~ Treatment),
-    random =  A + ld50 ~ 1 | Animal/Run, data = Rabbit,
-    start = list(fixed=c1[c(1,5,2,5,3,5,4,5)]))
+                fixed = list(A ~ Treatment, B ~ Treatment,
+                             ld50 ~ Treatment, th ~ Treatment),
+                random =  A + ld50 ~ 1 | Animal/Run, data = Rabbit,
+                start = list(fixed=c1[c(1,5,2,5,3,5,4,5)]),
+                control = list(nlmStepMax = 1))
 summary(R.nlme1)
 
 R.nlme2 <- update(R.nlme1,

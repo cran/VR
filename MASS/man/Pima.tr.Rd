@@ -33,7 +33,7 @@ diastolic blood pressure (mm Hg)
 triceps skin fold thickness (mm)
 }
 \item{bmi}{
-body mass index (weight in kg/(height in m)^2)
+body mass index (weight in kg/(height in m)\^2)
 }
 \item{ped}{
 diabetes pedigree function

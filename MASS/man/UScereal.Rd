@@ -9,7 +9,7 @@ Nutritional and Marketing Information on US Cereals.
 \description{
 The \code{UScereal} data frame has 65 rows and 11 columns.
 The data come from the 1993 ASA Statistical Graphics Exposition,
-and are taken from the mandatory  F\&DA food label. The data have been
+and are taken from the mandatory  F&DA food label. The data have been
 normalized here to a portion of one American cup.
 }
 \format{

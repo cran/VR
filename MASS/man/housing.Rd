@@ -38,7 +38,7 @@ Statistical analysis of multiple contingency tables. Two examples.
 
 Cox, D. R. and Snell, E. J. (1984)
 \emph{Applied Statistics, Principles and Examples,}
-Chapman \& Hall.
+Chapman & Hall.
 }
 \examples{
 data(housing)

@@ -2,8 +2,6 @@
 
 # Chapter 4   Programming in S
 
-# need R --nsize 300k for conv1(a,b)
-
 library(MASS)
 
 
@@ -42,7 +40,7 @@ if(version$major >= 5) {
 }
 }
 
-# 4.2  Matrix operations
+# 4.3  Matrix operations
 
 p <- dbinom(0:4, size=4, prob=1/3)  # an example prob vector
 CC <- -(p %o% p)
@@ -115,8 +113,10 @@ QuineF
 
 data(crabs)
 aggregate(crabs[, 4:8], list(sp=crabs$sp, sex=crabs$sex), median)
-#by(crabs[,4:8], list(crabs$sp, crabs$sex), summary)
-#merge(Animals, mammals, by="row.names")
+## by and merge need R >= 1.0.0
+by(crabs[,4:8], list(species=crabs$sp, sex=crabs$sex), summary)
+data(Animals, mammals)
+merge(Animals, mammals, by="row.names")
 
 
 # End of ch04

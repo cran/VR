@@ -267,7 +267,7 @@ VR_mds_fn(double *y, double *yf, Sint *pn, double *pssq, Sint *pd,
 	  double *x, Sint *pr, Sint *pncol, double *der,
 	  Sint *do_derivatives)
 {
-    int   n = *pn, i, ip, known, u, s, r = *pr, ncol = *pncol, k;
+    int   n = *pn, i, ip=0, known, u, s, r = *pr, ncol = *pncol, k=0;
     double tmp, ssq, *yc, slope, tstar, sstar;
 
     yc = Calloc((n + 1), double);
@@ -528,10 +528,10 @@ vmmin(int n, double *b, double *Fmin, int maxit, int trace)
 /* Formulae (6.67) and (6.69) of Scott (1992), the latter corrected. */
 
 void
-VR_ucv_bin(Sint *n, Sint *nb, singl *d, Sint *x, singl *h, singl *u)
+VR_ucv_bin(Sint *n, Sint *nb, Sfloat *d, Sint *x, Sfloat *h, Sfloat *u)
 {
     int   i, nn = *n, nbin = *nb;
-    singl delta, hh = (*h) / 4, sum, term;
+    Sfloat delta, hh = (*h) / 4, sum, term;
 
     sum = 0.0;
     for (i = 0; i < nbin; i++) {
@@ -545,10 +545,10 @@ VR_ucv_bin(Sint *n, Sint *nb, singl *d, Sint *x, singl *h, singl *u)
 }
 
 void
-VR_bcv_bin(Sint *n, Sint *nb, singl *d, Sint *x, singl *h, singl *u)
+VR_bcv_bin(Sint *n, Sint *nb, Sfloat *d, Sint *x, Sfloat *h, Sfloat *u)
 {
     int   i, nn = *n, nbin = *nb;
-    singl delta, hh = (*h) / 4, sum, term;
+    Sfloat delta, hh = (*h) / 4, sum, term;
 
     sum = 0.0;
     for (i = 0; i < nbin; i++) {
@@ -563,10 +563,10 @@ VR_bcv_bin(Sint *n, Sint *nb, singl *d, Sint *x, singl *h, singl *u)
 
 
 void
-VR_phi4_bin(Sint *n, Sint *nb, singl *d, Sint *x, singl *h, singl *u)
+VR_phi4_bin(Sint *n, Sint *nb, Sfloat *d, Sint *x, Sfloat *h, Sfloat *u)
 {
     int   i, nn = *n, nbin = *nb;
-    singl delta, sum, term;
+    Sfloat delta, sum, term;
 
     sum = 0.0;
     for (i = 0; i < nbin; i++) {
@@ -581,10 +581,10 @@ VR_phi4_bin(Sint *n, Sint *nb, singl *d, Sint *x, singl *h, singl *u)
 }
 
 void
-VR_phi6_bin(Sint *n, Sint *nb, singl *d, Sint *x, singl *h, singl *u)
+VR_phi6_bin(Sint *n, Sint *nb, Sfloat *d, Sint *x, Sfloat *h, Sfloat *u)
 {
     int   i, nn = *n, nbin = *nb;
-    singl delta, sum, term;
+    Sfloat delta, sum, term;
 
     sum = 0.0;
     for (i = 0; i < nbin; i++) {
@@ -600,10 +600,10 @@ VR_phi6_bin(Sint *n, Sint *nb, singl *d, Sint *x, singl *h, singl *u)
 }
 
 void
-VR_den_bin(Sint *n, Sint *nb, singl *d, singl *x, Sint *cnt)
+VR_den_bin(Sint *n, Sint *nb, Sfloat *d, Sfloat *x, Sint *cnt)
 {
     int   i, j, ii, jj, iij, nn = *n;
-    singl xmin, xmax, rang, dd;
+    Sfloat xmin, xmax, rang, dd;
 
     for (i = 0; i < *nb; i++) cnt[i] = 0;
     xmin = xmax = x[0];
@@ -628,7 +628,7 @@ VR_den_bin(Sint *n, Sint *nb, singl *d, singl *x, Sint *cnt)
 
 
 #ifdef USING_R
-# include <Arith.h>    /* for NA handling */
+# include <R_ext/Arith.h>    /* for NA handling */
 #endif
 #define RELTOL 1e-5
 

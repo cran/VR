@@ -68,7 +68,7 @@ the \code{na.action} of the fit omitted cases, these will be omitted on the
 prediction.
 }
 \note{
-This version differs from that in V\&R2 in centering the linear
+This version differs from that in V&R2 in centering the linear
 discriminants so that the weighted mean (weighted by \code{prior}) of the
 group centroids is at the origin, rather than the unweighted mean.
 }
