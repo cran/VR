@@ -30,6 +30,9 @@ a bandwidth
 Scott, D. W. (1992)
 \emph{Multivariate Density Estimation: Theory, Practice, and Visualization.}
 Wiley.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{ucv}}, \code{\link{width.SJ}}, \code{\link{density}}

@@ -50,4 +50,8 @@ study of variation in two species of rock crab of genus
 \emph{Australian Journal of  Zoology}
 \bold{22}, 417--425.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

@@ -27,9 +27,9 @@ Probabilities at which to predict the dose needed.
   probability.
 }
 \references{
-Venables, W. N. and Ripley, B. D. (2002)
-\emph{Modern Applied Statistics with S.}
-Springer.
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.}
+  Springer.
 }
 \examples{
 ldose <- rep(0:5, 2)

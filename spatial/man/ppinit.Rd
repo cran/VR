@@ -30,6 +30,10 @@ x y (repeated n times)\cr
 \section{Side Effects}{
 Calls \code{ppregion} to set the domain.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{ppregion}}
 }

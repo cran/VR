@@ -40,6 +40,10 @@ write.matrix(x, file = "", sep = " ", blocksize)
   A formatted file is produced, with column headings (if \code{x} has them)
   and columns of data.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
   \code{\link{write.table}}
 }

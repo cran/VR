@@ -27,4 +27,9 @@ Silverman, B. W. (1985) Some aspects of the spline smoothing approach to
 non-parametric curve fitting.
 \emph{Journal of the Royal Statistical Society series B} \bold{47}, 1--52.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

@@ -33,9 +33,12 @@ A.J. Weekes (1986)
 \emph{A Genstat Primer.}
 Edward Arnold.
 
-
 S. M. Stigler (1977) Do robust estimators work with real data?
 \emph{Annals of Statistics}
 \bold{5}, 1055--1098.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \keyword{datasets}

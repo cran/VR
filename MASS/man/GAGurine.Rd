@@ -28,4 +28,8 @@ concentration of GAG (the units have been lost)
 Mrs Susan Prosser, Paediatrics Department, University of Oxford,
 via Department of Statistics Consulting Service.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

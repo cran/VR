@@ -47,15 +47,17 @@ A. J. Weekes (1986)
 \emph{A Genstat Primer.}
 Edward Arnold.
 
-
 M. Davenport and G. Studdert-Kennedy (1972) The statistical
 analysis of aesthetic judgement: an exploration.
 \emph{Applied Statistics}
 \bold{21},  324--333.
 
-
 I. T. Jolliffe (1986)
 \emph{Principal Component Analysis.}
 Springer.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \keyword{datasets}

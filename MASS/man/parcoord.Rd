@@ -30,6 +30,10 @@ Wegman, E. J. (1990) Hyperdimensional data analysis using parallel
 coordinates.
 \emph{Journal of the American Statistical Association}
 \bold{85}, 664--675.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+
 }
 \examples{
 data(state)

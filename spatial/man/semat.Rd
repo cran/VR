@@ -35,6 +35,12 @@ function was supplied.
 \value{
 list with components x, y and z suitable for \code{contour} and \code{image}.
 }
+\references{
+  Ripley, B. D. (1981) \emph{Spatial Statistics.} Wiley.
+  
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{surf.gls}}, \code{\link{trmat}}, \code{\link{prmat}}
 }

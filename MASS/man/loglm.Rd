@@ -90,7 +90,6 @@ by \code{loglin}.  Structural zeros may be specified by giving a
 \code{start} argument with those entries set to zero, as described in
 the help information for \code{loglin}.
 
-
 If the left-hand side is not empty, all variables on the
 right-hand side are regarded as classifying factors and an array
 of frequencies is constructed.  If some cells in the complete
@@ -111,11 +110,14 @@ model matrix, but since iterative proportional scaling methods
 are developed largely to avoid constructing the model matrix
 explicitly, the computation is at least difficult.)
 
-
 When structural zeros (or zero fitted values) are present the
 estimated coefficients will not be available due to infinite
 estimates.  The deviances will normally continue to be correct,
 though.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{loglin}}

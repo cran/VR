@@ -32,7 +32,6 @@ otitis media in the Northern Territory of Australia.  The children
 were randomized to the drug or the a placebo, and also to receive
 active encouragement to comply with taking the drug.
 
-
 The presence of
 \emph{H. influenzae}
 was checked at weeks 0, 2, 4, 6
@@ -43,6 +42,10 @@ data frame.
 Menzies School of Health Research 1999--2000 Annual Report pp. 18--21
 (\url{http://www.menzies.edu.au/publications/anreps/MSHR00.pdf}).
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 contrasts(bacteria$trt) <- structure(contr.sdif(3),
      dimnames = list(NULL, c("drug", "encourage")))
@@ -50,7 +53,6 @@ contrasts(bacteria$trt) <- structure(contr.sdif(3),
 summary(glm(y ~ trt * week, binomial, data = bacteria))
 summary(glm(y ~ trt + week, binomial, data = bacteria))
 summary(glm(y ~ trt + I(week > 2), binomial, data = bacteria))
-
 
 # conditional random-effects analysis
 library(survival)
@@ -61,7 +63,6 @@ coxph(Surv(Time, unclass(y)) ~ factor(week) + strata(ID),
       data = bacteria, method = "exact")
 coxph(Surv(Time, unclass(y)) ~ I(week > 2) + strata(ID),
       data = bacteria, method = "exact")
-
 
 # PQL glmm analysis
 library(nlme)

@@ -32,4 +32,8 @@ J. Aitchison and I. R. Dunsmore (1975)
 \emph{Statistical Prediction Analysis.}
 Cambridge University Press, Tables 11.1--3.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

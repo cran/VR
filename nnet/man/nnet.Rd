@@ -148,6 +148,13 @@ response is not a factor, it is passed on unchanged to \code{nnet.default}.
 
 Optimization is done via the BFGS method of \code{\link{optim}}.
 }
+\references{
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{predict.nnet}}, \code{\link{nnetHess}}
 }

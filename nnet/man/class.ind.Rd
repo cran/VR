@@ -18,9 +18,13 @@ factor or vector of classes for cases.
 \value{
 a matrix which is zero except for the column corresponding to the class.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 # The function is currently defined as
-function(cl)
+class.ind <- function(cl)
 {
   n <- length(cl)
   cl <- as.factor(cl)

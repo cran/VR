@@ -46,6 +46,13 @@ equal to the \code{k}th is chosen to use exactly \code{k} neighbours.
 \value{
 factor of classifications of test set. \code{doubt} will be returned as \code{NA}.
 }
+\references{
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{knn1}}, \code{\link{knn.cv}}
 }

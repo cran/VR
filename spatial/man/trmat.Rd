@@ -30,6 +30,12 @@ use \code{n}  x  \code{n} grid within the rectangle
 \value{
 list with components \code{x}, \code{y} and \code{z} suitable for \code{contour} and \code{image}.
 }
+\references{
+  Ripley, B. D. (1981) \emph{Spatial Statistics.} Wiley.
+  
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{surf.ls}}, \code{\link{surf.gls}}
 }

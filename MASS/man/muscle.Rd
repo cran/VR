@@ -38,6 +38,10 @@ In
 \emph{on the occasion of his 70th birthday,}
 ed. C. R. Rao, pp. 221--228. Oxford: Pergamon Press.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth Edition. Springer.
+}
 \examples{
 library(nls)
 A <- model.matrix(~ Strip - 1, data=muscle)

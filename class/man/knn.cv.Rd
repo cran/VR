@@ -9,7 +9,6 @@ k-Nearest Neighbour Cross-Validatory Classification
 k-nearest neighbour cross-validatory classification from training set.
 }
 \usage{
-
 knn.cv(train, cl, k = 1, l = 0, prob = FALSE, use.all = TRUE)
 }
 \arguments{
@@ -46,6 +45,13 @@ majority vote, with ties broken at random. If there are ties for the
 }
 \value{
 factor of classifications of training set. \code{doubt} will be returned as \code{NA}.
+}
+\references{
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{knn}}

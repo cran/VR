@@ -45,11 +45,14 @@ Estimate gasoline yields from crudes.
 \emph{Petroleum Refiner}
 \bold{35}, 236--238.
 
-
 This dataset is also given in
 D. J. Hand, F. Daly, K. McConway, D. Lunn and E. Ostrowski (eds) (1994)
 \emph{A Handbook of Small Data Sets.}
 Chapman & Hall.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
 library(nlme)

@@ -33,6 +33,12 @@ index vector of cases to be retained.
 Gates, G.W. (1972) The reduced nearest neighbor rule.
 \emph{IEEE Trans. Information Theory}
 \bold{IT-18}, 431--432.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{condense}}, \code{\link{multiedit}}

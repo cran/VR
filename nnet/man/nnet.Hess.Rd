@@ -30,6 +30,13 @@ the (case) weights used in the \code{nnet} fit.
 square symmetric matrix of the Hessian evaluated at the weights stored
 in the net.
 }
+\references{
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{nnet}}, \code{\link{predict.nnet}}
 }

@@ -38,4 +38,8 @@ P. J. Diggle, K.-Y. Liang and S. L. Zeger (1994)
 \emph{Analysis of Longitudinal Data.}
 Clarendon Press, Oxford
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

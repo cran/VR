@@ -49,6 +49,10 @@ object \code{x} of the appropriate class, or directly by
 calling \code{pairs.lda(x)} regardless of the
 class of the object.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{pairs}}
 }

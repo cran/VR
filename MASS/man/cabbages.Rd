@@ -34,4 +34,9 @@ Wadsworth and Brooks/Cole.  Example 8.4, page 219.
 (Rawlings cites the original source as the files of the late
 Dr Gertrude M Cox.)
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

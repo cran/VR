@@ -38,6 +38,10 @@ R.H.G. Jongman, C.J.F. ter Braak and O.F.R. van Tongeren (1987)
 \emph{Data Analysis in Community and Landscape Ecology.}
 PUDOC, Wageningen
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 farms.mca <- mca(farms, abbrev = TRUE)  # Use levels as names
 eqscplot(farms.mca$cs, type = "n")

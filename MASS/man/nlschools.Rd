@@ -38,6 +38,10 @@ Snijders, T. A. B. and Bosker, R. J. (1999)
 \emph{Multilevel Analysis. An Introduction to Basic and Advanced Multilevel Modelling.}
 London: Sage.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 library(nlme)
 nl1 <- nlschools

@@ -54,6 +54,10 @@ equiscaled scatter plot is drawn. For \code{dimen = 1}, a set of
 histograms or density plots are drawn.  Use argument \code{type} to
 match \code{"histogram"} or \code{"density"} or \code{"both"}.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{pairs.lda}}, \code{\link{ldahist}}, \code{\link{lda}}, \code{\link{predict.lda}}
 }

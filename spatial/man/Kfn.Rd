@@ -42,6 +42,12 @@ maximum deviation from L(t) = t
 \details{
 relies on the domain D having been set by \code{ppinit} or \code{ppregion}.
 }
+\references{
+  Ripley, B. D. (1981) \emph{Spatial Statistics.} Wiley.
+  
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{ppinit}}, \code{\link{ppregion}}, \code{\link{Kaver}}, \code{\link{Kenvl}}
 }

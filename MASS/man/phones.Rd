@@ -22,4 +22,8 @@ P. J. Rousseeuw and A. M. Leroy (1987)
 \emph{Robust Regression & Outlier Detection.}
 Wiley.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

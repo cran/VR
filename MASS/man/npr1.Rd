@@ -31,4 +31,8 @@ Petroleum geology of Naval Petroleum Reserve No. 1, Elk Hills,
 Kern County, California.
 \emph{USGS Professional Paper} \bold{912}.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

@@ -17,4 +17,9 @@ Harvey, A.C. (1989)
 \emph{Forecasting, Structural Time Series Models and the Kalman Filter.}
 Cambridge University Press, pp. 519--523.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

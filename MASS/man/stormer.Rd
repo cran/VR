@@ -38,4 +38,8 @@ E. J. Williams (1959)
 \emph{Regression Analysis.}
 Wiley.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

@@ -35,10 +35,13 @@ The weekly gas consumption in 1000s of cubic feet.
 A data set collected in the 1960s by Mr Derek Whiteside of the
 UK~Building Research Station. Reported by
 
-
 Hand, D. J., Daly, F., McConway, K., Lunn, D. and Ostrowski, E. eds (1993)
 \emph{A Handbook of Small Data Sets.}
 Chapman & Hall, p. 69.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
 require(lattice)

@@ -66,6 +66,9 @@ Two components:
 T. F. Cox and M. A. A. Cox (1994, 2001)
 \emph{Multidimensional Scaling}.
 Chapman & Hall.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{cmdscale}}, \code{\link{sammon}}

@@ -31,7 +31,10 @@ Hand, D. J., Daly, F., McConway, K., Lunn, D. and Ostrowski, E. eds (1993)
 \emph{A Handbook of Small Data Sets.}
 Chapman & Hall, Data set 285 (p. 229)
 
-
 (Note that the original source mistakenly says that weights are in kg.)
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \keyword{datasets}

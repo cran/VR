@@ -28,6 +28,13 @@ factor of true classification of training set.
 \value{
 factor of classifications of test set.
 }
+\references{
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{knn}}
 }

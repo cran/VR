@@ -31,4 +31,8 @@ data(rock)
   Katz, R. (1995) \emph{Spatial Analysis of Pore Images}. D.Phil. thesis,
   Department of Statistics, University of Oxford.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

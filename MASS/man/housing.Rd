@@ -40,6 +40,10 @@ Cox, D. R. and Snell, E. J. (1984)
 \emph{Applied Statistics, Principles and Examples}.
 Chapman & Hall.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 options(contrasts = c("contr.treatment", "contr.poly"))
 

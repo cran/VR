@@ -46,6 +46,10 @@ The singular values for the \code{nf} dimensions.
 \item{call}{
 The matched call.
 }}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{predict.mca}}, \code{\link{plot.mca}}, \code{\link{corresp}}
 }

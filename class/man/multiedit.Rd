@@ -37,6 +37,12 @@ index vector of cases to be retained.
 P. A. Devijver and J. Kittler (1982)
 \emph{Pattern Recognition. A Statistical Approach.}
 Prentice-Hall, p. 115.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{condense}}, \code{\link{reduce.nn}}

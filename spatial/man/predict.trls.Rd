@@ -28,6 +28,10 @@ to the prediction locations. To display the output with \code{image}
 or \code{contour}, use \code{trmat} or convert the returned vector
 to matrix form.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{surf.ls}}, \code{\link{trmat}}
 }

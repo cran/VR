@@ -47,6 +47,9 @@ Unwin, D. J., Wrigley, N. (1987) Towards a general-theory of
 control point distribution effects in trend surface models.
 \emph{Computers and Geosciences,}
 \bold{13}, 351--355.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{surf.ls}}, \code{\link{influence.measures}}, \code{\link{plot.lm}}

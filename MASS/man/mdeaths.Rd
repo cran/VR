@@ -16,6 +16,10 @@ P. J. Diggle (1990)
 \emph{Time Series: A Biostatistical Introduction.}
 Oxford, table A.3
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{deaths}}, \code{\link{fdeaths}}
 }

@@ -24,7 +24,9 @@ A relative tolerance to detect zero singular values.
 A MP generalized inverse matrix for \code{X}.
 }
 \references{
-Venables & Ripley, Chapter 2.
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer. p.100.
 }
 \seealso{
 \code{\link{solve}}, \code{\link{svd}}, \code{\link{eigen}}

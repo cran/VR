@@ -51,15 +51,12 @@ Arithmetic operations on \code{"fractions"} objects are possible.
 Each component is first expanded in a continued fraction of the
 form
 
-
 \code{x = floor(x) + 1/(p1 + 1/(p2 + \dots)))}
-
 
 where \code{p1}, \code{p2}, \dots are positive integers, terminating either
 at \code{cycles} terms or when a \code{pj > max.denominator}.  The
 continued fraction is then re-arranged to retrieve the numerator
 and denominator as integers.
-
 
 The numerators and denominators are then combined into a
 character vector that becomes the \code{"fracs"} attribute and used in
@@ -69,6 +66,10 @@ printed representations.
 Arithmetic operations on \code{"fractions"} objects have full floating
 point accuracy, but the character representation printed out may
 not.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth Edition. Springer.
 }
 \seealso{
 \code{\link{rational}}

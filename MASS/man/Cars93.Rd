@@ -114,4 +114,9 @@ Lock, R. H. (1993)
 \emph{Journal of Statistics Education}
 \bold{1}(1)
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

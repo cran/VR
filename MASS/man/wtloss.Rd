@@ -25,6 +25,10 @@ Weight in kilograms of the patient.
 \source{
 Dr T. Davies, Adelaide.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 library(nls)
 wtloss.fm <- nls(Weight ~ b0 + b1*2^(-Days/th),

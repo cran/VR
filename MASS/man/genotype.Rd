@@ -31,11 +31,15 @@ Litter average weight gain of the litter, in grams at age 28 days.
 \source{
 Scheffe, H. (1959)
 \emph{The Analysis of Variance}
-Wiley p.140
-
+Wiley p. 140.
 
 Bailey, D. W. (1953)
 \emph{The Inheritance of Maternal Influences on the Growth of the Rat.}
 Unpublished Ph.D. thesis, University of California. Table B of the Appendix.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
 }
 \keyword{datasets}

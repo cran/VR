@@ -53,8 +53,12 @@ make the units in the ratio given by \code{ratio}. Finally both are
 stretched by \code{1 + tol} to move points away from the axes, and the
 points plotted.
 }
-\section{Note}{
+\note{
 Arguments \code{ratio} and \code{uin} were suggested by Bill Dunlap.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{plot}}, \code{\link{par}}

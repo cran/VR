@@ -39,6 +39,10 @@ The x and y coordinates of the grid points, vectors of length \code{n}.
 \item{z}{
 An \code{n}  x  \code{n} matrix of the evaluated density.
 }}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 attach(geyser)
 plot(duration, waiting, xlim = c(0.5,6), ylim = c(40,100))

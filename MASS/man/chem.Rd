@@ -16,4 +16,8 @@ reject outliers.
 \emph{The Analyst}
 \bold{114}, 1693--1702, 1989
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

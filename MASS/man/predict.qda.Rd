@@ -57,11 +57,14 @@ object \code{x} of the appropriate class, or directly by
 calling \code{predict.qda(x)} regardless of the
 class of the object.
 
-
 Missing values in \code{newdata} are handled by returning \code{NA} if the
 quadratic discriminants cannot be evaluated. If \code{newdata} is omitted and
 the \code{na.action} of the fit omitted cases, these will be omitted on the
 prediction.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{qda}}, \code{\link{lda}}, \code{\link{predict.lda}}

@@ -22,7 +22,11 @@ index of a maximal value.
 Ties are broken at random.
 }
 \seealso{
-\code{\link{max.col}}
+\code{\link{max.col}}, \code{\link{which.max}} which takes the first of ties.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
 \dontrun{

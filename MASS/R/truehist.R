@@ -1,5 +1,5 @@
 # file MASS/truehist.q
-# copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
 "truehist"<-
 function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
@@ -8,12 +8,12 @@ function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
 	 xlab = deparse(substitute(data)), bty = "n", ...)
 {
     plot.truehist <-
-        function(breaks, est, xlim, ymax, bty, xlab,
+        function(breaks, est, xlim, ymax, bty, xlab, ylab = "",
                  density = NULL, angle = 45,
                  col = NULL, border = NULL, lty = NULL, lwd = par("lwd"), ...)
     {
         n <- length(breaks)
-        plot(xlim, c(0, ymax), type = "n", xlab = xlab, ylab = "",
+        plot(xlim, c(0, ymax), type = "n", xlab = xlab, ylab = ylab,
              bty = bty, ...)
         rect(breaks[-n], 0, breaks[-1], est,
              density = density, angle = angle,

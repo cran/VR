@@ -15,4 +15,8 @@ G. E. P. Box, W. G. Hunter and J. S. Hunter (1978)
 \emph{Statistics for Experimenters.}
 Wiley, p. 100
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

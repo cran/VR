@@ -35,6 +35,10 @@ If \code{type = "row"}, the coordinates for the additional rows.
 If \code{type = "factor"}, the coordinates of the column vertices for the
 levels of the new factors.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{mca}}, \code{\link{plot.mca}}
 }

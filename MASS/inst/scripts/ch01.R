@@ -57,7 +57,6 @@ summary(fm)
 fm1 <- lm(y ~ x,  data = dum, weight = 1/w^2)
 summary(fm1)
 
-library(modreg)
 lrf <-  loess(y ~ x, dum)
 
 attach(dum)

@@ -31,6 +31,12 @@ uses the random number generator.
   will never return if \code{r} is too large and it cannot place
   \code{n} points.
 }
+\references{
+  Ripley, B. D. (1981) \emph{Spatial Statistics.} Wiley.
+  
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{Psim}}, \code{\link{Strauss}}
 }

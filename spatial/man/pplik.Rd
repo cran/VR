@@ -28,6 +28,13 @@ logical? Should function evaluations be printed?
 \value{
 estimate for \code{c} in the interval \code{[0, 1]}.
 }
+\references{
+  Ripley, B. D. (1988) \emph{Statistical Inference for Spatial
+    Processes.} Cambridge.
+  
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{Strauss}}
 }

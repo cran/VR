@@ -36,6 +36,12 @@ index vector of cases to be retained (the final store set).
 P. A. Devijver and J. Kittler (1982)
 \emph{Pattern Recognition. A Statistical Approach.}
 Prentice-Hall, pp. 119--121.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{reduce.nn}}, \code{\link{multiedit}}

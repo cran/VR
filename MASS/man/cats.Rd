@@ -31,4 +31,8 @@ between a part and the whole,
 \emph{Biometrics}
 \bold{3}, 65--68.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

@@ -30,4 +30,8 @@ Davis, J.C. (1973)
 \emph{Statistics and Data Analysis in Geology.}
 Wiley.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

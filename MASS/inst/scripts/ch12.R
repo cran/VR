@@ -431,7 +431,6 @@ rug(probs[probs.yes == 0], 0.02, side = 1, lwd = 0.5)
 rug(probs[probs.yes == 1], 0.02, side = 3, lwd = 0.5)
 abline(0, 1)
 newp <- seq(0, 1, length = 100)
-library(modreg)
 lines(newp, predict(loess(probs.yes ~ probs, span = 1), newp))
 
 # End of ch12

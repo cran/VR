@@ -15,4 +15,9 @@ P. J. Brockwell and R. A. Davis (1996)
 \emph{Introduction to Time Series and Forecasting.}
 Springer
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

@@ -56,17 +56,19 @@ random effects.
 \emph{Biometrika}
 \bold{78}, 719--727.
 
-
 Breslow, N. E. and Clayton, D. G. (1993) Approximate inference in
 generalized linear mixed models.
 \emph{Journal of the American Statistical Association}
 \bold{88}, 9--25.
 
-
 Wolfinger, R. and O'Connell, M. (1993) Generalized linear mixed models: a
 pseudo-likelihood approach.
 \emph{Journal of Statistical Computation and Simulation}
 \bold{48}, 233--243.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+
 }
 \seealso{
   \code{\link[nlme]{lme}}

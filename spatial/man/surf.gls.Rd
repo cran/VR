@@ -45,10 +45,14 @@ the coefficients
 \item{y}{
 }
 \item{z}{
-
-
 and others for internal use only.
 }}
+\references{
+  Ripley, B. D. (1981) \emph{Spatial Statistics.} Wiley.
+  
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{trmat}}, \code{\link{surf.ls}}, \code{\link{prmat}}, \code{\link{semat}}, \code{\link{expcov}}, \code{\link{gaucov}}, \code{\link{sphercov}}
 }

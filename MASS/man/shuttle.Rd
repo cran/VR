@@ -45,4 +45,8 @@ Problems of computer-aided concept formation. In
 \emph{Applications of Expert Systems 2},
 ed. J. R. Quinlan, Turing Institute Press / Addison-Wesley, pp. 310--333.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

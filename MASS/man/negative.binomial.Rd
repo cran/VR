@@ -29,6 +29,11 @@ Binomial generalized linear model.
   \code{\link{glm.nb}}, \code{\link{anova.negbin}},
   \code{\link{summary.negbin}}
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \examples{
 # Fitting a Negative Binomial model to the quine data
 #   with theta = 2 assumed known.

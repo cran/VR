@@ -34,11 +34,15 @@ Weisberg, S. (1985)
 2nd edition.
 Wiley, pp. 144--5.
 
-
 Selected from:
 Allison, T. and Cicchetti, D. V. (1976)
 Sleep in mammals: ecological and constitutional correlates.
 \emph{Science}
 \bold{194}, 732--734.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
 }
 \keyword{datasets}

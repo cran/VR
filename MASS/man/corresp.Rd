@@ -63,7 +63,8 @@ equally-scaled plot with two unrelated sets of labels.  The origin is
 marked on the plot with a cross.
 }
 \references{
-Venables & Ripley (2002), chapter 11.
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{svd}}, \code{\link{princomp}}

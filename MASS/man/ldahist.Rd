@@ -68,6 +68,10 @@ additional arguments to \code{polygon}.
 \section{Side Effects}{
 Histogram and/or density plots are plotted on the current device.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{plot.lda}}.
 }

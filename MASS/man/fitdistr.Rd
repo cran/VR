@@ -52,11 +52,15 @@ Direct optimization of the log-likelihood is performed, with numerical
 derivatives.  The estimated standard errors are taken from the
 observed information, calculated by a numerical approximation.
 
-
 For the following named distributions, reasonable starting values will
 be computed if \code{start} is omitted or only partially specified:
-\code{cauchy}, \code{gamma}, \code{logistic}, \code{negative binomial} (\R only, parametrized by
+\code{cauchy}, \code{gamma}, \code{logistic}, \code{negative binomial}
+( parametrized by
 \code{mu} and \code{size}), \code{t}, \code{uniform}, \code{weibull}.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
 set.seed(123)

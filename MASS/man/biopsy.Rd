@@ -79,4 +79,9 @@ Robust linear programming discrimination of two linearly inseparable sets.
 \emph{Optimization Methods and Software}
 \bold{1}, pp. 23--34 (Gordon & Breach Science Publishers).
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

@@ -16,4 +16,9 @@ P. J. Brockwell and R. A. Davis (1991)
 \emph{Time Series: Theory and Methods.}
 Springer, New York.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

@@ -28,6 +28,10 @@ Further objects of the same kind
 \code{anova.trls} and \code{anovalist.trls} return objects corresponding
 to their printed tabular output.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{surf.ls}}
 }

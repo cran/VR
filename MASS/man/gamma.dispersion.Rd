@@ -23,6 +23,10 @@ Additional arguments passed on to \code{gamma.shape}.
 \value{
 The MLE of the dispersion parameter of the gamma distribution.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{gamma.shape.glm}}, including the example on its help page.
 }

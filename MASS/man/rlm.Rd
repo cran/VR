@@ -163,6 +163,9 @@ Wiley.
 A. Marazzi (1993)
 \emph{Algorithms, Routines and S Functions for Robust Statistics}.
 Wadsworth & Brooks/Cole.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{lm}}, \code{\link{lqs}}.

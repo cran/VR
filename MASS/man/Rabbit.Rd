@@ -44,4 +44,8 @@ Repeated measurements and multiple comparisons in cardiovascular research.
 [The numerical data are not in the paper but were supplied by
 Professor Ludbrook]
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

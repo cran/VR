@@ -25,6 +25,10 @@ a point-process object)
 \value{
 none
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \section{Side Effects}{
 initializes variables in the \code{C} subroutines.
 }

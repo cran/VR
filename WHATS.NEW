@@ -62,6 +62,7 @@ Library MASS
 - glm.nb now sets AIC in the object, and has a logLik() method.
 - private versions of update.lme, update.gls to get stepAIC working again
   with those classes.
+- truehist now accepts a `ylab' argument.
 
 
 Library class

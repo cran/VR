@@ -35,6 +35,10 @@ interpretation of co-operative trials,
 \emph{The Analyst}
 \bold{112}, 679--686.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{chem}}, \code{\link{abbey}}.
 }

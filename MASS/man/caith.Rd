@@ -23,6 +23,10 @@ Fisher, R.A. (1940) The precision of discriminant functions.
 \emph{Annals of Eugenics (London)}
 \bold{10}, 422--429.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 corresp(caith)
 dimnames(caith)[[2]] <- c("F", "R", "M", "D", "B")

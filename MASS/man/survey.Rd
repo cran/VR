@@ -59,4 +59,9 @@ Indicates whether the student expressed height in imperial
 \item{\code{Age}}{
 Age of the student, in years.
 }}}
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

@@ -112,6 +112,10 @@ posterior probabilities for the classes
 Uses a QR decomposition which will give an error message if the
 within-group variance is singular for any group.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{predict.qda}}, \code{\link{lda}}
 }

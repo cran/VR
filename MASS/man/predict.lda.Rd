@@ -57,7 +57,6 @@ posterior probabilities for the classes
 the scores of test cases on up to \code{dimen} discriminant variables
 }}
 \details{
-
 This function is a method for the generic function \code{predict()} for
 class \code{"lda"}.  It can be invoked by calling \code{predict(x)} for
 an object \code{x} of the appropriate class, or directly by calling
@@ -71,6 +70,10 @@ prediction.
 This version differs centres the linear discriminants so that the
 weighted mean (weighted by \code{prior}) of the group centroids is at
 the origin.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{lda}}, \code{\link{qda}}, \code{\link{predict.qda}}

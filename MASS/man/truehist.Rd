@@ -73,6 +73,10 @@ A histogram is plotted on the current device.
   \code{h}.  If neither \code{breaks} nor \code{h} is specified,
   \code{nbins} is used to select a suitable \code{h}.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{hist}}
 }

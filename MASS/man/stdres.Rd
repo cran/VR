@@ -24,4 +24,8 @@ The vector of appropriately transformed residuals.
 \seealso{
 \code{\link{residuals}}, \code{\link{studres}}
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{models}

@@ -73,6 +73,10 @@ appropriate (\code{lm} models with specified scale) the constant is taken
 to be that used in Mallows' Cp statistic and the results are labelled
 accordingly.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{dropterm}}, \code{\link{stepAIC}}
 }

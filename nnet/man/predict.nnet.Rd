@@ -38,6 +38,13 @@ object \code{x} of the appropriate class, or directly by
 calling \code{predict.nnet(x)} regardless of the
 class of the object.
 }
+\references{
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{nnet}}, \code{\link{which.is.max}}
 }

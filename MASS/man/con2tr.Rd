@@ -21,4 +21,8 @@ A data frame suitable for passing to Trellis functions.
 \code{con2tr} repeats the \code{x} and \code{y} components suitably to match the
 vector \code{z}.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{misc}

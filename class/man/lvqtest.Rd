@@ -24,6 +24,13 @@ factor of classification for each row of \code{x}
 \details{
 uses 1-NN to classify each test example against the codebook.
 }
+\references{
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{lvqinit}}, \code{\link{olvq1}}
 }

@@ -47,6 +47,10 @@ limits for each parameter. These will be labelled as (1-level)/2 and
   If the profile object is already available it should be used as the
   main argument rather than the fitted model object itself.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{profile}}
 }

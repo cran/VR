@@ -63,7 +63,6 @@ Empl <- c(Empl, service = 8)
 
 c(list(x = 1:3, a = 3:6), list(y = 8:23, b = c(3, 8, 39)))
 
-library(methods)
 as(powers.of.pi, "vector")
 as(powers.of.pi, "numeric")
 is(powers.of.pi, "numeric")

@@ -7,7 +7,6 @@
 library(MASS)
 postscript(file="ch14.ps", width=8, height=6, pointsize=9)
 options(width=65, digits=5, echo = T)
-library(ts)
 
 lh
 deaths

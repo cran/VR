@@ -47,6 +47,10 @@ object \code{x} of the appropriate class, or directly by
 calling \code{summary.negbin(x)} regardless of the
 class of the object.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{summary}}, \code{\link{glm.nb}}, \code{\link{negative.binomial}}, \code{\link{anova.negbin}}
 }

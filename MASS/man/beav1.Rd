@@ -45,6 +45,10 @@ and Greenhouse, J. eds (1994)
 \emph{Case Studies in Biometry.}
 New York: John Wiley and Sons.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{beav2}}
 }

@@ -54,6 +54,12 @@ The batch SOM algorithm of Kohonen(1995, section 3.14) is used.
 Kohonen, T. (1995)
 \emph{Self-Organizing Maps.}
 Springer-Verlag
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
 library(MASS)

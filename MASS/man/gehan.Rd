@@ -41,6 +41,10 @@ arbitrarily single-censored samples.
 \emph{Biometrika}
 \bold{52}, 203--233.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 library(survival)
 gehan.surv <- survfit(Surv(time, cens) ~ treat, data = gehan,

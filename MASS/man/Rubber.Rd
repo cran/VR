@@ -33,4 +33,9 @@ O.L. Davies and P.L. Goldsmith (1972)
 \emph{Statistical Methods in Research and Production.}
 4th edition, Longmans, Table 8.1 p. 239.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

@@ -61,4 +61,8 @@ predictive performance in some applications (with discussion).
 \emph{Journal of the American Statistical Association}
 \bold{89}, 319--409
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

@@ -39,4 +39,8 @@ patient's age in years
 Kalbfleisch, J.D. and Prentice R.L. (1980)
 \emph{The Statistical Analysis of Failure Time Data.}
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

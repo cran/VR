@@ -41,6 +41,10 @@ Yates, F. (1970)
 \emph{Experimental design: Selected papers of Frank Yates, C.B.E, F.R.S.}
  London: Griffin.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 oats$Nf <- ordered(oats$N, levels = sort(levels(oats$N)))
 oats.aov <- aov(Y ~ Nf*V + Error(B/V), data = oats, qr = TRUE)

@@ -45,4 +45,8 @@ condition of its release, to ensure patient confidentiality.
 Dr P. J. Solomon and the Australian National Centre in HIV Epidemiology
 and Clinical Research.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

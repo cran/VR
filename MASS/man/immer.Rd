@@ -41,6 +41,11 @@ Fisher, R.A. (1947)
 4th edition.
 Edinburgh: Oliver and Boyd.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \examples{
 immer.aov <- aov(cbind(Y1,Y2) ~ Loc + Var, data = immer)
 summary(immer.aov)

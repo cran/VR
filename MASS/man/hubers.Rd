@@ -45,6 +45,9 @@ scale estimate
 Huber, P. J. (1981)
 \emph{Robust Statistics.}
 Wiley.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{huber}}

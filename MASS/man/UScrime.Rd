@@ -69,14 +69,16 @@ rate of crimes in a particular category per head of population
 \source{
 Ehrlich, I. (1973) Participation in illegitimate activities: a
 theoretical and empirical investigation.
-\emph{Journal of Political Economy}
-\bold{81}, 521--565.
-
+\emph{Journal of Political Economy}, \bold{81}, 521--565.
 
 Vandaele, W. (1978) Participation in illegitimate activities: Ehrlich
-revisited.  In
-\emph{Deterrence and Incapacitation},
+revisited.  In \emph{Deterrence and Incapacitation},
 eds A. Blumstein, J. Cohen and D. Nagin, pp. 270--335.
 US National Academy of Sciences.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
 }
 \keyword{datasets}

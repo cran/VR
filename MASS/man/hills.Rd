@@ -38,4 +38,8 @@ Transformations unmasked.
 "corrects" the time for Knock Hill from 78.65 to 18.65. It is unclear
 if this based on the original records.]
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

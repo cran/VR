@@ -9,7 +9,6 @@ options(echo=T, width=65, digits=5, height=9999)
 options(contrasts=c("contr.treatment", "contr.poly"))
 postscript("ch13.ps", width=8, height=6, pointsize=9)
 
-library(modreg)  # for scatter.smooth()
 library(survival)
 
 # 13.1  Estimators of survivor curves

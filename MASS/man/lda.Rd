@@ -119,7 +119,6 @@ singular. If any variable has within-group variance less than
 could result from poor scaling of the problem, but is more
 likely to result from constant variables.
 
-
 Specifying the \code{prior} will affect the classification unless
 over-ridden in \code{predict.lda}. Unlike in most statistical packages, it
 will also affect the rotation of the linear discriminants within their
@@ -134,9 +133,12 @@ optional data frame, or a matrix and grouping factor as the first
 two arguments.  All other arguments are optional, but \code{subset=} and
 \code{na.action=}, if required, must be fully named.
 
-
 If a formula is given as the principal argument the object may be
 modified using \code{update()} in the usual way.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{predict.lda}}, \code{\link{qda}}, \code{\link{predict.qda}}

@@ -104,6 +104,10 @@ A object of class \code{"polr"}.
 \item{Hessian}{
   (if \code{Hess} is true).
 }}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{optim}}, \code{\link{glm}}, \code{\link[nnet]{multinom}}.
 }

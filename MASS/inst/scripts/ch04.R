@@ -13,7 +13,6 @@ options(echo=T, width=65, digits=5)
 
 # 4.2  Basic plotting functions
 
-library(ts)
 lung.deaths <- aggregate(ts.union(mdeaths, fdeaths), 1)
 barplot(t(lung.deaths), names = dimnames(lung.deaths)[[1]],
         main = "UK deaths from lung disease")
@@ -26,7 +25,6 @@ text(loc, total + par("cxy")[2], total, cex = 0.7, xpd = T)
 
 # S: if(interactive()) brush(hills)
 
-library(modreg)
 topo.loess <- loess(z ~ x * y, topo, degree = 2, span = 0.25)
 topo.mar <- list(x = seq(0, 6.5, 0.2), y=seq(0, 6.5, 0.2))
 topo.lo <- predict(topo.loess, expand.grid(topo.mar))
@@ -165,7 +163,6 @@ wireframe(pred ~ x * y, topo.plt, aspect = c(1, 0.5),
   colorkey = list(space="right", height=0.6))
 }
 
-library(mva)
 lcrabs.pc <- predict(princomp(log(crabs[,4:8])))
 crabs.grp <- c("B", "b", "O", "o")[rep(1:4, each = 50)]
 splom(~ lcrabs.pc[, 1:3], groups = crabs.grp,

@@ -38,6 +38,10 @@ Linear regression of a regression relationship from censored data.
 Part 1 -- simple methods and their application.
 \emph{Technometrics}, \bold{14}, 247--276.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 library(survival)
 plot(survfit(Surv(time, cens) ~ factor(temp), motors), conf.int = FALSE)

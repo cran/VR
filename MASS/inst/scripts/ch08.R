@@ -53,7 +53,6 @@ detach()
 
 # 8.2  Fitting non-linear regression models
 
-library(nls)
 wtloss.st <- c(b0 = 90, b1 = 95, th = 120)
 wtloss.fm <- nls(Weight ~ b0 + b1*2^(-Days/th),
    data = wtloss, start = wtloss.st, trace = T)
@@ -205,7 +204,6 @@ par(opar)
 
 # 8.7  One-dimensional curve fitting
 
-library(modreg)
 attach(GAGurine)
 par(mfrow = c(3, 2))
 plot(Age, GAG, main = "Degree 6 polynomial")
@@ -333,7 +331,6 @@ detach()
 
 # 8.9  Projection-pursuit regression
 
-library(modreg)
 attach(rock)
 rock1 <- data.frame(area = area/10000, peri = peri/10000,
                     shape = shape, perm = perm)
@@ -374,7 +371,6 @@ cpus.ppr2 <- ppr(log10(perf) ~ ., data = cpus2[cpus.samp,],
 test.cpus(cpus.ppr2)
 res3 <- log10(cpus2[-cpus.samp, "perf"]) -
              predict(cpus.ppr, cpus2[-cpus.samp,])
-library(ctest)
 wilcox.test(res2^2, res3^2, paired = T, alternative = "greater")
 
 

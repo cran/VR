@@ -71,6 +71,10 @@ J. T. Kent, D. E. Tyler and Y. Vardi (1994)
 A curious likelihood identity for the multivariate t-distribution.
 \emph{Communications in Statistics---Simulation and Computation}
 \bold{23}, 441--453.
+
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
 }
 \seealso{
 \code{\link{cov}}, \code{\link{cov.wt}}, \code{\link{cov.mve}}

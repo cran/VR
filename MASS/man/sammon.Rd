@@ -57,7 +57,6 @@ the sum of squared differences between the input distances and those
 of the configuration, weighted by the distances, the whole sum being
 divided by the sum of input distances to make the stress scale-free.
 
-
 An iterative algorithm is used, which will usually converge in around
 50 iterations. As this is necessarily an \eqn{O(n^2)} calculation, it is slow
 for large datasets. Further, since the configuration is only determined
@@ -71,6 +70,9 @@ Sammon, J. W. (1969)
 A non-linear mapping for data structure analysis.
 \emph{IEEE Trans. Comput.}
 \bold{C-18} 401--409.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{cmdscale}}, \code{\link{isoMDS}}

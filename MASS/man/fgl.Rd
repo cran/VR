@@ -57,4 +57,8 @@ containers (\code{Con}: 13),
 tableware (\code{Tabl}: 9) and
 vehicle headlamps (\code{Head}: 29).
 }}}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

@@ -56,6 +56,10 @@ If \code{plotit = TRUE} plots loglik \emph{vs} \code{lambda} and indicates a 95\
 confidence interval about the maximum observed value of \code{lambda}. If
 \code{interp = TRUE}, spline interpolation is used to give a smoother plot.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 data(trees)
 boxcox(Volume ~ log(Height) + log(Girth), data = trees,

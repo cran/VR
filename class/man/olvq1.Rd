@@ -40,10 +40,15 @@ Kohonen, T. (1990) The self-organizing map.
 \emph{Proc. IEEE}
 \bold{78}, 1464--1480.
 
-
 Kohonen, T. (1995)
 \emph{Self-Organizing Maps.}
 Springer, Berlin.
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{lvqinit}}, \code{\link{lvqtest}}, \code{\link{lvq1}}, \code{\link{lvq2}}, \code{\link{lvq3}}

@@ -86,6 +86,10 @@ the AIC for this fit.
 \item{Hessian}{
 (if \code{Hess} is true).
 }}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{nnet}}
 }

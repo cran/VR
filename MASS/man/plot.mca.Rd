@@ -27,6 +27,10 @@ respectively.
 \item{...}{
 Additional parameters to \code{plot}.
 }}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{mca}}, \code{\link{predict.mca}}
 }

@@ -23,5 +23,9 @@ having originally been described as `short', `medium' or `long'.
   Azzalini, A. and Bowman, A. W. (1990) A look at some
   data on the Old Faithful geyser.  \emph{Applied Statistics}
   \bold{39}, 357--365.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+
 }
 \keyword{datasets}

@@ -13,7 +13,7 @@ demonstration purposes.
 }
 \usage{
 area(f, a, b, \dots, fa = f(a, \dots), fb = f(b, \dots),
-     limit = 10, eps = 1e-05))
+     limit = 10, eps = 1e-05)
 }
 \arguments{
 \item{f}{
@@ -49,6 +49,11 @@ The method divides the interval in two and compares the values given by
 Simpson's rule and the trapezium rule.  If these are within eps of each
 other the Simpson's rule result is given, otherwise the process is applied
 separately to each half of the interval and the results added together.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (1994)
+  \emph{Modern Applied Statistics with S-Plus.} Springer.
+  pp. 105--110.
 }
 \seealso{
 \code{\link[integrate]{integrate}}

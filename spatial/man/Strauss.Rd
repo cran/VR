@@ -33,6 +33,12 @@ Uses spatial birth-and-death process for 4\code{n} steps, or for 40\code{n} step
 starting from a binomial pattern on the first call from an other function.
 Uses the region set by \code{ppinit} or \code{ppregion}.
 }
+\references{
+  Ripley, B. D. (1981) \emph{Spatial Statistics.} Wiley.
+  
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{Psim}}, \code{\link{SSI}}
 }

@@ -14,8 +14,6 @@ data(leuk)
 }
 \format{
 A data frame with columns:
-
-
 \describe{
 \item{\code{wbc}}{
 white blood count
@@ -44,6 +42,10 @@ Taken from
 Feigl, P. & Zelen, M. (1965) Estimation of exponential survival
 probabilities with concomitant information.
 \emph{Biometrics} \bold{21}, 826--838.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
 library(survival)

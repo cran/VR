@@ -52,6 +52,10 @@ Hosmer, D.W. and Lemeshow, S. (1989)
 \emph{Applied Logistic Regression.}
 New York: Wiley
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 attach(birthwt)
 race <- factor(race, labels = c("white", "black", "other"))

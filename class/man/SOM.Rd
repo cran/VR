@@ -58,6 +58,12 @@ Kohonen, T., Hynninen, J., Kangas, J. and Laaksonen, J. (1996)
 SOM PAK: The self-organizing map program package.
 Laboratory of Computer and Information Science, Helsinki University
 of Technology, Technical Report A31
+
+  Ripley, B. D. (1996)
+  \emph{Pattern Recognition and Neural Networks.} Cambridge.
+
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
 library(MASS)

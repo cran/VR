@@ -109,8 +109,12 @@ stepAIC(object, scope, scale = 0,
 \note{
   The model fitting must apply the models to the same dataset. This may
   be a problem if there are missing values and an \code{na.action} other than
-  \code{na.fail} is used (as is the default in R).  We suggest you remove the missing values
-  first.
+  \code{na.fail} is used (as is the default in \R).
+  We suggest you remove the missing values first.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
 \code{\link{addterm}}, \code{\link{dropterm}}, \code{\link{step}}

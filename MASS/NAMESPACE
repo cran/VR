@@ -155,3 +155,5 @@ S3method(terms, gls)
 S3method(terms, lme)
 S3method(update, loglm)
 S3method(vcov, polr)
+
+importFrom(mva, biplot)

@@ -39,4 +39,8 @@ classifications (with discussion).
 \emph{Journal of the Royal Statistical Society series A}
 \bold{141}, 195--223.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

@@ -59,6 +59,10 @@ glm.nb(formula = formula(data), data = parent.frame(), weights,
   process. Setting \code{trace > 1} traces the \code{glm} fit, and
   setting \code{trace > 2} traces the estimation of \code{theta}.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
   \code{\link{glm}}, \code{\link{negative.binomial}},
   \code{\link{anova.negbin}}, \code{\link{summary.negbin}},

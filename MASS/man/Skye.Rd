@@ -25,13 +25,17 @@ Percentage of iron oxide
 Percentage of magnesium oxide
 }}}
 \source{
+R. N. Thompson, J. Esson and A. C. Duncan (1972)
+Major element chemical variation in the Eocene lavas of the Isle of
+Skye. \emph{J. Petrology}, \bold{13}, 219--253.
+}
+\references{
 J. Aitchison (1986)
 \emph{The Statistical Analysis of Compositional Data.}
 Chapman and Hall, p.360.
 
-R. N. Thompson, J. Esson and A. C. Duncan (1972)
-Major element chemical variation in the Eocene lavas of the Isle of
-Skye. \emph{J. Petrology}, \bold{13}, 219--253.
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
 # ternary() is from the on-line answers.

@@ -15,4 +15,8 @@ Anderson, O.D. (1976)
 \emph{Time Series Analysis and Forecasting: The Box-Jenkins approach.}
 Butterworths. Series R.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \keyword{datasets}

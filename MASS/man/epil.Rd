@@ -50,6 +50,10 @@ Some covariance models for longitudinal count data with over-dispersion.
 \emph{Biometrics}
 \bold{46}, 657--671.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth Edition. Springer.
+}
 \examples{
 summary(glm(y ~ lbase*trt + lage + V4, family = poisson,
             data = epil), cor = FALSE)

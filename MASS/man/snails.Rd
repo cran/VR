@@ -17,11 +17,8 @@ object of the exercise was to model the probability of survival in terms of
 the stimulus variables, and in particular to test for differences between
 species.
 
-
 The data are unusual in that in most cases fatalities during the experiment
 were fairly small.
-
-
 }
 \usage{
 data(snails)
@@ -49,5 +46,10 @@ Number of snails exposed
 }}}
 \source{
 Zoology Department, The University of Adelaide.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
 }
 \keyword{datasets}

@@ -41,7 +41,12 @@ pp. 11--29
 
 M. Aitkin, D. Anderson, B. Francis and J. Hinde (1989)
 \emph{Statistical Modelling in GLIM.}
-Oxford University Press
+Oxford University Press.
+}
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
 }
 \examples{
 ## main-effects fit as Poisson GLM with offset

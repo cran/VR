@@ -37,6 +37,10 @@ On two families of transformations to additivity for binary response data.
 \emph{Biometrika}
 \bold{68}, 357--363.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \examples{
 mprob <- glm(cbind(Menarche, Total - Menarche) ~ Age,
              binomial(link = probit), data = menarche)

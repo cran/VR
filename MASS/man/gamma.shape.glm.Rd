@@ -54,6 +54,10 @@ the results of the glm fit and solves the maximum likelihood
 equation for the reciprocal of the dispersion parameter, which is
 usually called the shape (or exponent) parameter.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \seealso{
 \code{\link{gamma.dispersion}}
 }

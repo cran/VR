@@ -27,4 +27,9 @@ N.R. Draper  and H. Smith (1981)
 \emph{Applied Regression Analysis.}
 Wiley, pp. 518--9.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (1999)
+  \emph{Modern Applied Statistics with S-PLUS.} Third
+  Edition. Springer.
+}
 \keyword{datasets}

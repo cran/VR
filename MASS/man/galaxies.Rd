@@ -23,6 +23,10 @@ Probes of large-scale structures in the Corona Borealis region.
 \emph{Astrophysical Journal}
 \bold{92}, 1238--1247.
 }
+\references{
+  Venables, W. N. and Ripley, B. D. (2002)
+  \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
 \note{
 There is an 83rd measurement of 5607 km/sec in the Postman
 \emph{et al.} paper which is omitted in Roeder (1990) and from the
