@@ -64,7 +64,7 @@ lda.default <-
            method = c("moment", "mle", "mve", "t"),
            CV = FALSE, nu = 5, ...)
 {
-    if(is.null(dim(x))) stop("x is not a matrix")
+    if(is.null(dim(x))) stop("'x' is not a matrix")
     x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)
@@ -75,12 +75,15 @@ lda.default <-
     counts <- as.vector(table(g))
     if(!missing(prior)) {
         if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
-        if(length(prior) != nlevels(g)) stop("prior is of incorrect length")
+        if(length(prior) != nlevels(g)) stop("'prior' is of incorrect length")
         prior <- prior[counts > 0]
     }
     if(any(counts == 0)) {
-        warning("group(s) ", paste(lev[counts == 0], collapse=" "),
-                " are empty")
+        empty <- lev[counts == 0]
+        warning(sprintf(ngettext(length(empty),
+                                 "group %s is empty",
+                                 "groups %s are empty"),
+                        paste(empty, collapse=" ")), domain = NA)
         lev1 <- lev[counts > 0]
         g <- factor(g, levels=lev1)
         counts <- as.vector(table(g))
@@ -93,10 +96,14 @@ lda.default <-
         stop("cannot use leave-one-out CV with method ", method)
     group.means <- tapply(x, list(rep(g, p), col(x)), mean)
     f1 <- sqrt(diag(var(x - group.means[g,  ])))
-    if(any(f1 < tol))
-        stop("variable(s) ",
-             paste(format((1:p)[f1 < tol]), collapse = " "),
-             " appear to be constant within groups")
+    if(any(f1 < tol)) {
+        const <- format((1:p)[f1 < tol])
+        stop(sprintf(ngettext(length(const),
+                     "variable %d appears to be constant within groups",
+                     "variables %d appear to be constant within groups"),
+                     paste(const, collapse = " ")),
+             domain = NA)
+    }
     # scale columns to unit variance before checking for collinearity
     scaling <- diag(1/f1,,p)
     if(method == "mve") {
@@ -108,7 +115,7 @@ lda.default <-
         scaling <- scaling %*% sX$v[, 1:rank] %*%
             diag(sqrt(1/sX$d[1:rank]),,rank)
     } else if(method == "t") {
-        if(nu <= 2) stop("nu must exceed 2")
+        if(nu <= 2) stop("'nu' must exceed 2")
         w <- rep(1, n)
         repeat {
             w0 <- w
@@ -187,7 +194,7 @@ lda.default <-
 predict.lda <- function(object, newdata, prior = object$prior, dimen,
 			method = c("plug-in", "predictive", "debiased"), ...)
 {
-    if(!inherits(object, "lda")) stop("object not of class lda")
+    if(!inherits(object, "lda")) stop("object not of class \"lda\"")
     if(!is.null(Terms <- object$terms)) { #
     # formula fit
         Terms <- delete.response(Terms)
@@ -226,7 +233,7 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
     ng <- length(object$prior)
     if(!missing(prior)) {
         if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
-        if(length(prior) != ng) stop("prior is of incorrect length")
+        if(length(prior) != ng) stop("'prior' is of incorrect length")
     }
 #   remove overall means to keep distances small
     means <- colSums(prior*object$means)
@@ -359,9 +366,9 @@ function(data, g, nbins = 25, h, x0 = -h/1000, breaks,
         breaks <- x0 + h * c(first:last)
     }
     if(type=="histogram" || type=="both") {
-        if(any(diff(breaks) <= 0)) stop("breaks must be strictly increasing")
+        if(any(diff(breaks) <= 0)) stop("'breaks' must be strictly increasing")
         if(min(data) < min(breaks) || max(data) > max(breaks))
-            stop("breaks do not cover the data")
+            stop("'breaks' do not cover the data")
         est <- vector("list", length(groups))
         for (grp in groups){
             bin <- cut(data[g==grp], breaks, include.lowest = TRUE)

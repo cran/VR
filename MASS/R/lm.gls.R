@@ -20,7 +20,7 @@ lm.gls <-
     if(any(dim(W) != c(n, n))) stop("dim(W) is not correct")
     eW <- eigen(W, TRUE)
     d <- eW$values
-    if(any(d <= 0)) stop("W is not positive definite")
+    if(any(d <= 0)) stop("'W' is not positive definite")
     A <- diag(d^ifelse(inverse, -0.5, 0.5)) %*% t(eW$vector)
     fit <- lm.fit(A %*% X, A %*% Y, method=method, ...)
     fit$terms <- Terms

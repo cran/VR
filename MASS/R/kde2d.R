@@ -5,7 +5,7 @@ kde2d <- function(x, y, h, n = 25, lims=c(range(x), range(y)) )
 {
     nx <- length(x)
     if(length(y) != nx)
-        stop("Data vectors must be the same length")
+        stop("data vectors must be the same length")
     gx <- seq(lims[1], lims[2], length = n)
     gy <- seq(lims[3], lims[4], length = n)
     if (missing(h))

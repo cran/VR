@@ -68,7 +68,7 @@ qda.default <-
            method = c("moment", "mle", "mve", "t"),
            CV = FALSE, nu = 5, ...)
 {
-    if(is.null(dim(x))) stop("x is not a matrix")
+    if(is.null(dim(x))) stop("'x' is not a matrix")
     x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)
@@ -82,7 +82,7 @@ qda.default <-
     ng <- length(proportions)
 # allow for supplied prior
     if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
-    if(length(prior) != ng) stop("prior is of incorrect length")
+    if(length(prior) != ng) stop("'prior' is of incorrect length")
     names(prior) <- lev
 # means by group (rows) and variable (columns)
     group.means <- tapply(x, list(rep(g, ncol(x)), col(x)), mean)
@@ -99,7 +99,7 @@ qda.default <-
             scaling[, , i] <- sX$v %*% diag(sqrt(1/sX$d),,p)
             ldet[i] <- sum(log(sX$d))
         } else if(method == "t") {
-            if(nu <= 2) stop("nu must exceed 2")
+            if(nu <= 2) stop("'nu' must exceed 2")
             m <- counts[i]
             X <- x[unclass(g) == i, ]
             w <- rep(1, m)
@@ -169,10 +169,10 @@ predict.qda <- function(object, newdata, prior = object$prior,
 			method = c("plug-in", "predictive", "debiased",
                           "looCV"), ...)
 {
-    if(!inherits(object, "qda")) stop("object not of class qda")
+    if(!inherits(object, "qda")) stop("object not of class \"qda\"")
     method <- match.arg(method)
     if(method == "looCV" && !missing(newdata))
-        stop("cannot have leave-one-out CV with newdata")
+        stop("cannot have leave-one-out CV with 'newdata'")
     if(is.null(mt <- object$call$method)) mt <- "moment"
     if(method == "looCV" && !(mt == "moment" || mt == "mle"))
         stop("cannot use leave-one-out CV with method ", sQuote(mt))

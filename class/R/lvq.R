@@ -5,7 +5,7 @@ lvqinit <- function(x, cl, size, prior, k=5)
     x <- as.matrix(x)
     n <- nrow(x)
     p <- ncol(x)
-    if(length(cl) != n) stop("x and cl have different lengths")
+    if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     g <- as.factor(cl)
     if(any(is.na(x)) || any(is.na(g)))
         stop("no missing values are allowed")
@@ -16,7 +16,7 @@ lvqinit <- function(x, cl, size, prior, k=5)
     if(missing(prior)) prior <- prop
     else if(any(prior <0)||round(sum(prior), 5) != 1)
         stop("invalid prior")
-    if(length(prior) != np) stop("prior is of incorrect length")
+    if(length(prior) != np) stop("'prior' is of incorrect length")
     if(missing(size)) size <- min(round(0.4 * np * (np-1+p/2),0), n)
     inside <- knn.cv(x, cl, k) == cl
     selected <- numeric(0)
@@ -37,7 +37,7 @@ olvq1 <- function(x, cl, codebk, niter = 40*nrow(codebk$x), alpha = 0.3)
     n <- nrow(x)
     p <- ncol(x)
     nc <- dim(codebk$x)[1]
-    if(length(cl) != n) stop("x and cl have different lengths")
+    if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
     z <- .C("VR_olvq",
             as.double(alpha),
@@ -64,7 +64,7 @@ lvq1 <- function(x, cl, codebk, niter = 100*nrow(codebk$x), alpha = 0.03)
     n <- nrow(x)
     p <- ncol(x)
     nc <- dim(codebk$x)[1]
-    if(length(cl) != n) stop("x and cl have different lengths")
+    if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
     z <- .C("VR_lvq1",
             as.double(alpha),
@@ -92,7 +92,7 @@ lvq2 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
     n <- nrow(x)
     p <- ncol(x)
     nc <- dim(codebk$x)[1]
-    if(length(cl) != n) stop("x and cl have different lengths")
+    if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
     z <- .C("VR_lvq2",
             as.double(alpha),
@@ -121,7 +121,7 @@ lvq3 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
     n <- nrow(x)
     p <- ncol(x)
     nc <- dim(codebk$x)[1]
-    if(length(cl) != n) stop("x and cl have different lengths")
+    if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
     z <- .C("VR_lvq3",
             as.double(alpha),

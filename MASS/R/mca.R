@@ -76,21 +76,21 @@ predict.mca <- function(object, newdata, type=c("row", "factor"), ...)
   type <- match.arg(type)
   if(is.null(abbrev <- object$call$abbrev)) abbrev <- FALSE
   if(!all(unlist(lapply(newdata, is.factor))))
-    stop("All variables must be factors")
+    stop("all variables must be factors")
   G <- as.matrix(do.call("data.frame", c(lapply(newdata, class.ind),
                                          check.names=FALSE)))
   if(abbrev) colnames(G) <- unlist(lapply(newdata, levels))
   if(type == "row") {
     # predict new row(s)
     if(!all(colnames(G) == dimnames(object$cs)[[1]]))
-       stop("factors in newdata do not match those for fit")
+       stop("factors in 'newdata' do not match those for 'object'")
     G %*% object$cs/object$p
   } else {
     # predict positions of new factor(s)
     n <- nrow(G)
     Dc <- drop((rep(1, n)) %*% G)
     if(n != nrow(object$fs))
-      stop("newdata is not of the right length")
+      stop("'newdata' is not of the right length")
     (t(G)/Dc) %*% object$fs
   }
 }

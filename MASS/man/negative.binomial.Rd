@@ -11,7 +11,7 @@ Specifies the information required to fit a Negative Binomial generalized
 linear model, with known \code{theta} parameter, using \code{glm()}.
 }
 \usage{
-negative.binomial(theta = stop("theta must be specified"), link = "log")
+negative.binomial(theta = stop("'theta' must be specified"), link = "log")
 }
 \arguments{
 \item{theta}{

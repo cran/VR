@@ -31,8 +31,11 @@ nnet.formula <- function(formula, data, weights, ...,
     lev <- levels(y)
     counts <- table(y)
     if(any(counts == 0)) {
-      warning(paste("group(s)", paste(lev[counts == 0], collapse=" "),
-		    "are empty"))
+      empty <- lev[counts == 0]
+      warning(sprintf(ngettext(length(empty),
+                               "group %s is empty",
+                               "groups %s are empty"),
+                      paste(empty, collapse=" ")), domain = NA)
       y <- factor(y, levels=lev[counts > 0])
     }
     if(length(lev) == 2) {
@@ -64,9 +67,9 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
   net <- NULL
   x <- as.matrix(x)
   y <- as.matrix(y)
-  if(any(is.na(x))) stop("missing values in x")
-  if(any(is.na(y))) stop("missing values in y")
-  if(dim(x)[1] != dim(y)[1]) stop("nrows of x and y must match")
+  if(any(is.na(x))) stop("missing values in 'x'")
+  if(any(is.na(y))) stop("missing values in 'y'")
+  if(dim(x)[1] != dim(y)[1]) stop("nrows of 'x' and 'y' must match")
   if(linout && entropy) stop("entropy fit only for logistic units")
   if(softmax) {
     linout <- TRUE
@@ -86,7 +89,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
 			  seq(1+net$n[1]+net$n[2], net$nunits-1))
   if((nwts <- length(net$conn))==0) stop("no weights to fit")
   if(nwts > MaxNWts)
-    stop(paste("Too many (", nwts, ") weights", sep=""))
+    stop(sprintf(gettext("too many (%d) weights"), nwts), domain=NA)
   nsunits <- net$nunits
   if(linout) nsunits <- net$nunits - net$n[3]
   net$nsunits <- nsunits
@@ -99,7 +102,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
     else wts <- rep(0, nwts)
   else wts <- Wts
   if(length(wts) != nwts) stop("weights vector of incorrect length")
-  if(length(mask) != length(wts)) stop("incorrect length of mask")
+  if(length(mask) != length(wts)) stop("incorrect length of 'mask'")
   if(trace) {
     cat("# weights: ", length(wts))
     nw <- sum(mask != 0)
@@ -158,7 +161,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
 
 predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
 {
-  if(!inherits(object, "nnet")) stop("object not of class nnet")
+  if(!inherits(object, "nnet")) stop("object not of class \"nnet\"")
   type <- match.arg(type)
   if(missing(newdata)) z <- fitted(object)
   else {
@@ -181,7 +184,7 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
       if(is.null(dim(newdata)))
         dim(newdata) <- c(1, length(newdata))# a row vector
       x <- as.matrix(newdata)		# to cope with dataframes
-      if(any(is.na(x))) stop("missing values in x")
+      if(any(is.na(x))) stop("missing values in 'x'")
       keep <- 1:nrow(x)
       rn <- rownames(x)
     }
@@ -260,7 +263,7 @@ nnetHess <- function(net, x, y, weights)
 {
   x <- as.matrix(x)
   y <- as.matrix(y)
-  if(dim(x)[1] != dim(y)[1]) stop("dims of x and y must match")
+  if(dim(x)[1] != dim(y)[1]) stop("dims of 'x' and 'y' must match")
   nw <- length(net$wts)
   decay <- net$decay
   if(length(decay) == 1) decay <- rep(decay, nw)

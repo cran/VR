@@ -6,7 +6,7 @@ contr.sdif <- function(n, contrasts = TRUE)
     # contrasts generator giving 'successive difference' contrasts.
     if(is.numeric(n) && length(n) == 1) {
         if(n %% 1 || n < 2)
-            stop("invalid degree")
+            stop("invalid number of levels")
         lab <- as.character(seq(n))
     } else {
         lab <- as.character(n)

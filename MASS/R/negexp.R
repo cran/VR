@@ -6,7 +6,7 @@ negexp.SSival <- function(mCall, data, LHS)
 {
     x <- eval(mCall[["x"]], data)
     if(length(x) < 3)
-        stop("at least 3 distinct x values are needed")
+        stop("at least 3 distinct 'x' values are needed")
     y <- eval(LHS, data)
     mx <- mean(x)
     b <- as.vector(lsfit(cbind(x - mx,  - (x - mx)^2/2), y)$coef)

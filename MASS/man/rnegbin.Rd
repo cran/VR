@@ -11,7 +11,7 @@ Function to generate random outcomes from a Negative Binomial distribution,
 with mean \code{mu} and variance \code{mu + mu^2/theta}.
 }
 \usage{
-rnegbin(n, mu = n, theta = stop("theta must be given"))
+rnegbin(n, mu = n, theta = stop("'theta' must be specified"))
 }
 \arguments{
 \item{n}{

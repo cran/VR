@@ -1,5 +1,5 @@
 # file MASS/polr.q
-# copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 polr <- function(formula, data, weights, start, ..., subset,
                  na.action, contrasts = NULL, Hess = FALSE,
@@ -19,15 +19,17 @@ polr <- function(formula, data, weights, start, ..., subset,
             -sum(wt * log(pr))
         else Inf
     }
-    jacobian <- function(theta) { ## dgamma by dtheta matrix
-        k <- length(theta)
-        etheta <- exp(theta)
-        mat <- matrix(0 , k, k)
-        mat[, 1] <- rep(1, k)
-        for (i in 2:k) mat[i:k, i] <- etheta[i]
-        mat
-    }
-    gmin <- function(beta) {
+
+    gmin <- function(beta)
+    {
+        jacobian <- function(theta) { ## dgamma by dtheta matrix
+            k <- length(theta)
+            etheta <- exp(theta)
+            mat <- matrix(0 , k, k)
+            mat[, 1] <- rep(1, k)
+            for (i in 2:k) mat[i:k, i] <- etheta[i]
+            mat
+        }
         theta <- beta[pc + 1:q]
         gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
         eta <- offset
@@ -184,6 +186,7 @@ summary.polr <- function(object, digits = max(3, .Options$digits - 3),
     z.ind <- (pc + 1):(pc + q)
     gamma <- object$zeta
     theta <- c(gamma[1], log(diff(gamma)))
+
     jacobian <- function(theta) { ## dgamma by dtheta matrix
         k <- length(theta)
         etheta <- exp(theta)
@@ -192,6 +195,7 @@ summary.polr <- function(object, digits = max(3, .Options$digits - 3),
         for (i in 2:k) mat[i:k, i] <- etheta[i]
         mat
     }
+
     J <- jacobian(theta)
     vc[z.ind, z.ind] <- J %*% vc[z.ind, z.ind] %*% t(J)
     coef[, 2] <- sd <- sqrt(diag(vc))
@@ -235,7 +239,7 @@ print.summary.polr <- function(x, digits = x$digits, ...)
 
 predict.polr <- function(object, newdata, type=c("class","probs"), ...)
 {
-    if(!inherits(object, "polr")) stop("not a polr fit")
+    if(!inherits(object, "polr")) stop("not a \"polr\" object")
     type <- match.arg(type)
     if(missing(newdata)) Y <- object$fitted
     else {
@@ -259,7 +263,7 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
     }
     if(missing(newdata) && !is.null(object$na.action))
         Y <- napredict(object$na.action, Y)
-    switch(type, class={
+    switch(type, class = {
         Y <- factor(max.col(Y), levels=seq(along=object$lev),
                     labels=object$lev)
     }, probs = {})
@@ -310,14 +314,17 @@ anova.polr <- function (object, ..., test = c("Chisq", "none"))
     test <- match.arg(test)
     dots <- list(...)
     if (length(dots) == 0)
-        stop("anova is not implemented for a single polr object")
+        stop('anova is not implemented for a single "polr" object')
     mlist <- list(object, ...)
     nt <- length(mlist)
     dflis <- sapply(mlist, function(x) x$edf)
     s <- order(dflis)
     mlist <- mlist[s]
     if (any(!sapply(mlist, inherits, "polr")))
-        stop("not all objects are of class 'polr'")
+        stop('not all objects are of class "polr"')
+    ns <- sapply(mlist, function(x) length(x$fitted.values))
+    if(any(ns != ns[1]))
+        stop("models were not all fitted to the same size of dataset")
     rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
     mds <- sapply(mlist, function(x) paste(formula(x)[3]))
     dfs <- dflis[s]
@@ -333,7 +340,7 @@ anova.polr <- function (object, ..., test = c("Chisq", "none"))
     if (test == "none") out <- out[, 1:6]
     class(out) <- c("Anova", "data.frame")
     attr(out, "heading") <-
-        c("Likelihood ratio tests of proportional odds models\n",
+        c("Likelihood ratio tests of ordinal regression models\n",
           paste("Response:", rsp))
     out
 }

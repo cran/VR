@@ -39,7 +39,7 @@ eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin,
     else xuin <- yuin/ratio
   } else {
     if(length(uin) == 1) uin <- uin * c(1, ratio)
-    if(any(c(xuin, yuin) < uin)) stop("uin is too large to fit plot in")
+    if(any(c(xuin, yuin) < uin)) stop("'uin' is too large to fit plot in")
     xuin <- uin[1]; yuin <- uin[2]
   }
   xlim <- midx + oxuin/xuin * c(-1, 1) * diff(xlim) * 0.5

@@ -2,12 +2,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.1.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2005-02-01 09:42\n"
+"POT-Creation-Date: 2005-02-26 09:46\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 
@@ -17,10 +17,10 @@ msgstr ""
 msgid "no terms in scope for adding to object"
 msgstr ""
 
-msgid "using the"
+msgid "number of rows in use has changed: remove missing values?"
 msgstr ""
 
-msgid "rows from a combined fit"
+msgid "using the %d/%d rows from a combined fit"
 msgstr ""
 
 msgid "no addterm method implemented for mlm models"
@@ -29,13 +29,10 @@ msgstr ""
 msgid "scope is not a subset of term labels"
 msgstr ""
 
-msgid "dropterm not implemented for mlm models"
+msgid "dropterm not implemented for \"mlm\" fits"
 msgstr ""
 
-msgid "F test assumes quasi"
-msgstr ""
-
-msgid "family"
+msgid "F test assumes quasi%s family"
 msgstr ""
 
 msgid "iteration limit reached near x ="
@@ -47,16 +44,10 @@ msgstr ""
 msgid "response variable must be positive"
 msgstr ""
 
-msgid "invalid degree"
-msgstr ""
-
 msgid "invalid number of levels"
 msgstr ""
 
-msgid "frequency table is"
-msgstr ""
-
-msgid "-dimensional"
+msgid "frequency table is %d-dimensional"
 msgstr ""
 
 msgid "invalid table specification"
@@ -95,7 +86,7 @@ msgstr ""
 msgid "Probable convergence failure"
 msgstr ""
 
-msgid "uin is too large to fit plot in"
+msgid "'uin' is too large to fit plot in"
 msgstr ""
 
 msgid "'x' must be a non-empty numeric vector"
@@ -122,7 +113,7 @@ msgstr ""
 msgid "iteration limit reached"
 msgstr ""
 
-msgid "package nlme is essential"
+msgid "package 'nlme' is essential"
 msgstr ""
 
 msgid "'family' not recognized"
@@ -131,19 +122,16 @@ msgstr ""
 msgid "cannot estimate scale: MAD is zero for this sample"
 msgstr ""
 
-msgid "an initial configuration must be supplied with NA/Infs in d"
+msgid "an initial configuration must be supplied with NA/Infs in 'd'"
 msgstr ""
 
-msgid "y must be a matrix"
+msgid "'y' must be a matrix"
 msgstr ""
 
 msgid "distances must be result of dist or a square matrix"
 msgstr ""
 
-msgid "zero or negative distance between objects"
-msgstr ""
-
-msgid "and"
+msgid "zero or negative distance between objects %d and %d"
 msgstr ""
 
 msgid "invalid initial configuration"
@@ -155,10 +143,10 @@ msgstr ""
 msgid "not enough non-missing data"
 msgstr ""
 
-msgid "Data vectors must be the same length"
+msgid "data vectors must be the same length"
 msgstr ""
 
-msgid "x is not a matrix"
+msgid "'x' is not a matrix"
 msgstr ""
 
 msgid "nrow(x) and length(grouping) are different"
@@ -167,31 +155,19 @@ msgstr ""
 msgid "invalid prior"
 msgstr ""
 
-msgid "prior is of incorrect length"
-msgstr ""
-
-msgid "group(s)"
-msgstr ""
-
-msgid "are empty"
+msgid "'prior' is of incorrect length"
 msgstr ""
 
 msgid "cannot use leave-one-out CV with method"
 msgstr ""
 
-msgid "variable(s)"
-msgstr ""
-
-msgid "appear to be constant within groups"
-msgstr ""
-
 msgid "variables are collinear"
 msgstr ""
 
-msgid "nu must exceed 2"
+msgid "'nu' must exceed 2"
 msgstr ""
 
-msgid "object not of class lda"
+msgid "object not of class \"lda\""
 msgstr ""
 
 msgid "wrong number of variables"
@@ -200,25 +176,25 @@ msgstr ""
 msgid "variable names in 'newdata' do not match those in 'object'"
 msgstr ""
 
-msgid "breaks must be strictly increasing"
+msgid "'breaks' must be strictly increasing"
 msgstr ""
 
-msgid "breaks do not cover the data"
+msgid "'breaks' do not cover the data"
 msgstr ""
 
 msgid "dim(W) is not correct"
 msgstr ""
 
-msgid "W is not positive definite"
+msgid "'W' is not positive definite"
 msgstr ""
 
-msgid "data has no terms attribute"
+msgid "'data' has no 'terms' attribute"
 msgstr ""
 
 msgid "formula specifies no response"
 msgstr ""
 
-msgid "object has no call component.  Updating not possible"
+msgid "'object' has no 'call' component.  Updating not possible"
 msgstr ""
 
 msgid "Response variable must be positive after additions"
@@ -227,19 +203,16 @@ msgstr ""
 msgid "missing values are not allowed"
 msgstr ""
 
-msgid "x and y must have the same number of rows"
+msgid "'x' and 'y' must have the same number of rows"
 msgstr ""
 
-msgid "'quantile' must be at most"
+msgid "'quantile' must be at most %d"
 msgstr ""
 
-msgid "ps must be at least p"
+msgid "'ps' must be at least 'p'"
 msgstr ""
 
-msgid "only"
-msgstr ""
-
-msgid "sets, so all sets will be tried"
+msgid "only %d sets, so all sets will be tried"
 msgstr ""
 
 msgid "lqs failed: all the samples were singular"
@@ -248,55 +221,49 @@ msgstr ""
 msgid "missing or infinite values are not allowed"
 msgstr ""
 
-msgid "at least"
+msgid "at least %d cases are needed"
 msgstr ""
 
-msgid "cases are needed"
-msgstr ""
-
-msgid "'quantile' must be at least"
+msgid "'quantile' must be at least %d"
 msgstr ""
 
 msgid "at least one column has IQR 0"
 msgstr ""
 
-msgid "x is probably collinear"
+msgid "'x' is probably collinear"
 msgstr ""
 
 msgid "all variables must be factors"
 msgstr ""
 
-msgid "All variables must be factors"
+msgid "factors in 'newdata' do not match those for 'object'"
 msgstr ""
 
-msgid "factors in newdata do not match those for fit"
+msgid "'newdata' is not of the right length"
 msgstr ""
 
-msgid "newdata is not of the right length"
-msgstr ""
-
-msgid "X must be a numeric or complex matrix"
+msgid "'X' must be a numeric or complex matrix"
 msgstr ""
 
 msgid "incompatible arguments"
 msgstr ""
 
-msgid "Sigma is not positive definite"
+msgid "'Sigma' is not positive definite"
 msgstr ""
 
-msgid "theta must be given"
+msgid "'theta' must be given"
 msgstr ""
 
 msgid "negative values not allowed for the Negative Binomal family"
 msgstr ""
 
-msgid "tests made without re-estimating theta"
+msgid "tests made without re-estimating 'theta'"
 msgstr ""
 
 msgid "only Chi-squared LR tests are implemented"
 msgstr ""
 
-msgid "not all objects are of class 'negbin'"
+msgid "not all objects are of class \"negbin\""
 msgstr ""
 
 msgid "unimplemented method:"
@@ -305,25 +272,22 @@ msgstr ""
 msgid "alternation limit reached"
 msgstr ""
 
-msgid "theta must be specified"
+msgid "'theta' must be specified"
 msgstr ""
 
 msgid "link not available for negative binomial family; available links are \"identity\", \"log\" and \"sqrt\""
 msgstr ""
 
-msgid "Negative values not allowed for"
+msgid "negative values not allowed for the negative binomial family"
 msgstr ""
 
-msgid "the negative binomial family"
-msgstr ""
-
-msgid "estimator truncated at zero"
+msgid "estimate truncated at zero"
 msgstr ""
 
 msgid "extra arguments discarded"
 msgstr ""
 
-msgid "at least 3 distinct x values are needed"
+msgid "at least 3 distinct 'x' values are needed"
 msgstr ""
 
 msgid "an intercept is needed and assumed"
@@ -341,13 +305,16 @@ msgstr ""
 msgid "design appears to be rank-deficient, so dropping some coefs"
 msgstr ""
 
-msgid "not a polr fit"
+msgid "not a \"polr\" object"
 msgstr ""
 
-msgid "anova is not implemented for a single polr object"
+msgid "anova is not implemented for a single \"polr\" object"
 msgstr ""
 
-msgid "not all objects are of class 'polr'"
+msgid "not all objects are of class \"polr\""
+msgstr ""
+
+msgid "models were not all fitted to the same size of dataset"
 msgstr ""
 
 msgid "profiling has found a better solution, so original fit had not converged"
@@ -359,22 +326,22 @@ msgstr ""
 msgid "rank deficiency in group"
 msgstr ""
 
-msgid "object not of class qda"
+msgid "object not of class \"qda\""
 msgstr ""
 
-msgid "cannot have leave-one-out CV with newdata"
+msgid "cannot have leave-one-out CV with 'newdata'"
 msgstr ""
 
 msgid "'x' is singular: singular fits are not implemented in rlm"
 msgstr ""
 
-msgid "invalid testvec"
+msgid "invalid 'test.vec'"
 msgstr ""
 
-msgid "length of weights must equal number of observations"
+msgid "length of 'weights' must equal number of observations"
 msgstr ""
 
-msgid "negative weights value"
+msgid "negative 'weights' value"
 msgstr ""
 
 msgid "some of ... do not match"
@@ -383,49 +350,43 @@ msgstr ""
 msgid "'init' method is unknown"
 msgstr ""
 
-msgid "c must be at least 1.548 and has been ignored"
+msgid "'c' must be at least 1.548 and has been ignored"
 msgstr ""
 
 msgid "'method' is unknown"
 msgstr ""
 
-msgid "rlm failed to converge in"
+msgid "rlm failed to converge in %d steps"
 msgstr ""
 
-msgid "steps"
+msgid "'coef' must define a contrast, i.e., sum to 0"
 msgstr ""
 
-msgid "coef must define a contrast, i.e., sum to 0"
+msgid "'coef' must have same length as 'contrast.obj'"
 msgstr ""
 
-msgid "coef must have same length as contrast.obj"
-msgstr ""
-
-msgid "each element of"
-msgstr ""
-
-msgid "must be logical"
+msgid "each element of %s must be logical"
 msgstr ""
 
 msgid "the contrast defined is empty (has no TRUE elements)"
 msgstr ""
 
-msgid "columns of contrast.obj must define a contrast (sum to zero)"
+msgid "columns of 'contrast.obj' must define a contrast (sum to zero)"
 msgstr ""
 
-msgid "gradient attribute missing"
+msgid "\"gradient\" attribute missing"
 msgstr ""
 
-msgid "hessian attribute missing"
+msgid "\"hessian\" attribute missing"
 msgstr ""
 
 msgid "regression apparently linear"
 msgstr ""
 
-msgid "Infs not allowed in d"
+msgid "Infs not allowed in 'd'"
 msgstr ""
 
-msgid "an initial configuration must be supplied with NAs in d"
+msgid "an initial configuration must be supplied if there are NAs in 'd'"
 msgstr ""
 
 msgid "1 missing observation deleted"
@@ -446,13 +407,10 @@ msgstr ""
 msgid "0 df terms are changing AIC"
 msgstr ""
 
-msgid "number of rows in use has changed: remove missing values?"
-msgstr ""
-
 msgid "AIC undefined for REML fit"
 msgstr ""
 
-msgid "uneven breaks with prob = FALSE will give a misleading plot"
+msgid "uneven breaks with 'prob = FALSE' will give a misleading plot"
 msgstr ""
 
 msgid "'x' has length zero"
@@ -463,3 +421,13 @@ msgstr ""
 
 msgid "minimum occurred at one end of the range"
 msgstr ""
+
+msgid        "group %s is empty"
+msgid_plural "groups %s are empty"
+msgstr[0]    ""
+msgstr[1]    ""
+
+msgid        "variable %d appears to be constant within groups"
+msgid_plural "variables %d appear to be constant within groups"
+msgstr[0]    ""
+msgstr[1]    ""

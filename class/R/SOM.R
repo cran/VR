@@ -89,7 +89,7 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
         for(k in 1:nphases) {
             rlen <- length(alpha[[k]])
             if(length(radii[[k]]) != rlen)
-                stop("alpha and radii do not match")
+                stop("'alpha' and 'radii' do not match")
             codes <- .C("VR_onlineSOM",
                         data = as.double(data),
                         codes = as.double(codes),

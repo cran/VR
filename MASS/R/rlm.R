@@ -73,13 +73,13 @@ rlm.default <-
         stop("'x' is singular: singular fits are not implemented in rlm")
 
     if(!(any(test.vec == c("resid", "coef", "w", "NULL"))
-         || is.null(test.vec))) stop("invalid testvec")
+         || is.null(test.vec))) stop("invalid 'test.vec'")
     ## deal with weights
     xx <- x
     if(!missing(weights)) {
         if(length(weights) != nrow(x))
-            stop("length of weights must equal number of observations")
-        if(any(weights < 0)) stop("negative weights value")
+            stop("length of 'weights' must equal number of observations")
+        if(any(weights < 0)) stop("negative 'weights' value")
         if(wt.method == "inv.var") {
             fac <- sqrt(weights)
             y <- y*fac; x <- x* fac
@@ -124,7 +124,8 @@ rlm.default <-
                 c0 <- arguments$c
                 if (c0 > 1.548) {
                     formals(psi)$c <- c0
-                } else warning("c must be at least 1.548 and has been ignored")
+                } else
+                warning("'c' must be at least 1.548 and has been ignored")
             }
         scale <- temp$scale
     } else stop("'method' is unknown")
@@ -158,7 +159,9 @@ rlm.default <-
         done <- (convi <= acc)
         if(done) break
     }
-    if(!done) warning("rlm failed to converge in ", maxit, " steps")
+    if(!done)
+        warning(sprintf(gettext("rlm failed to converge in %d steps"), maxit),
+                domain = NA)
     fitted <- temp$fitted.values
     if(!missing(weights)) {
         tmp <- (weights != 0)
@@ -336,15 +339,14 @@ se.contrast.rlm <-
     else contrast.obj <- eval(substitute(contrast.obj), data, parent.frame())
     if(!is.matrix(contrast.obj)) { # so a list
         if(sum(coef) != 0)
-            stop("coef must define a contrast, i.e., sum to 0")
+            stop("'coef' must define a contrast, i.e., sum to 0")
         if(length(coef) != length(contrast.obj))
-            stop("coef must have same length as contrast.obj")
+            stop("'coef' must have same length as 'contrast.obj'")
         contrast <-
             sapply(contrast.obj, function(x)
                {
                    if(!is.logical(x))
-                       stop("each element of ", substitute(contrasts.list),
-                            " must be logical")
+                       stop(sprintf(gettext("each element of %s must be logical"),substitute(contrasts.list)), domain = NA)
                    x/sum(x)
                })
         contrast <- contrast %*% coef
@@ -353,12 +355,12 @@ se.contrast.rlm <-
     } else {
         contrast <- contrast.obj
         if(any(abs(colSums(contrast)) > 1e-8))
-            stop("columns of contrast.obj must define a contrast (sum to zero)")
+            stop("columns of 'contrast.obj' must define a contrast (sum to zero)")
         if(length(colnames(contrast)) == 0)
             colnames(contrast) <- paste("Contrast", seq(ncol(contrast)))
     }
     weights <- contrast.weight.aov(object, contrast)
-    object$sigma * if(!is.matrix(contrast.obj)) sqrt(sum(weights)) else sqrt(colSums(weights))
+    object$stddev * if(!is.matrix(contrast.obj)) sqrt(sum(weights)) else sqrt(colSums(weights))
 }
 
 predict.rlm <- function (object, newdata = NULL, scale = NULL, ...)
@@ -367,4 +369,10 @@ predict.rlm <- function (object, newdata = NULL, scale = NULL, ...)
     ## the QR decomp which has been done on down-weighted values.
     object$qr <- qr(sqrt(object$weights) * object$x)
     predict.lm(object, newdata = newdata, scale = object$s, ...)
+}
+
+vcov.rlm <- function (object, ...)
+{
+    so <- summary(object, corr = FALSE)
+    so$stddev^2 * so$cov.unscaled
 }

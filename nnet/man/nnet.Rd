@@ -112,8 +112,7 @@ switch for tracing optimization. Default \code{TRUE}.
 \item{MaxNWts}{
 The maximum allowable number of weights.  There is no intrinsic limit
 in the code, but increasing \code{MaxNWts} will probably allow fits that
-are very slow and time-consuming (and perhaps uninterruptable under
-Windows).
+are very slow and time-consuming (and perhaps uninterruptable).
 }
 \item{abstol}{
 Stop if the fit criterion falls below \code{abstol}, indicating an

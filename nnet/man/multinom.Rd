@@ -77,6 +77,11 @@ counts.
 \item{\dots}{
 additional arguments for \code{nnet}
 }}
+\details{
+  \code{multinom} calls \code{\link{nnet}}.  The variables on the rhs of
+  the formula should be roughly scaled to [0,1] or the fit will be slow
+  or may not converge at all.
+}
 \value{
 A \code{nnet} object with additional components:
 

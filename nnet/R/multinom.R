@@ -1,4 +1,4 @@
-# file nnet/multinom.q copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# file nnet/multinom.q copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 
 multinom <-
@@ -52,8 +52,11 @@ multinom <-
   if(is.factor(Y)) {
     counts <- table(Y)
     if(any(counts == 0)) {
-      warning(paste("group(s)", paste(lev[counts == 0], collapse=" "),
-		    "are empty"))
+      empty <- lev[counts == 0]
+      warning(sprintf(ngettext(length(empty),
+                               "group %s is empty",
+                               "groups %s are empty"),
+                      paste(empty, collapse=" ")), domain = NA)
       Y <- factor(Y, levels=lev[counts > 0])
       lev <- lev[counts > 0]
     }
@@ -151,7 +154,7 @@ multinom <-
 
 predict.multinom <- function(object, newdata, type=c("class","probs"), ...)
 {
-  if(!inherits(object, "multinom")) stop("not a multinom fit")
+  if(!inherits(object, "multinom")) stop("not a \"multinom\" fit")
   type <- match.arg(type)
   if(missing(newdata)) Y <- fitted(object)
   else {
@@ -210,25 +213,30 @@ coef.multinom <- function(object, ...)
 
 drop1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
 {
-  if(!inherits(object, "multinom")) stop("Not a multinom fit")
+  if(!inherits(object, "multinom")) stop("not a \"multinom\" fit")
   if(missing(scope)) scope <- drop.scope(object)
     else {
       if(!is.character(scope))
 	scope <- attr(terms(update.formula(object, scope)), "term.labels")
       if(!all(match(scope, attr(object$terms, "term.labels"),
                     nomatch = FALSE)))
-	stop("scope is not a subset of term labels")
+	stop("'scope' is not a subset of term labels")
     }
   ns <- length(scope)
   ans <- matrix(nrow = ns+1, ncol = 2,
                 dimnames = list(c("<none>", scope), c("Df", "AIC")))
   ans[1, ] <- c(object$edf, object$AIC)
+  n0 <- length(object$residuals)
   i <- 2
   for(tt in scope) {
     cat("trying -", tt,"\n")
-    nobject <- update(object, paste("~ . -", tt), trace = trace)
+    nobject <- update(object, paste("~ . -", tt), trace = trace,
+                      evaluate = FALSE)
+    nobject <- eval.parent(nobject)
     if(nobject$edf == object$edf) nobject$AIC <- NA
     ans[i, ] <- c(nobject$edf, nobject$AIC)
+    if(length(nobject$residuals) != n0)
+        stop("number of rows in use has changed: remove missing values?")
     i <- i+1
   }
   if(sorted) ans <- ans[order(ans[, 2]), ]
@@ -237,23 +245,28 @@ drop1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
 
 add1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
 {
-  if(!inherits(object, "multinom")) stop("Not a multinom fit")
+  if(!inherits(object, "multinom")) stop("not a \"multinom\" fit")
   if(!is.character(scope))
     scope <- add.scope(object, update.formula(object, scope,
 					   evaluate = FALSE))
   if(!length(scope))
-    stop("no terms in scope for adding to object")
+    stop("no terms in 'scope' for adding to object")
   ns <- length(scope)
   ans <- matrix(nrow = ns+1, ncol = 2,
                 dimnames = list(c("<none>",paste("+",scope,sep="")),
                   c("Df", "AIC")))
   ans[1, ] <- c(object$edf, object$AIC)
+  n0 <- length(object$residuals)
   i <- 2
   for(tt in scope) {
     cat("trying +", tt,"\n")
-    nobject <- update(object, paste("~ . +", tt), trace=trace)
+    nobject <- update(object, as.formula(paste("~ . +", tt)), trace = trace,
+                      evaluate = FALSE)
+    nobject <- eval.parent(nobject)
     if(nobject$edf == object$edf) nobject$AIC <- NA
     ans[i, ] <- c(nobject$edf, nobject$AIC)
+    if(length(nobject$residuals) != n0)
+        stop("number of rows in use has changed: remove missing values?")
     i <- i+1
   }
   if(sorted) ans <- ans[order(ans[, 2]), ]
@@ -349,15 +362,19 @@ anova.multinom <- function(object, ..., test = c("Chisq", "none"))
   test <- match.arg(test)
   dots <- list(...)
   if(length(dots) == 0)
-    stop("anova is not implemented for a single multinom object")
+    stop('anova is not implemented for a single "multinom" object')
   mlist <- list(object, ...)
   nt <- length(mlist)
   dflis <- sapply(mlist, function(x) x$edf)
   s <- order(dflis)
-  dflis <- nrow(residuals(object)) * (ncol(residuals(object))-1) - dflis
+  ## careful, might use na.exclude here
+  dflis <- nrow(object$residuals) * (ncol(object$residuals)-1) - dflis
   mlist <- mlist[s]
   if(any(!sapply(mlist, inherits, "multinom")))
-    stop("not all objects are of class 'multinom'")
+    stop('not all objects are of class "multinom"')
+  ns <- sapply(mlist, function(x) length(x$residuals))
+  if(any(ns != ns[1]))
+    stop("models were not all fitted to the same size of dataset")
   rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
   mds <- sapply(mlist, function(x) paste(formula(x)[3]))
   dfs <- dflis[s]
@@ -371,7 +388,7 @@ anova.multinom <- function(object, ..., test = c("Chisq", "none"))
                     Prob = pr)
   names(out) <- c("Model", "Resid. df", "Resid. Dev", "Test",
                   "   Df", "LR stat.", "Pr(Chi)")
-  if(test=="none") out <- out[, 1:6]
+  if(test == "none") out <- out[, 1:6]
   class(out) <- c("Anova", "data.frame")
   attr(out, "heading") <-
     c("Likelihood ratio tests of Multinomial Models\n",

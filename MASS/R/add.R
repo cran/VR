@@ -21,13 +21,16 @@ addterm.default <-
     ans <- matrix(nrow = ns + 1, ncol = 2,
                   dimnames = list(c("<none>", scope), c("df", "AIC")))
     ans[1,  ] <- extractAIC(object, scale, k = k, ...)
+    n0 <- length(object$residuals)
     for(i in seq(ns)) {
         tt <- scope[i]
         if(trace) cat("trying +", tt, "\n")
         nfit <- update(object, as.formula(paste("~ . +", tt)),
                        evaluate = FALSE)
         nfit <- eval.parent(nfit)
-        ans[i+1,  ] <- extractAIC(nfit, scale, k = k, ...)
+	ans[i+1, ] <- extractAIC(nfit, scale, k = k, ...)
+        if(length(nfit$residuals) != n0)
+            stop("number of rows in use has changed: remove missing values?")
     }
     dfs <- ans[,1] - ans[1,1]
     dfs[1] <- NA
@@ -131,8 +134,6 @@ addterm.glm <-
     ns <- length(scope)
     dfs <- dev <- numeric(ns+1)
     names(dfs) <- names(dev) <- c("<none>", scope)
-    dfs[1] <- object$rank
-    dev[1] <- object$deviance
     add.rhs <- paste(scope, collapse = "+")
     add.rhs <- eval(parse(text = paste("~ . +", add.rhs)))
     new.form <- update.formula(object, add.rhs)
@@ -148,14 +149,19 @@ addterm.glm <-
     y <- object$y
     newn <- length(y)
     if(newn < oldn)
-        warning(paste("using the", newn, "/", oldn ,
-                      "rows from a combined fit"))
+        warning(sprintf(gettext("using the %d/%d rows from a combined fit"),
+                        newn, oldn), domain = NA)
     wt <- object$prior.weights
     if(is.null(wt)) wt <- rep(1, n)
     Terms <- attr(Terms, "term.labels")
     asgn <- attr(x, "assign")
     ousex <- match(asgn, match(oTerms, Terms), 0) > 0
     if(int) ousex[1] <- TRUE
+    X <- x[, ousex, drop = FALSE]
+    z <-  glm.fit(X, y, wt, offset=object$offset,
+                  family=object$family, control=object$control)
+    dfs[1] <- z$rank
+    dev[1] <- z$deviance
     for(tt in scope) {
         if(trace) cat("trying +", tt, "\n")
         usex <- match(asgn, match(tt, Terms), 0) > 0
@@ -220,19 +226,20 @@ dropterm.default <-
         if(!all(match(scope, tl, FALSE)))
             stop("scope is not a subset of term labels")
     }
-#    data <- model.frame(object) # remove NAs
-#    object <- update(object, data = data)
     ns <- length(scope)
     ans <- matrix(nrow = ns + 1, ncol = 2,
                   dimnames =  list(c("<none>", scope), c("df", "AIC")))
     ans[1,  ] <- extractAIC(object, scale, k = k, ...)
+    n0 <- length(object$residuals)
     for(i in seq(ns)) {
         tt <- scope[i]
         if(trace) cat("trying -", tt, "\n")
         nfit <- update(object, as.formula(paste("~ . -", tt)),
                        evaluate = FALSE)
         nfit <- eval.parent(nfit)
-        ans[i+1,  ] <- extractAIC(nfit, scale, k = k, ...)
+	ans[i+1, ] <- extractAIC(nfit, scale, k = k, ...)
+        if(length(nfit$residuals) != n0)
+            stop("number of rows in use has changed: remove missing values?")
     }
     dfs <- ans[1,1] - ans[,1]
     dfs[1] <- NA
@@ -297,7 +304,7 @@ dropterm.lm <-
 }
 
 dropterm.mlm <- function(object, ...)
-  stop("dropterm not implemented for mlm models")
+  stop("dropterm not implemented for \"mlm\" fits")
 
 dropterm.glm <-
   function(object, scope, scale = 0, test = c("none", "Chisq", "F"),
@@ -362,7 +369,8 @@ dropterm.glm <-
     } else if(test == "F") {
         fam <- object$family$family  ## extra line needed
         if(fam == "binomial" || fam == "poisson")
-            warning(paste("F test assumes quasi", fam, " family", sep=""))
+            warning(sprintf(gettext("F test assumes quasi%s family"), fam),
+                    domain = NA)
 	dev <- aod$Deviance
 	rms <- dev[1]/rdf
         dev <- pmax(0, dev - dev[1])

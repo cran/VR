@@ -9,9 +9,9 @@ knn1 <- function(train, test, cl)
             stop("no missing values are allowed")
 	p <- ncol(train)
 	ntr <- nrow(train)
-	if(length(cl) != ntr) stop("train and class have different lengths")
+	if(length(cl) != ntr) stop("'train' and 'class' have different lengths")
 	nte <- nrow(test)
-	if(ncol(test) != p) stop("Dims of test and train differ")
+	if(ncol(test) != p) stop("dims of 'test' and 'train' differ")
 	clf <- as.factor(cl)
 	nc <- max(unclass(clf))
 	res <- .C("VR_knn1",
@@ -38,14 +38,16 @@ knn <- function(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
             stop("no missing values are allowed")
 	p <- ncol(train)
 	ntr <- nrow(train)
-	if(length(cl) != ntr) stop("train and class have different lengths")
+	if(length(cl) != ntr) stop("'train' and 'class' have different lengths")
 	if(ntr < k) {
-	   warning(paste("k =",k,"exceeds number",ntr,"of patterns"))
+            warning(sprintf(gettext("k = %d exceeds number %d of patterns"),
+                            k, ntr), domain = NA)
 	   k <- ntr
 	}
-	if (k < 1) stop(paste("k =",k,"must be at least 1"))
+	if (k < 1)
+            stop(sprintf(gettext("k = %d must be at least 1"), k), domain = NA)
 	nte <- nrow(test)
-	if(ncol(test) != p) stop("Dims of test and train differ")
+	if(ncol(test) != p) stop("dims of 'test' and 'train differ")
 	clf <- as.factor(cl)
 	nc <- max(unclass(clf))
 	Z <- .C("VR_knn",
@@ -76,12 +78,14 @@ knn.cv <- function(train, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
             stop("no missing values are allowed")
 	p <- ncol(train)
 	ntr <- nrow(train)
-	if(length(cl) != ntr) stop("train and class have different lengths")
+	if(length(cl) != ntr) stop("'train' and 'class' have different lengths")
 	if(ntr-1 < k) {
-	   warning(paste("k =",k,"exceeds number",ntr-1,"of patterns"))
+            warning(sprintf(gettext("k = %d exceeds number %d of patterns"),
+                            k, ntr-1), domain = NA)
 	   k <- ntr - 1
 	}
-	if (k < 1) stop(paste("k =",k,"must be at least 1"))
+	if (k < 1)
+            stop(sprintf(gettext("k = %d must be at least 1"), k), domain = NA)
 	clf <- as.factor(cl)
 	nc <- max(unclass(clf))
 	Z <- .C("VR_knn",

@@ -1,7 +1,7 @@
 # file MASS/neg.bin.q
 # copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
-neg.bin <- function(theta = stop("theta must be given"))
+neg.bin <- function(theta = stop("'theta' must be given"))
 {
     ## use this to avoid capturing the MASS namespace
     env <- new.env(parent=.GlobalEnv)

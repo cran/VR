@@ -6,9 +6,9 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
 {
     call <- match.call()
     if(any(is.infinite(as.vector(d))))
-        stop("Infs not allowed in d")
+        stop("Infs not allowed in 'd'")
     if(any(is.na(d)) && missing(y))
-        stop("an initial configuration must be supplied with NAs in d")
+        stop("an initial configuration must be supplied if there are NAs in 'd'")
     if(is.null(n <- attr(d, "Size"))) {
         x <- as.matrix(d)
         if((n <- nrow(x)) != ncol(x))
@@ -24,14 +24,14 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
         ab <- !is.na(ab) & ab
         aa <- cbind(as.vector(row(x)), as.vector(col(x)))[row(x) < col(x),]
         aa <- aa[ab, , drop=FALSE]
-        stop("zero or negative distance between objects ", aa[1,1],
-             " and ", aa[1,2])
+        stop(sprintf(gettext("zero or negative distance between objects %d and %d"),
+                     aa[1,1], aa[1,2]), domain = NA)
     }
     nas <- is.na(x)
     diag(nas) <- FALSE  # diag never used
     if(any(rowSums(!nas) < 2)) stop("not enough non-missing data")
 
-    if(!is.matrix(y)) stop("y must be a matrix")
+    if(!is.matrix(y)) stop("'y' must be a matrix")
     if(any(dim(y) != c(n, k)) ) stop("invalid initial configuration")
     if(any(!is.finite(y))) stop("initial configuration must be complete")
     storage.mode(x) <- "double"

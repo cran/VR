@@ -99,7 +99,10 @@ Library MASS
 - polr() handles a rank-deficient model matrix.
 - polr() now returns the method used, and uses it for predictions.
 - anova() method for polr (contributed by John Fox).
-- predict.GLMMpql was not using the na.action in the object as intended.
+- predict.glmmPQL was not using the na.action in the object as intended.
+- The default methods for addterm and dropterm and anova.polr now check
+  for changes in the number of cases in use caused e.g. by na.action=na.omit.
+- Added vcov() method for rlm fits.
 
 
 Library class
@@ -125,6 +128,8 @@ Library nnet
 - predict methods for multinom, nnet now check newdata types
 - model.frame.multinom now looks for the environment of the original formula
 - multinom has a new `model' argument defaulting to TRUE.
+- the multinom methods for add1, dropterm and anova now check
+  for changes in the number of cases in use caused e.g. by na.action=na.omit.
 
 
 Library spatial

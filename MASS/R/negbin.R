@@ -5,7 +5,7 @@ anova.negbin <- function(object, ..., test = "Chisq")
 {
   dots <- list(...)
   if(length(dots) == 0) {
-    warning("tests made without re-estimating theta")
+    warning("tests made without re-estimating 'theta'")
     object$call[[1]] <- as.name("glm")
     if(is.null(object$link))
       object$link <- as.name("log")
@@ -21,7 +21,7 @@ anova.negbin <- function(object, ..., test = "Chisq")
     s <- sort.list(-dflis)
     mlist <- mlist[s]
     if(any(!sapply(mlist, inherits, "negbin")))
-      stop("not all objects are of class 'negbin'")
+      stop("not all objects are of class \"negbin\"")
     rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
     mds <- sapply(mlist, function(x) paste(formula(x)[3]))
     ths <- sapply(mlist, function(x) x$theta)
@@ -162,7 +162,7 @@ glm.nb <- function(formula, data, weights,
     if(!is.null(attr(th, "warn"))) fit$th.warn <- attr(th, "warn")
     if(iter > control$maxit) {
         warning("alternation limit reached")
-        fit$th.warn <- "alternation limit reached"
+        fit$th.warn <- gettext("alternation limit reached")
     }
 
   # If an offset and intercept are present, iterations are needed to
@@ -202,7 +202,7 @@ glm.nb <- function(formula, data, weights,
 }
 
 negative.binomial <-
-    function(theta = stop("theta must be specified"), link = "log")
+    function(theta = stop("'theta' must be specified"), link = "log")
 {
     linktemp <- substitute(link)
     if (!is.character(linktemp)) {
@@ -228,8 +228,8 @@ negative.binomial <-
         2 * sum(term * wt)
     }
     initialize <- expression({
-        if (any(y < 0)) stop(paste("Negative values not allowed for",
-                                   "the negative binomial family"))
+        if (any(y < 0))
+            stop("negative values not allowed for the negative binomial family")
         n <- rep(1, nobs)
         mustart <- y + (y == 0)/6
     })
@@ -243,7 +243,7 @@ negative.binomial <-
                    validmu = validmu, valideta = stats$valideta), class = "family")
 }
 
-rnegbin <- function(n, mu = n, theta = stop("theta must be given"))
+rnegbin <- function(n, mu = n, theta = stop("'theta' must be specified"))
 {
     k <- if(length(n) > 1) length(n) else n
     rpois(k, (mu * rgamma(k, theta))/theta)
@@ -294,8 +294,8 @@ theta.md <-
     }
     if(t0 < 0) {
         t0 <- 0
-        warning("estimator truncated at zero")
-        attr(t0, "warn") <- "estimate truncated at zero"
+        warning("estimate truncated at zero")
+        attr(t0, "warn") <- gettext("estimate truncated at zero")
     }
     t0
 }
@@ -327,12 +327,12 @@ theta.ml <-
     }
     if(t0 < 0) {
         t0 <- 0
-        warning("estimator truncated at zero")
-        attr(t0, "warn") <- "estimate truncated at zero"
+        warning("estimate truncated at zero")
+        attr(t0, "warn") <- gettext("estimate truncated at zero")
     }
     if(it == limit) {
         warning("iteration limit reached")
-        attr(t0, "warn") <- "iteration limit reached"
+        attr(t0, "warn") <- gettext("iteration limit reached")
     }
     attr(t0, "SE") <- sqrt(1/i)
     t0
@@ -356,8 +356,8 @@ theta.mm <- function(y, mu, dfr, limit = 10, eps = .Machine$double.eps^0.25)
     }
     if(t0 < 0) {
         t0 <- 0
-        warning("estimator truncated at zero")
-        attr(t0, "warn") <- "estimate truncated at zero"
+        warning("estimate truncated at zero")
+        attr(t0, "warn") <- gettext("estimate truncated at zero")
     }
     t0
 }

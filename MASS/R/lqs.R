@@ -56,7 +56,7 @@ lqs.default <-
 	nm <- c("(Intercept)", nm)
     }
     p <- ncol(x)
-    if(nrow(x) != n) stop("x and y must have the same number of rows")
+    if(nrow(x) != n) stop("'x' and 'y' must have the same number of rows")
     method <- match.arg(method)
     lts <- 0; beta <- 0
     if(method == "lqs" && missing(quantile)) quantile <- floor((n+p+1)/2)
@@ -72,12 +72,14 @@ lqs.default <-
 	chi <- function(u, k0)
 	{ u <- (u/k0)^2; ifelse(u < 1, 3*u - 3*u^2 + u^3, 1) }
     }
-    if(quantile > n-1) stop("'quantile' must be at most ", n-1)
+    if(quantile > n-1)
+        stop(sprintf(gettext("'quantile' must be at most %d"), n-1),
+             domain = NA)
     ps <- control$psamp
     if(is.na(ps)) ps <- p
     if(ps < p) {
 	ps <- p
-	warning("ps must be at least p")
+	warning("'ps' must be at least 'p'")
     }
     adj <- control$adjust & intercept
     nsamp <- eval(control$nsamp)
@@ -85,7 +87,8 @@ lqs.default <-
     if(is.character(nsamp) && nsamp == "best") {
 	nsamp <- if(nexact < 5000) "exact" else "sample"
     } else if(is.numeric(nsamp) && nsamp > nexact) {
-	warning("only ", nexact, " sets, so all sets will be tried")
+	warning(sprintf(gettext("only %d sets, so all sets will be tried"),
+                        nexact), domain = NA)
 	nsamp <- "exact"
     }
     samp <- nsamp != "exact"
@@ -182,12 +185,18 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
     if(any(is.na(x)) || any(is.infinite(x)))
 	stop("missing or infinite values are not allowed")
     n <- nrow(x); p <- ncol(x)
-    if(n < p+1) stop("at least ", p+1, " cases are needed")
+    if(n < p+1)
+        stop(sprintf(gettext("at least %d cases are needed"), p+1),
+             domain = NA)
     if(method == "classical") {
 	ans <- list(center = colMeans(x), cov = var(x))
     } else {
-	if(quantile.used < p+1) stop("'quantile' must be at least ", p+1)
-	if(quantile.used > n-1) stop("'quantile' must be at most ", n-1)
+	if(quantile.used < p+1)
+            stop(sprintf(gettext("'quantile' must be at least %d"), p+1),
+                 domain = NA)
+	if(quantile.used > n-1)
+            stop(sprintf(gettext("'quantile' must be at most %d"), p+1),
+                 domain = NA)
 	## re-scale to roughly common scale
 	divisor <- apply(x, 2, IQR)
         if(any(divisor == 0)) stop("at least one column has IQR 0")
@@ -198,7 +207,8 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
 	if(is.character(nsamp) && nsamp == "best")
 	    nsamp <- if(nexact < 5000) "exact" else "sample"
 	if(is.numeric(nsamp) && nsamp > nexact) {
-	    warning("only ", nexact, " sets, so all sets will be tried")
+            warning(sprintf(gettext("only %d sets, so all sets will be tried"),
+                            nexact), domain = NA)
 	    nsamp <- "exact"
 	}
 	samp <- nsamp != "exact"
@@ -225,7 +235,7 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
 	crit <- z$crit + 2*sum(log(divisor)) +
 	    if(method=="mcd") - p * log(qn - 1) else 0
 	best <- seq(n)[z$bestone != 0]
-        if(!length(best)) stop("x is probably collinear")
+        if(!length(best)) stop("'x' is probably collinear")
 	means <- colMeans(x[best, , drop = FALSE])
 	rcov <- var(x[best, , drop = FALSE]) * (1 + 15/(n - p))^2
 	dist <- mahalanobis(x, means, rcov)

@@ -20,7 +20,7 @@ ginv <- function(X, tol = sqrt(.Machine$double.eps))
 # based on suggestions of R. M. Heiberger, T. M. Hesterberg and WNV
 #
     if(length(dim(X)) > 2 || !(is.numeric(X) || is.complex(X)))
-        stop("X must be a numeric or complex matrix")
+        stop("'X' must be a numeric or complex matrix")
     if(!is.matrix(X)) X <- as.matrix(X)
     Xsvd <- svd(X)
     if(is.complex(X)) Xsvd$u <- Conj(Xsvd$u)

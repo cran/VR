@@ -1,7 +1,7 @@
 glmmPQL <- function(fixed, random, family, data, correlation, weights,
                     control, niter = 10, verbose = TRUE, ...)
 {
-    if(!require("nlme")) stop("package nlme is essential")
+    if(!require("nlme")) stop("package 'nlme' is essential")
     ## family
     if(is.character(family)) family <- get(family)
     if(is.function(family)) family <- family()
