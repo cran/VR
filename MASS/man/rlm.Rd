@@ -21,7 +21,7 @@ rlm(x, \dots)
 
 \method{rlm}{formula}(formula, data, weights, \dots, subset, na.action,
     method = c("M", "MM", "model.frame"),
-    wt.method = c("case", "inv.var"),
+    wt.method = c("inv.var", "case"),
     model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)
 
 \method{rlm}{default}(x, y, weights, \dots, w = rep(1, nrow(x)),

@@ -23,7 +23,7 @@ This function is generic; there exist methods for classes \code{lm} and
 \usage{
 dropterm (object, \dots)
 
-\method{dropterm}{default}(object, scope, scale = 0, test = c("none", "Chisq", "F"),
+\method{dropterm}{default}(object, scope, scale = 0, test = c("none", "Chisq"),
          k = 2, sorted = FALSE, trace = FALSE, \dots)
 
 \method{dropterm}{lm}(object, scope, scale = 0, test = c("none", "Chisq", "F"),

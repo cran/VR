@@ -23,7 +23,7 @@ This function is generic; there exist methods for classes \code{lm} and
 \usage{
 addterm(object, \dots)
 
-\method{addterm}{default}(object, scope, scale = 0, test = c("none", "Chisq", "F"),
+\method{addterm}{default}(object, scope, scale = 0, test = c("none", "Chisq"),
         k = 2, sorted = FALSE, trace = FALSE, \dots)
 \method{addterm}{lm}(object, scope, scale = 0, test = c("none", "Chisq", "F"),
         k = 2, sorted = FALSE, \dots)

@@ -69,7 +69,20 @@ birthwt.step2$anova
 summary(birthwt.step2, cor = F)$coef
 table(bwt$low, predict(birthwt.step2) > 0)
 
-## R has a different gam() in package mgcv
+## R has a similar gam() in package gam and a different gam() in package mgcv
+library(gam)
+attach(bwt)
+age1 <- age*(ftv=="1"); age2 <- age*(ftv=="2+")
+birthwt.gam <- gam(low ~ s(age) + s(lwt) + smoke + ptd +
+    ht + ui + ftv + s(age1) + s(age2) + smoke:ui, binomial,
+    bwt, bf.maxit=25)
+summary(birthwt.gam)
+table(low, predict(birthwt.gam) > 0)
+par(mfrow = c(2, 2))
+if(interactive()) plot(birthwt.gam, ask = TRUE, se = TRUE)
+par(mfrow = c(1, 1))
+detach()
+
 library(mgcv)
 attach(bwt)
 age1 <- age*(ftv=="1"); age2 <- age*(ftv=="2+")

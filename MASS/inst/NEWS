@@ -66,3 +66,5 @@ This file documents software changes since the third edition.
 - Datasets austres, fdeaths, lh, mdeaths, nottem and rock 
   are now visible in the 'datasets' package of R 2.0.0 and so have 
   been removed here.
+- Script ch07.R now gives details using the gam() function in package gam as
+  well as that in package mgcv.

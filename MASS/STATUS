@@ -3,8 +3,8 @@ already in R.
 
 Additional datasets to work our examples are:
 
-VA, geyser, heart
-
+VA, geyser
+(heart is in package survival)
 
 moved to base R:
 max.col		find largest column for each row of a matrix,
@@ -13,10 +13,7 @@ digamma, trigamma	first and second derivatives of log Gamma
 		(even of complex argument).
 
 IQR, mosaicplot, relevel are in base R
-lqs, cov.rob are in package lqs in R
-biplot.princomp is in package mva in R
-ppr is in package modreg in R
-cpgram is in package ts in R
+biplot.princomp, cpgram, ppr are in package stats in R
 
 The following depend on facilities not in R and so do not work:
 
@@ -26,5 +23,4 @@ vcov.nlregb	vcov methods for nlregb objects
 vcov.nlminb	vcov methods for nlminb objects
 
 
-BDR <ripley@stats.ox.ac.uk> 2002-01-14
-
+BDR <ripley@stats.ox.ac.uk> 2004-08-15
