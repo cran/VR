@@ -206,7 +206,7 @@ stripplot(Age ~ Days | Sex*Lrn*Eth, data = Quine,
 stripplot(Age ~ Days | Eth*Sex, data = Quine,
    groups = Lrn, jitter = T,
    panel = function(x, y, subscripts, jitter.data = F, ...) {
-       if(jitter.data)  y <- jitter(y)
+       if(jitter.data)  y <- jitter(as.numeric(y))
        panel.superpose(x, y, subscripts, ...)
    },
    xlab = "Days of absence",

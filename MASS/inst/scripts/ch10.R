@@ -159,7 +159,14 @@ Rc.nlme <- nlme(BPchange ~ Fpl(Dose, A, B, ld50, th),
      random = A + ld50 ~ 1 | Animal, data = Rabbit,
      subset = Treatment == "Control",
      start = list(fixed = st))
-Rm.nlme <- update(Rc.nlme, subset = Treatment=="MDL")
+## The next fails on some R platforms and some versions of nlme
+## Rm.nlme <- update(Rc.nlme, subset = Treatment=="MDL")
+## so update starting values
+st <- coef(nls(BPchange ~ Fpl(Dose, A, B, ld50, th),
+          start = c(A = 25, B = 0, ld50 = 4, th = 0.25),
+          data = Rabbit, subset = Treatment == "MDL"))
+Rm.nlme <- update(Rc.nlme, subset = Treatment=="MDL",
+                  start = list(fixed = st))
 
 Rc.nlme
 Rm.nlme
@@ -259,15 +266,16 @@ summary(glmmPQL(y ~ pred, random = ~1 | subject,
 
 # 10.5  GEE models
 
+## modified for YAGS 3.21-3
 library(yags)
 attach(bacteria)
-summary(yags(y == "y" ~ trt + I(week > 2), family = binomial,
-             id = ID, corstr = "exchangeable"))
+yags(y == "y" ~ trt + I(week > 2), family = binomial, alphainit=0,
+     id = ID, corstr = "exchangeable")
 detach("bacteria")
 
 attach(epil)
-summary(yags(y ~ lbase*trt + lage + V4, family = poisson,
-             id = subject, corstr = "exchangeable"))
+yags(y ~ lbase*trt + lage + V4, family = poisson, alphainit=0,
+     id = subject, corstr = "exchangeable")
 detach("epil")
 
 options(contrasts = c("contr.sum", "contr.poly"))

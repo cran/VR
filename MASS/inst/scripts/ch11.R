@@ -1,5 +1,7 @@
 #-*- R -*-
 
+## Script from Fourth Edition of `Modern Applied Statistics with S'
+
 # Chapter 11   Exploratory Multivariate Analysis
 
 library(MASS)
@@ -161,15 +163,14 @@ points(swiss.pam$medoid[,1:2], pch = 3, cex = 3)
 
 fanny(swiss.px, 3)
 
-if(0) {
 ## From the on-line Errata:
 ##
 ##   `Very regretably, the authors of mclust have chosen to
 ##   re-use the name for a completely incompatible package.  We can
 ##   no longer recommend its use, and the code given here does not
-##   work in R's mclust-2.x.'
+##   work in R's mclust-2.x. mclust1998 can be used.'
 ##
-library(mclust)
+library(mclust1998)
 h <- mhtree(swiss.x, modelid = "VVV")
 (mh <- as.vector(mhclass(h, 3)))
 z <- me(swiss.x, modelid = "VVV", z = (ctoz(mh)+1/3)/2)
@@ -184,7 +185,23 @@ eqscplot(swiss.px[, 1:2], type = "n",
          xlab = "first principal component",
          ylab = "second principal component")
 text(swiss.px[, 1:2], labels = sm$classification)
-}
+
+library(mclust) # 2.x equivalent commands
+h <- hc(modelName = "VVV", swiss.x)
+(mh <- as.vector(hclass(h, 3)))
+z <- me(modelName = "VVV", swiss.x,  z = 0.5*(unmap(mh)+1/3))
+eqscplot(swiss.px[, 1:2], type = "n",
+         xlab = "first principal component",
+         ylab = "second principal component")
+text(swiss.px[, 1:2], labels = max.col(z$z))
+
+vals <- EMclust(swiss.x) # all possible models, 0:9 clusters.
+(sm <- summary(vals, swiss.x))
+eqscplot(swiss.px[, 1:2], type = "n",
+         xlab = "first principal component",
+         ylab = "second principal component")
+text(swiss.px[, 1:2], labels = sm$classification)
+
 
 # 11.3 Factor analysis
 
