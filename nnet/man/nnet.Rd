@@ -22,7 +22,7 @@ Fit single-hidden-layer neural network, possibly with skip-layer connections.
 nnet(x, \dots)
 
 \method{nnet}{formula}(formula, data, weights, \dots,
-     subset, na.action = na.fail, contrasts = NULL)
+     subset, na.action, contrasts = NULL)
 
 \method{nnet}{default}(x, y, weights, size, Wts, mask,
      linout = FALSE, entropy = FALSE, softmax = FALSE,

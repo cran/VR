@@ -353,8 +353,9 @@ summary(rock1) # to find the ranges of the variables
 Xp <- expand.grid(area = seq(0.1, 1.2, 0.05),
                   peri = seq(0, 0.5, 0.02), shape = 0.2)
 rock.grid <- cbind(Xp, fit = predict(rock.ppr2, Xp))
-# wireframe(fit ~ area + peri, rock.grid, screen = list(z=160,x=-60),
-#           aspect = c(1, 0.5), drape = T)
+wireframe(fit ~ area + peri, rock.grid, screen = list(z=160,x=-60),
+          aspect = c(1, 0.5), drape = TRUE)
+# or
 persp(seq(0.1, 1.2, 0.05), seq(0, 0.5, 0.02), matrix(rock.grid$fit, 23),
       d = 5, theta = -160, phi = 30, zlim = c(-1, 15))
 
@@ -391,8 +392,9 @@ eigen(rock.nn$Hessian, T)$values    # rock.nn$Hessian in R
 Xp <- expand.grid(area = seq(0.1, 1.2, 0.05),
                  peri = seq(0, 0.5, 0.02), shape = 0.2)
 rock.grid <- cbind(Xp, fit = predict(rock.nn, Xp))
-# wireframe(fit ~ area + peri, rock.grid, screen = list(z=160, x=-60),
-#           aspect = c(1, 0.5), drape = T)
+wireframe(fit ~ area + peri, rock.grid, screen = list(z=160, x=-60),
+          aspect = c(1, 0.5), drape = TRUE)
+# or
 persp(seq(0.1, 1.2, 0.05), seq(0, 0.5, 0.02), matrix(rock.grid$fit, 23),
       d = 5, theta = -160, phi = 30, zlim = c(-1, 15))
 

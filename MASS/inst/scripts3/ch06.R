@@ -321,7 +321,7 @@ res1 <- log10(cpus1[-cpus.samp, "perf"]) -
               predict(cpus.lm, cpus0[-cpus.samp,])
 res2 <- log10(cpus1[-cpus.samp, "perf"]) -
               predict(cpus.lm2, cpus0[-cpus.samp,])
-library(ctest)
+# library(ctest)
 wilcox.test(res1^2, res2^2, paired=T, alternative="greater")
 
 

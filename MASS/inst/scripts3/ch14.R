@@ -47,7 +47,7 @@ trsurf <- trmat(topo.ls, 0, 6.5, 0, 6.5, 30)
 image(trsurf, col=grey(0:128/128))
 points(topo)
 
-library(modreg)
+# library(modreg)
 dif <- 0.1
 par(mfcol=c(2,2), pty="s")
 topo.loess <- loess(z ~ x * y, topo, degree=2, span = 0.25, normalize=F)

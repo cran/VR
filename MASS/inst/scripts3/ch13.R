@@ -7,7 +7,7 @@
 library(MASS)
 postscript(file="ch13.ps", width=8, height=6, pointsize=9)
 options(width=65, digits=5)
-library(ts)
+# library(ts)
 
 data(lh)
 lh
@@ -70,11 +70,11 @@ lh.ar$aic
 cpgram(lh.ar$resid, main="AR(3) fit to lh")
 
 lh.arima1 <- arima0(lh, order=c(1,0,0), include.mean = T)
-arima0.diag(lh.arima1)
+tsdiag(lh.arima1)
 lh.arima3 <- arima0(lh, order=c(3,0,0), include.mean = T)
-arima0.diag(lh.arima3)
+tsdiag(lh.arima3)
 lh.arima11 <- arima0(lh, order=c(1,0,1), include.mean = T)
-arima0.diag(lh.arima11)
+tsdiag(lh.arima11)
 #lh.fore <- arima.forecast(lh1, n=12, model=lh.arima3$model)
 lh.fore <- predict(lh.arima3, n.ahead=12)
 #lh.fore$mean <- lh.fore$mean + mean(lh)
@@ -113,17 +113,17 @@ ar(deaths.diff)
 deaths.arima1 <- arima0(deaths, order=c(2,0,0),
                         list(order=c(0,1,0), period=12))
 deaths.arima1
-arima0.diag(deaths.arima1, gof.lag=24)
+tsdiag(deaths.arima1, gof.lag=24)
 # suggests need a seasonal AR term
 deaths.arima2 <- arima0(deaths, order=c(2,0,0),
                         list(order=c(1,0,0), period=12))
 deaths.arima2
-arima0.diag(deaths.arima2, gof.lag=24)
+tsdiag(deaths.arima2, gof.lag=24)
 cpgram(deaths.arima2$resid)
 deaths.arima3 <- arima0(deaths, order=c(2,0,0),
                         list(order=c(1,1,0), period=12))
 deaths.arima3  # aic not comparable to deaths.arima2
-arima0.diag(deaths.arima3, gof.lag=24)
+tsdiag(deaths.arima3, gof.lag=24)
 arima0(deaths,order=c(2,0,0), list(order=c(1,0,0), period=12))
 arima0(deaths, order=c(2,0,0), list(order=c(2,0,0), period=12))
 
@@ -172,7 +172,7 @@ acf(diff(nott,12), 30, type="partial")
 cpgram(diff(nott,12))
 nott.arima1 <- arima0(nott,order=c(1,0,0), list(order=c(2,1,0), period=12))
 nott.arima1
-arima0.diag(nott.arima1, gof.lag=24)
+tsdiag(nott.arima1, gof.lag=24)
 nott.fore <- predict(nott.arima1, n.ahead=36)
 plot(window(nottem, 1937), lty=3, ylim=c(30, 70))
 lines(nott.fore$pred, col="blue")

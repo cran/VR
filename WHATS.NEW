@@ -76,6 +76,12 @@ Library MASS
 - cov.trob works better if wts are supplied, and may converge a little faster 
   in any case.
 - The ch11.R script now uses mclust not mclust1998.
+- The default xlab for boxcox() is now greek lambda.
+- glmmPQL now handles offset terms.
+- add predict.rlm method to correct predict.lm in the case se.fit=TRUE.
+- weighted rlm fits are handled better, and default to "inv.var".
+- logtrans works without specifying 'data'.
+- predict() method for glmmPQL.
 
 
 Library class
@@ -86,6 +92,7 @@ Library class
 - Bugfix in SOM (7.0-5)
 - knn* and lvq* explicitly check for missing values in the inputs.
 - knn1 was not handling ties correctly in some cases (but knn was).
+- added check for user error in inputs in knn.cv.
 
 
 Library nnet

@@ -11,8 +11,8 @@ options(width=65, digits=5)
 
 # 3.2  Basic plotting functions
 
-data(mdeaths); data(fdeaths)
-library(ts)
+# data(mdeaths); data(fdeaths)
+# library(ts)
 lung.deaths <- aggregate(ts.union(mdeaths, fdeaths), 1)
 barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
    main="UK deaths from lung disease")
@@ -25,8 +25,8 @@ text(loc, total + par("cxy")[2], total, cex=0.7, xpd=T)
 
 # if(interactive())  brush(as.matrix(hills))
 
-library(modreg)
-data(topo)
+# library(modreg)
+# data(topo)
 topo.loess <- loess(z ~ x * y, topo, degree=2, span = 0.25)
 topo.mar <- list(x = seq(0, 6.5, 0.2), y=seq(0, 6.5, 0.2))
 topo.lo <- predict(topo.loess, expand.grid(topo.mar))
@@ -49,7 +49,7 @@ contourplot(z ~ x * y, con2tr(c(topo.mar, list(z=topo.lo))), aspect=1,
 
 # 3.3  Enhancing plots
 
-data(wtloss)
+# data(wtloss)
 attach(wtloss)
 oldpar <- par(no.readonly=TRUE)
 # alter margin 4; others are default
@@ -116,7 +116,7 @@ p1     # plots it on screen
 show.settings()
 }
 
-data(hills)
+# data(hills)
 # library(lqs)
 
 xyplot(time ~ dist, data = hills,
@@ -128,7 +128,7 @@ xyplot(time ~ dist, data = hills,
   }
 )
 
-data(michelson)
+# data(michelson)
 bwplot(Expt ~ Speed, data=michelson, ylab="Experiment No.",
        main = "Speed of Light Data")
 # title("Speed of Light Data") ## fails in lattice
@@ -145,7 +145,7 @@ splom(~ swiss.df, aspect="fill",
    }
 )
 
-data(stormer)
+# data(stormer)
 sps <- trellis.par.get("superpose.symbol")
 sps$pch <- 1:7
 trellis.par.set("superpose.symbol", sps)
@@ -178,8 +178,8 @@ wireframe(pred ~ x * y, topo.plt, aspect=c(1, 0.5), drape=T,
   colorkey=list(space="right", height=0.6))
 }
 
-data(crabs)
-library(mva)
+# data(crabs)
+# library(mva)
 lcrabs.pc <- predict(princomp(log(crabs[,4:8])))
 crabs.grp <- c("B", "b", "O", "o")[rep(1:4, rep(50,4))]
 splom(~ lcrabs.pc[, 1:3], groups = crabs.grp,
@@ -195,7 +195,7 @@ sp <- crabs$sp; levels(sp) <- c("Blue", "Orange")
 splom(~ lcrabs.pc[, 1:3] | sp*sex, cex=0.5, pscales=0)
 
 
-data(quine)
+# data(quine)
 Quine <- quine
 levels(Quine$Eth) <- c("Aboriginal", "Non-aboriginal")
 levels(Quine$Sex) <- c("Female", "Male")
@@ -224,7 +224,7 @@ stripplot(Age ~ Days | Eth*Sex, data=Quine,
              strip.default(..., strip.names=c(T, T), style=1)
 )
 
-data(fgl)
+# data(fgl)
 fgl0 <- fgl[ ,-10] # omit type.
 fgl.df <- data.frame(type = rep(fgl$type, 9),
   y = as.vector(as.matrix(fgl0)),

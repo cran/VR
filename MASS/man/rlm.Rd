@@ -1,11 +1,12 @@
 % file MASS/rlm.d
-% copyright (C) 1998,9 B. D. Ripley
+% copyright (C) 1998,9, 2004 B. D. Ripley
 %
 \name{rlm}
 \alias{rlm}
 \alias{rlm.default}
 \alias{rlm.formula}
 \alias{print.rlm}
+\alias{predict.rlm}
 \alias{psi.bisquare}
 \alias{psi.hampel}
 \alias{psi.huber}
@@ -25,7 +26,7 @@ rlm(x, \dots)
 
 \method{rlm}{default}(x, y, weights, \dots, w = rep(1, nrow(x)),
     init, psi = psi.huber, scale.est, k2 = 1.345,
-    method = c("M", "MM"), wt.method = c("case", "inv.var"),
+    method = c("M", "MM"), wt.method = c("inv.var", "case"),
     maxit = 20, acc = 1e-4, test.vec = "resid")
 }
 \arguments{

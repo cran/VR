@@ -1,5 +1,5 @@
 # file MASS/corresp.q
-# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 #
 corresp <- function(x, ...) UseMethod("corresp")
 
@@ -7,7 +7,7 @@ corresp.xtabs <- function(x, ...)
 {
   if((m <- length(dim(x))) > 2)
     stop(paste("Frequency table is", m, "dimensional"))
-  corresp.matrix(x)
+  corresp.matrix(x, ...)
 }
 
 corresp.data.frame <- function(x, ...)

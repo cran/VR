@@ -61,9 +61,10 @@ function(object, ..., alpha = seq(0.5, 6, by = 0.25) - min(y),
 }
 
 logtrans.formula <-
-function(object, data = NULL, ...)
+function(object, data, ...)
 {
-  object <- aov(object, data = data, y = TRUE, qr = TRUE)
+  object <- if(missing(data)) aov(object,y = TRUE, qr = TRUE)
+  else aov(object, data = data, y = TRUE, qr = TRUE)
   invisible(NextMethod("logtrans"))
 }
 

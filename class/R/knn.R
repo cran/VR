@@ -76,6 +76,7 @@ knn.cv <- function(train, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
             stop("no missing values are allowed")
 	p <- ncol(train)
 	ntr <- nrow(train)
+	if(length(cl) != ntr) stop("train and class have different lengths")
 	if(ntr-1 < k) {
 	   warning(paste("k =",k,"exceeds number",ntr-1,"of patterns"))
 	   k <- ntr - 1

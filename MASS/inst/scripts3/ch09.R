@@ -29,7 +29,7 @@ lines(times, fitted(lm(accel ~ ns(times, df=20))), lty=4)
 legend(40, -100, c("df=5", "df=10", "df=20"), lty=c(1,3,4),
    bty="n")
 
-library(modreg)
+# library(modreg)
 plot(times, accel, main="Smoothing splines")
 lines(smooth.spline(times, accel))
 plot(times, accel, main="Lowess")
@@ -119,7 +119,7 @@ detach()
 
 # 9.2  Projection-pursuit regression
 
-library(modreg)
+# library(modreg)
 attach(rock)
 rock1 <- data.frame(area=area/10000, peri=peri/10000,
 		    shape=shape, perm=perm)
@@ -173,7 +173,7 @@ cpus.ppr2 <- ppr(log10(perf) ~ ., data=cpus0[cpus.samp,],
 test.cpus(cpus.ppr2)
 res3 <- log10(cpus0[-cpus.samp, "perf"]) -
               predict(cpus.ppr, cpus0[-cpus.samp,])
-library(ctest)
+# library(ctest)
 wilcox.test(res2^2, res3^2, paired=T, alternative="greater")
 
 

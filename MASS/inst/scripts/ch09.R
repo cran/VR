@@ -22,6 +22,7 @@ post(shuttle.rp, horizontal = FALSE, height=10, width=8, title = "",
 set.seed(123)
 cpus.rp <- rpart(log10(perf) ~ ., cpus[ , 2:8], cp = 1e-3)
 cpus.rp
+print(cpus.rp, cp = 0.01) # default pruning
 
 plot(cpus.rp, uniform = TRUE)
 text(cpus.rp, digits = 3)

@@ -4,7 +4,7 @@
 
 # Chapter 11   Multivariate Analysis
 
-library(mva)
+# library(mva)
 library(MASS) # needed for biplot.princomp
 postscript(file="ch11.ps", width=8, height=6, pointsize=9)
 options(width=65, digits=5)
@@ -564,7 +564,7 @@ CV.lvq <- function()
 con(fgl$type, CV.lvq())
 
 # Try Mahalanobis distance
-library(mva)
+# library(mva)
 fgl0 <- scale(princomp(fgl[,-10])$scores)
 con(fgl$type, CV.lvq())
 
@@ -586,7 +586,7 @@ probs.multinom <- CVprobs(
   function(obj, x) predict(obj, fgl[x, ],type="probs"),
   maxit=1000, trace=F )
 
-library(modreg)
+# library(modreg)
 probs.yes <- as.vector(class.ind(fgl$type))
 probs <- as.vector(probs.multinom)
 par(pty="s")

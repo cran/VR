@@ -4,7 +4,7 @@
 
 # Chapter 12   Survival Analysis
 
-library(modreg)  # for scatter.smooth()
+# library(modreg)  # for scatter.smooth()
 library(survival)
 library(MASS)  # need our heart
 options(width=65, digits=5, height=9999)

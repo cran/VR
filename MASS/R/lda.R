@@ -39,8 +39,7 @@ lda.data.frame <- function(x, ...)
 }
 
 
-lda.matrix <- function(x, grouping, ...,
-		       subset, na.action = na.fail)
+lda.matrix <- function(x, grouping, ..., subset, na.action)
 {
     if(!missing(subset)) {
         x <- x[subset, , drop = FALSE]

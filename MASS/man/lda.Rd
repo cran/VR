@@ -26,7 +26,7 @@ lda(x, \dots)
 
 \method{lda}{data.frame}(x, \dots)
 
-\method{lda}{matrix}(x, grouping, \dots, subset, na.action = na.fail)
+\method{lda}{matrix}(x, grouping, \dots, subset, na.action)
 }
 \arguments{
   \item{formula}{

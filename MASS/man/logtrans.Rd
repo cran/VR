@@ -1,5 +1,5 @@
 % file MASS/logtrans.d
-% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 %
 \name{logtrans}
 \alias{logtrans}
@@ -10,7 +10,7 @@
 Estimate log Transformation Parameter
 }
 \description{
-Find and optionally plot the marginal likelihood for alpha
+Find and optionally plot the marginal (profile) likelihood for alpha
 for a transformation model of the form \code{log(y + alpha) ~ x1 + x2 + \dots}.
 }
 \usage{
@@ -19,7 +19,7 @@ logtrans(object, ...)
 \method{logtrans}{default}(object, \dots, alpha = seq(0.5, 6, by = 0.25) - min(y),
          plotit = TRUE, interp =, xlab = "alpha", ylab = "log Likelihood")
 
-\method{logtrans}{formula}(object, data = NULL, \dots)
+\method{logtrans}{formula}(object, data, \dots)
 
 \method{logtrans}{lm}(object, \dots)
 }
@@ -50,7 +50,7 @@ as for \code{plot}.
 as for \code{plot}.
 }
 \item{data}{
-  \code{data} argument for \code{lm} fit.
+  optional \code{data} argument for \code{lm} fit.
 }
 }
 \value{

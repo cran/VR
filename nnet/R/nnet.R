@@ -3,7 +3,7 @@
 nnet <- function(x, ...) UseMethod("nnet")
 
 nnet.formula <- function(formula, data, weights, ...,
-                         subset, na.action = na.fail, contrasts=NULL)
+                         subset, na.action, contrasts=NULL)
 {
   class.ind <- function(cl)
   {

@@ -5,7 +5,7 @@
 # Chapter 8   Non-linear Models
 
 library(MASS)
-library(nls)
+# library(nls)
 postscript(file="ch08.ps", width=8, height=6, pointsize=9)
 options(width=65, digits=5)
 

@@ -74,8 +74,13 @@ pseudo-likelihood approach.
   \code{\link[nlme]{lme}}
 }
 \examples{
-library(nlme)
+library(nlme) # will be loaded automatically if omitted
 summary(glmmPQL(y ~ trt + I(week > 2), random = ~ 1 | ID,
                 family = binomial, data = bacteria))
-}
+\testonly{ # an example of offset
+summary(glmmPQL(y ~ trt + week, random = ~ 1 | ID,
+                family = binomial, data = bacteria))
+summary(glmmPQL(y ~ trt + week + offset(week), random = ~ 1 | ID,
+                family = binomial, data = bacteria))
+}}
 \keyword{models}

@@ -25,7 +25,7 @@ qda(x, \dots)
 
 \method{qda}{data.frame}(x, \dots)
 
-\method{qda}{matrix}(x, grouping, \dots, subset, na.action = na.fail)
+\method{qda}{matrix}(x, grouping, \dots, subset, na.action)
 }
 \arguments{
 \item{formula}{

@@ -1,8 +1,7 @@
 # file MASS/negbin.q
 # copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
-"anova.negbin"<-
-function(object, ..., test = "Chisq")
+anova.negbin <- function(object, ..., test = "Chisq")
 {
   dots <- list(...)
   if(length(dots) == 0) {
@@ -50,15 +49,20 @@ print.Anova <- function(x, ...)
     heading <- attr(x, "heading")
     if(!is.null(heading)) cat(heading, sep = "\n")
     attr(x, "heading") <- NULL
-    print.data.frame(x)
+    res <- format.data.frame(x, ...)
+    nas <- is.na(x) # format loses this
+    res[] <- sapply(seq(len=ncol(res)), function(i){
+        x <- as.character(res[[i]])
+        x[nas[, i]] <- ""
+        x
+    })
+    print.data.frame(res)
+    invisible(x)
 }
 
-"family.negbin"<-
-function(object, ...)
-    object$family
+family.negbin <- function(object, ...) object$family
 
-"glm.convert"<-
-function(object)
+glm.convert <- function(object)
 {
     object$call[[1]] <- as.name("glm")
     if(is.null(object$link))
@@ -240,15 +244,13 @@ negative.binomial <-
                    validmu = validmu, valideta = stats$valideta), class = "family")
 }
 
-rnegbin <-
-function(n, mu = n, theta = stop("theta must be given"))
+rnegbin <- function(n, mu = n, theta = stop("theta must be given"))
 {
     k <- if(length(n) > 1) length(n) else n
     rpois(k, (mu * rgamma(k, theta))/theta)
 }
 
-"summary.negbin" <-
-function(object, dispersion = 1, correlation = TRUE, ...)
+summary.negbin <- function(object, dispersion = 1, correlation = TRUE, ...)
 {
     if(is.null(dispersion)) dispersion <- 1
     summ <- c(summary.glm(object, dispersion = dispersion,
@@ -258,7 +260,7 @@ function(object, dispersion = 1, correlation = TRUE, ...)
     summ
 }
 
-"print.summary.negbin" <- function(x, ...)
+print.summary.negbin <- function(x, ...)
 {
     NextMethod()
     dp <- 2 - floor(log10(x$SE.theta))
@@ -271,7 +273,7 @@ function(object, dispersion = 1, correlation = TRUE, ...)
     invisible(x)
 }
 
-"theta.md" <-
+theta.md <-
     function(y, u, dfr, limit = 20, eps = .Machine$double.eps^0.25)
 {
     if(inherits(y, "lm")) {
@@ -299,7 +301,7 @@ function(object, dispersion = 1, correlation = TRUE, ...)
     t0
 }
 
-"theta.ml" <-
+theta.ml <-
     function(y, mu, n = length(y), limit = 10, eps = .Machine$double.eps^0.25,
              trace=FALSE)
 {
@@ -336,8 +338,7 @@ function(object, dispersion = 1, correlation = TRUE, ...)
     t0
 }
 
-"theta.mm" <-
-function(y, u, dfr, limit = 10, eps = .Machine$double.eps^0.25)
+theta.mm <- function(y, u, dfr, limit = 10, eps = .Machine$double.eps^0.25)
 {
   if(inherits(y, "lm")) {
     u <- y$fitted

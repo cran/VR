@@ -12,7 +12,7 @@ postscript(file="ch01.ps", width=8, height=6, pointsize=9)
 
 2 + 3
 sqrt(3/4)/(1/3 - 2/pi^2)
-data(chem)
+# data(chem)
 mean(chem)
 m <- mean(chem); v <- var(chem)/length(chem)
 m/sqrt(v)
@@ -53,7 +53,7 @@ contour(dd)
 persp(dd, theta=-30, phi=30, d=5)
 image(dd)
 
-library(modreg)
+# library(modreg)
 x <- seq(1, 20, 0.5)
 x
 w <- 1 + x/2
@@ -79,7 +79,7 @@ qqline(resid(fm))
 detach()
 rm(fm,fm1,lrf,dum)
 
-data(hills)
+#data(hills)
 hills
 #splom(~ hills)
 pairs(hills)
@@ -100,10 +100,10 @@ abline(lqs(y ~ x, xy), lty=2, col=2)
 rm(xy)
 }
 
-data(michelson)
+# data(michelson)
 attach(michelson)
 search()
-plot.factor(Expt, Speed,  main="Speed of Light Data", xlab="Experiment No.")
+plot(Expt, Speed,  main="Speed of Light Data", xlab="Experiment No.")
 fm <-  aov(Speed ~ Run + Expt)
 summary(fm)
 fm0 <- update(fm, . ~ . - Run)

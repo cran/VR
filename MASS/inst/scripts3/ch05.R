@@ -208,9 +208,9 @@ lines(density(gal, width=3.25, n=200), lty=1)
 lines(density(gal, width=2.56, n=200), lty=3)
 median(gal)
 
-library(logspline)
+library(polspline)
 x <- seq(5, 40, length=500)
-lines(x, dlogspline(x, logspline.fit(gal)), lty=2)
+lines(x, doldlogspline(x, oldlogspline(gal)), lty=2)
 
 
 
@@ -263,7 +263,7 @@ truehist(res, h=0.1)
 lines(density(res, width=width.SJ(res, method="dpi"), n=200))
 quantile(res, p=c(0.025, 0.975))
 x <- seq(19.5, 22.5, length=500)
-lines(x, dlogspline(x, logspline.fit(res)), lty=3)
+lines(x, doldlogspline(x, oldlogspline(res)), lty=3)
 
 library(boot)
 set.seed(101)

@@ -43,8 +43,7 @@ qda.data.frame <- function(x, ...)
 }
 
 
-qda.matrix <- function(x, grouping, ...,
-		       subset, na.action = na.fail)
+qda.matrix <- function(x, grouping, ..., subset, na.action)
 {
     if(!missing(subset)) {
         x <- x[subset, , drop = FALSE]

@@ -3,16 +3,15 @@ useDynLib(MASS)
 # functions
 export(area, as.fractions, bandwidth.nrd, bcv, boxcox, con2tr,
        contr.sdif, corresp, cov.trob, denumerate, dose.p, dropterm, enlist,
-       eqscplot, family.negbin, fbeta, fitdistr, fractions,
-       frequency.polygon, gamma.dispersion, gamma.shape, ginv,
-       glm.convert, glm.nb, glmmPQL, hist.FD, hist.scott, huber,
-       hubers, is.fractions, isoMDS, kde2d, lda, ldahist, lm.gls,
-       lm.ridge, lmwork, loglm, loglm1, logtrans, MASS.data.load, mca,
-       mvrnorm, nclass.freq, neg.bin, negative.binomial,
+       eqscplot, fbeta, fitdistr, fractions, frequency.polygon,
+       gamma.dispersion, gamma.shape, ginv, glm.convert, glm.nb, glmmPQL,
+       hist.FD, hist.scott, huber, hubers, is.fractions, isoMDS, kde2d, lda,
+       ldahist, lm.gls, lm.ridge, lmwork, loglm, loglm1, logtrans,
+       MASS.data.load, mca, mvrnorm, nclass.freq, neg.bin, negative.binomial,
        negexp.SSival, Null, parcoord, polr, psi.bisquare, psi.hampel,
-       psi.huber, qda, rational, renumerate, rlm, rms.curv, rnegbin,
-       select, Shepard, stdres, stepAIC, studres, theta.md, theta.ml,
-       theta.mm, truehist, ucv, width.SJ, write.matrix)
+       psi.huber, qda, rational, renumerate, rlm, rms.curv, rnegbin, select,
+       Shepard, stdres, stepAIC, studres, theta.md, theta.ml, theta.mm,
+       truehist, ucv, width.SJ, write.matrix)
 
 export(cov.mcd, cov.mve, cov.rob, lmsreg, lqs, lqs.formula, ltsreg)
 
@@ -50,13 +49,8 @@ export(denumerate.formula, renumerate.formula)
 #        profile.glm, select.ridgelm,
 #        summary.loglm, summary.negbin, summary.rlm)
 
-# use match.call and record the call
-# export(lda.data.frame, lda.default, lda.formula, lda.matrix,
-#        qda.data.frame, qda.default, qda.formula, qda.matrix,
-#        rlm.default, rlm.formula)
-
 importFrom(graphics, pairs, plot)
-importFrom(stats, anova, biplot, coef, confint, extractAIC, fitted, 
+importFrom(stats, anova, biplot, coef, confint, extractAIC, fitted,
 	   logLik, model.frame, predict, profile, residuals, se.contrast,
            terms, update, vcov)
 
@@ -100,6 +94,7 @@ S3method(extractAIC, gls)
 S3method(extractAIC, lme)
 S3method(extractAIC, loglm)
 S3method(extractAIC, polr)
+S3method(family, negbin)
 S3method(fitted, loglm)
 S3method(gamma.shape, glm)
 S3method(lda, data.frame)
@@ -127,11 +122,13 @@ S3method(plot, lda)
 S3method(plot, mca)
 S3method(plot, profile)
 S3method(plot, ridgelm)
+S3method(predict, glmmPQL)
 S3method(predict, lda)
 S3method(predict, lqs)
 S3method(predict, mca)
 S3method(predict, polr)
 S3method(predict, qda)
+S3method(predict, rlm)
 S3method(print, abbrev)
 S3method(print, Anova)
 S3method(print, anova.loglm)

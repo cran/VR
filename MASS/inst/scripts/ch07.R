@@ -75,7 +75,7 @@ attach(bwt)
 age1 <- age*(ftv=="1"); age2 <- age*(ftv=="2+")
 (birthwt.gam <- gam(low ~ s(age) + s(lwt) + smoke + ptd +
     ht + ui + ftv + s(age1) + s(age2) + smoke:ui, binomial, bwt))
-table(low, predict(birthwt.gam, bwt) > 0)
+table(low, predict(birthwt.gam) > 0)
 par(mfrow = c(2, 2))
 plot(birthwt.gam, se = TRUE)
 par(mfrow = c(1, 1))

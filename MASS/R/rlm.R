@@ -1,12 +1,12 @@
 # file MASS/rlm.q
-# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 #
 rlm <- function(x, ...) UseMethod("rlm")
 
 rlm.formula <-
     function(formula, data, weights, ..., subset, na.action,
              method = c("M", "MM", "model.frame"),
-             wt.method = c("case", "inv.var"),
+             wt.method = c("inv.var", "case"),
              model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)
 {
     mf <- match.call(expand.dots = FALSE)
@@ -48,7 +48,7 @@ rlm.default <-
   function(x, y, weights, ..., w = rep(1, nrow(x)),
            init = "ls", psi = psi.huber,
            scale.est = c("MAD", "Huber", "proposal 2"), k2 = 1.345,
-           method = c("M", "MM"), wt.method = c("case", "inv.var"),
+           method = c("M", "MM"), wt.method = c("inv.var", "case"),
            maxit = 20, acc = 1e-4, test.vec = "resid")
 {
     irls.delta <- function(old, new)
@@ -75,14 +75,20 @@ rlm.default <-
     if(!(any(test.vec == c("resid", "coef", "w", "NULL"))
          || is.null(test.vec))) stop("invalid testvec")
     ## deal with weights
-    w2 <-  rep(1, nrow(x))
+    xx <- x
     if(!missing(weights)) {
         if(length(weights) != nrow(x))
             stop("Length of weights must equal number of observations")
         if(any(weights < 0)) stop("Negative weights value")
-        w <- w * weights
-        if(wt.method == "inv.var") w2 <- 1/sqrt(weights)
-    }
+        if(wt.method == "inv.var") {
+            fac <- sqrt(weights)
+            y <- y*fac; x <- x* fac
+            wt <- NULL
+        } else {
+            w <- w * weights
+            wt <- weights
+        }
+    } else wt <- NULL
 
     if(method == "M") {
         scale.est <- match.arg(scale.est)
@@ -96,10 +102,8 @@ rlm.default <-
             formals(psi)[pm] <- unlist(arguments[pm])
         }
         if(is.character(init)) {
-            if(init == "ls")
-                temp <- lm.wfit(x, y, w, method="qr")
-            else if(init == "lts")
-                temp <- lqs(x, y, intercept=FALSE, nsamp=200)
+            temp <- if(init == "ls") lm.wfit(x, y, w, method="qr")
+            else if(init == "lts") lqs(x, y, intercept=FALSE, nsamp=200)
             else stop("init method is unknown")
             coef <- temp$coef
             resid <- temp$resid
@@ -127,7 +131,7 @@ rlm.default <-
 
     done <- FALSE
     conv <- NULL
-    n1 <- nrow(x) - ncol(x)
+    n1 <- (if(is.null(wt)) nrow(x) else sum(wt)) - ncol(x)
     if(scale.est != "MM") scale <- mad(resid, 0)
     theta <- 2*pnorm(k2)-1
     gamma <- theta + k2^2 * (1 - theta) - 2 * k2 * dnorm(k2)
@@ -135,14 +139,16 @@ rlm.default <-
         if(!is.null(test.vec)) testpv <- get(test.vec)
         if(scale.est != "MM") {
             if(scale.est == "MAD") scale <- median(abs(resid))/0.6745
-            else scale <- sqrt(sum(pmin(resid^2, (k2 * scale)^2))/(n1*gamma))
+            else scale <- if(is.null(wt))
+                sqrt(sum(pmin(resid^2, (k2 * scale)^2))/(n1*gamma))
+            else sqrt(sum(wt*pmin(resid^2, (k2 * scale)^2))/(n1*gamma))
             if(scale == 0) {
                 done <- TRUE
                 break
             }
         }
-        w <- psi(w2*resid/scale)
-        if(!missing(weights)) w <- w * weights
+        w <- psi(resid/scale)
+        if(!is.null(wt)) w <- w * weights
         temp <- lm.wfit(x, y, w, method="qr")
         coef <- temp$coef
         resid <- temp$residuals
@@ -164,7 +170,8 @@ rlm.default <-
                 rank = temp$rank, fitted.values = temp$fitted.values,
                 assign = temp$assign,  qr = temp$qr, df.residual = NA, w = w,
                 s = scale, psi = psi, k2 = k2,
-                conv = conv, converged = done, x = x, call = cl)
+                weights = if(!missing(weights)) weights,
+                conv = conv, converged = done, x = xx, call = cl)
     class(fit) <- c("rlm", "lm")
     fit
 }
@@ -209,7 +216,7 @@ summary.rlm <- function(object, method=c("XtX", "XtWX"),
     mn <- mean(psiprime)
     kappa <- 1 + p*var(psiprime)/(n*mn^2)
     stddev <- sqrt(S)*(kappa/mn)
-    X <- object$x
+    X <- object$x * sqrt(object$weights)
     if(method == "XtWX")  X <- X * sqrt(w/mean(w))
     R <- qr(X)$qr
     R <- R[1:p, 1:p, drop = FALSE]
@@ -350,4 +357,12 @@ se.contrast.rlm <-
     }
     weights <- contrast.weight.aov(object, contrast)
     object$sigma * if(!is.matrix(contrast.obj)) sqrt(sum(weights)) else sqrt(colSums(weights))
+}
+
+predict.rlm <- function (object, newdata = NULL, scale = NULL, ...)
+{
+    ## problems with using predict.lm are the scale and
+    ## the QR decomp which has been done on down-weighted values.
+    object$qr <- qr(sqrt(object$weights) * object$x)
+    predict.lm(object, newdata = newdata, scale = object$s, ...)
 }

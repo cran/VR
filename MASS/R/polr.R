@@ -222,7 +222,7 @@ model.frame.polr <- function(formula, ...)
 {
     dots <- list(...)
     nargs <- dots[match(c("data", "na.action", "subset"), names(dots), 0)]
-    if(any(nargs > 0) || is.null(formula$model)) {
+    if(length(nargs) || is.null(formula$model)) {
         m <- formula$call
         m$start <- m$Hess <- m$... <- NULL
         m[[1]] <- as.name("model.frame")

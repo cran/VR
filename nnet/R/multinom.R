@@ -384,7 +384,7 @@ model.frame.multinom <- function(formula, ...)
 {
     dots <- list(...)
     nargs <- dots[match(c("data", "na.action", "subset"), names(dots), 0)]
-    if(any(nargs > 0) || is.null(formula$model)) {
+    if(length(nargs) || is.null(formula$model)) {
         oc <- formula$call
         oc[[1]] <- as.name("model.frame")
         m <- match(names(oc)[-1], c("formula", "data", "na.action", "subset"))

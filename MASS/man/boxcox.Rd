@@ -17,13 +17,16 @@ parameter of the Box-Cox power transformation.
 boxcox(object, \dots)
 
 \method{boxcox}{default}(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
-       interp, eps = 1/50, xlab = "lambda", ylab = "log-Likelihood", \dots)
+       interp, eps = 1/50, xlab = expression(lambda),
+       ylab = "log-Likelihood", \dots)
 
 \method{boxcox}{formula}(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
-       interp, eps = 1/50, xlab = "lambda", ylab = "log-Likelihood", \dots)
+       interp, eps = 1/50, xlab = expression(lambda),
+       ylab = "log-Likelihood", \dots)
 
 \method{boxcox}{lm}(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
-       interp, eps = 1/50, xlab = "lambda", ylab = "log-Likelihood", \dots)
+       interp, eps = 1/50, xlab = expression(lambda),
+       ylab = "log-Likelihood", \dots)
 }
 \arguments{
 \item{object}{
