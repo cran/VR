@@ -12,7 +12,7 @@ options(echo=T, width=65, digits=5)
 # 11.1  Visualization methods
 
 # ir <- rbind(iris[,,1], iris[,,2], iris[,,3])
-data(iris3); ir <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
+ir <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
 ir.species <- factor(c(rep("s", 50), rep("c", 50), rep("v", 50)))
 (ir.pca <- princomp(log(ir), cor = T))
 summary(ir.pca)
@@ -99,7 +99,6 @@ text(crabs.som$grid$pts[bins, ] + rnorm(400, 0, 0.1),
 
 crabs.som2 <- SOM(lcrabs, gr); plot(crabs.som2)
 
-data(state)
 state <- state.x77[, 2:7]; row.names(state) <- state.abb
 biplot(princomp(state, cor = T), pc.biplot = T, cex = 0.7,
        expand = 0.8)
@@ -122,7 +121,6 @@ parcoord(log(ir)[, c(3, 4, 2, 1)], col = 1 + (0:149)%/%50)
 
 # 11.2   Cluster analysis
 
-data(swiss)
 swiss.x <- as.matrix(swiss[,-1])
 library(cluster)
 # h <- hclust(dist(swiss.x), method = "connected")
@@ -187,8 +185,6 @@ text(swiss.px[, 1:2], labels = sm$classification)
 
 # 11.3 Factor analysis
 
-data(ability.cov)
-
 ability.FA <- factanal(covmat = ability.cov, factors = 1)
 ability.FA
 (ability.FA <- update(ability.FA, factors = 2))
@@ -197,7 +193,7 @@ round(loadings(ability.FA) %*% t(loadings(ability.FA)) +
            diag(ability.FA$uniq), 3)
 # loadings(rotate(ability.FA, rotation = "oblimin"))
 
-if(F) {
+if(FALSE) {
 par(pty = "s")
 L <- loadings(ability.FA)
 eqscplot(L, xlim = c(0,1), ylim = c(0,1))

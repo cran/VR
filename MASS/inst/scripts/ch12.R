@@ -13,7 +13,7 @@ library(nnet)
 
 # 12.1  Discriminant Analysis
 
-data(iris3); ir <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
+ir <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
 ir.species <- factor(c(rep("s", 50), rep("c", 50), rep("v", 50)))
 
 (ir.lda <- lda(log(ir), ir.species))

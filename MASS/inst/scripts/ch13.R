@@ -157,7 +157,7 @@ par(mfrow = c(2, 2))
 plot(cox.zph(VA.cox3), var = c(1, 3, 7))
 par(mfrow = c(1, 1))
 
-data(heart)
+data(heart) # in package survival
 coxph(Surv(start, stop, event) ~ transplant*
     (age + surgery + year), data = heart)
 (stan <- coxph(Surv(start, stop, event) ~ transplant*year +

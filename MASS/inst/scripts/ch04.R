@@ -73,9 +73,8 @@ abline(h = 1, lty = 3)
 
 # 4.4  Fine control of graphics
 
-## in R just use data(swiss)
+## in R just use swiss
 # swiss <- data.frame(Fertility = swiss.fertility, swiss.x)
-data(swiss)
 attach(swiss)
 qqnorm(Infant.Mortality)
 qqline(Infant.Mortality)
@@ -126,7 +125,6 @@ xyplot(time ~ dist, data = hills,
 bwplot(Expt ~ Speed, data = michelson, ylab = "Experiment No.",
        main = "Speed of Light Data")
 
-data(swiss)
 splom(~ swiss, aspect = "fill",
   panel = function(x, y, ...) {
      panel.xyplot(x, y, ...); panel.loess(x, y, ...)

@@ -100,7 +100,6 @@ x <- c(2.9, 3.1, 3.4, 3.4, 3.7, 3.7, 2.8, 2.5)
 letters[1:3]
 letters[c(1:3,3:1)]
 
-data(state)
 longitude <- state.center$x
 names(longitude) <- state.name
 longitude[c("Hawaii", "Alaska")]

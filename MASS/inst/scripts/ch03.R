@@ -109,7 +109,6 @@ paste(c("X", "Y"), 1:4, sep = "")
 paste(c("X", "Y"), 1:4, sep = "", collapse = " + ")
 
 
-data(state)
 substring(state.name[44:50], 1, 4)
 
 as.vector(abbreviate(state.name[44:50]))
@@ -161,7 +160,6 @@ CC <- -(p %o% p)
 diag(CC) <- p + diag(CC)
 structure(3^8 * CC, dimnames = list(0:4, 0:4))  # convenience
 
-data(iris3)
 apply(iris3, c(2, 3), mean)
 apply(iris3, c(2, 3), mean, trim = 0.1)
 apply(iris3, 2, mean)

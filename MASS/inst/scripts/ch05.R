@@ -80,7 +80,6 @@ hist(chem, "FD")
 hist(tperm, "FD")
 par(mfrow=c(1,1))
 
-data(swiss)
 swiss.fertility <- swiss[, 1]
 stem(swiss.fertility)
 stem(chem)

@@ -26,8 +26,6 @@ addterm                 Try All One-Term Additions to a Model
 anorexia                Anorexia Data on Weight Change
 anova.negbin            Likelihood Ratio Tests for Negative Binomial GLMs
 area                    Adaptive Numerical Integration
-austres-MASS            Quarterly Time Series of the Number of
-			  Australian Residents
 bacteria                Presence of Bacteria after Drug Treatments
 bandwidth.nrd           Bandwidth for density() via Normal Reference
                           Distribution
@@ -52,7 +50,6 @@ cov.rob                 Resistant Estimation of Multivariate Location and
 cov.trob                Covariance Estimation for Multivariate t Distribution
 cpus                    Performance of Computer CPUs
 crabs                   Morphological Measurements on Leptograpsus Crabs
-deaths                  Monthly Deaths from Lung Diseases in the UK
 denumerate              Transform an Allowable Formula for 'loglm'
                           into one for 'terms'
 dose.p                  Predict Doses for Binomial Assay model
@@ -93,7 +90,6 @@ lda                     Linear Discriminant Analysis
 ldahist                 Histograms or Density Plots of Multiple Groups
 leuk                    Survival Times and White Blood Counts for
                           Leukaemia Patients
-lh-MASS                 Luteinizing Hormone in Blood Samples
 lm.gls                  Fit Linear Models by Generalized Least Squares
 lm.ridge                Ridge Regression
 loglm                   Fit Log-Linear Models by Iterative
@@ -113,7 +109,6 @@ mvrnorm                 Simulate from a Multivariate Normal Distribution
 negative.binomial       Family function for Negative Binomial GLMs
 newcomb                 Newcomb's Measurements of the Passage Time of Light
 nlschools               Eighth-Grade Pupils in the Netherlands
-nottem-MASS             Average Monthly Temperatures at Nottingham, 1920-1939
 npk                     Classical N, P, K Factorial Experiment
 npr1                    US Naval Petroleum Reserve No. 1 data
 oats                    Data from an Oats Field Trial
@@ -138,7 +133,6 @@ rlm                     Robust Fitting of Linear Models
 rms.curv                Relative Curvature Measures for Non-Linear Regression
 rnegbin                 Simulate Negative Binomial Variates
 road                    Road Accident Deaths in US States
-rock-MASS               Measurements on Petroleum Rock Samples
 rotifer                 Numbers of Rotifers by Fluid Density
 sammon                  Sammon's Non-Linear Mapping
 ships                   Ships Damage Data

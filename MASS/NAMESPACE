@@ -1,36 +1,20 @@
 useDynLib(MASS)
 
 # functions
-export(area, as.fractions, bandwidth.nrd, bcv, boxcox, con2tr,
+export(addterm, area, as.fractions, bandwidth.nrd, bcv, boxcox, con2tr,
        contr.sdif, corresp, cov.trob, denumerate, dose.p, dropterm, enlist,
        eqscplot, fbeta, fitdistr, fractions, frequency.polygon,
        gamma.dispersion, gamma.shape, ginv, glm.convert, glm.nb, glmmPQL,
        hist.FD, hist.scott, huber, hubers, is.fractions, isoMDS, kde2d, lda,
        ldahist, lm.gls, lm.ridge, lmwork, loglm, loglm1, logtrans,
-       MASS.data.load, mca, mvrnorm, nclass.freq, neg.bin, negative.binomial,
+       mca, mvrnorm, nclass.freq, neg.bin, negative.binomial,
        negexp.SSival, Null, parcoord, polr, psi.bisquare, psi.hampel,
-       psi.huber, qda, rational, renumerate, rlm, rms.curv, rnegbin, select,
+       psi.huber, qda, rational, renumerate, rlm, rms.curv, rnegbin, sammon, select,
        Shepard, stdres, stepAIC, studres, theta.md, theta.ml, theta.mm,
        truehist, ucv, width.SJ, write.matrix)
 
 # formerly in package lqs
 export(cov.mcd, cov.mve, cov.rob, lmsreg, lqs, lqs.formula, ltsreg)
-
-# datasets
-export(abbey, accdeaths, addterm, Aids2, Animals, anorexia, austres,
-       bacteria, beav1, beav2, biopsy, birthwt, Boston, cabbages,
-       caith, Cars93, cats, cement, chem, coop, cpus, crabs, Cushings,
-       DDT, deaths, drivers, eagles, epil, farms, fdeaths, fgl,
-       forbes, GAGurine, galaxies, gehan, genotype, geyser, gilgais,
-       hills, housing, immer, Insurance, leuk, lh, mammals, mcycle,
-       mdeaths, Melanoma, menarche, michelson, minn38, motors, muscle,
-       newcomb, nlschools, nottem, npk, npr1, oats, OME, painters,
-       petrol, phones, Pima.te, Pima.tr, Pima.tr2, quine, Rabbit,
-       road, rock, rotifer, Rubber, sammon, ships, shoes, shrimp,
-       shuttle, Sitka, Sitka89, Skye, snails, SP500, steam, stormer,
-       survey, synth.te, synth.tr, topo, Traffic, UScereal, UScrime,
-       VA, waders, whiteside, wtloss)
-
 
 # needed for Recall
 export(denumerate.formula, renumerate.formula)

@@ -85,6 +85,9 @@ Library MASS
 - polr() has an option for probit or proportional hazard fits.
 - neg.bin() and negative.binomial() had an error in the aic() formula.
 - The ch05.R script now includes the code for Figure 5.8.
+- Datasets austres, fdeaths, lh, mdeaths, nottem and rock 
+  are now visible in the 'datasets' package of R 2.0.0 and so have 
+  been removed here.
 
 
 Library class

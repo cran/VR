@@ -9,7 +9,6 @@
 %\alias{plot.profile}
 %\alias{print.Anova}
 %\alias{print.abbrev}
-\alias{MASS.data.load}
 \title{Internal MASS functions}
 \description{
  Internal MASS functions
@@ -24,7 +23,6 @@ negexp.SSival(mCall, data, LHS)
 %pairs.profile(x, colours = 2:3, \dots)
 %plot.profile(x, nseg, \dots)
 %print.Anova(x, \dots)
-MASS.data.load(i)
 }
 \details{
   These are not to be called by the user.  Some are for compatibility
