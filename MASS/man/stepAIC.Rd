@@ -3,7 +3,6 @@
 %
 \name{stepAIC}
 \alias{stepAIC}
-\alias{extractAIC}
 \title{
 Choose a model by AIC in a Stepwise Algorithm
 }
@@ -13,7 +12,6 @@ Performs stepwise model selection by exact AIC.
 \usage{
 stepAIC(object, scope, scale, direction=c("both", "backward", "forward"), 
         trace=1, keep=NULL, steps=1000, use.start=FALSE, k=2, \dots)
-extractAIC(fit, scale, k=2, \dots)
 }
 \arguments{
 \item{object fit}{

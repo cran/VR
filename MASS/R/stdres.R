@@ -5,6 +5,7 @@ lmwork <- function(object)
 {
     resid <- object$resid
     hat <- lm.influence(object)$hat
+    hat <- hat[hat > 0]
     ok <- !(is.na(resid))
     n.miss <- sum(!ok)
     switch(ifelse(n.miss > 2, 2, n.miss),

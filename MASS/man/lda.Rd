@@ -77,6 +77,9 @@ the proportions in the whole dataset are used.
 }
 \item{nu}{
 degrees of freedom for \code{method = "t"}.
+}
+\item{...}{
+arguments passed to or from other methods.
 }}
 \value{
 an object of class \code{"lda"} containing the following components:

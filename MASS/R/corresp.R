@@ -102,7 +102,7 @@ biplot.correspondence <-
   colnames(X) <- rep("", 2)
   Y <- obj$cscore[, 1:2]
   if(type != "rows")  Y <- Y %*% diag(obj$cor[1:2])
-  switch(type, "symmetric" = biplot.default(X, Y, var.axes=F, ...),
+  switch(type, "symmetric" = biplot.default(X, Y, var.axes = FALSE, ...),
          "rows" = biplot.bdr(X, Y, ...),
          "columns" = biplot.bdr(Y, X, ...))
   invisible()
@@ -154,7 +154,7 @@ function(obs, bivars, col, cex = rep(par("cex"), 2),
   plot(obs, type = "n", xlim = xlim, ylim = ylim, col = col[1], ...)
   text(obs, labels=olab, cex = cex[1], col = col[1], ...)
   par(new = TRUE)
-  plot(bivars, axes = F, type = "n", xlim = xlim, ylim =
+  plot(bivars, axes = FALSE, type = "n", xlim = xlim, ylim =
        ylim, xlab = "", ylab = "", col = col[1], ...)
   axis(3, col = col[2])
   axis(4, col = col[2])

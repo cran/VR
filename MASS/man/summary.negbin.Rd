@@ -25,6 +25,9 @@ as for \code{summary.glm}, with a default of 1.
 }
 \item{correlation}{
 as for \code{summary.glm}.
+}
+\item{...}{
+arguments passed to or from other methods.
 }}
 \value{
 As for \code{summary.glm}; the additional lines of output are not included in

@@ -47,7 +47,8 @@ print.mca <- function(x, ...)
   invisible(x)
 }
 
-plot.mca <- function(x, rows=T, col, cex = par("cex"), ...)
+plot.mca <- function(x, rows = TRUE,
+                     col, cex = par("cex"), ...)
 {
   if(length(cex) == 1) cex <- rep(cex, 2)
   eqscplot(x$cs, type="n", xlab="", ...)

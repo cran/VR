@@ -37,7 +37,7 @@ an optional data frame in which to interpret the variables occurring
 in \code{formula}.
 }
 \item{weights}{
-optional case weights in fitting.
+optional case weights in fitting.  Default to 1.
 }
 \item{start}{
 initial values for the parameters.

@@ -37,6 +37,9 @@ approximation process.
 \item{max.denominator}{
 An early termination criterion.  If any partial denominator
 exceeds \code{max.denominator} the continued fraction stops at that point.
+}
+\item{...}{
+arguments passed to or from other methods.
 }}
 \value{
 An object of class \code{"fractions"}.  A structure with \code{.Data} component

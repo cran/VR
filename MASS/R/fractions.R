@@ -110,6 +110,6 @@ inherits(f, "fractions")
   att <- attributes(x)
   att$fracs <- att$class <- NULL
   x <- do.call("structure", c(list(y), att))
-  NextMethod("print", quote = F)
+  NextMethod("print", quote = FALSE)
 }
 

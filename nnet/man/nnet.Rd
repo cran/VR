@@ -119,6 +119,9 @@ essentially perfect fit.
 \item{reltol}{
 Stop if the optimizer is unable to reduce the fit criterion by a
 factor of at least \code{1 - reltol}.
+}
+\item{...}{
+arguments passed to or from other methods.
 }}
 \value{
 object of class \code{nnet} or \code{nnet.formula}.

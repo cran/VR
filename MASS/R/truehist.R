@@ -20,7 +20,7 @@ function(data, nbins = nclass.scott(data), h, x0 = -h/1000, breaks, prob = TRUE,
      stop("breaks do not cover the data")
   db <- diff(breaks)
   if(!prob && sqrt(var(db)) > mean(db)/1000)
-    warning("Uneven breaks with prob = F will give a misleading plot")
+    warning("Uneven breaks with prob = FALSE will give a misleading plot")
   bin <- cut(data, breaks, include.lowest = TRUE)
   est <- tabulate(bin, length(levels(bin)))
   if(prob) est <- est/(diff(breaks) * length(data))

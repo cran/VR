@@ -65,7 +65,8 @@ qda.matrix <- function(x, grouping, ...,
 
 qda.default <-
   function(x, grouping, prior = proportions,
-           method = c("moment", "mle", "mve", "t"), CV=F, nu = 5, ...)
+           method = c("moment", "mle", "mve", "t"),
+           CV = FALSE, nu = 5, ...)
 {
     if(is.null(dim(x))) stop("x is not a matrix")
     x <- as.matrix(x)

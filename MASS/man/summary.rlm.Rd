@@ -26,6 +26,9 @@ matrix be used?
 }
 \item{correlation}{
 logical. Should correlations be computed (and printed)?
+}
+\item{...}{
+arguments passed to or from other methods.
 }}
 \value{
 If printing takes place, only a null value is returned.

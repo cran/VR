@@ -114,7 +114,8 @@ rlm.default <-
         resid <- temp$resid
         psi <- psi.bisquare
         if(length(arguments <- list(...)))
-            if(match("c", names(arguments), F)) {
+            if(match("c", names(arguments),
+                     F)) {
                 c0 <- arguments$c
                 if (c0 > 1.548) {
                     psi$c <- c0
@@ -183,7 +184,8 @@ print.rlm <- function(x, ...)
     invisible(x)
 }
 
-summary.rlm <- function(object, method=c("XtX", "XtWX"), correlation=T, ...)
+summary.rlm <- function(object, method=c("XtX", "XtWX"),
+                        correlation = TRUE, ...)
 {
     method <- match.arg(method)
     s <- object$s

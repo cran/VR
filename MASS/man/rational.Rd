@@ -28,6 +28,9 @@ approximation process.
 \item{max.denominator}{
 An early termination criterion.  If any partial denominator
 exceeds \code{max.denominator} the continued fraction stops at that point.
+}
+\item{...}{
+arguments passed to or from other methods.
 }}
 \value{
 A numeric object with the same attributes as \code{x} but with entries

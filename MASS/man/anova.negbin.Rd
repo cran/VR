@@ -11,8 +11,7 @@ Method function to perform sequential likelihood ratio tests for Negative
 Binomial generalized linear models.
 }
 \usage{
-anova.negbin(object, \dots, test="Chisq")
-anova(object, \dots, test="Chisq")
+\method{anova}{negbin}(object, \dots, test="Chisq")
 }
 \arguments{
 \item{object}{
@@ -20,7 +19,7 @@ Fitted model object of class \code{"negbin"}, inheriting from classes \code{"glm
 \code{"lm"}, specifying a Negative Binomial fitted GLM.  Typically the output of
 \code{glm.nb()}.
 }
-\item{...}{
+\item{\dots}{
 Zero or more additional fitted model objects of class \code{"negbin"}.  They
 should form a nested sequence of models, but need not be specified in any
 particular order.

@@ -11,7 +11,7 @@ regression fits for trend surfaces calculated by \code{surf.ls}.
 }
 \usage{
 trls.influence(object)
-\method{plot}{trls}(object, border = 1, col = NA, pch = 4, cex = 0.6, 
+\method{plot}{trls}(object, border = "red", col = NA, pch = 4, cex = 0.6, 
           add = FALSE, div = 8)
 }
 \arguments{

@@ -222,7 +222,8 @@ drop1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE)
     else {
       if(!is.character(scope))
 	scope <- attr(terms(update.formula(object, scope)), "term.labels")
-      if(!all(match(scope, attr(object$terms, "term.labels"), F)))
+      if(!all(match(scope, attr(object$terms, "term.labels"),
+                    F)))
 	stop("scope is not a subset of term labels")
     }
   ns <- length(scope)

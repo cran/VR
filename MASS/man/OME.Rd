@@ -123,7 +123,7 @@ OMEif <- OMEif[OMEif$L75 > 30,]
 summary(lm(L75 ~ Noise/Age, data=OMEif, na.action=na.omit))
 summary(lm(L75 ~ Noise/(Age + OME), data=OMEif,
            subset=Age >=30 & Age <= 60,
-           na.action=na.omit, singular.ok=T), cor=F)
+           na.action=na.omit, singular.ok=TRUE), cor=FALSE)
 
 
 # Or fit by weighted least squares

@@ -65,7 +65,7 @@ loglm1.data.frame <-
 function(formula, data, ...)
 {
     trms <- attr(data, "terms")
-    if(is.null(trms)) stop("data has no trms attribute")
+    if(is.null(trms)) stop("data has no terms attribute")
     if(attr(trms, "response") == 0) stop("Formula specifies no response")
     resp <- match(as.character(attr(trms, "variables"))[1+attr(trms, "response")],
                   names(data))
@@ -105,7 +105,8 @@ function(formula, data, start = rep(1, length(data)), fitted = FALSE,
     trms <- attr(data, "terms")
     if(is.null(trms)) stop("data has no terms attribute")
     factors <- attr(trms, "factors") > 0
-    if((r <- attr(trms, "response"))) factors <- factors[ - r,  , drop = F]
+    if((r <- attr(trms, "response")))
+        factors <- factors[-r,  , drop = FALSE]
     nt <- ncol(factors)
     fo <- order(apply(factors, 2, sum))
     factors <- factors[, fo, drop = FALSE]

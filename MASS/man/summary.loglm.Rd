@@ -21,6 +21,9 @@ a fitted loglm model object.
 \item{fitted}{
 if \code{TRUE} return observed and expected frequencies in the result.
 Using \code{fitted = TRUE} may necessitate re-fitting the object.
+}
+\item{...}{
+arguments to be passed to or from other methods.
 }}
 \value{
 a list is returned for use by \code{print.summary.loglm}.

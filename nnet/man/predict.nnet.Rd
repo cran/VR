@@ -21,6 +21,9 @@ a row vector comprising a single case.
 }
 \item{type}{
 Type of output
+}
+\item{...}{
+arguments passed to or from other methods.
 }}
 \value{
 If \code{type="raw"}, the matrix of values returned by the trained network;

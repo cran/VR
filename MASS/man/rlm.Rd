@@ -63,6 +63,18 @@ are the weights case weights (giving the relative importance of case,
 so a weight of 2 means there are two of these) or the inverse of the
 variances, so a weight of two means this error is twice as variable?
 }
+\item{model}{
+should the model frame be returned in the object?
+}
+\item{x.ret}{
+should the model matrix be returned in the object?
+}
+\item{y.ret}{
+should the response be returned in the object?
+}
+\item{contrasts}{
+optional contrast specifications: se \code{lm}.
+}
 \item{w}{
 (optional) initial down-weighting for each case.
 }

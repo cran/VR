@@ -14,11 +14,14 @@ called with multiple objects, it passes on the arguments to
 \usage{
 \method{anova}{trls}(object, \dots)
 \method{anovalist}{trls}(object, \dots)
-\method{summary}{trls}(object, digits)
+\method{summary}{trls}(object, digits=max(3, getOption("digits") - 3))
 }
 \arguments{
 \item{object}{
 A fitted trend surface model object from \code{surf.ls}
+}
+\item{digits}{
+number of significant figures used in printing.
 }
 \item{\dots}{
 Further objects of the same kind

@@ -37,6 +37,12 @@ z coordinates. Will supersede \code{x$z}
 }
 \item{object}{
 a fit inheriting from class \code{"trls"}
+}
+\item{k}{
+the multiple of the number of degrees of freedom to be used.
+}
+\item{...}{
+arguments passed to or from other methods.
 }}
 \value{
 list with components 

@@ -117,7 +117,8 @@ function(x,
          colours = 2:3)
 {
   parvals <- lapply(x, "[[", "par.vals")
-  rng <- apply(do.call("rbind", parvals), 2, range, na.rm = T)
+  rng <- apply(do.call("rbind", parvals), 2,
+               range, na.rm = TRUE)
   Pnames <- colnames(rng)
   npar <- length(Pnames)
   coefs <- coef(attr(x, "original.fit"))
@@ -148,7 +149,8 @@ function(x,
       par(fig = del * c(j - 1, j, ci, ci + 1))
       if(i == j) {
         par(new=TRUE)
-	plot(rng[, pj], rng[, pi], axes = F, xlab = "", ylab = "", type = "n")
+	plot(rng[, pj], rng[, pi], axes = FALSE,
+             xlab = "", ylab = "", type = "n")
 	op <- par(usr = c(-1, 1, -1, 1))
 	text(0, 0, pi, cex = cex, adj = 0.5)
 	par(op)
@@ -159,13 +161,14 @@ function(x,
           par(new=TRUE)
 	  plot(spline(x <- parvals[[pj]][, pj],
 		      y <- parvals[[pj]][, pi]), type = "l", xlim = rng[, pj],
-	       ylim = rng[, pi], axes = F, xlab = "", ylab = "", col = col[2])
+	       ylim = rng[, pi], axes = FALSE,
+               xlab = "", ylab = "", col = col[2])
 	  pu <- par("usr")
 	  smidge <- 2/100 * (pu[4] - pu[3])
 	  segments(x, pmax(pu[3], y - smidge), x, pmin(pu[4], y + smidge))
 	} else
-	  plot(rng[, pj], rng[, pi], axes = F, xlab = "", ylab = "",
-	       type = "n")
+	  plot(rng[, pj], rng[, pi], axes = FALSE,
+               xlab = "", ylab = "", type = "n")
 	if(!is.null(parvals[[pi]])) {
 	  lines(x <- parvals[[pi]][, pj], y <- parvals[[pi]][, pi],
 		type = "l", col = col[1])

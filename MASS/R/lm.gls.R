@@ -1,9 +1,10 @@
 # file MASS/lm.gls.q
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 #
-lm.gls <- function(formula, data, W, subset, na.action,
-        inverse = F, method = "qr",
-        model = FALSE, x = FALSE, y = FALSE, contrasts = NULL, ...)
+lm.gls <-
+    function(formula, data, W, subset, na.action, inverse = FALSE,
+             method = "qr",
+             model = FALSE, x = FALSE, y = FALSE, contrasts = NULL, ...)
 {
     call <- match.call()
     m <- match.call(expand = FALSE)

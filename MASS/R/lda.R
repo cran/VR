@@ -65,8 +65,8 @@ lda.matrix <- function(x, grouping, ...,
 
 lda.default <-
   function(x, grouping, prior = proportions, tol = 1.0e-4,
-           method = c("moment", "mle", "mve", "t"), CV=F,
-           nu = 5, ...)
+           method = c("moment", "mle", "mve", "t"),
+           CV = FALSE, nu = 5, ...)
 {
     if(is.null(dim(x))) stop("x is not a matrix")
     x <- as.matrix(x)
@@ -282,7 +282,8 @@ print.lda <- function(x, ...)
 }
 
 plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
-                     dimen, abbrev = F, xlab = "LD1", ylab = "LD2")
+                     dimen, abbrev = FALSE,
+                     xlab = "LD1", ylab = "LD2")
 {
     panel.lda <- function(x, y, ...) {
         text(x, y, as.character(g.lda), cex=tcex)

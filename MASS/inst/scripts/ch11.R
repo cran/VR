@@ -456,7 +456,7 @@ con(fgl$type, res.knn1)
 res.lb <- knn(fgl0, fgl0, fgl$type, k=3, prob=T, use.all=F)
 table(attr(res.lb, "prob"))
 
-library(rpart)
+library(rpart) ## rpart 3.0 or later
 res.rpart <- CVtest(
   function(x, ...) {
     tr <- rpart(type ~ ., fgl[x,], ...)
@@ -468,7 +468,8 @@ res.rpart <- CVtest(
     prune(tr, cp=1.01*cp0)
   },
   function(obj, x)
-    levels(fgl$type)[apply(predict(obj, fgl[x, ]), 1, which.is.max)],
+     predict(obj, fgl[x, ], type="class"),
+#    levels(fgl$type)[apply(predict(obj, fgl[x, ]), 1, which.is.max)],
   cp = 0.001
 )
 con(fgl$type, res.rpart)
