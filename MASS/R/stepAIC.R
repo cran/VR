@@ -1,5 +1,5 @@
 # file MASS/stepAIC.q
-# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 #
 stepAIC <-
   function(object, scope, scale = 0,
@@ -71,19 +71,21 @@ stepAIC <-
     fit
   }
 
-  # need to fix up . in formulae in R
+  ## need to fix up . in formulae in R
   object$formula <- fixFormulaObject(object)
   Terms <- object$formula
   object$call$formula <- object$formula
   attributes(Terms) <- attributes(object$terms)
   object$terms <- Terms
   if(use.start) warning("use.start cannot be used with R's version of glm")
+  md <- missing(direction)
   direction <- match.arg(direction)
   backward <- direction == "both" | direction == "backward"
   forward <- direction == "both" | direction == "forward"
   if(missing(scope)) {
     fdrop <- numeric(0)
-    fadd <- NULL
+    fadd <- attr(Terms, "factors")
+    if(md) forward <- FALSE
   } else {
     if(is.list(scope)) {
       fdrop <- if(!is.null(fdrop <- scope$lower))
@@ -96,10 +98,6 @@ stepAIC <-
 	attr(terms(update.formula(object, scope)), "factors")
       fdrop <- numeric(0)
     }
-  }
-  if(is.null(fadd)) {
-    backward <- TRUE
-    forward <- FALSE
   }
   models <- vector("list", steps)
   if(!is.null(keep)) {

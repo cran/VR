@@ -3,6 +3,7 @@
  */
 
 #include <R.h>
+#include <R_ext/Applic.h>
 
 #ifndef max
 #  define max(a,b) ((a) > (b) ? (a) : (b))
@@ -163,7 +164,6 @@ static double *yf;		/* isotonic regression fitted values (ditto) */
 void
 VR_mds_fn(double *, double *, Sint *, double *, Sint *,
 	  double *, Sint *, Sint *, double *, Sint *);
-static void vmmin(int, double *, double *, int, int, double);
 
 /*
  *  Download the data.
@@ -217,7 +217,7 @@ calc_dist(double *x)
 }
 
 static double
-fminfn(double *x)
+fminfn(int nn, double *x, void *dummy)
 {
     double ssq;
     Sint  do_derivatives = 0;
@@ -228,7 +228,7 @@ fminfn(double *x)
 }
 
 static void
-fmingr(double *x, double *der)
+fmingr(int nn, double *x, double *der, void *dummy)
 {
     double ssq;
     Sint  do_derivatives = 1;
@@ -237,12 +237,18 @@ fmingr(double *x, double *der)
     VR_mds_fn(y, yf, &n, &ssq, ord2, x, &nr, &nc, der, &do_derivatives);
 }
 
+#define abstol 		1.0e-2
+#define REPORT		5
+
 void
 VR_mds_dovm(double *val, Sint *maxit, Sint *trace, double *xx, double *tol)
 {
-    int   i;
+    int   i, ifail, fncount, grcount, *mask;
 
-    vmmin(dimx, x, val, (int) *maxit, (int) *trace, *tol);
+    mask = (int *) R_alloc(dimx, sizeof(int));
+    for (i = 0; i < dimx; i++) mask[i] = 1;
+    vmmin(dimx, x, val, fminfn, fmingr, (int) *maxit, (int) *trace, mask,
+	  abstol, *tol, REPORT, NULL, &fncount, &grcount, &ifail);
     for (i = 0; i < dimx; i++)
 	xx[i] = x[i];
 }
@@ -311,202 +317,12 @@ VR_mds_fn(double *y, double *yf, Sint *pn, double *pssq, Sint *pd,
     }
 }
 
-/*  From here on, code borrowed from nnet library  */
-
-static double *
-vect(int n)
-{
-    double *v;
-
-    v = (double *) Calloc(n, double);
-    return v;
-}
-
-static void
-free_vect(double *v)
-{
-    Free(v);
-}
-
-static double **
-Lmatrix(int n)
-{
-    int   i;
-    double **m;
-
-    m = (double **) Calloc(n, double *);
-
-    for (i = 0; i < n; i++) {
-	m[i] = (double *) Calloc((i + 1), double);
-    }
-    return m;
-}
-
-static void free_Lmatrix(double **m, int n)
-{
-    int   i;
-
-    for (i = n - 1; i >= 0; i--) Free(m[i]);
-    Free(m);
-}
-
-typedef unsigned char Boolean;
-
-#define false 0
-
-#define stepredn	0.2
-#define acctol		0.0001
-#define reltest		10.0
-#define abstol 		1.0e-2
-#define REPORT		5
-
-
-/*  BFGS variable-metric method, based on Pascal code
-in J.C. Nash, `Compact Numerical Methods for Computers', 2nd edition,
-converted by p2c then re-crafted by B.D. Ripley */
-
-static void
-vmmin(int n, double *b, double *Fmin, int maxit, int trace, double reltol)
-{
-    Boolean accpoint, enough;
-    double *g, *t, *X, *c, **B;
-    int     count, funcount, gradcount;
-    double  f, gradproj;
-    int     i, j, ilast, iter = 0;
-    double  s, steplength;
-    double  D1, D2;
-
-    g = vect(n);
-    t = vect(n);
-    X = vect(n);
-    c = vect(n);
-    B = Lmatrix(n);
-    f = fminfn(b);
-    if (trace) {
-	Rprintf("initial  value %f \n", f);
-    }
-    {
-	*Fmin = f;
-	funcount = gradcount = 1;
-	fmingr(b, g);
-	iter++;
-	ilast = gradcount;
-
-	do {
-	    if (ilast == gradcount) {
-		for (i = 0; i < n; i++) {
-		    for (j = 0; j < i; j++)
-			B[i][j] = 0.0;
-		    B[i][i] = 1.0;
-		}
-	    }
-
-	    for (i = 0; i < n; i++) {
-		X[i] = b[i];
-		c[i] = g[i];
-	    }
-	    gradproj = 0.0;
-	    for (i = 0; i < n; i++) {
-		s = 0.0;
-		for (j = 0; j <= i; j++) s -= B[i][j] * g[j];
-		for (j = i + 1; j < n; j++) s -= B[j][i] * g[j];
-		t[i] = s;
-		gradproj += s * g[i];
-	    }
-
-	    if (gradproj < 0.0) {	/* search direction is downhill */
-		steplength = 1.0;
-		accpoint = false;
-		do {
-		    count = 0;
-		    for (i = 0; i < n; i++) {
-			b[i] = X[i] + steplength * t[i];
-			if (reltest + X[i] == reltest + b[i])	/* no change */
-			    count++;
-		    }
-		    if (count < n) {
-			f = fminfn(b);
-			funcount++;
-			accpoint = (f <= *Fmin + gradproj * steplength * acctol);
-
-			if (!accpoint) {
-			    steplength *= stepredn;
-			}
-		    }
-		} while (!(count == n || accpoint));
-		enough = (f > abstol) && (f < (1.0 - reltol) * (*Fmin));
-		/* stop if value if small or if relative change is low */
-		if (!enough) count = n;
-		if (count < n) {	/* making progress */
-		    *Fmin = f;
-		    fmingr(b, g);
-		    gradcount++;
-		    iter++;
-		    D1 = 0.0;
-		    for (i = 0; i < n; i++) {
-			t[i] = steplength * t[i];
-			c[i] = g[i] - c[i];
-			D1 += t[i] * c[i];
-		    }
-		    if (D1 > 0) {
-			D2 = 0.0;
-			for (i = 0; i < n; i++) {
-			    s = 0.0;
-			    for (j = 0; j <= i; j++)
-				s += B[i][j] * c[j];
-			    for (j = i + 1; j < n; j++)
-				s += B[j][i] * c[j];
-			    X[i] = s;
-			    D2 += s * c[i];
-			}
-			D2 = 1.0 + D2 / D1;
-			for (i = 0; i < n; i++) {
-			    for (j = 0; j <= i; j++)
-				B[i][j] += (D2 * t[i] * t[j] - X[i] * t[j] - t[i] * X[j]) / D1;
-			}
-		    } else {	/* D1 < 0 */
-			ilast = gradcount;
-		    }
-		} else {	/* no progress */
-		    if (ilast < gradcount) {
-			count = 0;
-			ilast = gradcount;
-		    }
-		}
-	    } else {		/* uphill search */
-		count = 0;
-		if (ilast == gradcount) count = n;
-		else ilast = gradcount;
-		/* Resets unless has just been reset */
-	    }
-	    if (iter % REPORT == 0 && trace) {
-		Rprintf("iter%4d value %f\n", iter, f);
-	    } if (iter >= maxit)
-		break;
-	    if (gradcount - ilast > 2 * n)
-		ilast = gradcount;	/* periodic restart */
-	} while (count != n || ilast != gradcount);
-    }
-    if (trace) {
-	Rprintf("final  value %f \n", *Fmin);
-	if (iter < maxit)
-	    Rprintf("converged\n");
-	else
-	    Rprintf("stopped after %i iterations\n", iter);
-    }
-    free_vect(g);
-    free_vect(t);
-    free_vect(X);
-    free_vect(c);
-    free_Lmatrix(B, n);
-}
-
 /* -----------------------------------------------------------------
  *  Former ucv.c
  */
 
-#if !defined(PI)		/* it is currently defined in S_tokens.h */
-#  define PI 3.14159265
+#if !defined(M_PI)		/* it is currently defined in S_tokens.h */
+#  define M_PI 3.141592653589793238462643383280
 #endif
 #define DELMAX 1000
 /* Avoid slow and possibly error-producing underflows by cutting off at
@@ -527,7 +343,7 @@ VR_ucv_bin(Sint *n, Sint *nb, Sfloat *d, Sint *x, Sfloat *h, Sfloat *u)
 	term = exp(-delta / 4) - sqrt(8.0) * exp(-delta / 2);
 	sum += term * x[i];
     }
-    *u = 1 / (2 * nn * hh * sqrt(PI)) + sum / (nn * nn * hh * sqrt(PI));
+    *u = 1 / (2 * nn * hh * sqrt(M_PI)) + sum / (nn * nn * hh * sqrt(M_PI));
 }
 
 void
@@ -544,7 +360,7 @@ VR_bcv_bin(Sint *n, Sint *nb, Sfloat *d, Sint *x, Sfloat *h, Sfloat *u)
 	term = exp(-delta / 4) * (delta * delta - 12 * delta + 12);
 	sum += term * x[i];
     }
-    *u = 1 / (2 * nn * hh * sqrt(PI)) + sum / (64 * nn * nn * hh * sqrt(PI));
+    *u = 1 / (2 * nn * hh * sqrt(M_PI)) + sum / (64 * nn * nn * hh * sqrt(M_PI));
 }
 
 
@@ -563,7 +379,7 @@ VR_phi4_bin(Sint *n, Sint *nb, Sfloat *d, Sint *x, Sfloat *h, Sfloat *u)
 	sum += term * x[i];
     }
     sum = 2 * sum + nn * 3;	/* add in diagonal */
-    *u = sum / (nn * (nn - 1) * pow(*h, 5.0) * sqrt(2 * PI));
+    *u = sum / (nn * (nn - 1) * pow(*h, 5.0) * sqrt(2 * M_PI));
 }
 
 void
@@ -582,7 +398,7 @@ VR_phi6_bin(Sint *n, Sint *nb, Sfloat *d, Sint *x, Sfloat *h, Sfloat *u)
 	sum += term * x[i];
     }
     sum = 2 * sum - 15 * nn;	/* add in diagonal */
-    *u = sum / (nn * (nn - 1) * pow(*h, 7.0) * sqrt(2 * PI));
+    *u = sum / (nn * (nn - 1) * pow(*h, 7.0) * sqrt(2 * M_PI));
 }
 
 void

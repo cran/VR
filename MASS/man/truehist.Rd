@@ -61,17 +61,17 @@ label for the plot x-axis. By default, this will be the name of \code{data}.
 The box type for the plot - defaults to none.
 }
 \item{...}{
-additional arguments to \code{polygon}.
+  additional arguments to \code{\link{rect}} or \code{\link{plot}}.
 }}
 \section{Side Effects}{
 A histogram is plotted on the current device.
 }
 \details{
-This plots a true histogram, a density estimate of total area 1.  If
-\code{breaks} is specified, those breakpoints are used. Otherwise if \code{h} is
-specified, a regular grid of bins is used with width \code{h}.  If neither
-\code{breaks} nor \code{h} is specified, \code{nbins} is used to select a suitable
-\code{h}.
+  This plots a true histogram, a density estimate of total area 1.  If
+  \code{breaks} is specified, those breakpoints are used. Otherwise if
+  \code{h} is specified, a regular grid of bins is used with width
+  \code{h}.  If neither \code{breaks} nor \code{h} is specified,
+  \code{nbins} is used to select a suitable \code{h}.
 }
 \seealso{
 \code{\link{hist}}

@@ -228,7 +228,6 @@ summary(aids.cox)
 aids1.cox <- coxph(Surv(start, stop, status)
   ~ zid + strata(state) + T.categ + age, data = Aids3)
 (aids1.surv <- survfit(aids1.cox))
-aids1.surv
 plot(aids1.surv, mark.time = F, lty = 1:4, col = 2:5,
      xscale = 365.25/12, xlab = "months since diagnosis")
 #legend(locator(1), levels(state), lty = 1:4, col = 2:5)

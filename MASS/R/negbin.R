@@ -71,7 +71,7 @@ function(object)
 }
 
 glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
-		   subset, na.action, start = eta,
+		   subset, na.action, start = NULL, etastart = NULL,
 		   control = glm.control(...), method = "glm.fit",
 		   model = TRUE,
                    x = FALSE, y = TRUE, contrasts = NULL, ...,
@@ -91,7 +91,7 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
     Call <- match.call()
     m <- match.call(expand = FALSE)
     m$method <- m$model <- m$x <- m$y <- m$control <- m$contrasts <-
-        m$init.theta <- m$link <- m$... <- NULL
+        m$init.theta <- m$link <- m$start <- m$etastart <- m$... <-  NULL
     m[[1]] <- as.name("model.frame")
     m <- eval(m, parent.frame())
     Terms <- attr(m, "terms")
@@ -107,17 +107,17 @@ glm.nb <- function(formula = formula(data), data = parent.frame(), weights,
     w <- model.extract(m, weights)
     if(!length(w)) w <- rep(1, nrow(m))
     else if(any(w < 0)) stop("negative weights not allowed")
-    start <- model.extract(m, start)
     offset <- model.extract(m, offset)
     n <- length(Y)
     if(!is.null(method)) {
-            if(!exists(method, mode = "function"))
-                stop(paste("unimplemented method:", method))
+        if(!exists(method, mode = "function"))
+            stop(paste("unimplemented method:", method))
     }
     else method <- "glm.fit"
     glm.fitter <- get(method)
     if(control$trace > 1) cat("Initial fit:\n")
-    fit <- glm.fitter(x = X, y = Y, w = w, etastart = start,
+    fit <- glm.fitter(x = X, y = Y, w = w, start = start,
+                      etastart = etastart,
                       offset = offset, family = fam0,
                       control = list(maxit=control$maxit,
                       epsilon = control$epsilon,

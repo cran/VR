@@ -75,8 +75,8 @@ VR_knn1(Sint *pntr, Sint *pnte, Sint *p, double *train, Sint *class,
 
 
 void
-VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p, 
-       double *train, Sint *class, double *test, Sint *res, double *pr, 
+VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
+       double *train, Sint *class, double *test, Sint *res, double *pr,
        Sint *votes, Sint *nc, Sint *cv, Sint *use_all)
 {
     int   i, index, j, k, k1, kinit = *kin, kn, l = *lin, mm, npat, ntie,
@@ -148,7 +148,7 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
 /* Use reservoir sampling to choose amongst the tied distances */
 		j1 = j;
 		needed = kinit - j1;
-		for (j = 0; j < needed; j++) 
+		for (j = 0; j < needed; j++)
 		    nclass[j] = class[pos[j1 + j]];
 		t = needed;
 		for (j = j1 + needed; j < kn; j++) {
@@ -190,8 +190,8 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
 #define min9(a,b) ((a < b)?a:b)
 
 void
-VR_olvq(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl, 
-	Sint *pncodes, double *xc, Sint *clc, Sint *niter, 
+VR_olvq(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl,
+	Sint *pncodes, double *xc, Sint *clc, Sint *niter,
 	Sint *iters)
 {
     int   index=0, iter, j, k, n = *pn, ncodes = *pncodes, npat, s;
@@ -225,8 +225,8 @@ VR_olvq(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl,
 }
 
 void
-VR_lvq1(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl, 
-	Sint *pncodes, double *xc, Sint *clc, Sint *niter, 
+VR_lvq1(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl,
+	Sint *pncodes, double *xc, Sint *clc, Sint *niter,
 	Sint *iters)
 {
     int   index = 0, iter, j, k, n = *pn, ncodes = *pncodes, npat, s;
@@ -256,11 +256,11 @@ VR_lvq1(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl,
 }
 
 void
-VR_lvq2(double *alpha, double *win, Sint *pn, Sint *p, double *x, 
-	Sint *cl, Sint *pncodes, double *xc, Sint *clc, 
+VR_lvq2(double *alpha, double *win, Sint *pn, Sint *p, double *x,
+	Sint *cl, Sint *pncodes, double *xc, Sint *clc,
 	Sint *niter, Sint *iters)
 {
-    int index = 0, iter, j, k, n = *pn, ncodes = *pncodes, nindex = 0, 
+    int index = 0, iter, j, k, n = *pn, ncodes = *pncodes, nindex = 0,
 	npat, ntmp;
     double alpha_t;
     double dist, dm, ndm, tmp;
@@ -311,7 +311,7 @@ VR_lvq3(double *alpha, double *win, double *epsilon, Sint *pn, Sint *p,
 	double *x, Sint *cl, Sint *pncodes, double *xc, Sint *clc,
 	Sint *niter, Sint *iters)
 {
-    int index = 0, iter, j, k, n = *pn, ncodes = *pncodes, nindex = 0, 
+    int index = 0, iter, j, k, n = *pn, ncodes = *pncodes, nindex = 0,
 	npat, ntmp;
     double alpha_t;
     double dist, dm, ndm, tmp;
@@ -371,7 +371,7 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
     int n = *pn, p = *pp, ncodes = *pncodes;
     int cd, i, j, k, nearest = 0 /* -Wall */, nind;
     double dm, dist, tmp;
-    
+
     RANDIN;
     for (k = 0; k < *rlen; k++) {
 	/* pick a random data point */
@@ -381,7 +381,7 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
 	for (cd = 0; cd < ncodes; cd++) {
 	    dist = 0.0;
 	    for (j = 0; j < p; j++) {
-		tmp = data[i + j*p] - codes[cd + j*p];
+		tmp = data[i + j*n] - codes[cd + j*ncodes];
 		dist += tmp * tmp;
 	    }
 	    if (dist <= dm * (1 + EPS)) {
@@ -397,8 +397,8 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
 	    for (cd = 0; cd < ncodes; cd++) {
 		if(nhbrdist[cd + ncodes*nearest] > radii[k]) continue;
 		for(j = 0; j < p; j++)
-		    codes[cd + p*j] += alpha[k] * 
-			(data[i + p*j] - codes[cd + p*j]);
+		    codes[cd + j*ncodes] += alpha[k] *
+			(data[i + j*n] - codes[cd + j*ncodes]);
 	    }
 	}
     }

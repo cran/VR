@@ -42,13 +42,18 @@ Library MASS
 - polr was not preserving contrasts to put in the fit object.
 - vcov methods for lme, gls, coxph and survReg.
 - Added `tol' argument to isoMDS.
+- stepAIC now allow `direction=both' starting from a full model.
+- glm.nb allows R-style `start' argument.
+- truehist passes ... on to both plot.default() and rect().
+- isoMDS now uses the C interface to optim.
 
 
 Library class
 -------------
 
 - fixed a bug in knn(use.all = F)
-- SOM, batchSOM and ancilliary functions.
+- added SOM, batchSOM and ancilliary functions.
+- Bugfix in SOM (7.0-5)
 
 
 Library nnet
@@ -56,6 +61,7 @@ Library nnet
 
 - no copying of datasets even in R.
 - model.frame method for multinom (even in R).
+- nnet now uses the C interface to optim.
 
 
 Library spatial

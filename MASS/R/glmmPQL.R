@@ -50,7 +50,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
         fit <- eval(mcall)
         etaold <- eta
         ##update zz and invwt
-        eta <- fit$fitted[, 2]
+        eta <- fitted(fit)
         if(sum((eta-etaold)^2) < 1e-6*sum(eta^2)) break;
         mu <- fam$linkinv(eta)
         mu.eta.val <- fam$mu.eta(eta)

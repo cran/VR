@@ -8,6 +8,7 @@
  */
 
 #include <R.h>
+#include <R_ext/Applic.h>
 
 typedef double Sdata;
 
@@ -15,8 +16,6 @@ static double *vect(int n);
 static void free_vect(double *v);
 static double **matrix(int nrh, int nch);
 static void free_matrix(double **m, int nrh, int nch);
-static void vmmin(int n, double *b, double *Fmin, int maxit, int trace,
-		  Sint *mask, double abstol, double reltol);
 static void fpass(Sdata *input, Sdata *goal, Sdata wx, int nr);
 static void Build_Net(int ninputs, int nhidden, int noutputs);
 
@@ -308,7 +307,7 @@ VR_dfunc(double *p, double *df, double *fp)
 }
 
 static double
-fminfn(double *p)
+fminfn(int nn, double *p, void *dummy)
 {
     int   i, j;
     double sum1;
@@ -330,7 +329,7 @@ fminfn(double *p)
 }
 
 static void
-fmingr(double *p, double *df)
+fmingr(int nn, double *p, double *df, void *dummy)
 {
     int   i, j;
 
@@ -349,7 +348,6 @@ fmingr(double *p, double *df)
 	df[j] = Slopes[j];
     Epoch++;
 }
-
 
 static double *
 vect(int n)
@@ -415,183 +413,23 @@ free_Lmatrix(double **m, int n)
 }
 
 
+#define REPORT		10
+
 void
 VR_dovm(Sint *ntr, Sdata *train, Sdata *weights,
 	Sint *Nw, double *wts, double *Fmin,
 	Sint *maxit, Sint *trace, Sint *mask,
 	double *abstol, double *reltol)
 {
+    int fncount, grcount, ifail;
     NTrain = *ntr;
     TrainIn = train;
     TrainOut = train + Ninputs * NTrain;
     Weights = weights;
-    vmmin((int) *Nw, wts, Fmin, (int) *maxit, (int) *trace, mask,
-	  *abstol, *reltol);
+    vmmin((int) *Nw, wts, Fmin, fminfn, fmingr, 
+	  (int) *maxit, (int) *trace, mask,
+	  *abstol, *reltol, REPORT, NULL, &fncount, &grcount, &ifail);
 }
-
-
-typedef unsigned char Boolean;
-
-#define false 0
-
-#define stepredn	0.2
-#define acctol		0.0001
-#define reltest		10.0
-#define REPORT		10
-
-
-/*  BFGS variable-metric method, based on Pascal code
-in J.C. Nash, `Compact Numerical Methods for Computers', 2nd edition,
-converted by p2c then re-crafted by B.D. Ripley */
-
-static void
-vmmin(int n0, double *b, double *Fmin, int maxit, int trace, Sint *mask, 
-      double abstol, double reltol)
-{
-    Boolean accpoint, enough;
-    double *g, *t, *X, *c, **B;
-    int   count, funcount, gradcount;
-    double f, gradproj;
-    int   i, j, ilast, iter = 0;
-    double s, steplength;
-    double D1, D2;
-    int   n, *l;
-
-    l = Calloc(n0, int);
-    n = 0;
-    for (i = 0; i < n0; i++)
-	if (mask[i]) l[n++] = i;
-
-    g = vect(n0);
-    t = vect(n);
-    X = vect(n);
-    c = vect(n);
-    B = Lmatrix(n);
-    f = fminfn(b);
-    if (trace) {
-	Rprintf("initial  value %f \n", f);
-    } {
-	*Fmin = f;
-	funcount = gradcount = 1;
-	fmingr(b, g);
-	iter++;
-	ilast = gradcount;
-
-	do {
-	    if (ilast == gradcount) {
-		for (i = 0; i < n; i++) {
-		    for (j = 0; j < i; j++)
-			B[i][j] = 0.0;
-		    B[i][i] = 1.0;
-		}
-	    }
-	    for (i = 0; i < n; i++) {
-		X[i] = b[l[i]];
-		c[i] = g[l[i]];
-	    }
-	    gradproj = 0.0;
-	    for (i = 0; i < n; i++) {
-		s = 0.0;
-		for (j = 0; j <= i; j++)
-		    s -= B[i][j] * g[l[j]];
-		for (j = i + 1; j < n; j++)
-		    s -= B[j][i] * g[l[j]];
-		t[i] = s;
-		gradproj += s * g[l[i]];
-	    }
-
-	    if (gradproj < 0.0) {	/* search direction is downhill */
-		steplength = 1.0;
-		accpoint = false;
-		do {
-		    count = 0;
-		    for (i = 0; i < n; i++) {
-			b[l[i]] = X[i] + steplength * t[i];
-			if (reltest + X[i] == reltest + b[l[i]])	/* no change */
-			    count++;
-		    }
-		    if (count < n) {
-			f = fminfn(b);
-			funcount++;
-			accpoint = (f <= *Fmin + gradproj * steplength * acctol);
-
-			if (!accpoint) {
-			    steplength *= stepredn;
-			}
-		    }
-		} while (!(count == n || accpoint));
-		enough = (f > abstol) && (f < (1.0 - reltol) * (*Fmin));
-		/* stop if value if small or if relative change is low */
-		if (!enough)
-		    count = n;
-		if (count < n) {/* making progress */
-		    *Fmin = f;
-		    fmingr(b, g);
-		    gradcount++;
-		    iter++;
-		    D1 = 0.0;
-		    for (i = 0; i < n; i++) {
-			t[i] = steplength * t[i];
-			c[i] = g[l[i]] - c[i];
-			D1 += t[i] * c[i];
-		    }
-		    if (D1 > 0) {
-			D2 = 0.0;
-			for (i = 0; i < n; i++) {
-			    s = 0.0;
-			    for (j = 0; j <= i; j++)
-				s += B[i][j] * c[j];
-			    for (j = i + 1; j < n; j++)
-				s += B[j][i] * c[j];
-			    X[i] = s;
-			    D2 += s * c[i];
-			}
-			D2 = 1.0 + D2 / D1;
-			for (i = 0; i < n; i++) {
-			    for (j = 0; j <= i; j++)
-				B[i][j] += (D2 * t[i] * t[j] - X[i] * t[j] - t[i] * X[j]) / D1;
-			}
-		    } else {	/* D1 < 0 */
-			ilast = gradcount;
-		    }
-		} else {	/* no progress */
-		    if (ilast < gradcount) {
-			count = 0;
-			ilast = gradcount;
-		    }
-		}
-	    } else {		/* uphill search */
-		count = 0;
-		if (ilast == gradcount)
-		    count = n;
-		else
-		    ilast = gradcount;
-		/* Resets unless has just been reset */
-	    }
-	    if (iter % REPORT == 0 && trace) {
-		Rprintf("iter%4d value %f\n", iter, f);
-	    }
-	    if (iter >= maxit)
-		break;
-	    if (gradcount - ilast > 2 * n)
-		ilast = gradcount;	/* periodic restart */
-	} while (count != n || ilast != gradcount);
-    }
-    if (trace) {
-	Rprintf("final  value %f \n", *Fmin);
-	if (iter < maxit)
-	    Rprintf("converged\n");
-	else
-	    Rprintf("stopped after %i iterations\n", iter);
-    }
-    free_vect(g);
-    free_vect(t);
-    free_vect(X);
-    free_vect(c);
-    free_Lmatrix(B, n);
-    Free(l);
-}
-
 
 static double **H, *h, *h1, **w;
 
