@@ -32,12 +32,14 @@ isoMDS <- function(d, y=cmdscale(d, 2), maxit=50, trace=TRUE)
      as.integer(ord - 1),
      as.integer(order(ord) - 1),
      as.double(y)
+     , PACKAGE = "MASS"
      )
   tmp <- .C("VR_mds_dovm",
 	    val = double(1),
 	    as.integer(maxit),
 	    as.integer(trace),
 	    y = as.double(y)
+            , PACKAGE = "MASS"
 	    )
   list(points = matrix(tmp$y,,k), stress = tmp$val)
 }
@@ -64,6 +66,7 @@ Shepard <- function(d, x)
 	  as.integer(k),
 	  g=double(n*k),
 	  as.integer(1)
+          , PACKAGE = "MASS"
 	  )
   list(x = d[ord], y = y, yf = Z$yf)
 }

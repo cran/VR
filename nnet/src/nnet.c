@@ -868,7 +868,8 @@ VR_summ2(Sint *n0, Sint *p0, Sint *q0, Sdata *Z, Sint *na)
     p = *p0;
     q = *q0;
     m = p + q;
-    qsort(Z, n, m * sizeof(Sdata), Zcompar);
+    qsort(Z, n, m * sizeof(Sdata), 
+	  (int (*)(const void *, const void *)) Zcompar);
     j = 0;
     for (i = 1; i < n; i++) {
 	k = -1;

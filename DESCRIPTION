@@ -1,7 +1,7 @@
 Bundle: VR
 Contains: MASS class nnet spatial
-Version: 6.1-7 
-Date: 2000/02/10
+Version: 6.1-8 
+Date: 2000/04/30
 Depends: R (>= 0.99)
 Author: S original by Venables & Ripley.
   R port by Brian Ripley <ripley@stats.ox.ac.uk>, following earlier

@@ -17,7 +17,7 @@ Satisfaction of householders with their present housing
 circumstances, (High, Medium or Low).
 }
 \item{Infl}{
-Percieved degree of influence householders have on the 
+Perceived degree of influence householders have on the 
 management of the property (High, Medium, Low).
 }
 \item{Type}{

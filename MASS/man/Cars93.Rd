@@ -94,7 +94,7 @@ Of non-USA or USA company origins? (factor)
 \item{Make}{
 Combination of Manufacturer and Model (character)
 }}
-\source{
+\details{
 Cars were selected at random from among 1993 passenger car models that
 were listed in both the \emph{Consumer Reports} issue and the 
 \emph{PACE Buying Guide}.  Pickup trucks and Sport/Utility vehicles were

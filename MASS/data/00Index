@@ -4,8 +4,8 @@ Aids2		Australian AIDS survival data
 Animals		body and brain weights from Rousseeuw & Leroy
 anorexia	anorexia data on weight change
 austres		quarterly series of the number of Australian residents
-beaver1		time series of body temperatures of two beavers
-beaver2
+beav1		time series of body temperatures of two beavers
+beav2
 biopsy		biopsies on breast cancer patients
 birthwt		data on low birth weights for 189 babies from 
 		   Hosmer & Lemeshow (1989)
@@ -14,7 +14,7 @@ cabbages	field trial of cabbages
 caith		cross-tabulation of eye and hair colours in Caithness
 Cars93		data from 93 cars on sale in the USA in 1993
 cats		cat weights from Fisher (1947)
-cement		dataset on heat evolved in setting cements
+cement		heat evolved in setting cements
 chem		copper in wholemeal flour
 coop		co-operative trial in analytical chemistry
 cpus		dataset on performance of cpus
@@ -60,7 +60,7 @@ petrol		Prater's data on the refining of oil
 phones		Belgian 'phone calls 1950-1973
 Pima.tr		diabetes in Pima Indians -- training data
 Pima.te		diabetes in Pima Indians -- test data
-quine		School absences from Aitkin (1978)
+quine		school absences from Aitkin (1978)
 Rabbit		blood pressure experiments on rabbits
 road		road deaths by state in the USA
 rotifer		numbers of rotifers of two species vs fluid density
@@ -82,9 +82,9 @@ topo		topographic dataset
 Traffic		effect of Swedish speed limits on accidents
 UScereal	nutritional and marketing information on US cereals
 UScrime		the effect of punishment regimes on crime rates
-VA		Veteran's administration lung cancer study
-whiteside	eneregy consumption in a domestic house
+VA		Veteran's Administration lung cancer study
 waders		wader counts in South Africa
+whiteside	eneregy consumption in a domestic house
 wtloss		weight loss by an obese patient
 
 lung.deaths: pre-processed dataset

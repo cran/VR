@@ -9,8 +9,10 @@ options(width=65, digits=5)
 
 # 3.2  Basic plotting functions
 
-data(lung.deaths)
-#lung.deaths <- aggregate(ts.union(mdeaths, fdeaths), 1)
+#data(lung.deaths) # alternative to next three lines
+data(mdeaths); data(fdeaths)
+library(ts)
+lung.deaths <- aggregate(ts.union(mdeaths, fdeaths), 1)
 barplot(t(lung.deaths), names=dimnames(lung.deaths)[[1]],
    main="UK deaths from lung disease")
 if(interactive())

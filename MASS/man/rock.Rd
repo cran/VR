@@ -17,7 +17,7 @@
       [,4] \tab perm  \tab permeability in milli-Darcies
     }
 }
-\details{
+\description{
     Twelve core samples from petroleum reservoirs were sampled by 4
     cross-sections.  Each core sample was measured for permeability, and
     each cross-section has total area of pores, total perimeter of

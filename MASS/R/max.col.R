@@ -12,7 +12,7 @@ max.col <- function(m)
        as.integer(n),
        as.integer(ncol(m)),
        rmax = integer(n),
-       NAOK=TRUE
+       NAOK = T, PACKAGE = "MASS"
        )$rmax
 }
 

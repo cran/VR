@@ -44,12 +44,6 @@ qda.data.frame <- function(x, ...)
     res
 }
 
-qda.Matrix <- function(x, ...)
-{
-    res <- qda.matrix(as.matrix(x), ...)
-    res$call <- match.call()
-    res
-}
 
 qda.matrix <- function(x, grouping, ...,
 		       subset, na.action = na.fail)

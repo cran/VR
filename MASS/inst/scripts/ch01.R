@@ -91,7 +91,7 @@ detach()
 
 if(interactive()){
 plot(c(0,1), c(0,1), type="n")
-xy <- locator(type="p") # needs 0.65.0 or later
+xy <- locator(type="p")
 abline(lm(y ~ x, xy), col=4)
 abline(rlm(y ~ x, xy, method="MM"), lty=3, col=3)
 abline(lqs(y ~ x, xy), lty=2, col=2)

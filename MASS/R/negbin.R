@@ -251,7 +251,7 @@ function(object, dispersion = 1, correlation = TRUE, ...)
     if(is.null(dispersion)) dispersion <- 1
     summ <- c(summary.glm(object, dispersion = dispersion,
                           correlation = correlation),
-              object[c("theta", "SE", "twologlik", "th.warn")])
+              object[c("theta", "SE.theta", "twologlik", "th.warn")])
     class(summ) <- c("summary.negbin", "summary.glm")
     summ
 }
@@ -259,13 +259,13 @@ function(object, dispersion = 1, correlation = TRUE, ...)
 "print.summary.negbin" <- function(x, ...)
 {
     NextMethod()
-    dp <- 2 - floor(log10(x$SE))
-    cat("\n              Theta: ", format(round(x$theta, dp), sci=F, nsmall=dp),
-        "\n          Std. Err.: ", format(round(x$SE, dp), sci=F, nsmall=dp),
+    dp <- 2 - floor(log10(x$SE.theta))
+    cat("\n              Theta: ", format(round(x$theta, dp)),
+        "\n          Std. Err.: ", format(round(x$SE.theta, dp)),
         "\n")
     if(!is.null(x$th.warn))
         cat("Warning while fitting theta:", x$th.warn,"\n")
-    cat("\n 2 x log-likelihood: ", format(round(x$twologlik, 3), sci=F, nsmall=3), "\n")
+    cat("\n 2 x log-likelihood: ", format(round(x$twologlik, 3)), "\n")
     invisible(x)
 }
 

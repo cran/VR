@@ -1,4 +1,5 @@
 \name{geyser}
+\alias{geyser}
 \non_function{}
 \usage{data(geyser)}
 \title{Old Faithful Geyser Data}

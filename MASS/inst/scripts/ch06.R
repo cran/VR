@@ -101,7 +101,7 @@ summary(hills1.lm)
 summary(lm(time ~ dist + climb, hills[-18, ], weight=1/dist^2))
 lm(time ~ -1 + dist + climb, hills[-18, ], weight=1/dist^2)
 
-#hills <- hills   # make a local copy (needed in 5.x)
+#hills <- hills   # make a local copy (needed in S-PLUS >= 5)
 hills$ispeed <- hills$time/hills$dist
 hills$grad <- hills$climb/hills$dist
 hills2.lm <- lm(ispeed ~ grad, hills[-18, ])
@@ -128,20 +128,21 @@ new.x <- data.frame(Days = seq(250, 300, 10),
                     row.names=seq(250, 300, 10))
 predict(quad1, newdata=new.x)
 predict(quad2, newdata=new.x)
-#predict.gam(quad2, newdata=new.x)
+#predict.gam(quad2, newdata=new.x)  # R does not have predict.gam
 
 new.white <- data.frame(Temp = 5*(0:2),
               Insul = factor(rep("After", 3)))
-predict(gasBA, new.white) # gives error
+predict(gasBA, new.white) # gives error in earlier S
 
 new.white <- data.frame(Temp = 5*(0:2),
               Insul = factor(rep("After", 3),
                 levels=c("After", "Before")))
 predict(gasBA, new.white) # wrong in earlier S
 
+
 # 6.5  Robust and resistant regression
 
-#haveLMR <- (version$major >= 5) | (version$major ==4  && version$minor >=5)
+#haveLMR <- (version$major >= 5) | (version$major == 4  && version$minor >=5)
 library(lqs)
 data(phones)
 phones.lm <- lm(calls ~ year, phones)
@@ -287,7 +288,7 @@ boxcox(perf ~ syct+mmin+mmax+cach+chmin+chmax, data=cpus,
 
 cpus1 <- cpus
 attach(cpus)
-for(v in names(cpus)[2:6])
+for(v in names(cpus)[2:7])
   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])),
                     include.lowest = T)
 detach()
@@ -341,7 +342,7 @@ if(F || version$major >= 4) {
 if(F) {
 summary(raov(Conc ~ Lab/Bat, data = coop, subset = Spc=="S1"))
 
-#coop <- coop  # make a local copy (needed in 5.x)
+#coop <- coop  # make a local copy (needed in S-PLUS >= 5)
 is.random(coop) <- T
 is.random(coop$Spc) <- F
 is.random(coop)
@@ -351,7 +352,7 @@ varcomp(Conc ~ Lab/Bat, data=coop, subset = Spc=="S1",
 }
 
 data(oats)
-#oats <- oats  # make a local copy: needed in 5.x
+#oats <- oats  # make a local copy: needed in S-PLUS >= 5
 oats$Nf <- ordered(oats$N, levels=sort(levels(oats$N)))
 oats.aov <- aov(Y ~ Nf*V + Error(B/V), data = oats, qr = T)
 summary(oats.aov)
@@ -409,7 +410,7 @@ pet5.lme <- update(pet4.lme, random = ~ 1 + EP | No)
 anova(pet4.lme, pet5.lme)
 
 data(coop)
-lme(Conc ~ 1, random = ~1 | Lab/Bat, data=coop, subset=Spc=="S1")
+lme(Conc ~ 1, random = ~1 | Lab/Bat, data = coop, subset = Spc=="S1")
 
 options(contrasts = c("contr.treatment", "contr.poly"))
 oats.lme <- lme(Y ~ N + V, random = ~1 | B/V, data = oats)

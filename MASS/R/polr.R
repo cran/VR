@@ -138,7 +138,7 @@ summary.polr <- function(object, digits = max(3, .Options$digits - 3),
     object$pc <- pc
     object$digits <- digits
     if(correlation)
-        object$correlation <- (H/sd)/rep(sd, rep(pc+q, pc+q))
+        object$correlation <- (vc/sd)/rep(sd, rep(pc+q, pc+q))
     class(object) <- "summary.polr"
     object
 }
@@ -162,7 +162,7 @@ print.summary.polr <- function(x, digits = x$digits, ...)
         ll <- lower.tri(correl)
         correl[ll] <- format(round(correl[ll], digits))
         correl[!ll] <- ""
-        print(correl[-1, -p], quote = FALSE, ...)
+        print(correl[-1, -ncol(correl)], quote = FALSE, ...)
     }
     invisible(x)
 }

@@ -44,7 +44,16 @@ main argument rather than the fitted model object itself.
 \code{\link{profile}}
 }
 \examples{
-\dontrun{
+library(nls)
+data(wtloss)
+expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),
+               function(b0, b1, th, x) {})
+
+
+wtloss.gr <- nls(Weight ~ expn1(b0, b1, th, Days),
+   data = wtloss, start = c(b0=90, b1=95, th=120))
+
+
 expn2 <- deriv(~b0 + b1*((w0 - b0)/b1)^(x/d0), 
          c("b0","b1","d0"), function(b0, b1, d0, x, w0) {})
 
@@ -65,5 +74,5 @@ for(w0 in w0s) {
   }
 dimnames(out) <- list(paste(w0s, "kg:"),  c("d0", "low", "high"))
 out
-}}
+}
 \keyword{models}

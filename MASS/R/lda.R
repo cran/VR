@@ -44,12 +44,6 @@ lda.data.frame <- function(x, ...)
     res
 }
 
-lda.Matrix <- function(x, ...)
-{
-    res <- lda.matrix(as.matrix(x), ...)
-    res$call <- match.call()
-    res
-}
 
 lda.matrix <- function(x, grouping, ...,
 		       subset, na.action = na.fail)

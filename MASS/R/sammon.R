@@ -38,6 +38,7 @@ sammon <- function(d, y, k=2, niter=100, trace=TRUE, magic=0.2, tol=1e-4)
       as.integer(trace),
       as.double(magic),
       as.double(tol)
+      , PACKAGE = "MASS"
       )
    list(points=z$y, stress=z$e, call=call)
 }

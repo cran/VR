@@ -407,7 +407,7 @@ data(Sitka)
 sitka.nlme <- nlme(size ~ A + B * (1 - exp(-(Time-100)/C)),
    fixed = list(A ~ treat, B ~ treat, C ~ 1),
    random =   A + B ~ 1 | tree, data = Sitka,
-   start  = list(fixed = c(2, 0, 4, 0, 100)),
+   start  = list(fixed = c(2, 0, 4, 0, 80)),
    method = "ML", verbose = T)
 
 summary(sitka.nlme)
