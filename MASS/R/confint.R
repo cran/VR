@@ -28,7 +28,9 @@ confint.profile.glm <-
     cutoff <- qnorm(a)
     for(pm in parm) {
         pro <- object[[pm]]
-        sp <- spline(x = pro[, "par.vals", drop=F][, pm], y = pro$z)
+        if(length(pnames) > 1)
+            sp <- spline(x = pro[, "par.vals"][, pm], y = pro$z)
+        else sp <- spline(x = pro[, "par.vals"], y = pro$z)
         ci[pnames[pm], ] <- approx(sp$y, sp$x, xout = cutoff)$y
     }
     drop(ci)

@@ -16,7 +16,9 @@
 
 #ifdef USING_R
   typedef double Sdata;
-# define DataByCopy 1  /* use this to copy data into C, e.g. for R */
+#  include "R_ext/PrtUtil.h"
+#  define printf Rprintf
+#  define DataByCopy 1  /* use this to copy data into C, e.g. for R */
 #else
   typedef float Sdata;  /* type of data, weights and Hessian in caller */
 #endif

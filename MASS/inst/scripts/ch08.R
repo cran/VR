@@ -89,12 +89,24 @@ xyplot(Yhat ~ Conc | Strip, Muscle, as.table = T,
      panel.xyplot(x, Muscle$logLength[subscripts], ...)
   })
 }
-coplot(seq(0.8,4, len=126) ~ Conc | Strip, Muscle, show.given=FALSE,
+
+if(F) { ## prior to 1.1.0
+coplot(seq(0.8, 4, len=126) ~ Conc | Strip, Muscle, show.given=FALSE,
        xlab = "Calcium Chloride concentration (mM)",
        ylab = "log(Length in mm)", panel = function(x, y, ...) {
            ind <- round(1+125*(y-0.8)/3.2)
            lines(spline(x, Muscle$Yhat[ind]))
            points(x, Muscle$logLength[ind])
+       })
+}
+
+## from 1.1.0
+coplot(Yhat ~ Conc | Strip, Muscle, show.given=FALSE,
+       xlab = "Calcium Chloride concentration (mM)",
+       ylab = "log(Length in mm)", subscripts = TRUE,
+       panel = function(x, y, subscripts, ...) {
+           points(x, y)
+           lines(spline(x, Muscle$Yhat[subscripts]))
        })
 
 # 8.5  Confidence intervals for parameters
@@ -445,8 +457,7 @@ R.nlme1 <- nlme(BPchange ~ Fpl(Dose, A, B, ld50, th),
                 fixed = list(A ~ Treatment, B ~ Treatment,
                              ld50 ~ Treatment, th ~ Treatment),
                 random =  A + ld50 ~ 1 | Animal/Run, data = Rabbit,
-                start = list(fixed=c1[c(1,5,2,5,3,5,4,5)]),
-                control = list(nlmStepMax = 1))
+                start = list(fixed=c1[c(1,5,2,5,3,5,4,5)]))
 summary(R.nlme1)
 
 R.nlme2 <- update(R.nlme1,
@@ -467,5 +478,27 @@ xyplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
          panel.xyplot(sp$x, sp$y, type="l")
       })
 }
+
+if(F) { ## prior to 1.1.0
+coplot(seq(0,40, len=60) ~ log(Dose) | Animal * Treatment, Rabbit,
+       show.given=FALSE,
+       panel = function(x, y, ...) {
+           ind <- round(1 + 59*y/40)
+           lines(spline(x, fitted(R.nlme2)[ind]))
+           points(x, Rabbit$BPchange[ind])
+       })
+}
+
+## from 1.1.0
+coplot(BPchange ~ log(Dose) | Animal * Treatment, Rabbit,
+       show.given=FALSE,
+       xlab = "log(Dose) of Phenylbiguanide",
+       ylab = "Change in blood pressure (mm Hg)",
+       subscripts = TRUE,
+       panel = function(x, y, subscripts, ...) {
+           points(x, y)
+           lines(spline(x, fitted(R.nlme2)[subscripts]))
+       })
+
 
 # End of ch08

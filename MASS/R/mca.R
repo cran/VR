@@ -22,7 +22,7 @@ mca <- function(df, nf = 2, abbrev = FALSE)
   sec <- 1 + (1:nf)
   rs <- X %*% X.svd$v[, sec]/p
   cs <- diag(1/(sqrt(p*Dc))) %*% X.svd$v[, sec]
-  fs <- X.svd$u[, sec]/rep(p*X.svd$d[sec], c(n,n))
+  fs <- X.svd$u[, sec]/rep(p*X.svd$d[sec], rep(n, nf))
   dimnames(rs) <- list(row.names(df), as.character(1:nf))
   dimnames(fs) <- dimnames(rs)
   varnames <- if(abbrev) unlist(lapply(df, levels))
@@ -71,7 +71,7 @@ predict.mca <- function(object, newdata, type=c("row", "factor"), ...)
     dimnames(x) <- list(names(cl), levels(cl))
     x
   }
-  
+
   type <- match.arg(type)
   if(is.null(abbrev <- object$call$abbrev)) abbrev <- FALSE
   if(!all(unlist(lapply(newdata, is.factor))))

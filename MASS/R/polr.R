@@ -8,18 +8,20 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
 
     fmin <- function(beta) {
         gamm <- c(-100, beta[pc+1:q], 100)
-        eta <- drop(x %*% beta[1:pc]) + offset
+        eta <- offset
+        if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
         pr <- plogis(gamm[y+1] - eta) - plogis(gamm[y] - eta)
         if(all(pr > 0)) -sum(wt * log(pr)) else Inf
     }
 
     gmin <- function(beta) {
         gamm <- c(-100, beta[pc+1:q], 100)
-        eta <- drop(x %*% beta[1:pc]) + offset
+        eta <- offset
+        if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
         pr <- plogis(gamm[y+1] - eta) - plogis(gamm[y] - eta)
         p1 <- dlogis(gamm[y+1] - eta)
         p2 <- dlogis(gamm[y] - eta)
-        g1 <- t(x) %*% (wt*(p1-p2)/pr)
+        g1 <- if(pc > 0) t(x) %*% (wt*(p1-p2)/pr) else numeric(0)
         xx <- .polrY1*p1 - .polrY2*p2
         d <- pmin(diff(beta[pc+1:q]), 0)
         g2 <- - t(xx) %*% (wt/pr)
@@ -41,10 +43,12 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
         xlev[!sapply(xlev, is.null)]
     }
     xint <- match("(Intercept)", colnames(x), nomatch=0)
-    if(xint > 0) x <- x[, -xint, drop=FALSE]
-    else warning("an intercept is needed and assumed")
     n <- nrow(x)
     pc <- ncol(x)
+    if(xint > 0) {
+        x <- x[, -xint, drop=FALSE]
+        pc <- pc - 1
+    } else warning("an intercept is needed and assumed")
     wt <- model.extract(m, weights)
     if(!length(wt)) wt <- rep(1, n)
     offset <- model.extract(m, offset)
@@ -54,7 +58,7 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
     lev <- levels(y)
     if(length(lev) <= 2) stop("response must have 3 or more levels")
     y <- unclass(y)
-    q <- length(lev)-1
+    q <- length(lev) - 1
     Y <- matrix(0, n, q)
     assign(".polrY1", col(Y) == y)
     assign(".polrY2", col(Y) == y-1)
@@ -62,20 +66,25 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
         # try logistic regression on `middle' cut
         q1 <- length(lev) %/% 2
         y1 <- (y > q1)
-        fit <- glm.fit(cbind(1, x), y1, wt, family=binomial(), offset=offset)
+        X <- cbind(Intercept = rep(1, n), x)
+        fit <- glm.fit(X, y1, wt, family = binomial(), offset = offset)
         coefs <- fit$coefficients
         spacing <- logit((1:q)/(q+1))
         start <- c(coefs[-1], -coefs[1] + spacing - spacing[q1])
     }
     res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess)
-    beta <- res$par[1:pc]
+    beta <- res$par[seq(len=pc)]
     zeta <- res$par[pc + 1:q]
     deviance <- 2 * res$value
     niter <- c(f.evals=res$counts[1], g.evals=res$counts[2])
-    names(beta) <- colnames(x)
     names(zeta) <- paste(lev[-length(lev)], lev[-1], sep="|")
-    eta <- drop(x %*% beta)
-    cumpr <- matrix(plogis(matrix(zeta,n,q,byrow=TRUE)-eta), , q)
+    if(pc > 0) {
+        names(beta) <- colnames(x)
+        eta <- drop(x %*% beta)
+    } else {
+        eta <- rep(0, n)
+    }
+    cumpr <- matrix(plogis(matrix(zeta, n, q, byrow=TRUE) - eta), , q)
     fitted <- t(apply(cumpr, 1, function(x) diff(c(0, x, 1))))
     dimnames(fitted) <- list(row.names(m), lev)
     fit <- list(coefficients = beta, zeta = zeta, deviance = deviance,
@@ -102,8 +111,12 @@ print.polr <- function(x, ...)
         cat("Call:\n")
         dput(cl)
     }
-    cat("\nCoefficients:\n")
-    print(coef(x), ...)
+    if(length(coef(x))) {
+        cat("\nCoefficients:\n")
+        print(coef(x), ...)
+    } else {
+        cat("\nNo coefficients\n")
+    }
     cat("\nIntercepts:\n")
     print(x$zeta, ...)
     cat("\nResidual Deviance:", format(round(x$deviance, 2)), "\n")
@@ -151,8 +164,12 @@ print.summary.polr <- function(x, digits = x$digits, ...)
     }
     coef <- format(round(x$coef, digits=digits))
     pc <- x$pc
-    cat("\nCoefficients:\n")
-    print(x$coef[1:pc, ], quote = FALSE, ...)
+    if(pc > 0) {
+        cat("\nCoefficients:\n")
+        print(x$coef[seq(len=pc), ], quote = FALSE, ...)
+    } else {
+        cat("\nNo coefficients\n")
+    }
     cat("\nIntercepts:\n")
     print(coef[(pc+1):nrow(coef), ], quote = FALSE, ...)
     cat("\nResidual Deviance:", format(round(x$deviance, 2)), "\n")

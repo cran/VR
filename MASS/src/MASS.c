@@ -10,6 +10,11 @@
 #  include <newredef.h>
 #endif
 
+#ifdef USING_R
+#  include "R_ext/PrtUtil.h"
+#  define printf Rprintf
+#endif
+
 #include "verS.h"
 
 #ifndef max
@@ -623,58 +628,3 @@ VR_den_bin(Sint *n, Sint *nb, Sfloat *d, Sfloat *x, Sint *cnt)
     }
 }
 
-/* find maximum column: designed for probabilities. Uses
-   reservoir sampling to break ties at random */
-
-
-#ifdef USING_R
-# include <R_ext/Arith.h>    /* for NA handling */
-#endif
-#define RELTOL 1e-5
-
-void
-VR_max_col(double *matrix, int *pnr, int *nc, int *maxes)
-{
-    int   r, c, m, nr = *pnr, ntie;
-    double a, b, tol;
-
-    S_EVALUATOR
-    RANDIN;
-    for (r = 0; r < nr; r++) {
-	m = 0;
-	ntie = 1;
-	a = matrix[r];
-#ifdef USING_R
-	if (ISNAN(a)) { /* NA or NaN in R */
-	    maxes[r] = NA_INTEGER;
-#else
-	if (is_na(&a, DOUBLE)) { /* NA or NaN in S */
-	    na_set(maxes + r, INT);
-#endif
-	    continue;
-	}
-	for (c = 1; c < *nc; c++) {
-	    b = matrix[r + c * nr];
-#ifdef USING_R
-	    if (ISNAN(a)) {
-		maxes[r] = NA_INTEGER;
-#else
-	    if (is_na(&b, DOUBLE)) {
-		na_set(maxes + r, INT);
-#endif
-		continue;
-	    }
-	    tol = RELTOL * max(fabs(a), fabs(b));
-	    if (b >= a + tol) {
-		ntie = 1;
-		a = b;
-		m = c;
-	    } else if (b >= a - tol) {
-		ntie++;
-		if (ntie * UNIF < 1.0) m = c;
-	    }
-	}
-	maxes[r] = m + 1;
-    }
-    RANDOUT;
-}

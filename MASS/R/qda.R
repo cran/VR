@@ -92,11 +92,11 @@ qda.default <-
         stop(paste("Cannot use leave-one-out CV with method", method))
     for (i in 1:ng){
         if(method == "mve") {
-            cX <- cov.mve(X[unclass(g) == i, ], , FALSE)
-            group.means[i] <- cX$center
+            cX <- cov.mve(x[unclass(g) == i, ])
+            group.means[i,] <- cX$center
             sX <- svd(cX$cov, nu=0)
             scaling[, , i] <- sX$v %*% diag(sqrt(1/sX$d),,p)
-            ldet[i] <- sum(log(diag(sX$d)))
+            ldet[i] <- sum(log(sX$d))
         } else if(method == "t") {
             if(nu <= 2) stop("nu must exceed 2")
             m <- counts[i]

@@ -34,7 +34,8 @@ asserts that the residual standard error or dispersion is known.
 }
 \item{test}{
 should the results include a test statistic relative to the original
-model?  The F test is only appropriate for \code{lm} and \code{aov} models. The
+model?  The F test is only appropriate for \code{lm} and \code{aov} models,
+and perhaps for some over-dispersed \code{glm} models. The
 Chisq test can be an exact test (\code{lm} models with known scale) or a
 likelihood-ratio test depending on the method.
 }

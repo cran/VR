@@ -95,7 +95,7 @@ the number of iterations, function and gradient evaluations used by \code{nlminb
 (if \code{Hess} is true).
 }}
 \seealso{
-\code{\link{nlm}}, \code{\link{glm}}, \code{\link{multinom}}.
+\code{\link{nlm}}, \code{\link{glm}}, \code{\link[nnet]{multinom}}.
 }
 \examples{
 options(contrasts=c("contr.treatment", "contr.poly"))

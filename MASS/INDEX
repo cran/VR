@@ -51,7 +51,6 @@ cov.trob                 Covariance Estimation for Multivariate t
 cpus                     Performance of Computer CPUs
 crabs                    Morphological Measurements on Leptograpsus Crabs
 deaths                   Monthly Deaths from Lung Diseases in the UK
-digamma                  Digamma Function
 drivers                  Deaths of Car Drivers in Great Britain 1969-84
 dropterm                 Try All One-Term Deletions from a Model
 eagles                   Foraging Ecology of Bald Eagles
@@ -95,7 +94,6 @@ loglm                    Fit Log-Linear Models by Iterative Proportional
 logtrans                 Estimate log Transformation Parameter
 mammals                  Brain and Body Weights for 62 Species of Land
                          Mammals
-max.col                  Find Maximum Position in Matrix
 mca                      Multiple Correspondence Analysis
 mcycle                   Data from a Simulated Motorcycle Accident
 mdeaths                  Monthly Deaths from Lung Diseases in the UK
@@ -159,7 +157,6 @@ theta.md                 Estimate theta of the Negative Binomial by
 theta.mm                 Estimate theta of the Negative Binomial by
                          Moments
 topo                     Spatial Topographic Data
-trigamma                 Trigamma Function
 truehist                 Plot a Histogram
 ucv                      Unbiased Cross-Validation for Bandwidth
                          Selection

@@ -51,7 +51,7 @@ other the Simpson's rule result is given, otherwise the process is applied
 separately to each half of the interval and the results added together.
 }
 \seealso{
-\code{\link{integrate}}
+\code{\link[integrate]{integrate}}
 }
 \examples{
 area(sin, 0, pi)  # integrate the sin function from 0 to pi.
