@@ -11,11 +11,11 @@ regression fits for trend surfaces calculated by \code{surf.ls}.
 }
 \usage{
 trls.influence(object)
-\method{plot}{trls}(object, border = "red", col = NA, pch = 4, cex = 0.6, 
-          add = FALSE, div = 8)
+\method{plot}{trls}(x, border = "red", col = NA, pch = 4, cex = 0.6, 
+          add = FALSE, div = 8, \dots)
 }
 \arguments{
-\item{object}{
+\item{object, x}{
 Fitted trend surface model from \code{surf.ls}
 }
 \item{div}{
@@ -23,6 +23,9 @@ scaling factor for influence circle radii in \code{plot.trls}
 }
 \item{add}{
 add influence plot to existing graphics if TRUE
+}
+\item{border, col, pch, cex, ...}{
+additional graphical parameters
 }
 \value{
 \code{trls.influence} returns a list with:

@@ -5,7 +5,7 @@ gamma.shape <- function(object, ...) UseMethod("gamma.shape")
 
 gamma.shape.glm <- function(object, it.lim = 10,
                             eps.max = .Machine$double.eps^0.25,
-			    verbose = FALSE)
+			    verbose = FALSE, ...)
 {
     if(is.null(object$y)) object <- update(object, y = TRUE)
     y <- object$y

@@ -54,7 +54,7 @@ print.Anova <- function(x, ...)
 }
 
 "family.negbin"<-
-function(object)
+function(object, ...)
     object$family
 
 "glm.convert"<-

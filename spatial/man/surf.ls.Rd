@@ -20,7 +20,7 @@ surf.ls(np, x, y, z)
 \method{fitted}{trls}(object, \dots)
 \method{deviance}{trls}(object, \dots)
 \method{df.residual}{trls}(object, \dots)
-\method{extractAIC}{trls}(object, k=2, \dots)
+\method{extractAIC}{trls}(fit, scale, k=2, \dots)
 }
 \arguments{
 \item{np}{
@@ -35,8 +35,11 @@ y coordinates
 \item{z}{
 z coordinates. Will supersede \code{x$z}
 }
-\item{object}{
+\item{object, fit}{
 a fit inheriting from class \code{"trls"}
+}
+\item{scale}{
+unused for this method
 }
 \item{k}{
 the multiple of the number of degrees of freedom to be used.

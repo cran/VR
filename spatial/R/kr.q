@@ -121,19 +121,19 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
        as.integer(obj$np))$z
 }
 
-predict.trls <- function (obj, x, y)
+predict.trls <- function (object, x, y, ...)
 {
-    if (!inherits(obj, "trls"))
+    if (!inherits(object, "trls"))
         stop("object not a fitted trend surface")
     n <- length(x)
     if (length(y) != n) stop("x and y differ in length")
     .C("VR_frset",
-       as.double(obj$rx[1]),
-       as.double(obj$rx[2]),
-       as.double(obj$ry[1]),
-       as.double(obj$ry[2])
+       as.double(object$rx[1]),
+       as.double(object$rx[2]),
+       as.double(object$ry[1]),
+       as.double(object$ry[2])
        )
-    invisible(.trval(obj, x, y))
+    invisible(.trval(object, x, y))
 }
 
 trmat <- function (obj, xl, xu, yl, yu, n)
@@ -379,13 +379,13 @@ df.residual.trls <- function (object, ...)
     length(object$z) - length(object$beta)
 }
 
-extractAIC.trls <- function (object, k = 2, ...)
+extractAIC.trls <- function (fit, scale, k = 2, ...)
 {
-    if (!inherits(object, "trls"))
+    if (!inherits(fit, "trls"))
         stop("object not a fitted trend surface")
-    n <- length(object$z)
-    edf <- df.residual.trls(object)
-    RSS <- deviance(object)
+    n <- length(fit$z)
+    edf <- df.residual.trls(fit)
+    RSS <- deviance(fit)
     dev <- n * log(RSS/n)
     c(edf, dev + k * edf)
 }
@@ -472,7 +472,7 @@ anovalist.trls <- function (object, ...)
 # and a basic summary method, avoiding the coefficient values
 #
 summary.trls <-
-    function (object, digits = max(3, .Options$digits - 3))
+    function (object, digits = max(3, getOption("digits") - 3), ...)
 {
     if (!inherits(object, "trls"))
         stop("object not a fitted trend surface")
@@ -527,22 +527,22 @@ trls.influence <- function (object)
 }
 
 plot.trls <-
-    function (object, border = "red", col = NA, pch = 4, cex = 0.6,
-              add = FALSE, div = 8)
+    function (x, border = "red", col = NA, pch = 4, cex = 0.6,
+              add = FALSE, div = 8, ...)
 {
-    if (!inherits(object, "trls"))
-        stop("object not a fitted trend surface")
-    infl <- trls.influence(object)
-    dx <- diff(range(object$x))
-    dy <- diff(range(object$y))
+    if (!inherits(x, "trls"))
+        stop("`x' not a fitted trend surface")
+    infl <- trls.influence(x)
+    dx <- diff(range(x$x))
+    dy <- diff(range(x$y))
     dxy <- (dx + dy)/2
     mDi <- max(infl$Di)
     sc <- (mDi * dxy)/div
     if (!add)
-        plot(object$x, object$y, type = "n", xlab = "", ylab = "")
-    symbols(object$x, object$y, circles=sc * infl$Di, add=TRUE,
+        plot(x$x, x$y, type = "n", xlab = "", ylab = "")
+    symbols(x$x, x$y, circles=sc * infl$Di, add=TRUE,
             fg=border,
             inches=FALSE)
-    points(object$x, object$y, pch = pch)
+    points(x$x, x$y, pch = pch)
 }
 

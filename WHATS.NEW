@@ -22,6 +22,7 @@ Version 6.1 (Apr 1999) release for the third edition. Support for S-PLUS
 Version 6.2 (Aug 2000) tidy up documentation.  Would be 6.1pl010, but that
   causes R problems.
   (Oct 2000) support for S-PLUS 6.0 for Unix.
+  (July 2001) support for S-PLUS 6.0 for Windows.
 
 
 The na-handling methods of S-PLUS 2000 have been incorporated. With most
@@ -35,7 +36,7 @@ residuals will no longer be filled with NAs (this is the behaviour of S-PLUS
 2000).
 
 The improved prediction methods of S-PLUS 2000 (that we supplied) are
-incorporated, for that version only, so prediction involving factor
+incorporated, for that version and 6, so prediction involving factor
 variables will be safer.
 
 
@@ -71,7 +72,8 @@ Library MASS
 - new method confint.lm.
 - fractions/rational allow missing values.
 - stepAIC/addterm/dropterm now work with survReg as well as survreg fits.
-- mvrnorm was an `empirical' argument
+- mvrnorm was an `empirical' argument.
+- predict.lda tries harder to avoid exponential underflow.
 
 
 Library nnet
@@ -105,7 +107,7 @@ Library treefix
 
 A more general version of the replacement code for prune.tree,
 predict.tree and na.replace.tree supplied to StatSci for S-PLUS 3.4
-and later.  This version is incorporated in S-PLUS 2000 and 5.1.
+and later.  This version is incorporated in S-PLUS 2000, 5.1 and 6.
 
 - prune.tree/prune.misclass will now use losses as well as the number
   of misclassifications.

@@ -4,7 +4,7 @@
 #
 #corrections copyright (C) 2000 B. D. Ripley
 profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
-			maxsteps = 10, del = zmax/5, trace = FALSE)
+			maxsteps = 10, del = zmax/5, trace = FALSE, ...)
 {
   Pnames <- names(B0 <- coefficients(fitted))
   pv0 <- t(as.matrix(B0))
@@ -114,7 +114,7 @@ pairs.profile <-
   ## Another plot method for profile objects showing pairwise traces.
   ## Recommended only for diagnostic purposes.
 function(x,
-         colours = 2:3)
+         colours = 2:3, ...)
 {
   parvals <- lapply(x, "[[", "par.vals")
   rng <- apply(do.call("rbind", parvals), 2,

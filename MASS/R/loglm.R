@@ -289,7 +289,7 @@ fitted.loglm <- function(object, ...)
 }
 
 residuals.loglm <-
-    function(object, type = c("deviance", "pearson", "response"))
+    function(object, type = c("deviance", "pearson", "response"), ...)
 {
     type <- match.arg(type)
     if(is.null(object$fit) || is.null(object$freq)) {

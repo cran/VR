@@ -6,11 +6,7 @@
 k-Nearest Neighbour Cross-Validatory Classification
 }
 \description{
-k-nearest neighbour cross-validatory classification from training set. For
-each row of the training set, the \code{k} nearest (in Euclidean distance) other
-training set vectors are found, and the classification is decided by
-majority vote, with ties broken at random. If there are ties for the
-\code{k}th nearest vector, all candidates are included in the vote.
+k-nearest neighbour cross-validatory classification from training set.
 }
 \usage{
 knn.cv(train, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
@@ -39,6 +35,14 @@ controls handling of ties. If true, all distances equal to the \code{k}th
 largest are included. If false, a random selection of distances
 equal to the \code{k}th is chosen to use exactly \code{k} neighbours.
 }}
+\details{
+This uses leave-one-out cross validation.
+For each row of the training set \code{train}, the \code{k} nearest 
+(in Euclidean distance) other
+training set vectors are found, and the classification is decided by
+majority vote, with ties broken at random. If there are ties for the
+\code{k}th nearest vector, all candidates are included in the vote.
+}
 \value{
 factor of classifications of training set. \code{doubt} will be returned as \code{NA}.
 }
@@ -47,9 +51,8 @@ factor of classifications of training set. \code{doubt} will be returned as \cod
 }
 \examples{
 data(iris3)
-train <- rbind(iris3[1:25,,1],iris3[1:25,,2],iris3[1:25,,3])
-test <- rbind(iris3[26:50,,1],iris3[26:50,,2],iris3[26:50,,3])
-cl <- factor(c(rep("s",25),rep("c",25), rep("v",25)))
+train <- rbind(iris3[,,1],iris3[,,2],iris3[,,3])
+cl <- factor(c(rep("s",50),rep("c",50), rep("v",50)))
 knn.cv(train, cl, k=3, prob=TRUE)
 attributes(.Last.value)
 }

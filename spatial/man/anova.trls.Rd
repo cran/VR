@@ -14,7 +14,7 @@ called with multiple objects, it passes on the arguments to
 \usage{
 \method{anova}{trls}(object, \dots)
 \method{anovalist}{trls}(object, \dots)
-\method{summary}{trls}(object, digits=max(3, getOption("digits") - 3))
+\method{summary}{trls}(object, digits=max(3, getOption("digits") - 3), \dots)
 }
 \arguments{
 \item{object}{

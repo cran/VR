@@ -124,7 +124,7 @@ print.polr <- function(x, ...)
     invisible(x)
 }
 
-vcov.polr <- function(object)
+vcov.polr <- function(object, ...)
 {
     if(is.null(object$Hessian)) {
         cat("\nRe-fitting to get Hessian\n\n")

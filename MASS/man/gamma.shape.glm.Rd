@@ -15,7 +15,7 @@ linear model.
 }
 \usage{
 gamma.shape.glm(object, it.lim=10, 
-                eps.max=Machine$double.eps^0.25, verbose=FALSE)
+                eps.max=.Machine$double.eps^0.25, verbose=FALSE, \dots)
 }
 \arguments{
 \item{object}{
@@ -32,6 +32,9 @@ process to continue.
 \item{verbose}{
 If \code{TRUE}, causes successive iterations to be printed out.  The
 initial estimate is taken from the deviance.
+}
+\item{...}{
+further arguments passed to or from other methods.
 }}
 \value{
 List of two components 

@@ -202,7 +202,7 @@ addterm.glm <-
     aod
 }
 
-addterm.mlm <- function(...)
+addterm.mlm <- function(object, ...)
     stop("no addterm method implemented for mlm models")
 
 dropterm <- function(object, ...) UseMethod("dropterm")

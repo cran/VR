@@ -215,7 +215,7 @@ coef.multinom <- function(object, ...)
   coef
 }
 
-drop1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE)
+drop1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE, ...)
 {
   if(!inherits(object, "multinom")) stop("Not a multinom fit")
   if(missing(scope)) scope <- drop.scope(object)
@@ -223,7 +223,7 @@ drop1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE)
       if(!is.character(scope))
 	scope <- attr(terms(update.formula(object, scope)), "term.labels")
       if(!all(match(scope, attr(object$terms, "term.labels"),
-                    F)))
+                    nomatch = FALSE)))
 	stop("scope is not a subset of term labels")
     }
   ns <- length(scope)
@@ -243,7 +243,7 @@ drop1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE)
   ans
 }
 
-add1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE)
+add1.multinom <- function(object, scope, sorted = TRUE, trace = FALSE, ...)
 {
   if(!inherits(object, "multinom")) stop("Not a multinom fit")
   if(!is.character(scope))

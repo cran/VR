@@ -115,7 +115,7 @@ rlm.default <-
         psi <- psi.bisquare
         if(length(arguments <- list(...)))
             if(match("c", names(arguments),
-                     F)) {
+                     nomatch = FALSE)) {
                 c0 <- arguments$c
                 if (c0 > 1.548) {
                     psi$c <- c0

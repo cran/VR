@@ -23,7 +23,7 @@ frequency.polygon(x, nclass = nclass.freq(x), xlab="", ylab="", \dots)
 nclass.freq(x)
 neg.bin(theta = stop("theta must be given"))
 negexp.SSival(mCall, data, LHS)
-pairs.profile(x, colours = 2:3)
+pairs.profile(x, colours = 2:3, \dots)
 plot.profile(x, nseg, \dots)
 print.Anova(x, \dots)
 }

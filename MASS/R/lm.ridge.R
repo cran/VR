@@ -71,5 +71,5 @@ select.ridgelm <- function(obj)
     }
 }
 
-plot.ridgelm <- function(x)
+plot.ridgelm <- function(x, ...)
     matplot(x$lambda, t(x$coef), type = "l")

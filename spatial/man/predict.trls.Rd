@@ -7,10 +7,10 @@ Predict method for trend surface fits
 Predicted values based on trend surface model object
 }
 \usage{
-\method{predict}{trls}(obj, x, y)
+\method{predict}{trls}(object, x, y, \dots)
 }
 \arguments{
-\item{obj}{
+\item{object}{
 Fitted trend surface model object returned by \code{surf.ls}
 }
 \item{x}{
@@ -18,6 +18,9 @@ Vector of prediction location eastings (x coordinates)
 }
 \item{y}{
 Vector of prediction location northings (y coordinates)
+}
+\item{...}{
+further arguments passed to or from other methods.
 }}
 \value{
 \code{predict.trls} produces a vector of predictions corresponding 

@@ -16,10 +16,10 @@ model.
 glm.nb(formula, \dots,  init.theta, link=log)
 }
 \synopsis{
-glm.nb(formula = formula(data), data = sys.parent(), weights,
+glm.nb(formula = formula(data), data = parent.frame(), weights,
                  subset, na.action, start = eta,
                  control = glm.control(...), method = "glm.fit",
-                 model = F, x = F, y = T, contrasts = NULL, ...,
+                 model = FALSE, x = FALSE, y = TRUE, contrasts = NULL, ...,
                  init.theta, link = log)
 }
 \arguments{

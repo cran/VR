@@ -105,7 +105,7 @@ qda.default <-
             w <- rep(1, m)
             repeat {
                 w0 <- w
-                W <- scale(X, group.means[i, ], FALSE)
+                W <- scale(X, center=group.means[i, ], scale=FALSE)
                 sX <- svd(sqrt((1 + p/nu) * w/m) * W, nu=0)
                 W <- W %*% sX$v %*% diag(1/sX$d,, p)
                 w <- 1/(1 + drop(W^2 %*% rep(1, p))/nu)
@@ -113,14 +113,14 @@ qda.default <-
                 group.means[i,] <- apply(w*X, 2, sum)/sum(w)
                 if(all(abs(w - w0) < 1e-2)) break
             }
-            qx <- qr(sqrt(w)*scale(X, group.means[i, ], FALSE))
+            qx <- qr(sqrt(w)*scale(X, center=group.means[i, ], scale=FALSE))
             if(qx$rank < p) stop(paste("Rank deficiency in group", lev[i]))
             qx <- qx$qr* sqrt((1 + p/nu)/m)
             scaling[, , i] <- backsolve(qx[1:p,  ], diag(p))
             ldet[i] <- 2*sum(log(abs(diag(qx))))
         } else {
             if(method == "moment") nk <- counts[i] - 1 else nk <- counts[i]
-            X <- scale(x[unclass(g) == i, ], group.means[i, ], FALSE)/sqrt(nk)
+            X <- scale(x[unclass(g) == i, ], center=group.means[i, ], scale=FALSE)/sqrt(nk)
             qx <- qr(X)
             if(qx$rank < p) stop(paste("Rank deficiency in group", lev[i]))
             qx <- qx$qr
