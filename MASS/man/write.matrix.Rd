@@ -7,22 +7,31 @@
 Write a Matrix or Data Frame
 }
 \description{
-Writes a matrix or data frame to a file or the terminal, using column
+Writes a matrix or data frame to a file or the console, using column
 labels and a layout respecting columns.
 }
 \usage{
-write.matrix(x, file="", sep=" ")
+write.matrix(x, file="", sep=" ", blocksize)
 }
 \arguments{
 \item{x}{
 matrix or data frame.
 }
 \item{file}{
-name of output file. The default (\code{""}) is the terminal.
+name of output file. The default (\code{""}) is the console.
 }
 \item{sep}{
 The separator between columns.
+}
+\item{blocksize}{
+If supplied and positive, the output is written in blocks of
+\code{blocksize} rows.
 }}
+\details{
+Supplying \code{blocksize} is more memory-efficient and enables larger
+matrices to be writted, but each block of rows might be formatted
+slightly differently.
+}
 \value{
 none
 }
@@ -33,16 +42,5 @@ and columns of data.
 \seealso{
 \code{\link{write.table}}
 }
-\examples{
-\dontrun{
-# The function is  defined as
-function(x, file = "", sep = " ")
-{
-   x <- as.matrix(x)
-   p <- ncol(x)
-   cat(dimnames(x)[[2]], format(t(x)), file = file, 
-       sep = c(rep(sep, p - 1), "\n"))
-}
-}}
 \keyword{file}
 \keyword{print}

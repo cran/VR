@@ -108,7 +108,7 @@ function(formula, data, start = rep(1, length(data)), fitted = FALSE,
     if((r <- attr(trms, "response")))
         factors <- factors[-r,  , drop = FALSE]
     nt <- ncol(factors)
-    fo <- order(apply(factors, 2, sum))
+    fo <- order(colSums(factors))
     factors <- factors[, fo, drop = FALSE]
     ff <- crossprod(factors)
     keep <- rep(TRUE, nt)

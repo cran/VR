@@ -15,6 +15,7 @@ OME                      Tests of Auditory Perception in Children with
 Pima.tr                  Diabetes in Pima Indian Women
 Rabbit                   Blood Pressure in Rabbits
 Rubber                   Accelerated Testing of Tyre Rubber
+SP500                    Returns of the Standard and Poors 500
 Sitka                    Growth Curves for Sitka Spruce Trees in 1988
 Sitka89                  Growth Curves for Sitka Spruce Trees in 1989
 Skye                     AFM Compositions of Aphyric Skye Lavas
@@ -23,6 +24,7 @@ UScereal                 Nutritional and Marketing Information on US
                          Cereals
 UScrime                  The Effect of Punishment Regimes on Crime Rates
 VA                       Veteran's Administration lung cancer trial.
+VRarima                  Wrapper Functions for ARIMA Modelling
 abbey                    Determinations of Nickel Content
 accdeaths                Accidental Deaths in the US 1973-1978
 addterm                  Try All One-Term Additions to a Model
@@ -63,6 +65,7 @@ dose.p                   Predict Doses for Binomial Assay model
 drivers                  Deaths of Car Drivers in Great Britain 1969-84
 dropterm                 Try All One-Term Deletions from a Model
 eagles                   Foraging Ecology of Bald Eagles
+epil                     Seizure Counts for Epileptics
 eqscplot                 Plots with Geometrically Equal Scales
 farms                    Ecological Factors in Farm Management
 fdeaths                  Monthly Deaths from Lung Diseases in the UK
@@ -121,6 +124,7 @@ mvrnorm                  Simulate from a Multivariate Normal Distribution
 negative.binomial        Family function for Negative Binomial GLMs
 newcomb                  Newcomb's Measurements of the Passage Time of
                          Light
+nlschools                Eighth-Grade Pupils in the Netherlands
 nottem                   Average Monthly Temperatures at Nottingham,
                          1920-1939
 npk                      Classical N, P, K Factorial Experiment
@@ -129,6 +133,7 @@ oats                     Data from an Oats Field Trial
 orlm                     Fit Robust Linear Regression Model
 painters                 The Painter's Data of de Piles
 pairs.lda                Produce Pairwise Scatterplots from an `lda' Fit
+parcoord                 Parallel Coordinates Plot
 petrol                   N. L. Prater's Petrol Refinery Data
 phones                   Belgium Phone Calls 1950-1973
 plot.lda                 Plot Method for Class `lda'

@@ -93,7 +93,7 @@ corresp.matrix(table(x, y), ...)
 }
 
 biplot.correspondence <-
-  function(obj, type=c("symmetric", "rows", "columns"), ...)
+  function(obj, type = c("symmetric", "rows", "columns"), ...)
 {
   if(length(obj$cor) < 2) stop("biplot is only possible if nf >= 2")
   type <- match.arg(type)
@@ -102,6 +102,7 @@ biplot.correspondence <-
   colnames(X) <- rep("", 2)
   Y <- obj$cscore[, 1:2]
   if(type != "rows")  Y <- Y %*% diag(obj$cor[1:2])
+  colnames(Y) <- rep("", 2)
   switch(type, "symmetric" = biplot.default(X, Y, var.axes = FALSE, ...),
          "rows" = biplot.bdr(X, Y, ...),
          "columns" = biplot.bdr(Y, X, ...))

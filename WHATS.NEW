@@ -77,13 +77,20 @@ Library MASS
 
 - new function fitdistr for ML estimation of univariate distributions.
 - truehist allows rule for nbins to be specified as a character string.
-- relevel function.
+
+- relevel function (not R).
+- parcoord function.
+- mosaicplot function (not R).
+
+- new datasets bacteria, epil, nlschools, SP500
+- time series wrapper functions VRarima and diagnostics.
 
 
 Library class
 -------------
 
-- fixed a bug in knn(use.all=F)
+- fixed a bug in knn(use.all = F)
+- batchSOM and ancilliary functions.
 
 
 Library nnet

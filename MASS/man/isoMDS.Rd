@@ -11,7 +11,7 @@ Kruskal's Non-metric Multidimensional Scaling
 One form of non-metric multidimensional scaling
 }
 \usage{
-isoMDS(d, y = cmdscale(d, 2), maxit = 50, trace = TRUE)
+isoMDS(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE)
 }
 \arguments{
 \item{d}{
@@ -23,6 +23,9 @@ but must be positive except for self-distance.
 An initial configuration. If none is supplied, \code{cmdscale} is used to provide
 the classical solution. The dimension of the initial configuration
 determines that of the answer
+}
+\item{k}{
+The desired dimension for the solution.
 }
 \item{maxit}{
 The maximum number of iterations.

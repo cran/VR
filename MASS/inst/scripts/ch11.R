@@ -66,7 +66,7 @@ biplot(princomp(state, cor=T), pc.biplot=T, cex = 0.7, ex=0.8)
 # 11.2  Cluster analysis
 
 h <- hclust(dist(swiss.x), method="single")
-plot(h) # or plcust with library(cluster)
+plot(h) # or plclust with library(cluster)
 cutree(h, 3)
 #plclust( clorder(h, cutree(h, 3) ))
 

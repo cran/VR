@@ -110,7 +110,7 @@ qda.default <-
                 W <- W %*% sX$v %*% diag(1/sX$d,, p)
                 w <- 1/(1 + drop(W^2 %*% rep(1, p))/nu)
                 #         print(summary(w))
-                group.means[i,] <- apply(w*X, 2, sum)/sum(w)
+                group.means[i,] <- colSums(w*X)/sum(w)
                 if(all(abs(w - w0) < 1e-2)) break
             }
             qx <- qr(sqrt(w)*scale(X, center=group.means[i, ], scale=FALSE))
@@ -135,7 +135,7 @@ qda.default <-
         for(i in 1:ng) {
             dev <- ((x - matrix(group.means[i,  ], nrow(x),
                                 p, byrow = TRUE)) %*% scaling[,,i])
-            dist[, i] <- apply(dev^2, 1, sum)
+            dist[, i] <- rowSums(dev^2)
             Ldet[, i] <- ldet[i]
         }
         nc <- counts[g]
@@ -223,7 +223,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
         for(i in 1:ngroup) {
             dev <- ((x - matrix(object$means[i,  ], nrow(x),
                                 ncol(x), byrow = TRUE)) %*% object$scaling[,,i])
-            dist[, i] <- 0.5 * apply(dev^2, 1, sum) + 0.5 * object$ldet[i] - log(object$prior[i])
+            dist[, i] <- 0.5 * rowSums(dev^2) + 0.5 * object$ldet[i] - log(object$prior[i])
         }
 #        dist <- exp( -(dist - min(dist, na.rm=T)))
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
@@ -235,7 +235,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
         for(i in 1:ngroup) {
             dev <- ((x - matrix(object$means[i,  ], nrow(x), p, byrow = TRUE))
                     %*% object$scaling[,,i])
-            dist[, i] <- apply(dev^2, 1, sum)
+            dist[, i] <- rowSums(dev^2)
             ldet[, i] <- object$ldet[i]
         }
         nc <- object$counts[g]
@@ -253,7 +253,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
             Bm <- p * log((nk-1)/2) - sum(digamma(0.5 * (nk - 1:ngroup)))
             dev <- ((x - matrix(object$means[i,  ], nrow = nrow(x),
                                 ncol = ncol(x), byrow = TRUE)) %*% object$scaling[,,i])
-            dist[, i] <- 0.5 * (1 - (p-1)/(nk-1)) * apply(dev^2, 1, sum) +
+            dist[, i] <- 0.5 * (1 - (p-1)/(nk-1)) * rowSums(dev^2) +
                 0.5 * object$ldet[i] - log(object$prior[i]) + 0.5 * Bm - p/(2*nk)
         }
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
@@ -264,7 +264,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
             dev <- ((x - matrix(object$means[i,  ], nrow = nrow(x),
                                 ncol = ncol(x), byrow = TRUE))
                     %*% object$scaling[,,i])
-            dev <- 1 + apply(dev^2, 1, sum)/(nk+1)
+            dev <- 1 + rowSums(dev^2)/(nk+1)
             dist[, i] <- object$prior[i] * exp(-object$ldet[i]/2) *
                 dev^(-nk/2) * (1 + nk)^(-p/2)
         }

@@ -143,7 +143,7 @@ lda.default <-
         dist <- matrix(0, n, ng)
         for(i in 1:ng) {
             dev <- x - matrix(dm[i,  ], n, p, byrow = TRUE)
-            dist[, i] <- apply(dev^2, 1, sum)
+            dist[, i] <- rowSums(dev^2)
         }
         ind <- cbind(1:n, g)
         nc <- counts[g]
@@ -152,7 +152,7 @@ lda.default <-
         for(i in 1:ng) {
             dev <- x - matrix(dm[i,  ], n, p, byrow = TRUE)
             dev2 <- x - dm[g, ]
-            tmp <- apply(dev*dev2, 1, sum)
+            tmp <- rowSums(dev*dev2)
             dist[, i] <- (n-1-K)/(n-K) * (dist2[, i] +  cc*tmp^2/(1 - cc*dist2[ind]))
         }
         dist[ind] <- dist2[ind] * (n-1-K)/(n-K) * (nc/(nc-1))^2 /
@@ -165,7 +165,7 @@ lda.default <-
         dimnames(posterior) <- list(rownames(x), lev1)
         return(list(class = cl, posterior = posterior))
     }
-    xbar <- apply(prior %*% group.means, 2, sum)
+    xbar <- colSums(prior %*% group.means)
     if(method == "mle") fac <-  1/ng else fac <- 1/(ng - 1)
     X <- sqrt((n * prior)*fac) * scale(group.means, center=xbar, scale=FALSE) %*% scaling
     X.s <- svd(X, nu = 0)
@@ -220,7 +220,7 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
          warning("Variable names in newdata do not match those in object")
     ng <- length(prior)
 #   remove overall means to keep distances small
-    means <- apply(prior*object$means, 2, sum)
+    means <- colSums(prior*object$means)
     scaling <- object$scaling
     x <- scale(x, center=means, scale=FALSE) %*% scaling
     dm <- scale(object$means, center=means, scale=FALSE) %*% scaling
@@ -230,13 +230,13 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
     N <- object$N
     if(method == "plug-in") {
         dm <- dm[, 1:dimen, drop=FALSE]
-        dist <- matrix(0.5 * apply(dm^2, 1, sum) - log(prior), nrow(x),
+        dist <- matrix(0.5 * rowSums(dm^2) - log(prior), nrow(x),
                        length(prior), byrow = TRUE) - x[, 1:dimen, drop=FALSE] %*% t(dm)
 #        dist <- exp( -(dist - min(dist, na.rm=T)))
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else if (method == "debiased") {
         dm <- dm[, 1:dimen, drop=FALSE]
-        dist <- matrix(0.5 * apply(dm^2, 1, sum), nrow(x), ng, byrow = TRUE) -
+        dist <- matrix(0.5 * rowSums(dm^2), nrow(x), ng, byrow = TRUE) -
             x[, 1:dimen, drop=FALSE] %*% t(dm)
         dist <- (N - ng - dimen - 1)/(N - ng) * dist -
             matrix(log(prior) - dimen/object$counts , nrow(x), ng, byrow=TRUE)
@@ -250,7 +250,7 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
         for(i in 1:ng) {
             nk <- object$counts[i]
             dev <- scale(X, center=dm[i, ], scale=FALSE)
-            dev <- 1 + apply(dev^2, 1, sum) * nk/(N*(nk+1))
+            dev <- 1 + rowSums(dev^2) * nk/(N*(nk+1))
             dist[, i] <- prior[i] * (nk/(nk+1))^(p/2) * dev^(-(N - ng + 1)/2)
         }
     }
@@ -320,7 +320,7 @@ plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
     if(abbrev) levels(g) <- abbreviate(levels(g), abbrev)
     assign("g.lda", g)
     assign("tcex", cex)
-    means <- apply(x$means, 2, mean)
+    means <- colMeans(x$means)
     X <- scale(X, center=means, scale=FALSE) %*% x$scaling
     if(!missing(dimen) && dimen < ncol(X)) X <- X[, 1:dimen, drop=FALSE]
     if(ncol(X) > 2) {
@@ -435,7 +435,7 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
     if(abbrev) levels(g) <- abbreviate(levels(g), abbrev)
     assign("g.lda", g)
     assign("tcex", cex)
-    means <- apply(x$means, 2, mean)
+    means <- colMeans(x$means)
     X <- scale(X, center=means, scale=FALSE) %*% x$scaling
     if(!missing(dimen) && dimen < ncol(X)) X <- X[, 1:dimen]
     if(type=="std") pairs.default(X, panel=panel, ...)

@@ -15,7 +15,7 @@ lm.ridge <- function(formula, data, subset, na.action,
     n <- nrow(X); p <- ncol(X)
     if(Inter <- attr(Terms, "intercept"))
     {
-        Xm <- apply(X[, -Inter], 2, mean)
+        Xm <- colMeans(X[, -Inter])
         Ym <- mean(Y)
         p <- p - 1
         X <- X[, -Inter] - rep(Xm, rep(n, p))
@@ -38,8 +38,7 @@ lm.ridge <- function(formula, data, subset, na.action,
     dim(a) <- c(p, k)
     coef <- Xs$v %*% a
     dimnames(coef) <- list(names(Xscale), format(lambda))
-    GCV <- apply((Y - X %*% coef)^2, 2, sum)/
-        (n-apply(matrix(d^2/div,p), 2, sum))^2
+    GCV <- colSums((Y - X %*% coef)^2)/(n-colSums(matrix(d^2/div,p)))^2
     res <- list(coef = drop(coef), scales = Xscale,
                 Inter = Inter, lambda = lambda, ym = Ym, xm = Xm,
                 GCV = GCV, kHKB = HKB, kLW = LW)

@@ -1,7 +1,8 @@
 # file MASS/sammon.q
 # copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
 #
-sammon <- function(d, y, k=2, niter=100, trace=TRUE, magic=0.2, tol=1e-4)
+sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
+                   magic=0.2, tol=1e-4)
 {
    call <- match.call()
    if(any(!is.finite(as.vector(d))))
@@ -22,7 +23,7 @@ sammon <- function(d, y, k=2, niter=100, trace=TRUE, magic=0.2, tol=1e-4)
 	stop(paste("zero or negative distance between objects", aa[1,1],
 	 "and", aa[1,2]))
 	}
-   if(missing(y)) y <- cmdscale(d, k=k)
+   if(!is.matrix(y)) stop("y must be a matrix")
    if(any(dim(y) != c(n, k)) ) stop("invalid initial configuration")
    storage.mode(x) <- "double"
    storage.mode(y) <- "double"
@@ -40,6 +41,9 @@ sammon <- function(d, y, k=2, niter=100, trace=TRUE, magic=0.2, tol=1e-4)
       as.double(tol)
       , PACKAGE = "MASS"
       )
-   list(points=z$y, stress=z$e, call=call)
+   points <- z$y
+   rn <- if(is.matrix(d)) dimnames(d)[1] else names(d)
+   dimnames(points) <- list(rn, NULL)
+   list(points=points, stress=z$e, call=call)
 }
 

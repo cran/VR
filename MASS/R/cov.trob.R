@@ -24,7 +24,8 @@ cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
         if(any(wt < 0)) stop("negative weights not allowed")
         if(!sum(wt)) stop("no positive weights")
     }
-    loc <- apply(wt * x, 2, sum)/sum(wt)
+#    loc <- apply(wt * x, 2, sum)/sum(wt)
+    loc <- colSums(wt * x)/sum(wt)
     if(is.numeric(center)) {
         if(length(center) != p) stop("center is not the right length")
         loc <- center
@@ -40,7 +41,8 @@ cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
         Q <- drop(wX^2 %*% rep(1, p))
         w <- (wt * (nu + p))/(nu + Q)
         #    print(summary(w))
-        if(use.loc) loc <- apply(w * x, 2, sum)/n
+#        if(use.loc) loc <- apply(w * x, 2, sum)/n
+        if(use.loc) loc <- colSums(w * x)/n
         if(all(abs(w - w0) < tol)) break
         endit <- iter
     }

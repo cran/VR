@@ -1,3 +1,4 @@
+batchSOM                 Self-Organizing Maps
 condense                 Condense training set for k-NN classifier
 knn                      k-Nearest Neighbour Classification
 knn.cv                   k-Nearest Neighbour Cross-Validatory

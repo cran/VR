@@ -168,14 +168,13 @@ detach()
 library(boot)
 storm.fm <- nls(Time ~ b*Viscosity/(Wt - c), stormer,
                 start = c(b=29.401, c=2.2183))
-storm.fm$m$getAllPars()
+summary(storm.fm)$parameter
 st <- cbind(stormer, fit=fitted(storm.fm))
 storm.bf <- function(rs, i) {
 #  st <- st                              # for S-PLUS 5.x
   st$Time <-  st$fit + rs[i]
-  tmp <- nls(Time ~ (b * Viscosity)/(Wt - c), st,
-             start = coef(storm.fm))
-  tmp$m$getAllPars()
+  coef(nls(Time ~ (b * Viscosity)/(Wt - c), st,
+           start = coef(storm.fm)))
 }
 rs <- scale(resid(storm.fm), scale = F) # remove the mean
 storm.boot <- boot(rs, storm.bf, R = 4999) # pretty slow

@@ -26,10 +26,8 @@ width.SJ <- function(x, nb=1000, lower=0.1*hmax, upper=hmax,
 
   method <- match.arg(method)
   n <- length(x)
-  if(!is.loaded(symbol.C("VR_phi4_bin")))
-    stop("Compiled code has not been dynamically loaded")
+  if(!n) stop("`x' has length zero")
   storage.mode(x) <- "double"
-  n <- length(x)
   Z <- .C("VR_den_bin",
 	  as.integer(n),
 	  as.integer(nb),
@@ -70,9 +68,8 @@ ucv <- function(x, nb=1000, lower=0.1*hmax, upper=hmax)
        u = double(1))$u
 
   n <- length(x)
+  if(!n) stop("`x' has length zero")
   hmax <- 1.144 * sqrt(var(x)) * n^(-1/5) * 4
-  if(!is.loaded(symbol.C("VR_den_bin")))
-    stop("Compiled code has not been dynamically loaded")
   storage.mode(x) <- "double"
   Z <- .C("VR_den_bin",
 	  as.integer(n),
@@ -102,9 +99,8 @@ bcv <- function(x, nb=1000, lower=0.1*hmax, upper=hmax)
        u = double(1))$u
 
   n <- length(x)
+  if(!n) stop("`x' has length zero")
   hmax <- 1.144 * sqrt(var(x)) * n^(-1/5) * 4
-  if(!is.loaded(symbol.C("VR_den_bin")))
-    stop("Compiled code has not been dynamically loaded")
   storage.mode(x) <- "double"
   Z <- .C("VR_den_bin",
 	  as.integer(n),

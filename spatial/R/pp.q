@@ -71,18 +71,28 @@ Kaver <- function(fs, nsim, ...)
 
 ppregion <- function(xl = 0, xu = 1, yl = 0, yu = 1)
 {
-  if(is.list(xl)) {
-    if(length(xl$area)) .C("VR_ppset", as.double(xl$area))
-    else .C("VR_ppset", as.double(c(xl$xl, xl$xu, xl$yl, xl$yu)))
-  } else .C("VR_ppset", as.double(c(xl, xu, yl, yu)))
-  invisible()
+    if(is.null(xl)) stop("invalid input")
+    if(is.numeric(xl))
+        if(length(xl) != 1 || length(xu) != 1 ||
+           length(yl) != 1 || length(yu) != 1)
+            stop("invalid input")
+    if(is.list(xl)) {
+        if(is.null(xl$area) &&
+           any(is.na(match( c("xl", "xu", "yl", "yu"), names(xl)))))
+            stop("invalid input")
+    }
+    if(is.list(xl)) {
+        if(length(xl$area)) .C("VR_ppset", as.double(xl$area))
+        else .C("VR_ppset", as.double(c(xl$xl, xl$xu, xl$yl, xl$yu)))
+    } else .C("VR_ppset", as.double(c(xl, xu, yl, yu)))
+    invisible()
 }
 
 ppgetregion <- function()
 {
-  xx <- .C("VR_ppget", z=double(4))$z
-  names(xx) <- c("xl", "xu", "yl", "yu")
-  xx
+    xx <- .C("VR_ppget", z=double(4))$z
+    names(xx) <- c("xl", "xu", "yl", "yu")
+    xx
 }
 
 Psim <- function(n)
