@@ -1,5 +1,5 @@
 # file MASS/stepAIC.q
-# copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
 stepAIC <-
   function(object, scope, scale = 0,
@@ -183,15 +183,14 @@ stepAIC <-
             change <- rownames(aod)[o[1]]
         }
         usingCp <- match("Cp", names(aod), 0) > 0
-        fit <- update(fit, paste("~ .", change))
+        ## may need to look for a `data' argument in parent
+	fit <- update(fit, paste("~ .", change), evaluate = FALSE)
+        fit <- eval.parent(fit)
         if(is.list(fit) && (nmm <- match("nobs", names(fit), 0)) > 0)
             nnew <- fit[[nmm]]
         else nnew <- length(residuals(fit))
         if(nnew != n)
             stop("number of rows in use has changed: remove missing values?")
-#        Terms <- fit$formula <- fixFormulaObject(fit)
-#        attributes(Terms) <- attributes(terms(fit))
-#        fit$terms <- Terms
         Terms <- terms(fit)
         bAIC <- extractAIC(fit, scale, k = k, ...)
         edf <- bAIC[1]

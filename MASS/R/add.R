@@ -24,7 +24,9 @@ addterm.default <-
     for(i in seq(ns)) {
         tt <- scope[i]
         if(trace) cat("trying +", tt, "\n")
-        nfit <- update(object, as.formula(paste("~ . +", tt)))
+        nfit <- update(object, as.formula(paste("~ . +", tt)),
+                       evaluate = FALSE)
+        nfit <- eval.parent(nfit)
         ans[i+1,  ] <- extractAIC(nfit, scale, k = k, ...)
     }
     dfs <- ans[,1] - ans[1,1]
@@ -33,12 +35,12 @@ addterm.default <-
     o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     test <- match.arg(test)
     if(test == "Chisq") {
-        dev <- ans[,2] - k*ans[, 1]
-        dev <- dev[1] - dev; dev[1] <- NA
-        nas <- !is.na(dev)
-        P <- dev
-        P[nas] <- 1 - pchisq(dev[nas], dfs[nas])
-        aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
+	dev <- ans[,2] - k*ans[, 1]
+	dev <- dev[1] - dev; dev[1] <- NA
+	nas <- !is.na(dev)
+	P <- dev
+	P[nas] <- pchisq(dev[nas], dfs[nas], lower.tail=FALSE)
+	aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
     }
     aod <- aod[o, ]
     head <- c("Single term additions", "\nModel:",
@@ -62,7 +64,7 @@ addterm.lm <-
         Fs[df < 1e-4] <- NA
         P <- Fs
         nnas <- !is.na(Fs)
-        P[nnas] <- 1 - pf(Fs[nnas], df[nnas], rdf - df[nnas])
+	P[nnas] <- pf(Fs[nnas], df[nnas], rdf - df[nnas], lower.tail=FALSE)
         list(Fs=Fs, P=P)
     }
 
@@ -85,7 +87,7 @@ addterm.lm <-
         } else dev <- dev/scale
         df <- aod$Df
         nas <- !is.na(df)
-        dev[nas] <- 1 - pchisq(dev[nas], df[nas])
+        dev[nas] <- pchisq(dev[nas], df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
         rdf <- object$df.resid
@@ -116,7 +118,7 @@ addterm.glm <-
 	Fs[df < .Machine$double.eps] <- NA
 	P <- Fs
 	nnas <- !is.na(Fs)
-	P[nnas] <- 1 - pf(Fs[nnas], df[nnas], rdf - df[nnas])
+	P[nnas] <- pf(Fs[nnas], df[nnas], rdf - df[nnas], lower.tail=FALSE)
 	list(Fs=Fs, P=P)
     }
     if(missing(scope) || is.null(scope)) stop("no terms in scope")
@@ -186,7 +188,7 @@ addterm.glm <-
         LRT <- if(dispersion == 1) "LRT" else "scaled dev."
         aod[, LRT] <- dev
         nas <- !is.na(dev)
-        dev[nas] <- 1 - pchisq(dev[nas], aod$Df[nas])
+        dev[nas] <- pchisq(dev[nas], aod$Df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
 	rdf <- object$df.residual
@@ -228,7 +230,9 @@ dropterm.default <-
     for(i in seq(ns)) {
         tt <- scope[i]
         if(trace) cat("trying -", tt, "\n")
-        nfit <- update(object, as.formula(paste("~ . -", tt)))
+        nfit <- update(object, as.formula(paste("~ . -", tt)),
+                       evaluate = FALSE)
+        nfit <- eval.parent(nfit)
         ans[i+1,  ] <- extractAIC(nfit, scale, k = k, ...)
     }
     dfs <- ans[1,1] - ans[,1]
@@ -241,7 +245,7 @@ dropterm.default <-
         dev <- dev - dev[1] ; dev[1] <- NA
         nas <- !is.na(dev)
         P <- dev
-        P[nas] <- 1 - pchisq(dev[nas], dfs[nas])
+        P[nas] <- pchisq(dev[nas], dfs[nas], lower.tail = FALSE)
         aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
     }
     aod <- aod[o, ]
@@ -270,7 +274,7 @@ dropterm.lm <-
     if(test == "Chisq") {
         dev <- aod$"Sum of Sq"
         nas <- !is.na(dev)
-        dev[nas] <- 1 - pchisq(dev[nas]/scale, aod$Df[nas])
+        dev[nas] <- pchisq(dev[nas]/scale, aod$Df[nas], lower.tail = FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
         rdf <- object$df.resid
@@ -281,7 +285,7 @@ dropterm.lm <-
         Fs[dfs < 1e-4] <- NA
         P <- Fs
         nas <- !is.na(Fs)
-        P[nas] <- 1 - pf(Fs[nas], dfs[nas], rdf)
+	P[nas] <- pf(Fs[nas], dfs[nas], rdf, lower.tail=FALSE)
         aod[, c("F Value", "Pr(F)")] <- list(Fs, P)
     }
     aod <- aod[o, ]
@@ -358,7 +362,7 @@ dropterm.glm <-
         nas <- !is.na(dev)
         LRT <- if(dispersion == 1) "LRT" else "scaled dev."
         aod[, LRT] <- dev
-        dev[nas] <- 1 - pchisq(dev[nas], aod$Df[nas])
+        dev[nas] <- pchisq(dev[nas], aod$Df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
         fam <- object$family$family  ## extra line needed

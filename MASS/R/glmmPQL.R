@@ -1,7 +1,7 @@
 glmmPQL <- function(fixed, random, family, data, correlation, weights,
                     control, niter = 10, verbose = TRUE, ...)
 {
-    require(nlme)
+    if(!require(nlme)) stop("package nlme is essential")
     ## family
     if(is.character(family)) family <- get(family)
     if(is.function(family)) family <- family()
@@ -13,11 +13,16 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     nm <- names(m)[-1]
     keep <- is.element(nm, c("weights", "data", "subset", "na.action"))
     for(i in nm[!keep]) m[[i]] <- NULL
-    allvars <- c(all.vars(fixed), all.vars(random))
+    allvars <-
+        if (is.list(random))
+            allvars <- c(all.vars(fixed), names(random),
+                         unlist(lapply(random, function(x) all.vars(formula(x)))))
+        else c(all.vars(fixed), all.vars(random))
     m$formula <- as.formula(paste("~", paste(allvars, collapse="+")))
+    environment(m$formula) <- environment(fixed)
     m$drop.unused.levels <- TRUE
     m[[1]] <- as.name("model.frame")
-    mf <- eval(m, parent.frame())
+    mf <- eval.parent(m)
     off <- model.extract(mf, "offset")
     if(is.null(off)) off <- 0
     w <-  model.extract(mf, "weights")

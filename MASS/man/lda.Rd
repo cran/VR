@@ -73,7 +73,7 @@ lda(x, ...)
   }
   \item{CV}{
     If true, returns results (classes and posterior probabilities) for
-    leave-out-out cross-validation. Note that if the prior is estimated,
+    leave-one-out cross-validation. Note that if the prior is estimated,
     the proportions in the whole dataset are used.
   }
   \item{nu}{

@@ -1,5 +1,5 @@
 # file MASS/polr.q
-# copyright (C) 1994-2001 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 #
 polr <- function(formula, data = NULL, weights, start, ..., subset,
                  na.action = na.fail, contrasts = NULL, Hess=FALSE)
@@ -29,11 +29,11 @@ polr <- function(formula, data = NULL, weights, start, ..., subset,
     }
 
     m <- match.call(expand.dots = FALSE)
-    if(is.matrix(eval(m$data, parent.frame())))
+    if(is.matrix(eval.parent(m$data)))
         m$data <- as.data.frame(data)
     m$start <- m$Hess <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    m <- eval(m, parent.frame())
+    m <- eval.parent(m)
     Terms <- attr(m, "terms")
     x <- model.matrix(Terms, m, contrasts)
     xvars <- as.character(attr(Terms, "variables"))[-1]
@@ -169,12 +169,12 @@ print.summary.polr <- function(x, digits = x$digits, ...)
     pc <- x$pc
     if(pc > 0) {
         cat("\nCoefficients:\n")
-        print(x$coef[seq(len=pc), ], quote = FALSE, ...)
+        print(x$coef[seq(len=pc), , drop=FALSE], quote = FALSE, ...)
     } else {
         cat("\nNo coefficients\n")
     }
     cat("\nIntercepts:\n")
-    print(coef[(pc+1):nrow(coef), ], quote = FALSE, ...)
+    print(coef[(pc+1):nrow(coef), , drop=FALSE], quote = FALSE, ...)
     cat("\nResidual Deviance:", format(x$deviance, nsmall=2), "\n")
     cat("AIC:", format(x$deviance + 2*x$edf, nsmall=2), "\n")
     if(!is.null(correl <- x$correlation)) {
@@ -212,7 +212,7 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
     switch(type, class={
         Y <- factor(max.col(Y), levels=seq(along=object$lev),
                     labels=object$lev)
-    }, probs={})
+    }, probs = {})
     drop(Y)
 }
 
@@ -227,7 +227,7 @@ model.frame.polr <- function(formula, data, na.action, ...)
     m <- formula$call
     m$start <- m$Hess <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
-    data <- eval(m, parent.frame())
+    data <- eval.parent(m)
     if(!is.null(mw <- m$weights)) {
         nm <- names(data)
         nm[match("(weights)", nm)] <- as.character(mw)

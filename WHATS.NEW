@@ -49,6 +49,8 @@ Library MASS
 - addterm, dropterm, stepAIC now work with lme and gls fits.
 - huber checks for MAD equal to zero.
 - glmmPQL now loads nlme if not already loaded.
+- print.summary.polr could lose dimnames for 1 coefficient.
+- addterm.default, dropterm.default and stepAIC work better inside functions.
 
 
 Library class
@@ -57,6 +59,7 @@ Library class
 - fixed a bug in knn(use.all = F)
 - added SOM, batchSOM and ancilliary functions.
 - Bugfix in SOM (7.0-5)
+- knn* and lvq* explicitly check for missing values in the inputs.
 
 
 Library nnet
