@@ -215,7 +215,6 @@ function(theta = stop("theta must be specified"), link = "log")
     else stop(paste(linktemp, "link not available for negative binomial",
                     "family; available links are", "\"identity\", \"log\" and \"sqrt\""))
     .Theta <- theta
-    stats <- make.link("log")
     variance <- function(mu)
         mu + mu^2/.Theta
     validmu <- function(mu)

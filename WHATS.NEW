@@ -76,11 +76,12 @@ Library MASS
 - predict.lda and predict.qda try harder to avoid exponential underflow.
 
 - new function fitdistr for ML estimation of univariate distributions.
+- new function glmmPQL to use lme to fit GLMMs by PQL (S+6 and R only)
 - truehist allows rule for nbins to be specified as a character string.
 
-- relevel function (not R).
+- relevel function (not R, where it is built in).
 - parcoord function.
-- mosaicplot function (not R).
+- mosaicplot function (not R, where it is built in).
 
 - new datasets bacteria, epil, nlschools, SP500
 - time series wrapper functions VRarima and diagnostics.
@@ -90,7 +91,7 @@ Library class
 -------------
 
 - fixed a bug in knn(use.all = F)
-- batchSOM and ancilliary functions.
+- SOM, batchSOM and ancilliary functions.
 
 
 Library nnet

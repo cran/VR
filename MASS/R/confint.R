@@ -46,8 +46,8 @@ confint.profile.glm <-
     for(pm in parm) {
         pro <- object[[pm]]
         if(length(pnames) > 1)
-            sp <- spline(x = pro[, "par.vals"][, pm], y = pro$z)
-        else sp <- spline(x = pro[, "par.vals"], y = pro$z)
+            sp <- spline(x = pro[, "par.vals"][, pm], y = pro[, 1])
+        else sp <- spline(x = pro[, "par.vals"], y = pro[, 1])
         ci[pnames[pm], ] <- approx(sp$y, sp$x, xout = cutoff)$y
     }
     drop(ci)

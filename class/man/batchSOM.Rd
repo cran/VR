@@ -1,8 +1,8 @@
 \name{batchSOM}
-\alias{batchSOM}
 \alias{somgrid}
 \alias{plot.somgrid}
 \alias{plot.SOM}
+\alias{batchSOM}
 \title{
 Self-Organizing Maps
 }
@@ -47,6 +47,9 @@ a matrix of representatives.
 \details{
 The batch SOM algorithm of Kohonen(1995, section 3.14) is used.
 }
+\seealso{
+\code{\link{SOM}}
+}
 \references{
 Kohonen, T. (1995)
 \emph{Self-Organizing Maps.}
@@ -56,7 +59,6 @@ Springer-Verlag
 library(MASS)
 data(crabs)
 library(mva) # for dist
-library(class)
 lcrabs <- log(crabs[, 4:8])
 crabs.grp <- factor(c("B", "b", "O", "o")[rep(1:4, rep(50,4))])
 gr <- somgrid(topo = "hexagonal")

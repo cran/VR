@@ -3,7 +3,7 @@ already in R.
 
 Additional datasets to work our examples are:
 
-VA, heart
+VA, geyser, heart
 
 The following are fully operational:
 
@@ -58,6 +58,7 @@ gamma.dispersion		(from complements)
 
 
 deviance.nls	deviance function for nls fits
+rms.curv	curvature measures for non-linear regression
 plot.profile	plot method for profiles
 pairs.profile	pairs method for profiles
 profile.glm	profiles for glm objects
@@ -80,7 +81,7 @@ max.col		find largest column for each row of a matrix,
 digamma, trigamma	first and second derivatives of log Gamma
 		(even of complex argument).
 
-IQR is in base R
+IQR, mosaicplot, relevel are in base R
 lqs, cov.rob are in package lqs in R
 biplot.princomp is in package mva in R
 ppr is in package modreg in R
@@ -90,12 +91,9 @@ The following depend on facilities not in R and so do not work:
 
 Choleski	Choleski decompositions for Matrices
 histplot	Trellis histogram plots
-rms.curv	curvature measures for non-linear regression
-deriv3		symbolic differentiation
-D, make.call	extended functions
 vcov.nlregb	vcov methods for nlregb objects
 vcov.nlminb	vcov methods for nlminb objects
 
 
-BDR <ripley@stats.ox.ac.uk> 2000/08/09
+BDR <ripley@stats.ox.ac.uk> 2002/01/14
 

@@ -130,7 +130,6 @@ nottem                   Average Monthly Temperatures at Nottingham,
 npk                      Classical N, P, K Factorial Experiment
 npr1                     US Naval Petroleum Reserve No. 1 data
 oats                     Data from an Oats Field Trial
-orlm                     Fit Robust Linear Regression Model
 painters                 The Painter's Data of de Piles
 pairs.lda                Produce Pairwise Scatterplots from an `lda' Fit
 parcoord                 Parallel Coordinates Plot
@@ -148,6 +147,8 @@ quine                    Absenteeism from School in Rural New South Wales
 rational                 Rational Approximation
 renumerate               Convert a Formula Transformed by `denumerate'
 rlm                      Robust Fitting of Linear Models
+rms.curv                 Relative Curvature Measures for Non-Linear
+                         Regression
 rnegbin                  Simulate Negative Binomial Variates
 road                     Road Accident Deaths in US States
 rock                     Measurements on Petroleum Rock Samples

@@ -101,3 +101,6 @@ print.fitdistr <-
     print(ans, quote = FALSE)
     x
 }
+
+coef.fitdistr <- function(object, ...) object$estimate
+

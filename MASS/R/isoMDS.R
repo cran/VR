@@ -42,7 +42,7 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE)
               , PACKAGE = "MASS"
               )
     points <- matrix(tmp$y,,k)
-    rn <- if(is.matrix(d)) dimnames(d)[1] else names(d)
+    rn <- if(is.matrix(d)) rownames(d) else names(d)
     dimnames(points) <- list(rn, NULL)
     list(points = points, stress = tmp$val)
 }

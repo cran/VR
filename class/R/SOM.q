@@ -49,3 +49,60 @@ plot.SOM <- function(x, ...)
     stars(x$codes, location = x$grid$pts, labels = NULL, len = 0.5)
     invisible()
 }
+
+SOM <- function(data, grid = somgrid(), rlen = 10000,
+                alpha = seq(0.05, 0, len = rlen),
+                radii = seq(4, 1, len = rlen),
+                init)
+{
+    data <- as.matrix(data)
+    nd <- nrow(data)
+    ng <- nrow(grid$pts)
+    nphases <- 1
+    if(is.list(alpha)) {
+        nphases <- length(alpha)
+        if(!is.list(radii) || length(radii) != nphases)
+            stop("`radii' must be a list of the same length as `alpha'")
+    }
+    if(missing(init))
+        init <- data[sample(1:nd, ng, replace = FALSE), ]
+    codes <- init
+    nhbrdist <- as.matrix(dist(grid$pts))
+    if(nphases == 1) {
+        rlen <- length(alpha)
+        if(length(radii) != rlen) stop("alpha and radii do not match")
+        codes <- .C("VR_onlineSOM",
+                    data = as.double(data),
+                    codes = as.double(codes),
+                    nhbrdist = as.double(nhbrdist),
+                    alpha = as.double(alpha),
+                    radii = as.double(radii),
+                    n = as.integer(nrow(data)),
+                    p = as.integer(ncol(data)),
+                    ncodes = as.integer(nrow(init)),
+                    rlen = as.integer(rlen)
+                    , PACKAGE = "class"
+                    )$codes
+    } else {
+        for(k in 1:nphases) {
+            rlen <- length(alpha[[k]])
+            if(length(radii[[k]]) != rlen)
+                stop("alpha and radii do not match")
+            codes <- .C("VR_onlineSOM",
+                        data = as.double(data),
+                        codes = as.double(codes),
+                        nhbrdist = as.double(nhbrdist),
+                        alpha = as.double(alpha[[k]]),
+                        radii = as.double(radii[[k]]),
+                        n = as.integer(nrow(data)),
+                        p = as.integer(ncol(data)),
+                        ncodes = as.integer(nrow(init)),
+                        rlen = as.integer(rlen)
+                        , PACKAGE = "class"
+                        )$codes
+        }
+    }
+    dim(codes) <- dim(init)
+    colnames(codes) <- colnames(init)
+    structure(list(grid = grid, codes = codes), class = "SOM")
+}

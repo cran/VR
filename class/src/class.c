@@ -1,5 +1,5 @@
 /*
- *  class/class.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-9
+ *  class/class.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
  */
 
 #include <S.h>
@@ -23,7 +23,7 @@ VR_knn1(Sint *pntr, Sint *pnte, Sint *p, double *train, Sint *class,
     double dm, dist, tmp;
 
     S_EVALUATOR
-	RANDIN;
+    RANDIN;
     ind = Calloc(ntr, int);
     for (npat = 0; npat < nte; npat++) {
 	dm = DOUBLE_XMAX;
@@ -92,7 +92,7 @@ VR_knn(Sint *kin, Sint *lin, Sint *pntr, Sint *pnte, Sint *p,
     double dist, tmp, nndist[MAX_TIES];
 
     S_EVALUATOR
-	RANDIN;
+    RANDIN;
 /*
     Use a `fence' in the (k+1)st position to avoid special cases.
     Simple insertion sort will suffice since k will be small.
@@ -236,7 +236,7 @@ VR_lvq1(double *alpha, Sint *pn, Sint *p, double *x, Sint *cl,
 	Sint *pncodes, double *xc, Sint *clc, Sint *niter, 
 	Sint *iters)
 {
-    int   index=0, iter, j, k, n = *pn, ncodes = *pncodes, npat, s;
+    int   index = 0, iter, j, k, n = *pn, ncodes = *pncodes, npat, s;
     double alpha_t;
     double dist, dm, tmp;
 
@@ -267,7 +267,8 @@ VR_lvq2(double *alpha, double *win, Sint *pn, Sint *p, double *x,
 	Sint *cl, Sint *pncodes, double *xc, Sint *clc, 
 	Sint *niter, Sint *iters)
 {
-    int   index=0, iter, j, k, n = *pn, ncodes = *pncodes, nindex=0, npat, ntmp;
+    int index = 0, iter, j, k, n = *pn, ncodes = *pncodes, nindex = 0, 
+	npat, ntmp;
     double alpha_t;
     double dist, dm, ndm, tmp;
 
@@ -317,7 +318,8 @@ VR_lvq3(double *alpha, double *win, double *epsilon, Sint *pn, Sint *p,
 	double *x, Sint *cl, Sint *pncodes, double *xc, Sint *clc,
 	Sint *niter, Sint *iters)
 {
-    int   index=0, iter, j, k, n = *pn, ncodes = *pncodes, nindex=0, npat, ntmp;
+    int index = 0, iter, j, k, n = *pn, ncodes = *pncodes, nindex = 0, 
+	npat, ntmp;
     double alpha_t;
     double dist, dm, ndm, tmp;
 
@@ -366,4 +368,47 @@ VR_lvq3(double *alpha, double *win, double *epsilon, Sint *pn, Sint *p,
 	    }
 	}
     }
+}
+
+void
+VR_onlineSOM(double *data, double *codes, double *nhbrdist,
+	     double *alpha, double *radii,
+	     Sint *pn, Sint *pp, Sint *pncodes, Sint *rlen)
+{
+    int n = *pn, p = *pp, ncodes = *pncodes;
+    int cd, i, j, k, nearest, nind;
+    double dm, dist, tmp;
+    
+    S_EVALUATOR
+    RANDIN;
+    for (k = 0; k < *rlen; k++) {
+	/* pick a random data point */
+	i = (int)(n * UNIF);
+	/* find the nearest code `near' */
+	nind = 0; dm = DOUBLE_XMAX;
+	for (cd = 0; cd < ncodes; cd++) {
+	    dist = 0.0;
+	    for (j = 0; j < p; j++) {
+		tmp = data[i + j*p] - codes[cd + j*p];
+		dist += tmp * tmp;
+	    }
+	    if (dist <= dm * (1 + EPS)) {
+		if (dist < dm * (1 - EPS)) {
+		    nind = 0;
+		    nearest = cd;
+		} else {
+		    if(++nind * UNIF < 1.0) nearest = cd;
+		}
+		dm = dist;
+	    }
+	    /* update all codes within radii[k] of `nearest' */
+	    for (cd = 0; cd < ncodes; cd++) {
+		if(nhbrdist[cd + ncodes*nearest] > radii[k]) continue;
+		for(j = 0; j < p; j++)
+		    codes[cd + p*j] += alpha[k] * 
+			(data[i + p*j] - codes[cd + p*j]);
+	    }
+	}
+    }
+    RANDOUT;
 }

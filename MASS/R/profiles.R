@@ -41,6 +41,8 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
 	 gaussian = ,
 	 quasi = ,
 	 "inverse.gaussian" = ,
+	 quasibinomial = ,
+	 quasipoisson = ,
 	 {
 	   zmax <- sqrt(p * qf(1 - alpha/2, p, n - p))
 	   profName <- "tau"
@@ -65,7 +67,10 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
       while((step <- step + 1) < maxsteps && abs(z) < zmax) {
 	bi <- B0[i] + sgn * step * del * std.err[i]
         o <- O + X[, i] * bi
-	fm <- glm.fit(x = Xi, y = Y, weights = W, etastart = LP,
+        ## call to glm.fit.null not needed from 1.4.1 on
+	fm <- if (ncol(Xi) == 0) glm.fit.null(x = Xi, y = Y, weights = W,
+		      offset = o, family = fam, control = fitted$control)
+              else glm.fit(x = Xi, y = Y, weights = W, etastart = LP,
 		      offset = o, family = fam, control = fitted$control)
 	LP <- Xi %*% fm$coef + o
 	ri <- pv0

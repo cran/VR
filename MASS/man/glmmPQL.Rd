@@ -5,7 +5,8 @@
   Fit a GLMM model with multivariate normal random effects, using PQL.
 }
 \usage{
-glmmPQL(fixed, random, family, data, correlation, control, ...)
+glmmPQL(fixed, random, family, data, correlation, weights,
+        control, niter = 10, verbose = TRUE, ...)
 }
 \arguments{
   \item{fixed}{a two-sided linear formula object describing the
@@ -13,11 +14,14 @@ glmmPQL(fixed, random, family, data, correlation, control, ...)
   \item{random}{A formula or list of formulae describing the random effects.}
   \item{family}{a GLM family.}
   \item{data}{an optional data frame used as the first place to find
-    variable sin the formulae.}
+    variables in the formulae.}
   \item{correlation}{an optional correlation structure.}
+  \item{weights}{optional case weights as in \code{\link{glm}}.}
   \item{control}{an optional argument to be passed to
     \code{\link[nlme]{lme}}. (This is modified in the S version by
     passed unchanged in the \R version.)}
+  \item{niter}{maximum number of iterations.}
+  \item{verbose}{logical: print out record of iterations?}
   \item{\dots}{Further arguments for \code{\link[nlme]{lme}}.}
 }
 \details{

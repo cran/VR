@@ -1,17 +1,18 @@
 # file MASS/rlm.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 #
 rlm <- function(x, ...) UseMethod("rlm")
 
 rlm.formula <-
-    function(formula, data = NULL, weights, ...,
+    function(x, data = NULL, weights, ...,
              subset, na.action = na.fail,
              method = c("M", "MM", "model.frame"),
              wt.method = c("case", "inv.var"),
              model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)
 {
     mf <- match.call(expand.dots = FALSE)
-    mf$method <- mf$model <- mf$x <- mf$y <- mf$contrasts <- mf$... <- NULL
+    mf$method <- mf$model <- mf$x.ret <- mf$y.ret <- mf$contrasts <- mf$... <- NULL
+    names(mf)[2] <- "formula"
     mf[[1]] <- as.name("model.frame")
     mf <- eval(mf, parent.frame())
     method <- match.arg(method)

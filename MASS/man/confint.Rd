@@ -83,5 +83,12 @@ for(w0 in w0s) {
   }
 dimnames(out) <- list(paste(w0s, "kg:"),  c("d0", "low", "high"))
 out
+
+
+ldose <- rep(0:5, 2)
+numdead <- c(1, 4, 9, 13, 18, 20, 0, 2, 6, 10, 12, 16)
+sex <- factor(rep(c("M", "F"), c(6, 6)))
+SF <- cbind(numdead, numalive=20-numdead)
+budworm.lg0 <- glm(SF ~ sex + ldose - 1, family=binomial)
 }
 \keyword{models}

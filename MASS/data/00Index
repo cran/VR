@@ -26,6 +26,7 @@ deaths		time-series on UK lung deaths 1974-9 from Diggle (1990)
 mdeaths, fdeaths  as above, for males and females
 drivers		time series on UK road deaths of drivers from Harvey (1989)
 eagles		foraging ecology of Bald Eagles
+epil            seizure counts for epileptics
 farms		ecological farm management in Terschelling island
 fgl		fragments of glass from forensic tests
 forbes		Forbes' dataset on boiling points, from Atkinson
@@ -51,6 +52,7 @@ minn38		status of Minnesota high-school leavers of 1938
 motors		accelerated life testing on motorettes
 muscle		effect of calcium chloride on muscle contraction in rat hearts
 newcomb		passage times for light
+nlschools       eighth-grade pupils in the Netherlands
 nottem		time-series of temperatures in Nottingham, 1920-1939
 npk		N,P,K factorial experiment on peas
 npr1		US Naval Petroleum Reserve 1 dataset
@@ -64,6 +66,7 @@ Pima.te		diabetes in Pima Indians -- test data
 quine		school absences from Aitkin (1978)
 Rabbit		blood pressure experiments on rabbits
 road		road deaths by state in the USA
+rock            measurements on Petroleum Rock Samples
 rotifer		numbers of rotifers of two species vs fluid density
 Rubber		dataset on rubber wear
 shkap		USSR petroleum reservoir dataset
@@ -85,5 +88,5 @@ UScereal	nutritional and marketing information on US cereals
 UScrime		the effect of punishment regimes on crime rates
 VA		Veteran's Administration lung cancer study
 waders		wader counts in South Africa
-whiteside	eneregy consumption in a domestic house
+whiteside	energy consumption in a domestic house
 wtloss		weight loss by an obese patient

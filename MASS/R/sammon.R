@@ -42,7 +42,7 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
       , PACKAGE = "MASS"
       )
    points <- z$y
-   rn <- if(is.matrix(d)) dimnames(d)[1] else names(d)
+   rn <- if(is.matrix(d)) rownames(d) else names(d)
    dimnames(points) <- list(rn, NULL)
    list(points=points, stress=z$e, call=call)
 }

@@ -1,4 +1,6 @@
-glmmPQL <- function(fixed, random, family, data, correlation, control, ...)
+glmmPQL <- function(fixed, random, family, data, correlation, weights,
+                    control,
+                    niter = 10, verbose = TRUE, ...)
 {
     ## family
     if(is.character(family)) family <- get(family)
@@ -19,8 +21,10 @@ glmmPQL <- function(fixed, random, family, data, correlation, control, ...)
     off <- model.extract(mf, "offset")
     if(is.null(off)) off <- 0
     w <-  model.extract(mf, "weights")
-    if(is.null(w)) w <- 1
-    fit0 <- glm(formula=fixed, family=family, data=mf, ..., y = T)
+    if(is.null(w)) w <- rep(1, nrow(mf))
+    mf$wts <- w
+    fit0 <- glm(formula=fixed, family=family, data=mf, weights = wts, ...)
+    w <- fit0$prior.weights
     eta <- fit0$linear.predictor - off
     zz <- eta + fit0$residuals
     wz <- fit0$weights
@@ -41,8 +45,8 @@ glmmPQL <- function(fixed, random, family, data, correlation, control, ...)
     mf$zz <- zz
     mf$invwt <- 1/wz
     mcall$data <- mf
-    for(i in 1:10) {
-        cat("iteration", i, "\n")
+    for(i in 1:niter) {
+        if(verbose) cat("iteration", i, "\n")
         fit <- eval(mcall)
         etaold <- eta
         ##update zz and invwt

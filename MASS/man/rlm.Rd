@@ -15,6 +15,17 @@ Robust Fitting of Linear Models
 \description{
 Fit a linear model by robust regression using an M estimator.
 }
+\synopsis{
+rlm(x, \dots)
+rlm.formula(x, data, weights, \dots, subset, na.action = na.fail,
+            method = c("M", "MM", "model.frame"),
+            wt.method = c("case", "inv.var"),
+            model = TRUE, x.ret = TRUE, y.ret = FALSE, contrasts = NULL)
+rlm.default(x, y, weights, \dots, w = rep(1, nrow(x)),
+            init, psi = psi.huber, scale.est, k2 = 1.345, 
+            method = c("M", "MM"), wt.method = c("case", "inv.var"),
+            maxit = 20, acc = 1e-4, test.vec = "resid")
+}
 \usage{
 rlm(x, \dots)
 rlm.formula(formula, data, weights, \dots, subset, na.action = na.fail,

@@ -21,13 +21,17 @@ language test score
 Verbal IQ
 }
 \item{\code{GS}}{
-Class size
+Class size: number of eighth-grade pupils recorded in the class (there
+may be others: see \code{COMB}, and some may have been omitted with missing
+values).
 }
 \item{\code{SES}}{
-Social-economic status.
+Social-economic status of pupil's family.
 }
 \item{\code{COMB}}{
-were the pupils taught in a multi-grade class (0/1)?
+were the pupils taught in a multi-grade class (\code{0/1})?  Classes which
+contained pupils from grades 7 and 8 are coded \code{1}, but only
+eighth-graders were tested.
 }}}
 \source{
 Snijders, T. A. B. and Bosker, R. J. (1999) 
