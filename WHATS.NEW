@@ -60,6 +60,9 @@ Library MASS
 - new datasets anorexia, cabbages, eagles, housing, muscle, whiteside.
 - dataset Insurance has informative levels.
 
+- eqscplot has new arguments ratio and uin.
+- stepAIC will not drop strata terms in coxph or survreg models.
+
 
 Library nnet
 ------------

@@ -48,7 +48,6 @@ coop                     Co-operative Trial in Analytical Chemistry
 corresp                  Simple Correspondence Analysis
 cov.trob                 Covariance Estimation for Multivariate t
                          Distribution
-cpgram                   Plot Cumulative Periodogram
 cpus                     Performance of Computer CPUs
 crabs                    Morphological Measurements on Leptograpsus Crabs
 deaths                   Monthly Deaths from Lung Diseases in the UK
@@ -122,6 +121,7 @@ petrol                   N. L. Prater's Petrol Refinery Data
 phones                   Belgium Phone Calls 1950-1973
 plot.lda                 Plot Method for Class `lda'
 plot.mca                 Plot Method for Objects of Class `mca'
+polr                     Proportional Odds Logistic Regression
 predict.lda              Classify Multivariate Observations by Linear
                          Discrimination
 predict.mca              Predict Method for Class `mca'

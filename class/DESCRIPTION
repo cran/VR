@@ -1,8 +1,10 @@
-Package: class
-Version: 6.1-5 (1999/11/21)
+Bundle: VR
+Version: 6.1-6 (1999/11/26)
 Author: S original by Venables & Ripley.
-  R port by Kurt Hornik <Kurt.Hornik@ci.tuwien.ac.at>.
-  Further work by Brian Ripley <ripley@stats.ox.ac.uk>.
-Description: Various functions for classification from Venables and
+  R port by Brian Ripley <ripley@stats.ox.ac.uk>, following earlier
+  work by Kurt Hornik and Albrecht Gebhardt.
+BundleDescription: Various functions from the libraries of Venables and
   Ripley, `Modern Applied Statistics with S-PLUS' (3rd edition).
 License: GPL (version 2 or later)
+Package: class
+Description: Various functions for classification.

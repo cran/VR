@@ -125,6 +125,9 @@ stepAIC <-
     AIC <- bAIC
     bfit <- fit
     ffac <- attr(Terms, "factors")
+    ## don't drop strata terms
+    if(!is.null(sp <- attr(Terms, "specials")) && !is.null(st <- sp$strata))
+        ffac <- ffac[-st,]
     scope <- factor.scope(ffac, list(add = fadd, drop = fdrop))
     aod <- NULL
     change <- NULL
@@ -133,10 +136,18 @@ stepAIC <-
                       trace = max(0, trace - 1), k = k, ...)
       rn <- row.names(aod)
       row.names(aod) <- c(rn[1], paste("-", rn[-1], sep=" "))
-      # drop all zero df terms first.
+      ## drop all zero df terms first.
       if(any(aod$Df == 0, na.rm=TRUE)) {
         zdf <- aod$Df == 0 & !is.na(aod$Df)
-        change <- paste((rownames(aod))[zdf])
+        nc <- match(c("Cp", "AIC"), names(aod))
+        nc <- nc[!is.na(nc)][1]
+        ch <- abs(aod[zdf, nc]) > 0.01
+        if(any(ch)) {
+            warning("0 df terms are changing AIC")
+            zdf <- zdf[!ch]
+        }
+        if(length(zdf) > 0)
+            change <- paste((rownames(aod))[zdf])
       }
     }
     if(is.null(change)) {
