@@ -9,7 +9,7 @@ Learning Vector Quantization 2.1
 Moves examples in a codebook to better represent the training set.
 }
 \usage{
-lvq2(x, cl, codebk, niter=10 * n, alpha=0.03, win=0.3)
+lvq2(x, cl, codebk, niter=100 * nrow(codebk$x), alpha=0.03, win=0.3)
 }
 \arguments{
 \item{x}{

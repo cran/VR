@@ -10,15 +10,15 @@ Classify from Quadratic Discriminant Analysis
 Classify multivariate observations in conjunction with \code{qda}
 }
 \usage{
-predict.qda(object, newdata, prior = object$prior,
-  method = c("plug-in", "predictive", "debiased", "looCV"))
+\method{predict}{qda}(object, newdata, prior = object$prior,
+  method = c("plug-in", "predictive", "debiased", "looCV", \dots))
 }
 \arguments{
 \item{object}{
 object of class \code{"qda"}
 }
 \item{newdata}{
-matrix or data frame of cases to be classified or, if object
+data frame of cases to be classified or, if object
 has a formula, a data frame with columns of the same names as the
 variables used. A vector will be interpreted
 as a row vector.  If newdata is missing, an attempt will be

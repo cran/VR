@@ -9,7 +9,7 @@ Multiedit for k-NN Classifier
 Multiedit for k-NN classifier
 }
 \usage{
-multiedit(x, class, k=1, V=3, I=5, trace=T)
+multiedit(x, class, k=1, V=3, I=5, trace=TRUE)
 }
 \arguments{
 \item{x}{

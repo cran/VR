@@ -9,7 +9,7 @@ Predict New Examples by a Trained Neural Net
 Predict new examples by a trained neural net.
 }
 \usage{
-predict.nnet(object, newdata, type=c("raw","class"))
+\method{predict}{nnet}(object, newdata, type=c("raw","class"), \dots)
 }
 \arguments{
 \item{object}{

@@ -97,7 +97,6 @@ fgl.df <- data.frame(type = rep(fgl$type, 9),
 
 # 5.4  Classical univariate statistics
 
-library(ctest)
 attach(shoes)
 t.test(A, mu = 10)
 t.test(A)$conf.int
@@ -109,7 +108,6 @@ wilcox.test(A, B)
 t.test(A, B, paired=T)
 wilcox.test(A, B, paired=T)
 detach()
-detach("package:ctest")
 
 par(mfrow=c(1,2))
 truehist(tperm, xlab="diff")
@@ -290,7 +288,6 @@ gal.boot2 <- boot(gal, median, R=1000,
   sim="parametric", ran.gen=sim.gen, mle=0.5)
 boot.ci(gal.boot2, conf=c(0.90, 0.95),
         type=c("norm","basic","perc"))
-
 
 attach(shoes)
 t.test(B - A)

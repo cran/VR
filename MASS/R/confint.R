@@ -5,7 +5,8 @@ confint <- function(object, parm, level = 0.95, ...) UseMethod("confint")
 
 confint.lm <- function(object, parm, level = 0.95, ...)
 {
-    pnames <- names(coef(object))
+    cf <- coef(object)
+    pnames <- names(cf)
     if(missing(parm)) parm <- seq(along=pnames)
     else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
     a <- (1-level)/2
@@ -15,7 +16,7 @@ confint.lm <- function(object, parm, level = 0.95, ...)
                 dimnames = list(pnames[parm], pct))
     ses <- sqrt(diag(vcov(object)))
     fac <- qt(a, object$df.residual)
-    ci[] <- object$coefficients + ses %o% fac
+    ci[] <- cf + ses %o% fac
     ci
 }
 
@@ -45,8 +46,8 @@ confint.profile.glm <-
     for(pm in parm) {
         pro <- object[[pm]]
         if(length(pnames) > 1)
-            sp <- spline(x = pro[, "par.vals"][, pm], y = pro$tau)
-        else sp <- spline(x = pro[, "par.vals"], y = pro$tau)
+            sp <- spline(x = pro[, "par.vals"][, pm], y = pro$z)
+        else sp <- spline(x = pro[, "par.vals"], y = pro$z)
         ci[pnames[pm], ] <- approx(sp$y, sp$x, xout = cutoff)$y
     }
     drop(ci)
@@ -84,7 +85,4 @@ confint.profile.nls <-
   }
   drop(ci)
 }
-
-
-
 

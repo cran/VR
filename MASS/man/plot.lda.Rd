@@ -10,7 +10,7 @@ Plot Method for Class `lda'
 Plots a set of data on one, two or more linear discriminants.
 }
 \usage{
-plot.lda(x, panel=panel.lda, \dots, cex=0.7, dimen, abbrev=FALSE,
+\method{plot}{lda}(x, panel=panel.lda, \dots, cex=0.7, dimen, abbrev=FALSE,
          xlab="LD1", ylab="LD2")
 }
 \arguments{

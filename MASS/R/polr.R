@@ -1,5 +1,5 @@
 # file MASS/polr.q
-# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2001 W. N. Venables and B. D. Ripley
 #
 polr <- function(formula, data = NULL, weights, start, ..., subset,
                  na.action = na.fail, contrasts = NULL, Hess=FALSE)
@@ -204,7 +204,8 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
         Y <- t(apply(cumpr, 1, function(x) diff(c(0, x, 1))))
         dimnames(Y) <- list(rownames(X), object$lev)
     }
-    if(!is.null(object$na.action)) Y <- napredict(object$na.action, Y)
+    if(missing(newdata) && !is.null(object$na.action))
+        Y <- napredict(object$na.action, Y)
     switch(type, class={
         Y <- factor(max.col(Y), levels=seq(along=object$lev),
                     labels=object$lev)

@@ -11,7 +11,7 @@ Given the estimated mean vector, estimate \code{theta} of the Negative Binomial
 Distribution.
 }
 \usage{
-theta.ml(y, mu, n, limit=20, eps=.Machine$double.eps^0.25, trace=FALSE)
+theta.ml(y, mu, n, limit=10, eps=.Machine$double.eps^0.25, trace=FALSE)
 }
 \arguments{
 \item{y}{

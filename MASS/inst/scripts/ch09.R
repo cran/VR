@@ -4,7 +4,7 @@
 
 library(MASS)
 postscript(file="ch09.ps", width=8, height=6, pointsize=9)
-#set.seed(123)
+set.seed(123)
 cpus.samp <- sample(1:209, 100)
 data(cpus)
 
@@ -49,22 +49,22 @@ legend(40, -100, c("default", "bass=3"), lty=c(1,3), bty="n")
 detach()
 
 data(rock)
-attach(rock)
+#attach(rock)
 rock.lm <- lm(log(perm) ~ area + peri + shape, data=rock)
 summary(rock.lm)
-if(F) { # no gam
-rock.gam <- gam(log(perm) ~ s(area) + s(peri) + s(shape),
-  control=gam.control(maxit=50, bf.maxit=50), data=rock)
-summary(rock.gam)
-anova(rock.lm, rock.gam)
+
+library(mgcv)
+rock.gam <- gam(log(perm) ~ s(area) + s(peri) + s(shape), data=rock)
+rock.gam
+#summary(rock.gam)
+#anova(rock.lm, rock.gam)
 par(mfrow=c(2,3), pty="s")
-plot(rock.gam, se=T)
+plot(rock.gam, se=TRUE, pages=0)
 rock.gam1 <- gam(log(perm) ~ area + peri + s(shape), data=rock)
-par(mfrow=c(2,2))
-plot(rock.gam1, se=T)
-anova(rock.lm, rock.gam1, rock.gam)
-}
-detach()
+par(mfrow=c(1,1))
+plot(rock.gam1, se=TRUE)
+#anova(rock.lm, rock.gam1, rock.gam)
+#detach()
 
 cpus0 <- cpus[, 2:8]
 for(i in 1:3) cpus0[,i] <- log10(cpus0[,i])
@@ -83,9 +83,15 @@ cpus.gam2 <- step.gam(cpus.gam, scope=list(
 ))
 print(cpus.gam2$anova, digits=3)
 test.cpus(cpus.gam2)
+}
+cpus.gam <- gam(log10(perf) ~ s(syct) + s(mmin) + s(mmax) +
+                s(cach) + s(chmin) + s(chmax), data=cpus0[cpus.samp, ])
+cpus.gam
+test.cpus(cpus.gam)
 
 
 if(!exists("bwt")) {
+  data(birthwt)
   attach(birthwt)
   race <- factor(race, labels=c("white", "black", "other"))
   ptd <- factor(ptl > 0)
@@ -98,14 +104,12 @@ if(!exists("bwt")) {
 attach(bwt)
 age1 <- age*(ftv=="1"); age2 <- age*(ftv=="2+")
 birthwt.gam <- gam(low ~ s(age) + s(lwt) + smoke + ptd +
-    ht + ui + ftv + s(age1) + s(age2) + smoke:ui, binomial,
-    bwt, bf.maxit=25)
-summary(birthwt.gam)
-table(low, predict(birthwt.gam) > 0)
-par(mfrow=c(2,2))
-if(interactive())plot(birthwt.gam, ask=T, se=T)
+    ht + ui + ftv + s(age1) + s(age2) + smoke:ui, binomial, bwt)
+birthwt.gam
+table(low, predict(birthwt.gam, bwt) > 0)
+if(interactive())plot(birthwt.gam, se=T)
 detach()
-}
+
 
 
 # 9.2  Projection-pursuit regression
@@ -141,7 +145,7 @@ persp(seq(0.1,1.2,0.05), seq(0,0.5,0.02), matrix(rock.grid$fit,23),
 # From Chapter 6, for comparisons
 cpus1 <- cpus
 attach(cpus)
-for(v in names(cpus)[2:6])
+for(v in names(cpus)[2:7])
   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])),
                     include.lowest = T)
 detach()

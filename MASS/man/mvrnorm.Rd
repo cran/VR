@@ -11,7 +11,7 @@ Produces one or more samples from the specified
 multivariate normal distribution.
 }
 \usage{
-mvrnorm(n=1, mu, Sigma, tol = 1e-6)
+mvrnorm(n=1, mu, Sigma, tol = 1e-6, empirical = FALSE)
 }
 \arguments{
 \item{n}{
@@ -27,6 +27,10 @@ of the variables.
 \item{tol}{
 tolerance (relative to largest variance) for numerical lack of
 positive-definiteness in \code{Sigma}.
+}
+\item{empirical}{
+logical. If true, mu and Sigma specify the empirical not population
+mean and covariance matrix.
 }}
 \value{
 If \code{n = 1} a vector of the same length as \code{mu}, otherwise an
@@ -39,10 +43,7 @@ not already exist, otherwise its value is updated.
 \details{
 The matrix decomposition is done via \code{eigen}; although a Choleski
 decomposition might be faster, the eigendecomposition is 
-stabler.  The help for \code{rnorm} has an alternative version using
-\code{svd}, which seems a strange choice for a positive-definite
-symmetric matrix (and has no check for positive-definiteness).
-In S-Plus 4.0 this is replaced by function \code{rmvnorm}.
+stabler.
 }
 \references{
 B. D. Ripley (1987)
@@ -55,16 +56,8 @@ Wiley. Page 98.
 \examples{
 Sigma <- matrix(c(10,3,3,2),2,2)
 Sigma
-\dontrun{
-     [,1] [,2] 
-[1,]   10    3
-[2,]    3    2
-}
 var(mvrnorm(n=1000, rep(0, 2), Sigma))
-\dontrun{
-         [,1]     [,2] 
-[1,] 9.906492 3.030130
-[2,] 3.030130 2.020929
-}}
+var(mvrnorm(n=1000, rep(0, 2), Sigma, empirical = TRUE))
+}
 \keyword{distribution}
 \keyword{multivariate}

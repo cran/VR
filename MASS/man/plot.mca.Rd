@@ -10,7 +10,7 @@ Plot Method for Objects of Class `mca'
 Plot a multiple correspondence analysis.
 }
 \usage{
-plot.mca(x, rows=TRUE, col, cex=rep(par("cex"), 2), \dots)
+\method{plot}{mca}(x, rows=TRUE, col, cex=rep(par("cex"), 2), \dots)
 }
 \arguments{
 \item{x}{

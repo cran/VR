@@ -9,7 +9,7 @@ Learning Vector Quantization 3
 Moves examples in a codebook to better represent the training set.
 }
 \usage{
-lvq3(x, cl, codebk, niter=10*n, alpha=0.03, win=0.3, epsilon=0.1)
+lvq3(x, cl, codebk, niter=100*nrow(codebk$x), alpha=0.03, win=0.3, epsilon=0.1)
 }
 \arguments{
 \item{x}{

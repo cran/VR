@@ -19,10 +19,10 @@ Classes with methods for this function include:
 \code{lm}, \code{glm}, \code{nls}.
 }
 \usage{
-vcov(x, \dots)
+vcov(object, \dots)
 }
 \arguments{
-\item{x}{
+\item{object}{
 a fitted model object.
 }
 \item{...}{

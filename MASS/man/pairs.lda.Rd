@@ -10,7 +10,7 @@ Produce Pairwise Scatterplots from an `lda' Fit
 Pairwise scatterplot of the data on the linear discriminants.
 }
 \usage{
-pairs.lda(x, labels=dimnames(x)[[2]], panel=panel.lda, 
+\method{pairs}{lda}(x, labels=colnames(x), panel=panel.lda, 
          dimen, abbrev=FALSE, \dots, cex=0.7, type=c("std", "trellis"))
 }
 \arguments{

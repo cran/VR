@@ -113,7 +113,7 @@ quine.stp$anova
 data(cpus)
 cpus1 <- cpus
 attach(cpus)
-for(v in names(cpus)[2:6]) 
+for(v in names(cpus)[2:7]) 
   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])), 
                     include.lowest = TRUE)
 detach()

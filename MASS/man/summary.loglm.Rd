@@ -12,7 +12,7 @@ Returns a summary list for log-linear models fitted by
 iterative proportional scaling using \code{loglm}.
 }
 \usage{
-summary.loglm(object, fitted=FALSE)
+\method{summary}{loglm}(object, fitted=FALSE, \dots)
 }
 \arguments{
 \item{object}{

@@ -13,7 +13,7 @@ majority vote, with ties broken at random. If there are ties for the
 \code{k}th nearest vector, all candidates are included in the vote.
 }
 \usage{
-knn(train, test, cl, k=1, l=1, prob=FALSE, use.all=TRUE)
+knn(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 }
 \arguments{
 \item{train}{

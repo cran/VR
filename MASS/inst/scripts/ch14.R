@@ -1,7 +1,5 @@
 #-*- R -*-
 
-# needs --vsize 10M for loess fits
-
 # Chapter 14   Spatial Statistics
 
 postscript(file="ch14.ps", width=8, height=8, pointsize=9)
@@ -48,7 +46,7 @@ image(trsurf)
 points(topo)
 
 library(modreg)
-dif <- 0.1 # needs vsize increased, or use 0.25
+dif <- 0.1
 par(mfcol=c(2,2), pty="s")
 topo.loess <- loess(z ~ x * y, topo, degree=2, span = 0.25, normalize=F)
 topo.mar <- list(x = seq(0, 6.5, dif), y=seq(0, 6.5, dif))

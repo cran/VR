@@ -70,6 +70,8 @@ Library MASS
 - profile.glm will report inadequate supplied glm fits, not just fail.
 - new method confint.lm.
 - fractions/rational allow missing values.
+- stepAIC/addterm/dropterm now work with survReg as well as survreg fits.
+- mvrnorm was an `empirical' argument
 
 
 Library nnet

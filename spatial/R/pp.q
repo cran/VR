@@ -5,7 +5,7 @@ ppinit <- function(file)
   tfile <- file
   pos <- match("package:spatial", search())
   if(exists(".sp.lib.name", where=pos)) {
-    t1file <- paste(get(".sp.lib.name", pos=pos), file, sep="/")
+    t1file <- file.path(get(".sp.lib.name", pos=pos), file)
     if(file.exists(t1file)) tfile <- t1file
   }
   h <- scan(tfile, list(xl = 0, xu = 0, yl = 0, yu = 0, fac = 0),

@@ -9,7 +9,6 @@ options(width=65, digits=5)
 
 # 3.2  Basic plotting functions
 
-#data(lung.deaths) # alternative to next three lines
 data(mdeaths); data(fdeaths)
 library(ts)
 lung.deaths <- aggregate(ts.union(mdeaths, fdeaths), 1)

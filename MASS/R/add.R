@@ -144,12 +144,12 @@ addterm.glm <-
     n <- nrow(x)
     m <- model.frame(object)
     oldn <- length(object$residuals)
-    y <- model.response(m, "numeric")
+    y <- object$y
     newn <- length(y)
     if(newn < oldn)
         warning(paste("using the", newn, "/", oldn ,
                       "rows from a combined fit"))
-    wt <- model.extract(m, "weights")
+    wt <- object$prior.weights
     if(is.null(wt)) wt <- rep(1, n)
     Terms <- attr(Terms, "term.labels")
     asgn <- attr(x, "assign")
@@ -322,7 +322,7 @@ dropterm.glm <-
     y <- object$y
     if(is.null(y)) y <- model.response(model.frame(object), "numeric")
     na.coef <- (1:length(object$coefficients))[!is.na(object$coefficients)]
-    wt <- model.weights(model.frame(object))
+    wt <- object$prior.weights
     if(is.null(wt)) wt <- rep(1, n)
     rank <- object$rank
     for(i in 1:ns) {

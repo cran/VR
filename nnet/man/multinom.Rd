@@ -20,7 +20,7 @@ Fit Multinomial Log-linear Models
 Fits multinomial log-linear models via neural networks.
 }
 \usage{
-multinom(formula, data=sys.frame(sys.parent()), weights, subset, na.action, 
+multinom(formula, data=parent.frame(), weights, subset, na.action, 
 contrasts=NULL, Hess=FALSE, summ=0, censored=FALSE, \dots)
 }
 \arguments{

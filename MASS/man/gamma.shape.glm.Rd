@@ -15,7 +15,7 @@ linear model.
 }
 \usage{
 gamma.shape.glm(object, it.lim=10, 
-		eps.max=.Machine$double.eps^0.25, verbose=FALSE)
+                eps.max=Machine$double.eps^0.25, verbose=FALSE)
 }
 \arguments{
 \item{object}{

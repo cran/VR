@@ -11,7 +11,7 @@ Used to compute coordinates for additional rows or additional factors
 in a multiple correspondence analysis.
 }
 \usage{
-predict.mca(object, newdata, type=c("row", "factor"), \dots)
+\method{predict}{mca}(object, newdata, type=c("row", "factor"), \dots)
 }
 \arguments{
 \item{object}{

@@ -9,7 +9,7 @@ Initialize a LVQ Codebook
 Construct an initial codebook for LVQ methods.
 }
 \usage{
-lvqinit(x, cl, size, prior, k)
+lvqinit(x, cl, size, prior, k=5)
 }
 \arguments{
 \item{x}{
