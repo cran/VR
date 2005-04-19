@@ -198,6 +198,7 @@ glm.nb <- function(formula, data, weights,
     fit$xlevels <- .getXlevels(Terms, mf)
     fit$method <- method
     fit$control <- control
+    fit$offset <- offset
     fit
 }
 

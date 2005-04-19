@@ -106,6 +106,9 @@ Library MASS
 - eqscplot() accepts reversed values for xlim and ylim.
 - Script ch10.R uses se.contrast to calculate se's missing from model.tables.
 - profile() and confint() methods for polr().
+- glm.convert() was not setting the `offset' component that R's glm objects 
+  have.
+
 
 
 Library class
