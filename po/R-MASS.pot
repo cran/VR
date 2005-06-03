@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.1.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2005-02-26 09:46\n"
+"POT-Creation-Date: 2005-06-03 09:40\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,16 +23,16 @@ msgstr ""
 msgid "using the %d/%d rows from a combined fit"
 msgstr ""
 
-msgid "no addterm method implemented for mlm models"
+msgid "F test assumes quasi%s family"
+msgstr ""
+
+msgid "no addterm method implemented for \"mlm\" models"
 msgstr ""
 
 msgid "scope is not a subset of term labels"
 msgstr ""
 
 msgid "dropterm not implemented for \"mlm\" fits"
-msgstr ""
-
-msgid "F test assumes quasi%s family"
 msgstr ""
 
 msgid "iteration limit reached near x ="
@@ -134,13 +134,13 @@ msgstr ""
 msgid "zero or negative distance between objects %d and %d"
 msgstr ""
 
+msgid "not enough non-missing data"
+msgstr ""
+
 msgid "invalid initial configuration"
 msgstr ""
 
 msgid "initial configuration must be complete"
-msgstr ""
-
-msgid "not enough non-missing data"
 msgstr ""
 
 msgid "data vectors must be the same length"

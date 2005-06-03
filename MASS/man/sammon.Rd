@@ -23,7 +23,8 @@ values.
 \item{y}{
   An initial configuration. If none is supplied, \code{cmdscale}
   is used to provide the classical solution.  (If there are missing
-  values in \code{d}, an initial configuration must be provided.)
+  values in \code{d}, an initial configuration must be provided.)  This
+  must not have duplicates.
 }
 \item{k}{
 The dimension of the configuration.

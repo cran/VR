@@ -1,5 +1,5 @@
 # file MASS/sammon.q
-# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
                    magic=0.2, tol=1e-4)
@@ -9,17 +9,20 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
         stop("Infs not allowed in 'd'")
     if(any(is.na(d)) && missing(y))
         stop("an initial configuration must be supplied if there are NAs in 'd'")
+    if(!is.matrix(y)) stop("'y' must be a matrix")
+
     if(is.null(n <- attr(d, "Size"))) {
         x <- as.matrix(d)
         if((n <- nrow(x)) != ncol(x))
             stop("distances must be result of dist or a square matrix")
-    }
-    else {
+        rn <- rownames(x)
+    } else {
         x <- matrix(0, n, n)
         x[row(x) > col(x)] <- d
         x <- x + t(x)
+        rn <- attr(d, "Labels")
     }
-    ab <- x[row(x) < col(x)]<=0
+    ab <- x[row(x) < col(x)] <= 0
     if (any(ab, na.rm = TRUE)) {
         ab <- !is.na(ab) & ab
         aa <- cbind(as.vector(row(x)), as.vector(col(x)))[row(x) < col(x),]
@@ -31,7 +34,6 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
     diag(nas) <- FALSE  # diag never used
     if(any(rowSums(!nas) < 2)) stop("not enough non-missing data")
 
-    if(!is.matrix(y)) stop("'y' must be a matrix")
     if(any(dim(y) != c(n, k)) ) stop("invalid initial configuration")
     if(any(!is.finite(y))) stop("initial configuration must be complete")
     storage.mode(x) <- "double"
@@ -49,7 +51,6 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
             NAOK = TRUE, PACKAGE = "MASS"
             )
     points <- z$y
-    rn <- if(is.matrix(d)) rownames(d) else names(d)
     dimnames(points) <- list(rn, NULL)
     list(points=points, stress=z$e, call=call)
 }

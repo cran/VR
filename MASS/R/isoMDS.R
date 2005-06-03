@@ -1,5 +1,5 @@
 # file MASS/R/isoMDS.R
-# copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
                    tol = 1e-3, p = 2)
@@ -12,10 +12,12 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
         x <- as.matrix(d)
         if((n <- nrow(x)) != ncol(x))
             stop("distances must be result of dist or a square matrix")
+        rn <- rownames(x)
     } else {
         x <- matrix(0, n, n)
         x[row(x) > col(x)] <- d
         x <- x + t(x)
+        rn <- attr(d, "Labels")
     }
     ab <- x[row(x) < col(x)] <= 0
     if (any(ab, na.rm = TRUE)) {
@@ -25,11 +27,12 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
         stop(gettextf("zero or negative distance between objects %d and %d",
                       aa[1,1], aa[1,2]), domain = NA)
     }
-    if(any(dim(y) != c(n, k)) ) stop("invalid initial configuration")
-    if(any(!is.finite(y))) stop("initial configuration must be complete")
     nas <- is.na(x)
     diag(nas) <- FALSE  # diag never used
     if(any(rowSums(!nas) < 2)) stop("not enough non-missing data")
+
+    if(any(dim(y) != c(n, k)) ) stop("invalid initial configuration")
+    if(any(!is.finite(y))) stop("initial configuration must be complete")
 
     dis <- x[row(x) > col(x)]
     ord <- order(dis)
@@ -50,7 +53,6 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
               val = double(1), as.integer(maxit), as.integer(trace),
               y = as.double(y), as.double(tol), PACKAGE = "MASS")
     points <- matrix(tmp$y,,k)
-    rn <- if(is.matrix(d)) rownames(d) else names(d)
     dimnames(points) <- list(rn, NULL)
     list(points = points, stress = tmp$val)
 }

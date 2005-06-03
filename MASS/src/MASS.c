@@ -47,6 +47,7 @@ VR_sammon(double *dd, Sint *nn, Sint *kd, double *Y, Sint *niter,
 		d1 += xd * xd;
 	    }
 	    ee = d - sqrt(d1);
+	    if(d1 == 0) error("configuration has duplicates");
 	    e += (ee * ee / d);
 	}
     e /= tot;

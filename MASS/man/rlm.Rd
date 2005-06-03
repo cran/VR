@@ -85,7 +85,7 @@ optional contrast specifications: se \code{lm}.
 (optional) initial values for the coefficients OR a method to find
 initial values OR the result of a fit with a \code{coef} component. Known
 methods are \code{"ls"} (the default) for an initial least-squares fit
-using weights \code{w*weights}, and \code{"lqs"} for an unweighted least-trimmed
+using weights \code{w*weights}, and \code{"lts"} for an unweighted least-trimmed
 squares fit with 200 samples.
 }
 \item{psi}{

@@ -165,12 +165,16 @@ addterm.glm <-
                   family=object$family, control=object$control)
     dfs[1] <- z$rank
     dev[1] <- z$deviance
+    ## workaround for PR#7842. terms.formula may have flipped interactions
+    sTerms <- sapply(strsplit(Terms, ":", fixed=TRUE),
+                     function(x) paste(sort(x), collapse=":"))
     for(tt in scope) {
         if(trace) {
 	    cat("trying +", tt, "\n")
 	    flush.console()
 	}
-        usex <- match(asgn, match(tt, Terms), 0) > 0
+        stt <- paste(sort(strsplit(tt, ":")[[1]]), collapse=":")
+	usex <- match(asgn, match(stt, sTerms), 0) > 0
         X <- x[, usex|ousex, drop = FALSE]
         z <-  glm.fit(X, y, wt, offset=object$offset,
                       family=object$family, control=object$control)
@@ -180,16 +184,17 @@ addterm.glm <-
     if (is.null(scale) || scale == 0)
         dispersion <- summary(object, dispersion = NULL)$dispersion
     else dispersion <- scale
-    if(object$family$family == "gaussian") {
-        if(scale > 0) loglik <- dev/scale - n
-        else loglik <- n * log(dev/n)
+    fam <- object$family$family
+    if(fam == "gaussian") {
+	if(scale > 0) loglik <- dev/scale - n
+	else loglik <- n * log(dev/n)
     } else loglik <- dev/dispersion
     aic <- loglik + k * dfs
     aic <- aic + (extractAIC(object, k = k)[2] - aic[1]) # same baseline for AIC
     dfs <- dfs - dfs[1]
     dfs[1] <- NA
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
-                      row.names = names(dfs))
+                      row.names = names(dfs), check.names = FALSE)
     o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]
     test <- match.arg(test)
@@ -202,6 +207,9 @@ addterm.glm <-
         dev[nas] <- pchisq(dev[nas], aod$Df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
+        if(fam == "binomial" || fam == "poisson")
+            warning(gettextf("F test assumes quasi%s family", fam),
+                    domain = NA)
 	rdf <- object$df.residual
 	aod[, c("F value", "Pr(F)")] <- Fstat(aod, rdf)
     }
@@ -216,7 +224,7 @@ addterm.glm <-
 }
 
 addterm.mlm <- function(object, ...)
-    stop("no addterm method implemented for mlm models")
+    stop("no addterm method implemented for \"mlm\" models")
 
 dropterm <- function(object, ...) UseMethod("dropterm")
 
@@ -291,14 +299,14 @@ dropterm.lm <-
         dev[nas] <- pchisq(dev[nas]/scale, aod$Df[nas], lower.tail = FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
-        rdf <- object$df.resid
-        dev <- aod$"Sum of Sq"
-        dfs <- aod$Df
-        rms <- aod$RSS[1]/rdf
-        Fs <- (dev/dfs)/rms
-        Fs[dfs < 1e-4] <- NA
-        P <- Fs
-        nas <- !is.na(Fs)
+	dev <- aod$"Sum of Sq"
+	dfs <- aod$Df
+	rdf <- object$df.resid
+	rms <- aod$RSS[1]/rdf
+	Fs <- (dev/dfs)/rms
+	Fs[dfs < 1e-4] <- NA
+	P <- Fs
+	nas <- !is.na(Fs)
 	P[nas] <- pf(Fs[nas], dfs[nas], rdf, lower.tail=FALSE)
         aod[, c("F Value", "Pr(F)")] <- list(Fs, P)
     }
@@ -339,7 +347,7 @@ dropterm.glm <-
     y <- object$y
     if(is.null(y)) y <- model.response(model.frame(object), "numeric")
     wt <- object$prior.weights
-    if(is.null(wt)) wt <- rep(1, n)
+    if(is.null(wt)) wt <- rep.int(1, n)
     for(i in 1:ns) {
         if(trace) {
 	    cat("trying -", scope[i], "\n")
@@ -355,18 +363,20 @@ dropterm.glm <-
     scope <- c("<none>", scope)
     dfs <- c(object$rank, dfs)
     dev <- c(chisq, dev)
-    if (is.null(scale) || scale == 0)
-        dispersion <- summary(object, dispersion = NULL)$dispersion
-    else dispersion <- scale
-    if(object$family$family == "gaussian") {
-        if(scale > 0) loglik <- dev/scale - n
-        else loglik <- n * log(dev/n)
-    } else loglik <- dev/dispersion
+    dispersion <- if (is.null(scale) || scale == 0)
+	summary(object, dispersion = NULL)$dispersion
+    else scale
+    fam <- object$family$family
+    loglik <-
+        if(fam == "gaussian") {
+            if(scale > 0) dev/scale - n else n * log(dev/n)
+        } else dev/dispersion
     aic <- loglik + k * dfs
     dfs <- dfs[1] - dfs
     dfs[1] <- NA
     aic <- aic + (extractAIC(object, k = k)[2] - aic[1])
-    aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic, row.names = scope)
+    aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
+                      row.names = scope, check.names = FALSE)
     o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]
     test <- match.arg(test)
@@ -379,7 +389,6 @@ dropterm.glm <-
         dev[nas] <- pchisq(dev[nas], aod$Df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
-        fam <- object$family$family  ## extra line needed
         if(fam == "binomial" || fam == "poisson")
             warning(gettextf("F test assumes quasi%s family", fam),
                     domain = NA)
