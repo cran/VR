@@ -111,6 +111,7 @@ lda.default <-
         cov <- n/(n-ng) * cov.rob((x - group.means[g,  ]) %*% scaling)$cov
         sX <- svd(cov, nu = 0)
         rank <- sum(sX$d > tol^2)
+        if(rank == 0) stop("rank = 0: variables are numerically const")
         if(rank < p) warning("variables are collinear")
         scaling <- scaling %*% sX$v[, 1:rank] %*%
             diag(sqrt(1/sX$d[1:rank]),,rank)
@@ -131,6 +132,7 @@ lda.default <-
         X <-  sqrt(nu/(nu-2)*(1 + p/nu)/n * w) * (x - group.means[g,  ]) %*% scaling
         X.s <- svd(X, nu = 0)
         rank <- sum(X.s$d > tol)
+        if(rank == 0) stop("rank = 0: variables are numerically const")
         if(rank < p) warning("variables are collinear")
         scaling <- scaling %*% X.s$v[, 1:rank] %*% diag(1/X.s$d[1:rank],,rank)
     } else {
@@ -138,6 +140,7 @@ lda.default <-
         X <- sqrt(fac) * (x - group.means[g,  ]) %*% scaling
         X.s <- svd(X, nu = 0)
         rank <- sum(X.s$d > tol)
+        if(rank == 0) stop("rank = 0: variables are numerically const")
         if(rank < p) warning("variables are collinear")
         scaling <- scaling %*% X.s$v[, 1:rank] %*% diag(1/X.s$d[1:rank],,rank)
     }
@@ -176,6 +179,7 @@ lda.default <-
     X <- sqrt((n * prior)*fac) * scale(group.means, center=xbar, scale=FALSE) %*% scaling
     X.s <- svd(X, nu = 0)
     rank <- sum(X.s$d > tol * X.s$d[1])
+    if(rank == 0) stop("group means are numerically identical")
     scaling <- scaling %*% X.s$v[, 1:rank]
     if(is.null(dimnames(x)))
         dimnames(scaling) <- list(NULL, paste("LD", 1:rank, sep = ""))

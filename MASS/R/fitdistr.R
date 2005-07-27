@@ -4,6 +4,7 @@ fitdistr <- function(x, densfun, start, ...)
     mylogfn <- function(parm, ...) -sum(dens(parm, ..., log = TRUE))
     mydt <- function(x, m, s, df, log) dt((x-m)/s, df, log = TRUE) - log(s)
 
+    Call <- match.call(expand.dots=TRUE)
     if(missing(start)) start <- NULL
     dots <- names(list(...))
     dots <- dots[!is.element(dots, c("upper", "lower"))]
@@ -11,6 +12,7 @@ fitdistr <- function(x, densfun, start, ...)
         stop("'x' must be a non-empty numeric vector")
     if(missing(densfun) || !(is.function(densfun) || is.character(densfun)))
         stop("'densfun' must be supplied as a function or name")
+    n <- length(x)
     if(is.character(densfun)) {
         distname <- tolower(densfun)
         densfun <-
@@ -27,19 +29,34 @@ fitdistr <- function(x, densfun, start, ...)
                    "negative binomial" = dnbinom,
                    "normal" = dnorm,
                    "t" = mydt,
-                   "uniform" = dunif,
                    "weibull" = dweibull,
                    NULL)
         if(is.null(densfun)) stop("unsupported distribution")
+        if(distname %in% c("lognormal",  "log-normal")) {
+            if(!is.null(start))
+                stop("supplying pars for the log-Normal is not supported")
+            if(any(x <= 0))
+                stop("need positive values to fit a log-Normal")
+            lx <- log(x)
+            sd0 <- sqrt((n-1)/n)*sd(lx)
+            mx <- mean(lx)
+            estimate <- c(mx, sd0)
+            sds <- c(sd0/sqrt(n), sd0/sqrt(2*n))
+            names(estimate) <- names(sds) <- c("meanlog", "sdlog")
+            return(structure(list(estimate = estimate, sd = sds, n = n,
+				  loglik = sum(dlnorm(x, mx, sd0, log=TRUE))),
+                             class = "fitdistr"))
+        }
         if(distname == "normal") {
             if(!is.null(start))
                 stop("supplying pars for the Normal is not supported")
-            n <- length(x)
             sd0 <- sqrt((n-1)/n)*sd(x)
-            estimate <- c(mean(x), sd0)
+            mx <- mean(x)
+            estimate <- c(mx, sd0)
             sds <- c(sd0/sqrt(n), sd0/sqrt(2*n))
             names(estimate) <- names(sds) <- c("mean", "sd")
-            return(structure(list(estimate = estimate, sd = sds),
+            return(structure(list(estimate = estimate, sd = sds, n = n,
+				  loglik = sum(dnorm(x, mx, sd0, log=TRUE))),
                              class = "fitdistr"))
         }
         if(distname == "weibull" && is.null(start)) {
@@ -52,10 +69,6 @@ fitdistr <- function(x, densfun, start, ...)
         if(distname == "gamma" && is.null(start)) {
             m <- mean(x); v <- var(x)
             start <- list(shape = m^2/v, rate = m/v)
-            start <- start[!is.element(names(start), dots)]
-        }
-        if(distname == "uniform" && is.null(start)) {
-            start <- list(min = min(x), max = max(x))
             start <- start[!is.element(names(start), dots)]
         }
         if(distname == "negative binomial" && is.null(start)) {
@@ -89,14 +102,34 @@ fitdistr <- function(x, densfun, start, ...)
             parse(text = paste("densfun(x,",
                   paste("parm[", 1:l, "]", collapse = ", "),
                   ", ...)"))
-    if("log" %in% args)
-        res <- optim(start, mylogfn, x = x, hessian = TRUE, ...)
-    else
-        res <- optim(start, myfn, x = x, hessian = TRUE, ...)
+    Call[[1]] <- as.name("optim")
+    Call$densfun <- Call$start <- NULL
+    Call$x <- x # want local variable as eval in this frame
+    Call$par <- start
+    Call$fn <- if("log" %in% args) mylogfn else myfn
+    Call$hessian <- TRUE
+    if(is.null(Call$method)) {
+        if(any(c("lower", "upper") %in% names(Call))) Call$method <- "L-BFGS-B"
+        else if (length(start) > 1) Call$method <- "BFGS"
+        else Call$method <- "Nelder-Mead"
+    }
+    res <- eval(Call)
     if(res$convergence > 0) stop("optimization failed")
     sds <- sqrt(diag(solve(res$hessian)))
-    structure(list(estimate = res$par, sd = sds), class = "fitdistr")
+    structure(list(estimate = res$par, sd = sds,
+                   loglik = - res$value, n = n), class = "fitdistr")
 }
+
+logLik.fitdistr <- function(object, REML = FALSE, ...)
+{
+    if (REML) stop("only 'REML = FALSE' is implemented")
+    val <- object$loglik
+    attr(val, "nobs") <- object$n
+    attr(val, "df") <- length(object$estimate)
+    class(val) <- "logLik"
+    val
+}
+
 
 print.fitdistr <-
     function(x, digits = getOption("digits"), ...)

@@ -1,6 +1,7 @@
 ## stepAIC on an lme object: an example from Robert Cuffe
 library(nlme)
 library(MASS)
+set.seed(321) # to be sure
 a <- data.frame( resp=rnorm(250), cov1=rnorm(250),
                  cov2=rnorm(250), group=rep(letters[1:10],25) )
 mod1 <- lme(resp~cov1, a, ~cov1|group, method="ML")

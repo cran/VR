@@ -2,6 +2,7 @@
 \alias{fitdistr}
 \alias{print.fitdistr}
 \alias{coef.fitdistr}
+\alias{logLik.fitdistr}
 \title{
 Maximum-likelihood Fitting of Univariate Distributions
 }
@@ -23,8 +24,8 @@ A numeric vector.
   Distributions \code{"beta"}, \code{"cauchy"}, \code{"chi-squared"},
   \code{"exponential"}, \code{"f"}, \code{"gamma"}, \code{"log-normal"},
   \code{"lognormal"}, \code{"logistic"}, \code{"negative binomial"},
-  \code{"normal"}, \code{"t"}, \code{"uniform"} and \code{"weibull"} are
-  recognised, case being ignored.
+  \code{"normal"}, \code{"t"} and \code{"weibull"} are recognised, case
+  being ignored.
 }
 \item{start}{
   A named list giving the parameters to be optimized with initial
@@ -39,25 +40,31 @@ A numeric vector.
   they will be held fixed.
 }}
 \value{
-  An object of class \code{"fitdistr"}, a list with two components,
+  An object of class \code{"fitdistr"}, a list with three components,
 
-  \item{estimate}{the parameter estimates, and}
-  \item{sd}{the estimated standard errors.}
+  \item{estimate}{the parameter estimates,}
+  \item{sd}{the estimated standard errors, and}
+  \item{loglik}{the log-likelihood.}
 }
 \details{
-  For \code{densfun = "normal"} the closed-form MLEs (and standard
-  errors) are used, and \code{start} should not be supplied.
+  For the Normal and log-Normal distributions the closed-form MLEs (and
+  exact standard errors) are used, and \code{start} should not be supplied.
 
   For all other distributions, direct optimization of the log-likelihood
-  is performed, with numerical derivatives.  The estimated standard
+  is performed using \code{\link{optim}}.  The estimated standard
   errors are taken from the observed information matrix, calculated by a
-  numerical approximation.
+  numerical approximation.  For one-dimensional problems the Nelder-Mead
+  method is used and for multi-dimensional problems the BFGS method,
+  unless arguments named \code{lower} or \code{upper} are supplied when
+  \code{L-BFGS-B} is used or \code{method} is supplied explicitly.
 
   For the following named distributions, reasonable starting values will
   be computed if \code{start} is omitted or only partially specified:
   \code{cauchy}, \code{gamma}, \code{logistic}, \code{negative binomial}
-  (parametrized by \code{mu} and \code{size}), \code{t}, \code{uniform},
-  \code{weibull}.
+  (parametrized by \code{mu} and \code{size}), \code{t} and \code{weibull}.
+
+  There are \code{\link{print}}, \code{\link{coef}} and
+  \code{\link{logLik}} methods for class \code{"fitdistr"}.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

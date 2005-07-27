@@ -87,4 +87,8 @@ This file documents software changes since the third edition.
 - glm.convert() was not setting the `offset' component that R's glm objects 
   have.
 - sammon() now checks for duplicates in the initial configuration.
-- isoMDS() and sammon() workaround dropping of names.dist in 2.1.0
+- isoMDS() and sammon() work around dropping of names.dist in 2.1.0
+- lda() now gives an explicit error message if all group means are the same.
+- fitdistr() now has a logLik() method, chooses the optim() method if not
+  supplied, handles the log-normal by closed-form and no longer attempts to
+  handle the uniform.
