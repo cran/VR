@@ -22,15 +22,15 @@ A numeric vector.
   at its first argument.
 
   Distributions \code{"beta"}, \code{"cauchy"}, \code{"chi-squared"},
-  \code{"exponential"}, \code{"f"}, \code{"gamma"}, \code{"log-normal"},
-  \code{"lognormal"}, \code{"logistic"}, \code{"negative binomial"},
-  \code{"normal"}, \code{"t"} and \code{"weibull"} are recognised, case
-  being ignored.
+  \code{"exponential"}, \code{"f"}, \code{"gamma"}, \code{"geometric"},
+  \code{"log-normal"}, \code{"lognormal"}, \code{"logistic"},
+  \code{"negative binomial"}, \code{"normal"}, \code{"Poisson"},
+  \code{"t"} and \code{"weibull"} are recognised, case being ignored.
 }
 \item{start}{
   A named list giving the parameters to be optimized with initial
-  values.  This can be omitted for some of the named distributions
-  (see Details).
+  values.  This can be omitted for some of the named distributions and
+  must be for others (see Details).
 }
 \item{\dots}{
   Additional parameters, either for \code{densfun} or for \code{optim}.
@@ -47,8 +47,9 @@ A numeric vector.
   \item{loglik}{the log-likelihood.}
 }
 \details{
-  For the Normal and log-Normal distributions the closed-form MLEs (and
-  exact standard errors) are used, and \code{start} should not be supplied.
+  For the Normal, log-Normal, exponential and Poisson distributions the
+  closed-form MLEs (and exact standard errors) are used, and
+  \code{start} should not be supplied.
 
   For all other distributions, direct optimization of the log-likelihood
   is performed using \code{\link{optim}}.  The estimated standard

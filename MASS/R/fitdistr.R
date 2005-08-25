@@ -23,11 +23,13 @@ fitdistr <- function(x, densfun, start, ...)
                    "exponential" = dexp,
                    "f" = df,
                    "gamma" = dgamma,
+                   "geometric" = dgeom,
                    "log-normal" = dlnorm,
                    "lognormal" = dlnorm,
                    "logistic" = dlogis,
                    "negative binomial" = dnbinom,
                    "normal" = dnorm,
+                   "poisson" = dpois,
                    "t" = mydt,
                    "weibull" = dweibull,
                    NULL)
@@ -57,6 +59,36 @@ fitdistr <- function(x, densfun, start, ...)
             names(estimate) <- names(sds) <- c("mean", "sd")
             return(structure(list(estimate = estimate, sd = sds, n = n,
 				  loglik = sum(dnorm(x, mx, sd0, log=TRUE))),
+                             class = "fitdistr"))
+        }
+        if(distname == "poisson") {
+            if(!is.null(start))
+                stop("supplying pars for the Poisson is not supported")
+            estimate <- mean(x)
+            sds <- sqrt(estimate/n)
+            names(estimate) <- names(sds) <- "lambda"
+            return(structure(list(estimate = estimate, sd = sds, n = n,
+				  loglik = sum(dpois(x, estimate, log=TRUE))),
+                             class = "fitdistr"))
+        }
+        if(distname == "exponential") {
+            if(!is.null(start))
+                stop("supplying pars for the exponential is not supported")
+            estimate <- 1/mean(x)
+            sds <- estimate/sqrt(n)
+            names(estimate) <- names(sds) <- "rate"
+            return(structure(list(estimate = estimate, sd = sds, n = n,
+				  loglik = sum(dexp(x, estimate, log=TRUE))),
+                             class = "fitdistr"))
+        }
+        if(distname == "geometric") {
+            if(!is.null(start))
+                stop("supplying pars for the geometric is not supported")
+            estimate <- 1/(1 + mean(x))
+            sds <- estimate * sqrt((1-estimate)/n)
+            names(estimate) <- names(sds) <- "prob"
+            return(structure(list(estimate = estimate, sd = sds, n = n,
+				  loglik = sum(dexp(x, estimate, log=TRUE))),
                              class = "fitdistr"))
         }
         if(distname == "weibull" && is.null(start)) {

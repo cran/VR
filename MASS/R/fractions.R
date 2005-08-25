@@ -1,5 +1,5 @@
 # file MASS/fractions.q
-# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 .rat <- function(x, cycles = 10, max.denominator = 2000)
 {
@@ -32,13 +32,15 @@
   list(rat = pq, x = x)
 }
 
-rational <- function(x, ...) {
-  ans <- .rat(x, ...)$rat
+rational <- function(x, cycles = 10, max.denominator = 2000, ...)
+{
+  ans <- .rat(x, cycles, max.denominator)$rat
   do.call("structure", c(list(ans[,1]/ans[,2]), attributes(x)))
 }
 
-fractions <- function(x, ...) {
-  ans <- .rat(x, ...)
+fractions <- function(x, cycles = 10, max.denominator = 2000, ...)
+{
+  ans <- .rat(x, cycles, max.denominator)
   ndc <- paste(ans$rat[, 1], ans$rat[, 2], sep = "/")
   int <- ans$rat[, 2] == 1
   ndc[int] <- as.character(ans$rat[int, 1])
@@ -47,7 +49,7 @@ fractions <- function(x, ...) {
   ans
 }
 
-"t.fractions"<- function(x)
+t.fractions <- function(x)
 {
   xt <- NextMethod()
   class(xt) <- class(x)
@@ -55,13 +57,13 @@ fractions <- function(x, ...) {
   xt
 }
 
-"Math.fractions"<- function(x, ...)
+Math.fractions <- function(x, ...)
 {
   x <- unclass(x)
   fractions(NextMethod())
 }
 
-"Ops.fractions"<- function(e1, e2)
+Ops.fractions <- function(e1, e2)
 {
   e1 <- unclass(e1)
   if(!missing(e2))
@@ -69,34 +71,34 @@ fractions <- function(x, ...) {
   fractions(NextMethod(.Generic))
 }
 
-"Summary.fractions"<- function(x, ...)
+Summary.fractions <- function(x, ...)
 {
   x <- unclass(x)
   fractions(NextMethod())
 }
 
-"[.fractions"<- function(x, ...)
+"[.fractions" <- function(x, ...)
 {
   x <- unclass(x)
   fractions(NextMethod())
 }
 
-"[<-.fractions"<- function(x, ..., value)
+"[<-.fractions" <- function(x, ..., value)
 {
   x <- unclass(x)
   fractions(NextMethod())
 }
 
-"as.character.fractions"<- function(x)
-structure(attr(x, "fracs"), dim = dim(x), dimnames = dimnames(x))
+as.character.fractions <- function(x)
+    structure(attr(x, "fracs"), dim = dim(x), dimnames = dimnames(x))
 
-"as.fractions"<- function(x)
-if(is.fractions(x)) x else fractions(x)
+as.fractions <- function(x)
+    if(is.fractions(x)) x else fractions(x)
 
-"is.fractions"<- function(f)
-inherits(f, "fractions")
+is.fractions <- function(f)
+    inherits(f, "fractions")
 
-"print.fractions"<- function(x, ...)
+print.fractions <- function(x, ...)
 {
   y <- attr(x, "fracs")
   mc <- max(ncy <- nchar(y))

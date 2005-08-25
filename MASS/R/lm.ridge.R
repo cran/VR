@@ -1,5 +1,5 @@
 # file MASS/lm.ridge.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 lm.ridge <- function(formula, data, subset, na.action,
     lambda = 0, model = FALSE, x = FALSE, y = FALSE, contrasts = NULL, ...)
@@ -12,6 +12,8 @@ lm.ridge <- function(formula, data, subset, na.action,
     Y <- model.response(m)
     X <- model.matrix(Terms, m, contrasts)
     n <- nrow(X); p <- ncol(X)
+    offset <- model.offset(m)
+    if(!is.null(offset)) Y <- Y - offset
     if(Inter <- attr(Terms, "intercept"))
     {
         Xm <- colMeans(X[, -Inter])

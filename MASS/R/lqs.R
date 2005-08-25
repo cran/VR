@@ -193,7 +193,7 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
 	if(quantile.used < p+1)
             stop(gettextf("'quantile' must be at least %d", p+1), domain = NA)
 	if(quantile.used > n-1)
-            stop(gettextf("'quantile' must be at most %d", p+1), domain = NA)
+            stop(gettextf("'quantile' must be at most %d", n-1), domain = NA)
 	## re-scale to roughly common scale
 	divisor <- apply(x, 2, IQR)
         if(any(divisor == 0)) stop("at least one column has IQR 0")

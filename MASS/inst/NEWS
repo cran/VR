@@ -92,3 +92,9 @@ This file documents software changes since the third edition.
 - fitdistr() now has a logLik() method, chooses the optim() method if not
   supplied, handles the log-normal by closed-form and no longer attempts to
   handle the uniform.
+- glm.nb() now accepts 'mustart'.
+- glm.nb() now supports weights: they used to be ignored when estimating 
+  theta.
+- fitdistr() now supports geometric and Poisson distributions, and 
+  uses closed-form results for the exponential.
+- lm.ridge allows offset() terms.

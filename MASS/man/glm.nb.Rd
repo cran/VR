@@ -13,22 +13,22 @@ Fit a Negative Binomial Generalized Linear Model
   estimation of the additional parameter, \code{theta}, for a
   Negative Binomial generalized linear model.
 }
+%\usage{
+%glm.nb(formula, \dots,  init.theta, link = log)
+%}
 \usage{
-glm.nb(formula, \dots,  init.theta, link = log)
-}
-\synopsis{
-glm.nb(formula, data, weights, subset, na.action, start = NULL, etastart,
-                 control = glm.control(...), method = "glm.fit",
-                 model = TRUE, x = FALSE, y = TRUE, contrasts = NULL, ...,
-                 init.theta, link = log)
+glm.nb(formula, data, weights, subset, na.action,
+       start = NULL, etastart, mustart,
+       control = glm.control(...), method = "glm.fit",
+       model = TRUE, x = FALSE, y = TRUE, contrasts = NULL, ...,
+       init.theta, link = log)
 }
 \arguments{
-\item{formula}{
-  Model formula, as for \code{glm()}.
-}
-\item{\dots}{
-  Any other arguments for the \code{\link{glm}()} function except \code{family}
-  and, in \R, \code{offset} (but \code{\link{offset}()} can be used).
+\item{formula, data, weights, subset, na.action, start, etastart,
+  mustart, control, method, model, x, y, contrasts, \dots}{
+  arguments for the \code{\link{glm}()} function.
+  Note that these exclude \code{family} and \code{offset}
+  (but \code{\link{offset}()} can be used).
 }
 \item{init.theta}{
   Optional initial value for the theta parameter.  If omitted a moment

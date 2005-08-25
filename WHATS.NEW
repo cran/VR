@@ -114,6 +114,13 @@ Library MASS
 - fitdistr() now has a logLik() method, chooses the optim() method if not
   supplied, handles the log-normal by closed-form and no longer attempts to
   handle the uniform.
+- glm.nb() now accepts 'mustart'.
+- glm.nb() now supports weights: they used to be ignored when estimating 
+  theta.
+- fitdistr() now supports geometric and Poisson distributions, and 
+  uses closed-form results for the exponential.
+- lm.ridge allows offset() terms.
+
 
 
 Library class
@@ -126,6 +133,7 @@ Library class
 - knn1 was not handling ties correctly in some cases (but knn was).
 - added check for user error in inputs in knn.cv.
 - SOM segfaulted for 1D inputs.
+
 
 
 Library nnet

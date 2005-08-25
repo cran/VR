@@ -14,9 +14,6 @@ object using a standard continued fraction method.
 \usage{
 rational(x, cycles = 10, max.denominator = 2000, \dots)
 }
-\synopsis{
-rational(x, ...)
-}
 \arguments{
 \item{x}{
 Any object of mode numeric. Missing values are now allowed.

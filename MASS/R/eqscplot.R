@@ -1,12 +1,11 @@
 # file MASS/eqscplot.q
-# copyright (C) 1994-2001 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
-eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin,
-                     xlim = range(x[is.finite(x)]),
-                     ylim = range(y[is.finite(y)]),
-		     xlab, ylab,
-		     ...)
+eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin, ...)
 {
+  dots <- list(...); nmdots <- names(dots)
+  Call <- match.call()
+  Call$ratio <- Call$tol <- Call$uin <- NULL
   if(is.matrix(x)) {
     y <- x[, 2]
     x <- x[, 1]
@@ -25,8 +24,11 @@ eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin,
     xlab0 <- deparse(substitute(x))
     ylab0 <- deparse(substitute(y))
   }
-  if(missing(xlab)) xlab <- xlab0
-  if(missing(ylab)) ylab <- ylab0
+  Call$x <- x; Call$y <- y
+  Call$xlab <- if("xlab" %in% nmdots) dots$xlab else xlab0
+  Call$ylab <- if("ylab" %in% nmdots) dots$ylab else ylab0
+  xlim <- if("xlim" %in% nmdots) dots$xlim else range(x[is.finite(x)])
+  ylim <- if("ylim" %in% nmdots) dots$ylib else range(y[is.finite(y)])
   midx <- 0.5 * (xlim[2] + xlim[1])
   xlim <- midx + (1 + tol) * 0.5 * c(-1, 1) * (xlim[2] - xlim[1])
   midy <- 0.5 * (ylim[2] + ylim[1])
@@ -44,6 +46,11 @@ eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin,
   }
   xlim <- midx + oxuin/xuin * c(-1, 1) * diff(xlim) * 0.5
   ylim <- midy + oyuin/yuin * c(-1, 1) * diff(ylim) * 0.5
-  plot(x, y, xlim = xlim, ylim = ylim, xaxs = "i", yaxs = "i",
-       xlab = xlab, ylab = ylab, ...)
+  Call$xlim <- xlim
+  Call$ylim <- ylim
+  Call$xaxs <- Call$yaxs <- "i"
+  Call[[1]] <- as.name("plot")
+  #plot(x, y, xlim = xlim, ylim = ylim, xaxs = "i", yaxs = "i",
+  #     xlab = xlab, ylab = ylab, ...)
+  eval.parent(Call)
 }

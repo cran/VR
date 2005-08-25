@@ -1,5 +1,5 @@
 # file MASS/negbin.q
-# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 anova.negbin <- function(object, ..., test = "Chisq")
 {
@@ -75,15 +75,15 @@ glm.convert <- function(object)
 }
 
 glm.nb <- function(formula, data, weights,
-		   subset, na.action, start = NULL, etastart,
+		   subset, na.action, start = NULL, etastart, mustart,
 		   control = glm.control(...), method = "glm.fit",
 		   model = TRUE, x = FALSE, y = TRUE, contrasts = NULL, ...,
 		   init.theta, link = log)
 {
-    loglik <- function(n, th, mu, y)
+    loglik <- function(n, th, mu, y, w)
     {
-        sum(lgamma(th + y) - lgamma(th) - lgamma(y + 1) + th * log(th) +
-            y * log(mu + (y == 0)) - (th + y) * log(th + mu))
+        sum(w*(lgamma(th + y) - lgamma(th) - lgamma(y + 1) + th * log(th) +
+               y * log(mu + (y == 0)) - (th + y) * log(th + mu)))
     }
     link <- substitute(link)
     if(missing(init.theta)) {
@@ -91,10 +91,12 @@ glm.nb <- function(formula, data, weights,
     } else {
         fam0 <- do.call("negative.binomial", list(theta = init.theta, link = link))
     }
-    Call <- match.call()
-    mf <- match.call(expand.dots = FALSE)
-    mf$method <- mf$model <- mf$x <- mf$y <- mf$control <- mf$contrasts <-
-        mf$init.theta <- mf$link <- mf$start <- mf$... <-  NULL
+    dots <- list(...)
+    nmdots <- names(dots)
+    mf <- Call <- match.call()
+    m <- match(c("formula", "data", "subset", "weights", "na.action",
+        "etastart", "mustart", "offset"), names(mf), 0)
+    mf <- mf[c(1, m)]
     mf$drop.unused.levels <- TRUE
     mf[[1]] <- as.name("model.frame")
     mf <- eval.parent(mf)
@@ -108,24 +110,28 @@ glm.nb <- function(formula, data, weights,
     else if(any(w < 0)) stop("negative weights not allowed")
     offset <- model.offset(mf)
     ## these allow starting values to be expressed in terms of other vars.
+    mustart <- model.extract(mf, "mustart")
     etastart <- model.extract(mf, "etastart")
     n <- length(Y)
-    if(!is.null(method)) {
+    if(!missing(method)) {
         if(!exists(method, mode = "function"))
             stop("unimplemented method: ", sQuote(method))
+        glm.fitter <- get(method)
+    } else {
+        method <- "glm.fit"
+        glm.fitter <- stats::glm.fit
     }
-    else method <- "glm.fit"
-    glm.fitter <- get(method)
     if(control$trace > 1) cat("Initial fit:\n")
     fit <- glm.fitter(x = X, y = Y, w = w, start = start,
-                      etastart = etastart,
+                      etastart = etastart, mustart = mustart,
                       offset = offset, family = fam0,
                       control = list(maxit=control$maxit,
                       epsilon = control$epsilon,
-                      trace = control$trace > 1))
+                      trace = control$trace > 1),
+                      intercept = attr(Terms, "intercept") > 0)
     class(fit) <- c("glm", "lm")
     mu <- fit$fitted
-    th <- as.vector(theta.ml(Y, mu, n, limit=control$maxit, trace =
+    th <- as.vector(theta.ml(Y, mu, n, w, limit = control$maxit, trace =
                              control$trace> 2))
     if(control$trace > 1)
         cat("Initial value for theta:", signif(th), "\n")
@@ -134,7 +140,7 @@ glm.nb <- function(formula, data, weights,
     d1 <- sqrt(2 * max(1, fit$df.residual))
     d2 <- del <- 1
     g <- fam$linkfun
-    Lm <- loglik(n, th, mu, Y)
+    Lm <- loglik(n, th, mu, Y, w)
     Lm0 <- Lm + 2 * d1
     while((iter <- iter + 1) <= control$maxit &&
           (abs(Lm0 - Lm)/d1 + abs(del)/d2) > control$epsilon) {
@@ -146,14 +152,15 @@ glm.nb <- function(formula, data, weights,
                           trace = control$trace > 1),
                           intercept = attr(Terms, "intercept") > 0)
         t0 <- th
-        th <- theta.ml(Y, mu, n, limit=control$maxit, trace = control$trace > 2)
+        th <- theta.ml(Y, mu, n, w, limit=control$maxit,
+                       trace = control$trace > 2)
         fam <- do.call("negative.binomial", list(theta = th, link = link))
         mu <- fit$fitted
         del <- t0 - th
         Lm0 <- Lm
-        Lm <- loglik(n, th, mu, Y)
+        Lm <- loglik(n, th, mu, Y, w)
         if(control$trace) {
-            Ls <- loglik(n, th, Y, Y)
+            Ls <- loglik(n, th, Y, Y, w)
             Dev <- 2 * (Ls - Lm)
             cat("Theta(", iter, ") =", signif(th),
                 ", 2(Ls - Lm) =", signif(Dev), "\n")
@@ -175,7 +182,9 @@ glm.nb <- function(formula, data, weights,
                 glm.fitter(X[, "(Intercept)", drop = FALSE], Y, w,
                            offset = offset, family = fam,
                            control = list(maxit=control$maxit,
-                           epsilon = control$epsilon, trace = control$trace > 1)
+                           epsilon = control$epsilon,
+                           trace = control$trace > 1),
+                           intercept = TRUE
                            )$deviance
            else fit$deviance
         fit$null.deviance <- null.deviance
@@ -263,7 +272,7 @@ summary.negbin <- function(object, dispersion = 1, correlation = TRUE, ...)
 print.summary.negbin <- function(x, ...)
 {
     NextMethod()
-    dp <- 2 - floor(log10(x$SE.theta))
+    dp <- max(2 - floor(log10(x$SE.theta)), 0)
     cat("\n              Theta: ", format(round(x$theta, dp), nsmall=dp),
         "\n          Std. Err.: ", format(round(x$SE.theta, dp), nsmall=dp),
         "\n")
@@ -274,22 +283,24 @@ print.summary.negbin <- function(x, ...)
 }
 
 theta.md <-
-    function(y, mu, dfr, limit = 20, eps = .Machine$double.eps^0.25)
+    function(y, mu, dfr, weights, limit = 20, eps = .Machine$double.eps^0.25)
 {
     if(inherits(y, "lm")) {
         mu <- y$fitted
         dfr <- y$df.residual
         y <- if(is.null(y$y)) mu + residuals(y) else y$y
     }
-    n <- length(y)
-    t0 <- n/sum((y/mu - 1)^2)
-    a <- 2 * sum(y * log(pmax(1, y)/mu)) - dfr
+    if(missing(weights)) weights <- rep(1, length(y))
+    n <- sum(weights)
+    t0 <- n/sum(weights*(y/mu - 1)^2)
+    a <- 2 * sum(weights*y * log(pmax(1, y)/mu)) - dfr
     it <- 0
     del <- 1
     while((it <- it + 1) < limit && abs(del) > eps) {
         t0 <- abs(t0)
-        top <- a - 2 * sum((y + t0) * log((y + t0)/(mu + t0)))
-        bot <- 2 * sum((y - mu)/(mu + t0) - log((y + t0)/(mu + t0)))
+        tmp <- log((y + t0)/(mu + t0))
+        top <- a - 2 * sum(weights*(y + t0) * tmp)
+        bot <- 2 * sum(weights*((y - mu)/(mu + t0) - tmp))
         del <- top/bot
         t0 <- t0 - del
     }
@@ -302,27 +313,28 @@ theta.md <-
 }
 
 theta.ml <-
-    function(y, mu, n = length(y), limit = 10,
+    function(y, mu, n = sum(weights), weights, limit = 10,
              eps = .Machine$double.eps^0.25,
              trace = FALSE)
 {
-    score <- function(n, th, mu, y)
-        sum(digamma(th + y) - digamma(th) + log(th) +
-            1 - log(th + mu) - (y + th)/(mu + th))
-    info <- function(n, th, mu, y)
-        sum( - trigamma(th + y) + trigamma(th) - 1/th +
-            2/(mu + th) - (y + th)/(mu + th)^2)
+    score <- function(n, th, mu, y, w)
+        sum(w*(digamma(th + y) - digamma(th) + log(th) +
+               1 - log(th + mu) - (y + th)/(mu + th)))
+    info <- function(n, th, mu, y, w)
+        sum(w*( - trigamma(th + y) + trigamma(th) - 1/th +
+               2/(mu + th) - (y + th)/(mu + th)^2))
     if(inherits(y, "lm")) {
         mu <- y$fitted
         y <- if(is.null(y$y)) mu + residuals(y) else y$y
     }
-    t0 <- n/sum((y/mu - 1)^2)
+    if(missing(weights)) weights <- rep(1, length(y))
+    t0 <- n/sum(weights*(y/mu - 1)^2)
     it <- 0
     del <- 1
     if(trace) cat("theta.ml: initial theta =", signif(t0), "\n")
     while((it <- it + 1) < limit && abs(del) > eps) {
         t0 <- abs(t0)
-        del <- score(n, t0, mu, y)/(i <- info(n, t0, mu, y))
+        del <- score(n, t0, mu, y, weights)/(i <- info(n, t0, mu, y, weights))
         t0 <- t0 + del
         if(trace) cat("theta.ml: iter", it," theta =", signif(t0), "\n")
     }
@@ -339,20 +351,23 @@ theta.ml <-
     t0
 }
 
-theta.mm <- function(y, mu, dfr, limit = 10, eps = .Machine$double.eps^0.25)
+theta.mm <- function(y, mu, dfr, weights, limit = 10,
+                     eps = .Machine$double.eps^0.25)
 {
     if(inherits(y, "lm")) {
         mu <- y$fitted
         dfr <- y$df.residual
         y <- if(is.null(y$y)) mu + residuals(y) else y$y
     }
-    n <- length(y)
-    t0 <- n/sum((y/mu - 1)^2)
+    if(missing(weights)) weights <- rep(1, length(y))
+    n <- sum(weights)
+    t0 <- n/sum(weights*(y/mu - 1)^2)
     it <- 0
     del <- 1
     while((it <- it + 1) < limit && abs(del) > eps) {
         t0 <- abs(t0)
-        del <- (sum((y - mu)^2/(mu + mu^2/t0)) - dfr)/sum((y - mu)^2/(mu + t0)^2)
+        del <- (sum(weights*((y - mu)^2/(mu + mu^2/t0))) - dfr)/
+            sum(weights*(y - mu)^2/(mu + t0)^2)
         t0 <- t0 - del
     }
     if(t0 < 0) {

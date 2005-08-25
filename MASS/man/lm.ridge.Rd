@@ -19,9 +19,9 @@ lm.ridge(formula, data, subset, na.action, lambda = 0, model = FALSE,
 }
 \arguments{
 \item{formula}{
-a formula expression as for regression models, of the form
-\code{response ~ predictors}.
-See the documentation of \code{formula} for other details.
+  a formula expression as for regression models, of the form
+  \code{response ~ predictors}. See the documentation of \code{formula}
+  for other details. \code{\link{offset}} terms are allowed.
 }
 \item{data}{
 an optional data frame in which to interpret the variables occurring
@@ -47,16 +47,24 @@ should the design matrix be returned?
 should the response be returned?
 }
 \item{contrasts}{
-a list of contrasts to be used for some or all of
+a list of contrasts to be used for some or all of factor terms in the
+formula. See the \code{contrasts.arg} of \code{\link{model.matrix.default}}.
 }
 \item{\dots}{
 additional arguments to \code{\link{lm.fit}}.
 }}
+\details{
+  If an intercept is present in the model, its coefficient is not
+  penalized.  (If you want to penalized an intercept, put in your own
+  constant term and remove the intercept.)
+}
 \value{
 A list with components
 
 \item{coef}{
-matrix of coefficients, one row for each value of \code{lambda}.
+  matrix of coefficients, one row for each value of \code{lambda}.
+  Note that these are not on the original scale and are for use by the
+  \code{\link{coef}} method.
 }
 \item{scales}{
 scalings used on the X matrix.

@@ -1,5 +1,5 @@
 % file MASS/theta.md.d
-% copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 %
 \name{theta.md}
 \alias{theta.md}
@@ -13,12 +13,12 @@ Estimate theta of the Negative Binomial
   Negative Binomial Distribution.
 }
 \usage{
-theta.md(y, mu, dfr, limit = 20, eps = .Machine$double.eps^0.25)
+theta.md(y, mu, dfr, weights, limit = 20, eps = .Machine$double.eps^0.25)
 
-theta.ml(y, mu, n, limit = 10, eps = .Machine$double.eps^0.25,
+theta.ml(y, mu, n, weights, limit = 10, eps = .Machine$double.eps^0.25,
          trace = FALSE)
 
-theta.mm(y, mu, dfr, limit = 10, eps = .Machine$double.eps^0.25)
+theta.mm(y, mu, dfr, weights, limit = 10, eps = .Machine$double.eps^0.25)
 }
 \arguments{
   \item{y}{
@@ -28,10 +28,15 @@ theta.mm(y, mu, dfr, limit = 10, eps = .Machine$double.eps^0.25)
     Estimated mean vector.
   }
   \item{n}{
-    Number of data points (defaults to length of \code{y})
+    Number of data points (defaults to the sum of \code{weights})
   }
   \item{dfr}{
-    Residual degrees of freedom (assuming \code{theta} known).
+    Residual degrees of freedom (assuming \code{theta} known).  For
+    a weighted fit this is the sum of the weights minus the number of
+    fitted parameters.
+  }
+  \item{weights}{
+    Case weights.  If missing, taken as 1.
   }
   \item{limit}{
     Limit on the number of iterations.
@@ -66,5 +71,16 @@ quine.nb <- glm.nb(Days ~ .^2, data = quine)
 theta.md(quine$Days, fitted(quine.nb), dfr = df.residual(quine.nb))
 theta.ml(quine$Days, fitted(quine.nb))
 theta.mm(quine$Days, fitted(quine.nb), dfr = df.residual(quine.nb))
+
+## weighted example
+yeast <- data.frame(cbind(numbers = 0:5, fr = c(213, 128, 37, 18, 3, 1)))
+fit <- glm.nb(numbers ~ 1, weights = fr, data = yeast)
+summary(fit)
+attach(yeast)
+mu <- fitted(fit)
+theta.md(numbers, mu, dfr = 399, weights = fr)
+theta.ml(numbers, mu, weights = fr)
+theta.mm(numbers, mu, dfr = 399, weights = fr)
+detach()
 }
 \keyword{models}

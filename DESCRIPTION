@@ -1,8 +1,8 @@
 Bundle: VR
 Priority: recommended
 Contains: MASS class nnet spatial
-Version: 7.2-17
-Date: 2005-07-27
+Version: 7.2-18
+Date: 2005-08-25
 Depends: R (>= 2.1.0), graphics, stats
 Suggests: lattice, nlme, survival
 Author: S original by Venables & Ripley.
@@ -13,4 +13,4 @@ BundleDescription: Functions and datasets to support Venables and
   Ripley, 'Modern Applied Statistics with S' (4th edition).
 License: GPL (version 2 or later)  See file LICENCE.
 URL: http://www.stats.ox.ac.uk/pub/MASS4/
-Packaged: Wed Jul 27 11:31:05 2005; ripley
+Packaged: Thu Aug 25 13:25:00 2005; ripley
