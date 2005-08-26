@@ -28,7 +28,7 @@ eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin, ...)
   Call$xlab <- if("xlab" %in% nmdots) dots$xlab else xlab0
   Call$ylab <- if("ylab" %in% nmdots) dots$ylab else ylab0
   xlim <- if("xlim" %in% nmdots) dots$xlim else range(x[is.finite(x)])
-  ylim <- if("ylim" %in% nmdots) dots$ylib else range(y[is.finite(y)])
+  ylim <- if("ylim" %in% nmdots) dots$ylim else range(y[is.finite(y)])
   midx <- 0.5 * (xlim[2] + xlim[1])
   xlim <- midx + (1 + tol) * 0.5 * c(-1, 1) * (xlim[2] - xlim[1])
   midy <- 0.5 * (ylim[2] + ylim[1])
