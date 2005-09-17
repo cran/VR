@@ -125,6 +125,7 @@ polr <- function(formula, data, weights, start, ..., subset,
     fit <- list(coefficients = beta, zeta = zeta, deviance = deviance,
                 fitted.values = fitted, lev = lev, terms = Terms,
                 df.residual = sum(wt) - pc - q, edf = pc + q, n = sum(wt),
+                nobs = sum(wt),
                 call = match.call(), method = method,
 		convergence = res$convergence, niter = niter)
     if(Hess) {
@@ -318,8 +319,8 @@ anova.polr <- function (object, ..., test = c("Chisq", "none"))
         stop('anova is not implemented for a single "polr" object')
     mlist <- list(object, ...)
     nt <- length(mlist)
-    dflis <- sapply(mlist, function(x) x$edf)
-    s <- order(dflis)
+    dflis <- sapply(mlist, function(x) x$df.residual)
+    s <- order(dflis, decreasing = TRUE)
     mlist <- mlist[s]
     if (any(!sapply(mlist, inherits, "polr")))
         stop('not all objects are of class "polr"')
@@ -331,7 +332,7 @@ anova.polr <- function (object, ..., test = c("Chisq", "none"))
     dfs <- dflis[s]
     lls <- sapply(mlist, function(x) deviance(x))
     tss <- c("", paste(1:(nt - 1), 2:nt, sep = " vs "))
-    df <- c(NA, diff(dfs))
+    df <- c(NA, -diff(dfs))
     x2 <- c(NA, -diff(lls))
     pr <- c(NA, 1 - pchisq(x2[-1], df[-1]))
     out <- data.frame(Model = mds, Resid.df = dfs, Deviance = lls,

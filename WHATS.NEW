@@ -119,7 +119,12 @@ Library MASS
   theta.
 - fitdistr() now supports geometric and Poisson distributions, and 
   uses closed-form results for the exponential.
-- lm.ridge allows offset() terms.
+- lm.ridge, lqs and rlm allow offset() terms.
+- the 'prior' argument of predict.qda is now operational.
+- script ch12.R now has b1() adapted for R's contour().
+- anova.polr() quoted model dfs, not residual dfs.
+- stepAIC() applied to a polr fit now gets the correct rdf's in the
+  anova table.
 
 
 

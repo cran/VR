@@ -1,5 +1,5 @@
 # file MASS/rlm.q
-# copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 rlm <- function(x, ...) UseMethod("rlm")
 
@@ -18,6 +18,8 @@ rlm.formula <-
     if(method == "model.frame") return(mf)
     mt <- attr(mf, "terms")
     y <- model.response(mf)
+    offset <- model.offset(mf)
+    if(!is.null(offset)) y <- y - offset
     x <- model.matrix(mt, mf, contrasts)
     xvars <- as.character(attr(mt, "variables"))[-1]
     if ((yvar <- attr(mt, "response")) > 0)

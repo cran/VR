@@ -176,6 +176,11 @@ predict.qda <- function(object, newdata, prior = object$prior,
     if(is.null(mt <- object$call$method)) mt <- "moment"
     if(method == "looCV" && !(mt == "moment" || mt == "mle"))
         stop("cannot use leave-one-out CV with method ", sQuote(mt))
+    ngroup <- length(object$prior)
+    if(!missing(prior)) {
+        if(any(prior < 0) || round(sum(prior), 5) != 1) stop("invalid prior")
+        if(length(prior) != ngroup) stop("'prior' is of incorrect length")
+    }
     if(!is.null(Terms <- object$terms)) {
     # formula fit
         if(missing(newdata)) newdata <- model.frame(object)
@@ -221,13 +226,12 @@ predict.qda <- function(object, newdata, prior = object$prior,
     if(length(colnames(x)) > 0 &&
        any(colnames(x) != dimnames(object$means)[[2]]))
         warning("variable names in 'newdata' do not match those in 'object'")
-    ngroup <- length(object$prior)
     dist <- matrix(0, nrow = nrow(x), ncol = ngroup)
     if(method == "plug-in") {
         for(i in 1:ngroup) {
             dev <- ((x - matrix(object$means[i,  ], nrow(x),
                                 ncol(x), byrow = TRUE)) %*% object$scaling[,,i])
-            dist[, i] <- 0.5 * rowSums(dev^2) + 0.5 * object$ldet[i] - log(object$prior[i])
+            dist[, i] <- 0.5 * rowSums(dev^2) + 0.5 * object$ldet[i] - log(prior[i])
         }
 #        dist <- exp( -(dist - min(dist, na.rm=T)))
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
@@ -249,7 +253,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
         ldet[ind] <- log(fac) + p * log((nc-NG)/(nc-1-NG)) + ldet[ind]
         dist[ind] <- dist[ind] * (nc^2/(nc-1)^2) * (nc-1-NG)/(nc-NG) / fac
         dist <- 0.5 * dist + 0.5 * ldet -
-            matrix(log(object$prior), n, ngroup, byrow=TRUE)
+            matrix(log(prior), n, ngroup, byrow=TRUE)
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else if(method == "debiased") {
         for(i in 1:ngroup) {
@@ -258,7 +262,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
             dev <- ((x - matrix(object$means[i,  ], nrow = nrow(x),
                                 ncol = ncol(x), byrow = TRUE)) %*% object$scaling[,,i])
             dist[, i] <- 0.5 * (1 - (p-1)/(nk-1)) * rowSums(dev^2) +
-                0.5 * object$ldet[i] - log(object$prior[i]) + 0.5 * Bm - p/(2*nk)
+                0.5 * object$ldet[i] - log(prior[i]) + 0.5 * Bm - p/(2*nk)
         }
         dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
     } else {
@@ -268,11 +272,11 @@ predict.qda <- function(object, newdata, prior = object$prior,
                                 ncol = ncol(x), byrow = TRUE))
                     %*% object$scaling[,,i])
             dev <- 1 + rowSums(dev^2)/(nk+1)
-            dist[, i] <- object$prior[i] * exp(-object$ldet[i]/2) *
+            dist[, i] <- prior[i] * exp(-object$ldet[i]/2) *
                 dev^(-nk/2) * (1 + nk)^(-p/2)
         }
     }
-    posterior <- dist/drop(dist %*% rep(1, length(object$prior)))
+    posterior <- dist/drop(dist %*% rep(1, ngroup))
     cl <- factor(max.col(posterior), levels=seq(along=object$lev),
                  labels=object$lev)
     dimnames(posterior) <- list(rownames(x), object$lev)

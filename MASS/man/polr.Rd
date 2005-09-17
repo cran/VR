@@ -118,8 +118,8 @@ polr(formula, data, weights, start, \dots, subset, na.action,
   \item{df.residual}{the number of residual degrees of freedoms,
     calculated using the weights.}
   \item{edf}{the (effective) number of degrees of freedom used by the model}
-  \item{n}{the (effective) number of observations,  calculated using the
-    weights}
+  \item{n, nobs}{the (effective) number of observations, calculated using the
+    weights. (\code{nobs} is for use by \code{\link{stepAIC}}.}
   \item{call}{the matched call.}
   \item{method}{the matched method used.}
   \item{convergence}{the convergence code returned by \code{optim}.}

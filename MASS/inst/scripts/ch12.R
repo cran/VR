@@ -189,10 +189,10 @@ plt.bndry <- function(size=0, decay=0, ...)
 b1 <- function(Z, ...)
 {
    zp <- Z[,3] - pmax(Z[,2], Z[,1])
-   contour(xp/log(10), yp/log(10), matrix(zp, np),
+   contour(exp(xp), exp(yp), matrix(zp, np),
       add=T, levels=0, labex=0, ...)
    zp <- Z[,1] - pmax(Z[,3], Z[,2])
-   contour(xp/log(10), yp/log(10), matrix(zp, np),
+   contour(exp(xp), exp(yp), matrix(zp, np),
       add=T, levels=0, labex=0, ...)
 }
 

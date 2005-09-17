@@ -28,6 +28,10 @@ rlm(x, \dots)
     init, psi = psi.huber, scale.est, k2 = 1.345,
     method = c("M", "MM"), wt.method = c("inv.var", "case"),
     maxit = 20, acc = 1e-4, test.vec = "resid")
+
+psi.huber(u, k = 1.345, deriv = 0)
+psi.hampel(u, a = 2, b = 4, c = 8, deriv = 0)
+psi.bisquare(u, c = 4.685, deriv = 0)
 }
 \arguments{
 \item{formula}{
@@ -85,8 +89,8 @@ optional contrast specifications: se \code{lm}.
 (optional) initial values for the coefficients OR a method to find
 initial values OR the result of a fit with a \code{coef} component. Known
 methods are \code{"ls"} (the default) for an initial least-squares fit
-using weights \code{w*weights}, and \code{"lts"} for an unweighted least-trimmed
-squares fit with 200 samples.
+using weights \code{w*weights}, and \code{"lts"} for an unweighted
+least-trimmed squares fit with 200 samples.
 }
 \item{psi}{
 the psi function is specified by this argument. It must give
@@ -96,7 +100,8 @@ will be passed in via \code{\dots}.
 }
 \item{scale.est}{
 method of scale estimation: re-scaled MAD of the residuals or Huber's
-proposal 2.
+proposal 2 (which can be selected by either \code{"Huber"} or
+\code{"proposal 2"}).
 }
 \item{k2}{
 tuning constant used for Huber proposal 2 scale estimation.
@@ -113,7 +118,18 @@ the stopping criterion is based on changes in this vector.
 \item{\dots}{
 additional arguments to be passed to \code{rlm.default} or to the \code{psi}
 function.
-}}
+}
+\item{u}{
+  numeric vector of evalation points.
+}
+\item{k,a,b,c}{
+  tuning constants
+}
+\item{deriv}{
+  \code{0} or \code{1}: compute values of the psi function or of its
+  first derivative.
+}
+}
 \value{
 An object of class \code{"rlm"} inheriting from \code{"lm"}.
 The additional components not in an \code{lm} object are

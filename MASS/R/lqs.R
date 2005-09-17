@@ -1,5 +1,5 @@
 ### file lqs/R/lqs.R
-### copyright (C) 1998-2003 B. D. Ripley
+### copyright (C) 1998-2005 B. D. Ripley
 
 lqs <- function(x, ...) UseMethod("lqs")
 
@@ -17,6 +17,8 @@ lqs.formula <-
     if (method == "model.frame") return(mf)
     mt <- attr(mf, "terms")
     y <- model.extract(mf, "response")
+    offset <- model.offset(mf)
+    if(!is.null(offset)) y <- y - offset
     x <- model.matrix(mt, mf, contrasts)
     xint <- match("(Intercept)", colnames(x), nomatch = 0)
     if(xint) x <- x[, -xint, drop = FALSE]
