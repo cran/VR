@@ -99,15 +99,12 @@ Oxford.
 \code{\link{lm}}
 }
 \examples{
-data(longley)
+data(longley) # not the same as the S-PLUS dataset
 names(longley)[1] <- "y"
 lm.ridge(y ~ ., longley)
 plot(lm.ridge(y ~ ., longley,
               lambda = seq(0,0.1,0.001)))
 select(lm.ridge(y ~ ., longley,
                lambda = seq(0,0.1,0.0001)))
-# modified HKB estimator is 0.0042754
-# modified L-W estimator is 0.032295
-# smallest value of GCV  at 0.0028
 }
 \keyword{models}

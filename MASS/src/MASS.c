@@ -432,25 +432,36 @@ VR_den_bin(Sint *n, Sint *nb, Sfloat *d, Sfloat *x, Sint *cnt)
     }
 }
 
-/*
 #include "R_ext/Rdynload.h"
+void
+lqs_fitlots(double *x, double *y, int *n, int *p, int *qn,
+            int *lts, int *adj, int *sample, int *nwhich,
+            int *ntrials, double *crit, int *sing, int *bestone,
+            double *bestcoef, double *pk0, double *beta);
+
+void
+mve_fitlots(double *x, int *n, int *p, int *qn, int *mcd,
+            int *sample, int *nwhich, int *ntrials,
+            double *crit, int *sing, int *bestone);
 
 R_CMethodDef CEntries[] = {
     {"VR_bcv_bin", (DL_FUNC) &VR_bcv_bin, 6},
     {"VR_den_bin", (DL_FUNC) &VR_den_bin, 5},
     {"VR_mds_dovm", (DL_FUNC) &VR_mds_dovm, 5},
-    {"VR_mds_fn", (DL_FUNC) &VR_mds_fn, 10},
-    {"VR_mds_init_data", (DL_FUNC) &VR_mds_init_data, 6},
+    {"VR_mds_fn", (DL_FUNC) &VR_mds_fn, 11},
+    {"VR_mds_init_data", (DL_FUNC) &VR_mds_init_data, 7},
     {"VR_mds_unload", (DL_FUNC) &VR_mds_unload, 0},
     {"VR_phi4_bin", (DL_FUNC) &VR_phi4_bin, 6},
     {"VR_phi6_bin", (DL_FUNC) &VR_phi6_bin, 6},
     {"VR_sammon", (DL_FUNC) &VR_sammon, 9},
     {"VR_ucv_bin", (DL_FUNC) &VR_ucv_bin, 6},
+    {"lqs_fitlots", (DL_FUNC) &lqs_fitlots, 16},
+    {"mve_fitlots", (DL_FUNC) &mve_fitlots, 11},
     {NULL, NULL, 0}
 };
 
 void R_init_MASS(DllInfo *dll)
 {
     R_registerRoutines(dll, CEntries, NULL, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }
-*/

@@ -59,10 +59,17 @@ A numeric vector.
   unless arguments named \code{lower} or \code{upper} are supplied when
   \code{L-BFGS-B} is used or \code{method} is supplied explicitly.
 
+  For the \code{"t"} named distribution the density is taken to be the
+  location-scale family with location \code{m} and scale \code{s}.
+  
   For the following named distributions, reasonable starting values will
   be computed if \code{start} is omitted or only partially specified:
-  \code{cauchy}, \code{gamma}, \code{logistic}, \code{negative binomial}
-  (parametrized by \code{mu} and \code{size}), \code{t} and \code{weibull}.
+  \code{"cauchy"}, \code{"gamma"}, \code{"logistic"},
+  \code{"negative binomial"} (parametrized by \code{mu} and
+  \code{size}), \code{"t"} and \code{"weibull"}.  Note that these
+  starting values may not be good enough if the fit is poor: in
+  particular they are not resistant to outliers unless the fitted
+  distribution is long-tailed.
 
   There are \code{\link{print}}, \code{\link{coef}} and
   \code{\link{logLik}} methods for class \code{"fitdistr"}.
@@ -83,7 +90,7 @@ x2 <- rt(250, df = 9)
 fitdistr(x2, "t", df = 9)
 ## allow df to vary: not a very good idea!
 fitdistr(x2, "t")
-## now do this directly with more control.
+## now do fixed-df fit directly with more control.
 mydt <- function(x, m, s, df) dt((x-m)/s, df)/s
 fitdistr(x2, mydt, list(m = 0, s = 1), df = 9, lower = c(-Inf, 0))
 

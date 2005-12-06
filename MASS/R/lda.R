@@ -206,8 +206,7 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
         else {
             newdata <- model.frame(Terms, newdata, na.action=na.pass,
                                    xlev = object$xlevels)
-            if (!is.null(cl <- attr(Terms, "dataClasses")) &&
-                exists(".checkMFClasses", envir=NULL))
+            if (!is.null(cl <- attr(Terms, "dataClasses")))
                 .checkMFClasses(cl, newdata)
         }
         x <- model.matrix(Terms, newdata, contrasts = object$contrasts)

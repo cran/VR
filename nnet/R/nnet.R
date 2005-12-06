@@ -174,8 +174,8 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
       Terms <- delete.response(object$terms)
       m <- model.frame(Terms, newdata, na.action = na.omit,
                        xlev = object$xlevels)
-      if (!is.null(cl <- attr(Terms, "dataClasses")) &&
-          exists(".checkMFClasses", envir=NULL)) .checkMFClasses(cl, m)
+      if (!is.null(cl <- attr(Terms, "dataClasses")))
+          .checkMFClasses(cl, m)
       keep <- match(row.names(m), rn)
       x <- model.matrix(Terms, m, contrasts = object$contrasts)
       xint <- match("(Intercept)", colnames(x), nomatch=0)

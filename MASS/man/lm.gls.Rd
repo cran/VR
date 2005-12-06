@@ -57,7 +57,10 @@ a list of contrasts to be used for some or all of
 additional arguments to \code{\link{lm.fit}}.
 }}
 \value{
-An object of class \code{"lm"}, with additional class \code{"lm.gls"}
+  An object of class \code{"lm.gls"}, which is similar to an \code{"lm"}
+  object.  There is no \code{"weights"} component, and only a few \code{"lm"}
+  methods will work correctly.  As from version 7.1-22 the residuals and
+  fitted values refer to the untransformed problem.
 }
 \details{
   The problem is transformed to uncorrelated form and passed to

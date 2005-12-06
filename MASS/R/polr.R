@@ -249,8 +249,8 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
         Terms <- delete.response(object$terms)
         m <- model.frame(Terms, newdata, na.action = function(x) x,
                          xlev = object$xlevels)
-        if (!is.null(cl <- attr(Terms, "dataClasses")) &&
-            exists(".checkMFClasses", envir=NULL)) .checkMFClasses(cl, m)
+        if (!is.null(cl <- attr(Terms, "dataClasses")))
+            .checkMFClasses(cl, m)
         X <- model.matrix(Terms, m, contrasts = object$contrasts)
         xint <- match("(Intercept)", colnames(X), nomatch=0)
         if(xint > 0) X <- X[, -xint, drop=FALSE]

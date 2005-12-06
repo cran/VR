@@ -7,17 +7,22 @@ Parallel Coordinates Plot
 Parallel coordinates plot
 }
 \usage{
-parcoord(x, col = 1, lty = 1, \dots)
+parcoord(x, col = 1, lty = 1, var.label = FALSE, \dots)
 }
 \arguments{
 \item{x}{
-a matrix or data frame who columns represent variables.
+a matrix or data frame who columns represent variables.  Missing values
+are allowed.
 }
 \item{col}{
 A vector of colours, recycled as necessary for each observation.
 }
 \item{lty}{
 A vector of line types, recycled as necessary for each observation.
+}
+\item{var.label}{
+If \code{TRUE}, each variable's axis is labelled with maximum and
+minimum values.
 }
 \item{\dots}{
 Further graphics parameters which are passed to \code{matplot}.
@@ -33,6 +38,9 @@ a parallel coordinates plots is drawn.
 
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
+}
+\author{
+  B. D. Ripley.  Enhancements based on ideas and code by Fabian Scheipl.
 }
 \examples{
 data(state)

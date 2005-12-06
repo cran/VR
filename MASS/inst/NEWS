@@ -103,3 +103,7 @@ This file documents software changes since the third edition.
 - anova.polr() quoted model dfs, not residual dfs.
 - stepAIC() applied to a polr fit now gets the correct rdf's in the
   anova table.
+- lm.gls() now returns fitted values and residuals on the original
+  coordinates (not the uncorrelated ones).
+- parcoord() now allows missing values and has a new argument
+  'var.label' to label the variable axes.  (Contributed by Fabian Scheipl.)

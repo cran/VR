@@ -163,8 +163,8 @@ predict.multinom <- function(object, newdata, type=c("class","probs"), ...)
     Terms <- delete.response(object$terms)
     m <- model.frame(Terms, newdata, na.action = na.omit,
                      xlev = object$xlevels)
-    if (!is.null(cl <- attr(Terms, "dataClasses")) &&
-        exists(".checkMFClasses", envir=NULL)) .checkMFClasses(cl, m)
+    if (!is.null(cl <- attr(Terms, "dataClasses")))
+        .checkMFClasses(cl, m)
     keep <- match(row.names(m), rn)
     X <- model.matrix(Terms, m, contrasts = object$contrasts)
     Y1 <- predict.nnet(object, X)
