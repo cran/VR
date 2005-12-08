@@ -47,6 +47,9 @@ for the coefficients.
 \item{sigma}{
 The scale estimate.
 }
+\item{stddev}{
+A scale estimate used for the standard errors.
+}
 \item{df}{
 The number of degrees of freedom for the model and for residuals.
 }

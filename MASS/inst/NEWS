@@ -107,3 +107,5 @@ This file documents software changes since the third edition.
   coordinates (not the uncorrelated ones).
 - parcoord() now allows missing values and has a new argument
   'var.label' to label the variable axes.  (Contributed by Fabian Scheipl.)
+- rlm() has a 'lqs.control' argument passed to lqs() where used for
+  initialization.

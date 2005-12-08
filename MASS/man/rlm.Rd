@@ -27,7 +27,7 @@ rlm(x, \dots)
 \method{rlm}{default}(x, y, weights, \dots, w = rep(1, nrow(x)),
     init, psi = psi.huber, scale.est, k2 = 1.345,
     method = c("M", "MM"), wt.method = c("inv.var", "case"),
-    maxit = 20, acc = 1e-4, test.vec = "resid")
+    maxit = 20, acc = 1e-4, test.vec = "resid", lqs.control = NULL)
 
 psi.huber(u, k = 1.345, deriv = 0)
 psi.hampel(u, a = 2, b = 4, c = 8, deriv = 0)
@@ -118,6 +118,9 @@ the stopping criterion is based on changes in this vector.
 \item{\dots}{
 additional arguments to be passed to \code{rlm.default} or to the \code{psi}
 function.
+}
+\item{lqs.control}{
+An optional list of control values for \code{\link{lqs}}.
 }
 \item{u}{
   numeric vector of evalation points.

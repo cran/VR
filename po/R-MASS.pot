@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: R 2.1.0\n"
+"Project-Id-Version: R 2.3.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2005-06-03 09:40\n"
+"POT-Creation-Date: 2005-12-08 20:56\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,22 @@ msgstr ""
 msgid "unsupported distribution"
 msgstr ""
 
+msgid "supplying pars for the log-Normal is not supported"
+msgstr ""
+
+msgid "need positive values to fit a log-Normal"
+msgstr ""
+
 msgid "supplying pars for the Normal is not supported"
+msgstr ""
+
+msgid "supplying pars for the Poisson is not supported"
+msgstr ""
+
+msgid "supplying pars for the exponential is not supported"
+msgstr ""
+
+msgid "supplying pars for the geometric is not supported"
 msgstr ""
 
 msgid "'start' must be a named list"
@@ -108,6 +123,9 @@ msgid "'start' specifies names which are not arguments to 'densfun'"
 msgstr ""
 
 msgid "optimization failed"
+msgstr ""
+
+msgid "only 'REML = FALSE' is implemented"
 msgstr ""
 
 msgid "iteration limit reached"
@@ -161,10 +179,16 @@ msgstr ""
 msgid "cannot use leave-one-out CV with method"
 msgstr ""
 
+msgid "rank = 0: variables are numerically const"
+msgstr ""
+
 msgid "variables are collinear"
 msgstr ""
 
 msgid "'nu' must exceed 2"
+msgstr ""
+
+msgid "group means are numerically identical"
 msgstr ""
 
 msgid "object not of class \"lda\""

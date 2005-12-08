@@ -51,7 +51,7 @@ rlm.default <-
            init = "ls", psi = psi.huber,
            scale.est = c("MAD", "Huber", "proposal 2"), k2 = 1.345,
            method = c("M", "MM"), wt.method = c("inv.var", "case"),
-           maxit = 20, acc = 1e-4, test.vec = "resid")
+           maxit = 20, acc = 1e-4, test.vec = "resid", lqs.control=NULL)
 {
     irls.delta <- function(old, new)
         sqrt(sum((old - new)^2)/max(1e-20, sum(old^2)))
@@ -78,6 +78,7 @@ rlm.default <-
          || is.null(test.vec))) stop("invalid 'test.vec'")
     ## deal with weights
     xx <- x
+    yy <- y
     if(!missing(weights)) {
         if(length(weights) != nrow(x))
             stop("length of 'weights' must equal number of observations")
@@ -105,8 +106,10 @@ rlm.default <-
         }
         if(is.character(init)) {
             temp <- if(init == "ls") lm.wfit(x, y, w, method="qr")
-            else if(init == "lts") lqs(x, y, intercept=FALSE, nsamp=200)
-            else stop("'init' method is unknown")
+            else if(init == "lts") {
+                if(is.null(lqs.control)) lqs.control <- list(nsamp=200)
+                do.call("lqs", c(list(x, y, intercept = FALSE), lqs.control))
+            } else stop("'init' method is unknown")
             coef <- temp$coef
             resid <- temp$resid
         } else {
@@ -116,7 +119,9 @@ rlm.default <-
         }
     } else if(method == "MM") {
         scale.est <- "MM"
-        temp <- lqs(x, y, intercept=FALSE, method="S", k0 = 1.548)
+        temp <- do.call("lqs",
+                        c(list(x, y, intercept = FALSE, method = "S",
+                               k0 = 1.548), lqs.control))
         coef <- temp$coef
         resid <- temp$resid
         psi <- psi.bisquare
@@ -168,7 +173,7 @@ rlm.default <-
     if(!missing(weights)) {
         tmp <- (weights != 0)
         w[tmp] <- w[tmp]/weights[tmp]
-        fitted <- xx %*% coef
+        fitted <- drop(xx %*% coef)
     }
     ## fix up call to refer to the generic, but leave arg name as `formula'
     cl <- match.call()
