@@ -260,30 +260,30 @@ lmsreg <- function(...)
 {
     oc <- sys.call()
     oc$method <- "lms"
-    oc[[1]] <- as.name("lqs")
-    eval(oc, parent.frame())
+    oc[[1]] <- quote(MASS::lqs)
+    eval.parent(oc)
 }
 
 ltsreg <- function(...)
 {
     oc <- sys.call()
     oc$method <- "lts"
-    oc[[1]] <- as.name("lqs")
-    eval(oc, parent.frame())
+    oc[[1]] <- quote(MASS::lqs)
+    eval.parent(oc)
 }
 
 cov.mve <- function(...)
 {
     oc <- sys.call()
     oc$method <- "mve"
-    oc[[1]] <- as.name("cov.rob")
-    eval(oc, parent.frame())
+    oc[[1]] <- quote(MASS::cov.rob)
+    eval.parent(oc)
 }
 
 cov.mcd <- function(...)
 {
     oc <- sys.call()
     oc$method <- "mcd"
-    oc[[1]] <- as.name("cov.rob")
-    eval(oc, parent.frame())
+    oc[[1]] <- quote(MASS::cov.rob)
+    eval.parent(oc)
 }

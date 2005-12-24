@@ -36,6 +36,7 @@ confint.profile.glm <-
     drop(ci)
 }
 
+if(R.version$major == 2 && R.version$minor < 3) {
 confint.nls <-
   function(object, parm, level = 0.95, ...)
 {
@@ -47,26 +48,37 @@ confint.nls <-
   object <- profile(object, which = parm, alphamax = (1. - level)/4.)
   confint(object, parm=parm, level=level, ...)
 }
-
+} else {
+confint.nls <-
+  function(object, parm, level = 0.95, ...)
+{
+  pnames <- names(coef(object))
+  if(missing(parm)) parm <- seq(along=pnames)
+  if(is.numeric(parm))  parm <- pnames[parm]
+  cat("Waiting for profiling to be done...\n")
+  flush.console()
+  object <- profile(object, which = parm, alphamax = (1. - level)/4.)
+  confint(object, parm=parm, level=level, ...)
+}
+}
 confint.profile.nls <-
   function(object, parm = seq(along=pnames), level = 0.95, ...)
 {
+  pnames <- names(object) # non-linear pars only
+  ncoefs <- length(coef(attr(object, "original.fit")))
   of <- attr(object, "original.fit")
-  pnames <- names(coef(of))
-  if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
+  if(is.numeric(parm))  parm <- pnames[parm]
   n <- length(fitted(of)) - length(of$m$getPars())
   a <- (1-level)/2
   a <- c(a, 1-a)
   pct <- paste(round(100*a, 1), "%", sep = "")
-  ci <- array(NA, dim = c(length(parm), 2),
-              dimnames = list(pnames[parm], pct))
+  ci <- array(NA, dim = c(length(parm), 2), dimnames = list(parm, pct))
   cutoff <- qt(a, n)
   for(pm in parm) {
     pro <- object[[pm]]
-    if(length(pnames) > 1)
-        sp <- spline(x = pro[, "par.vals"][, pm], y = pro$tau)
-    else sp <- spline(x = pro[, "par.vals"], y = pro$tau)
-    ci[pnames[pm], ] <- approx(sp$y, sp$x, xout = cutoff)$y
+    sp <- if(ncoefs > 1) spline(x = pro[, "par.vals"][, pm], y = pro$tau)
+    else spline(x = pro[, "par.vals"], y = pro$tau)
+    ci[pm, ] <- approx(sp$y, sp$x, xout = cutoff)$y
   }
   drop(ci)
 }

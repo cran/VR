@@ -131,6 +131,13 @@ Library MASS
   'var.label' to label the variable axes.  (Contributed by Fabian Scheipl.)
 - rlm() has a 'lqs.control' argument passed to lqs() where used for
   initialization.
+- rlm() could fail with some psi functions (e.g. psi.hampel) if 'init' was
+  given as a numeric vector.
+- rlm() handles weighted fits slightly differently, in particular trying
+  to give the same scale estimate if wt.method="case" as if replicating the
+  cases.
+- confint.nls copes with plinear models in R (now profile.nls does).
+- The wrappers lmsreg() etc have been adapted to work in the MASS namespace.
 
 
 

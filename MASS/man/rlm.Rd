@@ -151,10 +151,13 @@ the convergence criteria at each iteration
 }
 \item{converged}{
 did the IWLS converge?
-}}
+}
+\item{wresid}{
+a working residual, weighted for \code{"inv.var"} weights only.
+}
+}
 \details{
   Fitting is done by iterated re-weighted least squares (IWLS).
-
 
   Psi functions are supplied for the Huber, Hampel and Tukey bisquare
   proposals as \code{psi.huber}, \code{psi.hampel} and
@@ -163,15 +166,16 @@ did the IWLS converge?
   two will have multiple local minima, and a good starting point is
   desirable.
 
-
   Selecting \code{method = "MM"} selects a specific set of options which
   ensures that the estimator has a high breakdown point. The initial set
   of coefficients and the final scale are selected by an S-estimator
-  with \code{k0 = 1.548}; this gives (for \eqn{n \gg p}{n >> p}) breakdown point 0.5.
+  with \code{k0 = 1.548}; this gives (for \eqn{n \gg p}{n >> p})
+  breakdown point 0.5.
   The final estimator is an M-estimator with Tukey's biweight and fixed
   scale that will inherit this breakdown point provided \code{c > k0};
   this is true for the default value of \code{c} that corresponds to
-  95\% relative efficiency at the normal.
+  95\% relative efficiency at the normal.  Case weights are not
+  supported for \code{method = "MM"}.
 }
 \references{
 P. J. Huber (1981)

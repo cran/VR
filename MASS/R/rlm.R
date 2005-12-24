@@ -61,6 +61,13 @@ rlm.default <-
         max(abs((matrix(r * w, 1, length(r)) %*% x)/
                 sqrt(matrix(w, 1, length(r)) %*% (x^2))))/sqrt(sum(w * r^2))
     }
+    wmad <- function(x, w)
+    {
+        o <- sort.list(abs(x)); x <- abs(x)[o]; w <- w[o]
+        p <- cumsum(w)/sum(w)
+        n <- sum(p < 0.5)
+        if (p[n + 1] > 0.5) x[n + 1]/0.6745 else (x[n + 1] + x[n + 2])/(2*0.6745)
+    }
 
     method <- match.arg(method)
     wt.method <- match.arg(wt.method)
@@ -115,7 +122,7 @@ rlm.default <-
         } else {
             if(is.list(init)) coef <- init$coef
             else coef <- init
-            resid <- y - x %*% coef
+            resid <- drop(y - x %*% coef)
         }
     } else if(method == "MM") {
         scale.est <- "MM"
@@ -126,13 +133,11 @@ rlm.default <-
         resid <- temp$resid
         psi <- psi.bisquare
         if(length(arguments <- list(...)))
-            if(match("c", names(arguments),
-                     nomatch = FALSE)) {
+            if(match("c", names(arguments), nomatch = FALSE)) {
                 c0 <- arguments$c
-                if (c0 > 1.548) {
-                    formals(psi)$c <- c0
-                } else
-                warning("'c' must be at least 1.548 and has been ignored")
+                if (c0 > 1.548) formals(psi)$c <- c0
+                else
+                    warning("'c' must be at least 1.548 and has been ignored")
             }
         scale <- temp$scale
     } else stop("'method' is unknown")
@@ -140,14 +145,19 @@ rlm.default <-
     done <- FALSE
     conv <- NULL
     n1 <- (if(is.null(wt)) nrow(x) else sum(wt)) - ncol(x)
-    if(scale.est != "MM") scale <- mad(resid, 0)
     theta <- 2*pnorm(k2)-1
     gamma <- theta + k2^2 * (1 - theta) - 2 * k2 * dnorm(k2)
+    ## At this point the residuals are weighted for inv.var and
+    ## unweighted for case weights.  Only Huber handles case weights
+    ## correctly.
+    if(scale.est != "MM")
+        scale <- if(is.null(wt)) mad(resid, 0) else wmad(resid, wt)
     for(iiter in 1:maxit) {
         if(!is.null(test.vec)) testpv <- get(test.vec)
         if(scale.est != "MM") {
-            if(scale.est == "MAD") scale <- median(abs(resid))/0.6745
-            else scale <- if(is.null(wt))
+            scale <- if(scale.est == "MAD")
+                if(is.null(wt)) median(abs(resid))/0.6745 else wmad(resid, wt)
+            else if(is.null(wt))
                 sqrt(sum(pmin(resid^2, (k2 * scale)^2))/(n1*gamma))
             else sqrt(sum(wt*pmin(resid^2, (k2 * scale)^2))/(n1*gamma))
             if(scale == 0) {
@@ -169,16 +179,12 @@ rlm.default <-
     if(!done)
         warning(gettextf("rlm failed to converge in %d steps", maxit),
                 domain = NA)
-    fitted <- temp$fitted.values
-    if(!missing(weights)) {
-        tmp <- (weights != 0)
-        w[tmp] <- w[tmp]/weights[tmp]
-        fitted <- drop(xx %*% coef)
-    }
+    fitted <- drop(xx %*% coef)
     ## fix up call to refer to the generic, but leave arg name as `formula'
     cl <- match.call()
     cl[[1]] <- as.name("rlm")
-    fit <- list(coefficients = coef, residuals = resid, effects = temp$effects,
+    fit <- list(coefficients = coef, residuals = yy - fitted, wresid = resid,
+                effects = temp$effects,
                 rank = temp$rank, fitted.values = fitted,
                 assign = temp$assign,  qr = temp$qr, df.residual = NA, w = w,
                 s = scale, psi = psi, k2 = k2,
@@ -207,29 +213,48 @@ print.rlm <- function(x, ...)
     invisible(x)
 }
 
-summary.rlm <- function(object, method=c("XtX", "XtWX"),
+summary.rlm <- function(object, method = c("XtX", "XtWX"),
                         correlation = TRUE, ...)
 {
     method <- match.arg(method)
     s <- object$s
     coef <- object$coef
     ptotal <- length(coef)
-    resid <- object$resid
-    n <- length(resid)
+    wresid <- object$wresid
+    res <- object$residuals
+    n <- length(wresid)
     if(any(na <- is.na(coef))) coef <- coef[!na]
     cnames <- names(coef)
     p <- length(coef)
-    rdf <- n - p
     rinv <- diag(p)
     dimnames(rinv) <- list(cnames, cnames)
-    w <- object$psi(resid/s)
-    S <- sum((resid*w)^2)/rdf
-    psiprime <- object$psi(resid/s, deriv=1)
-    mn <- mean(psiprime)
-    kappa <- 1 + p*var(psiprime)/(n*mn^2)
-    stddev <- sqrt(S)*(kappa/mn)
+    wts <- if(length(object$weights)) object$weights else rep(1, n)
+    if(length(object$call$wt.method) && object$call$wt.method == "case") {
+        rdf <- sum(wts) - p
+        w <- object$psi(wresid/s)
+        S <- sum(wts * (wresid*w)^2)/rdf
+        psiprime <- object$psi(wresid/s, deriv=1)
+        m1 <- sum(wts*psiprime)
+        m2 <- sum(wts*psiprime^2)
+        nn <- sum(wts)
+        mn <- m1/nn
+        kappa <- 1 + p*(m2 - m1^2/nn)/(nn-1)/(nn*mn^2)
+        stddev <- sqrt(S)*(kappa/mn)
+    } else {
+        res <- res * sqrt(wts)
+        rdf <- n - p
+        w <- object$psi(wresid/s)
+        S <- sum((wresid*w)^2)/rdf
+        psiprime <- object$psi(wresid/s, deriv=1)
+        mn <- mean(psiprime)
+        kappa <- 1 + p*var(psiprime)/(n*mn^2)
+        stddev <- sqrt(S)*(kappa/mn)
+    }
     X <- if(length(object$weights)) object$x * sqrt(object$weights) else object$x
-    if(method == "XtWX")  X <- X * sqrt(w/mean(w))
+    if(method == "XtWX")  {
+        mn <- sum(wts*w)/sum(wts)
+        X <- X * sqrt(w/mn)
+    }
     R <- qr(X)$qr
     R <- R[1:p, 1:p, drop = FALSE]
     R[lower.tri(R)] <- 0
@@ -246,7 +271,7 @@ summary.rlm <- function(object, method=c("XtX", "XtWX"),
     coef[, 2] <- rowlen %o% stddev
     coef[, 3] <- coef[, 1]/coef[, 2]
     object <- object["call"]
-    object$residuals <- resid
+    object$residuals <- res
     object$coefficients <- coef
     object$sigma <- s
     object$stddev <- stddev
@@ -267,8 +292,9 @@ function(x, digits = max(3, .Options$digits - 3), ...)
     resid <- x$residuals
     df <- x$df
     rdf <- df[2]
+    cat(if(!is.null(x$weights) && diff(range(x$weights))) "Weighted ",
+        "Residuals:\n", sep="")
     if(rdf > 5) {
-        cat("Residuals:\n")
         if(length(dim(resid)) == 2) {
             rq <- apply(t(resid), 1, quantile)
             dimnames(rq) <- list(c("Min", "1Q", "Median", "3Q", "Max"),
@@ -279,7 +305,6 @@ function(x, digits = max(3, .Options$digits - 3), ...)
         }
         print(rq, digits = digits, ...)
     } else if(rdf > 0) {
-        cat("Residuals:\n")
         print(resid, digits = digits, ...)
     }
     if(nsingular <- df[3] - df[1])
