@@ -1,4 +1,4 @@
-useDynLib(nnet)
+useDynLib(nnet, .registration = TRUE)
 
 export(class.ind, multinom, nnet, nnetHess, which.is.max)
 

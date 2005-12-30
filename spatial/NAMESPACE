@@ -1,4 +1,4 @@
-useDynLib(spatial)
+useDynLib(spatial, .registration = TRUE)
 
 export(anova.trls, anovalist.trls, correlogram, expcov, gaucov, Kaver,
        Kenvl, Kfn, plot.trls, ppgetregion, ppinit, pplik, ppregion,

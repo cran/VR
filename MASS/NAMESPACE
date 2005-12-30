@@ -1,4 +1,4 @@
-useDynLib(MASS)
+useDynLib(MASS, .registration = TRUE)
 
 # functions
 export(addterm, area, as.fractions, bandwidth.nrd, bcv, boxcox, con2tr,

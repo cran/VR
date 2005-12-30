@@ -106,13 +106,12 @@ lqs.default <-
 	}
 	assign(".Random.seed", seed, envir=.GlobalEnv)
     }
-    z <-  .C("lqs_fitlots",
+    z <-  .C(lqs_fitlots,
 	     as.double(x), as.double(y), as.integer(n), as.integer(p),
 	     as.integer(quantile), as.integer(lts), as.integer(adj),
 	     as.integer(samp), as.integer(ps), as.integer(nsamp),
 	     crit=double(1), sing=integer(1), bestone=integer(ps),
-	     coefficients=double(p), as.double(k0), as.double(beta),
-	     PACKAGE="MASS"
+	     coefficients=double(p), as.double(k0), as.double(beta)
 	     )[c("crit", "sing", "coefficients", "bestone")]
     if(z$sing == nsamp)
         stop("lqs failed: all the samples were singular", call.=FALSE)
@@ -222,13 +221,11 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
 	    }
             assign(".Random.seed", seed, envir=.GlobalEnv)
 	}
-	z <-  .C("mve_fitlots",
+	z <-  .C(mve_fitlots,
 		 as.double(x), as.integer(n), as.integer(p),
 		 as.integer(qn), as.integer(method=="mcd"),
 		 as.integer(samp), as.integer(ps), as.integer(nsamp),
-		 crit=double(1), sing=integer(1), bestone=integer(n),
-		 PACKAGE="MASS"
-		 )
+		 crit=double(1), sing=integer(1), bestone=integer(n))
 	z$sing <- paste(z$sing, "singular samples of size", ps,
                         "out of", nsamp)
 	crit <- z$crit + 2*sum(log(divisor)) +

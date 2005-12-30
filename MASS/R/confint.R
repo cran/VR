@@ -36,19 +36,6 @@ confint.profile.glm <-
     drop(ci)
 }
 
-if(R.version$major == 2 && R.version$minor < 3) {
-confint.nls <-
-  function(object, parm, level = 0.95, ...)
-{
-  pnames <- names(coef(object))
-  if(missing(parm)) parm <- seq(along=pnames)
-  if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
-  cat("Waiting for profiling to be done...\n")
-  flush.console()
-  object <- profile(object, which = parm, alphamax = (1. - level)/4.)
-  confint(object, parm=parm, level=level, ...)
-}
-} else {
 confint.nls <-
   function(object, parm, level = 0.95, ...)
 {
@@ -60,7 +47,7 @@ confint.nls <-
   object <- profile(object, which = parm, alphamax = (1. - level)/4.)
   confint(object, parm=parm, level=level, ...)
 }
-}
+
 confint.profile.nls <-
   function(object, parm = seq(along=pnames), level = 0.95, ...)
 {

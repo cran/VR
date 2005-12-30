@@ -19,7 +19,7 @@ Kfn <- function(pp, fs, k = 100)
 {
   zz <- (c(range(pp$x), range(pp$y)) - ppgetregion())*c(1,-1,1,-1)
   if(any(zz < 0)) stop("some points outside region")
-  z <- .C("VR_sp_pp2",
+  z <- .C(VR_sp_pp2,
 	  as.double(pp$x),
 	  as.double(pp$y),
 	  as.integer(length(pp$x)),
@@ -27,8 +27,7 @@ Kfn <- function(pp, fs, k = 100)
 	  h = double(k),
 	  dmin = double(1),
 	  lm = double(1),
-	  as.double(fs),
-          PACKAGE = "spatial")
+	  as.double(fs))
   list(y = z$h[1:z$k1], x = (seq(1:z$k1) * fs)/k, k = k,
        dmin = z$dmin, lm = max(z$dmin, z$lm),
        call=match.call())
@@ -78,29 +77,25 @@ ppregion <- function(xl = 0, xu = 1, yl = 0, yu = 1)
             stop("invalid input")
     }
     if(is.list(xl)) {
-        if(length(xl$area)) .C("VR_ppset", as.double(xl$area),
-                               PACKAGE = "spatial")
-        else .C("VR_ppset", as.double(c(xl$xl, xl$xu, xl$yl, xl$yu)),
-                PACKAGE = "spatial")
-    } else .C("VR_ppset", as.double(c(xl, xu, yl, yu)),
-              PACKAGE = "spatial")
+        if(length(xl$area)) .C(VR_ppset, as.double(xl$area))
+        else .C(VR_ppset, as.double(c(xl$xl, xl$xu, xl$yl, xl$yu)))
+    } else .C(VR_ppset, as.double(c(xl, xu, yl, yu)))
     invisible()
 }
 
 ppgetregion <- function()
 {
-    xx <- .C("VR_ppget", z=double(4), PACKAGE = "spatial")$z
+    xx <- .C(VR_ppget, z=double(4))$z
     names(xx) <- c("xl", "xu", "yl", "yu")
     xx
 }
 
 Psim <- function(n)
 {
-  z <- .C("VR_pdata",
+  z <- .C(VR_pdata,
 	  as.integer(n),
 	  x = double(n),
-	  y = double(n),
-          PACKAGE = "spatial")
+	  y = double(n))
   invisible(list(x = z$x, y = z$y, call=match.call()))
 }
 
@@ -109,22 +104,20 @@ Strauss <- function(n, c = 0, r)
   init <-  0
   if(!exists(".ppx")) {
     init <-  1
-    z <- .C("VR_pdata",
+    z <- .C(VR_pdata,
 	    as.integer(n),
 	    x = double(n),
-	    y = double(n),
-            PACKAGE = "spatial")
+	    y = double(n))
     assign(".ppx", z$x)
     assign(".ppy", z$y)
   }
-  z <- .C("VR_simpat",
+  z <- .C(VR_simpat,
 	  as.integer(n),
 	  x = as.double(.ppx),
 	  y = as.double(.ppy),
 	  as.double(c),
 	  as.double(r),
-	  as.integer(init),
-          PACKAGE = "spatial")
+	  as.integer(init))
   assign(".ppx", z$x)
   assign(".ppy", z$y)
   invisible(list(x = z$x, y = z$y, call=match.call()))
@@ -132,12 +125,11 @@ Strauss <- function(n, c = 0, r)
 
 SSI <- function(n, r)
 {
-  z <- .C("VR_simmat",
+  z <- .C(VR_simmat,
 	  as.integer(n),
 	  x = double(n),
 	  y = double(n),
-	  as.double(r),
-          PACKAGE = "spatial")
+	  as.double(r))
   invisible(list(x = z$x, y = z$y, call=match.call()))
 }
 
@@ -146,7 +138,7 @@ pplik <- function(pp, R, ng=50, trace=FALSE)
 {
     pplikfn <- function(cc, R, n, x, y, ng, target, trace=FALSE)
     {
-        z <- .C("VR_plike",
+        z <- .C(VR_plike,
                 as.double(x),
                 as.double(y),
                 as.integer(n),
@@ -154,8 +146,7 @@ pplik <- function(pp, R, ng=50, trace=FALSE)
                 as.double(R),
                 as.integer(ng),
                 as.double(target),
-                res=double(1),
-                PACKAGE = "spatial"
+                res=double(1)
                 )
         if(trace) {
 	    print(c(cc, z$res))

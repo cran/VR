@@ -73,7 +73,7 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
         rlen <- length(alpha)
         if(length(radii) != rlen)
             stop("'alpha' and 'radii' do not have the same lengths")
-        codes <- .C("VR_onlineSOM",
+        codes <- .C(VR_onlineSOM,
                     data = as.double(data),
                     codes = as.double(codes),
                     nhbrdist = as.double(nhbrdist),
@@ -83,14 +83,13 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
                     p = as.integer(ncol(data)),
                     ncodes = as.integer(nrow(init)),
                     rlen = as.integer(rlen)
-                    , PACKAGE = "class"
                     )$codes
     } else {
         for(k in 1:nphases) {
             rlen <- length(alpha[[k]])
             if(length(radii[[k]]) != rlen)
                 stop("'alpha' and 'radii' do not match")
-            codes <- .C("VR_onlineSOM",
+            codes <- .C(VR_onlineSOM,
                         data = as.double(data),
                         codes = as.double(codes),
                         nhbrdist = as.double(nhbrdist),
@@ -100,7 +99,6 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
                         p = as.integer(ncol(data)),
                         ncodes = as.integer(nrow(init)),
                         rlen = as.integer(rlen)
-                        , PACKAGE = "class"
                         )$codes
         }
     }

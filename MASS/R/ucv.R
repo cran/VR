@@ -8,32 +8,32 @@ width.SJ <- function(x, nb=1000, lower=0.1*hmax, upper=hmax,
     fSD <- function(h, x, alph2, c1, n, d)
         (c1/SDh(x, alph2 * h^(5/7), n, d))^(1/5) - h
     SDh <- function(x, h, n, d)
-        .C("VR_phi4_bin",
+        .C(VR_phi4_bin,
            as.integer(n),
            as.integer(length(x)),
            as.double(d),
            x,
            as.double(h),
-           u = double(1), PACKAGE = "MASS")$u
+           u = double(1))$u
     TDh <- function(x, h, n, d)
-        .C("VR_phi6_bin",
+        .C(VR_phi6_bin,
            as.integer(n),
            as.integer(length(x)),
            as.double(d),
            x,
            as.double(h),
-           u = double(1), PACKAGE = "MASS")$u
+           u = double(1))$u
 
     method <- match.arg(method)
     n <- length(x)
     if(!n) stop("'x' has length zero")
     storage.mode(x) <- "double"
-    Z <- .C("VR_den_bin",
+    Z <- .C(VR_den_bin,
             as.integer(n),
             as.integer(nb),
             d = double(1),
             x,
-            cnt = integer(nb), PACKAGE = "MASS"
+            cnt = integer(nb)
             )
     d <- Z$d; cnt <- as.integer(Z$cnt)
     hmax <- 1.144 * sqrt(var(x)) * n^(-1/5)
@@ -59,25 +59,24 @@ width.SJ <- function(x, nb=1000, lower=0.1*hmax, upper=hmax,
 ucv <- function(x, nb=1000, lower=0.1*hmax, upper=hmax)
 {
     fucv <- function(h, x, n, d)
-        .C("VR_ucv_bin",
+        .C(VR_ucv_bin,
            as.integer(n),
            as.integer(length(x)),
            as.double(d),
            x,
            as.double(h),
-           u = double(1), PACKAGE = "MASS")$u
+           u = double(1))$u
 
     n <- length(x)
     if(!n) stop("'x' has length zero")
     hmax <- 1.144 * sqrt(var(x)) * n^(-1/5) * 4
     storage.mode(x) <- "double"
-    Z <- .C("VR_den_bin",
+    Z <- .C(VR_den_bin,
             as.integer(n),
             as.integer(nb),
             d = double(1),
             x,
-            cnt = integer(nb), PACKAGE = "MASS"
-            )
+            cnt = integer(nb))
     d <- Z$d; cnt <- as.integer(Z$cnt)
     h <- optimize(fucv, c(lower, upper), tol=0.1*lower,
                   x=cnt, n=n, d=d)$minimum
@@ -89,24 +88,24 @@ ucv <- function(x, nb=1000, lower=0.1*hmax, upper=hmax)
 bcv <- function(x, nb=1000, lower=0.1*hmax, upper=hmax)
 {
     fbcv <- function(h, x, n, d)
-        .C("VR_bcv_bin",
+        .C(VR_bcv_bin,
            as.integer(n),
            as.integer(length(x)),
            as.double(d),
            x,
            as.double(h),
-           u = double(1), PACKAGE = "MASS")$u
+           u = double(1))$u
 
     n <- length(x)
     if(!n) stop("'x' has length zero")
     hmax <- 1.144 * sqrt(var(x)) * n^(-1/5) * 4
     storage.mode(x) <- "double"
-    Z <- .C("VR_den_bin",
+    Z <- .C(VR_den_bin,
             as.integer(n),
             as.integer(nb),
             d = double(1),
             x,
-            cnt = integer(nb), PACKAGE = "MASS"
+            cnt = integer(nb)
             )
     d <- Z$d; cnt <- as.integer(Z$cnt)
     h<- optimize(fbcv, c(lower, upper), tol=0.1*lower,

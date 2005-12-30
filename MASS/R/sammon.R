@@ -38,7 +38,7 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
     if(any(!is.finite(y))) stop("initial configuration must be complete")
     storage.mode(x) <- "double"
     storage.mode(y) <- "double"
-    z <- .C("VR_sammon",
+    z <- .C(VR_sammon,
             x = x,
             as.integer(n),
             as.integer(k),
@@ -48,8 +48,7 @@ sammon <- function(d, y= cmdscale(d, k), k=2, niter=100, trace=TRUE,
             as.integer(trace),
             as.double(magic),
             as.double(tol),
-            NAOK = TRUE, PACKAGE = "MASS"
-            )
+            NAOK = TRUE)
     points <- z$y
     dimnames(points) <- list(rn, NULL)
     list(points=points, stress=z$e, call=call)

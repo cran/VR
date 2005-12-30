@@ -14,7 +14,7 @@ knn1 <- function(train, test, cl)
 	if(ncol(test) != p) stop("dims of 'test' and 'train' differ")
 	clf <- as.factor(cl)
 	nc <- max(unclass(clf))
-	res <- .C("VR_knn1",
+	res <- .C(VR_knn1,
 		as.integer(ntr),
 		as.integer(nte),
 		as.integer(p),
@@ -24,7 +24,7 @@ knn1 <- function(train, test, cl)
 		res = integer(nte),
 		integer(nc+1),
 		as.integer(nc),
-		d = double(nte), PACKAGE = "class"
+		d = double(nte)
 		)$res
 	factor(res, levels=seq(along=levels(clf)), labels=levels(clf))
 }
@@ -50,7 +50,7 @@ knn <- function(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 	if(ncol(test) != p) stop("dims of 'test' and 'train differ")
 	clf <- as.factor(cl)
 	nc <- max(unclass(clf))
-	Z <- .C("VR_knn",
+	Z <- .C(VR_knn,
 		as.integer(k),
 		as.integer(l),
 		as.integer(ntr),
@@ -64,7 +64,7 @@ knn <- function(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 		integer(nc+1),
 		as.integer(nc),
 		as.integer(FALSE),
-		as.integer(use.all), PACKAGE = "class"
+		as.integer(use.all)
 		)
 	res <- factor(Z$res, levels=seq(along=levels(clf)),labels=levels(clf))
 	if(prob) attr(res, "prob") <- Z$pr
@@ -88,7 +88,7 @@ knn.cv <- function(train, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
             stop(gettextf("k = %d must be at least 1", k), domain = NA)
 	clf <- as.factor(cl)
 	nc <- max(unclass(clf))
-	Z <- .C("VR_knn",
+	Z <- .C(VR_knn,
 		as.integer(k),
 		as.integer(l),
 		as.integer(ntr),
@@ -102,7 +102,7 @@ knn.cv <- function(train, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 		integer(nc+1),
 		as.integer(nc),
 		as.integer(TRUE),
-		as.integer(use.all), PACKAGE = "class"
+		as.integer(use.all)
 		)
 	res <- factor(Z$res, levels=seq(along=levels(clf)),labels=levels(clf))
 	if(prob) attr(res, "prob") <- Z$pr

@@ -38,20 +38,18 @@ isoMDS <- function(d, y = cmdscale(d, k), k = 2, maxit = 50, trace = TRUE,
     ord <- order(dis)
     nd <- sum(!is.na(ord))
 
-    on.exit(.C("VR_mds_unload", PACKAGE = "MASS"))
-    .C("VR_mds_init_data",
+    on.exit(.C(VR_mds_unload))
+    .C(VR_mds_init_data,
        as.integer(nd),
        as.integer(k),
        as.integer(n),
        as.integer(ord - 1),
        as.integer(order(ord) - 1),
        as.double(y),
-       as.double(p),
-       PACKAGE = "MASS"
-       )
-    tmp <- .C("VR_mds_dovm",
+       as.double(p))
+    tmp <- .C(VR_mds_dovm,
               val = double(1), as.integer(maxit), as.integer(trace),
-              y = as.double(y), as.double(tol), PACKAGE = "MASS")
+              y = as.double(y), as.double(tol))
     points <- matrix(tmp$y,,k)
     dimnames(points) <- list(rn, NULL)
     list(points = points, stress = tmp$val)
@@ -68,7 +66,7 @@ Shepard <- function(d, x, p = 2)
   ord <- order(d)
   y <- y[ord]
   nd <- length(ord)
-  Z <- .C("VR_mds_fn",
+  Z <- .C(VR_mds_fn,
 	  as.double(y),
 	  yf=as.double(y),
 	  as.integer(nd),
@@ -79,9 +77,7 @@ Shepard <- function(d, x, p = 2)
 	  as.integer(k),
 	  g=double(n*k),
 	  as.integer(1),
-          as.double(2.0),
-          PACKAGE = "MASS"
-	  )
+          as.double(2.0))
   list(x = d[ord], y = y, yf = Z$yf)
 }
 

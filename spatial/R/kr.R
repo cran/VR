@@ -4,13 +4,12 @@
 {
     n <- length(x)
     npar <- ((np + 1) * (np + 2))/2
-    .C("VR_fmat",
+    .C(VR_fmat,
        f = double(n * npar),
        as.double(x),
        as.double(y),
        as.integer(n),
-       as.integer(np),
-       PACKAGE = "spatial")$f
+       as.integer(np))$f
 }
 
 surf.ls <- function(np, x, y, z)
@@ -25,17 +24,16 @@ surf.ls <- function(np, x, y, z)
     }
     rx <- range(x)
     ry <- range(y)
-    .C("VR_frset",
+    .C(VR_frset,
        as.double(rx[1]),
        as.double(rx[2]),
        as.double(ry[1]),
-       as.double(ry[2]),
-       PACKAGE = "spatial"
+       as.double(ry[2])
        )
     n <- length(x)
     npar <- ((np + 1) * (np + 2))/2
     f <- .spfmat(x, y, np)
-    Z <- .C("VR_ls",
+    Z <- .C(VR_ls,
             as.double(x),
             as.double(y),
             as.double(z),
@@ -46,8 +44,7 @@ surf.ls <- function(np, x, y, z)
             r = double((npar * (npar + 1))/2),
             beta = double(npar),
             wz = double(n),
-            ifail = as.integer(0),
-            PACKAGE = "spatial")
+            ifail = as.integer(0))
     res <- list(x=x, y=y, z=z, np=np, f=f, r=Z$r, beta=Z$beta,
                 wz=Z$wz, rx=rx, ry=ry, call=match.call())
     class(res) <- "trls"
@@ -67,8 +64,8 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
     }
     rx <- range(x)
     ry <- range(y)
-    .C("VR_frset", as.double(rx[1]), as.double(rx[2]),
-       as.double(ry[1]), as.double(ry[2]), PACKAGE = "spatial")
+    .C(VR_frset, as.double(rx[1]), as.double(rx[2]),
+       as.double(ry[1]), as.double(ry[2]))
     covmod <- covmod
     arguments <- list(...)
     if (length(arguments)) {
@@ -82,12 +79,11 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
     }
     mm <- 1.5*sqrt((rx[2]-rx[1])^2 + (ry[2]-ry[1])^2)
     alph <- c(mm/nx, covmod(seq(0, mm, mm/nx)))
-    .C("VR_alset", as.double(alph), as.integer(length(alph)),
-       PACKAGE = "spatial")
+    .C(VR_alset, as.double(alph), as.integer(length(alph)))
     n <- length(x)
     npar <- ((np + 1) * (np + 2))/2
     f <- .spfmat(x, y, np)
-    Z <- .C("VR_gls",
+    Z <- .C(VR_gls,
             as.double(x),
             as.double(y),
             as.double(z),
@@ -102,8 +98,7 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
             yy = double(n),
             W = double(n),
             ifail = as.integer(0),
-            l1f = double(n * npar),
-            PACKAGE = "spatial"
+            l1f = double(n * npar)
             )
     if(Z$ifail > 0) stop("rank failure in Choleski decomposition")
     if(nx > 1000) alph <- alph[1]
@@ -117,14 +112,13 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
 .trval <- function(obj, x, y)
 {
     n <- length(x)
-    .C("VR_valn",
+    .C(VR_valn,
        z = double(n),
        as.double(x),
        as.double(y),
        as.integer(n),
        as.double(obj$beta),
-       as.integer(obj$np),
-       PACKAGE = "spatial")$z
+       as.integer(obj$np))$z
 }
 
 predict.trls <- function (object, x, y, ...)
@@ -133,12 +127,11 @@ predict.trls <- function (object, x, y, ...)
         stop("'object' is not a fitted trend surface")
     n <- length(x)
     if (length(y) != n) stop("'x' and 'y' differ in length")
-    .C("VR_frset",
+    .C(VR_frset,
        as.double(object$rx[1]),
        as.double(object$rx[2]),
        as.double(object$ry[1]),
-       as.double(object$ry[2]),
-       PACKAGE = "spatial"
+       as.double(object$ry[2])
        )
     invisible(.trval(object, x, y))
 }
@@ -161,12 +154,11 @@ if(0){
 trmat <- function(obj, xl, xu, yl, yu, n)
 {
     if(!inherits(obj, "trls")) stop("'object' is not a fitted trend surface")
-    .C("VR_frset",
+    .C(VR_frset,
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
        as.double(obj$ry[1]),
-       as.double(obj$ry[2]),
-       PACKAGE = "spatial"
+       as.double(obj$ry[2])
        )
     dx <- (xu - xl)/n
     dy <- (yu - yl)/n
@@ -184,7 +176,7 @@ prmat <- function(obj, xl, xu, yl, yu, n)
     predval <- function(obj, xp, yp)
     {
         npt <- length(xp)
-        .C("VR_krpred",
+        .C(VR_krpred,
            z = double(npt),
            as.double(xp),
            as.double(yp),
@@ -192,29 +184,26 @@ prmat <- function(obj, xl, xu, yl, yu, n)
            as.double(obj$y),
            as.integer(npt),
            as.integer(length(obj$x)),
-           as.double(obj$yy),
-           PACKAGE = "spatial"
+           as.double(obj$yy)
            )$z
     }
 
     if(!inherits(obj, "trgls")) stop("object not from kriging")
     if(n > 999) stop("'n' is too large")
-    .C("VR_frset",
+    .C(VR_frset,
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
        as.double(obj$ry[1]),
-       as.double(obj$ry[2]),
-       PACKAGE = "spatial"
+       as.double(obj$ry[2])
        )
     alph <- obj$alph
     if(length(alph) <= 1) {
         mm <- 1.5*sqrt((obj$rx[2]-obj$rx[1])^2 + (obj$ry[2]-obj$ry[1])^2)
         alph <- c(alph[1], obj$covmod(seq(0, mm, alph[1])))
     }
-    .C("VR_alset",
+    .C(VR_alset,
        as.double(alph),
-       as.integer(length(alph)),
-       PACKAGE = "spatial"
+       as.integer(length(alph))
        )
     dx <- (xu - xl)/n
     dy <- (yu - yl)/n
@@ -235,7 +224,7 @@ semat <- function(obj, xl, xu, yl, yu, n, se)
         npt <- length(xp)
         np <- obj$np
         npar <- ((np + 1) * (np + 2))/2
-        .C("VR_prvar",
+        .C(VR_prvar,
            z = double(npt),
            as.double(xp),
            as.double(yp),
@@ -247,27 +236,24 @@ semat <- function(obj, xl, xu, yl, yu, n, se)
            as.integer(length(obj$x)),
            as.integer(np),
            as.integer(npar),
-           as.double(obj$l1f),
-           PACKAGE = "spatial"
+           as.double(obj$l1f)
            )$z
     }
 
     if(!inherits(obj, "trgls")) stop("object not from kriging")
     if(n > 999) stop("'n' is too large")
-    .C("VR_frset",
+    .C(VR_frset,
        as.double(obj$rx[1]),
        as.double(obj$rx[2]),
        as.double(obj$ry[1]),
-       as.double(obj$ry[2]),
-       PACKAGE = "spatial"
+       as.double(obj$ry[2])
        )
     alph <- obj$alph
     if(length(alph) <= 1) {
         mm <- 1.5*sqrt((obj$rx[2]-obj$rx[1])^2 + (obj$ry[2]-obj$ry[1])^2)
         alph <- c(alph[1], obj$covmod(seq(0, mm, alph[1])))
   }
-    .C("VR_alset", as.double(alph), as.integer(length(alph)),
-       PACKAGE = "spatial")
+    .C(VR_alset, as.double(alph), as.integer(length(alph)))
     dx <- (xu - xl)/n
     dy <- (yu - yl)/n
     xs <- seq(xl, xu, dx)
@@ -284,7 +270,7 @@ semat <- function(obj, xl, xu, yl, yu, n, se)
 
 correlogram <- function(krig, nint, plotit=TRUE, ...)
 {
-  z <- .C("VR_correlogram",
+  z <- .C(VR_correlogram,
           xp = double(nint),
           yp = double(nint),
           nint = as.integer(nint),
@@ -292,8 +278,7 @@ correlogram <- function(krig, nint, plotit=TRUE, ...)
           as.double(krig$y),
           if(krig$np > 0) as.double(krig$wz) else as.double(krig$z),
           as.integer(length(krig$x)),
-          cnt = integer(nint),
-       PACKAGE = "spatial"
+          cnt = integer(nint)
           )
   xp <- z$xp[1:z$nint]
   yp <- z$yp[1:z$nint]
@@ -313,7 +298,7 @@ correlogram <- function(krig, nint, plotit=TRUE, ...)
 
 variogram <- function(krig, nint, plotit=TRUE, ...)
 {
-  z <- .C("VR_variogram",
+  z <- .C(VR_variogram,
           xp = double(nint),
           yp = double(nint),
           nint = as.integer(nint),
@@ -321,8 +306,7 @@ variogram <- function(krig, nint, plotit=TRUE, ...)
           as.double(krig$y),
           if(krig$np > 0) as.double(krig$wz) else as.double(krig$z),
           as.integer(length(krig$x)),
-          cnt = integer(nint),
-          PACKAGE = "spatial"
+          cnt = integer(nint)
           )
   xp <- z$xp[1:z$nint]
   yp <- z$yp[1:z$nint]

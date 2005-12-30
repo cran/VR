@@ -23,12 +23,12 @@ multinom <-
     q <- ncol(Y)
     Z <- t(cbind(X, Y))
     storage.mode(Z) <- "double"
-    z <- .C("VR_summ2",
+    z <- .C(VR_summ2,
 	    as.integer(n),
 	    as.integer(p),
 	    as.integer(q),
 	    Z = Z,
-	    na = integer(1), PACKAGE = "nnet")
+	    na = integer(1))
     Za <- t(z$Z[, 1:z$na, drop = FALSE])
     list(X = Za[, 1:p, drop = FALSE], Y = Za[, p + 1:q])
   }

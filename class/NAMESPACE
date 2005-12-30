@@ -1,4 +1,4 @@
-useDynLib(class)
+useDynLib(class, .registration = TRUE)
 
 export(batchSOM, condense, knn, knn.cv, knn1, lvq1, lvq2, lvq3, lvqinit,
        lvqtest, multiedit, olvq1, reduce.nn, SOM, somgrid)

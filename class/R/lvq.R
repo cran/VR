@@ -39,7 +39,7 @@ olvq1 <- function(x, cl, codebk, niter = 40*nrow(codebk$x), alpha = 0.3)
     nc <- dim(codebk$x)[1]
     if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
-    z <- .C("VR_olvq",
+    z <- .C(VR_olvq,
             as.double(alpha),
             as.integer(n),
             as.integer(p),
@@ -49,7 +49,7 @@ olvq1 <- function(x, cl, codebk, niter = 40*nrow(codebk$x), alpha = 0.3)
             xc = as.double(codebk$x),
             as.integer(codebk$cl),
             as.integer(niter),
-            as.integer(iters-1), PACKAGE = "class"
+            as.integer(iters-1)
             )
     xc <- matrix(z$xc,nc,p)
     dimnames(xc) <- dimnames(codebk$x)
@@ -66,7 +66,7 @@ lvq1 <- function(x, cl, codebk, niter = 100*nrow(codebk$x), alpha = 0.03)
     nc <- dim(codebk$x)[1]
     if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
-    z <- .C("VR_lvq1",
+    z <- .C(VR_lvq1,
             as.double(alpha),
             as.integer(n),
             as.integer(p),
@@ -76,7 +76,7 @@ lvq1 <- function(x, cl, codebk, niter = 100*nrow(codebk$x), alpha = 0.03)
             xc = as.double(codebk$x),
             as.integer(codebk$cl),
             as.integer(niter),
-            as.integer(iters-1), PACKAGE = "class"
+            as.integer(iters-1)
             )
     xc <- matrix(z$xc,nc,p)
     dimnames(xc) <- dimnames(codebk$x)
@@ -94,7 +94,7 @@ lvq2 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
     nc <- dim(codebk$x)[1]
     if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
-    z <- .C("VR_lvq2",
+    z <- .C(VR_lvq2,
             as.double(alpha),
             as.double(win),
             as.integer(n),
@@ -105,7 +105,7 @@ lvq2 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
             xc = as.double(codebk$x),
             as.integer(codebk$cl),
             as.integer(niter),
-            as.integer(iters-1), PACKAGE = "class"
+            as.integer(iters-1)
             )
     xc <- matrix(z$xc,nc,p)
     dimnames(xc) <- dimnames(codebk$x)
@@ -123,7 +123,7 @@ lvq3 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
     nc <- dim(codebk$x)[1]
     if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
-    z <- .C("VR_lvq3",
+    z <- .C(VR_lvq3,
             as.double(alpha),
             as.double(win),
             as.double(epsilon),
@@ -135,7 +135,7 @@ lvq3 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
             xc = as.double(codebk$x),
             as.integer(codebk$cl),
             as.integer(niter),
-            as.integer(iters-1), PACKAGE = "class"
+            as.integer(iters-1)
             )
     xc <- matrix(z$xc,nc,p)
     dimnames(xc) <- dimnames(codebk$x)
