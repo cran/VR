@@ -105,7 +105,8 @@ polr <- function(formula, data, weights, start, ..., subset,
         gammas <- -coefs[1] + spacing - spacing[q1]
         thetas <- c(gammas[1], log(diff(gammas)))
         start <- c(coefs[-1], thetas)
-    }
+    } else if(length(start) != pc + q)
+	stop("'start' is not of the correct length")
     res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess, ...)
     beta <- res$par[seq(len=pc)]
     theta <- res$par[pc + 1:q]

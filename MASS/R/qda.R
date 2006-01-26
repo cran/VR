@@ -1,13 +1,11 @@
 # file MASS/qda.q
-# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 #
 qda <- function(x, ...) UseMethod("qda")
 
 qda.formula <- function(formula, data, ..., subset, na.action)
 {
     m <- match.call(expand.dots = FALSE)
-#    if(is.matrix(eval.parent(m$data)))
-#        m$data <- as.data.frame(data)
     m$... <- NULL
     m[[1]] <- as.name("model.frame")
     m <- eval.parent(m)
@@ -16,10 +14,6 @@ qda.formula <- function(formula, data, ..., subset, na.action)
     x <- model.matrix(Terms, m)
     xvars <- as.character(attr(Terms, "variables"))[-1]
     if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
-    xlev <- if (length(xvars) > 0) {
-        xlev <- lapply(m[xvars], levels)
-        xlev[!sapply(xlev, is.null)]
-    }
     xint <- match("(Intercept)", colnames(x), nomatch=0)
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- qda.default(x, grouping, ...)

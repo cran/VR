@@ -1,5 +1,5 @@
 # file MASS/confint.q
-# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 #
 
 confint.glm <- function(object, parm, level = 0.95, trace = FALSE, ...)
@@ -55,6 +55,8 @@ confint.profile.nls <-
   ncoefs <- length(coef(attr(object, "original.fit")))
   of <- attr(object, "original.fit")
   if(is.numeric(parm))  parm <- pnames[parm]
+  ## drop any plinear paramaters
+  parm <- parm[parm %in% pnames]
   n <- length(fitted(of)) - length(of$m$getPars())
   a <- (1-level)/2
   a <- c(a, 1-a)

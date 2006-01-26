@@ -138,6 +138,8 @@ Library MASS
   cases.
 - confint.nls copes with plinear models in R (now profile.nls does).
 - The wrappers lmsreg() etc have been adapted to work in the MASS namespace.
+- qda() accepts formulae containing backquoted non-syntactic names.
+- polr() gives an explicit error message if 'start' is misspecified.
 
 
 
