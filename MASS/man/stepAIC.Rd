@@ -32,8 +32,8 @@ stepAIC(object, scope, scale = 0,
   }
   \item{scale}{
     used in the definition of the AIC statistic for selecting the models,
-    currently only for \code{\link{lm}}, \code{\link{aov}} and
-    \code{\link{glm}} models.
+    currently only for \code{\link{lm}} and \code{\link{aov}} models
+    (see \code{\link{extractAIC}} for details).
   }
   \item{direction}{
     the mode of stepwise search, can be one of \code{"both"},
@@ -108,7 +108,7 @@ stepAIC(object, scope, scale = 0,
   it is the \emph{unscaled} deviance.
 }
 \note{
-  The model fitting must apply the models to the same dataset. This may
+  The model fitting must apply the models to the same dataset.  This may
   be a problem if there are missing values and an \code{na.action} other than
   \code{na.fail} is used (as is the default in \R).
   We suggest you remove the missing values first.

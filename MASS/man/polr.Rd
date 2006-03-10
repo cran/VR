@@ -32,8 +32,8 @@ polr(formula, data, weights, start, \dots, subset, na.action,
   (preferably an ordered
   factor), which will be interpreted as an ordinal response, with levels
   ordered as in the factor.  A proportional odds model will be
-  fitted. The model must have an intercept: attempts to remove one will
-  lead to a warning and be ignored. An offset may be used. See the
+  fitted.  The model must have an intercept: attempts to remove one will
+  lead to a warning and be ignored. An offset may be used.  See the
   documentation of \code{formula} for other details.
 }
 \item{data}{
@@ -44,7 +44,8 @@ polr(formula, data, weights, start, \dots, subset, na.action,
   optional case weights in fitting.  Default to 1.
 }
 \item{start}{
-  initial values for the parameters.
+  initial values for the parameters.  This is in the format
+  \code{c(coefficients, zeta)}: see the Values section.
 }
 \item{\dots}{
   additional arguments to be passed to \code{\link{optim}}, most often a
@@ -52,7 +53,7 @@ polr(formula, data, weights, start, \dots, subset, na.action,
 }
 \item{subset}{
   expression saying which subset of the rows of the data should  be used
-  in the fit. All observations are included by default.
+  in the fit.  All observations are included by default.
 }
 \item{na.action}{
   a function to filter missing data.
@@ -88,8 +89,9 @@ polr(formula, data, weights, start, \dots, subset, na.action,
     logit P(Y <= k | x) = zeta_k - eta}
   with \emph{logit} replaced by \emph{probit} for a normal latent
   variable, and \eqn{\eta}{eta} being the linear predictor, a linear
-  function of the explanatory variables.  Note that it is quite common
-  for other software to use the opposite sign for \eqn{\eta}.
+  function of the explanatory variables (with no intercept).  Note
+  that it is quite common for other software to use the opposite sign
+  for \eqn{\eta}.
 
   In the logistic case, the left-hand side of the last display is the
   log odds of category \eqn{k} or less, and since these are log odds
@@ -109,7 +111,8 @@ polr(formula, data, weights, start, \dots, subset, na.action,
 \value{
   A object of class \code{"polr"}.  This has components
 
-  \item{coefficients}{the coefficients of the linear predictor.}
+  \item{coefficients}{the coefficients of the linear predictor, which has no
+    intercept.}
   \item{zeta}{the intercepts for the class boundaries.}
   \item{deviance}{the residual deviance.}
   \item{fitted.values}{a matrix, with a column for each level of the response.}

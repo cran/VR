@@ -1,4 +1,4 @@
-% file nnet/multinom.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file nnet/multinom.d copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 %
 \name{multinom}
 \alias{multinom}
@@ -13,6 +13,7 @@
 \alias{print.summary.multinom}
 \alias{vcov.multinom}
 \alias{model.frame.multinom}
+\alias{logLik.multinom}
 \concept{multiple logistic}
 \title{
 Fit Multinomial Log-linear Models
@@ -86,7 +87,8 @@ additional arguments for \code{nnet}
 A \code{nnet} object with additional components:
 
 \item{deviance}{
-the residual deviance.
+the residual deviance, compared to the full saturated model (that
+explains individual observations exactly).  Also, minus twice log-likelihood.
 }
 \item{edf}{
 the (effective) number of degrees of freedom used by the model

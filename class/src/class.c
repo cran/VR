@@ -407,7 +407,7 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
 
 #include "R_ext/Rdynload.h"
 
-R_CMethodDef CEntries[] = {
+static const R_CMethodDef CEntries[] = {
     {"VR_knn", (DL_FUNC) &VR_knn, 14},
     {"VR_knn1", (DL_FUNC) &VR_knn1, 10},
     {"VR_lvq1", (DL_FUNC) &VR_lvq1, 10},

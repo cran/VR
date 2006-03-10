@@ -1,5 +1,5 @@
 % file MASS/galaxies.d
-% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 %
 \name{galaxies}
 \alias{galaxies}
@@ -34,6 +34,9 @@ Probes of large-scale structures in the Corona Borealis region.
 There is an 83rd measurement of 5607 km/sec in the Postman
 \emph{et al.} paper which is omitted in Roeder (1990) and from the
 dataset here.
+
+There is also a typo: this dataset has 78th observation 26690 whihc
+should be 26960.
 }
 \examples{
 gal <- galaxies/1000

@@ -666,7 +666,7 @@ VR_summ2(Sint *n0, Sint *p0, Sint *q0, Sdata *Z, Sint *na)
 
 #include "R_ext/Rdynload.h"
 
-R_CMethodDef CEntries[] = {
+static const R_CMethodDef CEntries[] = {
     {"VR_dfunc", (DL_FUNC) &VR_dfunc, 3},
     {"VR_dovm", (DL_FUNC) &VR_dovm, 11},
     {"VR_nnHessian", (DL_FUNC) &VR_nnHessian, 5},

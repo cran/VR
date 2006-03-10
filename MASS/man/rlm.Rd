@@ -42,15 +42,14 @@ data frame from which variables specified in \code{formula} are
 preferentially to be taken.
 }
 \item{weights}{
-prior weights for each case.
+a vector of prior weights for each case.
 }
 \item{subset}{
-An index vector specifying the cases to be used in
-fitting.
+An index vector specifying the cases to be used in fitting.
 }
 \item{na.action}{
 A function to specify the action to be taken if \code{NA}s are found. The
-default action is for the procedure to fail. An alternative is
+default action is for the procedure to fail.  An alternative is
 \code{na.omit}, which leads to omission of cases with missing values on any
 required variable.
 }

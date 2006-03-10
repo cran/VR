@@ -1,5 +1,5 @@
 # file MASS/add.q
-# copyright (C) 1994-2000 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 #
 addterm <-
     function(object, ...) UseMethod("addterm")
@@ -143,7 +143,8 @@ addterm.glm <-
     oc <- object$call
     Terms <- terms(new.form)
     oc$formula <- Terms
-    fob <- list(call = oc)
+    ## model.frame.glm looks at the terms part for the environment
+    fob <- list(call = oc, terms=Terms)
     class(fob) <- class(object)
     x <- model.matrix(Terms, model.frame(fob, xlev = object$xlevels),
                       contrasts = object$contrasts)

@@ -47,7 +47,7 @@ Shepard(d, x, p = 2)
 Two components:
 
 \item{points}{
-  A two-column vector of the fitted configuration.
+  A k-column vector of the fitted configuration.
 }
 \item{stress}{
   The final stress achieved (in percent).
@@ -60,15 +60,15 @@ Two components:
   This chooses a k-dimensional (default k = 2) configuration to minimize
   the stress, the square root of the ratio of the sum of squared
   differences between the input distances and those of the configuration
-  to the sum of configuration distances squared. However, the input
+  to the sum of configuration distances squared.  However, the input
   distances are allowed a monotonic transformation.
 
   An iterative algorithm is used, which will usually converge in around
-  10 iterations. As this is necessarily an \eqn{O(n^2)} calculation, it is slow
-  for large datasets. Further, since for the default \eqn{p = 2}
-  the configuration is only determined
-  up to rotations and reflections (by convention the centroid is at the
-  origin), the result can vary considerably from machine to machine.
+  10 iterations.  As this is necessarily an \eqn{O(n^2)} calculation,
+  it is slow for large datasets.  Further, since for the default \eqn{p = 2}
+  the configuration is only determined up to rotations and reflections
+  (by convention the centroid is at the origin), the result can vary
+  considerably from machine to machine.
 }
 \references{
   T. F. Cox and M. A. A. Cox (1994, 2001)

@@ -1,4 +1,4 @@
-# file nnet/multinom.q copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
+# file nnet/multinom.q copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 #
 
 multinom <-
@@ -63,9 +63,9 @@ multinom <-
     if(length(lev) == 2) Y <- as.vector(unclass(Y)) - 1
     else Y <- class.ind(Y)
   }
-  if(summ==1) {
+  if(summ == 1) {
     Z <- cbind(X, Y)
-    assign("z1", cumprod(apply(Z, 2, max)+1))
+    z1 <- cumprod(apply(Z, 2, max)+1)
     Z1 <- apply(Z, 1, function(x) sum(z1*x))
     oZ <- order(Z1)
     Z2 <- !duplicated(Z1[oZ])
@@ -75,14 +75,14 @@ multinom <-
     w <- diff(c(0,cumsum(w))[c(Z2,TRUE)])
     print(dim(X))
   }
-  if(summ==2) {
+  if(summ == 2) {
     Z <- summ2(cbind(X, Y), w)
     X <- Z$X[, 1:ncol(X)]
     Y <- Z$X[, ncol(X) + 1:ncol(Y), drop = FALSE]
     w <- Z$Y
     print(dim(X))
   }
-  if(summ==3) {
+  if(summ == 3) {
     Z <- summ2(X, Y*w)
     X <- Z$X
     Y <- Z$Y[, 1:ncol(Y), drop = FALSE]
@@ -95,7 +95,7 @@ multinom <-
 # 3 or more response levels or direct matrix spec.
     p <- ncol(Y)
     sY <- Y %*% rep(1, p)
-    if(any(sY==0)) stop("some case has no observations")
+    if(any(sY == 0)) stop("some case has no observations")
     if(!censored) {
       Y <- Y / matrix(sY, nrow(Y), p)
       w <- w*sY
@@ -443,3 +443,5 @@ confint.multinom <- function (object, parm, level=0.95, ...)
     }
 }
 
+logLik.multinom <- function(object, ...)
+    -0.5*object$deviance

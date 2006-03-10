@@ -444,7 +444,7 @@ mve_fitlots(double *x, int *n, int *p, int *qn, int *mcd,
             int *sample, int *nwhich, int *ntrials,
             double *crit, int *sing, int *bestone);
 
-R_CMethodDef CEntries[] = {
+static const R_CMethodDef CEntries[] = {
     {"VR_bcv_bin", (DL_FUNC) &VR_bcv_bin, 6},
     {"VR_den_bin", (DL_FUNC) &VR_den_bin, 5},
     {"VR_mds_dovm", (DL_FUNC) &VR_mds_dovm, 5},

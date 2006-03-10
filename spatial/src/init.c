@@ -5,7 +5,7 @@
 #include "spatial.h"
 #include "R_ext/Rdynload.h"
 
-R_CMethodDef CEntries[] = {
+static const R_CMethodDef CEntries[] = {
     {"VR_alset", (DL_FUNC) &VR_alset, 2},
     {"VR_correlogram", (DL_FUNC) &VR_correlogram, 8},
     {"VR_fmat", (DL_FUNC) &VR_fmat, 5},
