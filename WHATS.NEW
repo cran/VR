@@ -140,6 +140,10 @@ Library MASS
 - The wrappers lmsreg() etc have been adapted to work in the MASS namespace.
 - qda() accepts formulae containing backquoted non-syntactic names.
 - polr() gives an explicit error message if 'start' is misspecified.
+- glmmPQL() evaluates the formulae for 'fixed' and 'random', which may
+  help if they are given as variables and not values.
+- There are anova() and logLik() methods for class "glmmPQL" to stop misuse.
+- profile.polr now works for a single-coefficient model.
 
 
 

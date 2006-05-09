@@ -23,6 +23,8 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     off <- attr(Terms, "offset")
     if(length(off<- attr(Terms, "offset"))) allvars <-
         c(allvars, as.character(attr(Terms, "variables"))[off+1])
+    ## substitute back actual formula (rather than a variable name)
+    Call$fixed <- eval(fixed); Call$random <- eval(random)
     m$formula <- as.formula(paste("~", paste(allvars, collapse="+")))
     environment(m$formula) <- environment(fixed)
     m$drop.unused.levels <- TRUE
@@ -73,6 +75,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     attributes(fit$logLik) <- NULL # needed for some versions of nlme
     fit$call <- Call
     fit$family <- family
+    fit$logLik <- as.numeric(NA)
     oldClass(fit) <- c("glmmPQL", oldClass(fit))
     fit
 }
@@ -100,3 +103,18 @@ predict.glmmPQL <-
     }
     pred
 }
+
+logLik.glmmPQL <- function (object, ...)
+{
+    p <- object$dims$ncol[object$dims$Q + 1]
+    N <- object$dims$N
+    val <- as.numeric(NA)
+    attr(val, "nall") <- N
+    attr(val, "nobs") <- N
+    attr(val, "df") <- p + length(coef(object[["modelStruct"]])) + 1
+    class(val) <- "logLik"
+    val
+}
+
+anova.glmmPQL <- function (object, ...)
+    stop("'anova' is not available for PQL fits")

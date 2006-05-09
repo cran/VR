@@ -25,3 +25,11 @@ group <- factor(c(1, 1, 1, 2, 2, 2), levels=1:3)
 polr(y ~ group, weights = Freq)
 group <- factor(c(1, 1, 1, 3, 3, 3), levels=1:3)
 polr(y ~ group, weights = Freq)
+
+## profile on a single-coef model
+## data from McCullagh JRSSB 1980
+tonsils <- data.frame(carrier = factor(rep(c('yes', 'no'), each=3)),
+                      size = ordered(rep(c(1,2,3),2)),
+                      count = c(19,29,24,497,560,269))
+m <- polr(size ~ carrier, data = tonsils, weights = count)
+confint(m)

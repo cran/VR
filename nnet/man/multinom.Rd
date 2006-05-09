@@ -33,9 +33,9 @@ a formula expression as for regression models, of the form
 matrix with K columns, which will be interpreted as counts for each of
 K classes.
 A log-linear model is fitted, with coefficients zero for the first
-class. An offset can be included: it should be a matrix with K columns
-if the response is a matrix with K columns or a factor with K > 2
-classes, or a vector for a factor with 2 levels.
+class. An offset can be included: it should be a numeric matrix with K columns
+if the response is either a matrix with K columns or a factor with K > 2
+classes, or a numeric vector for a response factor with 2 levels.
 See the documentation of \code{\link{formula}()} for other details.
 }
 \item{data}{

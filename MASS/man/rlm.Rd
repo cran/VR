@@ -67,7 +67,7 @@ S-estimator. See the details section.
 \item{wt.method}{
 are the weights case weights (giving the relative importance of case,
 so a weight of 2 means there are two of these) or the inverse of the
-variances, so a weight of two means this error is twice as variable?
+variances, so a weight of two means this error is half as variable?
 }
 \item{model}{
 should the model frame be returned in the object?
