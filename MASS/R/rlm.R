@@ -209,6 +209,7 @@ print.rlm <- function(x, ...)
     nobs <- length(x$resid)
     rdf <- nobs - length(coef)
     cat("\nDegrees of freedom:", nobs, "total;", rdf, "residual\n")
+    if(nchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep="")
     cat("Scale estimate:", format(signif(x$s,3)), "\n")
     invisible(x)
 }
@@ -270,7 +271,7 @@ summary.rlm <- function(object, method = c("XtX", "XtWX"),
     dimnames(coef) <- list(cnames, c("Value", "Std. Error", "t value"))
     coef[, 2] <- rowlen %o% stddev
     coef[, 3] <- coef[, 1]/coef[, 2]
-    object <- object["call"]
+    object <- object[c("call", "na.action")]
     object$residuals <- res
     object$coefficients <- coef
     object$sigma <- s
@@ -314,6 +315,7 @@ function(x, digits = max(3, .Options$digits - 3), ...)
     print(format(round(x$coef, digits = digits)), quote = FALSE, ...)
     cat("\nResidual standard error:", format(signif(x$sigma, digits)),
         "on", rdf, "degrees of freedom\n")
+    if(nchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep="")
     if(!is.null(correl <- x$correlation)) {
         p <- dim(correl)[2]
         if(p > 1) {

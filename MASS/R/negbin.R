@@ -215,14 +215,20 @@ negative.binomial <-
     function(theta = stop("'theta' must be specified"), link = "log")
 {
     linktemp <- substitute(link)
-    if (!is.character(linktemp)) {
-        linktemp <- deparse(linktemp)
-        if (linktemp == "link")
-            linktemp <- eval(link)
-    }
-    if (any(linktemp == c("log", "identity", "sqrt")))
+    if (!is.character(linktemp)) linktemp <- deparse(linktemp)
+    if (linktemp %in% c("log", "identity", "sqrt"))
         stats <- make.link(linktemp)
-    else stop(linktemp, " link not available for negative binomial family; available links are \"identity\", \"log\" and \"sqrt\"")
+    else if (is.character(link)) {
+        stats <- make.link(link)
+        linktemp <- link
+    } else {
+        ## what else shall we allow?  At least objects of class link-glm.
+        if(inherits(link, "link-glm")) {
+            stats <- link
+            if(!is.null(stats$name)) linktemp <- stats$name
+        } else
+            stop(linktemp, " link not available for negative binomial family; available links are \"identity\", \"log\" and \"sqrt\"")
+    }
     env <- new.env(parent=.GlobalEnv)
     assign(".Theta", theta, envir=env)
     variance <- function(mu)
@@ -248,9 +254,10 @@ negative.binomial <-
     famname <- paste("Negative Binomial(", format(round(theta, 4)), ")",
                      sep = "")
     structure(list(family = famname, link = linktemp, linkfun = stats$linkfun,
-                   linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids,
-                   aic = aic, mu.eta = stats$mu.eta, initialize = initialize,
-                   validmu = validmu, valideta = stats$valideta), class = "family")
+                   linkinv = stats$linkinv, variance = variance,
+                   dev.resids = dev.resids, aic = aic, mu.eta = stats$mu.eta,
+                   initialize = initialize, validmu = validmu,
+                   valideta = stats$valideta), class = "family")
 }
 
 rnegbin <- function(n, mu = n, theta = stop("'theta' must be specified"))

@@ -1,29 +1,33 @@
 % file MASS/negative.binomial.d
-% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 %
 \name{negative.binomial}
 \alias{negative.binomial}
 \title{
-Family function for Negative Binomial GLMs
+  Family function for Negative Binomial GLMs
 }
 \description{
-Specifies the information required to fit a Negative Binomial generalized
-linear model, with known \code{theta} parameter, using \code{glm()}.
+  Specifies the information required to fit a Negative Binomial generalized
+  linear model, with known \code{theta} parameter, using \code{glm()}.
 }
 \usage{
 negative.binomial(theta = stop("'theta' must be specified"), link = "log")
 }
 \arguments{
-\item{theta}{
-The known value of the additional parameter, \code{theta}.
+  \item{theta}{
+    The known value of the additional parameter, \code{theta}.
+  }
+  \item{link}{
+    The link function, as a character string, name or one-element
+    character vector specifying one of \code{log}, \code{sqrt}
+    or \code{identity}, or an object of class
+    \code{"\link[=family]{link-glm}"}.
+  }
 }
-\item{link}{
-  The link function.  Currently must be one of \code{log}, \code{sqrt}
-  or \code{identity}.
-}}
 \value{
-A list of functions and expressions needed by \code{glm()} to fit a Negative
-Binomial generalized linear model.
+  An object of class \code{"family"}, a list of functions and
+  expressions needed by \code{glm()} to fit a Negative Binomial
+  generalized linear model.
 }
 \seealso{
   \code{\link{glm.nb}}, \code{\link{anova.negbin}},
