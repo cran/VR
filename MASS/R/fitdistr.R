@@ -145,7 +145,7 @@ fitdistr <- function(x, densfun, start, ...)
         else if (length(start) > 1) Call$method <- "BFGS"
         else Call$method <- "Nelder-Mead"
     }
-    res <- eval(Call)
+    res <- eval.parent(Call)
     if(res$convergence > 0) stop("optimization failed")
     sds <- sqrt(diag(solve(res$hessian)))
     structure(list(estimate = res$par, sd = sds,

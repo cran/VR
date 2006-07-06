@@ -111,7 +111,7 @@ tmp <- sapply(OMEi.nls, function(X)
               {if(is.null(X)) NA else as.vector(coef(X))})
 OMEif <- data.frame(UID = round(as.numeric((names(tmp)))),
          Noise = rep(c("coherent", "incoherent"), 110),
-         L75 = as.vector(tmp))
+         L75 = as.vector(tmp), stringsAsFactors = TRUE)
 OMEif$Age <- OME$Age[match(OMEif$UID, OME$UID)]
 OMEif$OME <- OME$OME[match(OMEif$UID, OME$UID)]
 OMEif <- OMEif[OMEif$L75 > 30,]

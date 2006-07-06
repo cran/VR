@@ -71,7 +71,7 @@ Ops.fractions <- function(e1, e2)
   fractions(NextMethod(.Generic))
 }
 
-Summary.fractions <- function(x, ...)
+Summary.fractions <- function(x, ..., na.rm)
 {
   x <- unclass(x)
   fractions(NextMethod())

@@ -92,7 +92,6 @@ glm.nb <- function(formula, data, weights,
         fam0 <- do.call("negative.binomial", list(theta = init.theta, link = link))
     }
     dots <- list(...)
-    nmdots <- names(dots)
     mf <- Call <- match.call()
     m <- match(c("formula", "data", "subset", "weights", "na.action",
         "etastart", "mustart", "offset"), names(mf), 0)

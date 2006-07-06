@@ -453,7 +453,7 @@ profile.polr <- function(fitted, which = 1:p, alpha = 0.01,
             step <- 0
             z <- 0
             ## LP is the linear predictor including offset.
-            LP <- X %*% fitted$coef + O
+            ## LP <- X %*% fitted$coef + O
             while((step <- step + 1) < maxsteps && abs(z) < zmax) {
                 bi <- B0[i] + sgn * step * del * std.err[i]
                 o <- O + X[, i] * bi
