@@ -188,4 +188,4 @@ Library spatial
 - PP datasets moved from data to ppdata
 - no longer duplicate topo dataset from MASS
 - Strauss and SSI are now interruptible
-
+- the extractAIC method for "trls" objects was using incorrect edf
