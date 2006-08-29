@@ -51,7 +51,7 @@ print.Anova <- function(x, ...)
     attr(x, "heading") <- NULL
     res <- format.data.frame(x, ...)
     nas <- is.na(x) # format loses this
-    res[] <- sapply(seq(len=ncol(res)), function(i){
+    res[] <- sapply(seq_len(ncol(res)), function(i){
         x <- as.character(res[[i]])
         x[nas[, i]] <- ""
         x

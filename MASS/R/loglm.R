@@ -190,7 +190,7 @@ print.anova.loglm <- function(x, ...)
         if(length(form) == 2) form else form[c(2, 1, 3)]
     forms <- attr(x, "formulae")
     cat("LR tests for hierarchical log-linear models\n\n")
-    for(i in seq(along=forms))
+    for(i in seq_along(forms))
         cat(paste("Model ", i, ":\n", sep = ""),
             deparse(pform(forms[[i]])), "\n")
     cat("\n")

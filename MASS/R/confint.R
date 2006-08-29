@@ -5,7 +5,7 @@
 confint.glm <- function(object, parm, level = 0.95, trace = FALSE, ...)
 {
     pnames <- names(coef(object))
-    if(missing(parm)) parm <- seq(along=pnames)
+    if(missing(parm)) parm <- seq_along(pnames)
     else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
     cat("Waiting for profiling to be done...\n")
     flush.console()
@@ -15,7 +15,7 @@ confint.glm <- function(object, parm, level = 0.95, trace = FALSE, ...)
 }
 
 confint.profile.glm <-
-  function(object, parm = seq(along=pnames), level = 0.95, ...)
+  function(object, parm = seq_along(pnames), level = 0.95, ...)
 {
     of <- attr(object, "original.fit")
     pnames <- names(coef(of))
@@ -40,7 +40,7 @@ confint.nls <-
   function(object, parm, level = 0.95, ...)
 {
   pnames <- names(coef(object))
-  if(missing(parm)) parm <- seq(along=pnames)
+  if(missing(parm)) parm <- seq_along(pnames)
   if(is.numeric(parm))  parm <- pnames[parm]
   cat("Waiting for profiling to be done...\n")
   flush.console()
@@ -49,7 +49,7 @@ confint.nls <-
 }
 
 confint.profile.nls <-
-  function(object, parm = seq(along=pnames), level = 0.95, ...)
+  function(object, parm = seq_along(pnames), level = 0.95, ...)
 {
   pnames <- names(object) # non-linear pars only
   ncoefs <- length(coef(attr(object, "original.fit")))

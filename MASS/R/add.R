@@ -38,7 +38,7 @@ addterm.default <-
     dfs <- ans[,1] - ans[1,1]
     dfs[1] <- NA
     aod <- data.frame(Df = dfs, AIC = ans[,2])
-    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
+    o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     test <- match.arg(test)
     if(test == "Chisq") {
 	dev <- ans[,2] - k*ans[, 1]
@@ -81,7 +81,7 @@ addterm.lm <-
     if(scale > 0) aic <- RSS/scale - n + k*dfs
     else aic <- n * log(RSS/n) + k*dfs
     aod$AIC <- aic
-    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
+    o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     if(scale > 0) names(aod) <- c("Df", "Sum of Sq", "RSS", "Cp")
     test <- match.arg(test)
     if(test == "Chisq") {
@@ -196,7 +196,7 @@ addterm.glm <-
     dfs[1] <- NA
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
                       row.names = names(dfs), check.names = FALSE)
-    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
+    o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]
     test <- match.arg(test)
     if(test == "Chisq") {
@@ -262,7 +262,7 @@ dropterm.default <-
     dfs <- ans[1,1] - ans[,1]
     dfs[1] <- NA
     aod <- data.frame(Df = dfs, AIC = ans[,2])
-    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
+    o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     test <- match.arg(test)
     if(test == "Chisq") {
         dev <- ans[, 2] - k*ans[, 1]
@@ -291,7 +291,7 @@ dropterm.lm <-
     n <- length(object$residuals)
     aod$AIC <- if(scale > 0)RSS/scale - n + k*dfs
     else n * log(RSS/n) + k*dfs
-    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
+    o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     if(scale > 0) names(aod) <- c("Df", "Sum of Sq", "RSS", "Cp")
     test <- match.arg(test)
     if(test == "Chisq") {
@@ -354,7 +354,7 @@ dropterm.glm <-
 	    cat("trying -", scope[i], "\n")
 	    flush.console()
 	}
-        ii <- seq(along=asgn)[asgn == ndrop[i]]
+        ii <- seq_along(asgn)[asgn == ndrop[i]]
         jj <- setdiff(seq(ncol(x)), ii)
         z <-  glm.fit(x[, jj, drop = FALSE], y, wt, offset=object$offset,
                       family=object$family, control=object$control)
@@ -378,7 +378,7 @@ dropterm.glm <-
     aic <- aic + (extractAIC(object, k = k)[2] - aic[1])
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
                       row.names = scope, check.names = FALSE)
-    o <- if(sorted) order(aod$AIC) else seq(along=aod$AIC)
+    o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]
     test <- match.arg(test)
     if(test == "Chisq") {

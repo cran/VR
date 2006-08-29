@@ -146,6 +146,7 @@ Library MASS
 - profile.polr() now works for a single-coefficient model.
 - The print and print.summary methods for polr and rlm make use of
   naprint() to print a message e.g. about deleted observations.
+- Class "ridgelm" now has a coef() method, and works for n < p.
 
 
 

@@ -108,7 +108,7 @@ polr <- function(formula, data, weights, start, ..., subset,
     } else if(length(start) != pc + q)
 	stop("'start' is not of the correct length")
     res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess, ...)
-    beta <- res$par[seq(len=pc)]
+    beta <- res$par[seq_len(pc)]
     theta <- res$par[pc + 1:q]
     zeta <- cumsum(c(theta[1],exp(theta[-1])))
     deviance <- 2 * res$value
@@ -223,7 +223,7 @@ print.summary.polr <- function(x, digits = x$digits, ...)
     pc <- x$pc
     if(pc > 0) {
         cat("\nCoefficients:\n")
-        print(x$coef[seq(len=pc), , drop=FALSE], quote = FALSE, ...)
+        print(x$coef[seq_len(pc), , drop=FALSE], quote = FALSE, ...)
     } else {
         cat("\nNo coefficients\n")
     }
@@ -269,7 +269,7 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
     if(missing(newdata) && !is.null(object$na.action))
         Y <- napredict(object$na.action, Y)
     switch(type, class = {
-        Y <- factor(max.col(Y), levels=seq(along=object$lev),
+        Y <- factor(max.col(Y), levels=seq_along(object$lev),
                     labels=object$lev)
     }, probs = {})
     drop(Y)
@@ -404,7 +404,7 @@ polr.fit <- function(x, y, wt, start, offset, method)
     .polrY1 <- col(Y) == y
     .polrY2 <- col(Y) == y - 1
     res <- optim(start, fmin, gmin, method="BFGS")
-    beta <- res$par[seq(len=pc)]
+    beta <- res$par[seq_len(pc)]
     theta <- res$par[pc + 1:q]
     zeta <- cumsum(c(theta[1],exp(theta[-1])))
     deviance <- 2 * res$value
@@ -482,7 +482,7 @@ profile.polr <- function(fitted, which = 1:p, alpha = 0.01,
 confint.polr <- function(object, parm, level = 0.95, trace = FALSE, ...)
 {
     pnames <- names(coef(object))
-    if(missing(parm)) parm <- seq(along=pnames)
+    if(missing(parm)) parm <- seq_along(pnames)
     else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
     cat("Waiting for profiling to be done...\n")
     flush.console()
@@ -492,7 +492,7 @@ confint.polr <- function(object, parm, level = 0.95, trace = FALSE, ...)
 }
 
 confint.profile.polr <-
-  function(object, parm = seq(along=pnames), level = 0.95, ...)
+  function(object, parm = seq_along(pnames), level = 0.95, ...)
 {
     of <- attr(object, "original.fit")
     pnames <- names(coef(of))

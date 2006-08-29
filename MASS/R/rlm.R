@@ -365,7 +365,7 @@ se.contrast.rlm <-
                       dimnames = list(nmeffect, colnames(contrast)))
         for(i in seq(nterms)) {
             select <- (asgn == uasgn[i])
-            res[i,] <- colSums(effects[seq(along=asgn)[select], , drop = FALSE]^2)
+            res[i,] <- colSums(effects[seq_along(asgn)[select], , drop = FALSE]^2)
         }
         res
     }

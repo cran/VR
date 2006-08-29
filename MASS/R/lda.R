@@ -126,7 +126,7 @@ lda.default <-
             w <- 1/(1 + drop(X^2 %*% rep(1, p))/nu)
             print(summary(w))
             group.means <- tapply(w*x, list(rep(g, p), col(x)), sum)/
-                rep(tapply(w, g, sum), p)
+                rep.int(tapply(w, g, sum), p)
             if(all(abs(w - w0) < 1e-2)) break
         }
         X <-  sqrt(nu/(nu-2)*(1 + p/nu)/n * w) * (x - group.means[g,  ]) %*% scaling
@@ -457,7 +457,7 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
                              key = list(
                              text=list(levels(g)),
                              points = lattice::Rows(lattice::trellis.par.get("superpose.symbol"),
-                             seq(along=levels(g))),
+                             seq_along(levels(g))),
                              columns = min(5, length(levels(g)))
                              )
                     ))

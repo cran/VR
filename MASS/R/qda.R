@@ -141,7 +141,7 @@ qda.default <-
         dist <- 0.5 * dist + 0.5 * Ldet - matrix(log(prior), n, ng, byrow=TRUE)
         dist <- exp(-(dist - min(dist, na.rm=TRUE)))
         posterior <- dist/drop(dist %*% rep(1, length(prior)))
-        cl <- factor(max.col(posterior), levels=seq(along=lev), labels=lev)
+        cl <- factor(max.col(posterior), levels=seq_along(lev), labels=lev)
         dimnames(posterior) <- list(rownames(x), lev)
         return(list(class = cl, posterior = posterior))
     }
@@ -271,7 +271,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
         }
     }
     posterior <- dist/drop(dist %*% rep(1, ngroup))
-    cl <- factor(max.col(posterior), levels=seq(along=object$lev),
+    cl <- factor(max.col(posterior), levels=seq_along(object$lev),
                  labels=object$lev)
     dimnames(posterior) <- list(rownames(x), object$lev)
     list(class = cl, posterior = posterior)

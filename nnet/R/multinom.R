@@ -69,7 +69,7 @@ multinom <-
     Z1 <- apply(Z, 1, function(x) sum(z1*x))
     oZ <- order(Z1)
     Z2 <- !duplicated(Z1[oZ])
-    oX <- (seq(along=Z1)[oZ])[Z2]
+    oX <- (seq_along(Z1)[oZ])[Z2]
     X <- X[oX, , drop=FALSE]
     Y <- if(is.matrix(Y)) Y[oX, , drop=FALSE] else Y[oX]
     w <- diff(c(0,cumsum(w))[c(Z2,TRUE)])
@@ -174,11 +174,11 @@ predict.multinom <- function(object, newdata, type=c("class","probs"), ...)
   }
   switch(type, class={
     if(length(object$lev) > 2)
-      Y <- factor(max.col(Y), levels=seq(along=object$lev), labels=object$lev)
+      Y <- factor(max.col(Y), levels=seq_along(object$lev), labels=object$lev)
     if(length(object$lev) == 2)
       Y <- factor(1 + (Y > 0.5), levels=1:2, labels=object$lev)
     if(length(object$lev) == 0)
-      Y <- factor(max.col(Y), levels=seq(along=object$lab), labels=object$lab)
+      Y <- factor(max.col(Y), levels=seq_along(object$lab), labels=object$lab)
   }, probs={})
   drop(Y)
 }
@@ -418,7 +418,7 @@ confint.multinom <- function (object, parm, level=0.95, ...)
     ## matrix case covers e.g. multinom.
     pnames <- if(is.matrix(cf)) colnames(cf) else names(cf)
     if (missing(parm))
-        parm <- seq(along = pnames)
+        parm <- seq_along(pnames)
     else if (is.character(parm))
         parm <- match(parm, pnames, nomatch = 0)
     a <- (1 - level)/2

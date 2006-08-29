@@ -1,5 +1,5 @@
 # file MASS/lm.ridge.q
-# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 #
 lm.ridge <- function(formula, data, subset, na.action,
     lambda = 0, model = FALSE, x = FALSE, y = FALSE, contrasts = NULL, ...)
@@ -34,12 +34,13 @@ lm.ridge <- function(formula, data, subset, na.action,
     HKB <- (p-2)*s2/sum(lscoef^2)
     LW <- (p-2)*s2*n/sum(lsfit^2)
     k <- length(lambda)
-    div <- d^2 + rep(lambda, rep(p,k))
+    dx <- length(d)
+    div <- d^2 + rep(lambda, rep(dx,k))
     a <- drop(d*rhs)/div
-    dim(a) <- c(p, k)
+    dim(a) <- c(dx, k)
     coef <- Xs$v %*% a
     dimnames(coef) <- list(names(Xscale), format(lambda))
-    GCV <- colSums((Y - X %*% coef)^2)/(n-colSums(matrix(d^2/div,p)))^2
+    GCV <- colSums((Y - X %*% coef)^2)/(n-colSums(matrix(d^2/div, dx)))^2
     res <- list(coef = drop(coef), scales = Xscale,
                 Inter = Inter, lambda = lambda, ym = Ym, xm = Xm,
                 GCV = GCV, kHKB = HKB, kLW = LW)
@@ -49,12 +50,8 @@ lm.ridge <- function(formula, data, subset, na.action,
 
 print.ridgelm <- function(x, ...)
 {
-    scaledcoef <- t(as.matrix(x$coef / x$scales))
-    if(x$Inter) {
-        inter <- x$ym - scaledcoef %*% x$xm
-        scaledcoef<- cbind(Intercept=inter, scaledcoef)
-    }
-    print(drop(scaledcoef), ...)
+    print(coef(x), ...)
+    x
 }
 
 select <- function(obj) UseMethod("select")
@@ -65,7 +62,7 @@ select.ridgelm <- function(obj)
     cat("modified L-W estimator is", format(obj$kLW), "\n")
     GCV <- obj$GCV
     if(length(GCV) > 0) {
-        k <- seq(along=GCV)[GCV==min(GCV)]
+        k <- seq_along(GCV)[GCV==min(GCV)]
         cat("smallest value of GCV  at",
             format(obj$lambda[k]), "\n")
     }
@@ -73,3 +70,13 @@ select.ridgelm <- function(obj)
 
 plot.ridgelm <- function(x, ...)
     matplot(x$lambda, t(x$coef), type = "l")
+
+coef.ridgelm <- function(object, ...)
+{
+    scaledcoef <- t(as.matrix(object$coef / object$scales))
+    if(object$Inter) {
+        inter <- object$ym - scaledcoef %*% object$xm
+        scaledcoef<- cbind(Intercept=inter, scaledcoef)
+    }
+    drop(scaledcoef)
+}

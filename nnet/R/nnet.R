@@ -251,7 +251,7 @@ norm.net <- function(net)
 
 which.is.max <- function(x)
 {
-  y <- seq(along=x)[x == max(x)]
+  y <- seq_along(x)[x == max(x)]
   if(length(y) > 1) sample(y,1) else y
 }
 
@@ -317,11 +317,11 @@ print.nnet <- function(x, ...)
 coef.nnet <- function(object, ...)
 {
   wts <- object$wts
-  wm <- c("b", paste("i", seq(length=object$n[1]), sep=""))
+  wm <- c("b", paste("i", seq_len(object$n[1]), sep=""))
   if(object$n[2] > 0)
-  wm <- c(wm, paste("h", seq(length=object$n[2]), sep=""))
+  wm <- c(wm, paste("h", seq_len(object$n[2]), sep=""))
   if(object$n[3] > 1)  wm <- c(wm,
-	  paste("o", seq(length=object$n[3]), sep=""))
+	  paste("o", seq_len(object$n[3]), sep=""))
   else wm <- c(wm, "o")
   names(wts) <- apply(cbind(wm[1+object$conn],
                             wm[1+rep(1:object$nunits - 1, diff(object$nconn))]),
