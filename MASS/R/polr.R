@@ -86,10 +86,10 @@ polr <- function(formula, data, weights, start, ..., subset,
         fit <-
             switch(method,
                    "logistic"= glm.fit(X, y1, wt, family = binomial(), offset = offset),
-                   "probit" = glm.fit(X, y1, wt, family = binomial(probit), offset = offset),
+                   "probit" = glm.fit(X, y1, wt, family = binomial("probit"), offset = offset),
                    ## this is deliberate, a better starting point
-                   "cloglog" = glm.fit(X, y1, wt, family = binomial(probit), offset = offset),
-                   "cauchit" = glm.fit(X, y1, wt, family = binomial(cauchit), offset = offset))
+                   "cloglog" = glm.fit(X, y1, wt, family = binomial("probit"), offset = offset),
+                   "cauchit" = glm.fit(X, y1, wt, family = binomial("cauchit"), offset = offset))
         if(!fit$converged)
             stop("attempt for find suitable starting values failed")
         coefs <- fit$coefficients

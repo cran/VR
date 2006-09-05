@@ -1,24 +1,24 @@
 # file MASS/boxcox.q
 # copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 #
-"boxcox" <- function(object, ...)
-UseMethod("boxcox")
+boxcox <- function(object, ...) UseMethod("boxcox")
 
-"boxcox.formula" <-
+boxcox.formula <-
 function(object, lambda = seq(-2, 2, 1/10), plotit =  TRUE,
-         interp = (plotit && (m < 100)), eps = 1/
-	50, xlab = expression(lambda), ylab = "log-Likelihood", ...)
+         interp = (plotit && (m < 100)), eps = 1/50,
+         xlab = expression(lambda), ylab = "log-Likelihood", ...)
 {
+    m <- length(lambda)
     object <- lm(object, y = TRUE, qr = TRUE, ...)
     result <- NextMethod()
     if(plotit) invisible(result)
     else result
 }
 
-"boxcox.lm" <-
+boxcox.lm <-
 function(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
-         interp = (plotit && (m < 100)), eps = 1/
-	50, xlab = expression(lambda), ylab = "log-Likelihood", ...)
+         interp = (plotit && (m < 100)), eps = 1/50,
+         xlab = expression(lambda), ylab = "log-Likelihood", ...)
 {
     if(is.null(object$y) || is.null(object$qr))
         object <- update(object, y = TRUE, qr = TRUE, ...)
@@ -27,7 +27,7 @@ function(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
     else result
 }
 
-"boxcox.default" <-
+boxcox.default <-
 function(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
          interp = (plotit && (m < 100)), eps = 1/
          50, xlab = expression(lambda), ylab = "log-Likelihood", ...)
@@ -89,4 +89,3 @@ function(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
     }
     list(x = xl, y = loglik)
 }
-

@@ -1,5 +1,5 @@
 # file MASS/loglm.q
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 #
 denumerate <- function(x) UseMethod("denumerate")
 
@@ -38,18 +38,18 @@ renumerate.formula <- function(x)
 loglm <-
   function(formula, data, subset, na.action, ...)
 {
-    assign(".call", match.call(), envir=.GlobalEnv)
+    .call <- match.call()
     if(missing(data) || inherits(data, "data.frame")) {
         m <- match.call(expand = FALSE)
         m$... <- NULL
         m[[1]] <- as.name("model.frame")
         data <- eval.parent(m)
-        assign(".formula", as.formula(attr(data, "terms")), envir=.GlobalEnv)
+        .formula <- as.formula(attr(data, "terms"))
     } else {
         trms <- attr(data, "terms") <- terms(formula <- denumerate(formula))
-        assign(".formula", renumerate(as.formula(trms)), envir=.GlobalEnv)
+        .formula <- renumerate(as.formula(trms))
     }
-    loglm1(formula, data, ...)
+    loglm1(formula, data, ..., .call=.call, .formula=.formula)
 }
 
 loglm1 <- function(formula, data, ...) UseMethod("loglm1", data)
@@ -127,9 +127,10 @@ function(formula, data, start = rep(1, length(data)), fitted = FALSE,
     else margins <- structure(as.list(margins), names = names(margins))
     Fit <- loglin(data, margins, start = start, fit = fitted,
                   param = param, eps = eps, iter = iter, print = print)
-    if(exists(".formula")) {
-        Fit$call <- .call
-        Fit$formula <- .formula
+    dots <- list(...)
+    if(".formula" %in% names(dots)) {
+        Fit$call <- dots$.call
+        Fit$formula <- dots$.formula
     }
     class(Fit) <- "loglm"
     if(keep.frequencies) Fit$frequencies <- structure(data, terms = NULL)
