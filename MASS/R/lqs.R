@@ -155,7 +155,7 @@ print.lqs <- function (x, digits = max(3, getOption("digits") - 3), ...)
 {
     if(!is.null(cl <- x$call)) {
 	cat("Call:\n")
-	dput(cl)
+	dput(cl, control=NULL)
 	cat("\n")
     }
     cat("Coefficients:\n")

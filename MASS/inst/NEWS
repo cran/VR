@@ -125,3 +125,5 @@ This file documents software changes since the third edition.
 - The print and print.summary methods for polr and rlm make use of
   naprint() to print a message e.g. about deleted observations.
 - Class "ridgelm" now has a coef() method, and works for n < p.
+- lda() and qda() now check explicitly for non-finite 'x' values.
+- ch06.R has been updated for multcomp >= 0.991-1

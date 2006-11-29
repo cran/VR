@@ -64,9 +64,12 @@ qda.default <-
 {
     if(is.null(dim(x))) stop("'x' is not a matrix")
     x <- as.matrix(x)
+    if(any(!is.finite(x)))
+        stop("infinite, NA or NaN values in 'x'")
     n <- nrow(x)
     p <- ncol(x)
-    if(n != length(grouping)) stop("nrow(x) and length(grouping) are different")
+    if(n != length(grouping))
+        stop("nrow(x) and length(grouping) are different")
     g <- as.factor(grouping)
     lev <- levels(g)
     counts <- as.vector(table(g))
@@ -282,7 +285,7 @@ print.qda <- function(x, ...)
     if(!is.null(cl <- x$call)) {
         names(cl)[2] <- ""
         cat("Call:\n")
-        dput(cl)
+        dput(cl, control=NULL)
     }
     cat("\nPrior probabilities of groups:\n")
     print(x$prior, ...)

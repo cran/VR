@@ -20,6 +20,7 @@ function(object, lambda = seq(-2, 2, 1/10), plotit = TRUE,
          interp = (plotit && (m < 100)), eps = 1/50,
          xlab = expression(lambda), ylab = "log-Likelihood", ...)
 {
+    m <- length(lambda)
     if(is.null(object$y) || is.null(object$qr))
         object <- update(object, y = TRUE, qr = TRUE, ...)
     result <- NextMethod()

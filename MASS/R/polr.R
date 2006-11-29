@@ -147,7 +147,7 @@ print.polr <- function(x, ...)
 {
     if(!is.null(cl <- x$call)) {
         cat("Call:\n")
-        dput(cl)
+        dput(cl, control=NULL)
     }
     if(length(coef(x))) {
         cat("\nCoefficients:\n")
@@ -217,7 +217,7 @@ print.summary.polr <- function(x, digits = x$digits, ...)
 {
     if(!is.null(cl <- x$call)) {
         cat("Call:\n")
-        dput(cl)
+        dput(cl, control=NULL)
     }
     coef <- format(round(x$coef, digits=digits))
     pc <- x$pc

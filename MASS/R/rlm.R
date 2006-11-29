@@ -198,7 +198,7 @@ print.rlm <- function(x, ...)
 {
     if(!is.null(cl <- x$call)) {
         cat("Call:\n")
-        dput(cl)
+        dput(cl, control=NULL)
     }
     if(x$converged)
         cat("Converged in", length(x$conv), "iterations\n")
@@ -289,7 +289,7 @@ print.summary.rlm <-
 function(x, digits = max(3, .Options$digits - 3), ...)
 {
     cat("\nCall: ")
-    dput(x$call)
+    dput(x$call, control=NULL)
     resid <- x$residuals
     df <- x$df
     rdf <- df[2]

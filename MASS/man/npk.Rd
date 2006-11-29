@@ -41,6 +41,7 @@ Imperial College, London, M.Sc. exercise sheet.
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
+options(contrasts = c("contr.sum", "contr.poly"))
 npk.aov <- aov(yield ~ block + N*P*K, npk)
 npk.aov
 summary(npk.aov)

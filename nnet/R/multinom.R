@@ -187,7 +187,7 @@ print.multinom <- function(x, ...)
 {
   if(!is.null(cl <- x$call)) {
     cat("Call:\n")
-    dput(cl)
+    dput(cl, control=NULL)
   }
   cat("\nCoefficients:\n")
   print(coef(x), ...)
@@ -325,7 +325,7 @@ print.summary.multinom <- function(x, digits = x$digits, ...)
 {
   if(!is.null(cl <- x$call)) {
     cat("Call:\n")
-    dput(cl)
+    dput(cl, control=NULL)
   }
   cat("\nCoefficients:\n")
   if(x$is.binomial) {

@@ -22,7 +22,7 @@ y coordinate of data
 }
 \item{h}{
 vector of bandwidths for x and y directions. Defaults to
-normal reference bandwidth.
+normal reference bandwidth (see \code{\link{bandwidth.nrd}}).
 }
 \item{n}{
 Number of grid points in each direction.

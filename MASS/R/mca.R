@@ -36,7 +36,7 @@ print.mca <- function(x, ...)
 {
   if(!is.null(cl <- x$call)) {
     cat("Call:\n")
-    dput(cl)
+    dput(c, control=NULL)
   }
   cat("\nMultiple correspondence analysis of",
             nrow(x$rs), "cases of", x$p,

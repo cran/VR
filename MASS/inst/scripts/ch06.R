@@ -331,18 +331,18 @@ oats1 <- aov(Y ~ N + V + B, data = oats)
 plot(tk)
 
 ## An alternative under R is to use package multcomp (which requires mvtnorm)
+## This code is for multcomp >= 0.991-1
 library(multcomp)
 ## next is slow:
-(tk <- simint((Y1 + Y2)/2 ~ Var + Loc, data = immer,
-              type="Tukey", whichf ="Var"))
+(tk <- confint(glht(immer.aov, linfct = mcp(Var = "Tukey"))))
 plot(tk)
 
-simint(Y ~ N + V + B, data = oats, whichf = "V", type = "Tukey")
+confint(glht(oats1, linfct = mcp(V = "Tukey")))
 lmat <- matrix(c(0,-1,1,rep(0, 11), 0,0,-1,1, rep(0,10),
                  0,0,0,-1,1,rep(0,9)),,3,
                dimnames = list(NULL,
                c("0.2cwt-0.0cwt", "0.4cwt-0.2cwt", "0.6cwt-0.4cwt")))
-simint(Y ~ N + V + B, data = oats, whichf = "N",
-       cmatrix = t(lmat[2:5, ]), alternative = "greater")
+confint(glht(oats1, linfct = mcp(N = t(lmat[2:5, ])), alternative = "greater"))
+plot(tk)
 
 # End of ch06
