@@ -89,7 +89,7 @@ Summary.fractions <- function(x, ..., na.rm)
   fractions(NextMethod())
 }
 
-as.character.fractions <- function(x)
+as.character.fractions <- function(x, ...)
     structure(attr(x, "fracs"), dim = dim(x), dimnames = dimnames(x))
 
 as.fractions <- function(x)

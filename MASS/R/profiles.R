@@ -2,7 +2,7 @@
 #
 # port to R by B. D. Ripley copyright (C) 1998
 #
-#corrections copyright (C) 2000, 3 B. D. Ripley
+#corrections copyright (C) 2000,3,6 B. D. Ripley
 profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
 			maxsteps = 10, del = zmax/5, trace = FALSE, ...)
 {
@@ -12,7 +12,7 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
     if(is.character(which)) which <- match(which, Pnames)
     summ <- summary(fitted)
     std.err <- summ$coefficients[, "Std. Error"]
-    mf <- update(fitted, method = "model.frame")
+    mf <- model.frame(fitted)
     n <- length(Y <- model.response(mf))
     O <- model.offset(mf)
     if(!length(O)) O <- rep(0, n)

@@ -149,6 +149,8 @@ Library MASS
 - Class "ridgelm" now has a coef() method, and works for n < p.
 - lda() and qda() now check explicitly for non-finite 'x' values.
 - ch06.R has been updated for multcomp >= 0.991-1
+- profile.glm is more likely to find the model frame in complicated
+  scopes.
 
 
 
