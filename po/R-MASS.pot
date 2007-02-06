@@ -323,7 +323,7 @@ msgstr ""
 msgid "response must have 3 or more levels"
 msgstr ""
 
-msgid "attempt for find suitable starting values failed"
+msgid "attempt to find suitable starting values failed"
 msgstr ""
 
 msgid "design appears to be rank-deficient, so dropping some coefs"
@@ -451,7 +451,7 @@ msgid_plural "groups %s are empty"
 msgstr[0]    ""
 msgstr[1]    ""
 
-msgid        "variable %d appears to be constant within groups"
-msgid_plural "variables %d appear to be constant within groups"
+msgid        "variable %s appears to be constant within groups"
+msgid_plural "variables %s appear to be constant within groups"
 msgstr[0]    ""
 msgstr[1]    ""

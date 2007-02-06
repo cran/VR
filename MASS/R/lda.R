@@ -101,8 +101,8 @@ lda.default <-
     if(any(f1 < tol)) {
         const <- format((1:p)[f1 < tol])
         stop(sprintf(ngettext(length(const),
-                     "variable %d appears to be constant within groups",
-                     "variables %d appear to be constant within groups"),
+                     "variable %s appears to be constant within groups",
+                     "variables %s appear to be constant within groups"),
                      paste(const, collapse = " ")),
              domain = NA)
     }

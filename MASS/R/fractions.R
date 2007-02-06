@@ -44,9 +44,7 @@ fractions <- function(x, cycles = 10, max.denominator = 2000, ...)
   ndc <- paste(ans$rat[, 1], ans$rat[, 2], sep = "/")
   int <- ans$rat[, 2] == 1
   ndc[int] <- as.character(ans$rat[int, 1])
-  ans <- structure(ans$x, fracs = ndc)
-  class(ans) <- c("fractions", class(ans$x))
-  ans
+  structure(ans$x, fracs = ndc, class = c("fractions", class(ans$x)))
 }
 
 t.fractions <- function(x)

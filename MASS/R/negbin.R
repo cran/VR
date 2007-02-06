@@ -120,7 +120,7 @@ glm.nb <- function(formula, data, weights,
         method <- "glm.fit"
         glm.fitter <- stats::glm.fit
     }
-    if(control$trace > 1) cat("Initial fit:\n")
+    if(control$trace > 1) message("Initial fit:")
     fit <- glm.fitter(x = X, y = Y, w = w, start = start,
                       etastart = etastart, mustart = mustart,
                       offset = offset, family = fam0,
@@ -133,7 +133,7 @@ glm.nb <- function(formula, data, weights,
     th <- as.vector(theta.ml(Y, mu, n, w, limit = control$maxit, trace =
                              control$trace> 2))
     if(control$trace > 1)
-        cat("Initial value for theta:", signif(th), "\n")
+        message("Initial value for theta:", signif(th))
     fam <- do.call("negative.binomial", list(theta = th, link = link))
     iter <- 0
     d1 <- sqrt(2 * max(1, fit$df.residual))
@@ -161,8 +161,8 @@ glm.nb <- function(formula, data, weights,
         if(control$trace) {
             Ls <- loglik(n, th, Y, Y, w)
             Dev <- 2 * (Ls - Lm)
-            cat("Theta(", iter, ") =", signif(th),
-                ", 2(Ls - Lm) =", signif(Dev), "\n")
+            message("Theta(", iter, ") =", signif(th),
+                    ", 2(Ls - Lm) =", signif(Dev))
         }
     }
     if(!is.null(attr(th, "warn"))) fit$th.warn <- attr(th, "warn")
@@ -337,12 +337,12 @@ theta.ml <-
     t0 <- n/sum(weights*(y/mu - 1)^2)
     it <- 0
     del <- 1
-    if(trace) cat("theta.ml: initial theta =", signif(t0), "\n")
+    if(trace) message("theta.ml: initial theta =", signif(t0))
     while((it <- it + 1) < limit && abs(del) > eps) {
         t0 <- abs(t0)
         del <- score(n, t0, mu, y, weights)/(i <- info(n, t0, mu, y, weights))
         t0 <- t0 + del
-        if(trace) cat("theta.ml: iter", it," theta =", signif(t0), "\n")
+        if(trace) message("theta.ml: iter", it," theta =", signif(t0))
     }
     if(t0 < 0) {
         t0 <- 0

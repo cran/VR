@@ -91,7 +91,7 @@ polr <- function(formula, data, weights, start, ..., subset,
                    "cloglog" = glm.fit(X, y1, wt, family = binomial("probit"), offset = offset),
                    "cauchit" = glm.fit(X, y1, wt, family = binomial("cauchit"), offset = offset))
         if(!fit$converged)
-            stop("attempt for find suitable starting values failed")
+            stop("attempt to find suitable starting values failed")
         coefs <- fit$coefficients
         if(any(is.na(coefs))) {
             warning("design appears to be rank-deficient, so dropping some coefs")
@@ -168,7 +168,7 @@ print.polr <- function(x, ...)
 vcov.polr <- function(object, ...)
 {
     if(is.null(object$Hessian)) {
-        cat("\nRe-fitting to get Hessian\n\n")
+        message("\nRe-fitting to get Hessian\n")
 	flush.console
         object <- update(object, Hess=TRUE,
                          start=c(object$coef, object$zeta))
@@ -447,7 +447,7 @@ profile.polr <- function(fitted, which = 1:p, alpha = 0.01,
         pi <- Pnames[i]
         for(sgn in c(-1, 1)) {
             if(trace) {
-                cat("\nParameter:", pi, c("down", "up")[(sgn + 1)/2 + 1], "\n")
+                message("\nParameter:", pi, c("down", "up")[(sgn + 1)/2 + 1])
                 flush.console()
             }
             step <- 0
@@ -484,7 +484,7 @@ confint.polr <- function(object, parm, level = 0.95, trace = FALSE, ...)
     pnames <- names(coef(object))
     if(missing(parm)) parm <- seq_along(pnames)
     else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
-    cat("Waiting for profiling to be done...\n")
+    message("Waiting for profiling to be done...")
     flush.console()
     object <- profile(object, which = parm, alpha = (1. - level)/4.,
                       trace = trace)

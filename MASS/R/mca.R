@@ -13,6 +13,7 @@ mca <- function(df, nf = 2, abbrev = FALSE)
   }
   if(!all(unlist(lapply(df, is.factor))))
     stop("all variables must be factors")
+  Call <- match.call()
   n <- nrow(df); p <- length(df)
   G <- as.matrix(do.call("data.frame", c(lapply(df, class.ind),
                                          check.names=FALSE)))
@@ -28,15 +29,15 @@ mca <- function(df, nf = 2, abbrev = FALSE)
   varnames <- if(abbrev) unlist(lapply(df, levels))
               else colnames(G)
   dimnames(cs) <- list(varnames, as.character(1:nf))
-  structure(list(rs=rs, cs=cs, fs=fs, d=X.svd$d[sec], p=p,
-                 call=match.call()), class="mca")
+  structure(list(rs=rs, cs=cs, fs=fs, d=X.svd$d[sec], p=p, call=Call),
+            class="mca")
 }
 
 print.mca <- function(x, ...)
 {
   if(!is.null(cl <- x$call)) {
     cat("Call:\n")
-    dput(c, control=NULL)
+    dput(cl, control=NULL)
   }
   cat("\nMultiple correspondence analysis of",
             nrow(x$rs), "cases of", x$p,

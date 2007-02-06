@@ -129,3 +129,4 @@ This file documents software changes since the third edition.
 - ch06.R has been updated for multcomp >= 0.991-1
 - profile.glm is more likely to find the model frame in complicated
   scopes.
+- message() is used for most messages

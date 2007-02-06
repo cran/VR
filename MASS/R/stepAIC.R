@@ -96,8 +96,8 @@ stepAIC <-
     nm <- 1
     Terms <- terms(fit)
     if(trace) {
-        cat("Start:  AIC=", format(round(bAIC, 2)), "\n",
-            cut.string(deparse(as.vector(formula(fit)))), "\n\n")
+        message("Start:  AIC=", format(round(bAIC, 2)), "\n",
+                cut.string(deparse(as.vector(formula(fit)))), "\n")
 	flush.console()
     }
     models[[nm]] <- list(deviance = mydeviance(fit), df.resid = n - edf,
@@ -175,8 +175,8 @@ stepAIC <-
         edf <- bAIC[1]
         bAIC <- bAIC[2]
         if(trace) {
-            cat("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
-                cut.string(deparse(as.vector(formula(fit)))), "\n\n")
+            message("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
+                    cut.string(deparse(as.vector(formula(fit)))), "\n")
 	    flush.console()
 	}
         ## add a tolerance as dropping 0-df terms might increase AIC slightly

@@ -59,7 +59,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     mcall$data <- mf
 
     for(i in 1:niter) {
-        if(verbose) cat("iteration", i, "\n")
+        if(verbose) message("iteration ", i)
         fit <- eval(mcall)
         etaold <- eta
         ##update zz and invwt

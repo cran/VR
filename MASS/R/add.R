@@ -25,7 +25,7 @@ addterm.default <-
     for(i in seq(ns)) {
         tt <- scope[i]
         if(trace) {
-	    cat("trying +", tt, "\n")
+	    message("trying +", tt)
 	    flush.console()
         }
         nfit <- update(object, as.formula(paste("~ . +", tt)),
@@ -171,7 +171,7 @@ addterm.glm <-
                      function(x) paste(sort(x), collapse=":"))
     for(tt in scope) {
         if(trace) {
-	    cat("trying +", tt, "\n")
+	    message("trying +", tt)
 	    flush.console()
 	}
         stt <- paste(sort(strsplit(tt, ":")[[1]]), collapse=":")
@@ -249,7 +249,7 @@ dropterm.default <-
     for(i in seq(ns)) {
         tt <- scope[i]
         if(trace) {
-	    cat("trying -", tt, "\n")
+	    message("trying -", tt)
 	    flush.console()
 	}
         nfit <- update(object, as.formula(paste("~ . -", tt)),
@@ -351,7 +351,7 @@ dropterm.glm <-
     if(is.null(wt)) wt <- rep.int(1, n)
     for(i in 1:ns) {
         if(trace) {
-	    cat("trying -", scope[i], "\n")
+	    message("trying -", scope[i])
 	    flush.console()
 	}
         ii <- seq_along(asgn)[asgn == ndrop[i]]
