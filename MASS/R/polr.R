@@ -169,7 +169,7 @@ vcov.polr <- function(object, ...)
 {
     if(is.null(object$Hessian)) {
         message("\nRe-fitting to get Hessian\n")
-	flush.console
+	flush.console()
         object <- update(object, Hess=TRUE,
                          start=c(object$coef, object$zeta))
     }

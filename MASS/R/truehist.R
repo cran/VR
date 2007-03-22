@@ -28,8 +28,12 @@ function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
                                 scott = nclass.scott(data),
                                 "freedman-diaconis" = , fd = nclass.FD(data)
                                 )
+	    if(!is.finite(nbins) || nbins <= 0)
+		stop("'nbins' must result in a positive integer")
             h <- diff(pretty(data, nbins))[1]
         }
+	if(!is.finite(h) || h <= 0)
+	    stop("'h' must be strictly positive")
         first <- floor((min(data) - x0)/h)
         last <- ceiling((max(data) - x0)/h)
         breaks <- x0 + h * c(first:last)

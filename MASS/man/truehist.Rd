@@ -21,12 +21,12 @@ numeric vector of data for histogram.  Missing values (\code{NA}s)
 are allowed and omitted.
 }
 \item{nbins}{
-The suggested number of bins.  Either a number, or a character string
+The suggested number of bins.  Either a positive integer, or a character string
 naming a rule: \code{"Scott"} or \code{"Freedman-Diaconis"} or \code{"FD"}.  (Case is
 ignored.)
 }
 \item{h}{
-The bin width (takes precedence over \code{nbins}).
+The bin width, a strictly positive number (takes precedence over \code{nbins}).
 }
 \item{x0}{
 Shift for the bins - the breaks are at \code{x0 + h * (\dots, -1, 0, 1, \dots)}
