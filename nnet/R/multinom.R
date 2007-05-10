@@ -294,7 +294,7 @@ vcov.multinom <- function(object, ...)
 }
 
 summary.multinom <-
-function(object, correlation = TRUE, digits = options()$digits,
+function(object, correlation = FALSE, digits = options()$digits,
          Wald.ratios = FALSE, ...)
 {
   vc <- vcov(object)

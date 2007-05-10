@@ -131,3 +131,9 @@ This file documents software changes since the third edition.
   scopes.
 - message() is used for most messages.
 - truehist() checks more thoroughly for erroneous inputs.
+- polr(model=TRUE) works again.
+- add logLik() method for polr.
+- the summary() methods for classes "negbin" and "rlm" now default to
+  correlation = FALSE.
+- there is a vcov() method for class "negbin": unlike the "glm" method
+  this defaults to dispersion = 1.

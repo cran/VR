@@ -215,7 +215,7 @@ print.rlm <- function(x, ...)
 }
 
 summary.rlm <- function(object, method = c("XtX", "XtWX"),
-                        correlation = TRUE, ...)
+                        correlation = FALSE, ...)
 {
     method <- match.arg(method)
     s <- object$s

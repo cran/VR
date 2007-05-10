@@ -17,3 +17,4 @@ This file documents software changes since the third edition.
   for changes in the number of cases in use caused e.g. by na.action=na.omit.
 - added confint() method for multinom.
 - added logLik() method for multinom.
+- summary() for multinom now defaults to correlation=FALSE.

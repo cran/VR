@@ -98,7 +98,7 @@ stepAIC <-
     if(trace) {
         message("Start:  AIC=", format(round(bAIC, 2)), "\n",
                 cut.string(deparse(as.vector(formula(fit)))), "\n")
-	flush.console()
+	utils::flush.console()
     }
     models[[nm]] <- list(deviance = mydeviance(fit), df.resid = n - edf,
                          change = "", AIC = bAIC)
@@ -156,7 +156,7 @@ stepAIC <-
             o <- order(aod[, nc])
             if(trace) {
 		print(aod[o,  ])
-		flush.console()
+		utils::flush.console()
 	    }
             if(o[1] == 1) break
             change <- rownames(aod)[o[1]]
@@ -177,7 +177,7 @@ stepAIC <-
         if(trace) {
             message("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
                     cut.string(deparse(as.vector(formula(fit)))), "\n")
-	    flush.console()
+	    utils::flush.console()
 	}
         ## add a tolerance as dropping 0-df terms might increase AIC slightly
         if(bAIC >= AIC + 1e-7) break

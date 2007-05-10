@@ -8,7 +8,7 @@ confint.glm <- function(object, parm, level = 0.95, trace = FALSE, ...)
     if(missing(parm)) parm <- seq_along(pnames)
     else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
     message("Waiting for profiling to be done...")
-    flush.console()
+    utils::flush.console()
     object <- profile(object, which = parm, alpha = (1. - level)/4.,
                       trace = trace)
     confint(object, parm=parm, level=level, trace=trace, ...)
@@ -43,7 +43,7 @@ confint.nls <-
   if(missing(parm)) parm <- seq_along(pnames)
   if(is.numeric(parm))  parm <- pnames[parm]
   message("Waiting for profiling to be done...")
-  flush.console()
+  utils::flush.console()
   object <- profile(object, which = parm, alphamax = (1. - level)/4.)
   confint(object, parm=parm, level=level, ...)
 }

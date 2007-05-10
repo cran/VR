@@ -26,7 +26,7 @@ addterm.default <-
         tt <- scope[i]
         if(trace) {
 	    message("trying +", tt)
-	    flush.console()
+	    utils::flush.console()
         }
         nfit <- update(object, as.formula(paste("~ . +", tt)),
                        evaluate = FALSE)
@@ -172,7 +172,7 @@ addterm.glm <-
     for(tt in scope) {
         if(trace) {
 	    message("trying +", tt)
-	    flush.console()
+	    utils::flush.console()
 	}
         stt <- paste(sort(strsplit(tt, ":")[[1]]), collapse=":")
 	usex <- match(asgn, match(stt, sTerms), 0) > 0
@@ -250,7 +250,7 @@ dropterm.default <-
         tt <- scope[i]
         if(trace) {
 	    message("trying -", tt)
-	    flush.console()
+	    utils::flush.console()
 	}
         nfit <- update(object, as.formula(paste("~ . -", tt)),
                        evaluate = FALSE)
@@ -352,7 +352,7 @@ dropterm.glm <-
     for(i in 1:ns) {
         if(trace) {
 	    message("trying -", scope[i])
-	    flush.console()
+	    utils::flush.console()
 	}
         ii <- seq_along(asgn)[asgn == ndrop[i]]
         jj <- setdiff(seq(ncol(x)), ii)

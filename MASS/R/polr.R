@@ -1,5 +1,5 @@
 # file MASS/polr.q
-# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2007 W. N. Venables and B. D. Ripley
 #
 polr <- function(formula, data, weights, start, ..., subset,
                  na.action, contrasts = NULL, Hess = FALSE,
@@ -52,7 +52,7 @@ polr <- function(formula, data, weights, start, ..., subset,
                    cloglog = dgumbel, cauchit = dcauchy)
     if(is.matrix(eval.parent(m$data)))
         m$data <- as.data.frame(data)
-    m$start <- m$Hess <- m$method <- m$... <- NULL
+    m$start <- m$Hess <- m$method <- m$model <- m$... <- NULL
     m[[1]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
@@ -169,7 +169,7 @@ vcov.polr <- function(object, ...)
 {
     if(is.null(object$Hessian)) {
         message("\nRe-fitting to get Hessian\n")
-	flush.console()
+	utils::flush.console()
         object <- update(object, Hess=TRUE,
                          start=c(object$coef, object$zeta))
     }
@@ -448,7 +448,7 @@ profile.polr <- function(fitted, which = 1:p, alpha = 0.01,
         for(sgn in c(-1, 1)) {
             if(trace) {
                 message("\nParameter:", pi, c("down", "up")[(sgn + 1)/2 + 1])
-                flush.console()
+                utils::flush.console()
             }
             step <- 0
             z <- 0
@@ -485,7 +485,7 @@ confint.polr <- function(object, parm, level = 0.95, trace = FALSE, ...)
     if(missing(parm)) parm <- seq_along(pnames)
     else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
     message("Waiting for profiling to be done...")
-    flush.console()
+    utils::flush.console()
     object <- profile(object, which = parm, alpha = (1. - level)/4.,
                       trace = trace)
     confint(object, parm=parm, level=level, trace=trace, ...)
@@ -512,3 +512,6 @@ confint.profile.polr <-
     }
     drop(ci)
 }
+
+logLik.polr <- function(object, ...) -0.5*object$deviance
+

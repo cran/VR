@@ -1,17 +1,18 @@
 useDynLib(MASS, .registration = TRUE)
 
 # functions
-export(addterm, area, as.fractions, bandwidth.nrd, bcv, boxcox, con2tr,
-       contr.sdif, corresp, cov.trob, denumerate, dose.p, dropterm, enlist,
-       eqscplot, fbeta, fitdistr, fractions, frequency.polygon,
-       gamma.dispersion, gamma.shape, ginv, glm.convert, glm.nb, glmmPQL,
-       hist.FD, hist.scott, huber, hubers, is.fractions, isoMDS, kde2d, lda,
-       ldahist, lm.gls, lm.ridge, lmwork, loglm, loglm1, logtrans,
-       mca, mvrnorm, nclass.freq, neg.bin, negative.binomial,
-       negexp.SSival, Null, parcoord, polr, psi.bisquare, psi.hampel,
-       psi.huber, qda, rational, renumerate, rlm, rms.curv, rnegbin, sammon, select,
-       Shepard, stdres, stepAIC, studres, theta.md, theta.ml, theta.mm,
-       truehist, ucv, width.SJ, write.matrix)
+export(addterm, area, as.fractions, bandwidth.nrd, bcv, boxcox,
+       con2tr, contr.sdif, corresp, cov.trob, denumerate, dose.p,
+       dropterm, enlist, eqscplot, fbeta, fitdistr, fractions,
+       frequency.polygon, gamma.dispersion, gamma.shape, ginv,
+       glm.convert, glm.nb, glmmPQL, hist.FD, hist.scott, huber,
+       hubers, is.fractions, isoMDS, kde2d, lda, ldahist, lm.gls,
+       lm.ridge, lmwork, loglm, loglm1, logtrans, mca, mvrnorm,
+       nclass.freq, neg.bin, negative.binomial, negexp.SSival, Null,
+       parcoord, polr, psi.bisquare, psi.hampel, psi.huber, qda,
+       rational, renumerate, rlm, rms.curv, rnegbin, sammon, select,
+       Shepard, stdres, stepAIC, studres, theta.md, theta.ml,
+       theta.mm, truehist, ucv, width.SJ, write.matrix)
 
 # formerly in package lqs
 export(cov.mcd, cov.mve, cov.rob, lmsreg, lqs, lqs.formula, ltsreg)
@@ -97,6 +98,7 @@ S3method(loglm1, xtabs)
 S3method(logLik, fitdistr)
 S3method(logLik, glmmPQL)
 S3method(logLik, negbin)
+S3method(logLik, polr)
 S3method(logtrans, default)
 S3method(logtrans, formula)
 S3method(logtrans, lm)
@@ -162,5 +164,6 @@ S3method(t, fractions)
 S3method(terms, gls)
 S3method(terms, lme)
 S3method(update, loglm)
+S3method(vcov, negbin)
 S3method(vcov, polr)
 S3method(vcov, rlm)

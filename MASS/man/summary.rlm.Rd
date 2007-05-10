@@ -11,7 +11,7 @@ Summary Method for Robust Linear Models
 \code{summary} method for objects of class \code{"rlm"}
 }
 \usage{
-\method{summary}{rlm}(object, method = c("XtX", "XtWX"), correlation = TRUE, \dots)
+\method{summary}{rlm}(object, method = c("XtX", "XtWX"), correlation = FALSE, \dots)
 }
 \arguments{
 \item{object}{

@@ -265,7 +265,7 @@ rnegbin <- function(n, mu = n, theta = stop("'theta' must be specified"))
     rpois(k, (mu * rgamma(k, theta))/theta)
 }
 
-summary.negbin <- function(object, dispersion = 1, correlation = TRUE, ...)
+summary.negbin <- function(object, dispersion = 1, correlation = FALSE, ...)
 {
     if(is.null(dispersion)) dispersion <- 1
     summ <- c(summary.glm(object, dispersion = dispersion,
@@ -395,3 +395,7 @@ logLik.negbin <- function(object, ...)
     val
 
 }
+
+vcov.negbin <- function(object, ...)
+    with(summary.negbin(object, ...), dispersion * cov.unscaled)
+

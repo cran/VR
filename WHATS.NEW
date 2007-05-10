@@ -153,6 +153,12 @@ Library MASS
   scopes.
 - message() is used for most messages.
 - truehist() checks more thoroughly for erroneous inputs.
+- polr(model=TRUE) works again.
+- add logLik() method for polr.
+- the summary() methods for classes "negbin" and "rlm" now default to
+  correlation = FALSE.
+- there is a vcov() method for class "negbin": unlike the "glm" method
+  this defaults to dispersion = 1.
 
 
 
@@ -184,6 +190,7 @@ Library nnet
   for changes in the number of cases in use caused e.g. by na.action=na.omit.
 - added confint() method for multinom.
 - added logLik() method for multinom.
+- summary() for multinom now defaults to correlation=FALSE.
 
 
 
