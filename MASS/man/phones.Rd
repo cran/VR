@@ -1,4 +1,4 @@
-% file MASS/phones.d
+% file MASS/man/phones.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Belgian-phones}

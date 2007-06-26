@@ -1,4 +1,5 @@
-% file nnet/multinom.d copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
+% file nnet/man/multinom.Rd
+% copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 %
 \name{multinom}
 \alias{multinom}

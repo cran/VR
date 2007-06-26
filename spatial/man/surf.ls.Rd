@@ -1,4 +1,5 @@
-% file spatial/surf.ls.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file spatial/man/surf.ls.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{surf.ls}
 \alias{surf.ls}

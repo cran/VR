@@ -1,4 +1,4 @@
-% file MASS/beav1.d
+% file MASS/man/beav1.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{beav1}

@@ -1,4 +1,4 @@
-% file MASS/dropterm.d
+% file MASS/man/dropterm.Rd
 % copyright (C) 1998-9 W. N. Venables and B. D. Ripley
 %
 \name{dropterm}

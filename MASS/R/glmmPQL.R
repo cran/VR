@@ -1,3 +1,19 @@
+# file MASS/R/glmmPQL.R
+# copyright (C) 2002-2007 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+#
 glmmPQL <- function(fixed, random, family, data, correlation, weights,
                     control, niter = 10, verbose = TRUE, ...)
 {
@@ -37,7 +53,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     mf$wts <- w
     fit0 <- glm(formula=fixed, family=family, data=mf, weights = wts, ...)
     w <- fit0$prior.weights
-    eta <- fit0$linear.predictor
+    eta <- fit0$linear.predictors
     zz <- eta + fit0$residuals - off
     wz <- fit0$weights
     fam <- family

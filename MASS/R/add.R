@@ -1,5 +1,18 @@
-# file MASS/add.q
+# file MASS/R/add.R
 # copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 addterm <-
     function(object, ...) UseMethod("addterm")
@@ -96,7 +109,7 @@ addterm.lm <-
         dev[nas] <- pchisq(dev[nas], df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
-        rdf <- object$df.resid
+        rdf <- object$df.residual
         aod[, c("F Value", "Pr(F)")] <- Fstat(aod, aod$RSS[1], rdf)
     }
     aod <- aod[o, ]
@@ -302,7 +315,7 @@ dropterm.lm <-
     } else if(test == "F") {
 	dev <- aod$"Sum of Sq"
 	dfs <- aod$Df
-	rdf <- object$df.resid
+	rdf <- object$df.residual
 	rms <- aod$RSS[1]/rdf
 	Fs <- (dev/dfs)/rms
 	Fs[dfs < 1e-4] <- NA
@@ -341,7 +354,7 @@ dropterm.glm <-
   }
     ns <- length(scope)
     ndrop <- match(scope, tl)
-    rdf <- object$df.resid
+    rdf <- object$df.residual
     chisq <- object$deviance
     dfs <- numeric(ns)
     dev <- numeric(ns)

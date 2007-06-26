@@ -1,4 +1,5 @@
-% file class/multiedit.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file class/man/multiedit.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{multiedit}
 \alias{multiedit}

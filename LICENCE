@@ -24,7 +24,7 @@ Our understanding is that the dataset files MASS/data/*.rda are not copyright.
 Files spatial/data/*.dat were generated or digitized by B. D. Ripley: no
 copyright is asserted.
 
-All other files are copyright (C) 1994-2002  W. N. Venables and
+All other files are copyright (C) 1994-2007  W. N. Venables and
 B. D. Ripley. Those parts which were distributed with the first
 edition are also copyright (C) 1994 Springer-Verlag New York Inc, with
 all rights assigned to W. N. Venables and B. D. Ripley.
@@ -35,23 +35,18 @@ Licence
 
     This is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+    the Free Software Foundation; either version 2 or 3 of the License
+    (at your option).
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301
-    USA.
-
-
-The file COPYING in the R top-level directory is a copy of the 'GNU
-General Public License'.
-
+Files share/licenses/GPL-2 and share/licenses/GPL-3 in the R
+(source or binary) distribution are copies of versions 2 and 3
+of the 'GNU General Public License'.
+These can also be viewed at http://www.r-project.org/licenses/
 
 Bill.Venables@csiro.au
 ripley@stats.ox.ac.uk

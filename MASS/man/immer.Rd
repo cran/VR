@@ -1,4 +1,4 @@
-% file MASS/immer.d
+% file MASS/man/immer.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{immer}

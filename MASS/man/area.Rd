@@ -1,4 +1,4 @@
-% file MASS/area.d
+% file MASS/man/area.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{area}

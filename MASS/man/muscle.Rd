@@ -1,4 +1,4 @@
-% file MASS/muscle.d
+% file MASS/man/muscle.Rd
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
 \name{muscle}

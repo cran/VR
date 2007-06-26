@@ -1,4 +1,4 @@
-% file MASS/theta.md.d
+% file MASS/man/theta.md.Rd
 % copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 %
 \name{theta.md}

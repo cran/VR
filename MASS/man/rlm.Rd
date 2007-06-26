@@ -1,4 +1,4 @@
-% file MASS/rlm.d
+% file MASS/man/rlm.Rd
 % copyright (C) 1998,9, 2004 B. D. Ripley
 %
 \name{rlm}

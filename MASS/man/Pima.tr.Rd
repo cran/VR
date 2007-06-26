@@ -1,4 +1,4 @@
-% file MASS/Pima.tr.d
+% file MASS/man/Pima.tr.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Pima.tr}

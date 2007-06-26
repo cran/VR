@@ -1,4 +1,5 @@
-% file nnet/which.is.max.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file nnet/R/which.is.max.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{which.is.max}
 \alias{which.is.max}

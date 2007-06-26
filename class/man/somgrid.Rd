@@ -1,3 +1,6 @@
+% file class/man/somgrid.Rd
+% copyright (C) 2002 W. N. Venables and B. D. Ripley
+%
 \name{somgrid}
 \alias{somgrid}
 \alias{plot.somgrid}

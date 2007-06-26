@@ -1,3 +1,6 @@
+% file class/man/SOM.Rd
+% copyright (C) 2002 W. N. Venables and B. D. Ripley
+%
 \name{SOM}
 \alias{SOM}
 \title{

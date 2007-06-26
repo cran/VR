@@ -1,4 +1,4 @@
-% file MASS/ldahist.d
+% file MASS/man/ldahist.Rd
 % copyright (C) 1998-9 W. N. Venables and B. D. Ripley
 %
 \name{ldahist}

@@ -1,4 +1,4 @@
-% file MASS/Rubber.d
+% file MASS/man/Rubber.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Rubber}

@@ -197,7 +197,7 @@ Library nnet
 Library spatial
 ---------------
 
-- Methods for class "surf.ls" contributed by Roger Bivand.
+- Methods for class "trls" contributed by Roger Bivand.
 - surf.ls and surf.gls now check for x,y,z cols in a data frame given for x.
 - PP datasets moved from data to ppdata
 - no longer duplicate topo dataset from MASS

@@ -1,5 +1,19 @@
 /*
- *  class/class.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
+ *  class/src/class.c by W. N. Venables and B. D. Ripley  Copyright (C) 1994-2002
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 or 3 of the License
+ *  (at your option).
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  A copy of the GNU General Public License is available at
+ *  http://www.r-project.org/Licenses/
+ *
  */
 
 #include <R.h>
@@ -369,8 +383,9 @@ VR_onlineSOM(double *data, double *codes, double *nhbrdist,
 	     Sint *pn, Sint *pp, Sint *pncodes, Sint *rlen)
 {
     int n = *pn, p = *pp, ncodes = *pncodes;
-    int cd, i, j, k, nearest = 0 /* -Wall */, nind;
+    int i, j, k, nearest = 0 /* -Wall */, nind;
     double dm, dist, tmp;
+    unsigned int cd; /* avoid spurious warning from gcc pre-4.3.0 */
 
     RANDIN;
     for (k = 0; k < *rlen; k++) {

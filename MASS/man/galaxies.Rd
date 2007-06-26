@@ -1,4 +1,4 @@
-% file MASS/galaxies.d
+% file MASS/man/galaxies.Rd
 % copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 %
 \name{galaxies}

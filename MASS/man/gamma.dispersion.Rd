@@ -1,4 +1,4 @@
-% file MASS/gamma.dispersion.d
+% file MASS/man/gamma.dispersion.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{gamma.dispersion}

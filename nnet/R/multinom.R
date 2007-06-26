@@ -1,4 +1,18 @@
-# file nnet/multinom.q copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
+# file nnet/multinom.R
+# copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 
 multinom <-
@@ -34,7 +48,7 @@ multinom <-
   }
 
   call <- match.call()
-  m <- match.call(expand = FALSE)
+  m <- match.call(expand.dots = FALSE)
   m$summ <- m$Hess <- m$contrasts <- m$censored <- m$model <- m$... <- NULL
   m[[1]] <- as.name("model.frame")
   m <- eval.parent(m)
@@ -444,4 +458,4 @@ confint.multinom <- function (object, parm, level=0.95, ...)
 }
 
 logLik.multinom <- function(object, ...)
-    -0.5*object$deviance
+    structure(-0.5 * object$deviance, df = object$edf, class = "logLik")

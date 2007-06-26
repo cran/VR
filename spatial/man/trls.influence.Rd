@@ -1,3 +1,6 @@
+% file spatial/man/trls.influence.Rd
+% copyright (C) 2001-2 W. N. Venables and B. D. Ripley
+%
 \name{trls.influence}
 \alias{trls.influence}
 \alias{plot.trls}

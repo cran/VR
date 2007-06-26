@@ -1,4 +1,4 @@
-% file MASS/lm.ridge.d
+% file MASS/man/lm.ridge.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{lm.ridge}

@@ -1,5 +1,19 @@
-# file MASS/polr.q
+# file MASS/R/polr.R
 # copyright (C) 1994-2007 W. N. Venables and B. D. Ripley
+# Use of transformed intercepts contributed by David Firth
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 polr <- function(formula, data, weights, start, ..., subset,
                  na.action, contrasts = NULL, Hess = FALSE,
@@ -159,7 +173,7 @@ print.polr <- function(x, ...)
     print(x$zeta, ...)
     cat("\nResidual Deviance:", format(x$deviance, nsmall=2), "\n")
     cat("AIC:", format(x$deviance + 2*x$edf, nsmall=2), "\n")
-    if(nchar(mess <- naprint(x$na.action))) cat("(", mess, ")\n", sep="")
+    if(nzchar(mess <- naprint(x$na.action))) cat("(", mess, ")\n", sep="")
     if(x$convergence > 0)
         cat("Warning: did not converge as iteration limit reached\n")
     invisible(x)
@@ -171,7 +185,7 @@ vcov.polr <- function(object, ...)
         message("\nRe-fitting to get Hessian\n")
 	utils::flush.console()
         object <- update(object, Hess=TRUE,
-                         start=c(object$coef, object$zeta))
+                         start=c(object$coefficients, object$zeta))
     }
     structure(ginv(object$Hessian), dimnames = dimnames(object$Hessian))
 
@@ -219,11 +233,11 @@ print.summary.polr <- function(x, digits = x$digits, ...)
         cat("Call:\n")
         dput(cl, control=NULL)
     }
-    coef <- format(round(x$coef, digits=digits))
+    coef <- format(round(x$coefficients, digits=digits))
     pc <- x$pc
     if(pc > 0) {
         cat("\nCoefficients:\n")
-        print(x$coef[seq_len(pc), , drop=FALSE], quote = FALSE, ...)
+        print(x$coefficients[seq_len(pc), , drop=FALSE], quote = FALSE, ...)
     } else {
         cat("\nNo coefficients\n")
     }
@@ -231,7 +245,7 @@ print.summary.polr <- function(x, digits = x$digits, ...)
     print(coef[(pc+1):nrow(coef), , drop=FALSE], quote = FALSE, ...)
     cat("\nResidual Deviance:", format(x$deviance, nsmall=2), "\n")
     cat("AIC:", format(x$deviance + 2*x$edf, nsmall=2), "\n")
-    if(nchar(mess <- naprint(x$na.action))) cat("(", mess, ")\n", sep="")
+    if(nzchar(mess <- naprint(x$na.action))) cat("(", mess, ")\n", sep="")
     if(!is.null(correl <- x$correlation)) {
         cat("\nCorrelation of Coefficients:\n")
         ll <- lower.tri(correl)
@@ -259,7 +273,7 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
         n <- nrow(X)
         q <- length(object$zeta)
-        eta <- drop(X %*% object$coef)
+        eta <- drop(X %*% object$coefficients)
         pfun <- switch(object$method, logistic = plogis, probit = pnorm,
                        cloglog = pgumbel, cauchit = pcauchy)
         cumpr <- matrix(pfun(matrix(object$zeta, n, q, byrow=TRUE) - eta), , q)
@@ -513,5 +527,5 @@ confint.profile.polr <-
     drop(ci)
 }
 
-logLik.polr <- function(object, ...) -0.5*object$deviance
-
+logLik.polr <- function(object, ...)
+    structure(-0.5 * object$deviance, df = object$edf, class = "logLik")

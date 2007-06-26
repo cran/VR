@@ -1,4 +1,4 @@
-% file MASS/forbes.d
+% file MASS/man/forbes.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{forbes}

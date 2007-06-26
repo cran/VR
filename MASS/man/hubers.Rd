@@ -1,4 +1,4 @@
-% file MASS/hubers.d
+% file MASS/man/hubers.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{hubers}

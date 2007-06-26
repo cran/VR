@@ -1,4 +1,4 @@
-% file MASS/Traffic.d
+% file MASS/man/Traffic.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Traffic}

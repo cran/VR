@@ -1,4 +1,5 @@
-% file spatial/variogram.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file spatial/man/variogram.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{variogram}
 \alias{variogram}

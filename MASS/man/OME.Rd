@@ -1,4 +1,4 @@
-% file MASS/OME.d
+% file MASS/man/OME.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{OME}
@@ -103,10 +103,11 @@ OMEi <- OME
 library(nlme)
 fp2 <- deriv(~ 0.5 + 0.5/(1 + exp(-(x-L75)/2)),
             "L75", function(x,L75) NULL)
-options(show.error.messages = FALSE)
+dec <- getOption("OutDec")
+options(show.error.messages = FALSE, OutDec=".")
 OMEi.nls <- nlsList(Correct/Trials ~ fp2(Loud, L75) | UIDn,
    data = OMEi, start = list(L75=45), control = list(maxiter=100))
-options(show.error.messages = TRUE)
+options(show.error.messages = TRUE, OutDec=dec)
 tmp <- sapply(OMEi.nls, function(X)
               {if(is.null(X)) NA else as.vector(coef(X))})
 OMEif <- data.frame(UID = round(as.numeric((names(tmp)))),

@@ -1,4 +1,5 @@
-% file spatial/Strauss.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file spatial/man/Strauss.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Strauss}
 \alias{Strauss}

@@ -1,4 +1,5 @@
-% file spatial/expcov.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file spatial/man/expcov.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{expcov}
 \alias{expcov}

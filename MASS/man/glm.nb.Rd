@@ -1,4 +1,4 @@
-% file MASS/glm.nb.d
+% file MASS/man/glm.nb.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{glm.nb}

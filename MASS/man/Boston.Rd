@@ -1,4 +1,4 @@
-% file MASS/Boston.d
+% file MASS/man/Boston.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Boston}

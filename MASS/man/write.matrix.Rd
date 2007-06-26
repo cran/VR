@@ -1,4 +1,4 @@
-% file MASS/write.matrix.d
+% file MASS/man/write.matrix.Rd
 % copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 %
 \name{write.matrix}

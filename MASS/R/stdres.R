@@ -1,9 +1,22 @@
-# file MASS/stdres.q
+# file MASS/R/stdres.R
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 lmwork <- function(object)
 {
-    resid <- object$resid
+    resid <- object$residuals
     hat <- lm.influence(object, do.coef = FALSE)$hat
     hat <- hat[hat > 0]
     ok <- !(is.na(resid))
@@ -15,7 +28,7 @@ lmwork <- function(object)
     resid <- resid[ok]
     n <- length(resid)
     p <- object$rank
-    rdf <- object$df.resid
+    rdf <- object$df.residual
     if(is.null(rdf))
         rdf <- n - p
     if(!is.null(object$weights)) {

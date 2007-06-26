@@ -1,4 +1,4 @@
-% file MASS/Skye.d
+% file MASS/man/Skye.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Skye}

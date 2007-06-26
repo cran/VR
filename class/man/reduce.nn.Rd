@@ -1,4 +1,5 @@
-% file class/reduce.nn.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file class/man/reduce.nn.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{reduce.nn}
 \alias{reduce.nn}

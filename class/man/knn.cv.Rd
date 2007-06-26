@@ -1,4 +1,5 @@
-% file class/knn.cv.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file class/man/knn.cv.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{knn.cv}
 \alias{knn.cv}

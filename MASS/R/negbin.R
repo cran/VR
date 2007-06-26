@@ -1,4 +1,4 @@
-# file MASS/negbin.q
+# file MASS/R/negbin.R
 # copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 #
 anova.negbin <- function(object, ..., test = "Chisq")
@@ -17,7 +17,7 @@ anova.negbin <- function(object, ..., test = "Chisq")
       warning("only Chi-squared LR tests are implemented")
     mlist <- list(object, ...)
     nt <- length(mlist)
-    dflis <- sapply(mlist, function(x) x$df.resid)
+    dflis <- sapply(mlist, function(x) x$df.residual)
     s <- sort.list(-dflis)
     mlist <- mlist[s]
     if(any(!sapply(mlist, inherits, "negbin")))
@@ -129,7 +129,7 @@ glm.nb <- function(formula, data, weights,
                       trace = control$trace > 1),
                       intercept = attr(Terms, "intercept") > 0)
     class(fit) <- c("glm", "lm")
-    mu <- fit$fitted
+    mu <- fit$fitted.values
     th <- as.vector(theta.ml(Y, mu, n, w, limit = control$maxit, trace =
                              control$trace> 2))
     if(control$trace > 1)
@@ -154,7 +154,7 @@ glm.nb <- function(formula, data, weights,
         th <- theta.ml(Y, mu, n, w, limit=control$maxit,
                        trace = control$trace > 2)
         fam <- do.call("negative.binomial", list(theta = th, link = link))
-        mu <- fit$fitted
+        mu <- fit$fitted.values
         del <- t0 - th
         Lm0 <- Lm
         Lm <- loglik(n, th, mu, Y, w)
@@ -292,7 +292,7 @@ theta.md <-
     function(y, mu, dfr, weights, limit = 20, eps = .Machine$double.eps^0.25)
 {
     if(inherits(y, "lm")) {
-        mu <- y$fitted
+        mu <- y$fitted.values
         dfr <- y$df.residual
         y <- if(is.null(y$y)) mu + residuals(y) else y$y
     }
@@ -330,7 +330,7 @@ theta.ml <-
         sum(w*( - trigamma(th + y) + trigamma(th) - 1/th +
                2/(mu + th) - (y + th)/(mu + th)^2))
     if(inherits(y, "lm")) {
-        mu <- y$fitted
+        mu <- y$fitted.values
         y <- if(is.null(y$y)) mu + residuals(y) else y$y
     }
     if(missing(weights)) weights <- rep(1, length(y))
@@ -361,7 +361,7 @@ theta.mm <- function(y, mu, dfr, weights, limit = 10,
                      eps = .Machine$double.eps^0.25)
 {
     if(inherits(y, "lm")) {
-        mu <- y$fitted
+        mu <- y$fitted.values
         dfr <- y$df.residual
         y <- if(is.null(y$y)) mu + residuals(y) else y$y
     }

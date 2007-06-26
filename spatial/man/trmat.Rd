@@ -1,4 +1,5 @@
-% file spatial/trmat.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file spatial/man/trmat.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{trmat}
 \alias{trmat}

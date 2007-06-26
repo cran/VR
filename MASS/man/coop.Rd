@@ -1,4 +1,4 @@
-% file MASS/coop.d
+% file MASS/man/coop.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{coop}

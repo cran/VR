@@ -1,4 +1,4 @@
-% file MASS/addterm.d
+% file MASS/man/addterm.Rd
 % copyright (C) 1998-9 W. N. Venables and B. D. Ripley
 %
 \name{addterm}

@@ -1,4 +1,4 @@
-% file MASS/renumerate.d
+% file MASS/man/renumerate.Rd
 % copyright (C) 2000 W. N. Venables and B. D. Ripley
 %
 \name{renumerate}

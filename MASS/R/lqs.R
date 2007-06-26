@@ -1,5 +1,19 @@
-### file lqs/R/lqs.R
-### copyright (C) 1998-2005 B. D. Ripley
+# file lqs/R/lqs.R
+# copyright (C) 1998-2005 B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+#
 
 lqs <- function(x, ...) UseMethod("lqs")
 
@@ -126,7 +140,7 @@ lqs.default <-
         if(lts == 1)
             sqrt(z$crit/quantile)/sqrt(1 - 2*n*dnorm(1/c1)/(quantile*c1))
         else if(lts == 0) sqrt(z$crit)*c1 else z$crit
-    res <- z$residual
+    res <- z$residuals
     ind <- abs(res) <= 2.5*s
     s2 <- sum(res[ind]^2)/(sum(ind) - p)
     z$scale <- c(s, sqrt(s2))
@@ -142,7 +156,7 @@ lqs.default <-
 	    if(abs(s2/scale - 1) < 1e-5) break
 	    scale <- s2
 	}
-	z$coef <- temp$coef
+	z$coef <- temp$coefficients
 	z$fitted.values <- temp$fitted.values
 	z$residuals <- resid
 	z$scale <- scale

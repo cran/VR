@@ -1,4 +1,4 @@
-% file MASS/corresp.d
+% file MASS/man/corresp.Rd
 % copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 %
 \name{corresp}

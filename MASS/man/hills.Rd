@@ -1,4 +1,4 @@
-% file MASS/hills.d
+% file MASS/man/hills.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{hills}

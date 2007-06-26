@@ -1,4 +1,4 @@
-% file MASS/farms.d
+% file MASS/man/farms.Rd
 % copyright (C) 1998-9 W. N. Venables and B. D. Ripley
 %
 \name{farms}

@@ -1,4 +1,4 @@
-% file MASS/Null.d
+% file MASS/man/Null.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Null}

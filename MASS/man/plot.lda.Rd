@@ -1,4 +1,4 @@
-% file MASS/plot.lda.d
+% file MASS/man/plot.lda.Rd
 % copyright (C) 1998-9 W. N. Venables and B. D. Ripley
 %
 \name{plot.lda}

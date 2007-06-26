@@ -1,4 +1,5 @@
-% file nnet/predict.nnet.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file nnet/man/predict.nnet.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{predict.nnet}
 \alias{predict.nnet}

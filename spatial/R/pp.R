@@ -1,10 +1,25 @@
-# file spatial/pp.q copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# file spatial/R/pp.R
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+#
 #
 ppinit <- function(file)
 {
   tfile <- file
   t1file <- system.file("ppdata", file, package="spatial")
-  if(nchar(t1file) > 0) tfile <- t1file
+  if(nzchar(t1file)) tfile <- t1file
   h <- scan(tfile, list(xl = 0, xu = 0, yl = 0, yu = 0, fac = 0),
 	    n = 5, skip = 2, quiet = TRUE)
   pp <- scan(tfile, list(x = 0, y = 0), skip = 3, quiet = TRUE)

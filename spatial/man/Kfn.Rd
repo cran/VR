@@ -1,4 +1,5 @@
-% file spatial/Kfn.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file spatial/man/Kfn.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Kfn}
 \alias{Kfn}

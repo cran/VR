@@ -1,4 +1,5 @@
-% file nnet/class.ind.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file nnet/man/class.ind.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{class.ind}
 \alias{class.ind}

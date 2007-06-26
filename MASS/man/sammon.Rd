@@ -1,4 +1,4 @@
-% file MASS/sammon.d
+% file MASS/man/sammon.Rd
 % copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
 %
 \name{sammon}

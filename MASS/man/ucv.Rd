@@ -1,4 +1,4 @@
-% file MASS/ucv.d
+% file MASS/man/ucv.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{ucv}

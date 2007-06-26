@@ -1,4 +1,4 @@
-% file MASS/Cars93.d
+% file MASS/man/Cars93.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Cars93}

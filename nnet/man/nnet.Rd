@@ -1,4 +1,5 @@
-% file nnet/nnet.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file nnet/man/nnet.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{nnet}
 \alias{nnet}

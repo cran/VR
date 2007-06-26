@@ -1,4 +1,4 @@
-% file MASS/steam.d
+% file MASS/man/steam.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{steam}

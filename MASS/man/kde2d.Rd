@@ -1,4 +1,4 @@
-% file MASS/kde2d.d
+% file MASS/man/kde2d.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{kde2d}

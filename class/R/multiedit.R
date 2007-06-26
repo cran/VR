@@ -1,4 +1,19 @@
-# file nnet/multiedit.q copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# file nnet/R/multiedit.R
+# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+#
 #
 multiedit <- function(x, class, k=1, V=3, I=5, trace=TRUE)
 {
@@ -17,7 +32,7 @@ multiedit <- function(x, class, k=1, V=3, I=5, trace=TRUE)
 	 for (i in 1:V){
 	     train <- sub==i
 	     test <- sub==(1 + i%%V)
-	     keep[test] <- (knn(x[train, , drop=FALSE], x[test, , drop=FALSE], 
+	     keep[test] <- (knn(x[train, , drop=FALSE], x[test, , drop=FALSE],
 		class[train],k) == class[test])
 	 }
 	 x <- x[keep, , drop=FALSE]; class <- class[keep]; index <- index[keep]
@@ -54,7 +69,7 @@ reduce.nn <- function(train, ind, class)
      rest <- seq(n)[-ind]
 # this must be done iteratively, not simultaneously
      for(i in sample(ind)) {
-	 res <- knn1(train[-c(rest,i),,drop=FALSE], train[c(rest,i),,drop=FALSE], 
+	 res <- knn1(train[-c(rest,i),,drop=FALSE], train[c(rest,i),,drop=FALSE],
 	             class[-c(rest,i)])
 	 if(all(res == class[c(rest,i)])) rest <- c(rest,i)
      }

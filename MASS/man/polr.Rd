@@ -1,4 +1,4 @@
-% file MASS/polr.d
+% file MASS/man/polr.Rd
 % copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 %
 \name{polr}

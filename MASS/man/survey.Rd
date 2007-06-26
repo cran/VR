@@ -1,4 +1,4 @@
-% file MASS/survey.d
+% file MASS/man/survey.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{survey}

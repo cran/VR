@@ -1,4 +1,4 @@
-% file MASS/deaths.d
+% file MASS/man/deaths.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{deaths}

@@ -1,4 +1,5 @@
-% file class/lvqtest.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file class/man/lvqtest.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{lvqtest}
 \alias{lvqtest}

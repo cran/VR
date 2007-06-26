@@ -1,4 +1,5 @@
-% file spatial/SSI.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file spatial/man/SSI.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{SSI}
 \alias{SSI}

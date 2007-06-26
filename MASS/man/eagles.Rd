@@ -1,4 +1,4 @@
-% file MASS/eagles.d
+% file MASS/man/eagles.Rd
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
 \name{eagles}

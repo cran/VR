@@ -1,4 +1,4 @@
-% file MASS/biopsy.d
+% file MASS/man/biopsy.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{biopsy}

@@ -1,4 +1,4 @@
-% file MASS/Insurance.d
+% file MASS/man/Insurance.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Insurance}

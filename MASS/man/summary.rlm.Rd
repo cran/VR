@@ -1,4 +1,4 @@
-% file MASS/summary.rlm.d
+% file MASS/man/summary.rlm.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{summary.rlm}

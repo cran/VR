@@ -1,4 +1,4 @@
-% file MASS/caith.d
+% file MASS/man/caith.Rd
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
 \name{caith}

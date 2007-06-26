@@ -1,4 +1,4 @@
-% file MASS/lm.gls.d
+% file MASS/man/lm.gls.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{lm.gls}

@@ -1,4 +1,4 @@
-% file MASS/fractions.d
+% file MASS/man/fractions.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{fractions}

@@ -1,4 +1,4 @@
-% file MASS/shoes.d
+% file MASS/man/shoes.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{shoes}

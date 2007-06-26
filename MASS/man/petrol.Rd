@@ -1,4 +1,4 @@
-% file MASS/petrol.d
+% file MASS/man/petrol.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{petrol}

@@ -1,5 +1,18 @@
-# file MASS/stepAIC.q
-# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+# file MASS/R/stepAIC.R
+# copyright (C) 1994-2007 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 stepAIC <-
   function(object, scope, scale = 0,
@@ -96,8 +109,8 @@ stepAIC <-
     nm <- 1
     Terms <- terms(fit)
     if(trace) {
-        message("Start:  AIC=", format(round(bAIC, 2)), "\n",
-                cut.string(deparse(as.vector(formula(fit)))), "\n")
+        cat("Start:  AIC=", format(round(bAIC, 2)), "\n",
+            cut.string(deparse(as.vector(formula(fit)))), "\n\n", sep='')
 	utils::flush.console()
     }
     models[[nm]] <- list(deviance = mydeviance(fit), df.resid = n - edf,
@@ -175,8 +188,8 @@ stepAIC <-
         edf <- bAIC[1]
         bAIC <- bAIC[2]
         if(trace) {
-            message("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
-                    cut.string(deparse(as.vector(formula(fit)))), "\n")
+            cat("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
+                cut.string(deparse(as.vector(formula(fit)))), "\n\n", sep='')
 	    utils::flush.console()
 	}
         ## add a tolerance as dropping 0-df terms might increase AIC slightly

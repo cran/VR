@@ -1,4 +1,4 @@
-% file MASS/cov.trob.d
+% file MASS/man/cov.trob.Rd
 % copyright (C) 1997-9 W. N. Venables and B. D. Ripley
 %
 \name{cov.trob}

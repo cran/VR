@@ -1,4 +1,4 @@
-% file MASS/minn38.d
+% file MASS/man/minn38.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{minn38}

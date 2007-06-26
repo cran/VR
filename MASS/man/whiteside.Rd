@@ -1,4 +1,4 @@
-% file MASS/whiteside.d
+% file MASS/man/whiteside.Rd
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
 \name{whiteside}
@@ -61,12 +61,12 @@ gasBA <- lm(Gas ~ Insul/Temp - 1, whiteside)
 summary(gasBA)
 
 gasQ <- lm(Gas ~ Insul/(Temp + I(Temp^2)) - 1, whiteside)
-summary(gasQ)$coef
+coef(summary(gasQ))
 
 gasPR <- lm(Gas ~ Insul + Temp, whiteside)
 anova(gasPR, gasBA)
 options(contrasts = c("contr.treatment", "contr.poly"))
 gasBA1 <- lm(Gas ~ Insul*Temp, whiteside)
-summary(gasBA1)$coef
+coef(summary(gasBA1))
 }
 \keyword{datasets}

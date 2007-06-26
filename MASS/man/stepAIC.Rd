@@ -1,4 +1,4 @@
-% file MASS/stepAIC.d
+% file MASS/man/stepAIC.Rd
 % copyright (C) 1994-2002 W. N. Venables and B. D. Ripley
 %
 \name{stepAIC}
@@ -11,7 +11,7 @@
   Choose a model by AIC in a Stepwise Algorithm
 }
 \description{
-  Performs stepwise model selection by exact AIC.
+  Performs stepwise model selection by AIC.
 }
 \usage{
 stepAIC(object, scope, scale = 0,

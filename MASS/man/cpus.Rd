@@ -1,4 +1,4 @@
-% file MASS/cpus.d
+% file MASS/man/cpus.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{cpus}

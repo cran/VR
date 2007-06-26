@@ -1,4 +1,4 @@
-% file MASS/anova.negbin.d
+% file MASS/man/anova.negbin.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{anova.negbin}

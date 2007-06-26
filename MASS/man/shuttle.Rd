@@ -1,4 +1,4 @@
-% file MASS/shuttle.d
+% file MASS/man/shuttle.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{shuttle}

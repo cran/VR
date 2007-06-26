@@ -1,4 +1,18 @@
-# file nnet/nnet.q copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+# file nnet/nnet.R
+# copyright (C) 1994-2003 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 nnet <- function(x, ...) UseMethod("nnet")
 
@@ -195,7 +209,7 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
        as.integer(object$nsunits), as.integer(0),
        as.integer(object$softmax), as.integer(object$censored))
     z <- matrix(NA, nrow(newdata), nout,
-                dimnames = list(rn, dimnames(object$fitted)[[2]]))
+                dimnames = list(rn, dimnames(object$fitted.values)[[2]]))
     z[keep, ] <- matrix(.C(VR_nntest,
                            as.integer(ntr),
                            as.double(x),

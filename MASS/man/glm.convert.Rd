@@ -1,4 +1,4 @@
-% file MASS/glm.convert.d
+% file MASS/man/glm.convert.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{glm.convert}

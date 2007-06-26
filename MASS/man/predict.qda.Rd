@@ -1,4 +1,4 @@
-% file MASS/predict.qda.d
+% file MASS/man/predict.qda.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{predict.qda}

@@ -1,4 +1,4 @@
-% file MASS/housing.d
+% file MASS/man/housing.Rd
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
 \name{housing}
@@ -57,7 +57,7 @@ addterm(house.glm0, ~. + Sat:(Infl+Type+Cont), test = "Chisq")
 house.glm1 <- update(house.glm0, . ~ . + Sat*(Infl+Type+Cont))
 summary(house.glm1, cor = FALSE)
 
-1 - pchisq(deviance(house.glm1), house.glm1$df.resid)
+1 - pchisq(deviance(house.glm1), house.glm1$df.residual)
 
 dropterm(house.glm1, test = "Chisq")
 

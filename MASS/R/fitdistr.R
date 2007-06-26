@@ -1,3 +1,19 @@
+# file MASS/R/fitdistr.R
+# copyright (C) 2002-2007 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+#
 fitdistr <- function(x, densfun, start, ...)
 {
     myfn <- function(parm, ...) -sum(log(dens(parm, ...)))
@@ -169,6 +185,7 @@ print.fitdistr <-
     ans <- format(rbind(x$estimate, x$sd), digits=digits)
     ans[1, ] <- sapply(ans[1, ], function(x) paste("", x))
     ans[2, ] <- sapply(ans[2, ], function(x) paste("(", x, ")", sep=""))
+    ## only used for digits
     dn <- dimnames(ans)
     dn[[1]] <- rep("", 2)
     dn[[2]] <- paste(substring("      ", 1, (nchar(ans[2,]) - nchar(dn[[2]])) %/% 2), dn[[2]])

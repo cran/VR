@@ -1,4 +1,4 @@
-% file MASS/predict.lda.d
+% file MASS/man/predict.lda.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{predict.lda}

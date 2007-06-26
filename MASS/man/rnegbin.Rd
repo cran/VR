@@ -1,4 +1,4 @@
-% file MASS/rnegbin.d
+% file MASS/man/rnegbin.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{rnegbin}

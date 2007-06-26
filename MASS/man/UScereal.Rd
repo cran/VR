@@ -1,4 +1,4 @@
-% file MASS/UScereal.d
+% file MASS/man/UScereal.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{UScereal}

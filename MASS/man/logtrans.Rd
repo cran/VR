@@ -1,4 +1,4 @@
-% file MASS/logtrans.d
+% file MASS/man/logtrans.Rd
 % copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 %
 \name{logtrans}

@@ -2,7 +2,21 @@
 #
 # port to R by B. D. Ripley copyright (C) 1998
 #
-#corrections copyright (C) 2000,3,6 B. D. Ripley
+# corrections copyright (C) 2000,3,6 B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+
 profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
 			maxsteps = 10, del = zmax/5, trace = FALSE, ...)
 {
@@ -60,7 +74,7 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
             step <- 0
             z <- 0
             ## LP is the linear predictor including offset.
-            LP <- X %*% fitted$coef + O
+            LP <- X %*% fitted$coefficients + O
             while((step <- step + 1) < maxsteps && abs(z) < zmax) {
                 bi <- B0[i] + sgn * step * del * std.err[i]
                 o <- O + X[, i] * bi
@@ -68,7 +82,7 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
                 fm <- glm.fit(x = Xi, y = Y, weights = W, etastart = LP,
                               offset = o, family = fam,
                               control = fitted$control)
-                LP <- Xi %*% fm$coef + o
+                LP <- Xi %*% fm$coefficients + o
                 ri <- pv0
                 ri[, names(coef(fm))] <- coef(fm)
                 ri[, pi] <- bi

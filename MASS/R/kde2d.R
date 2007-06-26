@@ -1,13 +1,26 @@
-# file MASS/kde2d.q
+# file MASS/R/kde2d.R
 # copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 kde2d <- function(x, y, h, n = 25, lims=c(range(x), range(y)) )
 {
     nx <- length(x)
     if(length(y) != nx)
         stop("data vectors must be the same length")
-    gx <- seq(lims[1], lims[2], length = n)
-    gy <- seq(lims[3], lims[4], length = n)
+    gx <- seq.int(lims[1], lims[2], length.out = n)
+    gy <- seq.int(lims[3], lims[4], length.out = n)
     if (missing(h))
         h <- c(bandwidth.nrd(x), bandwidth.nrd(y))
     h <- h/4                            # for S's bandwidth scale

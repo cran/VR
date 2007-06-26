@@ -1,4 +1,4 @@
-% file MASS/gehan.d
+% file MASS/man/gehan.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{gehan}

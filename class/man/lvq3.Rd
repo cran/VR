@@ -1,4 +1,5 @@
-% file class/lvq3.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file class/man/lvq3.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{lvq3}
 \alias{lvq3}

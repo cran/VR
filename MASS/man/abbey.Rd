@@ -1,4 +1,4 @@
-% file MASS/abbey.d
+% file MASS/man/abbey.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{abbey}

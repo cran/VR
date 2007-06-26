@@ -1,5 +1,18 @@
-# file MASS/loglm.q
+# file MASS/R/loglm.R
 # copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 denumerate <- function(x) UseMethod("denumerate")
 
@@ -24,7 +37,8 @@ renumerate.formula <- function(x)
 {
     if(length(x) == 1) {
         if(mode(x) == "name"
-           && nchar(xx <- as.character(x)) > 2
+	   ## these are always one-byte chars
+           && nchar(xx <- as.character(x), "b") > 2
            && substring(xx, 1, 2) == ".v")
             x <- as.name(substring(xx, 3))
     } else {
@@ -40,7 +54,7 @@ loglm <-
 {
     .call <- match.call()
     if(missing(data) || inherits(data, "data.frame")) {
-        m <- match.call(expand = FALSE)
+        m <- match.call(expand.dots = FALSE)
         m$... <- NULL
         m[[1]] <- as.name("model.frame")
         data <- eval.parent(m)
@@ -174,7 +188,7 @@ anova.loglm <- function(object, ..., test = c("Chisq", "chisq", "LR"))
 print.anova.loglm <- function(x, ...)
 {
     rjustify <- function(str) {
-        m <- max(n <- nchar(str))
+        m <- max(n <- nchar(str, "c"))
         blanks <- format(c("", str[n == m][1]))[1]
         paste(substring(blanks, 0, m - n), str, sep = "")
     }

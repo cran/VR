@@ -1,4 +1,4 @@
-% file MASS/Sitka.d
+% file MASS/man/Sitka.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{Sitka}

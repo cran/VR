@@ -1,4 +1,4 @@
-% file MASS/loglm.d
+% file MASS/man/loglm.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{loglm}
@@ -120,7 +120,7 @@ sapply(minn38, function(x) length(levels(x)))
 ## hs phs fol sex f
 ##  3   4   7   2 0
 minn38a <- array(0, c(3,4,7,2), lapply(minn38[, -5], levels))
-minn38a[data.matrix(minn38[,-5])] <- minn38$f
+minn38a[data.matrix(minn38[,-5])] <- minn38$fol
 fm <- loglm(~1 + 2 + 3 + 4, minn38a)  # numerals as names.
 deviance(fm)
 ##[1] 3711.9

@@ -1,3 +1,6 @@
+% file spatial/man/anova.trls.Rd
+% copyright (C) 2001-2 W. N. Venables and B. D. Ripley
+%
 \name{anova.trls}
 \alias{anova.trls}
 \alias{anovalist.trls}

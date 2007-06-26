@@ -1,4 +1,4 @@
-% file MASS/man/isoMDS.Rd
+% file MASS/man/man/isoMDS.Rd
 % copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
 %
 \name{isoMDS}

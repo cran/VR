@@ -1,4 +1,4 @@
-% file MASS/birthwt.d
+% file MASS/man/birthwt.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{birthwt}

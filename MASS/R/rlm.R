@@ -1,5 +1,18 @@
-# file MASS/rlm.q
+# file MASS/R/rlm.R
 # copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
 #
 rlm <- function(x, ...) UseMethod("rlm")
 
@@ -117,8 +130,8 @@ rlm.default <-
                 if(is.null(lqs.control)) lqs.control <- list(nsamp=200)
                 do.call("lqs", c(list(x, y, intercept = FALSE), lqs.control))
             } else stop("'init' method is unknown")
-            coef <- temp$coef
-            resid <- temp$resid
+            coef <- temp$coefficient
+            resid <- temp$residuals
         } else {
             if(is.list(init)) coef <- init$coef
             else coef <- init
@@ -129,8 +142,8 @@ rlm.default <-
         temp <- do.call("lqs",
                         c(list(x, y, intercept = FALSE, method = "S",
                                k0 = 1.548), lqs.control))
-        coef <- temp$coef
-        resid <- temp$resid
+        coef <- temp$coefficients
+        resid <- temp$residuals
         psi <- psi.bisquare
         if(length(arguments <- list(...)))
             if(match("c", names(arguments), nomatch = FALSE)) {
@@ -168,7 +181,7 @@ rlm.default <-
         w <- psi(resid/scale)
         if(!is.null(wt)) w <- w * weights
         temp <- lm.wfit(x, y, w, method="qr")
-        coef <- temp$coef
+        coef <- temp$coefficients
         resid <- temp$residuals
         if(!is.null(test.vec)) convi <- irls.delta(testpv, get(test.vec))
         else convi <- irls.rrxwr(x, w, resid)
@@ -203,13 +216,13 @@ print.rlm <- function(x, ...)
     if(x$converged)
         cat("Converged in", length(x$conv), "iterations\n")
     else cat("Ran", length(x$conv), "iterations without convergence\n")
-    coef <- x$coef
+    coef <- x$coefficients
     cat("\nCoefficients:\n")
     print(coef, ...)
-    nobs <- length(x$resid)
+    nobs <- length(x$residuals)
     rdf <- nobs - length(coef)
     cat("\nDegrees of freedom:", nobs, "total;", rdf, "residual\n")
-    if(nchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep="")
+    if(nzchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep="")
     cat("Scale estimate:", format(signif(x$s,3)), "\n")
     invisible(x)
 }
@@ -219,7 +232,7 @@ summary.rlm <- function(object, method = c("XtX", "XtWX"),
 {
     method <- match.arg(method)
     s <- object$s
-    coef <- object$coef
+    coef <- object$coefficients
     ptotal <- length(coef)
     wresid <- object$wresid
     res <- object$residuals
@@ -312,10 +325,10 @@ function(x, digits = max(3, .Options$digits - 3), ...)
         cat("\nCoefficients: (", nsingular,
             " not defined because of singularities)\n", sep = "")
     else cat("\nCoefficients:\n")
-    print(format(round(x$coef, digits = digits)), quote = FALSE, ...)
+    print(format(round(x$coefficients, digits = digits)), quote = FALSE, ...)
     cat("\nResidual standard error:", format(signif(x$sigma, digits)),
         "on", rdf, "degrees of freedom\n")
-    if(nchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep="")
+    if(nzchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep="")
     if(!is.null(correl <- x$correlation)) {
         p <- dim(correl)[2]
         if(p > 1) {

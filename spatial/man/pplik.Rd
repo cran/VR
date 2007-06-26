@@ -1,4 +1,5 @@
-% file spatial/pplik.d copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+% file spatial/man/pplik.Rd
+% copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{pplik}
 \alias{pplik}

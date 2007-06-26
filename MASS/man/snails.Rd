@@ -1,4 +1,4 @@
-% file MASS/snails.d
+% file MASS/man/snails.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{snails}

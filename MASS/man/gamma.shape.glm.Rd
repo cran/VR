@@ -1,4 +1,4 @@
-% file MASS/gamma.shape.glm.d
+% file MASS/man/gamma.shape.glm.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{gamma.shape}

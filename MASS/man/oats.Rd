@@ -1,4 +1,4 @@
-% file MASS/oats.d
+% file MASS/man/oats.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{oats}

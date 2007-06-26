@@ -1,4 +1,4 @@
-% file MASS/negative.binomial.d
+% file MASS/man/negative.binomial.Rd
 % copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
 %
 \name{negative.binomial}

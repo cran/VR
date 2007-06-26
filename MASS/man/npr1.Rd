@@ -1,4 +1,4 @@
-% file MASS/npr1.d
+% file MASS/man/npr1.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{npr1}

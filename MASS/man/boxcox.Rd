@@ -1,4 +1,4 @@
-% file MASS/boxcox.d
+% file MASS/man/boxcox.Rd
 % copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
 %
 \name{boxcox}

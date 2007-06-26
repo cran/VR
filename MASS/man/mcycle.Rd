@@ -1,4 +1,4 @@
-% file MASS/mcycle.d
+% file MASS/man/mcycle.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{mcycle}

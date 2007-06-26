@@ -1,4 +1,4 @@
-% file MASS/wtloss.d
+% file MASS/man/wtloss.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{wtloss}

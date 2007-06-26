@@ -1,4 +1,4 @@
-% file MASS/truehist.d
+% file MASS/man/truehist.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{truehist}

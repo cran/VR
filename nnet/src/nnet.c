@@ -1,6 +1,21 @@
-/*  nnet/nnet.c by W. N. Venables and B. D. Ripley  Copyright (C) 1992-2002
+/*  nnet/src/nnet.c by W. N. Venables and B. D. Ripley  Copyright (C) 1992-2002
  *
- * weights are stored in order of their destination unit.
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 or 3 of the License
+ *  (at your option).
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  A copy of the GNU General Public License is available at
+ *  http://www.r-project.org/Licenses/
+ */
+
+/* weights are stored in order of their destination unit.
  * the array Conn gives the source unit for the weight (0 = bias unit)
  * the array Nconn gives the number of first weight connecting to each unit,
  * so the weights connecting to unit i are Nconn[i] ... Nconn[i+1] - 1.

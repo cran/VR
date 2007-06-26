@@ -1,4 +1,4 @@
-% file MASS/npk.d
+% file MASS/man/npk.Rd
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
 \name{npk}

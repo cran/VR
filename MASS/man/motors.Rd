@@ -1,4 +1,4 @@
-% file MASS/motors.d
+% file MASS/man/motors.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{motors}

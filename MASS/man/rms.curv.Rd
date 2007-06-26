@@ -1,4 +1,4 @@
-% file MASS/rms.curv.d
+% file MASS/man/rms.curv.Rd
 % copyright (C) 1994-9 W. N. Venables and B. D. Ripley
 %
 \name{rms.curv}

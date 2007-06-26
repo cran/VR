@@ -1,4 +1,4 @@
-% file MASS/anorexia.d
+% file MASS/man/anorexia.Rd
 % copyright (C) 1999 W. N. Venables and B. D. Ripley
 %
 \name{anorexia}
