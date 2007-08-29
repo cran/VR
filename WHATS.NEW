@@ -159,6 +159,7 @@ Library MASS
   correlation = FALSE.
 - there is a vcov() method for class "negbin": unlike the "glm" method
   this defaults to dispersion = 1.
+- coding for 'sex' in ?Melanoma has been corrected.
 
 
 

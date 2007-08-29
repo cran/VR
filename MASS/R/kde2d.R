@@ -1,5 +1,5 @@
 # file MASS/R/kde2d.R
-# copyright (C) 1994-9 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2007 W. N. Venables and B. D. Ripley
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -19,6 +19,10 @@ kde2d <- function(x, y, h, n = 25, lims=c(range(x), range(y)) )
     nx <- length(x)
     if(length(y) != nx)
         stop("data vectors must be the same length")
+    if(any(!is.finite(x)) || any(!is.finite(y)))
+	stop("missing or infinite values in the data are not allowed")
+    if(any(!is.finite(lims)))
+	stop("only finite values are allowed in 'lims'")
     gx <- seq.int(lims[1], lims[2], length.out = n)
     gy <- seq.int(lims[3], lims[4], length.out = n)
     if (missing(h))

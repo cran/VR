@@ -23,7 +23,7 @@ survival time in days, possibly censored
 \code{1} died from melanoma, \code{2} alive, \code{3} dead from other causes
 }
 \item{\code{sex}}{
-\code{1} = male, \code{2} = female
+\code{1} = male, \code{0} = female
 }
 \item{\code{age}}{
 age in years
