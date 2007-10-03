@@ -73,7 +73,8 @@ Alpha: 538.13
    SE: 253.60
 }
 gm <- glm(Days + 0.1 ~ Age*Eth*Sex*Lrn,
-	  quasi(link=log, variance="mu^2"), quine, start = rep(0,32))
+	  quasi(link=log, variance="mu^2"), quine,
+          start = c(3, rep(0,31)))
 gamma.shape(gm, verbose = TRUE)
 \dontrun{
 Initial estimate: 1.0603

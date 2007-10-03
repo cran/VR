@@ -1,6 +1,5 @@
 \name{bacteria}
 \alias{bacteria}
-\non_function{}
 \title{
 Presence of Bacteria after Drug Treatments
 }

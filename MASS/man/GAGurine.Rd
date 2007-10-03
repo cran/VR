@@ -10,7 +10,7 @@ Level of GAG in Urine of Children
 Data were collected on the concentration of a chemical GAG in the
 urine of 314 children aged from zero to seventeen years.  The aim of
 the study was to produce a chart to help a paediatrican to assess if a
-child's GAG concentration is \dQuote{normal}.
+child's GAG concentration is \sQuote{normal}.
 }
 \usage{
 GAGurine

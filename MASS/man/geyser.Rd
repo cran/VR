@@ -1,6 +1,5 @@
 \name{geyser}
 \alias{geyser}
-\non_function{}
 \usage{
 geyser
 }

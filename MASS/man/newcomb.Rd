@@ -11,7 +11,7 @@ A numeric vector giving the Third Series of measurements of the
 passage time of light recorded
 by Newcomb in 1882. The given values divided by 1000 plus 24 give the
 time in millionths of a second for light to traverse a known distance.
-The \dQuote{true} value is now considered to be 33.02.
+The \sQuote{true} value is now considered to be 33.02.
 }
 \usage{
 newcomb

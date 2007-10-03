@@ -1,5 +1,5 @@
 % file lqs/man/lqs.Rd
-% copyright (C) 1998-9 B. D. Ripley    (C) 2001-2 R Core Development Team
+% copyright (C) 1998-9, 2007 B. D. Ripley    (C) 2001-2 R Core Development Team
 %
 \name{lqs}
 \alias{lqs}
@@ -62,7 +62,7 @@ ltsreg(\dots)
   \item{control}{additional control items: see \code{Details}.}
   \item{k0}{the cutoff / tuning constant used for \eqn{\chi()}{chi()}
     and \eqn{\psi()}{psi()} functions when \code{method = "S"}, currently
-    corresponding to Tukey's \dQuote{biweight}.}
+    corresponding to Tukey's \sQuote{biweight}.}
   \item{seed}{
     the seed to be used for random sampling: see \code{.Random.seed}. The
     current value of \code{.Random.seed} will be preserved if it is set..

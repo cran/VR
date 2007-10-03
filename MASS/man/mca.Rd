@@ -22,8 +22,8 @@ The number of dimensions for the MCA. Rarely 3 might be useful.
 }
 \item{abbrev}{
 Should the vertex names be abbreviated?  By default these are of the
-form \dQuote{factor.level} but if \code{abbrev = TRUE} they are just
-\dQuote{level} which will suffice if the factors have distinct levels.
+form \sQuote{factor.level} but if \code{abbrev = TRUE} they are just
+\sQuote{level} which will suffice if the factors have distinct levels.
 }}
 \value{
 An object of class \code{"mca"}, with components

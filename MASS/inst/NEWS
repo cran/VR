@@ -138,3 +138,5 @@ This file documents software changes since the third edition.
 - there is a vcov() method for class "negbin": unlike the "glm" method
   this defaults to dispersion = 1.
 - coding for 'sex' in ?Melanoma has been corrected.
+- the example for gamma.shape has a better starting points and so converges
+- avoid abbreviation of survreg(dist=) in example(gehan)

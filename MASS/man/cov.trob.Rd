@@ -33,7 +33,7 @@ the covariance is to be taken. If \code{center = FALSE}, no centering
 is done; if \code{center = TRUE} the MLE of the location vector is used.
 }
 \item{nu}{
-\dQuote{degrees of freedom} for the multivariate t distribution. Must exceed
+\sQuote{degrees of freedom} for the multivariate t distribution. Must exceed
 2 (so that the covariance matrix is finite).
 }
 \item{maxit}{
