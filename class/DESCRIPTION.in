@@ -1,3 +1,4 @@
 Package: class
 Description: Various functions for classification.
 Title: Functions for Classification
+LazyLoad: yes

@@ -24,6 +24,7 @@
 
 #include <R.h>
 #include <R_ext/Applic.h>
+#include <math.h>
 
 typedef double Sdata;
 

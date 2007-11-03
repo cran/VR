@@ -55,7 +55,7 @@ polr <- function(formula, data, weights, start, ..., subset,
         xx <- .polrY1*p1 - .polrY2*p2
         g2 <- - t(xx) %*% (wt/pr)
         g2 <- t(g2) %*% jacobian(theta)
-        if(all(pr) > 0) c(g1, g2) else rep(NA, pc+q)
+        if(all(pr > 0)) c(g1, g2) else rep(NA, pc+q)
     }
 
     m <- match.call(expand.dots = FALSE)

@@ -1,3 +1,4 @@
 Package: spatial
 Description: Functions for kriging and point pattern analysis.
 Title: Functions for Kriging and Point Pattern Analysis
+LazyLoad: yes

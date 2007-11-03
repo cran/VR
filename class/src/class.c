@@ -17,6 +17,8 @@
  */
 
 #include <R.h>
+#include <math.h>
+#include <float.h>
 
 #define EPS 1e-4		/* relative test of equality of distances */
 

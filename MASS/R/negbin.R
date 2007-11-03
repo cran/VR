@@ -175,7 +175,7 @@ glm.nb <- function(formula, data, weights,
   # compute the Null deviance; these are done here, unless the model
   # is NULL, in which case the computations have been done already
   #
-    if(any(offset) && attr(Terms, "intercept")) {
+    if(length(offset) && attr(Terms, "intercept")) {
         null.deviance <-
             if(length(Terms))
                 glm.fitter(X[, "(Intercept)", drop = FALSE], Y, w,

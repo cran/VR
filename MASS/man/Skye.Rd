@@ -43,7 +43,7 @@ ternary <- function(X, pch = par("pch"), lcex = 1,
                     add = FALSE, ord = 1:3, \dots)
 {
   X <- as.matrix(X)
-  if(any(X) < 0) stop("X must be non-negative")
+  if(any(X < 0)) stop("X must be non-negative")
   s <- drop(X \%*\% rep(1, ncol(X)))
   if(any(s<=0)) stop("each row of X must have a positive sum")
   if(max(abs(s-1)) > 1e-6) {
