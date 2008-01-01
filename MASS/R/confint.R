@@ -41,6 +41,8 @@ confint.profile.glm <-
     cutoff <- qnorm(a)
     for(pm in parm) {
         pro <- object[[ pnames[pm] ]]
+        ## skip aliased params
+        if(is.null(pro)) next
         if(length(pnames) > 1)
             sp <- spline(x = pro[, "par.vals"][, pm], y = pro[, 1])
         else sp <- spline(x = pro[, "par.vals"], y = pro[, 1])

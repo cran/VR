@@ -2,7 +2,7 @@
 #
 # port to R by B. D. Ripley copyright (C) 1998
 #
-# corrections copyright (C) 2000,3,6 B. D. Ripley
+# corrections copyright (C) 2000,3,6,7 B. D. Ripley
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -21,11 +21,12 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
 			maxsteps = 10, del = zmax/5, trace = FALSE, ...)
 {
     Pnames <- names(B0 <- coefficients(fitted))
+    nonA <- !is.na(B0)
     pv0 <- t(as.matrix(B0))
     p <- length(Pnames)
     if(is.character(which)) which <- match(which, Pnames)
     summ <- summary(fitted)
-    std.err <- summ$coefficients[, "Std. Error"]
+    std.err <- summ$coefficients[, "Std. Error", drop = FALSE] # unaliased only
     mf <- model.frame(fitted)
     n <- length(Y <- model.response(mf))
     O <- model.offset(mf)
@@ -65,18 +66,23 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
     prof <- vector("list", length=length(which))
     names(prof) <- Pnames[which]
     for(i in which) {
+        if(!nonA[i]) next
         zi <- 0
         pvi <- pv0
-        Xi <- X[,  - i, drop = FALSE]
+        a <- nonA; a[i] <- FALSE
+        Xi <- X[, a, drop = FALSE]
         pi <- Pnames[i]
         for(sgn in c(-1, 1)) {
-            if(trace) message("\nParameter:", pi, c("down", "up")[(sgn + 1)/2 + 1])
+            if(trace)
+                message("\nParameter: ", pi, " ",
+                        c("down", "up")[(sgn + 1)/2 + 1])
             step <- 0
             z <- 0
             ## LP is the linear predictor including offset.
-            LP <- X %*% fitted$coefficients + O
+            ## we need to take care to avoid aliased-out coefficients.
+            LP <- X[, nonA] %*% B0[nonA] + O
             while((step <- step + 1) < maxsteps && abs(z) < zmax) {
-                bi <- B0[i] + sgn * step * del * std.err[i]
+                bi <- B0[i] + sgn * step * del * std.err[Pnames[i], 1]
                 o <- O + X[, i] * bi
                 ## call to glm.fit.null not needed from 1.4.1 on
                 fm <- glm.fit(x = Xi, y = Y, weights = W, etastart = LP,

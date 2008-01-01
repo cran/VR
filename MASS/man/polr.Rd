@@ -1,5 +1,5 @@
 % file MASS/man/polr.Rd
-% copyright (C) 1994-2004 W. N. Venables and B. D. Ripley
+% copyright (C) 1994-2007 W. N. Venables and B. D. Ripley
 %
 \name{polr}
 \alias{polr}
@@ -29,12 +29,11 @@ polr(formula, data, weights, start, \dots, subset, na.action,
 \item{formula}{
   a formula expression as for regression models, of the form
   \code{response ~ predictors}. The response should be a factor
-  (preferably an ordered
-  factor), which will be interpreted as an ordinal response, with levels
-  ordered as in the factor.  A proportional odds model will be
-  fitted.  The model must have an intercept: attempts to remove one will
-  lead to a warning and be ignored. An offset may be used.  See the
-  documentation of \code{formula} for other details.
+  (preferably an ordered factor), which will be interpreted as an
+  ordinal response, with levels ordered as in the factor.  
+  The model must have an intercept: attempts to remove one will
+  lead to a warning and be ignored.  An offset may be used.  See the
+  documentation of \code{\link{formula}} for other details.
 }
 \item{data}{
   an optional data frame in which to interpret the variables occurring
@@ -64,14 +63,15 @@ polr(formula, data, weights, start, \dots, subset, na.action,
 }
 \item{Hess}{
   logical for whether the Hessian (the observed information matrix)
-  should be returned.
+  should be returned.  Use this if you intend to call \code{summary} or
+  \code{vcov} on the fit.
 }
 \item{model}{
   logical for whether the model matrix should be returned.
 }
 \item{method}{
   logistic or probit or complementary log-log or cauchit (corresponding
-  to a Cauchy latent variable and only available in \R >= 2.1.0).
+  to a Cauchy latent variable).
 }
 }
 \details{
@@ -91,7 +91,7 @@ polr(formula, data, weights, start, \dots, subset, na.action,
   variable, and \eqn{\eta}{eta} being the linear predictor, a linear
   function of the explanatory variables (with no intercept).  Note
   that it is quite common for other software to use the opposite sign
-  for \eqn{\eta}.
+  for \eqn{\eta} (and hence the coefficients \code{beta}).
 
   In the logistic case, the left-hand side of the last display is the
   log odds of category \eqn{k} or less, and since these are log odds

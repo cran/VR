@@ -140,3 +140,5 @@ This file documents software changes since the third edition.
 - coding for 'sex' in ?Melanoma has been corrected.
 - the example for gamma.shape has a better starting points and so converges
 - avoid abbreviation of survreg(dist=) in example(gehan)
+- profile() and confint() methods for "glm" objects now handle
+  rank-deficient fits.
