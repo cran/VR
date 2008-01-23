@@ -164,6 +164,8 @@ Library MASS
 - avoid abbreviation of survreg(dist=) in example(gehan)
 - profile() and confint() methods for "glm" objects now handle
   rank-deficient fits.
+- profile.glm() produced an output in a format plot.profile could not
+  read for single-variable fits.
 
 
 

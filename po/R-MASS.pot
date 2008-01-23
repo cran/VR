@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.3.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2005-12-08 20:56\n"
+"POT-Creation-Date: 2007-12-16 12:02\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,6 +15,9 @@ msgid "no terms in scope"
 msgstr ""
 
 msgid "no terms in scope for adding to object"
+msgstr ""
+
+msgid "trying +"
 msgstr ""
 
 msgid "number of rows in use has changed: remove missing values?"
@@ -32,6 +35,9 @@ msgstr ""
 msgid "scope is not a subset of term labels"
 msgstr ""
 
+msgid "trying -"
+msgstr ""
+
 msgid "dropterm not implemented for \"mlm\" fits"
 msgstr ""
 
@@ -42,6 +48,9 @@ msgid "does not have both 'qr' and 'y' components"
 msgstr ""
 
 msgid "response variable must be positive"
+msgstr ""
+
+msgid "Waiting for profiling to be done..."
 msgstr ""
 
 msgid "invalid number of levels"
@@ -128,6 +137,15 @@ msgstr ""
 msgid "only 'REML = FALSE' is implemented"
 msgstr ""
 
+msgid "Initial estimate:"
+msgstr ""
+
+msgid "Iter."
+msgstr ""
+
+msgid "Alpha:"
+msgstr ""
+
 msgid "iteration limit reached"
 msgstr ""
 
@@ -135,6 +153,12 @@ msgid "package 'nlme' is essential"
 msgstr ""
 
 msgid "'family' not recognized"
+msgstr ""
+
+msgid "iteration"
+msgstr ""
+
+msgid "'anova' is not available for PQL fits"
 msgstr ""
 
 msgid "cannot estimate scale: MAD is zero for this sample"
@@ -164,7 +188,16 @@ msgstr ""
 msgid "data vectors must be the same length"
 msgstr ""
 
+msgid "missing or infinite values in the data are not allowed"
+msgstr ""
+
+msgid "only finite values are allowed in 'lims'"
+msgstr ""
+
 msgid "'x' is not a matrix"
+msgstr ""
+
+msgid "infinite, NA or NaN values in 'x'"
 msgstr ""
 
 msgid "nrow(x) and length(grouping) are different"
@@ -293,6 +326,21 @@ msgstr ""
 msgid "unimplemented method:"
 msgstr ""
 
+msgid "Initial fit:"
+msgstr ""
+
+msgid "Initial value for theta:"
+msgstr ""
+
+msgid "Theta("
+msgstr ""
+
+msgid ") ="
+msgstr ""
+
+msgid ", 2(Ls - Lm) ="
+msgstr ""
+
 msgid "alternation limit reached"
 msgstr ""
 
@@ -306,6 +354,15 @@ msgid "negative values not allowed for the negative binomial family"
 msgstr ""
 
 msgid "estimate truncated at zero"
+msgstr ""
+
+msgid "theta.ml: initial theta ="
+msgstr ""
+
+msgid "theta.ml: iter"
+msgstr ""
+
+msgid "theta ="
 msgstr ""
 
 msgid "extra arguments discarded"
@@ -329,6 +386,12 @@ msgstr ""
 msgid "design appears to be rank-deficient, so dropping some coefs"
 msgstr ""
 
+msgid "'start' is not of the correct length"
+msgstr ""
+
+msgid "Re-fitting to get Hessian"
+msgstr ""
+
 msgid "not a \"polr\" object"
 msgstr ""
 
@@ -339,6 +402,15 @@ msgid "not all objects are of class \"polr\""
 msgstr ""
 
 msgid "models were not all fitted to the same size of dataset"
+msgstr ""
+
+msgid "Parameter:"
+msgstr ""
+
+msgid "down"
+msgstr ""
+
+msgid "up"
 msgstr ""
 
 msgid "profiling has found a better solution, so original fit had not converged"
@@ -432,6 +504,12 @@ msgid "0 df terms are changing AIC"
 msgstr ""
 
 msgid "AIC undefined for REML fit"
+msgstr ""
+
+msgid "'nbins' must result in a positive integer"
+msgstr ""
+
+msgid "'h' must be strictly positive"
 msgstr ""
 
 msgid "uneven breaks with 'prob = FALSE' will give a misleading plot"
