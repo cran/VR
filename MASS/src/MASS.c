@@ -204,7 +204,7 @@ VR_mds_init_data(Sint *pn, Sint *pc, Sint *pr, Sint *orde,
 }
 
 void
-VR_mds_unload()
+VR_mds_unload(void)
 {
     Free(ord); Free(ord2); Free(x); Free(d); Free(y); Free(yf);
 }

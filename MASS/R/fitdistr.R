@@ -192,7 +192,7 @@ print.fitdistr <-
     dn[[2]] <- paste(dn[[2]], substring("      ", 1, (nchar(ans[2,]) - nchar(dn[[2]])) %/% 2))
     dimnames(ans) <- dn
     print(ans, quote = FALSE)
-    x
+    invisible(x)
 }
 
 coef.fitdistr <- function(object, ...) object$estimate

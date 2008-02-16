@@ -80,7 +80,7 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
             z <- 0
             ## LP is the linear predictor including offset.
             ## we need to take care to avoid aliased-out coefficients.
-            LP <- X[, nonA] %*% B0[nonA] + O
+            LP <- X[, nonA, drop = FALSE] %*% B0[nonA] + O
             while((step <- step + 1) < maxsteps && abs(z) < zmax) {
                 bi <- B0[i] + sgn * step * del * std.err[Pnames[i], 1]
                 o <- O + X[, i] * bi

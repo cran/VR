@@ -64,7 +64,7 @@ lm.ridge <- function(formula, data, subset, na.action,
 print.ridgelm <- function(x, ...)
 {
     print(coef(x), ...)
-    x
+    invisible(x)
 }
 
 select <- function(obj) UseMethod("select")
