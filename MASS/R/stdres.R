@@ -54,7 +54,7 @@ lmwork <- function(object)
         }
     }
     else stddev <- stdres[] <- studres[]<- NA
-    list(stdedv=stddev, stdres=stdres, studres=studres)
+    list(stddev=stddev, stdres=stdres, studres=studres)
 }
 stdres <- function(object) lmwork(object)$stdres
 studres <- function(object) lmwork(object)$studres

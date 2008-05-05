@@ -1,5 +1,5 @@
 # file MASS/R/polr.R
-# copyright (C) 1994-2007 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2008 W. N. Venables and B. D. Ripley
 # Use of transformed intercepts contributed by David Firth
 #
 #  This program is free software; you can redistribute it and/or modify
@@ -115,13 +115,17 @@ polr <- function(formula, data, weights, start, ..., subset,
             pc <- ncol(x)
         }
         spacing <- logit((1:q)/(q+1)) # just a guess
-        if(method != "logit") spacing <- spacing/1.7
+        if(method != "logistic") spacing <- spacing/1.7
         gammas <- -coefs[1] + spacing - spacing[q1]
         thetas <- c(gammas[1], log(diff(gammas)))
-        start <- c(coefs[-1], thetas)
+        s0 <- c(coefs[-1], thetas)
     } else if(length(start) != pc + q)
 	stop("'start' is not of the correct length")
-    res <- optim(start, fmin, gmin, method="BFGS", hessian = Hess, ...)
+    else {
+        s0 <- if(pc > 0) c(start[seq_len(pc+1)], diff(start[-seq_len(pc)]))
+        else c(start[1], diff(start))
+        }
+    res <- optim(s0, fmin, gmin, method="BFGS", hessian = Hess, ...)
     beta <- res$par[seq_len(pc)]
     theta <- res$par[pc + 1:q]
     zeta <- cumsum(c(theta[1],exp(theta[-1])))
@@ -401,7 +405,7 @@ polr.fit <- function(x, y, wt, start, offset, method)
         xx <- .polrY1*p1 - .polrY2*p2
         g2 <- - t(xx) %*% (wt/pr)
         g2 <- t(g2) %*% jacobian(theta)
-        if(all(pr) > 0) c(g1, g2) else rep(NA, pc+q)
+        if(all(pr > 0)) c(g1, g2) else rep(NA, pc+q)
     }
 
     pfun <- switch(method, logistic = plogis, probit = pnorm,
@@ -417,7 +421,10 @@ polr.fit <- function(x, y, wt, start, offset, method)
     Y <- matrix(0, n, q)
     .polrY1 <- col(Y) == y
     .polrY2 <- col(Y) == y - 1
-    res <- optim(start, fmin, gmin, method="BFGS")
+    # pc could be 0.
+    s0 <- if(pc > 0) c(start[seq_len(pc+1)], diff(start[-seq_len(pc)]))
+    else c(start[1], diff(start))
+    res <- optim(s0, fmin, gmin, method="BFGS")
     beta <- res$par[seq_len(pc)]
     theta <- res$par[pc + 1:q]
     zeta <- cumsum(c(theta[1],exp(theta[-1])))

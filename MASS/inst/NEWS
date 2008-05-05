@@ -143,6 +143,8 @@ This file documents software changes since the third edition.
 - profile() and confint() methods for "glm" objects now handle
   rank-deficient fits.
 - profile.glm() produced an output in a format plot.profile could not
-  read for single-variable fits.  It also for confint() on intercept-only
+  read for single-variable fits.  Also for confint() on intercept-only
   fits.
 - The print() methods for fitdistr() and lm.ridge() now return invisibly.
+- vcov() and profile() methods for polr() used starting values in the
+  external not internal parametrization, which could slow convergence.
