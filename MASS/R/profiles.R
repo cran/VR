@@ -44,12 +44,12 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
                    O <- O[1:n]
                    Y <- Y[, 1]/(W <- drop(Y %*% c(1, 1)))
                }
-               zmax <- sqrt(qchisq(1 - alpha/2, p))
+               zmax <- sqrt(qchisq(1 - alpha, 1))
                profName <- "z"
            },
            poisson = ,
            "Negative Binomial" = {
-               zmax <- sqrt(qchisq(1 - alpha/2, p))
+               zmax <- sqrt(qchisq(1 - alpha, 1))
                profName <- "z"
            }
            ,
@@ -59,7 +59,7 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
            quasibinomial = ,
            quasipoisson = ,
        {
-	   zmax <- sqrt(p * qf(1 - alpha/2, p, n - p))
+	   zmax <- sqrt(qf(1 - alpha, 1, n - p))
 	   profName <- "tau"
        }
            )
@@ -111,7 +111,7 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
 
 plot.profile <-
   ## R version: non-Trellis-based replacement for plot.profile
-  function(x, nseg, ...)
+  function(x, ...)
 {
     nulls <- sapply(x, is.null)
     if (all(nulls)) return(NULL)

@@ -456,7 +456,7 @@ profile.polr <- function(fitted, which = 1:p, alpha = 0.01,
     if(length(W) == 0) W <- rep(1, n)
     OriginalDeviance <- deviance(fitted)
     X <- model.matrix(fitted)[, -1, drop=FALSE] # drop intercept
-    zmax <- sqrt(qchisq(1 - alpha/2, p))
+    zmax <- sqrt(qchisq(1 - alpha, 1))
     profName <- "z"
     prof <- vector("list", length=length(which))
     names(prof) <- Pnames[which]

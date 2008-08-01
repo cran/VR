@@ -148,3 +148,8 @@ This file documents software changes since the third edition.
 - The print() methods for fitdistr() and lm.ridge() now return invisibly.
 - vcov() and profile() methods for polr() used starting values in the
   external not internal parametrization, which could slow convergence.
+- glm.nb() called theta.ml() incorrect when weights were supplied whch did not
+  sum to n.
+- removed unused argument 'nseg' to plot.profile.
+- 'alpha' in the "glm" and "polr" methods for profile() is now interpreted
+  as two-tailed univariate for consistency with other profile methods.

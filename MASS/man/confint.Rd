@@ -1,12 +1,12 @@
 % file MASS/man/confint.Rd
-% copyright (C) 1999 W. N. Venables and B. D. Ripley
+% copyright (C) 1999-2008 W. N. Venables and B. D. Ripley
 %
 \name{confint-MASS}
 \alias{confint.glm}
 \alias{confint.nls}
 \alias{confint.profile.glm}
 \alias{confint.profile.nls}
-\alias{profile.glm}
+%\alias{profile.glm}
 \title{
 Confidence Intervals for Model Parameters
 }
@@ -57,7 +57,8 @@ limits for each parameter. These will be labelled as (1-level)/2 and
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \seealso{
-\code{\link{profile}}
+  \code{\link[base]{confint}} (the generic and \code{"lm"} method),
+  \code{\link{profile}}
 }
 \examples{
 expn1 <- deriv(y ~ b0 + b1 * 2^(-x/th), c("b0", "b1", "th"),

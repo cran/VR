@@ -130,7 +130,7 @@ glm.nb <- function(formula, data, weights,
                       intercept = attr(Terms, "intercept") > 0)
     class(fit) <- c("glm", "lm")
     mu <- fit$fitted.values
-    th <- as.vector(theta.ml(Y, mu, n, w, limit = control$maxit, trace =
+    th <- as.vector(theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
                              control$trace> 2))
     if(control$trace > 1)
         message("Initial value for theta:", signif(th))
@@ -151,7 +151,7 @@ glm.nb <- function(formula, data, weights,
                           trace = control$trace > 1),
                           intercept = attr(Terms, "intercept") > 0)
         t0 <- th
-        th <- theta.ml(Y, mu, n, w, limit=control$maxit,
+        th <- theta.ml(Y, mu, sum(w), w, limit=control$maxit,
                        trace = control$trace > 2)
         fam <- do.call("negative.binomial", list(theta = th, link = link))
         mu <- fit$fitted.values
