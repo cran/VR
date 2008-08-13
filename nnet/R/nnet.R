@@ -150,10 +150,12 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
 	    as.integer(maxit),
 	    as.logical(trace),
 	    as.integer(mask),
-            as.double(abstol), as.double(reltol)
+            as.double(abstol), as.double(reltol),
+            ifail = integer(1)
 	    )
   net$value <- tmp$val
   net$wts <- tmp$wts
+  net$convergence <- tmp$ifail
   tmp <- matrix(.C(VR_nntest,
 		   as.integer(ntr), Z, tclass = double(ntr*nout),
 		   as.double(net$wts))$tclass,  ntr, nout)

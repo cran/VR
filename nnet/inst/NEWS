@@ -18,3 +18,4 @@ This file documents software changes since the third edition.
 - added confint() method for multinom.
 - added logLik() method for multinom.
 - summary() for multinom now defaults to correlation=FALSE.
+- nnet() reports on 'convergence'.

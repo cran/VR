@@ -80,7 +80,6 @@ A curious likelihood identity for the multivariate t-distribution.
 \code{\link{cov}}, \code{\link{cov.wt}}, \code{\link{cov.mve}}
 }
 \examples{
-data(stackloss)
 cov.trob(stackloss)
 }
 \keyword{multivariate}

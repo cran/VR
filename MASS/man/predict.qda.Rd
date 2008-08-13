@@ -73,7 +73,6 @@ prediction.
 \code{\link{qda}}, \code{\link{lda}}, \code{\link{predict.lda}}
 }
 \examples{
-data(iris3)
 tr <- sample(1:50, 25)
 train <- rbind(iris3[tr,,1], iris3[tr,,2], iris3[tr,,3])
 test <- rbind(iris3[-tr,,1], iris3[-tr,,2], iris3[-tr,,3])

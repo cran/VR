@@ -129,7 +129,6 @@ cov.mcd(\dots)
 \code{\link{lqs}}
 }
 \examples{
-data(stackloss)
 set.seed(123)
 cov.rob(stackloss)
 cov.rob(stack.x, method = "mcd", nsamp = "exact")

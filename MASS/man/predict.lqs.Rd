@@ -48,7 +48,6 @@
 \code{\link{lqs}}
 }
 \examples{
-data(stackloss)
 set.seed(123)
 fm <- lqs(stack.loss ~ ., data = stackloss, method = "S", nsamp = "exact")
 predict(fm, stackloss)

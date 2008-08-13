@@ -1,5 +1,5 @@
 # file MASS/R/add.R
-# copyright (C) 1994-2006 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2008 W. N. Venables and B. D. Ripley
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -14,6 +14,21 @@
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
 #
+
+## version to return NA for df = 0, as R did before 2.7.0
+safe_pchisq <- function(q, df, ...)
+{
+    df[df <= 0] <- NA
+    pchisq(q=q, df=df, ...)
+}
+## and to avoid a warning
+safe_pf <- function(q, df1, ...)
+{
+    df1[df1 <= 0] <- NA
+    pf(q=q, df1=df1, ...)
+}
+
+
 addterm <-
     function(object, ...) UseMethod("addterm")
 
@@ -35,6 +50,7 @@ addterm.default <-
                   dimnames = list(c("<none>", scope), c("df", "AIC")))
     ans[1,  ] <- extractAIC(object, scale, k = k, ...)
     n0 <- length(object$residuals)
+    env <- environment(formula(object))
     for(i in seq(ns)) {
         tt <- scope[i]
         if(trace) {
@@ -43,7 +59,7 @@ addterm.default <-
         }
         nfit <- update(object, as.formula(paste("~ . +", tt)),
                        evaluate = FALSE)
-        nfit <- eval.parent(nfit)
+	nfit <- eval(nfit, envir=env) # was  eval.parent(nfit)
 	ans[i+1, ] <- extractAIC(nfit, scale, k = k, ...)
         if(length(nfit$residuals) != n0)
             stop("number of rows in use has changed: remove missing values?")
@@ -58,7 +74,7 @@ addterm.default <-
 	dev <- dev[1] - dev; dev[1] <- NA
 	nas <- !is.na(dev)
 	P <- dev
-	P[nas] <- pchisq(dev[nas], dfs[nas], lower.tail=FALSE)
+	P[nas] <- safe_pchisq(dev[nas], dfs[nas], lower.tail=FALSE)
 	aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
     }
     aod <- aod[o, ]
@@ -106,7 +122,7 @@ addterm.lm <-
         } else dev <- dev/scale
         df <- aod$Df
         nas <- !is.na(df)
-        dev[nas] <- pchisq(dev[nas], df[nas], lower.tail=FALSE)
+        dev[nas] <- safe_pchisq(dev[nas], df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
         rdf <- object$df.residual
@@ -137,7 +153,7 @@ addterm.glm <-
 	Fs[df < .Machine$double.eps] <- NA
 	P <- Fs
 	nnas <- !is.na(Fs)
-	P[nnas] <- pf(Fs[nnas], df[nnas], rdf - df[nnas], lower.tail=FALSE)
+	P[nnas] <- safe_pf(Fs[nnas], df[nnas], rdf - df[nnas], lower.tail=FALSE)
 	list(Fs=Fs, P=P)
     }
     if(missing(scope) || is.null(scope)) stop("no terms in scope")
@@ -218,7 +234,7 @@ addterm.glm <-
         LRT <- if(dispersion == 1) "LRT" else "scaled dev."
         aod[, LRT] <- dev
         nas <- !is.na(dev)
-        dev[nas] <- pchisq(dev[nas], aod$Df[nas], lower.tail=FALSE)
+        dev[nas] <- safe_pchisq(dev[nas], aod$Df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
         if(fam == "binomial" || fam == "poisson")
@@ -258,6 +274,7 @@ dropterm.default <-
     ans <- matrix(nrow = ns + 1, ncol = 2,
                   dimnames =  list(c("<none>", scope), c("df", "AIC")))
     ans[1,  ] <- extractAIC(object, scale, k = k, ...)
+    env <- environment(formula(object))
     n0 <- length(object$residuals)
     for(i in seq(ns)) {
         tt <- scope[i]
@@ -267,7 +284,7 @@ dropterm.default <-
 	}
         nfit <- update(object, as.formula(paste("~ . -", tt)),
                        evaluate = FALSE)
-        nfit <- eval.parent(nfit)
+	nfit <- eval(nfit, envir=env) # was  eval.parent(nfit)
 	ans[i+1, ] <- extractAIC(nfit, scale, k = k, ...)
         if(length(nfit$residuals) != n0)
             stop("number of rows in use has changed: remove missing values?")
@@ -282,7 +299,7 @@ dropterm.default <-
         dev <- dev - dev[1] ; dev[1] <- NA
         nas <- !is.na(dev)
         P <- dev
-        P[nas] <- pchisq(dev[nas], dfs[nas], lower.tail = FALSE)
+        P[nas] <- safe_pchisq(dev[nas], dfs[nas], lower.tail = FALSE)
         aod[, c("LRT", "Pr(Chi)")] <- list(dev, P)
     }
     aod <- aod[o, ]
@@ -310,7 +327,7 @@ dropterm.lm <-
     if(test == "Chisq") {
         dev <- aod$"Sum of Sq"
         nas <- !is.na(dev)
-        dev[nas] <- pchisq(dev[nas]/scale, aod$Df[nas], lower.tail = FALSE)
+        dev[nas] <- safe_pchisq(dev[nas]/scale, aod$Df[nas], lower.tail = FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
 	dev <- aod$"Sum of Sq"
@@ -321,7 +338,7 @@ dropterm.lm <-
 	Fs[dfs < 1e-4] <- NA
 	P <- Fs
 	nas <- !is.na(Fs)
-	P[nas] <- pf(Fs[nas], dfs[nas], rdf, lower.tail=FALSE)
+	P[nas] <- safe_pf(Fs[nas], dfs[nas], rdf, lower.tail=FALSE)
         aod[, c("F Value", "Pr(F)")] <- list(Fs, P)
     }
     aod <- aod[o, ]
@@ -400,11 +417,11 @@ dropterm.glm <-
         nas <- !is.na(dev)
         LRT <- if(dispersion == 1) "LRT" else "scaled dev."
         aod[, LRT] <- dev
-        dev[nas] <- pchisq(dev[nas], aod$Df[nas], lower.tail=FALSE)
+        dev[nas] <- safe_pchisq(dev[nas], aod$Df[nas], lower.tail=FALSE)
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
         if(fam == "binomial" || fam == "poisson")
-            warning(gettextf("F test assumes quasi%s family", fam),
+            warning(gettextf("F test assumes 'quasi%s' family", fam),
                     domain = NA)
 	dev <- aod$Deviance
 	rms <- dev[1]/rdf
@@ -415,7 +432,7 @@ dropterm.glm <-
 	Fs[dfs < 1e-4] <- NA
 	P <- Fs
 	nas <- !is.na(Fs)
-	P[nas] <- pf(Fs[nas], dfs[nas], rdf, lower.tail=FALSE)
+	P[nas] <- safe_pf(Fs[nas], dfs[nas], rdf, lower.tail=FALSE)
 	aod[, c("F value", "Pr(F)")] <- list(Fs, P)
     }
     aod <- aod[o, ]

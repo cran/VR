@@ -160,7 +160,7 @@ Library MASS
 - there is a vcov() method for class "negbin": unlike the "glm" method
   this defaults to dispersion = 1.
 - coding for 'sex' in ?Melanoma has been corrected.
-- the example for gamma.shape has a better starting points and so converges
+- the example for gamma.shape has a better starting point and so converges
 - avoid abbreviation of survreg(dist=) in example(gehan)
 - profile() and confint() methods for "glm" objects now handle
   rank-deficient fits.
@@ -175,6 +175,7 @@ Library MASS
 - removed unused argument 'nseg' to plot.profile.
 - 'alpha' in the "glm" and "polr" methods for profile() is now interpreted
   as two-tailed univariate for consistency with other profile methods.
+- 'mammals': corrected typos in names, some thanks to Arni Magnusson
 
 
 Library class
@@ -206,6 +207,7 @@ Library nnet
 - added confint() method for multinom.
 - added logLik() method for multinom.
 - summary() for multinom now defaults to correlation=FALSE.
+- nnet() reports on 'convergence'.
 
 
 

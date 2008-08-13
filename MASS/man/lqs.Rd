@@ -160,8 +160,7 @@ ltsreg(\dots)
 \code{\link{predict.lqs}}
 }
 \examples{
-data(stackloss)
-set.seed(123)
+set.seed(123) # make reproducible
 lqs(stack.loss ~ ., data = stackloss)
 lqs(stack.loss ~ ., data = stackloss, method = "S", nsamp = "exact")
 }

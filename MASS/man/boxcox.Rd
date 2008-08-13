@@ -61,7 +61,6 @@ log-likelihood vector, invisibly if the result is plotted.
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.
 }
 \examples{
-data(trees)
 boxcox(Volume ~ log(Height) + log(Girth), data = trees,
        lambda = seq(-0.25, 0.25, length = 10))
 

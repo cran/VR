@@ -435,16 +435,16 @@ void
 VR_dovm(Sint *ntr, Sdata *train, Sdata *weights,
 	Sint *Nw, double *wts, double *Fmin,
 	Sint *maxit, Sint *trace, Sint *mask,
-	double *abstol, double *reltol)
+	double *abstol, double *reltol, int *ifail)
 {
-    int fncount, grcount, ifail;
+    int fncount, grcount;
     NTrain = *ntr;
     TrainIn = train;
     TrainOut = train + Ninputs * NTrain;
     Weights = weights;
     vmmin((int) *Nw, wts, Fmin, fminfn, fmingr, 
 	  (int) *maxit, (int) *trace, mask,
-	  *abstol, *reltol, REPORT, NULL, &fncount, &grcount, &ifail);
+	  *abstol, *reltol, REPORT, NULL, &fncount, &grcount, ifail);
 }
 
 static double **H, *h, *h1, **w;
@@ -684,7 +684,7 @@ VR_summ2(Sint *n0, Sint *p0, Sint *q0, Sdata *Z, Sint *na)
 
 static const R_CMethodDef CEntries[] = {
     {"VR_dfunc", (DL_FUNC) &VR_dfunc, 3},
-    {"VR_dovm", (DL_FUNC) &VR_dovm, 11},
+    {"VR_dovm", (DL_FUNC) &VR_dovm, 12},
     {"VR_nnHessian", (DL_FUNC) &VR_nnHessian, 5},
     {"VR_nntest", (DL_FUNC) &VR_nntest, 4},
     {"VR_set_net", (DL_FUNC) &VR_set_net, 8},

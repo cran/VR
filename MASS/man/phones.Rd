@@ -7,7 +7,7 @@
 Belgium Phone Calls 1950-1973
 }
 \usage{
-data(phones)
+phones
 }
 \description{
 A list object with the annual numbers of telephone calls, in

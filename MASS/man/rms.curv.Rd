@@ -50,7 +50,6 @@ Wiley, New York.
 }
 \examples{
 # The treated sample from the Puromycin data
-data(Puromycin)
 mmcurve <- deriv3(~ Vm * conc/(K + conc), c("Vm", "K"),
                   function(Vm, K, conc) NULL)
 Treated <- Puromycin[Puromycin$state == "treated", ]

@@ -84,7 +84,6 @@ Two components:
   \code{\link{cmdscale}}, \code{\link{sammon}}
 }
 \examples{
-data(swiss)
 swiss.x <- as.matrix(swiss[, -1])
 swiss.dist <- dist(swiss.x)
 swiss.mds <- isoMDS(swiss.dist)

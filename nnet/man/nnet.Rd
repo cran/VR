@@ -140,7 +140,10 @@ value of fitting criterion plus weight decay term.
 the fitted values for the training data.
 }
 \item{residuals}{
-the residuals for the training data.
+  the residuals for the training data.
+}
+\item{convergence}{
+\code{1} if the maximum number of iterations was reached, otherwise \code{0}.
 }}
 \details{
 If the response in \code{formula} is a factor, an appropriate classification

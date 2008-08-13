@@ -83,7 +83,6 @@ search (\code{magic}) to ensure that it always goes downhill.
 \code{\link{cmdscale}}, \code{\link{isoMDS}}
 }
 \examples{
-data(swiss)
 swiss.x <- as.matrix(swiss[, -1])
 swiss.sam <- sammon(dist(swiss.x))
 plot(swiss.sam$points, type = "n")
