@@ -4,43 +4,43 @@
 \name{beav2}
 \alias{beav2}
 \title{
-Body Temperature Series of Beaver 2
+  Body Temperature Series of Beaver 2
 }
 \description{
-Reynolds (1994) describes a
-small part of a study of the long-term temperature dynamics of beaver
-\emph{Castor canadensis}
-in north-central Wisconsin.  Body temperature was measured by
-telemetry every 10 minutes for four females, but data from a one
-period of less than a day for each of two animals is used there.
+  Reynolds (1994) describes a small part of a study of the long-term
+  temperature dynamics of beaver \emph{Castor canadensis} in
+  north-central Wisconsin.  Body temperature was measured by telemetry
+  every 10 minutes for four females, but data from a one period of less
+  than a day for each of two animals is used there.
 }
 \usage{
 beav2
 }
 \format{
-The \code{beav2} data frame has 100 rows and 4 columns.
-This data frame contains the following columns:
-\describe{
-\item{\code{day}}{
-Day of observation (in days since the beginning of 1990),
-November 3-4.
+  The \code{beav2} data frame has 100 rows and 4 columns.
+  This data frame contains the following columns:
+  \describe{
+    \item{\code{day}}{
+      Day of observation (in days since the beginning of 1990),
+      November 3--4.
+    }
+    \item{\code{time}}{
+      Time of observation, in the form \code{0330} for 3.30am.
+    }
+    \item{\code{temp}}{
+      Measured body temperature in degrees Celsius.
+    }
+    \item{\code{activ}}{
+      Indicator of activity outside the retreat.
+    }
+  }
 }
-\item{\code{time}}{
-Time of observation, in the form \code{0330} for 3.30am
-}
-\item{\code{temp}}{
-Measured body temperature in degrees Celcius
-}
-\item{\code{activ}}{
-Indicator of activity outside the retreat
-}}}
 \source{
-P. S. Reynolds (1994) Time-series analyses of beaver body temperatures.
-Chapter 11 of
-Lange, N., Ryan, L., Billard, L., Brillinger, D., Conquest, L.
-and Greenhouse, J. eds (1994)
-\emph{Case Studies in Biometry.}
-New York: John Wiley and Sons.
+  P. S. Reynolds (1994) Time-series analyses of beaver body temperatures.
+  Chapter 11 of
+  Lange, N., Ryan, L., Billard, L., Brillinger, D., Conquest, L.
+  and Greenhouse, J. eds (1994)
+  \emph{Case Studies in Biometry.} New York: John Wiley and Sons.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

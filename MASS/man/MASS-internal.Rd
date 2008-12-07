@@ -11,7 +11,7 @@
 %\alias{print.abbrev}
 \title{Internal MASS functions}
 \description{
- Internal MASS functions
+ Internal MASS functions.
 }
 \usage{
 enlist(vec)

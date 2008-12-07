@@ -4,35 +4,37 @@
 \name{Skye}
 \alias{Skye}
 \title{
-AFM Compositions of Aphyric Skye Lavas
+  AFM Compositions of Aphyric Skye Lavas
 }
 \description{
-The \code{Skye} data frame has 23 rows and 3 columns.
+  The \code{Skye} data frame has 23 rows and 3 columns.
 }
 \usage{
 Skye
 }
 \format{
-This data frame contains the following columns:
-\describe{
-\item{\code{A}}{
-Percentage of sodium and potassium oxides
+  This data frame contains the following columns:
+  \describe{
+    \item{\code{A}}{
+      Percentage of sodium and potassium oxides.
+    }
+    \item{\code{F}}{
+      Percentage of iron oxide.
+    }
+    \item{\code{M}}{
+      Percentage of magnesium oxide.
+    }
+  }
 }
-\item{\code{F}}{
-Percentage of iron oxide
-}
-\item{\code{M}}{
-Percentage of magnesium oxide
-}}}
 \source{
-R. N. Thompson, J. Esson and A. C. Duncan (1972)
-Major element chemical variation in the Eocene lavas of the Isle of
-Skye. \emph{J. Petrology}, \bold{13}, 219--253.
+  R. N. Thompson, J. Esson and A. C. Duncan (1972)
+  Major element chemical variation in the Eocene lavas of the Isle of
+  Skye. \emph{J. Petrology}, \bold{13}, 219--253.
 }
 \references{
-J. Aitchison (1986)
-\emph{The Statistical Analysis of Compositional Data.}
-Chapman and Hall, p.360.
+  J. Aitchison (1986)
+  \emph{The Statistical Analysis of Compositional Data.}
+  Chapman and Hall, p.360.
 
   Venables, W. N. and Ripley, B. D. (2002)
   \emph{Modern Applied Statistics with S.} Fourth edition.  Springer.

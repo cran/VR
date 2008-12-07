@@ -1,54 +1,55 @@
 \name{epil}
 \alias{epil}
 \title{
-Seizure Counts for Epileptics
+  Seizure Counts for Epileptics
 }
 \description{
-Thall and Vail (1990) give a data set on two-week seizure counts for
-59 epileptics.  The number of seizures was recorded for a baseline
-period of 8 weeks, and then patients were randomly assigned to a
-treatment group or a control group.  Counts were then recorded for
-four successive two-week periods. The subject's age is the only
-covariate.
+  Thall and Vail (1990) give a data set on two-week seizure counts for
+  59 epileptics.  The number of seizures was recorded for a baseline
+  period of 8 weeks, and then patients were randomly assigned to a
+  treatment group or a control group.  Counts were then recorded for
+  four successive two-week periods. The subject's age is the only
+  covariate.
 }
 \usage{
 epil
 }
 \format{
-This data frame has 236 rows and the following 9 columns:
-\describe{
-\item{\code{y}}{
-The count for the 2-week period.
+  This data frame has 236 rows and the following 9 columns:
+  \describe{
+    \item{\code{y}}{
+      the count for the 2-week period.
+    }
+    \item{\code{trt}}{
+      treatment, \code{"placebo"} or \code{"progabide"}.
+    }
+    \item{\code{base}}{
+      the counts in the baseline 8-week period.
+    }
+    \item{\code{age}}{
+      subject's age, in years.
+    }
+    \item{\code{V4}}{
+      \code{0/1} indicator variable of period 4.
+    }
+    \item{\code{subject}}{
+      subject number, 1 to 59.
+    }
+    \item{\code{period}}{
+      period, 1 to 4.
+    }
+    \item{\code{lbase}}{
+      log-counts for the baseline period, centred to have zero mean.
+    }
+    \item{\code{lage}}{
+      log-ages, centred to have zero mean.
+    }
+  }
 }
-\item{\code{trt}}{
-The treatment, \code{"placebo"} or \code{"progabide"}.
-}
-\item{\code{base}}{
-The counts in the baseline 8-week period.
-}
-\item{\code{age}}{
-The subject's age, in years.
-}
-\item{\code{V4}}{
-\code{0/1} indicator variable of period 4.
-}
-\item{\code{subject}}{
-The subject number, 1 to 59.
-}
-\item{\code{period}}{
-The period, 1 to 4.
-}
-\item{\code{lbase}}{
-The log-counts for the baseline period, centred to have zero mean.
-}
-\item{\code{lage}}{
-The log-ages, centred to have zero mean.
-}}}
 \source{
-Thall, P. F. and Vail, S. C. (1990)
-Some covariance models for longitudinal count data with over-dispersion.
-\emph{Biometrics}
-\bold{46}, 657--671.
+  Thall, P. F. and Vail, S. C. (1990)
+  Some covariance models for longitudinal count data with over-dispersion.
+  \emph{Biometrics} \bold{46}, 657--671.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

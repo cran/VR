@@ -103,7 +103,7 @@ cov.mcd(\dots)
   \code{quantile.used} is selected, an ellipsoid based on its covariance
   is tested (as this will have no larger a determinant, and may be smaller).
 }
-\author{B.D. Ripley}
+
 \references{
   P. J. Rousseeuw and A. M. Leroy (1987) 
   \emph{Robust Regression and Outlier Detection.}
@@ -126,7 +126,7 @@ cov.mcd(\dots)
   ed Y. Dodge, IMS Lecture Notes volume \bold{31}, pp. 201--214.
 }
 \seealso{
-\code{\link{lqs}}
+  \code{\link{lqs}}
 }
 \examples{
 set.seed(123)

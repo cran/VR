@@ -4,19 +4,18 @@
 \name{shoes}
 \alias{shoes}
 \title{
-Shoe wear data of Box, Hunter and Hunter
+  Shoe wear data of Box, Hunter and Hunter
 }
 \description{
-A list of two vectors, giving the wear of shoes of materials A and B
-for one foot each of ten boys.
+  A list of two vectors, giving the wear of shoes of materials A and B
+  for one foot each of ten boys.
 }
 \usage{
 shoes
 }
 \source{
-G. E. P. Box, W. G. Hunter and J. S. Hunter (1978)
-\emph{Statistics for Experimenters.}
-Wiley, p. 100
+  G. E. P. Box, W. G. Hunter and J. S. Hunter (1978)
+  \emph{Statistics for Experimenters.} Wiley, p. 100
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

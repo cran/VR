@@ -10,36 +10,38 @@
 VA
 }
 \format{
-A data frame with columns:
-\describe{
-\item{\code{stime}}{
-  survival or follow-up time in days.
-}
-\item{\code{status}}{
-  dead or censored.
-}
-\item{\code{treat}}{
-  standard or test
-}
-\item{\code{age}}{
-patient's age in years
-}
-\item{\code{Karn}}{
-  Karnofsky score of patient's performance on a scale of 0 to 100.
-}
-\item{\code{diag.time}}{
-  times since diagnosis in months at entry to trial.
-}
-\item{\code{cell}}{
-  one of four cell types.
-}
-\item{\code{prior}}{
-  prior therapy?
-}}
+  A data frame with columns:
+  \describe{
+    \item{\code{stime}}{
+      survival or follow-up time in days.
+    }
+    \item{\code{status}}{
+      dead or censored.
+    }
+    \item{\code{treat}}{
+     treatemnt: standard or test.
+   }
+   \item{\code{age}}{
+     patient's age in years.
+   }
+   \item{\code{Karn}}{
+     Karnofsky score of patient's performance on a scale of 0 to 100.
+   }
+   \item{\code{diag.time}}{
+     times since diagnosis in months at entry to trial.
+   }
+   \item{\code{cell}}{
+     one of four cell types.
+   }
+   \item{\code{prior}}{
+     prior therapy?
+   }
+ }
 }
 \source{
-Kalbfleisch, J.D. and Prentice R.L. (1980)
-\emph{The Statistical Analysis of Failure Time Data.}
+  Kalbfleisch, J.D. and Prentice R.L. (1980)
+  \emph{The Statistical Analysis of Failure Time Data.}
+  Wiley.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

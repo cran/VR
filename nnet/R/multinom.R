@@ -24,7 +24,7 @@ multinom <-
   {
     n <- length(cl)
     x <- matrix(0, n, length(levels(cl)))
-    x[(1:n) + n * (as.vector(unclass(cl)) - 1)] <- 1
+    x[(1L:n) + n * (as.vector(unclass(cl)) - 1L)] <- 1
     dimnames(x) <- list(names(cl), levels(cl))
     x
   }
@@ -42,9 +42,9 @@ multinom <-
 	    as.integer(p),
 	    as.integer(q),
 	    Z = Z,
-	    na = integer(1))
-    Za <- t(z$Z[, 1:z$na, drop = FALSE])
-    list(X = Za[, 1:p, drop = FALSE], Y = Za[, p + 1:q])
+	    na = integer(1L))
+    Za <- t(z$Z[, 1L:z$na, drop = FALSE])
+    list(X = Za[, 1L:p, drop = FALSE], Y = Za[, p + 1L:q])
   }
 
   call <- match.call()
@@ -59,27 +59,27 @@ multinom <-
   Y <- model.response(m)
   if(!is.matrix(Y)) Y <- as.factor(Y)
   w <- model.weights(m)
-  if(length(w) == 0)
+  if(length(w) == 0L)
     if(is.matrix(Y)) w <- rep(1, dim(Y)[1])
     else w <- rep(1, length(Y))
   lev <- levels(Y)
   if(is.factor(Y)) {
     counts <- table(Y)
-    if(any(counts == 0)) {
-      empty <- lev[counts == 0]
+    if(any(counts == 0L)) {
+      empty <- lev[counts == 0L]
       warning(sprintf(ngettext(length(empty),
                                "group %s is empty",
                                "groups %s are empty"),
                       paste(empty, collapse=" ")), domain = NA)
-      Y <- factor(Y, levels=lev[counts > 0])
-      lev <- lev[counts > 0]
+      Y <- factor(Y, levels=lev[counts > 0L])
+      lev <- lev[counts > 0L]
     }
     if(length(lev) == 2) Y <- as.vector(unclass(Y)) - 1
     else Y <- class.ind(Y)
   }
   if(summ == 1) {
     Z <- cbind(X, Y)
-    z1 <- cumprod(apply(Z, 2, max)+1)
+    z1 <- cumprod(apply(Z, 2L, max)+1)
     Z1 <- apply(Z, 1, function(x) sum(z1*x))
     oZ <- order(Z1)
     Z2 <- !duplicated(Z1[oZ])
@@ -91,15 +91,15 @@ multinom <-
   }
   if(summ == 2) {
     Z <- summ2(cbind(X, Y), w)
-    X <- Z$X[, 1:ncol(X)]
-    Y <- Z$X[, ncol(X) + 1:ncol(Y), drop = FALSE]
+    X <- Z$X[, 1L:ncol(X)]
+    Y <- Z$X[, ncol(X) + 1L:ncol(Y), drop = FALSE]
     w <- Z$Y
     print(dim(X))
   }
   if(summ == 3) {
     Z <- summ2(X, Y*w)
     X <- Z$X
-    Y <- Z$Y[, 1:ncol(Y), drop = FALSE]
+    Y <- Z$Y[, 1L:ncol(Y), drop = FALSE]
     w <- rep(1, nrow(X))
     print(dim(X))
   }
@@ -114,27 +114,27 @@ multinom <-
       Y <- Y / matrix(sY, nrow(Y), p)
       w <- w*sY
     }
-    if(length(offset) > 1) {
+    if(length(offset) > 1L) {
       if(ncol(offset) !=  p) stop("ncol(offset) is wrong")
-      mask <- c(rep(0, r+1+p), rep(c(0, rep(1, r), rep(0, p)), p-1) )
+      mask <- c(rep(0, r+1L+p), rep(c(0, rep(1, r), rep(0, p)), p-1L) )
       X <- cbind(X, offset)
-      Wts <- as.vector(rbind(matrix(0, r+1, p), diag(p)))
+      Wts <- as.vector(rbind(matrix(0, r+1L, p), diag(p)))
       fit <- nnet.default(X, Y, w, Wts=Wts, mask=mask, size=0, skip=TRUE,
                           softmax=TRUE, censored=censored, rang=0, ...)
     } else {
-      mask <- c(rep(0, r+1), rep(c(0, rep(1, r)), p-1) )
+      mask <- c(rep(0, r+1L), rep(c(0, rep(1, r)), p-1L) )
       fit <- nnet.default(X, Y, w, mask=mask, size=0, skip=TRUE, softmax=TRUE,
                           censored=censored, rang=0, ...)
     }
   } else {
 # 2 response levels
-    if(length(offset) <= 1) {
+    if(length(offset) <= 1L) {
       mask <- c(0, rep(1, r))
       fit <- nnet.default(X, Y, w, mask=mask, size=0, skip=TRUE, entropy=TRUE,
                           rang=0, ...)
     } else {
       mask <- c(0, rep(1, r), 0)
-      Wts <- c(rep(0, r+1), 1)
+      Wts <- c(rep(0, r+1L), 1)
       X <- cbind(X, offset)
       fit <- nnet.default(X, Y, w, Wts=Wts, mask=mask, size=0, skip=TRUE,
                   entropy=TRUE, rang=0, ...)
@@ -147,14 +147,14 @@ multinom <-
   fit$lev <- lev
   fit$deviance <- 2 * fit$value
   fit$rank <- Xr
-  edf <- ifelse(length(lev) == 2, 1, length(lev)-1)*Xr
+  edf <- ifelse(length(lev) == 2L, 1, length(lev)-1)*Xr
   if(is.matrix(Y)) {
     edf <- (ncol(Y)-1)*Xr
     if(length(dn <- colnames(Y)) > 0) fit$lab <- dn
-    else fit$lab <- 1:ncol(Y)
+    else fit$lab <- 1L:ncol(Y)
   }
   fit$coefnames <- colnames(X)
-  fit$vcoefnames <- fit$coefnames[1:r] # remove offset cols
+  fit$vcoefnames <- fit$coefnames[1L:r] # remove offset cols
   fit$na.action <- attr(m, "na.action")
   fit$contrasts <- cons
   fit$xlevels <- .getXlevels(Terms, m)
@@ -187,11 +187,11 @@ predict.multinom <- function(object, newdata, type=c("class","probs"), ...)
     Y[keep, ] <- Y1
   }
   switch(type, class={
-    if(length(object$lev) > 2)
+    if(length(object$lev) > 2L)
       Y <- factor(max.col(Y), levels=seq_along(object$lev), labels=object$lev)
-    if(length(object$lev) == 2)
-      Y <- factor(1 + (Y > 0.5), levels=1:2, labels=object$lev)
-    if(length(object$lev) == 0)
+    if(length(object$lev) == 2L)
+      Y <- factor(1 + (Y > 0.5), levels=1L:2L, labels=object$lev)
+    if(length(object$lev) == 0L)
       Y <- factor(max.col(Y), levels=seq_along(object$lab), labels=object$lab)
   }, probs={})
   drop(Y)
@@ -213,14 +213,14 @@ print.multinom <- function(x, ...)
 coef.multinom <- function(object, ...)
 {
   r <- length(object$vcoefnames)
-  if(length(object$lev) == 2) {
-    coef <- object$wts[1+(1:r)]
+  if(length(object$lev) == 2L) {
+    coef <- object$wts[1L+(1L:r)]
     names(coef) <- object$vcoefnames
   } else {
-    coef <- matrix(object$wts, nrow = object$n[3], byrow=TRUE)[, 1+(1:r), drop=FALSE]
+    coef <- matrix(object$wts, nrow = object$n[3L], byrow=TRUE)[, 1L+(1L:r), drop=FALSE]
     if(length(object$lev)) dimnames(coef) <- list(object$lev, object$vcoefnames)
     if(length(object$lab)) dimnames(coef) <- list(object$lab, object$vcoefnames)
-    coef <- coef[-1, , drop=FALSE]
+    coef <- coef[-1L, , drop=FALSE]
   }
   coef
 }
@@ -233,15 +233,15 @@ drop1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
       if(!is.character(scope))
 	scope <- attr(terms(update.formula(object, scope)), "term.labels")
       if(!all(match(scope, attr(object$terms, "term.labels"),
-                    nomatch = FALSE)))
+                    nomatch = 0L)))
 	stop("'scope' is not a subset of term labels")
     }
   ns <- length(scope)
-  ans <- matrix(nrow = ns+1, ncol = 2,
+  ans <- matrix(nrow = ns+1L, ncol = 2L,
                 dimnames = list(c("<none>", scope), c("Df", "AIC")))
   ans[1, ] <- c(object$edf, object$AIC)
   n0 <- length(object$residuals)
-  i <- 2
+  i <- 2L
   for(tt in scope) {
     cat("trying -", tt,"\n")
     nobject <- update(object, paste("~ . -", tt), trace = trace,
@@ -251,9 +251,9 @@ drop1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
     ans[i, ] <- c(nobject$edf, nobject$AIC)
     if(length(nobject$residuals) != n0)
         stop("number of rows in use has changed: remove missing values?")
-    i <- i+1
+    i <- i+1L
   }
-  if(sorted) ans <- ans[order(ans[, 2]), ]
+  if(sorted) ans <- ans[order(ans[, 2L]), ]
   as.data.frame(ans)
 }
 
@@ -266,12 +266,12 @@ add1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
   if(!length(scope))
     stop("no terms in 'scope' for adding to object")
   ns <- length(scope)
-  ans <- matrix(nrow = ns+1, ncol = 2,
+  ans <- matrix(nrow = ns+1L, ncol = 2L,
                 dimnames = list(c("<none>",paste("+",scope,sep="")),
                   c("Df", "AIC")))
-  ans[1, ] <- c(object$edf, object$AIC)
+  ans[1L, ] <- c(object$edf, object$AIC)
   n0 <- length(object$residuals)
-  i <- 2
+  i <- 2L
   for(tt in scope) {
     cat("trying +", tt,"\n")
     nobject <- update(object, as.formula(paste("~ . +", tt)), trace = trace,
@@ -281,9 +281,9 @@ add1.multinom <- function(object, scope, sorted = FALSE, trace = FALSE, ...)
     ans[i, ] <- c(nobject$edf, nobject$AIC)
     if(length(nobject$residuals) != n0)
         stop("number of rows in use has changed: remove missing values?")
-    i <- i+1
+    i <- i+1L
   }
-  if(sorted) ans <- ans[order(ans[, 2]), ]
+  if(sorted) ans <- ans[order(ans[, 2L]), ]
   as.data.frame(ans)
 }
 
@@ -298,8 +298,8 @@ vcov.multinom <- function(object, ...)
     # simplified version of ginv in MASS
     #
       Xsvd <- svd(X)
-      Positive <- Xsvd$d > max(tol * Xsvd$d[1], 0)
-      if(!any(Positive)) array(0, dim(X)[2:1])
+      Positive <- Xsvd$d > max(tol * Xsvd$d[1L], 0)
+      if(!any(Positive)) array(0, dim(X)[2L:1L])
       else Xsvd$v[, Positive] %*% ((1/Xsvd$d[Positive]) * t(Xsvd$u[, Positive]))
     }
 
@@ -314,18 +314,18 @@ function(object, correlation = FALSE, digits = options()$digits,
   vc <- vcov(object)
   r <- length(object$vcoefnames)
   se <- sqrt(diag(vc))
-  if(length(object$lev) == 2) {
-    coef <- object$wts[1 + (1:r)]
+  if(length(object$lev) == 2L) {
+    coef <- object$wts[1 + (1L:r)]
     stderr <- se
     names(coef) <- names(stderr) <- object$vcoefnames
   } else {
-    coef <- matrix(object$wts, nrow = object$n[3],
-		   byrow = TRUE)[-1, 1 + (1:r), drop = FALSE]
+    coef <- matrix(object$wts, nrow = object$n[3L],
+		   byrow = TRUE)[-1L, 1L + (1L:r), drop = FALSE]
     stderr <- matrix(se, nrow = object$n[3] - 1, byrow = TRUE)
     if(length(l <- object$lab) || length(l <- object$lev))
-      dimnames(coef) <- dimnames(stderr) <- list(l[-1], object$vcoefnames)
+      dimnames(coef) <- dimnames(stderr) <- list(l[-1L], object$vcoefnames)
   }
-  object$is.binomial <- (length(object$lev) == 2)
+  object$is.binomial <- (length(object$lev) == 2L)
   object$digits <- digits
   object$coefficients <- coef
   object$standard.errors <- stderr
@@ -359,13 +359,13 @@ print.summary.multinom <- function(x, digits = x$digits, ...)
   cat("\nResidual Deviance:", format(x$deviance), "\n")
   cat("AIC:", format(x$AIC), "\n")
   if(!is.null(correl <- x$correlation)) {
-    p <- dim(correl)[2]
+    p <- dim(correl)[2L]
     if(p > 1) {
       cat("\nCorrelation of Coefficients:\n")
       ll <- lower.tri(correl)
       correl[ll] <- format(round(correl[ll], digits))
       correl[!ll] <- ""
-      print(correl[-1, -p], quote = FALSE, ...)
+      print(correl[-1L, -p], quote = FALSE, ...)
     }
   }
   invisible(x)
@@ -393,7 +393,7 @@ anova.multinom <- function(object, ..., test = c("Chisq", "none"))
   mds <- sapply(mlist, function(x) paste(formula(x)[3]))
   dfs <- dflis[s]
   lls <- sapply(mlist, function(x) deviance(x))
-  tss <- c("", paste(1:(nt - 1), 2:nt, sep = " vs "))
+  tss <- c("", paste(1L:(nt - 1), 2:nt, sep = " vs "))
   df <- c(NA, -diff(dfs))
   x2 <- c(NA, -diff(lls))
   pr <- c(NA, 1 - pchisq(x2[-1], df[-1]))
@@ -402,7 +402,7 @@ anova.multinom <- function(object, ..., test = c("Chisq", "none"))
                     Prob = pr)
   names(out) <- c("Model", "Resid. df", "Resid. Dev", "Test",
                   "   Df", "LR stat.", "Pr(Chi)")
-  if(test == "none") out <- out[, 1:6]
+  if(test == "none") out <- out[, 1L:6L]
   class(out) <- c("Anova", "data.frame")
   attr(out, "heading") <-
     c("Likelihood ratio tests of Multinomial Models\n",
@@ -434,7 +434,7 @@ confint.multinom <- function (object, parm, level=0.95, ...)
     if (missing(parm))
         parm <- seq_along(pnames)
     else if (is.character(parm))
-        parm <- match(parm, pnames, nomatch = 0)
+        parm <- match(parm, pnames, nomatch = 0L)
     a <- (1 - level)/2
     a <- c(a, 1 - a)
     pct <- paste(round(100*a, 1), "%")

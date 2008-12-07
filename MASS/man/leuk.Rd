@@ -4,26 +4,28 @@
 \name{leuk}
 \alias{leuk}
 \title{
-Survival Times and White Blood Counts for Leukaemia Patients
+  Survival Times and White Blood Counts for Leukaemia Patients
 }
 \description{
-A data frame of data from 33 leukaemia patients.
+  A data frame of data from 33 leukaemia patients.
 }
 \usage{
 leuk
 }
 \format{
-A data frame with columns:
-\describe{
-\item{\code{wbc}}{
-white blood count
+  A data frame with columns:
+  \describe{
+    \item{\code{wbc}}{
+      white blood count.
+    }
+    \item{\code{ag}}{
+      a test result, \code{"present"} or \code{"absent"}.
+    }
+    \item{\code{time}}{
+      survival time in weeks.
+    }
+  }
 }
-\item{\code{ag}}{
-a test result, \code{"present"} or \code{"absent"}
-}
-\item{\code{time}}{
-survival time in weeks
-}}}
 \details{
   Survival times are given for 33 patients who died from acute
   myelogenous leukaemia.  Also measured was the patient's white blood cell

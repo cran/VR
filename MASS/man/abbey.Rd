@@ -4,11 +4,11 @@
 \name{abbey}
 \alias{abbey}
 \title{
-Determinations of Nickel Content
+  Determinations of Nickel Content
 }
 \description{
-A numeric vector of 31 determinations of nickel content (ppm) in
-a Canadian syenite rock.
+  A numeric vector of 31 determinations of nickel content (ppm) in
+  a Canadian syenite rock.
 }
 \usage{
 abbey

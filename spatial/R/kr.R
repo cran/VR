@@ -30,7 +30,7 @@
 
 surf.ls <- function(np, x, y, z)
 {
-    if (np > 6) stop("'np' exceeds 6")
+    if (np > 6L) stop("'np' exceeds 6")
     if(is.data.frame(x)) {
         if(any(is.na(match(c("x", "y", "z"), names(x)))))
             stop("'x' does not have columns 'x', 'y' and 'z'")
@@ -41,10 +41,10 @@ surf.ls <- function(np, x, y, z)
     rx <- range(x)
     ry <- range(y)
     .C(VR_frset,
-       as.double(rx[1]),
-       as.double(rx[2]),
-       as.double(ry[1]),
-       as.double(ry[2])
+       as.double(rx[1L]),
+       as.double(rx[2L]),
+       as.double(ry[1L]),
+       as.double(ry[2L])
        )
     n <- length(x)
     npar <- ((np + 1) * (np + 2))/2
@@ -80,20 +80,20 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
     }
     rx <- range(x)
     ry <- range(y)
-    .C(VR_frset, as.double(rx[1]), as.double(rx[2]),
-       as.double(ry[1]), as.double(ry[2]))
+    .C(VR_frset, as.double(rx[1L]), as.double(rx[2L]),
+       as.double(ry[1L]), as.double(ry[2L]))
     covmod <- covmod
     arguments <- list(...)
     if (length(arguments)) {
         onames <- names(formals(covmod))
-        pm <- pmatch(names(arguments), onames, nomatch = 0)
-        if (any(pm == 0)) warning(paste("some of ... do not match"))
-        names(arguments[pm > 0]) <- onames[pm]
+        pm <- pmatch(names(arguments), onames, nomatch = 0L)
+        if (any(pm == 0L)) warning(paste("some of ... do not match"))
+        names(arguments[pm > 0L]) <- onames[pm]
         oargs <- formals(covmod)
-        oargs[pm] <- arguments[pm > 0]
+        oargs[pm] <- arguments[pm > 0L]
         formals(covmod) <- oargs
     }
-    mm <- 1.5*sqrt((rx[2]-rx[1])^2 + (ry[2]-ry[1])^2)
+    mm <- 1.5*sqrt((rx[2L]-rx[1L])^2 + (ry[2L]-ry[1L])^2)
     alph <- c(mm/nx, covmod(seq(0, mm, mm/nx)))
     .C(VR_alset, as.double(alph), as.integer(length(alph)))
     n <- length(x)
@@ -113,11 +113,11 @@ surf.gls <- function(np, covmod, x, y, z, nx=1000, ...)
             wz = double(n),
             yy = double(n),
             W = double(n),
-            ifail = as.integer(0),
+            ifail = 0L,
             l1f = double(n * npar)
             )
-    if(Z$ifail > 0) stop("rank failure in Choleski decomposition")
-    if(nx > 1000) alph <- alph[1]
+    if(Z$ifail > 0L) stop("rank failure in Choleski decomposition")
+    if(nx > 1000L) alph <- alph[1L]
     res <- list(x=x, y=y, z=z, np=np, f=f, alph=alph, l=Z$l, r=Z$r,
                 beta=Z$beta, wz=Z$wz, yy=Z$yy, W=Z$W, l1f=Z$l1f, rx=rx, ry=ry,
                 covmod=covmod, call=match.call())
@@ -144,10 +144,10 @@ predict.trls <- function (object, x, y, ...)
     n <- length(x)
     if (length(y) != n) stop("'x' and 'y' differ in length")
     .C(VR_frset,
-       as.double(object$rx[1]),
-       as.double(object$rx[2]),
-       as.double(object$ry[1]),
-       as.double(object$ry[2])
+       as.double(object$rx[1L]),
+       as.double(object$rx[2L]),
+       as.double(object$ry[1L]),
+       as.double(object$ry[2L])
        )
     invisible(.trval(object, x, y))
 }
@@ -171,10 +171,10 @@ trmat <- function(obj, xl, xu, yl, yu, n)
 {
     if(!inherits(obj, "trls")) stop("'object' is not a fitted trend surface")
     .C(VR_frset,
-       as.double(obj$rx[1]),
-       as.double(obj$rx[2]),
-       as.double(obj$ry[1]),
-       as.double(obj$ry[2])
+       as.double(obj$rx[1L]),
+       as.double(obj$rx[2L]),
+       as.double(obj$ry[1L]),
+       as.double(obj$ry[2L])
        )
     dx <- (xu - xl)/n
     dy <- (yu - yl)/n
@@ -207,15 +207,15 @@ prmat <- function(obj, xl, xu, yl, yu, n)
     if(!inherits(obj, "trgls")) stop("object not from kriging")
     if(n > 999) stop("'n' is too large")
     .C(VR_frset,
-       as.double(obj$rx[1]),
-       as.double(obj$rx[2]),
-       as.double(obj$ry[1]),
-       as.double(obj$ry[2])
+       as.double(obj$rx[1L]),
+       as.double(obj$rx[2L]),
+       as.double(obj$ry[1L]),
+       as.double(obj$ry[2L])
        )
     alph <- obj$alph
-    if(length(alph) <= 1) {
-        mm <- 1.5*sqrt((obj$rx[2]-obj$rx[1])^2 + (obj$ry[2]-obj$ry[1])^2)
-        alph <- c(alph[1], obj$covmod(seq(0, mm, alph[1])))
+    if(length(alph) <= 1L) {
+        mm <- 1.5*sqrt((obj$rx[2L]-obj$rx[1L])^2 + (obj$ry[2L]-obj$ry[1L])^2)
+        alph <- c(alph[1], obj$covmod(seq(0, mm, alph[1L])))
     }
     .C(VR_alset,
        as.double(alph),
@@ -259,15 +259,15 @@ semat <- function(obj, xl, xu, yl, yu, n, se)
     if(!inherits(obj, "trgls")) stop("object not from kriging")
     if(n > 999) stop("'n' is too large")
     .C(VR_frset,
-       as.double(obj$rx[1]),
-       as.double(obj$rx[2]),
-       as.double(obj$ry[1]),
-       as.double(obj$ry[2])
+       as.double(obj$rx[1L]),
+       as.double(obj$rx[2L]),
+       as.double(obj$ry[1L]),
+       as.double(obj$ry[2L])
        )
     alph <- obj$alph
-    if(length(alph) <= 1) {
-        mm <- 1.5*sqrt((obj$rx[2]-obj$rx[1])^2 + (obj$ry[2]-obj$ry[1])^2)
-        alph <- c(alph[1], obj$covmod(seq(0, mm, alph[1])))
+    if(length(alph) <= 1L) {
+        mm <- 1.5*sqrt((obj$rx[2L]-obj$rx[1L])^2 + (obj$ry[2L]-obj$ry[1L])^2)
+        alph <- c(alph[1L], obj$covmod(seq(0, mm, alph[1L])))
   }
     .C(VR_alset, as.double(alph), as.integer(length(alph)))
     dx <- (xu - xl)/n
@@ -296,9 +296,9 @@ correlogram <- function(krig, nint, plotit=TRUE, ...)
           as.integer(length(krig$x)),
           cnt = integer(nint)
           )
-  xp <- z$xp[1:z$nint]
-  yp <- z$yp[1:z$nint]
-  z <- list(x = xp, y = yp, cnt = z$cnt[1:z$nint])
+  xp <- z$xp[1L:z$nint]
+  yp <- z$yp[1L:z$nint]
+  z <- list(x = xp, y = yp, cnt = z$cnt[1L:z$nint])
   if(plotit)
     if(exists(".Device")) {
       plot(xp, yp, type = "p", ylim = c(-1, 1), ...)
@@ -326,8 +326,8 @@ variogram <- function(krig, nint, plotit=TRUE, ...)
           )
   xp <- z$xp[1:z$nint]
   yp <- z$yp[1:z$nint]
-  if(xp[1] > 0) {xp <- c(0, xp); yp <- c(0, yp)}
-  z <- list(x = xp, y = yp, cnt = z$cnt[1:z$nint])
+  if(xp[1L] > 0) {xp <- c(0, xp); yp <- c(0, yp)}
+  z <- list(x = xp, y = yp, cnt = z$cnt[1L:z$nint])
   if(plotit)
     if(exists(".Device")) {
       plot(xp, yp, type = "p", ...)
@@ -409,15 +409,15 @@ extractAIC.trls <- function (fit, scale, k = 2, ...)
 #
 anova.trls <- function (object, ...)
 {
-    if (length(list(object, ...)) > 1)
+    if (length(list(object, ...)) > 1L)
         return(anovalist.trls(object, ...))
     if (!inherits(object, "trls"))
         stop("'object' is not a fitted trend surface")
     rss <- deviance(object)
     rdf <- df.residual.trls(object)
     n <- length(object$z)
-    edf <- n - rdf - 1
-    tss <- var(object$z) * (n - 1)
+    edf <- n - rdf - 1L
+    tss <- var(object$z) * (n - 1L)
     ess <- tss - rss
     ems <- ess/edf
     rms <- rss/rdf
@@ -440,11 +440,11 @@ anovalist.trls <- function (object, ...)
 {
     objs <- list(object, ...)
     nmodels <- length(objs)
-    for (i in 1:nmodels) {
+    for (i in 1L:nmodels) {
         if (!inherits(objs[[i]], "trls"))
             stop("'object' is not a fitted trend surface")
     }
-    if (nmodels == 1)
+    if (nmodels == 1L)
         return(anova.trls(object))
     models <- as.character(lapply(objs, function(x) x$call))
     df.r <- unlist(lapply(objs, df.residual.trls))
@@ -453,7 +453,7 @@ anovalist.trls <- function (object, ...)
     ss <- c(NA, -diff(ss.r))
     ms <- ss/df
     f <- p <- rep(NA, nmodels)
-    for (i in 2:nmodels) {
+    for (i in 2L:nmodels) {
         if (df[i] > 0) {
             f[i] <- ms[i]/(ss.r[i]/df.r[i])
             p[i] <- 1 - pf(f[i], df[i], df.r[i])
@@ -466,7 +466,7 @@ anovalist.trls <- function (object, ...)
     }
     table <- data.frame(df.r, ss.r, df, ss, f, p)
     dimnames(table) <-
-        list(1:nmodels, c("Res.Df", "Res.Sum Sq",
+        list(1L:nmodels, c("Res.Df", "Res.Sum Sq",
                           "Df", "Sum Sq", "F value", "Pr(>F)"))
     title <- "Analysis of Variance Table\n"
     topnote <- paste("Model ", format(1:nmodels), ": ", models,
@@ -500,9 +500,9 @@ summary.trls <-
     cat(",\tAdjusted R-squared:", format(adj.rsquared, digits = digits),
         "\n")
     AIC <- extractAIC(object)
-    cat("AIC: (df = ", AIC[1], ") ", AIC[2], "\n", sep = "")
+    cat("AIC: (df = ", AIC[1L], ") ", AIC[2L], "\n", sep = "")
     cat("Fitted:\n")
-    if (rdf > 5) {
+    if (rdf > 5L) {
         nam <- c("Min", "1Q", "Median", "3Q", "Max")
         rq <- structure(quantile(fitted.trls(object)), names = nam)
         print(rq, digits = digits)
@@ -510,7 +510,7 @@ summary.trls <-
         print(fitted(object), digits = digits)
     }
     cat("Residuals:\n")
-    if (rdf > 5) {
+    if (rdf > 5L) {
         nam <- c("Min", "1Q", "Median", "3Q", "Max")
         rq <- structure(quantile(residuals(object)), names = nam)
         print(rq, digits = digits)
@@ -550,9 +550,7 @@ plot.trls <-
     sc <- (mDi * dxy)/div
     if (!add)
         plot(x$x, x$y, type = "n", xlab = "", ylab = "")
-    symbols(x$x, x$y, circles=sc * infl$Di, add=TRUE,
-            fg=border,
-            inches=FALSE)
+    symbols(x$x, x$y, circles=sc * infl$Di, add=TRUE, fg=border, inches=FALSE)
     points(x$x, x$y, pch = pch)
 }
 

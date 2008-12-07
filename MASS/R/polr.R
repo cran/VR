@@ -71,7 +71,7 @@ polr <- function(formula, data, weights, start, ..., subset,
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
     x <- model.matrix(Terms, m, contrasts)
-    xint <- match("(Intercept)", colnames(x), nomatch=0)
+    xint <- match("(Intercept)", colnames(x), nomatch=0L)
     n <- nrow(x)
     pc <- ncol(x)
     cons <- attr(x, "contrasts") # will get dropped by subsetting
@@ -273,7 +273,7 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
         if (!is.null(cl <- attr(Terms, "dataClasses")))
             .checkMFClasses(cl, m)
         X <- model.matrix(Terms, m, contrasts = object$contrasts)
-        xint <- match("(Intercept)", colnames(X), nomatch=0)
+        xint <- match("(Intercept)", colnames(X), nomatch=0L)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
         n <- nrow(X)
         q <- length(object$zeta)
@@ -504,7 +504,7 @@ confint.polr <- function(object, parm, level = 0.95, trace = FALSE, ...)
 {
     pnames <- names(coef(object))
     if(missing(parm)) parm <- seq_along(pnames)
-    else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
+    else if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0L)
     message("Waiting for profiling to be done...")
     utils::flush.console()
     object <- profile(object, which = parm, alpha = (1. - level)/4.,
@@ -517,7 +517,7 @@ confint.profile.polr <-
 {
     of <- attr(object, "original.fit")
     pnames <- names(coef(of))
-    if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0)
+    if(is.character(parm))  parm <- match(parm, pnames, nomatch = 0L)
     a <- (1-level)/2
     a <- c(a, 1-a)
     pct <- paste(round(100*a, 1), "%")

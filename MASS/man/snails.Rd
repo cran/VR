@@ -4,48 +4,50 @@
 \name{snails}
 \alias{snails}
 \title{
-Snail Mortality Data
+  Snail Mortality Data
 }
 \description{
-Groups of 20 snails were held for periods of 1, 2, 3 or 4 weeks
-in carefully controlled conditions of temperature and relative
-humidity.  There were two species of snail, A and B, and the
-experiment was designed as a 4 by 3 by 4 by 2 completely randomized
-design.  At the end of the exposure time the snails were tested to see if
-they had survived; the process itself is fatal for the animals.  The
-object of the exercise was to model the probability of survival in terms of
-the stimulus variables, and in particular to test for differences between
-species.
+  Groups of 20 snails were held for periods of 1, 2, 3 or 4 weeks
+  in carefully controlled conditions of temperature and relative
+  humidity.  There were two species of snail, A and B, and the
+  experiment was designed as a 4 by 3 by 4 by 2 completely randomized
+  design.  At the end of the exposure time the snails were tested to see if
+  they had survived; the process itself is fatal for the animals.  The
+  object of the exercise was to model the probability of survival in terms of
+  the stimulus variables, and in particular to test for differences between
+  species.
 
-The data are unusual in that in most cases fatalities during the experiment
-were fairly small.
+  The data are unusual in that in most cases fatalities during the experiment
+  were fairly small.
 }
 \usage{
 snails
 }
 \format{
-The data frame contains the following components:
-\describe{
-\item{\code{Species}}{
-Snail species A (1) or B (2)
+  The data frame contains the following components:
+  \describe{
+    \item{\code{Species}}{
+      snail species A (\code{1}) or B (\code{2}).
+    }
+    \item{\code{Exposure}}{
+      exposure in weeks.
+    }
+    \item{\code{Rel.Hum}}{
+      relative humidity (4 levels).
+    }
+    \item{\code{Temp}}{
+      temperature, in degrees Celsius (3 levels).
+    }
+    \item{\code{Deaths}}{
+      number of deaths.
+    }
+    \item{\code{N}}{
+      number of snails exposed.
+    }
+  }
 }
-\item{\code{Exposure}}{
-Exposure in weeks
-}
-\item{\code{Rel.Hum}}{
-Relative humidity (4 levels)
-}
-\item{\code{Temp}}{
-Temperature, in degrees Celsius (3 levels)
-}
-\item{\code{Deaths}}{
-Number of deaths
-}
-\item{\code{N}}{
-Number of snails exposed
-}}}
 \source{
-Zoology Department, The University of Adelaide.
+  Zoology Department, The University of Adelaide.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (1999)

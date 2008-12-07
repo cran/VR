@@ -4,42 +4,44 @@
 \name{oats}
 \alias{oats}
 \title{
-Data from an Oats Field Trial
+  Data from an Oats Field Trial
 }
 \description{
-The yield of oats from a split-plot field trial using three varieties and
-four levels of manurial treatment.  The experiment was laid out in 6 blocks
-of 3 main plots, each split into 4 sub-plots.  The varieties were applied
-to the main plots and the manurial treatments to the sub-plots.
+  The yield of oats from a split-plot field trial using three varieties and
+  four levels of manurial treatment.  The experiment was laid out in 6 blocks
+  of 3 main plots, each split into 4 sub-plots.  The varieties were applied
+  to the main plots and the manurial treatments to the sub-plots.
 }
 \usage{
 oats
 }
 \format{
-This data frame contains the following columns:
-\describe{
-\item{\code{B}}{
-Blocks, levels I, II, III, IV, V and VI
+  This data frame contains the following columns:
+  \describe{
+    \item{\code{B}}{
+      Blocks, levels I, II, III, IV, V and VI.
+    }
+    \item{\code{V}}{
+      Varieties, 3 levels.
+    }
+    \item{\code{N}}{
+      Nitrogen (manurial) treatment, levels  0.0cwt, 0.2cwt, 0.4cwt and 0.6cwt,
+      showing the application in cwt/acre.
+    }
+    \item{\code{Y}}{
+      Yields in 1/4lbs per sub-plot, each of area 1/80 acre.
+    }
+  }
 }
-\item{\code{V}}{
-Varieties, 3 levels.
-}
-\item{\code{N}}{
-Nitrogen (manurial) treatment, levels  0.0cwt, 0.2cwt, 0.4cwt and 0.6cwt,
-showing the application in cwt/acre.
-}
-\item{\code{Y}}{
-Yields in 1/4lbs per sub-plot, each of area 1/80 acre.
-}}}
 \source{
-Yates, F. (1935) Complex experiments,
-\emph{Journal of the Royal Statistical Society Suppl.}
-\bold{2}, 181--247.
+  Yates, F. (1935) Complex experiments,
+  \emph{Journal of the Royal Statistical Society Suppl.}
+  \bold{2}, 181--247.
 
-Also given in
-Yates, F. (1970)
-\emph{Experimental design: Selected papers of Frank Yates, C.B.E, F.R.S.}
- London: Griffin.
+  Also given in
+  Yates, F. (1970)
+  \emph{Experimental design: Selected papers of Frank Yates, C.B.E, F.R.S.}
+  London: Griffin.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

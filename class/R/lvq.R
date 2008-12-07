@@ -51,7 +51,7 @@ olvq1 <- function(x, cl, codebk, niter = 40*nrow(codebk$x), alpha = 0.3)
         stop("no missing values are allowed")
     n <- nrow(x)
     p <- ncol(x)
-    nc <- dim(codebk$x)[1]
+    nc <- dim(codebk$x)[1L]
     if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
     z <- .C(VR_olvq,
@@ -64,7 +64,7 @@ olvq1 <- function(x, cl, codebk, niter = 40*nrow(codebk$x), alpha = 0.3)
             xc = as.double(codebk$x),
             as.integer(codebk$cl),
             as.integer(niter),
-            as.integer(iters-1)
+            as.integer(iters-1L)
             )
     xc <- matrix(z$xc,nc,p)
     dimnames(xc) <- dimnames(codebk$x)
@@ -78,7 +78,7 @@ lvq1 <- function(x, cl, codebk, niter = 100*nrow(codebk$x), alpha = 0.03)
         stop("no missing values are allowed")
     n <- nrow(x)
     p <- ncol(x)
-    nc <- dim(codebk$x)[1]
+    nc <- dim(codebk$x)[1L]
     if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
     z <- .C(VR_lvq1,
@@ -91,7 +91,7 @@ lvq1 <- function(x, cl, codebk, niter = 100*nrow(codebk$x), alpha = 0.03)
             xc = as.double(codebk$x),
             as.integer(codebk$cl),
             as.integer(niter),
-            as.integer(iters-1)
+            as.integer(iters-1L)
             )
     xc <- matrix(z$xc,nc,p)
     dimnames(xc) <- dimnames(codebk$x)
@@ -106,7 +106,7 @@ lvq2 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
         stop("no missing values are allowed")
     n <- nrow(x)
     p <- ncol(x)
-    nc <- dim(codebk$x)[1]
+    nc <- dim(codebk$x)[1L]
     if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
     z <- .C(VR_lvq2,
@@ -120,7 +120,7 @@ lvq2 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
             xc = as.double(codebk$x),
             as.integer(codebk$cl),
             as.integer(niter),
-            as.integer(iters-1)
+            as.integer(iters-1L)
             )
     xc <- matrix(z$xc,nc,p)
     dimnames(xc) <- dimnames(codebk$x)
@@ -135,7 +135,7 @@ lvq3 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
         stop("no missing values are allowed")
     n <- nrow(x)
     p <- ncol(x)
-    nc <- dim(codebk$x)[1]
+    nc <- dim(codebk$x)[1L]
     if(length(cl) != n) stop("'x' and 'cl' have different lengths")
     iters <- sample(n, niter, TRUE)
     z <- .C(VR_lvq3,
@@ -150,7 +150,7 @@ lvq3 <- function(x, cl, codebk, niter = 100*nrow(codebk$x),
             xc = as.double(codebk$x),
             as.integer(codebk$cl),
             as.integer(niter),
-            as.integer(iters-1)
+            as.integer(iters-1L)
             )
     xc <- matrix(z$xc,nc,p)
     dimnames(xc) <- dimnames(codebk$x)

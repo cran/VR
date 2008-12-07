@@ -4,28 +4,28 @@
 \name{steam}
 \alias{steam}
 \title{
-The Saturated Steam Pressure Data
+  The Saturated Steam Pressure Data
 }
 \description{
-Temperature and pressure in a saturated steam driven experimental
-device.
+  Temperature and pressure in a saturated steam driven experimental device.
 }
 \usage{
 steam
 }
 \format{
-The data frame contains the following components:
-\describe{
-\item{\code{Temp}}{
-Temperature, in degrees Celsius
+  The data frame contains the following components:
+  \describe{
+    \item{\code{Temp}}{
+      temperature, in degrees Celsius.
+    }
+    \item{\code{Press}}{
+      pressure, in Pascals.
+    }
+  }
 }
-\item{\code{Press}}{
-Pressure, in Pascals
-}}}
 \source{
-N.R. Draper  and H. Smith (1981)
-\emph{Applied Regression Analysis.}
-Wiley, pp. 518--9.
+  N.R. Draper  and H. Smith (1981)
+  \emph{Applied Regression Analysis.} Wiley, pp. 518--9.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (1999)

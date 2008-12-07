@@ -21,7 +21,7 @@ ppinit <- function(file)
   t1file <- system.file("ppdata", file, package="spatial")
   if(nzchar(t1file)) tfile <- t1file
   h <- scan(tfile, list(xl = 0, xu = 0, yl = 0, yu = 0, fac = 0),
-	    n = 5, skip = 2, quiet = TRUE)
+	    n = 5L, skip = 2L, quiet = TRUE)
   pp <- scan(tfile, list(x = 0, y = 0), skip = 3, quiet = TRUE)
   pp$x <- pp$x/h$fac
   pp$y <- pp$y/h$fac
@@ -40,10 +40,10 @@ Kfn <- function(pp, fs, k = 100)
 	  as.integer(length(pp$x)),
 	  k1 = as.integer(k),
 	  h = double(k),
-	  dmin = double(1),
-	  lm = double(1),
+	  dmin = double(1L),
+	  lm = double(1L),
 	  as.double(fs))
-  list(y = z$h[1:z$k1], x = (seq(1:z$k1) * fs)/k, k = k,
+  list(y = z$h[1L:z$k1], x = (seq(1L:z$k1) * fs)/k, k = k,
        dmin = z$dmin, lm = max(z$dmin, z$lm),
        call=match.call())
 }
@@ -177,7 +177,7 @@ pplik <- function(pp, R, ng=50, trace=FALSE)
   if(target == 0) return(0)
   tmp <- pplikfn(1, R, n, pp$x, pp$y, ng, target, FALSE)
   if(tmp <= 0) return(1)
-  stats::uniroot(pplikfn, c(0,1),
+  stats::uniroot(pplikfn, interval=c(0,1),
                  R=R, n=n, x=pp$x, y=pp$y, ng=ng, target=target,
                  trace=trace)$root
 }

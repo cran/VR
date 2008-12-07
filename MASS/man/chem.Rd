@@ -4,20 +4,18 @@
 \name{chem}
 \alias{chem}
 \title{
-Copper in Wholemeal Flour
+  Copper in Wholemeal Flour
 }
 \description{
-A numeric vector of 24 determinations of copper in wholemeal
-flour, in parts per million.
+  A numeric vector of 24 determinations of copper in wholemeal
+  flour, in parts per million.
 }
 \usage{
 chem
 }
 \source{
-Analytical Methods Committee (1989) Robust statistics -- how not to
-reject outliers.
-\emph{The Analyst}
-\bold{114}, 1693--1702, 1989
+  Analytical Methods Committee (1989) Robust statistics -- how not to
+  reject outliers. \emph{The Analyst} \bold{114}, 1693--1702.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

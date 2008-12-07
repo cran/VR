@@ -19,17 +19,17 @@ multiedit <- function(x, class, k=1, V=3, I=5, trace=TRUE)
 {
      n1 <- length(class)
      class <- unclass(class)
-     index <- 1:n1
-     pass <- lpass <- 0
+     index <- seq_len(n1)
+     pass <- lpass <- 0L
      repeat{
          if(n1 < 5*V) {
              warning("retained set is now too small to proceed")
              break
          }
-	 pass <- pass + 1
+	 pass <- pass + 1L
 	 sub <- sample(V, length(class), replace=TRUE)
 	 keep <- logical(length(class))
-	 for (i in 1:V){
+	 for (i in 1L:V){
 	     train <- sub==i
 	     test <- sub==(1 + i%%V)
 	     keep[test] <- (knn(x[train, , drop=FALSE], x[test, , drop=FALSE],
@@ -57,7 +57,7 @@ condense <- function(train, class, store=sample(seq(n), 1), trace=TRUE)
         add <- res != class[bag]
         if(sum(add) == 0) break
         cand <- (seq(n)[bag])[add]
-	if(length(cand) > 1) cand <- sample(cand, 1)
+	if(length(cand) > 1L) cand <- sample(cand, 1L)
         bag[cand] <- FALSE
      }
      seq(n)[!bag]

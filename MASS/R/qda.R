@@ -27,7 +27,7 @@ qda.formula <- function(formula, data, ..., subset, na.action)
     x <- model.matrix(Terms, m)
     xvars <- as.character(attr(Terms, "variables"))[-1]
     if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
-    xint <- match("(Intercept)", colnames(x), nomatch=0)
+    xint <- match("(Intercept)", colnames(x), nomatch=0L)
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- qda.default(x, grouping, ...)
     res$terms <- Terms
@@ -201,7 +201,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
         }
         x <- model.matrix(delete.response(Terms), newdata,
                           contrasts = object$contrasts)
-        xint <- match("(Intercept)", colnames(x), nomatch=0)
+        xint <- match("(Intercept)", colnames(x), nomatch=0L)
         if(xint > 0) x <- x[, -xint, drop=FALSE]
         if(method == "looCV") g <- model.response(newdata)
     } else { #

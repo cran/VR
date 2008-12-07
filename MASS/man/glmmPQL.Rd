@@ -16,7 +16,7 @@ glmmPQL(fixed, random, family, data, correlation, weights,
 a two-sided linear formula giving fixed-effects part of the model.
 }
 \item{random}{
-A formula or list of formulae describing the random effects.
+a formula or list of formulae describing the random effects.
 }
 \item{family}{
 a GLM family.

@@ -376,7 +376,10 @@ dropterm.glm <-
     dfs <- numeric(ns)
     dev <- numeric(ns)
     y <- object$y
-    if(is.null(y)) y <- model.response(model.frame(object), "numeric")
+    if(is.null(y)) {
+        y <- model.response(model.frame(object))
+        if(!is.factor(y)) storage.mode(y) <- "double"
+    }
     wt <- object$prior.weights
     if(is.null(wt)) wt <- rep.int(1, n)
     for(i in 1:ns) {

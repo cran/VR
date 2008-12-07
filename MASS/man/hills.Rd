@@ -4,39 +4,35 @@
 \name{hills}
 \alias{hills}
 \title{
-Record Times in Scottish Hill Races
+  Record Times in Scottish Hill Races
 }
 \description{
-The record times in 1984 for 35 Scottish hill races.
+  The record times in 1984 for 35 Scottish hill races.
 }
 \usage{
 hills
 }
 \format{
-The components are:
-\describe{
-\item{\code{dist}}{
-distance in miles (on the map)
+  The components are:
+  \describe{
+    \item{\code{dist}}{
+      distance in miles (on the map).
+    }
+    \item{\code{climb}}{
+      total height gained during the route, in feet.
+    }
+    \item{\code{time}}{
+      record time in minutes.
+    }
+  }
 }
-\item{\code{climb}}{
-total height gained during the route, in feet.
-}
-\item{\code{time}}{
-record time in minutes.
-}}}
 \source{
-A.C. Atkinson (1986)
-Comment: Aspects of diagnostic regression analysis.
-\emph{Statistical Science }
-\bold{1}, 397--402.
+  A.C. Atkinson (1986) Comment: Aspects of diagnostic regression analysis.
+  \emph{Statistical Science} \bold{1}, 397--402.
 
-
-[A.C. Atkinson (1988)
-Transformations unmasked.
-\emph{Technometrics}
-\bold{30}, 311--318
-"corrects" the time for Knock Hill from 78.65 to 18.65. It is unclear
-if this based on the original records.]
+[A.C. Atkinson (1988) Transformations unmasked. \emph{Technometrics}
+\bold{30}, 311--318 \dQuote{corrects} the time for Knock Hill from 78.65
+to 18.65. It is unclear if this based on the original records.]
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

@@ -13,37 +13,37 @@ Data on patients diagnosed with AIDS in Australia before 1 July 1991.
 Aids2
 }
 \format{
-This data frame contains 2843 rows and the following columns:
-\describe{
-\item{\code{state}}{
-Grouped state of origin: NSW includes ACT and \code{"other"} is WA, SA, NT
-and TAS.
+  This data frame contains 2843 rows and the following columns:
+  \describe{
+    \item{\code{state}}{
+      Grouped state of origin: \code{"NSW "}includes ACT and
+      \code{"other"} is WA, SA, NT and TAS.
+    }
+    \item{\code{sex}}{
+      Sex of patient.
+    }
+    \item{\code{diag}}{(Julian) date of diagnosis.}
+    \item{\code{death}}{
+      (Julian) date of death or end of observation.
+    }
+    \item{\code{status}}{
+      \code{"A"} (alive) or \code{"D"} (dead) at end of observation.
+    }
+    \item{\code{T.categ}}{
+      Reported transmission category.
+    }
+    \item{\code{age}}{
+      Age (years) at diagnosis.
+    }
+  }
 }
-\item{\code{sex}}{
-Sex of patient
-}
-\item{\code{diag}}{
-(Julian) date of diagnosis
-}
-\item{\code{death}}{
-(Julian) date of death or end of observation
-}
-\item{\code{status}}{
-\code{"A"} (alive) or \code{"D"} (dead) at end of observation
-}
-\item{\code{T.categ}}{
-Reported transmission category
-}
-\item{\code{age}}{
-Age (years) at diagnosis
-}}}
 \note{
-This data set has been slightly jittered as a
-condition of its release, to ensure patient confidentiality.
+  This data set has been slightly jittered as a
+  condition of its release, to ensure patient confidentiality.
 }
 \source{
-Dr P. J. Solomon and the Australian National Centre in HIV Epidemiology
-and Clinical Research.
+  Dr P. J. Solomon and the Australian National Centre in HIV Epidemiology
+  and Clinical Research.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

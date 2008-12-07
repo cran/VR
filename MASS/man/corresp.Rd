@@ -34,26 +34,27 @@ corresp(x, \dots)
 \method{corresp}{formula}(formula, data, \dots)
 }
 \arguments{
-\item{x, formula}{
-The function is generic, accepting various forms of the principal
-argument for specifying a two-way frequency table.  Currently accepted
-forms are matrices, data frames (coerced to frequency tables), objects
-of class \code{"\link{xtabs}"} and formulae of the form \code{~ F1 + F2},
-where \code{F1} and \code{F2} are factors.
+  \item{x, formula}{
+    The function is generic, accepting various forms of the principal
+    argument for specifying a two-way frequency table.  Currently accepted
+    forms are matrices, data frames (coerced to frequency tables), objects
+    of class \code{"\link{xtabs}"} and formulae of the form \code{~ F1 + F2},
+    where \code{F1} and \code{F2} are factors.
+  }
+  \item{nf}{
+    The number of factors to be computed. Note that although 1 is the most
+    usual, one school of thought takes the first two singular vectors for
+    a sort of biplot.
+  }
+  \item{y}{a second factor for a cross-classification.}
+  \item{data}{a data frame against which to preferentially resolve
+    variables in the formula.}
+  \item{\dots}{
+    If the principal argument is a formula, a data frame may be specified
+    as well from which variables in the formula are preferentially
+    satisfied.
+  }
 }
-\item{nf}{
-The number of factors to be computed. Note that although 1 is the most
-usual, one school of thought takes the first two singular vectors for
-a sort of biplot.
-}
-\item{y}{a second factor for a cross-classification}
-\item{data}{a data frame against which to preferentially resolve
-  variables in the formula.}
-\item{\dots}{
-If the principal argument is a formula, a data frame may be specified
-as well from which variables in the formula are preferentially
-satisfied.
-}}
 \value{
   An list object of class \code{"correspondence"} for which
   \code{print}, \code{plot} and \code{biplot} methods are supplied.
@@ -82,7 +83,7 @@ satisfied.
   \emph{Biplots.}  Chapman \& Hall.
 }
 \seealso{
-\code{\link{svd}}, \code{\link{princomp}}
+  \code{\link{svd}}, \code{\link{princomp}}.
 }
 \examples{
 (ct <- corresp(~ Age + Eth, data = quine))

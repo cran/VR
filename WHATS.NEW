@@ -176,6 +176,8 @@ Library MASS
 - 'alpha' in the "glm" and "polr" methods for profile() is now interpreted
   as two-tailed univariate for consistency with other profile methods.
 - 'mammals': corrected typos in names, some thanks to Arni Magnusson
+- profile.glm() now works for binomial glm specified with a matrix response
+  and a cmpletely zero row.
 
 
 Library class

@@ -67,10 +67,10 @@ The matched call.
 The number of iterations used.
 }}
 \references{
-J. T. Kent, D. E. Tyler and Y. Vardi (1994)
-A curious likelihood identity for the multivariate t-distribution.
-\emph{Communications in Statistics---Simulation and Computation}
-\bold{23}, 441--453.
+  J. T. Kent, D. E. Tyler and Y. Vardi (1994)
+  A curious likelihood identity for the multivariate t-distribution.
+  \emph{Communications in Statistics---Simulation and Computation}
+  \bold{23}, 441--453.
 
   Venables, W. N. and Ripley, B. D. (1999)
   \emph{Modern Applied Statistics with S-PLUS.} Third

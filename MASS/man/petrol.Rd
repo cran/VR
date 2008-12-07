@@ -4,51 +4,49 @@
 \name{petrol}
 \alias{petrol}
 \title{
-N. L. Prater's Petrol Refinery Data
+  N. L. Prater's Petrol Refinery Data
 }
 \description{
-The yield of a petroleum refining process with four covariates.
-The crude oil appears to come from only 10 distinct samples.
+  The yield of a petroleum refining process with four covariates.
+  The crude oil appears to come from only 10 distinct samples.
 
-
-These data were originally used by Prater (1956) to
-build an estimation equation for the yield of the refining
-process of crude oil to gasoline.
+  These data were originally used by Prater (1956) to
+  build an estimation equation for the yield of the refining
+  process of crude oil to gasoline.
 }
 \usage{
 petrol
 }
 \format{
-The variables are as follows
-\describe{
-\item{\code{No}}{
-Crude oil sample identification label. (factor)
+  The variables are as follows
+  \describe{
+    \item{\code{No}}{
+      crude oil sample identification label. (Factor.)
+    }
+    \item{\code{SG}}{
+      specific gravity, degrees API.  (Constant within sample.)
+    }
+    \item{\code{VP}}{
+      vapour pressure in pounds per square inch. (Constant within sample.)
+    }
+    \item{\code{V10}}{
+      volatility of crude; ASTM 10\% point. (Constant within sample.)
+    }
+    \item{\code{EP}}{
+      desired volatility of gasoline. (The end point.  Varies within sample.)
+    }
+    \item{\code{Y}}{
+      yield as a percentage of crude.
+    }
+  }
 }
-\item{\code{SG}}{
-Specific gravity, degrees API.  (Constant within sample.)
-}
-\item{\code{VP}}{
-Vapour pressure in psi. (Constant within sample.)
-}
-\item{\code{V10}}{
-Volatility of crude; ASTM 10\% point. (Constant within sample.)
-}
-\item{\code{EP}}{
-Desired volatility of gasoline. (The end point.  Varies within sample.)
-}
-\item{\code{Y}}{
-Yield as a percentage of crude.
-}}}
 \source{
-N. H. Prater (1956)
-Estimate gasoline yields from crudes.
-\emph{Petroleum Refiner}
-\bold{35}, 236--238.
+  N. H. Prater (1956) Estimate gasoline yields from
+  crudes. \emph{Petroleum Refiner} \bold{35}, 236--238.
 
-This dataset is also given in
-D. J. Hand, F. Daly, K. McConway, D. Lunn and E. Ostrowski (eds) (1994)
-\emph{A Handbook of Small Data Sets.}
-Chapman & Hall.
+  This dataset is also given in
+  D. J. Hand, F. Daly, K. McConway, D. Lunn and E. Ostrowski (eds) (1994)
+  \emph{A Handbook of Small Data Sets.} Chapman & Hall.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

@@ -28,7 +28,7 @@ lda.formula <- function(formula, data, ..., subset, na.action)
     Terms <- attr(m, "terms")
     grouping <- model.response(m)
     x <- model.matrix(Terms, m)
-    xint <- match("(Intercept)", colnames(x), nomatch=0)
+    xint <- match("(Intercept)", colnames(x), nomatch=0L)
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- lda.default(x, grouping, ...)
     res$terms <- Terms
@@ -225,7 +225,7 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
                 .checkMFClasses(cl, newdata)
         }
         x <- model.matrix(Terms, newdata, contrasts = object$contrasts)
-        xint <- match("(Intercept)", colnames(x), nomatch=0)
+        xint <- match("(Intercept)", colnames(x), nomatch=0L)
         if(xint > 0) x <- x[, -xint, drop=FALSE]
     } else { #
     # matrix or data-frame fit
@@ -327,7 +327,7 @@ plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
         data <- model.frame(x)
         X <- model.matrix(delete.response(Terms), data)
         g <- model.response(data)
-        xint <- match("(Intercept)", colnames(X), nomatch=0)
+        xint <- match("(Intercept)", colnames(X), nomatch=0L)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
     } else { #
     # matrix or data-frame fit
@@ -437,7 +437,7 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
         data <- model.frame(x)
         X <- model.matrix(delete.response(Terms), data)
         g <- model.response(data)
-        xint <- match("(Intercept)", colnames(X), nomatch=0)
+        xint <- match("(Intercept)", colnames(X), nomatch=0L)
         if(xint > 0) X <- X[, -xint, drop=FALSE]
     } else { #
     # matrix or data-frame fit

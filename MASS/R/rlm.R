@@ -119,9 +119,9 @@ rlm.default <-
         ## match any ... args to those of psi.
         arguments <- list(...)
         if(length(arguments)) {
-            pm <- pmatch(names(arguments), names(formals(psi)), nomatch = 0)
-            if(any(pm == 0)) warning("some of ... do not match")
-            pm <- names(arguments)[pm> 0]
+            pm <- pmatch(names(arguments), names(formals(psi)), nomatch = 0L)
+            if(any(pm == 0L)) warning("some of ... do not match")
+            pm <- names(arguments)[pm> 0L]
             formals(psi)[pm] <- unlist(arguments[pm])
         }
         if(is.character(init)) {
@@ -146,7 +146,7 @@ rlm.default <-
         resid <- temp$residuals
         psi <- psi.bisquare
         if(length(arguments <- list(...)))
-            if(match("c", names(arguments), nomatch = FALSE)) {
+            if(match("c", names(arguments), nomatch = 0L)) {
                 c0 <- arguments$c
                 if (c0 > 1.548) formals(psi)$c <- c0
                 else

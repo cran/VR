@@ -21,7 +21,7 @@ batchSOM <- function(data, grid = somgrid(), radii, init)
     nd <- nrow(data)
     ng <- nrow(grid$pts)
     if(missing(init))
-        init <- data[sample(1:nd, ng, replace = FALSE), , drop = FALSE]
+        init <- data[sample(1L:nd, ng, replace = FALSE), , drop = FALSE]
     nhbrdist <- as.matrix(dist(grid$pts))
     for(r in radii) {
         cl <- as.numeric(knn1(init, data, 1:ng))
@@ -39,8 +39,8 @@ somgrid <- function(xdim = 8, ydim = 6, topo = c("rectangular", "hexagonal"))
     y <- 1:ydim
     pts <- as.matrix(expand.grid(x = x, y = y))
     if(topo == "hexagonal") {
-       pts[, 1] <- pts[, 1] + 0.5 * (pts[, 2] %% 2)
-       pts[, 2] <- sqrt(3)/2 * pts[, 2]
+       pts[, 1L] <- pts[, 1L] + 0.5 * (pts[, 2L] %% 2)
+       pts[, 2L] <- sqrt(3)/2 * pts[, 2L]
     }
     res <- list(pts = pts, xdim = xdim, ydim = ydim, topo = topo)
     class(res) <- "somgrid"
@@ -76,17 +76,17 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
     nd <- nrow(data)
     if(!nd) stop("SOM called with no data")
     ng <- nrow(grid$pts)
-    nphases <- 1
+    nphases <- 1L
     if(is.list(alpha)) {
         nphases <- length(alpha)
         if(!is.list(radii) || length(radii) != nphases)
             stop("'radii' must be a list of the same length as 'alpha'")
     }
     if(missing(init))
-        init <- data[sample(1:nd, ng, replace = FALSE), , drop = FALSE]
+        init <- data[sample(1L:nd, ng, replace = FALSE), , drop = FALSE]
     codes <- init
     nhbrdist <- as.matrix(dist(grid$pts))
-    if(nphases == 1) {
+    if(nphases == 1L) {
         rlen <- length(alpha)
         if(length(radii) != rlen)
             stop("'alpha' and 'radii' do not have the same lengths")
@@ -102,7 +102,7 @@ SOM <- function(data, grid = somgrid(), rlen = 10000,
                     rlen = as.integer(rlen)
                     )$codes
     } else {
-        for(k in 1:nphases) {
+        for(k in 1L:nphases) {
             rlen <- length(alpha[[k]])
             if(length(radii[[k]]) != rlen)
                 stop("'alpha' and 'radii' do not match")

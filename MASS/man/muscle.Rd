@@ -4,39 +4,40 @@
 \name{muscle}
 \alias{muscle}
 \title{
-Effect of Calcium Chloride on Muscle Contraction in Rat Hearts
+  Effect of Calcium Chloride on Muscle Contraction in Rat Hearts
 }
 \description{
-The purpose of this experiment was to assess the influence of
-calcium in solution on the contraction of heart muscle in rats.
-The left auricle of 21 rat hearts was isolated and on several
-occasions a constant-length strip of tissue was electrically
-stimulated and dipped into various concentrations of calcium
-chloride solution, after which the shortening of the strip was
-accurately measured as the response.
+  The purpose of this experiment was to assess the influence of
+  calcium in solution on the contraction of heart muscle in rats.
+  The left auricle of 21 rat hearts was isolated and on several
+  occasions a constant-length strip of tissue was electrically
+  stimulated and dipped into various concentrations of calcium
+  chloride solution, after which the shortening of the strip was
+  accurately measured as the response.
 }
 \usage{
 muscle
 }
 \format{
-This data frame contains the following columns:
-\describe{
-\item{\code{Strip}}{
-which heart muscle strip was used?
+  This data frame contains the following columns:
+  \describe{
+    \item{\code{Strip}}{
+      which heart muscle strip was used?
+    }
+    \item{\code{Conc}}{
+      concentration of calcium chloride solution, in multiples of 2.2 mM.
+    }
+    \item{\code{Length}}{
+      the change in length (shortening) of the strip, (allegedly) in mm.
+    }
+  }
 }
-\item{\code{Conc}}{
-concentration of calcium chloride solution, in multiples of 2.2 mM.
-}
-\item{\code{Length}}{
-the change in length (shortening) of the strip, (allegedly) in mm.
-}}}
 \source{
-Linder, A., Chakravarti, I. M. and Vuagnat, P. (1964)
-Fitting asymptotic regression curves with different asymptotes.
-In
-\emph{Contributions to Statistics. Presented to Professor P. C. Mahalanobis }
-\emph{on the occasion of his 70th birthday,}
-ed. C. R. Rao, pp. 221--228. Oxford: Pergamon Press.
+  Linder, A., Chakravarti, I. M. and Vuagnat, P. (1964)
+  Fitting asymptotic regression curves with different asymptotes.  In
+  \emph{Contributions to Statistics. Presented to Professor P. C. Mahalanobis }
+  \emph{on the occasion of his 70th birthday,}
+  ed. C. R. Rao, pp. 221--228. Oxford: Pergamon Press.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

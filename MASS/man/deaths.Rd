@@ -4,7 +4,7 @@
 \name{deaths}
 \alias{deaths}
 \title{
-Monthly Deaths from Lung Diseases in the UK
+  Monthly Deaths from Lung Diseases in the UK
 }
 \description{
   A time series giving the monthly deaths from bronchitis,
@@ -14,12 +14,12 @@ Monthly Deaths from Lung Diseases in the UK
 deaths
 }
 \source{
-P. J. Diggle (1990)
-\emph{Time Series: A Biostatistical Introduction.}
-Oxford, table A.3
+  P. J. Diggle (1990)
+  \emph{Time Series: A Biostatistical Introduction.}
+  Oxford, table A.3
 }
 \seealso{
-  This the same as dataset \code{\link{ldeaths}}.
+  This the same as dataset \code{\link{ldeaths}} in \R's \pkg{datasets} package.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)

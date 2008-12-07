@@ -42,7 +42,8 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
                if(!is.null(dim(Y))) {
                    n <- n/2
                    O <- O[1:n]
-                   Y <- Y[, 1]/(W <- drop(Y %*% c(1, 1)))
+                   W <- drop(Y %*% c(1, 1))
+                   Y <- ifelse(W == 0, 0, Y[, 1]/W)
                }
                zmax <- sqrt(qchisq(1 - alpha, 1))
                profName <- "z"

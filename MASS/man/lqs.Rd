@@ -142,11 +142,9 @@ ltsreg(\dots)
   regressor and exhaustive search with adjustment. For all other cases
   the minimization is only known to be approximate.
 }
-\author{B. D. Ripley}
 \references{
   P. J. Rousseeuw and A. M. Leroy (1987)
-  \emph{Robust Regression and Outlier Detection.}
-  Wiley.
+  \emph{Robust Regression and Outlier Detection.} Wiley.
 
   A. Marazzi (1993)
   \emph{Algorithms, Routines and S Functions for Robust Statistics.}

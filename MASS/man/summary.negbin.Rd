@@ -17,7 +17,7 @@ function.
 }
 \arguments{
 \item{object}{
-Fitted model object of class \code{negbin} inheriting from \code{glm} and \code{lm}.
+fitted model object of class \code{negbin} inheriting from \code{glm} and \code{lm}.
 Typically the output of \code{glm.nb}.
 }
 \item{dispersion}{

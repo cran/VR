@@ -4,12 +4,12 @@
 \name{farms}
 \alias{farms}
 \title{
-Ecological Factors in Farm Management
+  Ecological Factors in Farm Management
 }
 \description{
-The \code{farms} data frame has 20 rows and 4 columns. The rows are farms
-on the Dutch island of Terschelling and the columns are factors
-describing the management of grassland.
+  The \code{farms} data frame has 20 rows and 4 columns. The rows are farms
+  on the Dutch island of Terschelling and the columns are factors
+  describing the management of grassland.
 }
 \usage{
 farms
@@ -27,7 +27,7 @@ farms
     }
     \item{\code{Use}}{
       Grassland use (\code{U1} = hay production, \code{U2} =
-      intermediate, \code{U3} = grazing)
+      intermediate, \code{U3} = grazing).
     }
     \item{\code{Manure}}{
       Manure usage -- classes \code{C0} to \code{C4}.
@@ -40,7 +40,7 @@ farms
   Quoted as from:\cr
   R.H.G. Jongman, C.J.F. ter Braak and O.F.R. van Tongeren (1987)
   \emph{Data Analysis in Community and Landscape Ecology.}
-  PUDOC, Wageningen
+  PUDOC, Wageningen.
 }
 \references{
   Venables, W. N. and Ripley, B. D. (2002)
