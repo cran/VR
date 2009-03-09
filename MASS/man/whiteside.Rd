@@ -33,7 +33,7 @@ The weekly gas consumption in 1000s of cubic feet.
 }}}
 \source{
 A data set collected in the 1960s by Mr Derek Whiteside of the
-UK~Building Research Station. Reported by
+UK Building Research Station. Reported by
 
 Hand, D. J., Daly, F., McConway, K., Lunn, D. and Ostrowski, E. eds (1993)
 \emph{A Handbook of Small Data Sets.}

@@ -26,7 +26,7 @@ lqs.formula <-
     method <- match.arg(method)
     mf <- match.call(expand.dots = FALSE)
     mf$method <- mf$contrasts <- mf$model <- mf$x.ret <- mf$y.ret <- mf$... <- NULL
-    mf[[1]] <- as.name("model.frame")
+    mf[[1L]] <- as.name("model.frame")
     mf <- eval.parent(mf)
     if (method == "model.frame") return(mf)
     mt <- attr(mf, "terms")
@@ -34,7 +34,7 @@ lqs.formula <-
     offset <- model.offset(mf)
     if(!is.null(offset)) y <- y - offset
     x <- model.matrix(mt, mf, contrasts)
-    xint <- match("(Intercept)", colnames(x), nomatch = 0)
+    xint <- match("(Intercept)", colnames(x), nomatch = 0L)
     if(xint) x <- x[, -xint, drop = FALSE]
     fit <- lqs.default(x, y, intercept = (xint > 0), method = method, ...)
     fit$terms <- mt
@@ -66,7 +66,7 @@ lqs.default <-
 	stop("missing values are not allowed")
     nm <- colnames(x)
     if(is.null(nm))
-	nm <- if(p > 1) paste("X", 1:p, sep="") else if(p == 1) "X" else NULL
+	nm <- if(p > 1) paste("X", 1L:p, sep="") else if(p == 1) "X" else NULL
     if(intercept) {
 	x <- cbind(1, x)
 	nm <- c("(Intercept)", nm)
@@ -124,7 +124,7 @@ lqs.default <-
 	     as.double(x), as.double(y), as.integer(n), as.integer(p),
 	     as.integer(quantile), as.integer(lts), as.integer(adj),
 	     as.integer(samp), as.integer(ps), as.integer(nsamp),
-	     crit=double(1), sing=integer(1), bestone=integer(ps),
+	     crit=double(1), sing=integer(1L), bestone=integer(ps),
 	     coefficients=double(p), as.double(k0), as.double(beta)
 	     )[c("crit", "sing", "coefficients", "bestone")]
     if(z$sing == nsamp)
@@ -148,7 +148,7 @@ lqs.default <-
 	psi <- function(u, k0) (1  - pmin(1, abs(u/k0))^2)^2
 	resid <- z$residuals
 	scale <- s
-	for(i in 1:30) {
+	for(i in 1L:30) {
 	    w <- psi(resid/scale, k0)
 	    temp <- lm.wfit(x, y, w, method="qr")
 	    resid <- temp$residuals
@@ -239,7 +239,7 @@ cov.rob <- function(x, cor = FALSE, quantile.used = floor((n+p+1)/2),
 		 as.double(x), as.integer(n), as.integer(p),
 		 as.integer(qn), as.integer(method=="mcd"),
 		 as.integer(samp), as.integer(ps), as.integer(nsamp),
-		 crit=double(1), sing=integer(1), bestone=integer(n))
+		 crit=double(1), sing=integer(1L), bestone=integer(n))
 	z$sing <- paste(z$sing, "singular samples of size", ps,
                         "out of", nsamp)
 	crit <- z$crit + 2*sum(log(divisor)) +
@@ -271,7 +271,7 @@ lmsreg <- function(...)
 {
     oc <- sys.call()
     oc$method <- "lms"
-    oc[[1]] <- quote(MASS::lqs)
+    oc[[1L]] <- quote(MASS::lqs)
     eval.parent(oc)
 }
 
@@ -279,7 +279,7 @@ ltsreg <- function(...)
 {
     oc <- sys.call()
     oc$method <- "lts"
-    oc[[1]] <- quote(MASS::lqs)
+    oc[[1L]] <- quote(MASS::lqs)
     eval.parent(oc)
 }
 
@@ -287,7 +287,7 @@ cov.mve <- function(...)
 {
     oc <- sys.call()
     oc$method <- "mve"
-    oc[[1]] <- quote(MASS::cov.rob)
+    oc[[1L]] <- quote(MASS::cov.rob)
     eval.parent(oc)
 }
 
@@ -295,6 +295,6 @@ cov.mcd <- function(...)
 {
     oc <- sys.call()
     oc$method <- "mcd"
-    oc[[1]] <- quote(MASS::cov.rob)
+    oc[[1L]] <- quote(MASS::cov.rob)
     eval.parent(oc)
 }

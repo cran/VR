@@ -50,12 +50,12 @@ gamma.shape.glm <- function(object, it.lim = 10,
 }
 
 gamma.dispersion <- function(object, ...)
-    1/gamma.shape(object, ...)[[1]]
+    1/gamma.shape(object, ...)[[1L]]
 
 print.gamma.shape <- function(x, ...)
 {
     y <- x
-    x <- array(unlist(x), dim = 2:1,
+    x <- array(unlist(x), dim = 2L:1L,
                dimnames = list(c("Alpha:", "SE:"), ""))
     NextMethod("print")
     invisible(y)

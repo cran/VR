@@ -17,21 +17,21 @@
 contr.sdif <- function(n, contrasts = TRUE)
 {
     # contrasts generator giving 'successive difference' contrasts.
-    if(is.numeric(n) && length(n) == 1) {
-        if(n %% 1 || n < 2)
+    if(is.numeric(n) && length(n) == 1L) {
+        if(n %% 1L || n < 2L)
             stop("invalid number of levels")
         lab <- as.character(seq(n))
     } else {
         lab <- as.character(n)
         n <- length(n)
-        if(n < 2)
+        if(n < 2L)
             stop("invalid number of levels")
     }
     if(contrasts) {
-        contr <- col(matrix(nrow = n, ncol = n - 1))
+        contr <- col(matrix(nrow = n, ncol = n - 1L))
         upper.tri <- !lower.tri(contr)
         contr[upper.tri] <- contr[upper.tri] - n
         structure(contr/n,
-                  dimnames = list(lab, paste(lab[-1], lab[-n], sep="-")))
+                  dimnames = list(lab, paste(lab[-1L], lab[-n], sep="-")))
     } else structure(diag(n), dimnames = list(lab, lab))
 }

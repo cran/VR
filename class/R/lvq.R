@@ -35,9 +35,9 @@ lvqinit <- function(x, cl, size, prior, k=5)
     if(missing(size)) size <- min(round(0.4 * np * (np-1+p/2),0), n)
     inside <- knn.cv(x, cl, k) == cl
     selected <- numeric(0)
-    for(i in 1:np){
+    for(i in 1L:np){
         set <- seq_along(g)[unclass(g)==i & inside]
-        if(length(set) > 1)
+        if(length(set) > 1L)
             set <- sample(set, min(length(set), round(size*prior[i])))
         selected <- c(selected, set)
     }

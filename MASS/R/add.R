@@ -46,9 +46,9 @@ addterm.default <-
 #     data <- model.frame(update(object, newform)) # remove NAs
 #     object <- update(object, data = data)
     ns <- length(scope)
-    ans <- matrix(nrow = ns + 1, ncol = 2,
+    ans <- matrix(nrow = ns + 1L, ncol = 2L,
                   dimnames = list(c("<none>", scope), c("df", "AIC")))
-    ans[1,  ] <- extractAIC(object, scale, k = k, ...)
+    ans[1L,  ] <- extractAIC(object, scale, k = k, ...)
     n0 <- length(object$residuals)
     env <- environment(formula(object))
     for(i in seq(ns)) {
@@ -60,18 +60,18 @@ addterm.default <-
         nfit <- update(object, as.formula(paste("~ . +", tt)),
                        evaluate = FALSE)
 	nfit <- eval(nfit, envir=env) # was  eval.parent(nfit)
-	ans[i+1, ] <- extractAIC(nfit, scale, k = k, ...)
+	ans[i+1L, ] <- extractAIC(nfit, scale, k = k, ...)
         if(length(nfit$residuals) != n0)
             stop("number of rows in use has changed: remove missing values?")
     }
-    dfs <- ans[,1] - ans[1,1]
-    dfs[1] <- NA
-    aod <- data.frame(Df = dfs, AIC = ans[,2])
+    dfs <- ans[, 1L] - ans[1L, 1L]
+    dfs[1L] <- NA
+    aod <- data.frame(Df = dfs, AIC = ans[, 2L])
     o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     test <- match.arg(test)
     if(test == "Chisq") {
-	dev <- ans[,2] - k*ans[, 1]
-	dev <- dev[1] - dev; dev[1] <- NA
+	dev <- ans[, 2L] - k*ans[, 1L]
+	dev <- dev[1L] - dev; dev[1L] <- NA
 	nas <- !is.na(dev)
 	P <- dev
 	P[nas] <- safe_pchisq(dev[nas], dfs[nas], lower.tail=FALSE)
@@ -104,8 +104,8 @@ addterm.lm <-
     }
 
     if(missing(scope) || is.null(scope)) stop("no terms in scope")
-    aod <- stats:::add1.lm(object, scope=scope, scale=scale)[ , -4]
-    dfs <- c(0, aod$Df[-1]) + object$rank; RSS <- aod$RSS
+    aod <- stats:::add1.lm(object, scope=scope, scale=scale)[ , -4L]
+    dfs <- c(0, aod$Df[-1L]) + object$rank; RSS <- aod$RSS
     n <- length(object$residuals)
     if(scale > 0) aic <- RSS/scale - n + k*dfs
     else aic <- n * log(RSS/n) + k*dfs
@@ -117,8 +117,8 @@ addterm.lm <-
         dev <- aod$"Sum of Sq"
         if(scale == 0) {
             dev <- n * log(RSS/n)
-            dev <- dev[1] - dev
-            dev[1] <- NA
+            dev <- dev[1L] - dev
+            dev[1L] <- NA
         } else dev <- dev/scale
         df <- aod$Df
         nas <- !is.na(df)
@@ -126,7 +126,7 @@ addterm.lm <-
         aod[, "Pr(Chi)"] <- dev
     } else if(test == "F") {
         rdf <- object$df.residual
-        aod[, c("F Value", "Pr(F)")] <- Fstat(aod, aod$RSS[1], rdf)
+        aod[, c("F Value", "Pr(F)")] <- Fstat(aod, aod$RSS[1L], rdf)
     }
     aod <- aod[o, ]
     head <- c("Single term additions", "\nModel:",
@@ -148,7 +148,7 @@ addterm.glm <-
     Fstat <- function(table, rdf) {
 	dev <- table$Deviance
 	df <- table$Df
-	diff <- pmax(0, (dev[1] - dev)/df)
+	diff <- pmax(0, (dev[1L] - dev)/df)
 	Fs <- (diff/df)/(dev/(rdf-df))
 	Fs[df < .Machine$double.eps] <- NA
 	P <- Fs
@@ -188,13 +188,13 @@ addterm.glm <-
     if(is.null(wt)) wt <- rep(1, n)
     Terms <- attr(Terms, "term.labels")
     asgn <- attr(x, "assign")
-    ousex <- match(asgn, match(oTerms, Terms), 0) > 0
-    if(int) ousex[1] <- TRUE
+    ousex <- match(asgn, match(oTerms, Terms), 0L) > 0L
+    if(int) ousex[1L] <- TRUE
     X <- x[, ousex, drop = FALSE]
     z <-  glm.fit(X, y, wt, offset=object$offset,
                   family=object$family, control=object$control)
-    dfs[1] <- z$rank
-    dev[1] <- z$deviance
+    dfs[1L] <- z$rank
+    dev[1L] <- z$deviance
     ## workaround for PR#7842. terms.formula may have flipped interactions
     sTerms <- sapply(strsplit(Terms, ":", fixed=TRUE),
                      function(x) paste(sort(x), collapse=":"))
@@ -203,8 +203,8 @@ addterm.glm <-
 	    message("trying +", tt)
 	    utils::flush.console()
 	}
-        stt <- paste(sort(strsplit(tt, ":")[[1]]), collapse=":")
-	usex <- match(asgn, match(stt, sTerms), 0) > 0
+        stt <- paste(sort(strsplit(tt, ":")[[1L]]), collapse=":")
+	usex <- match(asgn, match(stt, sTerms), 0L) > 0L
         X <- x[, usex|ousex, drop = FALSE]
         z <-  glm.fit(X, y, wt, offset=object$offset,
                       family=object$family, control=object$control)
@@ -220,17 +220,17 @@ addterm.glm <-
 	else loglik <- n * log(dev/n)
     } else loglik <- dev/dispersion
     aic <- loglik + k * dfs
-    aic <- aic + (extractAIC(object, k = k)[2] - aic[1]) # same baseline for AIC
-    dfs <- dfs - dfs[1]
-    dfs[1] <- NA
+    aic <- aic + (extractAIC(object, k = k)[2L] - aic[1L]) # same baseline for AIC
+    dfs <- dfs - dfs[1L]
+    dfs[1L] <- NA
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
                       row.names = names(dfs), check.names = FALSE)
     o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]
     test <- match.arg(test)
     if(test == "Chisq") {
-        dev <- pmax(0, loglik[1] - loglik)
-        dev[1] <- NA
+        dev <- pmax(0, loglik[1L] - loglik)
+        dev[1L] <- NA
         LRT <- if(dispersion == 1) "LRT" else "scaled dev."
         aod[, LRT] <- dev
         nas <- !is.na(dev)
@@ -267,11 +267,11 @@ dropterm.default <-
     else {
         if(!is.character(scope))
             scope <- attr(terms(update.formula(object, scope)), "term.labels")
-        if(!all(match(scope, tl, FALSE)))
+        if(!all(match(scope, tl, 0L)))
             stop("scope is not a subset of term labels")
     }
     ns <- length(scope)
-    ans <- matrix(nrow = ns + 1, ncol = 2,
+    ans <- matrix(nrow = ns + 1L, ncol = 2L,
                   dimnames =  list(c("<none>", scope), c("df", "AIC")))
     ans[1,  ] <- extractAIC(object, scale, k = k, ...)
     env <- environment(formula(object))
@@ -289,14 +289,14 @@ dropterm.default <-
         if(length(nfit$residuals) != n0)
             stop("number of rows in use has changed: remove missing values?")
     }
-    dfs <- ans[1,1] - ans[,1]
-    dfs[1] <- NA
+    dfs <- ans[1L , 1L] - ans[, 1L]
+    dfs[1L] <- NA
     aod <- data.frame(Df = dfs, AIC = ans[,2])
     o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     test <- match.arg(test)
     if(test == "Chisq") {
-        dev <- ans[, 2] - k*ans[, 1]
-        dev <- dev - dev[1] ; dev[1] <- NA
+        dev <- ans[, 2L] - k*ans[, 1L]
+        dev <- dev - dev[1L] ; dev[1L] <- NA
         nas <- !is.na(dev)
         P <- dev
         P[nas] <- safe_pchisq(dev[nas], dfs[nas], lower.tail = FALSE)
@@ -317,7 +317,7 @@ dropterm.lm <-
            test = c("none", "Chisq", "F"), k = 2, sorted = FALSE, ...)
 {
     aod <- stats:::drop1.lm(object, scope=scope, scale=scale)[, -4]
-    dfs <-  object$rank - c(0, aod$Df[-1]); RSS <- aod$RSS
+    dfs <-  object$rank - c(0, aod$Df[-1L]); RSS <- aod$RSS
     n <- length(object$residuals)
     aod$AIC <- if(scale > 0)RSS/scale - n + k*dfs
     else n * log(RSS/n) + k*dfs
@@ -333,7 +333,7 @@ dropterm.lm <-
 	dev <- aod$"Sum of Sq"
 	dfs <- aod$Df
 	rdf <- object$df.residual
-	rms <- aod$RSS[1]/rdf
+	rms <- aod$RSS[1L]/rdf
 	Fs <- (dev/dfs)/rms
 	Fs[dfs < 1e-4] <- NA
 	P <- Fs
@@ -366,7 +366,7 @@ dropterm.glm <-
     else {
         if(!is.character(scope))
             scope <- attr(terms(update.formula(object, scope)), "term.labels")
-        if(!all(match(scope, tl, FALSE)))
+        if(!all(match(scope, tl, 0L)))
             stop("scope is not a subset of term labels")
   }
     ns <- length(scope)
@@ -382,7 +382,7 @@ dropterm.glm <-
     }
     wt <- object$prior.weights
     if(is.null(wt)) wt <- rep.int(1, n)
-    for(i in 1:ns) {
+    for(i in 1L:ns) {
         if(trace) {
 	    message("trying -", scope[i])
 	    utils::flush.console()
@@ -406,17 +406,17 @@ dropterm.glm <-
             if(scale > 0) dev/scale - n else n * log(dev/n)
         } else dev/dispersion
     aic <- loglik + k * dfs
-    dfs <- dfs[1] - dfs
-    dfs[1] <- NA
-    aic <- aic + (extractAIC(object, k = k)[2] - aic[1])
+    dfs <- dfs[1L] - dfs
+    dfs[1L] <- NA
+    aic <- aic + (extractAIC(object, k = k)[2L] - aic[1L])
     aod <- data.frame(Df = dfs, Deviance = dev, AIC = aic,
                       row.names = scope, check.names = FALSE)
     o <- if(sorted) order(aod$AIC) else seq_along(aod$AIC)
     if(all(is.na(aic))) aod <- aod[, -3]
     test <- match.arg(test)
     if(test == "Chisq") {
-        dev <- pmax(0, loglik - loglik[1])
-        dev[1] <- NA
+        dev <- pmax(0, loglik - loglik[1L])
+        dev[1L] <- NA
         nas <- !is.na(dev)
         LRT <- if(dispersion == 1) "LRT" else "scaled dev."
         aod[, LRT] <- dev
@@ -427,8 +427,8 @@ dropterm.glm <-
             warning(gettextf("F test assumes 'quasi%s' family", fam),
                     domain = NA)
 	dev <- aod$Deviance
-	rms <- dev[1]/rdf
-        dev <- pmax(0, dev - dev[1])
+	rms <- dev[1L]/rdf
+        dev <- pmax(0, dev - dev[1L])
 	dfs <- aod$Df
 	rdf <- object$df.residual
 	Fs <- (dev/dfs)/rms

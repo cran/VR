@@ -32,7 +32,7 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
     O <- model.offset(mf)
     if(!length(O)) O <- rep(0, n)
     W <- model.weights(mf)
-    if(length(W) == 0) W <- rep(1, n)
+    if(length(W) == 0L) W <- rep(1, n)
     OriginalDeviance <- deviance(fitted)
     DispersionParameter <- summ$dispersion
     X <- model.matrix(fitted)
@@ -41,7 +41,7 @@ profile.glm <- function(fitted, which = 1:p, alpha = 0.01,
            binomial = {
                if(!is.null(dim(Y))) {
                    n <- n/2
-                   O <- O[1:n]
+                   O <- O[1L:n]
                    W <- drop(Y %*% c(1, 1))
                    Y <- ifelse(W == 0, 0, Y[, 1]/W)
                }
@@ -122,8 +122,8 @@ plot.profile <-
     oldpar <- par(mfrow = c(nr, nr))
     on.exit(par(oldpar))
     for(nm in names(x)) {
-        tau <- x[[nm]][[1]]
-        parval <- x[[nm]][[2]][, nm]
+        tau <- x[[nm]][[1L]]
+        parval <- x[[nm]][[2L]][, nm]
         plot(parval, tau, xlab = nm, ylab = "tau", type="n")
         ## allow for profiling failures
         if(sum(tau == 0) == 1) points(parval[tau == 0], 0, pch = 3)
@@ -138,7 +138,7 @@ pairs.profile <-
 function(x, colours = 2:3, ...)
 {
     parvals <- lapply(x, "[[", "par.vals")
-    rng <- apply(do.call("rbind", parvals), 2, range, na.rm = TRUE)
+    rng <- apply(do.call("rbind", parvals), 2L, range, na.rm = TRUE)
     Pnames <- colnames(rng)
     npar <- length(Pnames)
     coefs <- coef(attr(x, "original.fit"))
@@ -151,7 +151,7 @@ function(x, colours = 2:3, ...)
     ## The following dodge ensures that the plot region is square
     ##
     fin <- par("fin")
-    dif <- (fin[2] - fin[1])/2
+    dif <- (fin[2L] - fin[1L])/2
     if(dif > 0) adj <- c(dif, 0, dif, 0)
     else adj <- c(0,  - dif, 0,  - dif)
     par(omi = par("omi") + adj)
@@ -161,10 +161,10 @@ function(x, colours = 2:3, ...)
     frame()
     mtext(form, side = 3, line = 3, cex = 1.5, outer = TRUE)
     del <- 1/npar
-    for(i in 1:npar) {
+    for(i in 1L:npar) {
         ci <- npar - i
         pi <- Pnames[i]
-        for(j in 1:npar) {
+        for(j in 1L:npar) {
             pj <- Pnames[j]
             par(fig = del * c(j - 1, j, ci, ci + 1))
             if(i == j) {
@@ -183,20 +183,20 @@ function(x, colours = 2:3, ...)
                                 y <- parvals[[pj]][, pi]),
                          type = "l", xlim = rng[, pj],
                          ylim = rng[, pi], axes = FALSE,
-                         xlab = "", ylab = "", col = col[2])
+                         xlab = "", ylab = "", col = col[2L])
                     pu <- par("usr")
-                    smidge <- 2/100 * (pu[4] - pu[3])
-                    segments(x, pmax(pu[3], y - smidge), x,
-                             pmin(pu[4], y + smidge))
+                    smidge <- 2/100 * (pu[4L] - pu[3L])
+                    segments(x, pmax(pu[3L], y - smidge), x,
+                             pmin(pu[4L], y + smidge))
                 } else
                 plot(rng[, pj], rng[, pi], axes = FALSE,
                      xlab = "", ylab = "", type = "n")
                 if(!is.null(parvals[[pi]])) {
                     lines(x <- parvals[[pi]][, pj], y <- parvals[[pi]][, pi],
-                          type = "l", col = col[1])
+                          type = "l", col = col[1L])
                     pu <- par("usr")
-                    smidge <- 2/100 * (pu[2] - pu[1])
-                    segments(pmax(pu[1], x - smidge), y, pmin(pu[2], x + smidge), y)
+                    smidge <- 2/100 * (pu[2L] - pu[1L])
+                    segments(pmax(pu[1L], x - smidge), y, pmin(pu[2L], x + smidge), y)
                 }
                 points(coefs[pj], coefs[pi], pch = 3, cex = 3)
             }

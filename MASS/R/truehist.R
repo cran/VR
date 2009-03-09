@@ -28,7 +28,7 @@ function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
         n <- length(breaks)
         plot(xlim, c(0, ymax), type = "n", xlab = xlab, ylab = ylab,
              bty = bty, ...)
-        rect(breaks[-n], 0, breaks[-1], est,
+        rect(breaks[-n], 0, breaks[-1L], est,
              density = density, angle = angle,
              col = col, border = border, lty = lty, lwd = lwd)
     }
@@ -43,7 +43,7 @@ function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
                                 )
 	    if(!is.finite(nbins) || nbins <= 0)
 		stop("'nbins' must result in a positive integer")
-            h <- diff(pretty(data, nbins))[1]
+            h <- diff(pretty(data, nbins))[1L]
         }
 	if(!is.finite(h) || h <= 0)
 	    stop("'h' must be strictly positive")
@@ -64,6 +64,6 @@ function(data, nbins = "Scott", h, x0 = -h/1000, breaks,
                   col = col, ...)
 #     n <- length(breaks)
 #     plot(xlim, c(0, ymax), type = "n", xlab = xlab, ylab = "", bty = bty, ...)
-#     rect(breaks[-n], 0, breaks[-1], est, col = col, ...)
+#     rect(breaks[-n], 0, breaks[-1L], est, col = col, ...)
     invisible()
 }

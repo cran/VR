@@ -24,7 +24,7 @@ fitdistr <- function(x, densfun, start, ...)
     if(missing(start)) start <- NULL
     dots <- names(list(...))
     dots <- dots[!is.element(dots, c("upper", "lower"))]
-    if(missing(x) || length(x) == 0 || mode(x) != "numeric")
+    if(missing(x) || length(x) == 0L || mode(x) != "numeric")
         stop("'x' must be a non-empty numeric vector")
     if(missing(densfun) || !(is.function(densfun) || is.character(densfun)))
         stop("'densfun' must be supplied as a function or name")
@@ -145,12 +145,12 @@ fitdistr <- function(x, densfun, start, ...)
         stop("'start' specifies names which are not arguments to 'densfun'")
     formals(densfun) <- c(f[c(1, m)], f[-c(1, m)])
     dens <- function(parm, x, ...) densfun(x, parm, ...)
-    if((l <- length(nm)) > 1)
+    if((l <- length(nm)) > 1L)
         body(dens) <-
             parse(text = paste("densfun(x,",
-                  paste("parm[", 1:l, "]", collapse = ", "),
+                  paste("parm[", 1L:l, "]", collapse = ", "),
                   ", ...)"))
-    Call[[1]] <- as.name("optim")
+    Call[[1L]] <- as.name("optim")
     Call$densfun <- Call$start <- NULL
     Call$x <- x # want local variable as eval in this frame
     Call$par <- start
@@ -158,11 +158,11 @@ fitdistr <- function(x, densfun, start, ...)
     Call$hessian <- TRUE
     if(is.null(Call$method)) {
         if(any(c("lower", "upper") %in% names(Call))) Call$method <- "L-BFGS-B"
-        else if (length(start) > 1) Call$method <- "BFGS"
+        else if (length(start) > 1L) Call$method <- "BFGS"
         else Call$method <- "Nelder-Mead"
     }
     res <- eval.parent(Call)
-    if(res$convergence > 0) stop("optimization failed")
+    if(res$convergence > 0L) stop("optimization failed")
     sds <- sqrt(diag(solve(res$hessian)))
     structure(list(estimate = res$par, sd = sds,
                    loglik = - res$value, n = n), class = "fitdistr")
@@ -183,13 +183,13 @@ print.fitdistr <-
     function(x, digits = getOption("digits"), ...)
 {
     ans <- format(rbind(x$estimate, x$sd), digits=digits)
-    ans[1, ] <- sapply(ans[1, ], function(x) paste("", x))
-    ans[2, ] <- sapply(ans[2, ], function(x) paste("(", x, ")", sep=""))
+    ans[1L, ] <- sapply(ans[1L, ], function(x) paste("", x))
+    ans[2L, ] <- sapply(ans[2L, ], function(x) paste("(", x, ")", sep=""))
     ## only used for digits
     dn <- dimnames(ans)
-    dn[[1]] <- rep("", 2)
-    dn[[2]] <- paste(substring("      ", 1, (nchar(ans[2,]) - nchar(dn[[2]])) %/% 2), dn[[2]])
-    dn[[2]] <- paste(dn[[2]], substring("      ", 1, (nchar(ans[2,]) - nchar(dn[[2]])) %/% 2))
+    dn[[1L]] <- rep("", 2L)
+    dn[[2L]] <- paste(substring("      ", 1L, (nchar(ans[2L,]) - nchar(dn[[2L]])) %/% 2), dn[[2L]])
+    dn[[2L]] <- paste(dn[[2L]], substring("      ", 1L, (nchar(ans[2L,]) - nchar(dn[[2L]])) %/% 2))
     dimnames(ans) <- dn
     print(ans, quote = FALSE)
     invisible(x)

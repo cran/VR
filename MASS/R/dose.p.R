@@ -17,9 +17,9 @@
 dose.p <- function(obj, cf = 1:2, p = 0.5) {
   eta <- family(obj)$linkfun(p)
   b <- coef(obj)[cf]
-  x.p <- (eta - b[1])/b[2]
+  x.p <- (eta - b[1L])/b[2L]
   names(x.p) <- paste("p = ", format(p), ":", sep = "")
-  pd <-  -cbind(1, x.p)/b[2]
+  pd <-  -cbind(1, x.p)/b[2L]
   SE <- sqrt(((pd %*% vcov(obj)[cf, cf]) * pd) %*% c(1, 1))
   res <- structure(x.p, SE = SE, p = p)
   class(res) <- "glm.dose"

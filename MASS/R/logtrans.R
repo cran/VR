@@ -31,7 +31,7 @@ function(object, ..., alpha = seq(0.5, 6, by = 0.25) - min(y),
     xqr <- object$qr
     xl <- loglik <- as.vector(alpha)
     m <- length(xl)
-    for(i in 1:m) {
+    for(i in 1L:m) {
         rs <- qr.resid(xqr, yt <- log(y + alpha[i]))
         loglik[i] <-  - n/2 * log(sum(rs^2)) - sum(yt)
     }
@@ -42,29 +42,29 @@ function(object, ..., alpha = seq(0.5, 6, by = 0.25) - min(y),
         m <- length(xl)
     }
     if(plotit) {
-        mx <- (1:m)[loglik == max(loglik)][1]
+        mx <- (1L:m)[loglik == max(loglik)][1L]
         Lmax <- loglik[mx]
         lim <- Lmax - qchisq(19/20, 1)/2
         plot(xl, loglik, xlab = xlab, ylab = ylab, type
              = "l", ylim = range(loglik, lim))
         plims <- par("usr")
         abline(h = lim, lty = 3)
-        y0 <- plims[3]
-        scal <- (1/10 * (plims[4] - y0))/par("pin")[2]
-        scx <- (1/10 * (plims[2] - plims[1]))/par("pin")[1]
-        text(xl[1] + scx, lim + scal, " 95%")
+        y0 <- plims[3L]
+        scal <- (1/10 * (plims[4L] - y0))/par("pin")[2L]
+        scx <- (1/10 * (plims[2L] - plims[1L]))/par("pin")[1L]
+        text(xl[1L] + scx, lim + scal, " 95%")
         la <- xl[mx]
         if(mx > 1 && mx < m)
             segments(la, y0, la, Lmax, lty = 3)
-        ind <- range((1:m)[loglik > lim])
-        if(loglik[1] < lim) {
-            i <- ind[1]
+        ind <- range((1L:m)[loglik > lim])
+        if(loglik[1L] < lim) {
+            i <- ind[1L]
             x <- xl[i - 1] + ((lim - loglik[i - 1]) *
                               (xl[i] - xl[i - 1]))/(loglik[i] - loglik[i - 1])
             segments(x, y0, x, lim, lty = 3)
         }
         if(loglik[m] < lim) {
-            i <- ind[2] + 1
+            i <- ind[2L] + 1
             x <- xl[i - 1] + ((lim - loglik[i - 1]) *
                               (xl[i] - xl[i - 1]))/(loglik[i] - loglik[i - 1])
             segments(x, y0, x, lim, lty = 3)

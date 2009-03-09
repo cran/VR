@@ -24,7 +24,7 @@ batchSOM <- function(data, grid = somgrid(), radii, init)
         init <- data[sample(1L:nd, ng, replace = FALSE), , drop = FALSE]
     nhbrdist <- as.matrix(dist(grid$pts))
     for(r in radii) {
-        cl <- as.numeric(knn1(init, data, 1:ng))
+        cl <- as.numeric(knn1(init, data, 1L:ng))
         A <- (nhbrdist <= r)[, cl]
         ind <- rowSums(A) > 0
         init[ind, ] <- A[ind, ] %*% data / rowSums(A)[ind]
@@ -35,8 +35,8 @@ batchSOM <- function(data, grid = somgrid(), radii, init)
 somgrid <- function(xdim = 8, ydim = 6, topo = c("rectangular", "hexagonal"))
 {
     topo <- match.arg(topo)
-    x <- 1:xdim
-    y <- 1:ydim
+    x <- 1L:xdim
+    y <- 1L:ydim
     pts <- as.matrix(expand.grid(x = x, y = y))
     if(topo == "hexagonal") {
        pts[, 1L] <- pts[, 1L] + 0.5 * (pts[, 2L] %% 2)

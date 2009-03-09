@@ -23,7 +23,7 @@ lda.formula <- function(formula, data, ..., subset, na.action)
 #    if(is.matrix(eval.parent(m$data))) # done in model.frame.default
 #        m$data <- as.data.frame(data)
     m$... <- NULL
-    m[[1]] <- as.name("model.frame")
+    m[[1L]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
     grouping <- model.response(m)
@@ -34,7 +34,7 @@ lda.formula <- function(formula, data, ..., subset, na.action)
     res$terms <- Terms
     ## fix up call to refer to the generic, but leave arg name as `formula'
     cl <- match.call()
-    cl[[1]] <- as.name("lda")
+    cl[[1L]] <- as.name("lda")
     res$call <- cl
     res$contrasts <- attr(x, "contrasts")
     res$xlevels <- .getXlevels(Terms, m)
@@ -46,7 +46,7 @@ lda.data.frame <- function(x, ...)
 {
     res <- lda(structure(data.matrix(x), class="matrix"), ...)
     cl <- match.call()
-    cl[[1]] <- as.name("lda")
+    cl[[1L]] <- as.name("lda")
     res$call <- cl
     res
 }
@@ -67,7 +67,7 @@ lda.matrix <- function(x, grouping, ..., subset, na.action)
 #    res <- NextMethod("lda")
     res <- lda.default(x, grouping, ...)
     cl <- match.call()
-    cl[[1]] <- as.name("lda")
+    cl[[1L]] <- as.name("lda")
     res$call <- cl
     res
 }
@@ -112,7 +112,7 @@ lda.default <-
     group.means <- tapply(x, list(rep(g, p), col(x)), mean)
     f1 <- sqrt(diag(var(x - group.means[g,  ])))
     if(any(f1 < tol)) {
-        const <- format((1:p)[f1 < tol])
+        const <- format((1L:p)[f1 < tol])
         stop(sprintf(ngettext(length(const),
                      "variable %s appears to be constant within groups",
                      "variables %s appear to be constant within groups"),
@@ -128,8 +128,8 @@ lda.default <-
         rank <- sum(sX$d > tol^2)
         if(rank == 0) stop("rank = 0: variables are numerically const")
         if(rank < p) warning("variables are collinear")
-        scaling <- scaling %*% sX$v[, 1:rank] %*%
-            diag(sqrt(1/sX$d[1:rank]),,rank)
+        scaling <- scaling %*% sX$v[, 1L:rank] %*%
+            diag(sqrt(1/sX$d[1L:rank]),,rank)
     } else if(method == "t") {
         if(nu <= 2) stop("'nu' must exceed 2")
         w <- rep(1, n)
@@ -149,7 +149,7 @@ lda.default <-
         rank <- sum(X.s$d > tol)
         if(rank == 0) stop("rank = 0: variables are numerically const")
         if(rank < p) warning("variables are collinear")
-        scaling <- scaling %*% X.s$v[, 1:rank] %*% diag(1/X.s$d[1:rank],,rank)
+        scaling <- scaling %*% X.s$v[, 1L:rank] %*% diag(1/X.s$d[1L:rank],,rank)
     } else {
         if(method == "moment") fac <- 1/(n-ng) else fac <- 1/n
         X <- sqrt(fac) * (x - group.means[g,  ]) %*% scaling
@@ -157,7 +157,7 @@ lda.default <-
         rank <- sum(X.s$d > tol)
         if(rank == 0) stop("rank = 0: variables are numerically const")
         if(rank < p) warning("variables are collinear")
-        scaling <- scaling %*% X.s$v[, 1:rank] %*% diag(1/X.s$d[1:rank],,rank)
+        scaling <- scaling %*% X.s$v[, 1L:rank] %*% diag(1/X.s$d[1L:rank],,rank)
     }
     # now have variables scaled so that W is the identity
     if(CV) {
@@ -165,15 +165,15 @@ lda.default <-
         dm <- group.means %*% scaling
         K <- if(method == "moment") ng else 0
         dist <- matrix(0, n, ng)
-        for(i in 1:ng) {
+        for(i in 1L:ng) {
             dev <- x - matrix(dm[i,  ], n, rank, byrow = TRUE)
             dist[, i] <- rowSums(dev^2)
         }
-        ind <- cbind(1:n, g)
+        ind <- cbind(1L:n, g)
         nc <- counts[g]
         cc <- nc/((nc-1)*(n-K))
         dist2 <- dist
-        for(i in 1:ng) {
+        for(i in 1L:ng) {
             dev <- x - matrix(dm[i,  ], n, rank, byrow = TRUE)
             dev2 <- x - dm[g, ]
             tmp <- rowSums(dev*dev2)
@@ -193,19 +193,19 @@ lda.default <-
     if(method == "mle") fac <-  1/ng else fac <- 1/(ng - 1)
     X <- sqrt((n * prior)*fac) * scale(group.means, center=xbar, scale=FALSE) %*% scaling
     X.s <- svd(X, nu = 0)
-    rank <- sum(X.s$d > tol * X.s$d[1])
+    rank <- sum(X.s$d > tol * X.s$d[1L])
     if(rank == 0) stop("group means are numerically identical")
-    scaling <- scaling %*% X.s$v[, 1:rank]
+    scaling <- scaling %*% X.s$v[, 1L:rank]
     if(is.null(dimnames(x)))
-        dimnames(scaling) <- list(NULL, paste("LD", 1:rank, sep = ""))
+        dimnames(scaling) <- list(NULL, paste("LD", 1L:rank, sep = ""))
     else {
-        dimnames(scaling) <- list(colnames(x), paste("LD", 1:rank, sep = ""))
-        dimnames(group.means)[[2]] <- colnames(x)
+        dimnames(scaling) <- list(colnames(x), paste("LD", 1L:rank, sep = ""))
+        dimnames(group.means)[[2L]] <- colnames(x)
     }
     cl <- match.call()
-    cl[[1]] <- as.name("lda")
+    cl[[1L]] <- as.name("lda")
     structure(list(prior = prior, counts = counts, means = group.means,
-                   scaling = scaling, lev = lev, svd = X.s$d[1:rank],
+                   scaling = scaling, lev = lev, svd = X.s$d[1L:rank],
                    N = n, call = cl),
               class = "lda")
 }
@@ -245,8 +245,8 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
     }
 
     if(ncol(x) != ncol(object$means)) stop("wrong number of variables")
-    if(length(colnames(x)) > 0 &&
-      any(colnames(x) != dimnames(object$means)[[2]]))
+    if(length(colnames(x)) > 0L &&
+      any(colnames(x) != dimnames(object$means)[[2L]]))
          warning("variable names in 'newdata' do not match those in 'object'")
     ng <- length(object$prior)
     if(!missing(prior)) {
@@ -263,23 +263,23 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
     else dimen <- min(dimen, length(object$svd))
     N <- object$N
     if(method == "plug-in") {
-        dm <- dm[, 1:dimen, drop=FALSE]
+        dm <- dm[, 1L:dimen, drop=FALSE]
         dist <- matrix(0.5 * rowSums(dm^2) - log(prior), nrow(x),
-                       length(prior), byrow = TRUE) - x[, 1:dimen, drop=FALSE] %*% t(dm)
-        dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
+                       length(prior), byrow = TRUE) - x[, 1L:dimen, drop=FALSE] %*% t(dm)
+        dist <- exp( -(dist - apply(dist, 1L, min, na.rm=TRUE)))
     } else if (method == "debiased") {
-        dm <- dm[, 1:dimen, drop=FALSE]
+        dm <- dm[, 1L:dimen, drop=FALSE]
         dist <- matrix(0.5 * rowSums(dm^2), nrow(x), ng, byrow = TRUE) -
-            x[, 1:dimen, drop=FALSE] %*% t(dm)
+            x[, 1L:dimen, drop=FALSE] %*% t(dm)
         dist <- (N - ng - dimen - 1)/(N - ng) * dist -
             matrix(log(prior) - dimen/object$counts , nrow(x), ng, byrow=TRUE)
-        dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
+        dist <- exp( -(dist - apply(dist, 1L, min, na.rm=TRUE)))
     } else {                            # predictive
         dist <- matrix(0, nrow = nrow(x), ncol = ng)
         p <- ncol(object$means)
         # adjust to ML estimates of covariances
         X <- x * sqrt(N/(N-ng))
-        for(i in 1:ng) {
+        for(i in 1L:ng) {
             nk <- object$counts[i]
             dev <- scale(X, center=dm[i, ], scale=FALSE)
             dev <- 1 + rowSums(dev^2) * nk/(N*(nk+1))
@@ -290,13 +290,13 @@ predict.lda <- function(object, newdata, prior = object$prior, dimen,
     nm <- names(object$prior)
     cl <- factor(nm[max.col(posterior)], levels=object$lev)
     dimnames(posterior) <- list(rownames(x), nm)
-    list(class = cl, posterior = posterior, x = x[, 1:dimen, drop=FALSE])
+    list(class = cl, posterior = posterior, x = x[, 1L:dimen, drop=FALSE])
 }
 
 print.lda <- function(x, ...)
 {
     if(!is.null(cl <- x$call)) {
-        names(cl)[2] <- ""
+        names(cl)[2L] <- ""
         cat("Call:\n")
         dput(cl, control=NULL)
     }
@@ -307,8 +307,8 @@ print.lda <- function(x, ...)
     cat("\nCoefficients of linear discriminants:\n")
     print(x$scaling, ...)
     svd <- x$svd
-    names(svd) <- dimnames(x$scaling)[[2]]
-    if(length(svd) > 1) {
+    names(svd) <- dimnames(x$scaling)[[2L]]
+    if(length(svd) > 1L) {
         cat("\nProportion of trace:\n")
         print(round(svd^2/sum(svd^2), 4), ...)
     }
@@ -332,7 +332,7 @@ plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
     } else { #
     # matrix or data-frame fit
         xname <- x$call$x
-        gname <- x$call[[3]]
+        gname <- x$call[[3L]]
         if(!is.null(sub <- x$call$subset)) {
             X <- eval.parent(parse(text=paste(deparse(xname, backtick=TRUE),
                                    "[", deparse(sub, backtick=TRUE),",]")))
@@ -354,11 +354,11 @@ plot.lda <- function(x, panel = panel.lda, ..., cex=0.7,
     assign("tcex", cex)
     means <- colMeans(x$means)
     X <- scale(X, center=means, scale=FALSE) %*% x$scaling
-    if(!missing(dimen) && dimen < ncol(X)) X <- X[, 1:dimen, drop=FALSE]
+    if(!missing(dimen) && dimen < ncol(X)) X <- X[, 1L:dimen, drop=FALSE]
     if(ncol(X) > 2) {
         pairs(X, panel=panel, ...)
     } else if(ncol(X) == 2)  {
-        eqscplot(X[, 1:2], xlab=xlab, ylab=ylab, type="n", ...)
+        eqscplot(X[, 1L:2], xlab=xlab, ylab=ylab, type="n", ...)
         panel(X[, 1], X[, 2], ...)
     } else ldahist(X[,1], g, xlab=xlab, ...)
     invisible(NULL)
@@ -378,7 +378,7 @@ function(data, g, nbins = 25, h, x0 = -h/1000, breaks,
     counts <- table(g)
     groups <- names(counts)[counts > 0]
     if(missing(breaks)) {
-        if(missing(h)) h <- diff(pretty(data, nbins))[1]
+        if(missing(h)) h <- diff(pretty(data, nbins))[1L]
         first <- floor((min(data) - x0)/h)
         last <- ceiling((max(data) - x0)/h)
         breaks <- x0 + h * c(first:last)
@@ -401,7 +401,7 @@ function(data, g, nbins = 25, h, x0 = -h/1000, breaks,
         for (grp in groups){
             if(missing(width)) width <- width.SJ(data[g==grp])
             xd1 <- density(data[g==grp], n=200, width=width,
-                           from=xlim[1], to=xlim[2])
+                           from=xlim[1L], to=xlim[2L])
             ymax <- max(ymax, xd1$y)
             xd[[grp]] <- xd1
         }
@@ -409,7 +409,7 @@ function(data, g, nbins = 25, h, x0 = -h/1000, breaks,
     if(!sep) plot(xlim, c(0, ymax), type = "n", xlab = xlab, ylab = "",
                   bty = bty)
     else {
-        oldpar <- par(mfrow=c(length(groups), 1))
+        oldpar <- par(mfrow=c(length(groups), 1L))
         on.exit(par(oldpar))
     }
     for (grp in groups) {
@@ -417,7 +417,7 @@ function(data, g, nbins = 25, h, x0 = -h/1000, breaks,
                      xlab = paste("group", grp), ylab = "", bty = bty)
         if(type=="histogram" || type=="both") {
             n <- length(breaks)
-            rect(breaks[-n], 0, breaks[-1], est[[grp]], col = col, ...)
+            rect(breaks[-n], 0, breaks[-1L], est[[grp]], col = col, ...)
         }
         if(type=="density" || type == "both") lines(xd[[grp]])
     }
@@ -442,7 +442,7 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
     } else { #
     # matrix or data-frame fit
         xname <- x$call$x
-        gname <- x$call[[3]]
+        gname <- x$call[[3L]]
         if(!is.null(sub <- x$call$subset)) {
             X <- eval.parent(parse(text=paste(deparse(xname, backtick=TRUE),
                                    "[", deparse(sub, backtick=TRUE),",]")))
@@ -465,7 +465,7 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
     assign("tcex", cex)
     means <- colMeans(x$means)
     X <- scale(X, center=means, scale=FALSE) %*% x$scaling
-    if(!missing(dimen) && dimen < ncol(X)) X <- X[, 1:dimen]
+    if(!missing(dimen) && dimen < ncol(X)) X <- X[, 1L:dimen]
     if(type == "std") pairs.default(X, panel=panel, ...)
     else {
         print(lattice::splom(~X, groups = g, panel = lattice::panel.superpose,
@@ -473,7 +473,7 @@ pairs.lda <- function(x, labels = colnames(x), panel = panel.lda,
                              text=list(levels(g)),
                              points = lattice::Rows(lattice::trellis.par.get("superpose.symbol"),
                              seq_along(levels(g))),
-                             columns = min(5, length(levels(g)))
+                             columns = min(5L, length(levels(g)))
                              )
                     ))
     }
@@ -484,8 +484,8 @@ model.frame.lda <- function(formula, ...)
 {
     oc <- formula$call
     oc$prior <- oc$tol <- oc$method <- oc$CV <- oc$nu <- NULL
-    oc[[1]] <- as.name("model.frame")
-    if(length(dots<- list(...))) {
+    oc[[1L]] <- as.name("model.frame")
+    if(length(dots <- list(...))) {
         nargs <- dots[match(c("data", "na.action", "subset"), names(dots), 0)]
         oc[names(nargs)] <- nargs
     }

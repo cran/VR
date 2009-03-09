@@ -36,7 +36,6 @@ cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
         if(any(wt < 0)) stop("negative weights not allowed")
         if(!sum(wt)) stop("no positive weights")
     }
-#    loc <- apply(wt * x, 2, sum)/sum(wt)
     loc <- colSums(wt * x)/sum(wt)
     if(is.numeric(center)) {
         if(length(center) != p) stop("'center' is not the right length")
@@ -45,7 +44,7 @@ cov.trob <- function(x, wt = rep(1, n), cor = FALSE, center = TRUE, nu = 5,
     use.loc <- is.logical(center) && center
     w <- wt * (1 + p/nu)
     endit <- 0
-    for(iter in 1:maxit) {
+    for(iter in 1L:maxit) {
         w0 <- w
         X <- scale.simp(x, loc, n, p)
         sX <- svd(sqrt(w/sum(w)) * X, nu = 0)

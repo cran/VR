@@ -25,7 +25,7 @@ frequency.polygon <- function(x, nclass = nclass.freq(x),
 {
     hst <- hist(x, nclass, probability=TRUE, plot=FALSE, ...)
     midpoints <- 0.5 * (hst$breaks[-length(hst$breaks)]
-                        + hst$breaks[-1])
+                        + hst$breaks[-1L])
     plot(midpoints, hst$counts, type="l", xlab=xlab, ylab=ylab)
 }
 
@@ -38,6 +38,6 @@ nclass.freq <- function(x)
 bandwidth.nrd <- function(x)
 {
     r <- quantile(x, c(0.25, 0.75))
-    h <- (r[2] - r[1])/1.34
+    h <- (r[2L] - r[1L])/1.34
     4 * 1.06 * min(sqrt(var(x)), h) * length(x) ^ (-1/5)
 }

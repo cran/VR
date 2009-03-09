@@ -18,7 +18,7 @@ corresp <- function(x, ...) UseMethod("corresp")
 
 corresp.xtabs <- function(x, ...)
 {
-  if((m <- length(dim(x))) > 2)
+  if((m <- length(dim(x))) > 2L)
     stop(gettextf("frequency table is %d-dimensional", m), domain = NA)
   corresp.matrix(x, ...)
 }
@@ -35,10 +35,10 @@ corresp.factor <- function(x, y, ...)
 corresp.formula <- function(formula, data = parent.frame(), ...)
 {
     rhs <- formula[[length(formula)]]
-    if(length(rhs[[2]]) > 1 || length(rhs[[3]]) > 1)
+    if(length(rhs[[2L]]) > 1L || length(rhs[[3L]]) > 1L)
         stop("higher-way table requested.  Only 2-way allowed")
-    tab <- table(eval(rhs[[2]], data), eval(rhs[[3]], data))
-    names(dimnames(tab)) <- as.character(c(rhs[[2]], rhs[[3]]))
+    tab <- table(eval(rhs[[2L]], data), eval(rhs[[3L]], data))
+    names(dimnames(tab)) <- as.character(c(rhs[[2L]], rhs[[3L]]))
     corresp.matrix(tab, ...)
 }
 
@@ -54,22 +54,22 @@ corresp.matrix <- function(x, nf = 1, ...)
     Dr <- 1/sqrt(Dr)
     Dc <- 1/sqrt(Dc)
     if(is.null(dimnames(x)))
-        dimnames(x) <- list(Row = paste("R", 1:nrow(x)),
-                            Col = paste("C", 1:ncol(x)))
+        dimnames(x) <- list(Row = paste("R", 1L:nrow(x)),
+                            Col = paste("C", 1L:ncol(x)))
     if(is.null(names(dimnames(x))))
         names(dimnames(x)) <- c("Row", "Column")
     X.svd <- svd(t(t(x1 * Dr) * Dc))
     dimnames(X.svd$u) <- list(rownames(x), NULL)
     dimnames(X.svd$v) <- list(colnames(x), NULL)
-    res <- list(cor = X.svd$d[1:nf], rscore = X.svd$u[, 1:nf] * Dr,
-                cscore = X.svd$v[, 1:nf] * Dc, Freq = x)
+    res <- list(cor = X.svd$d[1L:nf], rscore = X.svd$u[, 1L:nf] * Dr,
+                cscore = X.svd$v[, 1L:nf] * Dc, Freq = x)
     class(res) <- "correspondence"
     res
 }
 
 plot.correspondence <- function(x, scale=1, ...)
 {
-    if(length(x$cor) > 1) return(invisible(biplot(x, ...)))
+    if(length(x$cor) > 1L) return(invisible(biplot(x, ...)))
     Fr <- x$Freq
     rs <- x$rscore
     cs <- x$cscore
@@ -80,7 +80,7 @@ plot.correspondence <- function(x, scale=1, ...)
     x <- cs[col(Fr)]
     y <- rs[row(Fr)]
     rcn <- names(dimnames(Fr))
-    plot(x, y, xlim = xs, ylim = ys, xlab = rcn[2], ylab = rcn[1], pch = 3)
+    plot(x, y, xlim = xs, ylim = ys, xlab = rcn[2L], ylab = rcn[1L], pch = 3)
     size <- min(par("pin"))/20 * scale
     symbols(x, y, circles = as.vector(sqrt(Fr)), inches = size, add = TRUE)
     x0 <- (min(cs) + min(xs))/2
@@ -94,9 +94,9 @@ print.correspondence <- function(x, ...)
 {
     cat("First canonical correlation(s):", format(x$cor, ...), "\n")
     rcn <- names(dimnames(x$Freq))
-    cat("\n", rcn[1], "scores:\n")
+    cat("\n", rcn[1L], "scores:\n")
     print(x$rscore)
-    cat("\n", rcn[2], "scores:\n")
+    cat("\n", rcn[2L], "scores:\n")
     print(x$cscore)
     invisible(x)
 }
@@ -104,14 +104,14 @@ print.correspondence <- function(x, ...)
 biplot.correspondence <-
     function(x, type = c("symmetric", "rows", "columns"), ...)
 {
-    if(length(x$cor) < 2) stop("biplot is only possible if nf >= 2")
+    if(length(x$cor) < 2L) stop("biplot is only possible if nf >= 2")
     type <- match.arg(type)
-    X <- x$rscore[, 1:2]
-    if(type != "columns") X <- X %*% diag(x$cor[1:2])
-    colnames(X) <- rep("", 2)
-    Y <- x$cscore[, 1:2]
-    if(type != "rows")  Y <- Y %*% diag(x$cor[1:2])
-    colnames(Y) <- rep("", 2)
+    X <- x$rscore[, 1L:2]
+    if(type != "columns") X <- X %*% diag(x$cor[1L:2])
+    colnames(X) <- rep("", 2L)
+    Y <- x$cscore[, 1L:2]
+    if(type != "rows")  Y <- Y %*% diag(x$cor[1L:2])
+    colnames(Y) <- rep("", 2L)
     switch(type, "symmetric" = biplot(X, Y, var.axes = FALSE, ...),
            "rows" = biplot.bdr(X, Y, ...),
            "columns" = biplot.bdr(Y, X, ...))
@@ -120,38 +120,38 @@ biplot.correspondence <-
 }
 
 biplot.bdr <-
-    function(obs, bivars, col, cex = rep(par("cex"), 2),
+    function(obs, bivars, col, cex = rep(par("cex"), 2L),
              olab = NULL, vlab = NULL, xlim = NULL, ylim = NULL, ...)
 {
   # for cases where we need equal scales for the two sets of vars.
     expand.range <- function(x)
     {
-        if(x[1] > 0) x[1] <-  - x[1]
-        else if(x[2] < 0) x[2] <-  - x[2]
+        if(x[1L] > 0) x[1L] <-  - x[1L]
+        else if(x[2L] < 0) x[2L] <-  - x[2L]
         x
     }
-    n <- dim(obs)[1]
-    p <- dim(bivars)[1]
+    n <- dim(obs)[1L]
+    p <- dim(bivars)[1L]
     vlab.real <- rownames(bivars)
     if(is.logical(vlab)) vlab <- vlab.real[vlab]
     else if(length(vlab) != p) vlab <- vlab.real
     else vlab <- as.character(vlab)
     if(!length(vlab)) {
-        vlab.real <- vlab <- paste("Var", 1:p)
+        vlab.real <- vlab <- paste("Var", 1L:p)
         dimnames(bivars) <- list(vlab, colnames(bivars))
     }
     if(length(olab)) olab <- rep(as.character(olab), length.out = n)
     else {
         olab <- rownames(obs)
-        if(length(olab) != n) olab <- as.character(1:n)
+        if(length(olab) != n) olab <- as.character(1L:n)
     }
-    if(length(cex) != 2) cex <- rep(cex, length.out = 2)
+    if(length(cex) != 2L) cex <- rep(cex, length.out = 2L)
     if(missing(col)) {
         col <- par("col")
         if (!is.numeric(col)) col <- match(col, palette())
         col <- c(col, col + 1)
     }
-    else if(length(col) != 2) col <- rep(col, length.out = 2)
+    else if(length(col) != 2L) col <- rep(col, length.out = 2L)
     ro1 <- expand.range(range(obs[, 1]))
     ro2 <- expand.range(range(obs[, 2]))
     rv1 <- expand.range(range(bivars[, 1]))
@@ -162,15 +162,15 @@ biplot.bdr <-
     else if(!length(ylim)) ylim <- range(ro2, rv2)
     on.exit(par(oldpar))
     oldpar <- par(pty = "s")
-    plot(obs, type = "n", xlim = xlim, ylim = ylim, col = col[1], ...)
-    text(obs, labels=olab, cex = cex[1], col = col[1], ...)
+    plot(obs, type = "n", xlim = xlim, ylim = ylim, col = col[1L], ...)
+    text(obs, labels=olab, cex = cex[1L], col = col[1L], ...)
     par(new = TRUE)
     plot(bivars, axes = FALSE, type = "n", xlim = xlim, ylim =
-         ylim, xlab = "", ylab = "", col = col[1], ...)
-    axis(3, col = col[2])
-    axis(4, col = col[2])
-    box(col = col[1])
-    text(bivars, labels=vlab, cex = cex[2], col = col[2], ...) #
+         ylim, xlab = "", ylab = "", col = col[1L], ...)
+    axis(3, col = col[2L])
+    axis(4, col = col[2L])
+    box(col = col[1L])
+    text(bivars, labels=vlab, cex = cex[2L], col = col[2L], ...) #
     invisible()
 }
 

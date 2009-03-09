@@ -19,7 +19,7 @@ lm.ridge <- function(formula, data, subset, na.action,
 {
     m <- match.call(expand.dots = FALSE)
     m$model <- m$x <- m$y <- m$contrasts <- m$... <- m$lambda <- NULL
-    m[[1]] <- as.name("model.frame")
+    m[[1L]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
     Y <- model.response(m)
@@ -74,7 +74,7 @@ select.ridgelm <- function(obj)
     cat("modified HKB estimator is", format(obj$kHKB), "\n")
     cat("modified L-W estimator is", format(obj$kLW), "\n")
     GCV <- obj$GCV
-    if(length(GCV) > 0) {
+    if(length(GCV)) {
         k <- seq_along(GCV)[GCV==min(GCV)]
         cat("smallest value of GCV  at",
             format(obj$lambda[k]), "\n")

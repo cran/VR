@@ -20,31 +20,31 @@ renumerate <- function(x) UseMethod("renumerate")
 
 denumerate.formula <- function(x)
 {
-    if(length(x) == 1) {
+    if(length(x) == 1L) {
         if(mode(x) == "numeric" ||
            (mode(x) == "name" &&
-            any(substring(as.character(x), 1, 1) == as.character(1:9))))
+            any(substring(as.character(x), 1L, 1L) == as.character(1L:9))))
             x <- as.name(paste(".v", x, sep = ""))
     } else {
-        x[[2]] <- Recall(x[[2]])
-        if(length(x) == 3 && x[[1]] != as.name("^"))
-            x[[3]] <- Recall(x[[3]])
+        x[[2L]] <- Recall(x[[2L]])
+        if(length(x) == 3L && x[[1L]] != as.name("^"))
+            x[[3L]] <- Recall(x[[3L]])
     }
     x
 }
 
 renumerate.formula <- function(x)
 {
-    if(length(x) == 1) {
+    if(length(x) == 1L) {
         if(mode(x) == "name"
 	   ## these are always one-byte chars
            && nchar(xx <- as.character(x), "b") > 2
-           && substring(xx, 1, 2) == ".v")
-            x <- as.name(substring(xx, 3))
+           && substring(xx, 1L, 2L) == ".v")
+            x <- as.name(substring(xx, 3L))
     } else {
-        x[[2]] <- Recall(x[[2]])
-        if(length(x) == 3 && x[[1]] != as.name("^"))
-           x[[3]] <- Recall(x[[3]])
+        x[[2L]] <- Recall(x[[2L]])
+        if(length(x) == 3L && x[[1L]] != as.name("^"))
+           x[[3L]] <- Recall(x[[3L]])
     }
     x
 }
@@ -56,7 +56,7 @@ loglm <-
     if(missing(data) || inherits(data, "data.frame")) {
         m <- match.call(expand.dots = FALSE)
         m$... <- NULL
-        m[[1]] <- as.name("model.frame")
+        m[[1L]] <- as.name("model.frame")
         data <- eval.parent(m)
         .formula <- as.formula(attr(data, "terms"))
     } else {
@@ -87,7 +87,7 @@ function(formula, data, ...)
     fac <- data.frame(lapply(data[, -c(resp, off)], as.factor))
     rsp <- data[, resp]
     tab <- table(fac)
-    if(max(tab) > 1) {
+    if(max(tab) > 1L) {
 #
 # an extra factor needed for repeated frequencies
 #
@@ -126,15 +126,15 @@ function(formula, data, start = rep(1, length(data)), fitted = FALSE,
     factors <- factors[, fo, drop = FALSE]
     ff <- crossprod(factors)
     keep <- rep(TRUE, nt)
-    j <- 0
-    while((j <- j + 1) < nt) keep[j] <- ff[j, j] > max(ff[j, (j + 1):nt])
+    j <- 0L
+    while((j <- j + 1L) < nt) keep[j] <- ff[j, j] > max(ff[j, (j + 1L):nt])
     factors <- factors[, keep, drop = FALSE]
     ldim <- length(dim(data))
-    nnames <- paste(".v", 1:ldim, sep = "")
-    which <- structure(1:ldim, names = nnames)
+    nnames <- paste(".v", 1L:ldim, sep = "")
+    which <- structure(1L:ldim, names = nnames)
     if(!is.null(anames <- names(dimnames(data))))
         which <- c(which, structure(which, names = anames))
-    margins <- apply(factors, 2, function(x, which, nam)
+    margins <- apply(factors, 2L, function(x, which, nam)
                      as.vector(which[nam[x]]), which, rownames(factors))
     if(is.matrix(margins))
         margins <- as.list(data.frame(margins))
@@ -172,14 +172,14 @@ anova.loglm <- function(object, ..., test = c("Chisq", "chisq", "LR"))
     dfs <- c(dfs[o], 0)
     forms <- lapply(objs, formula)
     dev <- c(sapply(objs, "[[", "lrt"), 0)
-    M <- array(0, c(k + 2, 5),
-               list(c(paste("Model", 1:(k + 1)), "Saturated"),
+    M <- array(0, c(k + 2L, 5L),
+               list(c(paste("Model", 1L:(k + 1L)), "Saturated"),
                     c("Deviance", "df", "Delta(Dev)", "Delta(df)", "P(> Delta(Dev)")))
-    M[, 1] <- dev
-    M[, 2] <- dfs
-    M[-1, 3] <- dev[1:(k + 1)] - dev[2:(k + 2)]
-    M[-1, 4] <- dfs[1:(k + 1)] - dfs[2:(k + 2)]
-    M[-1, 5] <- 1 - pchisq(M[-1, 3], M[-1, 4])
+    M[, 1L] <- dev
+    M[, 2L] <- dfs
+    M[-1L, 3L] <- dev[1L:(k + 1L)] - dev[2L:(k + 2L)]
+    M[-1L, 4L] <- dfs[1L:(k + 1L)] - dfs[2L:(k + 2L)]
+    M[-1L, 5L] <- 1 - pchisq(M[-1L, 3L], M[-1L, 4L])
     res <- structure(M, formulae = forms)
     class(res) <- "anova.loglm"
     res
@@ -189,20 +189,20 @@ print.anova.loglm <- function(x, ...)
 {
     rjustify <- function(str) {
         m <- max(n <- nchar(str, "c"))
-        blanks <- format(c("", str[n == m][1]))[1]
-        paste(substring(blanks, 0, m - n), str, sep = "")
+        blanks <- format(c("", str[n == m][1L]))[1L]
+        paste(substring(blanks, 0L, m - n), str, sep = "")
     }
     y <- x
-    y[, 5] <- round(y[, 5], 5)
+    y[, 5L] <- round(y[, 5L], 5L)
     R <- array("", dim(x), dimnames(x))
-    for(j in 1:5) {
+    for(j in 1L:5L) {
         colj <- rjustify(c(colnames(x)[j], format(y[, j])))
-        R[, j] <- colj[-1]
-        colnames(R)[j] <- colj[1]
+        R[, j] <- colj[-1L]
+        colnames(R)[j] <- colj[1L]
     }
-    R[1, 3:5] <- ""
+    R[1L, 3L:5L] <- ""
     pform <- function(form)
-        if(length(form) == 2) form else form[c(2, 1, 3)]
+        if(length(form) == 2L) form else form[c(2L, 1L, 3L)]
     forms <- attr(x, "formulae")
     cat("LR tests for hierarchical log-linear models\n\n")
     for(i in seq_along(forms))
@@ -218,9 +218,9 @@ print.loglm <- function(x, ...)
     cat("Call:\n")
     print(x$call)
     ts.array <- rbind(c(x$lrt, x$df,
-                        if(x$df > 0) 1 - pchisq(x$lrt, x$df) else 1),
+                        if(x$df > 0L) 1 - pchisq(x$lrt, x$df) else 1),
                       c(x$pearson, x$df,
-                        if(x$df > 0) 1 - pchisq(x$pearson, x$df)
+                        if(x$df > 0L) 1 - pchisq(x$pearson, x$df)
                         else 1))
     dimnames(ts.array) <- list(c("Likelihood Ratio",
                                  "Pearson"), c("X^2", "df", "P(> X^2)"))
@@ -232,9 +232,9 @@ print.loglm <- function(x, ...)
 summary.loglm <- function(object, fitted = FALSE, ...)
 {
     ts.array <- rbind(c(object$lrt, object$df,
-                        if(object$df > 0) 1 - pchisq(object$lrt, object$df)
+                        if(object$df > 0L) 1 - pchisq(object$lrt, object$df)
                         else 1), c(object$pearson, object$df,
-                                   if(object$df > 0)
+                                   if(object$df > 0L)
                                    1 - pchisq(object$pearson, object$df)
                                    else 1))
     dimnames(ts.array) <- list(c("Likelihood Ratio", "Pearson"),
@@ -244,7 +244,7 @@ summary.loglm <- function(object, fitted = FALSE, ...)
             cat("Re-fitting to find fitted values\n")
             object <- update(object, fitted = TRUE, keep.frequencies = TRUE)
         }
-        fit <- format(round(object$fit, 1))
+        fit <- format(round(object$fit, 1L))
         OE <- array(paste(format(object$freq), " (", fit, ")", sep = ""),
                     dim(fit), dimnames(object$freq))
     }  else OE <- NULL
@@ -275,7 +275,7 @@ update.loglm <- function (object, formula, ...)
         call$formula <- update.formula(formula(object), formula)
     }
     extras <- match.call(expand.dots = FALSE)$...
-    if (length(extras) > 0) {
+    if (length(extras) > 0L) {
         existing <- !is.na(match(names(extras), names(call)))
         ## do these individually to allow NULL to remove entries.
         for (a in names(extras)[existing]) call[[a]] <- extras[[a]]

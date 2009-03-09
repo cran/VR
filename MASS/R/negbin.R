@@ -1,12 +1,12 @@
 # file MASS/R/negbin.R
-# copyright (C) 1994-2005 W. N. Venables and B. D. Ripley
+# copyright (C) 1994-2009 W. N. Venables and B. D. Ripley
 #
 anova.negbin <- function(object, ..., test = "Chisq")
 {
   dots <- list(...)
-  if(length(dots) == 0) {
+  if(length(dots) == 0L) {
     warning("tests made without re-estimating 'theta'")
-    object$call[[1]] <- as.name("glm")
+    object$call[[1L]] <- as.name("glm")
     if(is.null(object$link))
       object$link <- as.name("log")
     object$call$family <- call("negative.binomial", theta = object$
@@ -22,15 +22,15 @@ anova.negbin <- function(object, ..., test = "Chisq")
     mlist <- mlist[s]
     if(any(!sapply(mlist, inherits, "negbin")))
       stop("not all objects are of class \"negbin\"")
-    rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
-    mds <- sapply(mlist, function(x) paste(formula(x)[3]))
+    rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2L])))
+    mds <- sapply(mlist, function(x) paste(formula(x)[3L]))
     ths <- sapply(mlist, function(x) x$theta)
     dfs <- dflis[s]
     lls <- sapply(mlist, function(x) x$twologlik)
-    tss <- c("", paste(1:(nt - 1), 2:nt, sep = " vs "))
+    tss <- c("", paste(1L:(nt - 1), 2:nt, sep = " vs "))
     df <- c(NA,  - diff(dfs))
     x2 <- c(NA, diff(lls))
-    pr <- c(NA, 1 - pchisq(x2[-1], df[-1]))
+    pr <- c(NA, 1 - pchisq(x2[-1L], df[-1L]))
     out <- data.frame(Model = mds, theta = ths, Resid.df = dfs,
                       "2 x log-lik." = lls, Test = tss, df = df, LRtest = x2,
                       Prob = pr)
@@ -64,7 +64,7 @@ family.negbin <- function(object, ...) object$family
 
 glm.convert <- function(object)
 {
-    object$call[[1]] <- as.name("glm")
+    object$call[[1L]] <- as.name("glm")
     if(is.null(object$link))
         object$link <- as.name("log")
     object$call$family <- call("negative.binomial", theta = object$theta,
@@ -97,7 +97,7 @@ glm.nb <- function(formula, data, weights,
         "etastart", "mustart", "offset"), names(mf), 0)
     mf <- mf[c(1, m)]
     mf$drop.unused.levels <- TRUE
-    mf[[1]] <- as.name("model.frame")
+    mf[[1L]] <- as.name("model.frame")
     mf <- eval.parent(mf)
     Terms <- attr(mf, "terms")
     if(method == "model.frame") return(mf)
@@ -248,20 +248,26 @@ negative.binomial <-
         n <- rep(1, nobs)
         mustart <- y + (y == 0)/6
     })
+    simfun <- function(object, nsim) {
+        ftd <- fitted(object)
+        val <- rnegbin(nsim * length(ftd), ftd, .Theta)
+    }
     environment(variance) <- environment(validmu) <-
-        environment(dev.resids) <- environment(aic) <- env
+        environment(dev.resids) <- environment(aic) <-
+            environment(simfun) <- env
     famname <- paste("Negative Binomial(", format(round(theta, 4)), ")",
                      sep = "")
     structure(list(family = famname, link = linktemp, linkfun = stats$linkfun,
                    linkinv = stats$linkinv, variance = variance,
                    dev.resids = dev.resids, aic = aic, mu.eta = stats$mu.eta,
                    initialize = initialize, validmu = validmu,
-                   valideta = stats$valideta), class = "family")
+                   valideta = stats$valideta, simulate = simfun),
+              class = "family")
 }
 
 rnegbin <- function(n, mu = n, theta = stop("'theta' must be specified"))
 {
-    k <- if(length(n) > 1) length(n) else n
+    k <- if(length(n) > 1L) length(n) else n
     rpois(k, (mu * rgamma(k, theta))/theta)
 }
 
@@ -399,3 +405,27 @@ logLik.negbin <- function(object, ...)
 vcov.negbin <- function(object, ...)
     with(summary.negbin(object, ...), dispersion * cov.unscaled)
 
+## based on simulate.lm
+simulate.negbin <- function(object, nsim = 1, seed = NULL, ...)
+{
+    if(!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE))
+        runif(1)                     # initialize the RNG if necessary
+    if(is.null(seed))
+        RNGstate <- get(".Random.seed", envir = .GlobalEnv)
+    else {
+        R.seed <- get(".Random.seed", envir = .GlobalEnv)
+	set.seed(seed)
+        RNGstate <- structure(seed, kind = as.list(RNGkind()))
+        on.exit(assign(".Random.seed", R.seed, envir = .GlobalEnv))
+    }
+    ftd <- fitted(object)
+    nm <- names(ftd)
+    n <- length(ftd)
+    val <- rnegbin(n * nsim, ftd, object$theta)
+    dim(val) <- c(n, nsim)
+    val <- as.data.frame(val)
+    names(val) <- paste("sim", seq_len(nsim), sep="_")
+    if (!is.null(nm)) row.names(val) <- nm
+    attr(val, "seed") <- RNGstate
+    val
+}

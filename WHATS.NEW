@@ -178,6 +178,7 @@ Library MASS
 - 'mammals': corrected typos in names, some thanks to Arni Magnusson
 - profile.glm() now works for binomial glm specified with a matrix response
   and a cmpletely zero row.
+- there is a "negbin" method for simulate()
 
 
 Library class
@@ -210,6 +211,7 @@ Library nnet
 - added logLik() method for multinom.
 - summary() for multinom now defaults to correlation=FALSE.
 - nnet() reports on 'convergence'.
+- confint.multinom() works better with a non-default 'parm'
 
 
 

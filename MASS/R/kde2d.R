@@ -23,14 +23,14 @@ kde2d <- function(x, y, h, n = 25, lims=c(range(x), range(y)) )
 	stop("missing or infinite values in the data are not allowed")
     if(any(!is.finite(lims)))
 	stop("only finite values are allowed in 'lims'")
-    gx <- seq.int(lims[1], lims[2], length.out = n)
-    gy <- seq.int(lims[3], lims[4], length.out = n)
+    gx <- seq.int(lims[1L], lims[2L], length.out = n)
+    gy <- seq.int(lims[3L], lims[4L], length.out = n)
     if (missing(h))
         h <- c(bandwidth.nrd(x), bandwidth.nrd(y))
     h <- h/4                            # for S's bandwidth scale
-    ax <- outer(gx, x, "-" )/h[1]
-    ay <- outer(gy, y, "-" )/h[2]
+    ax <- outer(gx, x, "-" )/h[1L]
+    ay <- outer(gy, y, "-" )/h[2L]
     z <- matrix(dnorm(ax), n, nx) %*%
-        t(matrix(dnorm(ay),n, nx))/ (nx * h[1] * h[2])
+        t(matrix(dnorm(ay),n, nx))/ (nx * h[1L] * h[2L])
     return(list(x = gx, y = gy, z = z))
 }

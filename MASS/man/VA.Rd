@@ -19,7 +19,7 @@ VA
       dead or censored.
     }
     \item{\code{treat}}{
-     treatemnt: standard or test.
+     treatment: standard or test.
    }
    \item{\code{age}}{
      patient's age in years.

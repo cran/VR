@@ -36,14 +36,14 @@ confint.profile.glm <-
     a <- (1-level)/2
     a <- c(a, 1-a)
     pct <- paste(round(100*a, 1), "%")
-    ci <- array(NA, dim = c(length(parm), 2),
+    ci <- array(NA, dim = c(length(parm), 2L),
                 dimnames = list(pnames[parm], pct))
     cutoff <- qnorm(a)
     for(pm in parm) {
         pro <- object[[ pnames[pm] ]]
         ## skip aliased params
         if(is.null(pro)) next
-        if(length(pnames) > 1)
+        if(length(pnames) > 1L)
             sp <- spline(x = pro[, "par.vals"][, pm], y = pro[, 1])
         else sp <- spline(x = pro[, "par.vals"], y = pro[, 1])
         ci[pnames[pm], ] <- approx(sp$y, sp$x, xout = cutoff)$y
@@ -76,7 +76,7 @@ confint.profile.nls <-
   a <- (1-level)/2
   a <- c(a, 1-a)
   pct <- paste(round(100*a, 1), "%", sep = "")
-  ci <- array(NA, dim = c(length(parm), 2), dimnames = list(parm, pct))
+  ci <- array(NA, dim = c(length(parm), 2L), dimnames = list(parm, pct))
   cutoff <- qt(a, n)
   for(pm in parm) {
     pro <- object[[pm]]

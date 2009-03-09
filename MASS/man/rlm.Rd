@@ -124,7 +124,7 @@ psi.bisquare(u, c = 4.685, deriv = 0)
     An optional list of control values for \code{\link{lqs}}.
   }
   \item{u}{
-    numeric vector of evalation points.
+    numeric vector of evaluation points.
   }
   \item{k, a, b, c}{
     tuning constants.

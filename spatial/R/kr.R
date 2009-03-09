@@ -60,7 +60,7 @@ surf.ls <- function(np, x, y, z)
             r = double((npar * (npar + 1))/2),
             beta = double(npar),
             wz = double(n),
-            ifail = as.integer(0))
+            ifail = as.integer(0L))
     res <- list(x=x, y=y, z=z, np=np, f=f, r=Z$r, beta=Z$beta,
                 wz=Z$wz, rx=rx, ry=ry, call=match.call())
     class(res) <- "trls"
@@ -215,7 +215,7 @@ prmat <- function(obj, xl, xu, yl, yu, n)
     alph <- obj$alph
     if(length(alph) <= 1L) {
         mm <- 1.5*sqrt((obj$rx[2L]-obj$rx[1L])^2 + (obj$ry[2L]-obj$ry[1L])^2)
-        alph <- c(alph[1], obj$covmod(seq(0, mm, alph[1L])))
+        alph <- c(alph[1L], obj$covmod(seq(0, mm, alph[1L])))
     }
     .C(VR_alset,
        as.double(alph),
@@ -324,8 +324,8 @@ variogram <- function(krig, nint, plotit=TRUE, ...)
           as.integer(length(krig$x)),
           cnt = integer(nint)
           )
-  xp <- z$xp[1:z$nint]
-  yp <- z$yp[1:z$nint]
+  xp <- z$xp[1L:z$nint]
+  yp <- z$yp[1L:z$nint]
   if(xp[1L] > 0) {xp <- c(0, xp); yp <- c(0, yp)}
   z <- list(x = xp, y = yp, cnt = z$cnt[1L:z$nint])
   if(plotit)
@@ -469,7 +469,7 @@ anovalist.trls <- function (object, ...)
         list(1L:nmodels, c("Res.Df", "Res.Sum Sq",
                           "Df", "Sum Sq", "F value", "Pr(>F)"))
     title <- "Analysis of Variance Table\n"
-    topnote <- paste("Model ", format(1:nmodels), ": ", models,
+    topnote <- paste("Model ", format(1L:nmodels), ": ", models,
                      sep = "", collapse = "\n")
     sss <- getOption("show.signif.stars")
     if (sss) options(show.signif.stars = FALSE)

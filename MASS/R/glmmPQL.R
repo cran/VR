@@ -26,7 +26,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
 	stop("'family' not recognized")
     }
     m <- mcall <- Call <- match.call()
-    nm <- names(m)[-1]
+    nm <- names(m)[-1L]
     keep <- is.element(nm, c("weights", "data", "subset", "na.action"))
     for(i in nm[!keep]) m[[i]] <- NULL
     allvars <-
@@ -44,7 +44,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     m$formula <- as.formula(paste("~", paste(allvars, collapse="+")))
     environment(m$formula) <- environment(fixed)
     m$drop.unused.levels <- TRUE
-    m[[1]] <- as.name("model.frame")
+    m[[1L]] <- as.name("model.frame")
     mf <- eval.parent(m)
     off <- model.offset(mf)
     if(is.null(off)) off <- 0
@@ -58,13 +58,13 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     wz <- fit0$weights
     fam <- family
 
-    nm <- names(mcall)[-1]
+    nm <- names(mcall)[-1L]
     keep <- is.element(nm, c("fixed", "random", "data", "subset",
                              "na.action", "control"))
     for(i in nm[!keep]) mcall[[i]] <- NULL
-    fixed[[2]] <- quote(zz)
+    fixed[[2L]] <- quote(zz)
     mcall[["fixed"]] <- fixed
-    mcall[[1]] <- as.name("lme")
+    mcall[[1L]] <- as.name("lme")
     mcall$random <- random
     mcall$method <- "ML"
     if(!missing(correlation))
@@ -74,7 +74,7 @@ glmmPQL <- function(fixed, random, family, data, correlation, weights,
     mf$invwt <- 1/wz
     mcall$data <- mf
 
-    for(i in 1:niter) {
+    for(i in 1L:niter) {
         if(verbose) message("iteration ", i)
         fit <- eval(mcall)
         etaold <- eta
@@ -110,7 +110,7 @@ predict.glmmPQL <-
         if(!is.null(object$na.action))
             pred <- napredict(object$na.action, pred)
     } else {
-        class(object) <- class(object)[-1]
+        class(object) <- class(object)[-1L]
         pred <- predict(object, newdata, level = level,
                         na.action = na.action)
         switch(type,

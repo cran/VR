@@ -67,6 +67,8 @@ glm.nb(formula, data, weights, subset, na.action,
   \code{\link{glm}}, \code{\link{negative.binomial}},
   \code{\link{anova.negbin}}, \code{\link{summary.negbin}},
   \code{\link{theta.md}}
+
+  There is a \code{\link{simulate}} method.
 }
 \examples{
 quine.nb1 <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)

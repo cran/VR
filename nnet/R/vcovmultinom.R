@@ -24,28 +24,28 @@ multinomHess <- function(object, Z = model.matrix(object))
         probs <- cbind(1 - probs, probs)
     }
     coefdim <- dim(coefs)
-    p <- coefdim[2]
-    k <- coefdim[1]
+    p <- coefdim[2L]
+    k <- coefdim[1L]
     ncoefs <- k * p
     kpees <- rep(p, k)
-    n <- dim(Z)[1]
+    n <- dim(Z)[1L]
 ##  Now compute the observed (= expected, in this case) information,
 ##  e.g. as in T Amemiya "Advanced Econometrics" (1985) pp295-6.
 ##  Here i and j are as in Amemiya, and x, xbar are vectors
 ##  specific to (i,j) and to i respectively.
     info <- matrix(0, ncoefs, ncoefs)
     Names <- dimnames(coefs)
-    if (is.null(Names[[1]])) Names <- Names[[2]]
-    else Names <- as.vector(outer(Names[[2]], Names[[1]],
+    if (is.null(Names[[1L]])) Names <- Names[[2L]]
+    else Names <- as.vector(outer(Names[[2L]], Names[[1L]],
                              function(name2, name1)
                                  paste(name1, name2, sep = ":")))
     dimnames(info) <- list(Names, Names)
     x0 <- matrix(0, p, k+1)
     row.totals <- object$weights
-    for (i in 1:n){
+    for (i in 1L:n){
         Zi <- Z[i, ]
         xbar <- Zi * rep(probs[i, -1, drop=FALSE], kpees)
-        for (j in 1:(k+1)){
+        for (j in 1L:(k+1)){
             x <- x0
             x[, j] <- Zi
             x <- x[, -1, drop = FALSE]

@@ -19,13 +19,15 @@ Insurance
   This data frame contains the following columns:
   \describe{
     \item{\code{District}}{
-      district of policyholder (1 to 4): 4 is major cities.
+      factor: district of residence of policyholder (1 to 4): 4 is major cities.
     }
     \item{\code{Group}}{
-      group of car (1 to 4), <1 litre, 1--1.5 litre, 1.5--2 litre, >2 litre.
+      an ordered factor: group of car with levels  <1 litre, 1--1.5 litre,
+      1.5--2 litre, >2 litre.
     }
     \item{\code{Age}}{
-      of driver in 4 ordered groups, <25, 25--29, 30--35, >35.
+      an ordered factor: the age of the insured in 4 groups labelled
+      <25, 25--29, 30--35, >35.
     }
     \item{\code{Holders}}{
       numbers of policyholders.

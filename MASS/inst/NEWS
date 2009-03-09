@@ -156,3 +156,4 @@ This file documents software changes since the third edition.
 - 'mammals': corrected typos in names, some thanks to Arni Magnusson
 - profile.glm() now works for binomial glm specified with a matrix response
   and a cmpletely zero row.
+- there is a "negbin" method for simulate()

@@ -89,7 +89,7 @@ Shepard <- function(d, x, p = 2)
 	  as.integer(n),
 	  as.integer(k),
 	  g=double(n*k),
-	  as.integer(1),
+	  as.integer(1L),
           as.double(2.0))
   list(x = d[ord], y = y, yf = Z$yf)
 }

@@ -23,11 +23,11 @@ polr <- function(formula, data, weights, start, ..., subset,
     logit <- function(p) log(p/(1 - p))
 
     fmin <- function(beta) {
-        theta <- beta[pc + 1:q]
-        gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
+        theta <- beta[pc + 1L:q]
+        gamm <- c(-100, cumsum(c(theta[1L], exp(theta[-1L]))), 100)
         eta <- offset
         if (pc > 0)
-            eta <- eta + drop(x %*% beta[1:pc])
+            eta <- eta + drop(x %*% beta[1L:pc])
         pr <- pfun(gamm[y + 1] - eta) - pfun(gamm[y] - eta)
         if (all(pr > 0))
             -sum(wt * log(pr))
@@ -44,10 +44,10 @@ polr <- function(formula, data, weights, start, ..., subset,
             for (i in 2:k) mat[i:k, i] <- etheta[i]
             mat
         }
-        theta <- beta[pc + 1:q]
-        gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
+        theta <- beta[pc + 1L:q]
+        gamm <- c(-100, cumsum(c(theta[1L], exp(theta[-1L]))), 100)
         eta <- offset
-        if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
+        if(pc > 0) eta <- eta + drop(x %*% beta[1L:pc])
         pr <- pfun(gamm[y+1] - eta) - pfun(gamm[y] - eta)
         p1 <- dfun(gamm[y+1] - eta)
         p2 <- dfun(gamm[y] - eta)
@@ -67,7 +67,7 @@ polr <- function(formula, data, weights, start, ..., subset,
     if(is.matrix(eval.parent(m$data)))
         m$data <- as.data.frame(data)
     m$start <- m$Hess <- m$method <- m$model <- m$... <- NULL
-    m[[1]] <- as.name("model.frame")
+    m[[1L]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
     x <- model.matrix(Terms, m, contrasts)
@@ -111,27 +111,27 @@ polr <- function(formula, data, weights, start, ..., subset,
             warning("design appears to be rank-deficient, so dropping some coefs")
             keep <- names(coefs)[!is.na(coefs)]
             coefs <- coefs[keep]
-            x <- x[, keep[-1], drop = FALSE]
+            x <- x[, keep[-1L], drop = FALSE]
             pc <- ncol(x)
         }
-        spacing <- logit((1:q)/(q+1)) # just a guess
+        spacing <- logit((1L:q)/(q+1)) # just a guess
         if(method != "logistic") spacing <- spacing/1.7
-        gammas <- -coefs[1] + spacing - spacing[q1]
-        thetas <- c(gammas[1], log(diff(gammas)))
-        s0 <- c(coefs[-1], thetas)
+        gammas <- -coefs[1L] + spacing - spacing[q1]
+        thetas <- c(gammas[1L], log(diff(gammas)))
+        s0 <- c(coefs[-1L], thetas)
     } else if(length(start) != pc + q)
 	stop("'start' is not of the correct length")
     else {
         s0 <- if(pc > 0) c(start[seq_len(pc+1)], diff(start[-seq_len(pc)]))
-        else c(start[1], diff(start))
+        else c(start[1L], diff(start))
         }
     res <- optim(s0, fmin, gmin, method="BFGS", hessian = Hess, ...)
     beta <- res$par[seq_len(pc)]
-    theta <- res$par[pc + 1:q]
-    zeta <- cumsum(c(theta[1],exp(theta[-1])))
+    theta <- res$par[pc + 1L:q]
+    zeta <- cumsum(c(theta[1L],exp(theta[-1L])))
     deviance <- 2 * res$value
-    niter <- c(f.evals=res$counts[1], g.evals=res$counts[2])
-    names(zeta) <- paste(lev[-length(lev)], lev[-1], sep="|")
+    niter <- c(f.evals=res$counts[1L], g.evals=res$counts[2L])
+    names(zeta) <- paste(lev[-length(lev)], lev[-1L], sep="|")
     if(pc > 0) {
         names(beta) <- colnames(x)
         eta <- drop(x %*% beta)
@@ -139,7 +139,7 @@ polr <- function(formula, data, weights, start, ..., subset,
         eta <- rep(0, n)
     }
     cumpr <- matrix(pfun(matrix(zeta, n, q, byrow=TRUE) - eta), , q)
-    fitted <- t(apply(cumpr, 1, function(x) diff(c(0, x, 1))))
+    fitted <- t(apply(cumpr, 1L, function(x) diff(c(0, x, 1))))
     dimnames(fitted) <- list(row.names(m), lev)
     fit <- list(coefficients = beta, zeta = zeta, deviance = deviance,
                 fitted.values = fitted, lev = lev, terms = Terms,
@@ -207,7 +207,7 @@ summary.polr <- function(object, digits = max(3, .Options$digits - 3),
     vc <- vcov(object)
     z.ind <- (pc + 1):(pc + q)
     gamma <- object$zeta
-    theta <- c(gamma[1], log(diff(gamma)))
+    theta <- c(gamma[1L], log(diff(gamma)))
 
     jacobian <- function(theta) { ## dgamma by dtheta matrix
         k <- length(theta)
@@ -281,7 +281,7 @@ predict.polr <- function(object, newdata, type=c("class","probs"), ...)
         pfun <- switch(object$method, logistic = plogis, probit = pnorm,
                        cloglog = pgumbel, cauchit = pcauchy)
         cumpr <- matrix(pfun(matrix(object$zeta, n, q, byrow=TRUE) - eta), , q)
-        Y <- t(apply(cumpr, 1, function(x) diff(c(0, x, 1))))
+        Y <- t(apply(cumpr, 1L, function(x) diff(c(0, x, 1))))
         dimnames(Y) <- list(rownames(X), object$lev)
     }
     if(missing(newdata) && !is.null(object$na.action))
@@ -306,7 +306,7 @@ model.frame.polr <- function(formula, ...)
     if(length(nargs) || is.null(formula$model)) {
         m <- formula$call
         m$start <- m$Hess <- m$... <- NULL
-        m[[1]] <- as.name("model.frame")
+        m[[1L]] <- as.name("model.frame")
         m[names(nargs)] <- nargs
         if (is.null(env <- environment(formula$terms))) env <- parent.frame()
         data <- eval(m, env)
@@ -336,7 +336,7 @@ anova.polr <- function (object, ..., test = c("Chisq", "none"))
 {
     test <- match.arg(test)
     dots <- list(...)
-    if (length(dots) == 0)
+    if (length(dots) == 0L)
         stop('anova is not implemented for a single "polr" object')
     mlist <- list(object, ...)
     nt <- length(mlist)
@@ -346,21 +346,21 @@ anova.polr <- function (object, ..., test = c("Chisq", "none"))
     if (any(!sapply(mlist, inherits, "polr")))
         stop('not all objects are of class "polr"')
     ns <- sapply(mlist, function(x) length(x$fitted.values))
-    if(any(ns != ns[1]))
+    if(any(ns != ns[1L]))
         stop("models were not all fitted to the same size of dataset")
-    rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2])))
-    mds <- sapply(mlist, function(x) paste(formula(x)[3]))
+    rsp <- unique(sapply(mlist, function(x) paste(formula(x)[2L])))
+    mds <- sapply(mlist, function(x) paste(formula(x)[3L]))
     dfs <- dflis[s]
     lls <- sapply(mlist, function(x) deviance(x))
-    tss <- c("", paste(1:(nt - 1), 2:nt, sep = " vs "))
+    tss <- c("", paste(1L:(nt - 1), 2:nt, sep = " vs "))
     df <- c(NA, -diff(dfs))
     x2 <- c(NA, -diff(lls))
-    pr <- c(NA, 1 - pchisq(x2[-1], df[-1]))
+    pr <- c(NA, 1 - pchisq(x2[-1L], df[-1L]))
     out <- data.frame(Model = mds, Resid.df = dfs, Deviance = lls,
                       Test = tss, Df = df, LRtest = x2, Prob = pr)
     names(out) <- c("Model", "Resid. df", "Resid. Dev", "Test",
                     "   Df", "LR stat.", "Pr(Chi)")
-    if (test == "none") out <- out[, 1:6]
+    if (test == "none") out <- out[, 1L:6]
     class(out) <- c("Anova", "data.frame")
     attr(out, "heading") <-
         c("Likelihood ratio tests of ordinal regression models\n",
@@ -373,11 +373,11 @@ polr.fit <- function(x, y, wt, start, offset, method)
     logit <- function(p) log(p/(1 - p))
 
     fmin <- function(beta) {
-        theta <- beta[pc + 1:q]
-        gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
+        theta <- beta[pc + 1L:q]
+        gamm <- c(-100, cumsum(c(theta[1L], exp(theta[-1L]))), 100)
         eta <- offset
         if (pc > 0)
-            eta <- eta + drop(x %*% beta[1:pc])
+            eta <- eta + drop(x %*% beta[1L:pc])
         pr <- pfun(gamm[y + 1] - eta) - pfun(gamm[y] - eta)
         if (all(pr > 0))
             -sum(wt * log(pr))
@@ -394,10 +394,10 @@ polr.fit <- function(x, y, wt, start, offset, method)
             for (i in 2:k) mat[i:k, i] <- etheta[i]
             mat
         }
-        theta <- beta[pc + 1:q]
-        gamm <- c(-100, cumsum(c(theta[1], exp(theta[-1]))), 100)
+        theta <- beta[pc + 1L:q]
+        gamm <- c(-100, cumsum(c(theta[1L], exp(theta[-1L]))), 100)
         eta <- offset
-        if(pc > 0) eta <- eta + drop(x %*% beta[1:pc])
+        if(pc > 0) eta <- eta + drop(x %*% beta[1L:pc])
         pr <- pfun(gamm[y+1] - eta) - pfun(gamm[y] - eta)
         p1 <- dfun(gamm[y+1] - eta)
         p2 <- dfun(gamm[y] - eta)
@@ -415,21 +415,21 @@ polr.fit <- function(x, y, wt, start, offset, method)
     n <- nrow(x)
     pc <- ncol(x)
     lev <- levels(y)
-    if(length(lev) <= 2) stop("response must have 3 or more levels")
+    if(length(lev) <= 2L) stop("response must have 3 or more levels")
     y <- unclass(y)
-    q <- length(lev) - 1
+    q <- length(lev) - 1L
     Y <- matrix(0, n, q)
     .polrY1 <- col(Y) == y
-    .polrY2 <- col(Y) == y - 1
+    .polrY2 <- col(Y) == y - 1L
     # pc could be 0.
     s0 <- if(pc > 0) c(start[seq_len(pc+1)], diff(start[-seq_len(pc)]))
-    else c(start[1], diff(start))
+    else c(start[1L], diff(start))
     res <- optim(s0, fmin, gmin, method="BFGS")
     beta <- res$par[seq_len(pc)]
-    theta <- res$par[pc + 1:q]
-    zeta <- cumsum(c(theta[1],exp(theta[-1])))
+    theta <- res$par[pc + 1L:q]
+    zeta <- cumsum(c(theta[1L],exp(theta[-1L])))
     deviance <- 2 * res$value
-    names(zeta) <- paste(lev[-length(lev)], lev[-1], sep="|")
+    names(zeta) <- paste(lev[-length(lev)], lev[-1L], sep="|")
     if(pc > 0) {
         names(beta) <- colnames(x)
         eta <- drop(x %*% beta)
@@ -439,7 +439,7 @@ polr.fit <- function(x, y, wt, start, offset, method)
     list(coefficients = beta, zeta = zeta, deviance = deviance)
 }
 
-profile.polr <- function(fitted, which = 1:p, alpha = 0.01,
+profile.polr <- function(fitted, which = 1L:p, alpha = 0.01,
                          maxsteps = 10, del = zmax/5, trace = FALSE, ...)
 {
     Pnames <- names(B0 <- coefficients(fitted))
@@ -453,9 +453,9 @@ profile.polr <- function(fitted, which = 1:p, alpha = 0.01,
     O <- model.offset(mf)
     if(!length(O)) O <- rep(0, n)
     W <- model.weights(mf)
-    if(length(W) == 0) W <- rep(1, n)
+    if(length(W) == 0L) W <- rep(1, n)
     OriginalDeviance <- deviance(fitted)
-    X <- model.matrix(fitted)[, -1, drop=FALSE] # drop intercept
+    X <- model.matrix(fitted)[, -1L, drop=FALSE] # drop intercept
     zmax <- sqrt(qchisq(1 - alpha, 1))
     profName <- "z"
     prof <- vector("list", length=length(which))
@@ -521,12 +521,12 @@ confint.profile.polr <-
     a <- (1-level)/2
     a <- c(a, 1-a)
     pct <- paste(round(100*a, 1), "%")
-    ci <- array(NA, dim = c(length(parm), 2),
+    ci <- array(NA, dim = c(length(parm), 2L),
                 dimnames = list(pnames[parm], pct))
     cutoff <- qnorm(a)
     for(pm in parm) {
         pro <- object[[ pnames[pm] ]]
-        if(length(pnames) > 1)
+        if(length(pnames) > 1L)
             sp <- spline(x = pro[, "par.vals"][, pm], y = pro[, 1])
         else sp <- spline(x = pro[, "par.vals"], y = pro[, 1])
         ci[pnames[pm], ] <- approx(sp$y, sp$x, xout = cutoff)$y

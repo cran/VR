@@ -117,7 +117,7 @@ print.fractions <- function(x, ...)
     blanks <- "    "
     while(nchar(blanks) < mc) blanks <- paste(blanks, blanks)
     blanks <- rep(blanks, sum(small))
-    blanks <- substring(blanks, 1, mc - ncy)
+    blanks <- substring(blanks, 1L, mc - ncy)
     y[small] <- paste(blanks[small], y[small], sep = "")
   }
   att <- attributes(x)

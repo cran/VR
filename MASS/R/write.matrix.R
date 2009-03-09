@@ -19,17 +19,17 @@ write.matrix <- function(x, file = "", sep = " ", blocksize)
     x <- as.matrix(x)
     p <- ncol(x)
     cn <- colnames(x)
-    if(!missing(blocksize) && blocksize > 0) {
-        cat(cn, file=file, sep=c(rep(sep, p-1), "\n"))
+    if(!missing(blocksize) && blocksize > 0L) {
+        cat(cn, file=file, sep=c(rep(sep, p-1L), "\n"))
         nlines <- 0
         nr <- nrow(x)
         while (nlines < nr) {
             nb <- min(blocksize, nr - nlines)
-            cat(format(t(x[nlines + (1:nb), ])),
+            cat(format(t(x[nlines + (1L:nb), ])),
                 file = file, append = TRUE,
-                sep = c(rep(sep, p-1), "\n"))
+                sep = c(rep(sep, p-1L), "\n"))
             nlines <- nlines + nb
         }
     } else
-        cat(c(cn, format(t(x))), file=file, sep=c(rep(sep, p-1), "\n"))
+        cat(c(cn, format(t(x))), file=file, sep=c(rep(sep, p-1L), "\n"))
 }

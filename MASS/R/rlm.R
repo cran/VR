@@ -24,7 +24,7 @@ rlm.formula <-
 {
     mf <- match.call(expand.dots = FALSE)
     mf$method <- mf$wt.method <- mf$model <- mf$x.ret <- mf$y.ret <- mf$contrasts <- mf$... <- NULL
-    mf[[1]] <- as.name("model.frame")
+    mf[[1L]] <- as.name("model.frame")
     mf <- eval.parent(mf)
     method <- match.arg(method)
     wt.method <- match.arg(wt.method)
@@ -34,10 +34,10 @@ rlm.formula <-
     offset <- model.offset(mf)
     if(!is.null(offset)) y <- y - offset
     x <- model.matrix(mt, mf, contrasts)
-    xvars <- as.character(attr(mt, "variables"))[-1]
-    if ((yvar <- attr(mt, "response")) > 0)
+    xvars <- as.character(attr(mt, "variables"))[-1L]
+    if ((yvar <- attr(mt, "response")) > 0L)
         xvars <- xvars[-yvar]
-    xlev <- if (length(xvars) > 0) {
+    xlev <- if (length(xvars) > 0L) {
         xlev <- lapply(mf[xvars], levels)
         xlev[!sapply(xlev, is.null)]
     }
@@ -48,7 +48,7 @@ rlm.formula <-
     fit$terms <- mt
     ## fix up call to refer to the generic, but leave arg name as `formula'
     cl <- match.call()
-    cl[[1]] <- as.name("rlm")
+    cl[[1L]] <- as.name("rlm")
     fit$call <- cl
     fit$contrasts <- attr(x, "contrasts")
     fit$xlevels <- .getXlevels(mt, mf)
@@ -71,15 +71,15 @@ rlm.default <-
     irls.rrxwr <- function(x, w, r)
     {
         w <- sqrt(w)
-        max(abs((matrix(r * w, 1, length(r)) %*% x)/
-                sqrt(matrix(w, 1, length(r)) %*% (x^2))))/sqrt(sum(w * r^2))
+        max(abs((matrix(r * w, 1L, length(r)) %*% x)/
+                sqrt(matrix(w, 1L, length(r)) %*% (x^2))))/sqrt(sum(w * r^2))
     }
     wmad <- function(x, w)
     {
         o <- sort.list(abs(x)); x <- abs(x)[o]; w <- w[o]
         p <- cumsum(w)/sum(w)
         n <- sum(p < 0.5)
-        if (p[n + 1] > 0.5) x[n + 1]/0.6745 else (x[n + 1] + x[n + 2])/(2*0.6745)
+        if (p[n + 1L] > 0.5) x[n + 1L]/0.6745 else (x[n + 1L] + x[n + 2L])/(2*0.6745)
     }
 
     method <- match.arg(method)
@@ -127,7 +127,7 @@ rlm.default <-
         if(is.character(init)) {
             temp <- if(init == "ls") lm.wfit(x, y, w, method="qr")
             else if(init == "lts") {
-                if(is.null(lqs.control)) lqs.control <- list(nsamp=200)
+                if(is.null(lqs.control)) lqs.control <- list(nsamp=200L)
                 do.call("lqs", c(list(x, y, intercept = FALSE), lqs.control))
             } else stop("'init' method is unknown")
             coef <- temp$coefficient
@@ -158,14 +158,14 @@ rlm.default <-
     done <- FALSE
     conv <- NULL
     n1 <- (if(is.null(wt)) nrow(x) else sum(wt)) - ncol(x)
-    theta <- 2*pnorm(k2)-1
+    theta <- 2*pnorm(k2) - 1
     gamma <- theta + k2^2 * (1 - theta) - 2 * k2 * dnorm(k2)
     ## At this point the residuals are weighted for inv.var and
     ## unweighted for case weights.  Only Huber handles case weights
     ## correctly.
     if(scale.est != "MM")
         scale <- if(is.null(wt)) mad(resid, 0) else wmad(resid, wt)
-    for(iiter in 1:maxit) {
+    for(iiter in 1L:maxit) {
         if(!is.null(test.vec)) testpv <- get(test.vec)
         if(scale.est != "MM") {
             scale <- if(scale.est == "MAD")
@@ -195,7 +195,7 @@ rlm.default <-
     fitted <- drop(xx %*% coef)
     ## fix up call to refer to the generic, but leave arg name as `formula'
     cl <- match.call()
-    cl[[1]] <- as.name("rlm")
+    cl[[1L]] <- as.name("rlm")
     fit <- list(coefficients = coef, residuals = yy - fitted, wresid = resid,
                 effects = temp$effects,
                 rank = temp$rank, fitted.values = fitted,
@@ -270,7 +270,7 @@ summary.rlm <- function(object, method = c("XtX", "XtWX"),
         X <- X * sqrt(w/mn)
     }
     R <- qr(X)$qr
-    R <- R[1:p, 1:p, drop = FALSE]
+    R <- R[1L:p, 1L:p, drop = FALSE]
     R[lower.tri(R)] <- 0
     rinv <- solve(R, rinv)
     dimnames(rinv) <- list(cnames, cnames)
@@ -280,7 +280,7 @@ summary.rlm <- function(object, method = c("XtX", "XtWX"),
         correl <- rinv * array(1/rowlen, c(p, p))
         correl <- correl %*% t(correl)
     } else correl <- NULL
-    coef <- array(coef, c(p, 3))
+    coef <- array(coef, c(p, 3L))
     dimnames(coef) <- list(cnames, c("Value", "Std. Error", "t value"))
     coef[, 2] <- rowlen %o% stddev
     coef[, 3] <- coef[, 1]/coef[, 2]
@@ -305,12 +305,12 @@ function(x, digits = max(3, .Options$digits - 3), ...)
     dput(x$call, control=NULL)
     resid <- x$residuals
     df <- x$df
-    rdf <- df[2]
+    rdf <- df[2L]
     cat(if(!is.null(x$weights) && diff(range(x$weights))) "Weighted ",
         "Residuals:\n", sep="")
-    if(rdf > 5) {
-        if(length(dim(resid)) == 2) {
-            rq <- apply(t(resid), 1, quantile)
+    if(rdf > 5L) {
+        if(length(dim(resid)) == 2L) {
+            rq <- apply(t(resid), 1L, quantile)
             dimnames(rq) <- list(c("Min", "1Q", "Median", "3Q", "Max"),
                                  colnames(resid))
         } else {
@@ -318,10 +318,10 @@ function(x, digits = max(3, .Options$digits - 3), ...)
             names(rq) <- c("Min", "1Q", "Median", "3Q", "Max")
         }
         print(rq, digits = digits, ...)
-    } else if(rdf > 0) {
+    } else if(rdf > 0L) {
         print(resid, digits = digits, ...)
     }
-    if(nsingular <- df[3] - df[1])
+    if(nsingular <- df[3L] - df[1L])
         cat("\nCoefficients: (", nsingular,
             " not defined because of singularities)\n", sep = "")
     else cat("\nCoefficients:\n")
@@ -330,13 +330,13 @@ function(x, digits = max(3, .Options$digits - 3), ...)
         "on", rdf, "degrees of freedom\n")
     if(nzchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep="")
     if(!is.null(correl <- x$correlation)) {
-        p <- dim(correl)[2]
-        if(p > 1) {
+        p <- dim(correl)[2L]
+        if(p > 1L) {
             cat("\nCorrelation of Coefficients:\n")
             ll <- lower.tri(correl)
             correl[ll] <- format(round(correl[ll], digits))
             correl[!ll] <- ""
-            print(correl[-1, -p, drop = FALSE], quote = FALSE, digits = digits, ...)
+            print(correl[-1L, -p, drop = FALSE], quote = FALSE, digits = digits, ...)
         }
     }
     invisible(x)
@@ -368,11 +368,11 @@ se.contrast.rlm <-
 {
     contrast.weight.aov <- function(object, contrast)
     {
-        asgn <- object$assign[object$qr$pivot[1:object$rank]]
+        asgn <- object$assign[object$qr$pivot[1L:object$rank]]
         uasgn <- unique(asgn)
         nterms <- length(uasgn)
         nmeffect <- c("(Intercept)",
-                      attr(object$terms, "term.labels"))[1 + uasgn]
+                      attr(object$terms, "term.labels"))[1L + uasgn]
         effects <- as.matrix(qr.qty(object$qr, contrast))
         res <- matrix(0, nrow = nterms, ncol = ncol(effects),
                       dimnames = list(nmeffect, colnames(contrast)))
@@ -404,7 +404,7 @@ se.contrast.rlm <-
         contrast <- contrast.obj
         if(any(abs(colSums(contrast)) > 1e-8))
             stop("columns of 'contrast.obj' must define a contrast (sum to zero)")
-        if(length(colnames(contrast)) == 0)
+        if(length(colnames(contrast)) == 0L)
             colnames(contrast) <- paste("Contrast", seq(ncol(contrast)))
     }
     weights <- contrast.weight.aov(object, contrast)

@@ -38,3 +38,12 @@ gm3 <- glm(y ~ x, negative.binomial(theta = fm2$theta), dat2, weights =w)
 summary(fm3)
 summary(gm3)
 stopifnot(all.equal(deviance(fm3), deviance(gm3)))
+
+fit <- glm.nb(Days ~ Sex/(Age + Eth*Lrn), data = quine)
+set.seed(1)
+simulate(fit, nsim=5)[1:10, ]
+if(getRversion() >= "2.9.0") {
+    fit2 <- glm.convert(fit)
+    set.seed(1)
+    print(simulate(fit2, nsim=5)[1:10, ])
+}

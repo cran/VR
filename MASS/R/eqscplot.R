@@ -23,8 +23,8 @@ eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin, ...)
     y <- x[, 2]
     x <- x[, 1]
     if(!is.null(dn <- colnames(x))) {
-      xlab0 <- dn[1]
-      ylab0 <- dn[2]
+      xlab0 <- dn[1L]
+      ylab0 <- dn[2L]
     } else {
       xlab0 <- ""
       ylab0 <- ""
@@ -42,27 +42,27 @@ eqscplot <- function(x, y, ratio = 1, tol = 0.04, uin, ...)
   Call$ylab <- if("ylab" %in% nmdots) dots$ylab else ylab0
   xlim <- if("xlim" %in% nmdots) dots$xlim else range(x[is.finite(x)])
   ylim <- if("ylim" %in% nmdots) dots$ylim else range(y[is.finite(y)])
-  midx <- 0.5 * (xlim[2] + xlim[1])
-  xlim <- midx + (1 + tol) * 0.5 * c(-1, 1) * (xlim[2] - xlim[1])
-  midy <- 0.5 * (ylim[2] + ylim[1])
-  ylim <- midy + (1 + tol) * 0.5 * c(-1, 1) * (ylim[2] - ylim[1])
+  midx <- 0.5 * (xlim[2L] + xlim[1L])
+  xlim <- midx + (1 + tol) * 0.5 * c(-1, 1) * (xlim[2L] - xlim[1L])
+  midy <- 0.5 * (ylim[2L] + ylim[1L])
+  ylim <- midy + (1 + tol) * 0.5 * c(-1, 1) * (ylim[2L] - ylim[1L])
   oldpin <- par("pin")
-  xuin <- oxuin <- oldpin[1]/abs(diff(xlim))
-  yuin <- oyuin <- oldpin[2]/abs(diff(ylim))
+  xuin <- oxuin <- oldpin[1L]/abs(diff(xlim))
+  yuin <- oyuin <- oldpin[2L]/abs(diff(ylim))
   if(missing(uin)) {
     if(yuin > xuin*ratio) yuin <- xuin*ratio
     else xuin <- yuin/ratio
   } else {
-    if(length(uin) == 1) uin <- uin * c(1, ratio)
+    if(length(uin) == 1L) uin <- uin * c(1, ratio)
     if(any(c(xuin, yuin) < uin)) stop("'uin' is too large to fit plot in")
-    xuin <- uin[1]; yuin <- uin[2]
+    xuin <- uin[1L]; yuin <- uin[2L]
   }
   xlim <- midx + oxuin/xuin * c(-1, 1) * diff(xlim) * 0.5
   ylim <- midy + oyuin/yuin * c(-1, 1) * diff(ylim) * 0.5
   Call$xlim <- xlim
   Call$ylim <- ylim
   Call$xaxs <- Call$yaxs <- "i"
-  Call[[1]] <- as.name("plot")
+  Call[[1L]] <- as.name("plot")
   #plot(x, y, xlim = xlim, ylim = ylim, xaxs = "i", yaxs = "i",
   #     xlab = xlab, ylab = ylab, ...)
   eval.parent(Call)

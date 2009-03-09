@@ -27,18 +27,18 @@ function(obj)
   s <- sqrt(deviance(obj)/(n - p))
   sp <- s * sqrt(p)
   D <- v
-  for(j in 1:p) D <- cbind(D, a[, 1:j, j])
+  for(j in 1L:p) D <- cbind(D, a[, 1L:j, j])
   qrd <- qr(D)
   Q <- qr.Q(qrd)
   rnk <- qrd$rank
   if(rnk <= p) warning("regression apparently linear")
-  Q1 <- Q[, 1:rnk]
+  Q1 <- Q[, 1L:rnk]
   C <- array(0, c(rnk, p, p))
-  for(j in 1:p) C[,  , j] <- crossprod(Q1, a[,  , j])
+  for(j in 1L:p) C[,  , j] <- crossprod(Q1, a[,  , j])
   C <- aperm(C, c(2, 3, 1))
-  r11i <- solve(qr.R(qrd)[1:p, 1:p])
+  r11i <- solve(qr.R(qrd)[1L:p, 1L:p])
   ct <- 0
-  for(j in 1:p) {
+  for(j in 1L:p) {
     C[,  , j] <- crossprod(r11i, C[,  , j]) %*% r11i * sp
     ct <- ct + 2 * sum(C[,  , j]^2) + sum(diag(C[,  , j]))^2
   }

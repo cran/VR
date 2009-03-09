@@ -20,19 +20,19 @@ qda.formula <- function(formula, data, ..., subset, na.action)
 {
     m <- match.call(expand.dots = FALSE)
     m$... <- NULL
-    m[[1]] <- as.name("model.frame")
+    m[[1L]] <- as.name("model.frame")
     m <- eval.parent(m)
     Terms <- attr(m, "terms")
     grouping <- model.response(m)
     x <- model.matrix(Terms, m)
-    xvars <- as.character(attr(Terms, "variables"))[-1]
+    xvars <- as.character(attr(Terms, "variables"))[-1L]
     if ((yvar <- attr(Terms, "response")) > 0) xvars <- xvars[-yvar]
     xint <- match("(Intercept)", colnames(x), nomatch=0L)
     if(xint > 0) x <- x[, -xint, drop=FALSE]
     res <- qda.default(x, grouping, ...)
     res$terms <- Terms
     cl <- match.call()
-    cl[[1]] <- as.name("qda")
+    cl[[1L]] <- as.name("qda")
     res$call <- cl
     res$contrasts <- attr(x, "contrasts")
     res$xlevels <- .getXlevels(Terms, m)
@@ -44,7 +44,7 @@ qda.data.frame <- function(x, ...)
 {
     res <- qda(structure(data.matrix(x), class="matrix"), ...)
     cl <- match.call()
-    cl[[1]] <- as.name("qda")
+    cl[[1L]] <- as.name("qda")
     res$call <- cl
     res
 }
@@ -65,7 +65,7 @@ qda.matrix <- function(x, grouping, ..., subset, na.action)
 #    res <- NextMethod("qda")
     res <- qda.default(x, grouping, ...)
     cl <- match.call()
-    cl[[1]] <- as.name("qda")
+    cl[[1L]] <- as.name("qda")
     res$call <- cl
     res
 }
@@ -101,7 +101,7 @@ qda.default <-
     method <- match.arg(method)
     if(CV && !(method == "moment" || method == "mle"))
         stop("cannot use leave-one-out CV with method ", sQuote(method))
-    for (i in 1:ng){
+    for (i in 1L:ng){
         if(method == "mve") {
             cX <- cov.mve(x[unclass(g) == i, ])
             group.means[i,] <- cX$center
@@ -126,7 +126,7 @@ qda.default <-
             qx <- qr(sqrt(w)*scale(X, center=group.means[i, ], scale=FALSE))
             if(qx$rank < p) stop("rank deficiency in group ", lev[i])
             qx <- qx$qr* sqrt((1 + p/nu)/m)
-            scaling[, , i] <- backsolve(qx[1:p,  ], diag(p))
+            scaling[, , i] <- backsolve(qx[1L:p,  ], diag(p))
             ldet[i] <- 2*sum(log(abs(diag(qx))))
         } else {
             if(method == "moment") nk <- counts[i] - 1 else nk <- counts[i]
@@ -134,7 +134,7 @@ qda.default <-
             qx <- qr(X)
             if(qx$rank < p) stop("rank deficiency in group ", lev[i])
             qx <- qx$qr
-            scaling[, , i] <- backsolve(qx[1:p, ], diag(p))
+            scaling[, , i] <- backsolve(qx[1L:p, ], diag(p))
             ldet[i] <- 2*sum(log(abs(diag(qx))))
         }
     }
@@ -142,14 +142,14 @@ qda.default <-
         NG <- if(method == "mle") 0 else 1
         dist <- matrix(0, n, ng)
         Ldet <- matrix(0, n, ng)
-        for(i in 1:ng) {
+        for(i in 1L:ng) {
             dev <- ((x - matrix(group.means[i,  ], nrow(x),
                                 p, byrow = TRUE)) %*% scaling[,,i])
             dist[, i] <- rowSums(dev^2)
             Ldet[, i] <- ldet[i]
         }
         nc <- counts[g]
-        ind <- cbind(1:n, g)
+        ind <- cbind(1L:n, g)
         fac <- 1 - nc/(nc-1)/(nc-NG) * dist[ind]
         fac[] <- pmax(fac, 1e-10)  # possibly degenerate dsn
         Ldet[ind] <- log(fac) + p * log((nc-NG)/(nc-1-NG)) + Ldet[ind]
@@ -162,13 +162,13 @@ qda.default <-
         return(list(class = cl, posterior = posterior))
     }
     if(is.null(dimnames(x)))
-        dimnames(scaling) <- list(NULL, as.character(1:p), lev)
+        dimnames(scaling) <- list(NULL, as.character(1L:p), lev)
     else {
-        dimnames(scaling) <- list(colnames(x), as.character(1:p), lev)
-        dimnames(group.means)[[2]] <- colnames(x)
+        dimnames(scaling) <- list(colnames(x), as.character(1L:p), lev)
+        dimnames(group.means)[[2L]] <- colnames(x)
     }
     cl <- match.call()
-    cl[[1]] <- as.name("qda")
+    cl[[1L]] <- as.name("qda")
     res <- list(prior = prior, counts = counts, means = group.means,
                 scaling = scaling, ldet = ldet, lev = lev, N = n, call = cl)
     class(res) <- "qda"
@@ -212,12 +212,12 @@ predict.qda <- function(object, newdata, prior = object$prior,
                     eval.parent(parse(text=paste(deparse(object$call$x,
                                       backtick=TRUE),
                                       "[", deparse(sub, backtick=TRUE),",]")))
-                g <- eval.parent(parse(text=paste(deparse(object$call[[3]],
+                g <- eval.parent(parse(text=paste(deparse(object$call[[3L]],
                                        backtick=TRUE),
                                        "[", deparse(sub, backtick=TRUE),"]")))
             } else {
                 newdata <- eval.parent(object$call$x)
-                g <- eval.parent(object$call[[3]])
+                g <- eval.parent(object$call[[3L]])
             }
             if(!is.null(nas <- object$call$na.action)) {
                 df <- data.frame(g = g, X = newdata)
@@ -233,50 +233,50 @@ predict.qda <- function(object, newdata, prior = object$prior,
     }
     p <- ncol(object$means)
     if(ncol(x) != p) stop("wrong number of variables")
-    if(length(colnames(x)) > 0 &&
-       any(colnames(x) != dimnames(object$means)[[2]]))
+    if(length(colnames(x)) > 0L &&
+       any(colnames(x) != dimnames(object$means)[[2L]]))
         warning("variable names in 'newdata' do not match those in 'object'")
     dist <- matrix(0, nrow = nrow(x), ncol = ngroup)
     if(method == "plug-in") {
-        for(i in 1:ngroup) {
+        for(i in 1L:ngroup) {
             dev <- ((x - matrix(object$means[i,  ], nrow(x),
                                 ncol(x), byrow = TRUE)) %*% object$scaling[,,i])
             dist[, i] <- 0.5 * rowSums(dev^2) + 0.5 * object$ldet[i] - log(prior[i])
         }
 #        dist <- exp( -(dist - min(dist, na.rm=T)))
-        dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
+        dist <- exp( -(dist - apply(dist, 1L, min, na.rm=TRUE)))
     } else if(method == "looCV") {
         n <- nrow(x)
         NG <- 1
         if(mt == "mle") NG <- 0
         ldet <- matrix(0, n, ngroup)
-        for(i in 1:ngroup) {
+        for(i in 1L:ngroup) {
             dev <- ((x - matrix(object$means[i,  ], nrow(x), p, byrow = TRUE))
                     %*% object$scaling[,,i])
             dist[, i] <- rowSums(dev^2)
             ldet[, i] <- object$ldet[i]
         }
         nc <- object$counts[g]
-        ind <- cbind(1:n, g)
+        ind <- cbind(1L:n, g)
         fac <- 1 - nc/(nc-1)/(nc-NG) * dist[ind]
         fac[] <- pmax(fac, 1e-10)  # possibly degenerate dsn
         ldet[ind] <- log(fac) + p * log((nc-NG)/(nc-1-NG)) + ldet[ind]
         dist[ind] <- dist[ind] * (nc^2/(nc-1)^2) * (nc-1-NG)/(nc-NG) / fac
         dist <- 0.5 * dist + 0.5 * ldet -
             matrix(log(prior), n, ngroup, byrow=TRUE)
-        dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
+        dist <- exp( -(dist - apply(dist, 1L, min, na.rm=TRUE)))
     } else if(method == "debiased") {
-        for(i in 1:ngroup) {
+        for(i in 1L:ngroup) {
             nk <- object$counts[i]
-            Bm <- p * log((nk-1)/2) - sum(digamma(0.5 * (nk - 1:ngroup)))
+            Bm <- p * log((nk-1)/2) - sum(digamma(0.5 * (nk - 1L:ngroup)))
             dev <- ((x - matrix(object$means[i,  ], nrow = nrow(x),
                                 ncol = ncol(x), byrow = TRUE)) %*% object$scaling[,,i])
             dist[, i] <- 0.5 * (1 - (p-1)/(nk-1)) * rowSums(dev^2) +
                 0.5 * object$ldet[i] - log(prior[i]) + 0.5 * Bm - p/(2*nk)
         }
-        dist <- exp( -(dist - apply(dist, 1, min, na.rm=TRUE)))
+        dist <- exp( -(dist - apply(dist, 1L, min, na.rm=TRUE)))
     } else {
-        for(i in 1:ngroup) {
+        for(i in 1L:ngroup) {
             nk <- object$counts[i]
             dev <- ((x - matrix(object$means[i,  ], nrow = nrow(x),
                                 ncol = ncol(x), byrow = TRUE))
@@ -296,7 +296,7 @@ predict.qda <- function(object, newdata, prior = object$prior,
 print.qda <- function(x, ...)
 {
     if(!is.null(cl <- x$call)) {
-        names(cl)[2] <- ""
+        names(cl)[2L] <- ""
         cat("Call:\n")
         dput(cl, control=NULL)
     }

@@ -22,19 +22,19 @@ stepAIC <-
     mydeviance <- function(x, ...)
     {
         dev <- deviance(x)
-        if(!is.null(dev)) dev else extractAIC(x, k=0)[2]
+        if(!is.null(dev)) dev else extractAIC(x, k=0)[2L]
     }
 
     cut.string <- function(string)
     {
-        if(length(string) > 1)
-            string[-1] <- paste("\n", string[-1], sep = "")
+        if(length(string) > 1L)
+            string[-1L] <- paste("\n", string[-1L], sep = "")
         string
     }
 
     re.arrange <- function(keep)
     {
-        namr <- names(k1 <- keep[[1]])
+        namr <- names(k1 <- keep[[1L]])
         namc <- names(keep)
         nc <- length(keep)
         nr <- length(k1)
@@ -102,8 +102,8 @@ stepAIC <-
     else n <- length(residuals(object))
     fit <- object
     bAIC <- extractAIC(fit, scale, k = k, ...)
-    edf <- bAIC[1]
-    bAIC <- bAIC[2]
+    edf <- bAIC[1L]
+    bAIC <- bAIC[2L]
     if(is.na(bAIC))
         stop("AIC is not defined for this model, so stepAIC cannot proceed")
     nm <- 1
@@ -131,12 +131,12 @@ stepAIC <-
             aod <- dropterm(fit, scope$drop, scale = scale,
                             trace = max(0, trace - 1), k = k, ...)
             rn <- row.names(aod)
-            row.names(aod) <- c(rn[1], paste("-", rn[-1], sep=" "))
+            row.names(aod) <- c(rn[1L], paste("-", rn[-1L], sep=" "))
             ## drop all zero df terms first.
             if(any(aod$Df == 0, na.rm=TRUE)) {
                 zdf <- aod$Df == 0 & !is.na(aod$Df)
                 nc <- match(c("Cp", "AIC"), names(aod))
-                nc <- nc[!is.na(nc)][1]
+                nc <- nc[!is.na(nc)][1L]
                 ch <- abs(aod[zdf, nc] - aod[1, nc]) > 0.01
                 if(any(ch)) {
                     warning("0 df terms are changing AIC")
@@ -144,8 +144,8 @@ stepAIC <-
                 }
                 ## drop zero df terms first: one at time since they
                 ## may mask each other
-                if(length(zdf) > 0)
-                    change <- rev(rownames(aod)[zdf])[1]
+                if(length(zdf) > 0L)
+                    change <- rev(rownames(aod)[zdf])[1L]
             }
         }
         if(is.null(change)) {
@@ -153,7 +153,7 @@ stepAIC <-
                 aodf <- addterm(fit, scope$add, scale = scale,
                                 trace = max(0, trace - 1), k = k, ...)
                 rn <- row.names(aodf)
-                row.names(aodf) <- c(rn[1], paste("+", rn[-1], sep=" "))
+                row.names(aodf) <- c(rn[1L], paste("+", rn[-1L], sep=" "))
                 aod <-
                     if(is.null(aod)) aodf
                     else rbind(aod, aodf[-1, , drop=FALSE])
@@ -165,14 +165,14 @@ stepAIC <-
             aod <- aod[nzdf, ]
             if(is.null(aod) || ncol(aod) == 0) break
             nc <- match(c("Cp", "AIC"), names(aod))
-            nc <- nc[!is.na(nc)][1]
+            nc <- nc[!is.na(nc)][1L]
             o <- order(aod[, nc])
             if(trace) {
 		print(aod[o,  ])
 		utils::flush.console()
 	    }
-            if(o[1] == 1) break
-            change <- rownames(aod)[o[1]]
+            if(o[1L] == 1) break
+            change <- rownames(aod)[o[1L]]
         }
         usingCp <- match("Cp", names(aod), 0) > 0
         ## may need to look for a 'data' argument in parent
@@ -185,8 +185,8 @@ stepAIC <-
             stop("number of rows in use has changed: remove missing values?")
         Terms <- terms(fit)
         bAIC <- extractAIC(fit, scale, k = k, ...)
-        edf <- bAIC[1]
-        bAIC <- bAIC[2]
+        edf <- bAIC[1L]
+        bAIC <- bAIC[2L]
         if(trace) {
             cat("\nStep:  AIC=", format(round(bAIC, 2)), "\n",
                 cut.string(deparse(as.vector(formula(fit)))), "\n\n", sep='')

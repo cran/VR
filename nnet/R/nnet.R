@@ -151,7 +151,7 @@ function(x, y, weights, size, Wts, mask=rep(TRUE, length(wts)),
               as.logical(trace),
               as.integer(mask),
               as.double(abstol), as.double(reltol),
-              ifail = integer(1)
+              ifail = integer(1L)
               )
     net$value <- tmp$val
     net$wts <- tmp$wts
@@ -197,7 +197,7 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
         } else {
             ## matrix ...  fit
             if(is.null(dim(newdata)))
-                dim(newdata) <- c(1, length(newdata)) # a row vector
+                dim(newdata) <- c(1L, length(newdata)) # a row vector
             x <- as.matrix(newdata)     # to cope with dataframes
             if(any(is.na(x))) stop("missing values in 'x'")
             keep <- 1L:nrow(x)
@@ -208,7 +208,7 @@ predict.nnet <- function(object, newdata, type=c("raw","class"), ...)
         .C(VR_set_net,
            as.integer(object$n), as.integer(object$nconn),
            as.integer(object$conn), rep(0.0, length(object$wts)),
-           as.integer(object$nsunits), as.integer(0),
+           as.integer(object$nsunits), as.integer(0L),
            as.integer(object$softmax), as.integer(object$censored))
         z <- matrix(NA, nrow(newdata), nout,
                     dimnames = list(rn, dimnames(object$fitted.values)[[2L]]))

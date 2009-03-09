@@ -38,10 +38,24 @@ neg.bin <- function(theta = stop("'theta' must be given"))
         n <- rep(1, nobs)
         mustart <- y + (y == 0)/6
     })
+    simfun <- function(object, nsim) {
+        ftd <- fitted(object)
+        val <- rnegbin(nsim * length(ftd), ftd, .Theta)
+    }
     environment(variance) <- environment(validmu) <-
-        environment(dev.resids) <- environment(aic) <- env
-    structure(list(family = "Negative Binomial", link = "log", linkfun = stats$linkfun,
-                   linkinv = stats$linkinv, variance = variance, dev.resids = dev.resids,
-                   aic = aic, mu.eta = stats$mu.eta, initialize = initialize,
-                   validmu = validmu, valideta = stats$valideta), class = "family")
+        environment(dev.resids) <- environment(aic) <-
+            environment(simfun) <- env
+    structure(list(family = "Negative Binomial",
+                   link = "log",
+                   linkfun = stats$linkfun,
+                   linkinv = stats$linkinv,
+                   variance = variance,
+                   dev.resids = dev.resids,
+                   aic = aic,
+                   mu.eta = stats$mu.eta,
+                   initialize = initialize,
+                   validmu = validmu,
+                   valideta = stats$valideta,
+                   simulate = simfun),
+              class = "family")
 }

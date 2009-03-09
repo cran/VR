@@ -83,8 +83,8 @@ ppregion <- function(xl = 0, xu = 1, yl = 0, yu = 1)
 {
     if(is.null(xl)) stop("invalid input")
     if(is.numeric(xl))
-        if(length(xl) != 1 || length(xu) != 1 ||
-           length(yl) != 1 || length(yu) != 1)
+        if(length(xl) != 1L || length(xu) != 1L ||
+           length(yl) != 1L || length(yu) != 1L)
             stop("invalid input")
     if(is.list(xl)) {
         if(is.null(xl$area) &&
