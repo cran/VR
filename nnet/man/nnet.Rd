@@ -165,7 +165,6 @@ Optimization is done via the BFGS method of \code{\link{optim}}.
 \code{\link{predict.nnet}}, \code{\link{nnetHess}}
 }
 \examples{
-data(iris3)
 # use half the iris data
 ir <- rbind(iris3[,,1],iris3[,,2],iris3[,,3])
 targets <- class.ind( c(rep("s", 50), rep("c", 50), rep("v", 50)) )

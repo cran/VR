@@ -58,7 +58,6 @@ factor of classifications of training set. \code{doubt} will be returned as \cod
 \code{\link{knn}}
 }
 \examples{
-data(iris3)
 train <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
 cl <- factor(c(rep("s",50), rep("c",50), rep("v",50)))
 knn.cv(train, cl, k = 3, prob = TRUE)

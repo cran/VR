@@ -42,7 +42,6 @@ in the net.
 \code{\link{nnet}}, \code{\link{predict.nnet}}
 }
 \examples{
-data(iris3)
 # use half the iris data
 ir <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
 targets <- matrix(c(rep(c(1,0,0),50), rep(c(0,1,0),50), rep(c(0,0,1),50)),

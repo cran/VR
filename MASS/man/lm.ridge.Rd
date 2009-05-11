@@ -38,13 +38,13 @@ a function to filter missing data.
 A scalar or vector of ridge constants.
 }
 \item{model}{
-should the model frame be returned?
+should the model frame be returned?  Not implemented.
 }
 \item{x}{
-should the design matrix be returned?
+should the design matrix be returned?  Not implemented.
 }
 \item{y}{
-should the response be returned?
+should the response be returned?  Not implemented.
 }
 \item{contrasts}{
 a list of contrasts to be used for some or all of factor terms in the
@@ -55,7 +55,7 @@ additional arguments to \code{\link{lm.fit}}.
 }}
 \details{
   If an intercept is present in the model, its coefficient is not
-  penalized.  (If you want to penalized an intercept, put in your own
+  penalized.  (If you want to penalize an intercept, put in your own
   constant term and remove the intercept.)
 }
 \value{
@@ -99,7 +99,7 @@ Oxford.
 \code{\link{lm}}
 }
 \examples{
-data(longley) # not the same as the S-PLUS dataset
+longley # not the same as the S-PLUS dataset
 names(longley)[1] <- "y"
 lm.ridge(y ~ ., longley)
 plot(lm.ridge(y ~ ., longley,

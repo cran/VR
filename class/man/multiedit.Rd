@@ -49,7 +49,6 @@ Prentice-Hall, p. 115.
 \code{\link{condense}}, \code{\link{reduce.nn}}
 }
 \examples{
-data(iris3)
 tr <- sample(1:50, 25)
 train <- rbind(iris3[tr,,1], iris3[tr,,2], iris3[tr,,3])
 test <- rbind(iris3[-tr,,1], iris3[-tr,,2], iris3[-tr,,3])

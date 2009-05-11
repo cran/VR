@@ -22,6 +22,8 @@ Version 7.1 (Mar 2003) add namespaces, eliminate data() calls
 
 Version 7.2 (Apr 2004) for R 1.9.0.
 
+Version 7.3 (Oct 2009) unbundled
+
 
 Library MASS
 ------------

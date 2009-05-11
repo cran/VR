@@ -41,9 +41,6 @@ msgstr ""
 msgid "k = %d must be at least 1"
 msgstr ""
 
-msgid "dims of 'test' and 'train differ"
-msgstr ""
-
 msgid "'x' and 'cl' have different lengths"
 msgstr ""
 

@@ -62,7 +62,7 @@ knn <- function(train, test, cl, k=1, l=0, prob=FALSE, use.all=TRUE)
 	if (k < 1)
             stop(gettextf("k = %d must be at least 1", k), domain = NA)
 	nte <- nrow(test)
-	if(ncol(test) != p) stop("dims of 'test' and 'train differ")
+	if(ncol(test) != p) stop("dims of 'test' and 'train' differ")
 	clf <- as.factor(cl)
 	nc <- max(unclass(clf))
 	Z <- .C(VR_knn,
