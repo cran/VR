@@ -317,18 +317,18 @@ cpus.mars6 <- mars(Xin, log10(cpus2[cpus.samp,7]), degree = 6)
 showcuts(cpus.mars6)
 test2(cpus.mars6)
 
-library(acepack)
-attach(cpus2)
-cpus.avas <- avas(cpus2[, 1:6], perf)
-plot(log10(perf), cpus.avas$ty)
-par(mfrow = c(2, 3))
-for(i in 1:6) {
-  o <- order(cpus2[, i])
-  plot(cpus2[o, i], cpus.avas$tx[o, i], type = "l",
-       xlab = names(cpus2[i]), ylab = "")
+if(require(acepack)) {
+    attach(cpus2)
+    cpus.avas <- avas(cpus2[, 1:6], perf)
+    plot(log10(perf), cpus.avas$ty)
+    par(mfrow = c(2, 3))
+    for(i in 1:6) {
+        o <- order(cpus2[, i])
+        plot(cpus2[o, i], cpus.avas$tx[o, i], type = "l",
+             xlab = names(cpus2[i]), ylab = "")
+    }
+    detach()
 }
-detach()
-
 
 # 8.9  Projection-pursuit regression
 

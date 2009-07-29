@@ -49,7 +49,7 @@ anova(survreg(Surv(time) ~ log(wbc), data = leuk),
 summary(survreg(Surv(time) ~ strata(ag) + log(wbc), data=leuk))
 leuk.wei <- survreg(Surv(time) ~ ag + log(wbc), leuk)
 ntimes <- leuk$time * exp(-leuk.wei$linear.predictors)
-plot(survfit(Surv(ntimes)), log = T)
+plot(survfit(Surv(ntimes) ~ 1), log = T)
 
 survreg(Surv(time, cens) ~ factor(pair) + treat, gehan,
           dist = "exponential")

@@ -228,6 +228,7 @@ negative.binomial <-
         } else
             stop(linktemp, " link not available for negative binomial family; available links are \"identity\", \"log\" and \"sqrt\"")
     }
+    .Theta <- theta ## avoid codetools warnings
     env <- new.env(parent=.GlobalEnv)
     assign(".Theta", theta, envir=env)
     variance <- function(mu)

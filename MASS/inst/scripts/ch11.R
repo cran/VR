@@ -165,9 +165,12 @@ fanny(swiss.px, 3)
 ##   use, and the code given in the first printing does not work in R's
 ##   mclust-2.x.'
 ##
+## And now mclust has been given a more restrictive licence, so
+## this code is not run by default.
+if(FALSE) {
 library(mclust) # 2.x equivalent commands
 h <- hc(modelName = "VVV", swiss.x)
-(mh <- as.vector(hclass(h, 3)))
+print(mh <- as.vector(hclass(h, 3)))
 z <- me(modelName = "VVV", swiss.x,  z = 0.5*(unmap(mh)+1/3))
 eqscplot(swiss.px[, 1:2], type = "n",
          xlab = "first principal component",
@@ -175,12 +178,12 @@ eqscplot(swiss.px[, 1:2], type = "n",
 text(swiss.px[, 1:2], labels = max.col(z$z))
 
 vals <- EMclust(swiss.x) # all possible models, 0:9 clusters.
-(sm <- summary(vals, swiss.x))
+print(sm <- summary(vals, swiss.x))
 eqscplot(swiss.px[, 1:2], type = "n",
          xlab = "first principal component",
          ylab = "second principal component")
 text(swiss.px[, 1:2], labels = sm$classification)
-
+}
 
 
 # 11.3 Factor analysis
