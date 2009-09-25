@@ -46,7 +46,6 @@ perp <- function(x, y) {
    abline(c(m[2] - s*m[1], s))
    invisible()
 }
-# For R replace @means by $means
 cr.m <- lda(cr.t, crabs$sex)$means
 points(cr.m, pch = 3, mkh = 0.3)
 perp(cr.m[1, ], cr.m[2, ])
